@@ -32,7 +32,7 @@ export const getLatestBlocks = async (number: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch latest blocks');
+			//notifyError('Could not fetch latest blocks');
 		});
 };
 
@@ -48,7 +48,7 @@ export const getRangeBlocks = async (start: number, end: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch blocks');
+			//notifyError('Could not fetch blocks');
 		});
 };
 
@@ -59,7 +59,7 @@ export const getEraValidators = async () => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch era validators');
+			//notifyError('Could not fetch era validators');
 		});
 };
 
@@ -81,7 +81,7 @@ export const getValidator = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch validator details');
+			//notifyError('Could not fetch validator details');
 		});
 };
 
@@ -119,7 +119,7 @@ export const getProposerBlocks = async (address: string, count: number, start: n
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch verified blocks');
+			//notifyError('Could not fetch verified blocks');
 		});
 };
 
@@ -250,7 +250,7 @@ export const getTransactions = async (count: number, start: number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch transactions');
+			//notifyError('Could not fetch transactions');
 		});
 };
 
@@ -272,7 +272,7 @@ export const getBlock = async (address: string | number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch block details');
+			//notifyError('Could not fetch block details');
 		});
 };
 
@@ -283,7 +283,7 @@ export const getBlockTransfers = async (address: string | number) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch block transfers');
+			//notifyError('Could not fetch block transfers');
 		});
 };
 
@@ -328,7 +328,7 @@ export const getTransferFlow = async (eraId: number, limit: number) => {
 		})
 		.catch((err) => {
 			console.log(err);
-			notifyError('Could not fetch market data');
+			//notifyError('Could not fetch market data');
 		});
 };
 
