@@ -17,11 +17,11 @@
 	import ContractComments from './ContractTabs/ContractComments.svelte';
 
 	let menuOptions = [
-		{
-			title: 'Transactions',
-			component: ContractTransactions,
-			props: {}
-		},
+		// {
+		// 	title: 'Transactions',
+		// 	component: ContractTransactions,
+		// 	props: {}
+		// },
 		{
 			title: 'ERC 20 Tokens',
 			component: ContractErc20Tokens,

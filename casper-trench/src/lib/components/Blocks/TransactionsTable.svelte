@@ -8,7 +8,7 @@
 	export let transfers: BlockTransfer[];
 </script>
 
-<div class="delegators-tab" transition:slide>
+<!-- <div class="delegators-tab" transition:slide>
 	<table>
 		<tr>
 			<th>Transactions</th>
@@ -79,8 +79,7 @@
 			{/each}
 		{/if}
 	</table>
-</div>
-
+</div> -->
 <style lang="postcss">
 	table {
 		@apply table-auto md:w-[58.75vw] relative;

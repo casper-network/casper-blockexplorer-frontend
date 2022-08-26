@@ -28,14 +28,14 @@
 						backgroundColor: '#0021A5',
 						borderColor: '#0021A5',
 						borderWidth: 2
-					},
-					{
-						label: 'Transactions',
-						data: chartData2,
-						backgroundColor: '#099B91',
-						borderColor: '#099B91',
-						borderWidth: 2
 					}
+					// {
+					// 	label: 'Transactions',
+					// 	data: chartData2,
+					// 	backgroundColor: '#099B91',
+					// 	borderColor: '#099B91',
+					// 	borderWidth: 2
+					// }
 				]
 			},
 			options: {
@@ -105,7 +105,7 @@
 	let pan = true;
 </script>
 
-<div class="container">
+<!-- <div class="container">
 	<div class="title">Transactions</div>
 	<div class="legend">
 		<div class="price">
@@ -126,8 +126,7 @@
 	<div class="chart" class:pan>
 		<canvas bind:this={ctx} />
 	</div>
-</div>
-
+</div> -->
 <style lang="postcss">
 	.title {
 		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;

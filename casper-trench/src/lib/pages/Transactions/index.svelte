@@ -32,7 +32,7 @@
 </script>
 
 <div class="delegators-tab">
-	<div class="title">Transactions</div>
+	<!-- <div class="title">Transactions</div> -->
 	<table>
 		<tr>
 			<th class="block">Tx Hash</th>

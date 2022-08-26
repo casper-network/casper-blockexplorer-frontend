@@ -28,7 +28,7 @@
 	}
 </script>
 
-<div class="transactions-tab">
+<!-- <div class="transactions-tab">
 	<div class="total">
 		Latest {transactionsPerPage} Transactions
 	</div>
@@ -82,8 +82,7 @@
 		bind:startIndex
 		on:load-page={async () => await fetchTransactions()}
 	/>
-</div>
-
+</div> -->
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;
