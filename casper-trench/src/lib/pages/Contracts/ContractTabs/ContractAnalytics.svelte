@@ -2,10 +2,10 @@
 	import Switch from '$lib/components/Reusables/Switch.svelte';
 
 	const options = [
-		{
-			name: 'Transactions',
-			dropdown: []
-		},
+		// {
+		// 	name: 'Transactions',
+		// 	dropdown: []
+		// },
 		{
 			name: 'BNB Balance',
 			dropdown: []
