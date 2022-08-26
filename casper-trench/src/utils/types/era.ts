@@ -1,0 +1,23 @@
+export type EraData = {
+	id: number;
+	startBlock: number;
+	transfersCount: number;
+	deploysCount: number;
+	endBlock: number;
+	start: string;
+	end: string;
+	circulatingSupply: number;
+	validatorsCirculatingSupply: number;
+	transfersCirculatingSupply: number;
+	rewardsCirculatingSupply: number;
+	validatorsWeights: number;
+	totalSupply: number;
+	validatorsRewards: number;
+	delegatorsRewards: number;
+	rewards: number;
+	validatorsCount: number;
+	delegatorsCount: number;
+	stakedThisEra: number;
+	undelegatedThisEra: number;
+	stakedDiffThisEra: number;
+};
