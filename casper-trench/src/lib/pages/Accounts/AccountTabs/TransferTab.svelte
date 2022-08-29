@@ -28,6 +28,7 @@
 	}
 </script>
 
+<!-- 
 <div class="transfer-tab">
 	<div class="total">
 		Latest {transfersPerPage} Transactions
@@ -88,8 +89,7 @@
 		bind:startIndex
 		on:load-page={async () => await fetchTransfers()}
 	/>
-</div>
-
+</div> -->
 <style lang="postcss">
 	table {
 		@apply table-auto w-full relative;

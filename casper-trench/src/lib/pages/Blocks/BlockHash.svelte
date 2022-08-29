@@ -129,9 +129,9 @@
 						<td class="value">{block.hash}</td>
 					</tr>
 					<tr>
-						<td class="label">Transactions</td>
+						<!-- <td class="label">Transactions</td> -->
 						<td class="value">
-							<div
+							<!-- <div
 								class="transaction-button green"
 								on:click={() => {
 									showTransfers = transfers && transfers.length > 0 && !showTransfers;
@@ -145,7 +145,7 @@
 								<div class="icon" class:flipped={showTransfers}>
 									<SwitchChevron />
 								</div>
-							</div>
+							</div> -->
 							{#if showTransfers}
 								<TransactionsTable {transfers} />
 							{/if}

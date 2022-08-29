@@ -114,7 +114,7 @@
 	};
 </script>
 
-<div class="container">
+<!-- <div class="container">
 	<div class="title">
 		<div class="label">TRANSACTIONS HISTORY in 14 DAYS</div>
 		<div class="value">
@@ -124,8 +124,7 @@
 	<div class="chart">
 		<canvas bind:this={ctx} />
 	</div>
-</div>
-
+</div> -->
 <style lang="postcss">
 	.container {
 		@apply md:w-[24vw] md:h-[11vw];

@@ -5,7 +5,7 @@
 	let selected = 0;
 </script>
 
-<div class="tab-menu">
+<!-- <div class="tab-menu">
 	<div class="header">
 		{#each menuOptions as option, i}
 			<div
@@ -29,8 +29,7 @@
 	<div class="content">
 		<svelte:component this={menuOptions[selected].component} props={menuOptions[selected].props} />
 	</div>
-</div>
-
+</div> -->
 <style lang="postcss">
 	.header {
 		@apply flex items-center;

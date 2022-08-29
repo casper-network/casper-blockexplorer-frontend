@@ -19,7 +19,6 @@
 	// 		setContext('isSignedIn', true)
 	// 	}
 	// }
-	
 
 	let navItems: {
 		text: string;
@@ -84,7 +83,8 @@
 </script>
 
 <div class="navbar">
-	<a href="/" class="logo">
+	<a href="/" class="logo"
+		>Home
 		<!-- <CasperTrenchLogo /> -->
 	</a>
 	<div class="nav-items">
@@ -130,7 +130,8 @@
 	}
 
 	.logo {
-		@apply h-[clamp(16px,2.44vw,2.44vw)] w-[clamp(90px,9vw,9vw)];
+		@apply text-white text-opacity-50 text-[clamp(20px,1vw,1.5vw)];
+		/* @apply h-[clamp(16px,2.44vw,2.44vw)] w-[clamp(90px,9vw,9vw)]; */
 	}
 
 	/* .chevron {

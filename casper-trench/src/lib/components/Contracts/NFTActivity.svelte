@@ -64,9 +64,9 @@
 
 <div class="delegators-tab">
 	<div class="title">Activity</div>
-	<div class="total">
+	<!-- <div class="total">
 		{transactionsPerPage} Transactions per page
-	</div>
+	</div> -->
 	<table>
 		<tr>
 			<th class="block">Deploy Hash</th>

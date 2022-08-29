@@ -6,7 +6,6 @@
 </script>
 
 <div class="filter">
-
 	<!--TO DO: Temporarily Removed: Cannot Login ************************
 	<div class="filter-dropdown"> 
 	
@@ -18,11 +17,9 @@
 
 	<!-- CHANGE -->
 
-
 	<input
 		type="text"
 		name="filter"
-		
 		placeholder="Search blocks / transactions / accounts"
 		bind:value
 	/>
