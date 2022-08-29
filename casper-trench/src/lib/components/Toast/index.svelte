@@ -3,4 +3,4 @@
 	const options = {};
 </script>
 
-<SvelteToast {options} />
+<div></div>

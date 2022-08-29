@@ -12,6 +12,7 @@ export const queryValidators = async (): Promise<{
 	// @ts-ignore
 	const { CasperServiceByJsonRPC } = browser && window.CasperSDK;
 	// console.log(CasperServiceByJsonRPC);
+  console.log(get(rpcUrl));
 	const casperService = new CasperServiceByJsonRPC(get(rpcUrl));
 	return await casperService
 		.getValidatorsInfo()

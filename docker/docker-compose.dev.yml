@@ -13,6 +13,20 @@ services:
       - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
       - ./../casper-trench:/app
     ports:
-      - "3000:3000"
+      - "4000:4000"
     depends_on:
       - api
+
+  server:
+    image: nginx
+    environment:
+      - NGINX_NODE_RPC=${NODE_URL}
+    volumes:
+    - ./../server/templates:/etc/nginx/templates
+    - ./../server/nginx.conf:/etc/nginx/nginx.conf
+    - ./../server/includes:/etc/nginx/my-includes
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    depends_on:
+      - frontend

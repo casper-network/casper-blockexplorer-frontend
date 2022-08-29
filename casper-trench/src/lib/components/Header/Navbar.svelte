@@ -34,11 +34,6 @@
 			link: '/blocks',
 			dropdown: []
 		},
-		{
-			text: 'Transactions',
-			link: '/transactions',
-			dropdown: []
-		},
 		// {
 		// 	text: 'Contracts',
 		// 	link: '/contracts',
