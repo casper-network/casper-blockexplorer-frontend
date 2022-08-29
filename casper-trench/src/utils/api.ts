@@ -92,7 +92,7 @@ export const getAccount = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch account details');
+			//notifyError('Could not fetch account details');
 		});
 };
 export const getType = async (address: string) => {
@@ -102,7 +102,7 @@ export const getType = async (address: string) => {
 			return res.data;
 		})
 		.catch((err) => {
-			notifyError('Could not fetch type');
+			//notifyError('Could not fetch type');
 		});
 };
 
