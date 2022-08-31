@@ -1,22 +1,6 @@
 version: "3.2"
 
 services:
-  frontend:
-    build:
-      context: ../.
-      dockerfile: casper-trench/Dockerfile.dev
-    image: casperpunks-frontend
-    environment:
-      - NODE_ENV=development
-    restart: on-failure
-    volumes:
-      - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
-      - ./../casper-trench:/app
-    ports:
-      - "4000:4000"
-    depends_on:
-      - api
-
   server:
     image: nginx
     environment:
@@ -30,3 +14,19 @@ services:
       - "3000:3000"
     depends_on:
       - frontend
+
+  frontend:
+    build:
+      context: ../.
+      dockerfile: frontend/Dockerfile.dev
+    image: casperselfie-reedem
+    environment:
+      - NODE_ENV=development
+    restart: on-failure
+    volumes:
+      - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
+      - ./../frontend:/app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - api
