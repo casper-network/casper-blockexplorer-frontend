@@ -1,7 +1,7 @@
-import { CasperServiceByJsonRPC, CLPublicKey } from "casper-js-sdk";
-import { Block } from "./types";
+import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
+import { Block } from './types';
 
-const rpcClient = new CasperServiceByJsonRPC("/node-rpc/");
+const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
 const NUM_TO_SHOW = 20;
 
@@ -14,9 +14,9 @@ export const getBlocks = async () => {
   for (let i = currentHeight; i > currentHeight - NUM_TO_SHOW; i--) {
     await rpcClient
       .getBlockInfoByHeight(i)
-      .then((getBlockResult) => {
+      .then(getBlockResult => {
         const { block } = getBlockResult as any;
-        if (!block) throw Error("Missing block");
+        if (!block) throw Error('Missing block');
         blocks.push({
           height: block.header.height,
           eraID: block.header.era_id,
@@ -26,8 +26,8 @@ export const getBlocks = async () => {
           validatorPublicKey: block.body.proposer,
         });
       })
-      .catch((err) => {
-        console.log("Block By Height Error: ", err);
+      .catch(err => {
+        console.log('Block By Height Error: ', err);
       });
   }
 
@@ -52,7 +52,7 @@ export const getPeers = async () => {
   const { peers } = await rpcClient.getPeers();
 
   // TODO: Add some underscore->camelcase converter
-  return peers.map((p) => ({ id: p.node_id, address: p.address }));
+  return peers.map(p => ({ id: p.node_id, address: p.address }));
 };
 
 export default rpcClient;

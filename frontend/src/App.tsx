@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import useAsyncEffect from "use-async-effect";
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import useAsyncEffect from 'use-async-effect';
 
-import { Block, Peer } from "./types";
+import { Block, Peer } from './types';
 
-import Account from "./pages/Account";
-import Deploy from "./pages/Deploy";
+import Account from './pages/Account';
+import Deploy from './pages/Deploy';
 
-import { getBlocks, getPeers } from "./client";
+import { getBlocks, getPeers } from './client';
 
 const Blocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
@@ -22,7 +22,7 @@ const Blocks = () => {
       <div>
         <h2>Blocks</h2>
         <ul>
-          {blocks.map((block) => (
+          {blocks.map(block => (
             <li key={block.height}>
               <pre>{JSON.stringify(block)}</pre>
             </li>
@@ -46,7 +46,7 @@ const Peers = () => {
       <div>
         <h2>Peers</h2>
         <ul>
-          {peers.map((peer) => (
+          {peers.map(peer => (
             <li key={peer.id}>
               <pre>{JSON.stringify(peer)}</pre>
             </li>
@@ -59,10 +59,10 @@ const Peers = () => {
 
 const Search = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   // TODO: remove this when used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const submitValue = async () => {
     const trimedValue = search.trim();
@@ -71,10 +71,10 @@ const Search = () => {
     if (trimedValue.length === 66 || trimedValue.length === 68) {
       navigate(`/account/${trimedValue}`);
     } else if (trimedValue.length === 64) {
-      console.log("deploy");
+      console.log('deploy');
       navigate(`/deploy/${trimedValue}`);
     } else {
-      alert("Wrong value");
+      alert('Wrong value');
     }
   };
 
@@ -85,7 +85,7 @@ const Search = () => {
         {error}
         <input
           value={search}
-          onChange={(ev) => setSearch(ev.target.value)}
+          onChange={ev => setSearch(ev.target.value)}
           placeholder="PublicKey or DeployHash"
         />
         <button onClick={submitValue}>Search</button>

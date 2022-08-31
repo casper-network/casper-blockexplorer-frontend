@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import useAsyncEffect from "use-async-effect";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import useAsyncEffect from 'use-async-effect';
+import { useParams } from 'react-router-dom';
 
-import { getAccount } from "../client";
+import { getAccount } from '../client';
 
 const Account = () => {
   const params = useParams();
