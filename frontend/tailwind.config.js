@@ -285,8 +285,7 @@ module.exports = {
   important: false, // not recommended to use important
   separator: ":", // for variants
   mode: "jit", // just-in-time Compiler
-  purge: ["./src/**/*.html"],
-  darkMode: false, // or 'media' or 'class'
+  media: false, // or 'darkMode' or 'class'
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
 
   /**

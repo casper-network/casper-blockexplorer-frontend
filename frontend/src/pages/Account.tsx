@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import useAsyncEffect from "use-async-effect";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import useAsyncEffect from 'use-async-effect';
+import { useParams } from 'react-router-dom';
 
-import rpcClient, { getAccount } from "../client";
+import { getAccount } from '../client';
 
 const Account = () => {
   const params = useParams();
@@ -11,7 +11,7 @@ const Account = () => {
   useAsyncEffect(async () => {
     if (params.id) {
       const fetchedData = await getAccount(params.id);
-      
+
       setData(fetchedData);
     }
   }, [params.id]);
