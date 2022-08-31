@@ -11,7 +11,7 @@ const Account = () => {
   useAsyncEffect(async () => {
     if (params.id) {
       const fetchedData = await getAccount(params.id);
-      
+
       setData(fetchedData);
     }
   }, [params.id]);

@@ -11,7 +11,7 @@ const Deploy = () => {
   useAsyncEffect(async () => {
     if (params.id) {
       const fetchedData = await getDeploy(params.id);
-      
+
       setData(fetchedData);
     }
   }, [params.id]);

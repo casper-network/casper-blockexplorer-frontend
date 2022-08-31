@@ -70,7 +70,7 @@ const Search = () => {
     if (trimedValue.length === 66 || trimedValue.length === 68) {
       navigate(`/account/${trimedValue}`);
     } else if (trimedValue.length === 64) {
-      console.log('deploy');
+      console.log("deploy");
       navigate(`/deploy/${trimedValue}`);
     } else {
       alert("Wrong value");
