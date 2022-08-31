@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import useAsyncEffect from "use-async-effect";
 
@@ -7,8 +7,7 @@ import { Block, Peer } from "./types";
 import Account from "./pages/Account";
 import Deploy from "./pages/Deploy";
 
-import rpcClient, { getBlocks, getPeers } from "./client";
-import { CLPublicKey } from "casper-js-sdk";
+import { getBlocks, getPeers } from "./client";
 
 const Blocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
@@ -61,6 +60,8 @@ const Peers = () => {
 const Search = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  // TODO: remove this when used
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState("");
 
   const submitValue = async () => {
