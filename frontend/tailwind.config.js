@@ -353,18 +353,13 @@ module.exports = {
     backgroundPosition: false,
     backgroundSize: false,
     container: false,
-    cursor: false,
     float: false,
-    listStylePosition: false,
-    listStyleType: false,
     preflight: false, // disable tailwind's css reset.
     pointerEvents: false,
     objectPosition: false,
-    objectFit: false,
     resize: false,
     tableLayout: false,
     verticalAlign: false,
-    wordBreak: false,
   },
 
   /**
