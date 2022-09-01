@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import useAsyncEffect from "use-async-effect";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import useAsyncEffect from 'use-async-effect';
+import { useParams } from 'react-router-dom';
 
-import rpcClient, { getDeploy } from "../client";
+import { getDeploy } from '../client';
 
 const Deploy = () => {
   const params = useParams();
@@ -11,7 +11,7 @@ const Deploy = () => {
   useAsyncEffect(async () => {
     if (params.id) {
       const fetchedData = await getDeploy(params.id);
-      
+
       setData(fetchedData);
     }
   }, [params.id]);
