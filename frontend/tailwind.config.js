@@ -46,12 +46,10 @@ const colors = {
   inherit: 'inherit',
   //Grey Shades
   grey: '#828282',
-  'light-grey': '#F2F2F2',
-  //CasperLive Blue Background 
-   'casper-blue': '#FF0013',
-  //Casper Logo Red
-   'casper-red': "#FF0013"
+  'light-grey': 'rgb(245, 245, 247)',
   //Theme Colors
+  'casper-blue': '#FF0013',
+  'casper-red': '#FF0013',
 };
 
 const spacing = {
