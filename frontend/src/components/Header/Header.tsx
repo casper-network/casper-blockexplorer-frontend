@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 
-import { Navbar } from '../Navbar/Navbar';
-
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
