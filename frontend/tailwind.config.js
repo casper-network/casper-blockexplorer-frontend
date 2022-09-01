@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 const tailwindTransforms = require('tailwindcss-transforms');
 const tailwindTransitions = require('tailwindcss-transitions');
@@ -47,7 +48,6 @@ const colors = {
   grey: '#828282',
   'light-grey': '#F2F2F2',
   // Theme Colors
-  orange: '#FF6D50',
 };
 
 const spacing = {
@@ -62,6 +62,7 @@ const sizing = {
 };
 
 const screens = {
+  ...defaultTheme.screens,
   xxs: '420px',
   xs: '480px',
   sm: '640px',
@@ -78,6 +79,7 @@ const fontFamily = {
 };
 
 const fontSize = {
+  ...defaultTheme.fontSize,
   ...buildUtilityOptions(8, 1, 24),
   ...buildUtilityOptions(28, 4, 60),
 };
@@ -92,10 +94,12 @@ const fontWeight = {
 };
 
 const leading = {
+  ...defaultTheme.leading,
   ...fontSize,
 };
 
 const letterSpacing = {
+  ...defaultTheme.letterSpacing,
   1: pxToRem(1),
   2: pxToRem(2),
   3: pxToRem(3),
@@ -111,6 +115,7 @@ const backgroundColor = {
 };
 
 const borderWidth = {
+  ...defaultTheme.borderWidth,
   0: '0',
   1: '1px',
 };
@@ -121,6 +126,7 @@ const borderColor = {
 };
 
 const borderRadius = {
+  ...defaultTheme.borderRadius,
   full: '9999px',
 };
 
@@ -130,6 +136,7 @@ const borderStyle = {
 };
 
 const width = {
+  ...defaultTheme.width,
   '1/2': '50%',
   '1/3': '33.33333%',
   '2/3': '66.66667%',
@@ -143,7 +150,6 @@ const width = {
   '5/6': '83.33333%',
   fit: 'fit-content',
   full: '100%',
-  stretch: 'calc(100% + 6rem)',
   screen: '100vw',
   1200: pxToRem(1200),
   1400: pxToRem(1400),
@@ -154,6 +160,7 @@ const width = {
 };
 
 const height = {
+  ...defaultTheme.height,
   full: '100%',
   screen: '100vh',
   '1/4': '25%',
@@ -166,38 +173,50 @@ const height = {
 };
 
 const minWidth = {
+  ...defaultTheme.minWidth,
   0: '0',
   none: 'none',
   ...width,
 };
 
 const minHeight = {
+  ...defaultTheme.minHeight,
   0: '0',
   none: 'none',
   ...height,
 };
 
 const maxWidth = {
+  ...defaultTheme.maxHeight,
   none: 'none',
   ...width,
 };
 
 const maxHeight = {
+  ...defaultTheme.maxHeight,
   none: 'none',
   ...height,
 };
 
-const padding = { ...spacing };
+const padding = { ...defaultTheme.padding, ...spacing };
 
 const negativeMargin = {
+  ...defaultTheme.negativeMargin,
   ...Object.keys(spacing).forEach(key => {
     spacing[`-${key}`] = `-${spacing[key]}`;
   }),
 };
 
-const margin = { auto: 'auto', '-1/10': '-10%', ...spacing, ...negativeMargin };
+const margin = {
+  ...defaultTheme.margin,
+  auto: 'auto',
+  '-1/10': '-10%',
+  ...spacing,
+  ...negativeMargin,
+};
 
 const boxShadow = {
+  ...defaultTheme.boxShadow,
   bottom: '',
   card: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
   panel: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
@@ -207,12 +226,14 @@ const boxShadow = {
 };
 
 const negativeInset = {
+  ...defaultTheme.negativeInset,
   ...Object.keys(spacing).forEach(key => {
     spacing[`-${key}`] = `-${spacing[key]}`;
   }),
 };
 
 const inset = {
+  ...defaultTheme.inset,
   auto: 'auto',
   0: '0',
   '-1': pxToRem(-1),
@@ -222,6 +243,7 @@ const inset = {
 };
 
 const zIndex = {
+  ...defaultTheme.zIndex,
   auto: 'auto',
   '-1': '-1',
   0: 0,
@@ -230,6 +252,7 @@ const zIndex = {
 };
 
 const opacity = {
+  ...defaultTheme.opacity,
   0: '0',
   10: '0.10',
   25: '0.25',
@@ -280,6 +303,21 @@ const flex = {
   none: 'none',
 };
 
+const allVariants = [
+  'responsive',
+  'group-hover',
+  'focus-within',
+  'first',
+  'last',
+  'odd',
+  'even',
+  'hover',
+  'focus',
+  'active',
+  'visited',
+  'disabled',
+];
+
 module.exports = {
   prefix: '', // only edit if you absolutely must
   important: false, // not recommended to use important
@@ -299,38 +337,43 @@ module.exports = {
    */
 
   theme: {
-    backgroundColor,
-    borderColor,
-    borderRadius,
-    borderStyle,
-    borderWidth,
-    boxShadow,
-    colors,
-    fill,
-    flex,
-    fontFamily,
-    fontSize,
-    fontWeight,
-    height,
-    inset,
-    leading,
-    letterSpacing,
-    margin,
-    maxHeight,
-    maxWidth,
-    minHeight,
-    minWidth,
-    opacity,
-    outline,
-    padding,
-    scale,
     screens,
-    stroke,
-    textColor,
-    transform,
-    translate,
+    fontSize,
+    letterSpacing,
+    borderWidth,
+    borderRadius,
     width,
+    height,
+    minWidth,
+    minHeight,
+    maxWidth,
+    maxHeight,
+    margin,
+    leading,
+    negativeMargin,
+    padding,
+    boxShadow,
+    negativeInset,
+    inset,
     zIndex,
+    opacity,
+
+    extends: {
+      backgroundColor,
+      borderColor,
+      borderStyle,
+      colors,
+      fill,
+      flex,
+      fontFamily,
+      fontWeight,
+      outline,
+      scale,
+      stroke,
+      textColor,
+      transform,
+      translate,
+    },
   },
 
   /**
@@ -348,17 +391,8 @@ module.exports = {
    */
 
   corePlugins: {
-    appearance: false,
-    backgroundPosition: false,
-    backgroundSize: false,
-    container: false,
     float: false,
     preflight: false, // disable tailwind's css reset.
-    pointerEvents: false,
-    objectPosition: false,
-    resize: false,
-    tableLayout: false,
-    verticalAlign: false,
   },
 
   /**
@@ -388,49 +422,49 @@ module.exports = {
    */
 
   variants: {
-    backgroundColor: [],
-    borderColor: [],
-    borderRadius: [],
-    borderWidth: [],
-    boxShadow: ['hover'],
-    display: ['responsive'],
-    fill: [],
-    flex: ['responsive'],
-    flexbox: ['responsive'],
-    flexDirection: ['responsive'],
-    flexGrow: ['responsive'],
-    flexShrink: ['responsive'],
-    flexWrap: ['responsive'],
-    fontFamily: [],
-    fontSize: ['responsive'],
-    fontWeight: ['hover'],
-    height: ['responsive'],
-    inset: ['responsive'],
-    leading: ['responsive'],
-    margin: ['responsive'],
-    maxHeight: ['responsive'],
-    maxWidth: ['responsive'],
-    minHeight: ['responsive'],
-    minWidth: ['responsive'],
-    opacity: [],
-    outline: ['focus'],
-    overflow: ['responsive'],
-    padding: ['responsive', 'first'],
-    position: ['responsive'],
-    scale: ['responsive', 'hover'],
-    stroke: [],
-    textAlign: ['responsive'],
-    textColor: ['hover'],
-    transform: ['responsive'],
-    translate: ['responsive'],
-    transitionProperty: ['responsive'],
-    transitionDuration: ['responsive'],
-    transitionTimingFunction: ['responsive'],
-    transitionDelay: ['responsive'],
-    visibility: ['responsive'],
-    whitespace: [],
-    width: ['responsive'],
-    zIndex: [],
+    backgroundColor: allVariants,
+    borderColor: allVariants,
+    borderRadius: allVariants,
+    borderWidth: allVariants,
+    boxShadow: allVariants,
+    display: allVariants,
+    fill: allVariants,
+    flex: allVariants,
+    flexbox: allVariants,
+    flexDirection: allVariants,
+    flexGrow: allVariants,
+    flexShrink: allVariants,
+    flexWrap: allVariants,
+    fontFamily: allVariants,
+    fontSize: allVariants,
+    fontWeight: allVariants,
+    height: allVariants,
+    inset: allVariants,
+    leading: allVariants,
+    margin: allVariants,
+    maxHeight: allVariants,
+    maxWidth: allVariants,
+    minHeight: allVariants,
+    minWidth: allVariants,
+    opacity: allVariants,
+    outline: allVariants,
+    overflow: allVariants,
+    padding: allVariants,
+    position: allVariants,
+    scale: allVariants,
+    stroke: allVariants,
+    textAlign: allVariants,
+    textColor: allVariants,
+    transform: allVariants,
+    translate: allVariants,
+    transitionProperty: allVariants,
+    transitionDuration: allVariants,
+    transitionTimingFunction: allVariants,
+    transitionDelay: allVariants,
+    visibility: allVariants,
+    whitespace: allVariants,
+    width: allVariants,
+    zIndex: allVariants,
   },
 
   /**
