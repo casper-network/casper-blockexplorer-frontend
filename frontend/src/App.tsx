@@ -24,14 +24,17 @@ const Blocks = () => {
     <div>
       <div className="overflow-hidden">
         <h2>Blocks</h2>
-        {isLoading? <Loader/>:
+        {isLoading ? (
+          <Loader />
+        ) : (
           <ul>
-          {blocks.map(block => (
-            <li key={block.height}>
-              <pre>{JSON.stringify(block)}</pre>
-            </li>
-          ))}
-        </ul>}
+            {blocks.map(block => (
+              <li key={block.height}>
+                <pre>{JSON.stringify(block)}</pre>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -50,14 +53,17 @@ const Peers = () => {
     <div>
       <div>
         <h2>Peers</h2>
-        {isLoading? <Loader/>: 
+        {isLoading ? (
+          <Loader />
+        ) : (
           <ul>
-          {peers.map(peer => (
-            <li key={peer.id}>
-              <pre>{JSON.stringify(peer)}</pre>
-            </li>
-          ))}
-        </ul>}
+            {peers.map(peer => (
+              <li key={peer.id}>
+                <pre>{JSON.stringify(peer)}</pre>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
