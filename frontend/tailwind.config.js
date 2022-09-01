@@ -358,7 +358,7 @@ module.exports = {
     zIndex,
     opacity,
 
-    extends: {
+    extend: {
       backgroundColor,
       borderColor,
       borderStyle,
