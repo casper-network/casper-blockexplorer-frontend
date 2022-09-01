@@ -7,34 +7,25 @@ import { Block, Peer } from './types';
 import Account from './pages/Account';
 import Deploy from './pages/Deploy';
 
+import { Header, BlockTable } from './components';
+
 import { getBlocks, getPeers } from './client';
-import { Header } from './components/Header/Header';
 import { Loader } from './components/Loader/Loader';
 
-const Blocks = () => {
+const Blocks: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   useAsyncEffect(async () => {
-    const blocks = await getBlocks();
-    setBlocks(blocks);
+    const rawBlocks = await getBlocks();
+    setBlocks(rawBlocks);
     setIsLoading(false);
   }, []);
 
   return (
     <div>
-      <div className="overflow-hidden">
+      <div className="px-32">
         <h2>Blocks</h2>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <ul>
-            {blocks.map(block => (
-              <li key={block.height}>
-                <pre>{JSON.stringify(block)}</pre>
-              </li>
-            ))}
-          </ul>
-        )}
+        {isLoading ? <Loader /> : <BlockTable blocks={blocks} />}
       </div>
     </div>
   );
@@ -44,8 +35,8 @@ const Peers = () => {
   const [peers, setPeers] = useState<Peer[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   useAsyncEffect(async () => {
-    const peers = await getPeers();
-    setPeers(peers);
+    const rawPeers = await getPeers();
+    setPeers(rawPeers);
     setIsLoading(false);
   }, []);
 
