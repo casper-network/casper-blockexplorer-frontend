@@ -15,6 +15,6 @@ NODE_URL=http://localhost:7777/rpc
 NETWORK_NAME=integration-test
 ```
 
-2. Run `make build`
-3. Run `make start`.
+2. Run `make dev-build`
+3. Run `make dev-start`.
 4. The app will be running at port `3000`.
