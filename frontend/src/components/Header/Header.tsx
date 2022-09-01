@@ -13,11 +13,11 @@ const Header = () => {
     const trimmedValue = search.trim();
 
     // TODO: Move this magic strings to some consts
-    if (trimedValue.length === 66 || trimedValue.length === 68) {
-      navigate(`/account/${trimedValue}`);
-    } else if (trimedValue.length === 64) {
+    if (trimmedValue.length === 66 || trimmedValue.length === 68) {
+      navigate(`/account/${trimmedValue}`);
+    } else if (trimmedValue.length === 64) {
       console.log('deploy');
-      navigate(`/deploy/${trimedValue}`);
+      navigate(`/deploy/${trimmedValue}`);
     } else {
       alert('Wrong value');
     }
@@ -51,7 +51,7 @@ const Header = () => {
           <button
             onClick={submitValue}
             type="submit"
-            className="bg-[#FF0013] relative right-30 right-0 hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
+            className="bg-[#FF0013] relative right-15 right-0 hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
             <svg
               aria-hidden="true"
               className="w-20 h-20 text-white pt-5"
