@@ -44,14 +44,14 @@ const colors = {
   white: '#FFF',
   'off-white': '#F7F7F7',
   inherit: 'inherit',
-  // Grey Shades
+  //Grey Shades
   grey: '#828282',
   'light-grey': '#F2F2F2',
   //CasperLive Blue Background 
-   blue: '#FF0013',
-  //  Casper Logo Red
-   red: "#FF0013"
-  // Theme Colors
+   'casper-blue': '#FF0013',
+  //Casper Logo Red
+   'casper-red': "#FF0013"
+  //Theme Colors
 };
 
 const spacing = {
