@@ -8,6 +8,7 @@ import Account from './pages/Account';
 import Deploy from './pages/Deploy';
 
 import { getBlocks, getPeers } from './client';
+import Header from './components/Header/Header';
 
 const Blocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
@@ -19,7 +20,7 @@ const Blocks = () => {
 
   return (
     <div>
-      <div>
+      <div className="overflow-hidden">
         <h2>Blocks</h2>
         <ul>
           {blocks.map(block => (
@@ -57,42 +58,43 @@ const Peers = () => {
   );
 };
 
-const Search = () => {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState('');
-  // TODO: remove this when used
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState('');
+// const Search = () => {
+//   const navigate = useNavigate();
+//   const [search, setSearch] = useState('');
+//   // TODO: remove this when used
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   const [error, setError] = useState('');
 
-  const submitValue = async () => {
-    const trimedValue = search.trim();
+//   const submitValue = async () => {
+//     const trimedValue = search.trim();
 
-    // TODO: Move this magic strings to some consts
-    if (trimedValue.length === 66 || trimedValue.length === 68) {
-      navigate(`/account/${trimedValue}`);
-    } else if (trimedValue.length === 64) {
-      console.log('deploy');
-      navigate(`/deploy/${trimedValue}`);
-    } else {
-      alert('Wrong value');
-    }
-  };
+//     // TODO: Move this magic strings to some consts
+//     if (trimedValue.length === 66 || trimedValue.length === 68) {
+//       navigate(`/account/${trimedValue}`);
+//     } else if (trimedValue.length === 64) {
+//       console.log('deploy');
+//       navigate(`/deploy/${trimedValue}`);
+//     } else {
+//       alert('Wrong value');
+//     }
+//   };
 
-  return (
-    <div>
-      <h2>Search</h2>
-      <div>
-        {error}
-        <input
-          value={search}
-          onChange={ev => setSearch(ev.target.value)}
-          placeholder="PublicKey or DeployHash"
-        />
-        <button onClick={submitValue}>Search</button>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <Header />
+//       <h2>Search</h2>
+//       <div>
+//         {error}
+//         <input
+//           value={search}
+//           onChange={ev => setSearch(ev.target.value)}
+//           placeholder="PublicKey or DeployHash"
+//         />
+//         <button onClick={submitValue}>Search</button>
+//       </div>
+//     </div>
+//   );
+// };
 
 const Home = () => {
   return (
@@ -108,7 +110,7 @@ const Home = () => {
 const App = () => {
   return (
     <BrowserRouter>
-      <Search />
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/account/:id" element={<Account />} />
