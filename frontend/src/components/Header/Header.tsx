@@ -51,7 +51,7 @@ const Header = () => {
           <button
             onClick={submitValue}
             type="submit"
-            className="bg-[#FF0013] relative right-30 right-0 hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
+            className="bg-[#FF0013] relative right-[32px] right-0 hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
             <svg
               aria-hidden="true"
               className="w-20 h-20 text-white pt-5"
