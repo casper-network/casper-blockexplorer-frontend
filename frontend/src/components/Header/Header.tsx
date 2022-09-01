@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-[#181C36]">
+    <div className="bg-[#171B38]">
       <div className="flex flex-row justify-center py-35 xxs:py-50 xmd:h-175 xmd:flex-col xmd:justify-center xmd:pl-50">
         <div className="flex flex-row ">
           <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
@@ -51,7 +51,7 @@ const Header = () => {
           <button
             onClick={submitValue}
             type="submit"
-            className="bg-[#FF0013] relative right-30 right-0 hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
+            className="bg-[#FF0013] relative right-[32px] hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
             <svg
               aria-hidden="true"
               className="w-20 h-20 text-white pt-5"
