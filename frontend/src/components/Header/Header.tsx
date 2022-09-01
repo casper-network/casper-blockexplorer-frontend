@@ -10,14 +10,14 @@ const Header = () => {
   const [error, setError] = useState('');
 
   const submitValue = async () => {
-    const trimedValue = search.trim();
+    const trimmedValue = search.trim();
 
     // TODO: Move this magic strings to some consts
-    if (trimedValue.length === 66 || trimedValue.length === 68) {
-      navigate(`/account/${trimedValue}`);
-    } else if (trimedValue.length === 64) {
+    if (trimmedValue.length === 66 || trimmedValue.length === 68) {
+      navigate(`/account/${trimmedValue}`);
+    } else if (trimmedValue.length === 64) {
       console.log('deploy');
-      navigate(`/deploy/${trimedValue}`);
+      navigate(`/deploy/${trimmedValue}`);
     } else {
       alert('Wrong value');
     }

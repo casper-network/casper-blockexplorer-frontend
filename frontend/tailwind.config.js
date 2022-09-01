@@ -47,6 +47,10 @@ const colors = {
   // Grey Shades
   grey: '#828282',
   'light-grey': '#F2F2F2',
+  //CasperLive Blue Background 
+   blue: '#FF0013',
+  //  Casper Logo Red
+   red: "#FF0013"
   // Theme Colors
 };
 

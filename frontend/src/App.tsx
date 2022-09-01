@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
 
 import { Block, Peer } from './types';
@@ -57,44 +57,6 @@ const Peers = () => {
     </div>
   );
 };
-
-// const Search = () => {
-//   const navigate = useNavigate();
-//   const [search, setSearch] = useState('');
-//   // TODO: remove this when used
-//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   const [error, setError] = useState('');
-
-//   const submitValue = async () => {
-//     const trimedValue = search.trim();
-
-//     // TODO: Move this magic strings to some consts
-//     if (trimedValue.length === 66 || trimedValue.length === 68) {
-//       navigate(`/account/${trimedValue}`);
-//     } else if (trimedValue.length === 64) {
-//       console.log('deploy');
-//       navigate(`/deploy/${trimedValue}`);
-//     } else {
-//       alert('Wrong value');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <Header />
-//       <h2>Search</h2>
-//       <div>
-//         {error}
-//         <input
-//           value={search}
-//           onChange={ev => setSearch(ev.target.value)}
-//           placeholder="PublicKey or DeployHash"
-//         />
-//         <button onClick={submitValue}>Search</button>
-//       </div>
-//     </div>
-//   );
-// };
 
 const Home = () => {
   return (
