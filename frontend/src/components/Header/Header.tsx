@@ -10,7 +10,7 @@ const Header = () => {
   const [error, setError] = useState('');
 
   const submitValue = async () => {
-    const trimedValue = search.trim();
+    const trimmedValue = search.trim();
 
     // TODO: Move this magic strings to some consts
     if (trimedValue.length === 66 || trimedValue.length === 68) {
