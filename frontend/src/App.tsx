@@ -9,26 +9,32 @@ import Deploy from './pages/Deploy';
 
 import { getBlocks, getPeers } from './client';
 import Header from './components/Header/Header';
+import { Loader } from './components/Loader/Loader';
 
 const Blocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useAsyncEffect(async () => {
     const blocks = await getBlocks();
     setBlocks(blocks);
+    setIsLoading(false);
   }, []);
 
   return (
     <div>
       <div className="overflow-hidden">
         <h2>Blocks</h2>
-        <ul>
-          {blocks.map(block => (
-            <li key={block.height}>
-              <pre>{JSON.stringify(block)}</pre>
-            </li>
-          ))}
-        </ul>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <ul>
+            {blocks.map(block => (
+              <li key={block.height}>
+                <pre>{JSON.stringify(block)}</pre>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -36,23 +42,28 @@ const Blocks = () => {
 
 const Peers = () => {
   const [peers, setPeers] = useState<Peer[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useAsyncEffect(async () => {
     const peers = await getPeers();
     setPeers(peers);
+    setIsLoading(false);
   }, []);
 
   return (
     <div>
       <div>
         <h2>Peers</h2>
-        <ul>
-          {peers.map(peer => (
-            <li key={peer.id}>
-              <pre>{JSON.stringify(peer)}</pre>
-            </li>
-          ))}
-        </ul>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <ul>
+            {peers.map(peer => (
+              <li key={peer.id}>
+                <pre>{JSON.stringify(peer)}</pre>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
