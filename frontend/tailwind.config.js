@@ -44,14 +44,14 @@ const colors = {
   white: '#FFF',
   'off-white': '#F7F7F7',
   inherit: 'inherit',
-  // Grey Shades
+  //Grey Shades
   grey: '#828282',
   'light-grey': '#F2F2F2',
-  // CasperLive Blue Background
-  casperBlue: '#181C36',
-  // Casper Logo Red
-  casperRed: '#FF0013', 
-  // Theme Colors
+  //CasperLive Blue Background 
+   'casper-blue': '#FF0013',
+  //Casper Logo Red
+   'casper-red': "#FF0013"
+  //Theme Colors
 };
 
 const spacing = {
@@ -362,7 +362,7 @@ module.exports = {
     zIndex,
     opacity,
 
-    extends: {
+    extend: {
       backgroundColor,
       borderColor,
       borderStyle,
