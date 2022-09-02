@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
             onChange={ev => setSearch(ev.target.value)}
             type="search"
             id="search"
-            className="block p-4 pr-32 pl-10 w-400 text-sm text-gray-900 bg-gray-50 rounded-lg border-white border-opacity-0 focus:outline-none "
+            className="block p-4 pr-32 pl-10 w-400 text-sm text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none"
             placeholder="Public Key or Deploy Hash"
             required
           />
