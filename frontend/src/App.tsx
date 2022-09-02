@@ -8,7 +8,7 @@ import Account from './pages/Account';
 import Deploy from './pages/Deploy';
 
 import { getBlocks, getPeers } from './client';
-import Header from './components/Header/Header';
+import { Header } from './components/Header/Header';
 import { Loader } from './components/Loader/Loader';
 
 const Blocks = () => {

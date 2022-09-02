@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from './header-assets/logo.png';
+import logo from '../../assets/images/logo.png';
 
-const Header = () => {
+export const Header: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
   // TODO: remove this when used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState('');
 
-  const submitValue = async () => {
+  const submitValue = () => {
     const trimmedValue = search.trim();
 
-    // TODO: Move this magic strings to some consts
+    // TODO: Move this magic strings to some constant variables
     if (trimmedValue.length === 66 || trimmedValue.length === 68) {
       navigate(`/account/${trimmedValue}`);
     } else if (trimmedValue.length === 64) {
@@ -37,21 +37,20 @@ const Header = () => {
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div className="flex justify-center pb-30 pl-30">
-          <div className="flex inset-y-0 left-0 items-center pl-3 pointer-events-none"></div>
+        <div className="flex relative justify-center pb-30 pl-30">
           <input
             value={search}
             onChange={ev => setSearch(ev.target.value)}
             type="search"
             id="search"
-            className="block p-4 pl-10 w-400 text-sm text-gray-900 bg-gray-50 rounded-lg border-none focus:ring-blue-500 focus:border-blue-500 "
+            className="block p-4 pr-32 pl-10 w-400 text-sm text-gray-900 bg-gray-50 rounded-lg border-white border-opacity-0 focus:outline-none "
             placeholder="Public Key or Deploy Hash"
             required
           />
           <button
             onClick={submitValue}
             type="submit"
-            className="bg-[#FF0013] relative right-[32px] hover:bg-red-400 focus:ring-1  focus:ring-blue-300 font-medium rounded-lg ">
+            className="bg-[#FF0013] relative right-20 hover:bg-red-400 focus:outline-none  font-medium rounded-lg border-none">
             <svg
               aria-hidden="true"
               className="w-20 h-20 text-white pt-5"
@@ -64,6 +63,7 @@ const Header = () => {
                 stroke-linejoin="round"
                 stroke-width="2"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
         </div>
@@ -71,5 +71,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;
