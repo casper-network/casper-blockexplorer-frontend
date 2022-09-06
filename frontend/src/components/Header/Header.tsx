@@ -7,6 +7,7 @@ import { Navbar } from '../Navbar/Navbar';
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('account');
   // TODO: remove this when used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState('');
@@ -15,9 +16,9 @@ export const Header: React.FC = () => {
     const trimmedValue = search.trim();
 
     // TODO: Move this magic strings to some constant variables
-    if (trimmedValue.length === 66 || trimmedValue.length === 68) {
+    if (filter === 'account') {
       navigate(`/account/${trimmedValue}`);
-    } else if (trimmedValue.length === 64) {
+    } else if (filter === 'deploy') {
       console.log('deploy');
       navigate(`/deploy/${trimmedValue}`);
     } else {
@@ -28,7 +29,7 @@ export const Header: React.FC = () => {
   return (
     <div className="bg-[#171B38]">
       <Navbar />
-      <div className="flex flex-row justify-center py-35 xxs:py-50 xmd:h-175 lg:flex-col lg:justify-center lg:pl-50">
+      <div className="flex flex-row justify-center pb-35 pt-50 xxs:py-50 xmd:h-175 lg:flex-col lg:justify-center lg:pl-50">
         <div className="flex flex-row ">
           <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
           <h1 className="text-white text-21 xxs:text-24 xxs:pt-6  xmd:pl-15">
@@ -40,16 +41,27 @@ export const Header: React.FC = () => {
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div className="flex relative justify-center pb-30 pl-30">
+        <div className="flex relative justify-center  pl-10 pb-30 xmd:pl-30">
+          <select
+            onChange={ev => setFilter(ev.target.value)}
+            className="relative left-10 w-15 h-30 rounded-r bg-[#FF0013] rounded-lg border-none text-white text-bold focus:outline-none"
+            name=""
+            id="">
+            <option value="account" defaultValue={''}>
+              Account
+            </option>
+            <option value="deploy">Deploy</option>
+          </select>
           <input
             value={search}
             onChange={ev => setSearch(ev.target.value)}
             type="search"
             id="search"
-            className="block p-4 pr-32 pl-10 w-400 text-sm text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none"
+            className="block p-4 pr-32 pl-20 w-400 text-sm text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none"
             placeholder="Public Key or Deploy Hash"
             required
           />
+
           <button
             onClick={submitValue}
             type="submit"
@@ -62,9 +74,8 @@ export const Header: React.FC = () => {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeWidth="2"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
