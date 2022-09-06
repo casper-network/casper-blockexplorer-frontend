@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export interface NavProps {
-  readonly label: string | number;
+  readonly title: string;
+  readonly path: string;
 }
 
 const navItems = [
   {
     title: 'Home',
     path: '/',
-    id: '0',
   },
   {
     title: 'Deploys',
     path: '/deploys',
-    id: '1',
   },
   {
     title: 'Blocks',
     path: '/blocks',
-    id: '2',
   },
   {
     title: 'Accounts',
     path: '/accounts',
-    id: '3',
   },
 ];
 
@@ -40,14 +38,10 @@ export const Navbar: React.FC = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="2"
+                strokeWidth="2"
                 stroke="white"
                 className="w-24 h-24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
               <svg
@@ -56,9 +50,9 @@ export const Navbar: React.FC = () => {
                 fill="white"
                 className="w-24 h-24">
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             )}
@@ -71,12 +65,12 @@ export const Navbar: React.FC = () => {
           }`}>
           {navItems.map((item, index) => {
             return (
-              <a
-                href={item.path}
+              <Link
+                to={item.path}
                 className="text-white py-3 lg:py-0"
-                id={item.id}>
+                key={index}>
                 {item.title}
-              </a>
+              </Link>
             );
           })}
         </div>
