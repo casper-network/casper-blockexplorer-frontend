@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 
+import { Navbar } from '../Navbar/Navbar';
+
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
@@ -25,7 +27,8 @@ export const Header: React.FC = () => {
 
   return (
     <div className="bg-[#171B38]">
-      <div className="flex flex-row justify-center py-35 xxs:py-50 xmd:h-175 xmd:flex-col xmd:justify-center xmd:pl-50">
+      <Navbar />
+      <div className="flex flex-row justify-center py-35 xxs:py-50 xmd:h-175 lg:flex-col lg:justify-center lg:pl-50">
         <div className="flex flex-row ">
           <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
           <h1 className="text-white text-21 xxs:text-24 xxs:pt-6  xmd:pl-15">
