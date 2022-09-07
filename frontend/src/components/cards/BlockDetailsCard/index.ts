@@ -1,0 +1,1 @@
+export { BlockDetailsCard } from './BlockDetailsCard';
