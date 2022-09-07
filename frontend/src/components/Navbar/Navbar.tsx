@@ -25,14 +25,18 @@ const navItems = [
   },
 ];
 
-//accepts arr of item objects
+// accepts arr of item objects
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
+
   return (
     <nav className="fixed z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
       <div className="flex flex-col lg:flex-row lg:justify-between">
         <div className="flex flex-row justify-end lg:justify-between">
-          <div className="lg:hidden" onClick={() => setIsOpened(!isOpened)}>
+          <button
+            type="button"
+            className="lg:hidden bg-transparent border-none"
+            onClick={() => setIsOpened(!isOpened)}>
             {isOpened ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,11 +60,12 @@ export const Navbar: React.FC = () => {
                 />
               </svg>
             )}
-          </div>
+          </button>
         </div>
-        <div
+        <button
+          type="button"
           onClick={() => setIsOpened(!isOpened)}
-          className={`lg:flex lg:space-x-12 lg:flex-row lg:w-auto ${
+          className={`bg-transparent border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto ${
             isOpened ? 'flex flex-col text-center mt-10 lg:mt-0' : 'hidden'
           }`}>
           {navItems.map((item, index) => {
@@ -73,7 +78,7 @@ export const Navbar: React.FC = () => {
               </Link>
             );
           })}
-        </div>
+        </button>
       </div>
     </nav>
   );
