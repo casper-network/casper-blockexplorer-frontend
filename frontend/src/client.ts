@@ -35,6 +35,7 @@ export const getBlocks = async () => {
           timestamp: Date.parse(block.header.timestamp.toString()),
           hash: block.hash,
           validatorPublicKey: blockBody.proposer,
+          parentHash: blockBody.parent_hash,
         });
       })
       .catch(err => {
