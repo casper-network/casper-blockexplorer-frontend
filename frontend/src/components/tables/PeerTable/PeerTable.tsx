@@ -1,7 +1,6 @@
 import React from 'react';
 import { Peer } from '../../../types';
-// import { truncateHash } from '../../../utils';
-import { Table } from '../Table';
+import { Table } from '../../base';
 
 interface PeerTableProps {
   readonly peers: Peer[];

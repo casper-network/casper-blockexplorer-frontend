@@ -5,6 +5,7 @@ export type Block = {
   timestamp: number;
   hash: string;
   validatorPublicKey: string;
+  parentHash: string;
   stateRootHash?: string;
   proofs?: any[];
 };
