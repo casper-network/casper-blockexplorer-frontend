@@ -60,6 +60,42 @@ export const getDeploy = async (deployHash: string) => {
   return result;
 };
 
+export const getBlock = async (blockHash: string) => {
+  const blockResult = await rpcClient.getBlockInfo(blockHash);
+
+  const { block: rawBlockData } = blockResult;
+
+  if (!rawBlockData) return;
+
+  const { hash, header } = rawBlockData;
+
+  const {
+    timestamp,
+    height,
+    era_id: eraID,
+    state_root_hash: stateRootHash,
+    parent_hash: parentHash,
+  } = header;
+
+  // there are a few incorrect types coming from the SDK here..
+  const { proposer: validatorPublicKey, deploy_hashes: deployHashes } = (
+    rawBlockData as any
+  ).body;
+
+  const tailoredBlock = {
+    timestamp,
+    height,
+    eraID,
+    hash,
+    validatorPublicKey,
+    transactions: deployHashes?.length ?? 0,
+    stateRootHash,
+    parentHash,
+  };
+
+  return tailoredBlock as Block;
+};
+
 export const getPeers = async () => {
   const { peers } = await rpcClient.getPeers();
 
