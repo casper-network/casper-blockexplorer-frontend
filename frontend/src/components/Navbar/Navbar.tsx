@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
-    <nav className="fixed z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
+    <nav className="z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
       <div className="flex flex-col lg:flex-row lg:justify-between">
         <div className="flex flex-row justify-end lg:justify-between">
           <button
