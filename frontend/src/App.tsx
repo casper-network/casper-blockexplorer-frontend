@@ -7,10 +7,9 @@ import { Block, Peer } from './types';
 import Account from './pages/Account';
 import Deploy from './pages/Deploy';
 
-import { Header, BlockTable } from './components';
+import { Header, BlockTable, Loader } from './components';
 
 import { getBlocks, getPeers } from './client';
-import { Loader } from './components/Loader/Loader';
 
 const Blocks: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
