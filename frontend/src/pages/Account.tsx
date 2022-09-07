@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { getAccount } from '../client';
 
-const Account = () => {
+export const AccountPage: React.FC = () => {
   const params = useParams();
   const [data, setData] = useState<any>(null);
 
@@ -23,5 +23,3 @@ const Account = () => {
     </div>
   );
 };
-
-export default Account;
