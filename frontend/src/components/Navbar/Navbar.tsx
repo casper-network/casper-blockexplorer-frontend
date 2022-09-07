@@ -23,6 +23,10 @@ const navItems = [
     title: 'Accounts',
     path: '/accounts',
   },
+  {
+    title: 'Peers',
+    path: '/peers',
+  },
 ];
 
 // accepts arr of item objects
@@ -65,14 +69,16 @@ export const Navbar: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsOpened(!isOpened)}
-          className={`bg-transparent border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto ${
-            isOpened ? 'flex flex-col text-center mt-10 lg:mt-0' : 'hidden'
+          className={`bg-[#181B38] border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto ${
+            isOpened
+              ? 'absolute z-10 w-screen mt-20 pb-25 bg-[#181B38] flex flex-col align-items lg:mt-0'
+              : 'hidden'
           }`}>
           {navItems.map((item, index) => {
             return (
               <Link
                 to={item.path}
-                className="text-white py-3 lg:py-0"
+                className="text-white py-3 lg:py-0 w-full"
                 key={index}>
                 {item.title}
               </Link>
