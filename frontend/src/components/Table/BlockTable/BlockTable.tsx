@@ -4,7 +4,7 @@ import { truncateHash } from '../../../utils';
 import { Table } from '../Table';
 
 interface BlockTableProps {
-  blocks: Block[];
+  readonly blocks: Block[];
 }
 
 export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
