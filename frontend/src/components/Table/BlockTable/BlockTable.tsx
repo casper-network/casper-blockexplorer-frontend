@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Block } from '../../../types';
 import { truncateHash } from '../../../utils';
+import { CopyToClipboard } from '../../utility';
 import { Table } from '../Table';
 
 interface BlockTableProps {
@@ -29,8 +31,34 @@ export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
         { content: eraID, key: `${key}-era` },
         { content: transactions, key: `${key}-deploys` },
         { content: timestamp, key: `${key}-age` },
-        { content: truncateHash(hash), key: `${key}-block-hash` },
-        { content: truncateHash(validatorPublicKey), key: `${key}-validator` },
+        {
+          content: (
+            <>
+              <Link
+                to={{
+                  pathname: `/block/${hash}`,
+                }}>
+                {truncateHash(hash)}
+              </Link>
+              <CopyToClipboard textToCopy={hash} />
+            </>
+          ),
+          key: `${key}-block-hash`,
+        },
+        {
+          content: (
+            <>
+              <Link
+                to={{
+                  pathname: `/validator/${validatorPublicKey}`,
+                }}>
+                {truncateHash(validatorPublicKey)}
+              </Link>
+              <CopyToClipboard textToCopy={validatorPublicKey} />
+            </>
+          ),
+          key: `${key}-validator`,
+        },
       ];
 
       return { items, key };
