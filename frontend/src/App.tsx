@@ -7,7 +7,7 @@ import { Block, Peer } from './types';
 import Account from './pages/Account';
 import Deploy from './pages/Deploy';
 
-import { Header, BlockTable, Loader } from './components';
+import { Header, BlockTable, Loader, PeerTable } from './components';
 
 import { getBlocks, getPeers } from './client';
 
@@ -41,19 +41,9 @@ const Peers = () => {
 
   return (
     <div>
-      <div>
-        <h2>Peers</h2>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <ul>
-            {peers.map(peer => (
-              <li key={peer.id}>
-                <pre>{JSON.stringify(peer)}</pre>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className="px-20 bg-light-grey py-20">
+        <h2 className="pt-10 pb-30 pl-20 ">Connected Peers</h2>
+        {isLoading ? <Loader /> : <PeerTable peers={peers} />}
       </div>
     </div>
   );
@@ -64,7 +54,7 @@ const Home = () => {
     <div>
       <div>
         <Blocks />
-        <Peers />
+        {/* <Peers /> */}
       </div>
     </div>
   );
@@ -78,6 +68,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/account/:id" element={<Account />} />
         <Route path="/deploy/:id" element={<Deploy />} />
+        <Route path="/peers" element={<Peers />} />
       </Routes>
     </BrowserRouter>
   );
