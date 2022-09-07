@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { getDeploy } from '../client';
 
-const Deploy = () => {
+export const DeployPage: React.FC = () => {
   const params = useParams();
   const [data, setData] = useState<any>(null);
 
@@ -23,5 +23,3 @@ const Deploy = () => {
     </div>
   );
 };
-
-export default Deploy;

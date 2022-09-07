@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Block } from '../../../types';
 import { truncateHash } from '../../../utils';
 import { CopyToClipboard } from '../../utility';
-import { Table } from '../Table';
+import { Table } from '../../base';
 
 interface BlockTableProps {
   readonly blocks: Block[];

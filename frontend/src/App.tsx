@@ -4,9 +4,7 @@ import useAsyncEffect from 'use-async-effect';
 
 import { Block, Peer } from './types';
 
-import Account from './pages/Account';
-import Deploy from './pages/Deploy';
-
+import { AccountPage, BlockPage, DeployPage } from './pages';
 import { Header, BlockTable, Loader } from './components';
 
 import { getBlocks, getPeers } from './client';
@@ -76,8 +74,9 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/account/:id" element={<Account />} />
-        <Route path="/deploy/:id" element={<Deploy />} />
+        <Route path="/account/:id" element={<AccountPage />} />
+        <Route path="/deploy/:id" element={<DeployPage />} />
+        <Route path="/block/:id" element={<BlockPage />} />
       </Routes>
     </BrowserRouter>
   );
