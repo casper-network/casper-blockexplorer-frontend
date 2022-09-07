@@ -5,9 +5,15 @@ const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
 const NUM_TO_SHOW = 20;
 
-export const getBlocks = async () => {
+export const getCurrentBlockHeight = async () => {
   const { block } = await rpcClient.getLatestBlockInfo();
   const currentHeight = block!.header.height;
+
+  return currentHeight;
+};
+
+export const getBlocks = async () => {
+  const currentHeight = await getCurrentBlockHeight();
 
   const blocks: Block[] = [];
 
@@ -15,15 +21,20 @@ export const getBlocks = async () => {
     await rpcClient
       .getBlockInfoByHeight(i)
       .then(getBlockResult => {
-        const { block } = getBlockResult as any;
+        const { block } = getBlockResult;
+
         if (!block) throw Error('Missing block');
+
+        // TODO: update typing to include body
+        const blockBody = (block as any).body;
+
         blocks.push({
           height: block.header.height,
           eraID: block.header.era_id,
-          transactions: block.body.deploy_hashes.length ?? 0,
+          transactions: blockBody.deploy_hashes.length ?? 0,
           timestamp: Date.parse(block.header.timestamp.toString()),
           hash: block.hash,
-          validatorPublicKey: block.body.proposer,
+          validatorPublicKey: blockBody.proposer,
         });
       })
       .catch(err => {
