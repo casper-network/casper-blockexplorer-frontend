@@ -41,10 +41,10 @@ export const Header: React.FC = () => {
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div className="flex relative justify-center  pl-10 pb-30 xmd:pl-30">
+        <div className="flex relative justify-center  pl-10 pb-30 xmd:pl-30 lg:pt-20">
           <select
             onChange={ev => setFilter(ev.target.value)}
-            className="relative left-10 w-15 h-30 rounded-r bg-[#FF0013] rounded-lg border-none text-white text-bold focus:outline-none"
+            className="relative left-10 w-90 h-30 text-center rounded-r bg-[#FF0013] rounded-lg border-none text-white text-bold focus:outline-none"
             name=""
             id="">
             <option value="account" defaultValue={''}>
