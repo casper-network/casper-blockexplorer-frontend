@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
+import { Navbar } from '../Navbar/Navbar';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -74,7 +75,8 @@ export const Header: React.FC = () => {
               <path
                 strokeLinecap="round"
                 strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
