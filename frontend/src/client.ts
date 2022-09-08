@@ -5,26 +5,35 @@ const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
 const NUM_TO_SHOW = 20;
 
-export const getBlocks = async () => {
+export const getBlockByHeight = async (height: number) => {
+  return await rpcClient.getBlockInfoByHeight(height).then(getBlockResult => {
+    const { block } = getBlockResult as any;
+    if (!block) throw Error('Missing block');
+    return {
+      height: block.header.height,
+      eraID: block.header.era_id,
+      transactions: block.body.deploy_hashes.length ?? 0,
+      timestamp: Date.parse(block.header.timestamp.toString()),
+      hash: block.hash,
+      validatorPublicKey: block.body.proposer,
+    };
+  });
+};
+
+export const getCurrentBlockHeight = async () => {
   const { block } = await rpcClient.getLatestBlockInfo();
-  const currentHeight = block!.header.height;
+  return block!.header.height;
+}
+
+export const getBlocks = async () => {
+  const currentHeight = await getCurrentBlockHeight();
 
   const blocks: Block[] = [];
 
   for (let i = currentHeight; i > currentHeight - NUM_TO_SHOW; i--) {
-    await rpcClient
-      .getBlockInfoByHeight(i)
-      .then(getBlockResult => {
-        const { block } = getBlockResult as any;
-        if (!block) throw Error('Missing block');
-        blocks.push({
-          height: block.header.height,
-          eraID: block.header.era_id,
-          transactions: block.body.deploy_hashes.length ?? 0,
-          timestamp: Date.parse(block.header.timestamp.toString()),
-          hash: block.hash,
-          validatorPublicKey: block.body.proposer,
-        });
+    await getBlockByHeight(i)
+      .then(block => {
+        blocks.push(block);
       })
       .catch(err => {
         console.log('Block By Height Error: ', err);

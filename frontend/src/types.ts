@@ -13,3 +13,18 @@ export type Peer = {
   id: string;
   address: string;
 };
+
+enum DeployStatus {
+  Success,
+  Failed
+}
+
+export type Deploy = {
+  timestamp: number;
+  deployHash: string;
+  blockHash: string;
+  publicKey: string;
+  paymentAmount: string;
+  cost: string;
+  status: DeployStatus,
+}
