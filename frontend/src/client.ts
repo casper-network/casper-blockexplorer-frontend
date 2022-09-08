@@ -52,8 +52,18 @@ export const getAccount = async (publicKeyHex: string) => {
   return result;
 };
 
+export const getBalance = async (uref: string) => {
+  const stateRootHash = await rpcClient.getStateRootHash();
+  const balance = await rpcClient.getAccountBalance(stateRootHash, uref);
+  if (balance) {
+    return balance.toString();
+  }
+  return null;
+}
+
 export const getDeploy = async (deployHash: string) => {
   const result = await rpcClient.getDeployInfo(deployHash);
+  console.log(result);
 
   return result;
 };
