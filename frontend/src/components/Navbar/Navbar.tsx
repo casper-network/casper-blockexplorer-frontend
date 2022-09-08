@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface NavProps {
@@ -12,18 +12,6 @@ const navItems = [
     path: '/',
   },
   {
-    title: 'Deploys',
-    path: '/deploys',
-  },
-  {
-    title: 'Blocks',
-    path: '/blocks',
-  },
-  {
-    title: 'Accounts',
-    path: '/accounts',
-  },
-  {
     title: 'Peers',
     path: '/peers',
   },
@@ -32,6 +20,17 @@ const navItems = [
 // accepts arr of item objects
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
+  const windowWidth = window.innerWidth;
+
+  useEffect(() => {
+    const closeDropdown = () => {
+      if (windowWidth > 1024) {
+        setIsOpened(false);
+      }
+    };
+
+    window.addEventListener('resize', closeDropdown);
+  }, [windowWidth]);
 
   return (
     <nav className="z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
@@ -77,7 +76,7 @@ export const Navbar: React.FC = () => {
             return (
               <Link
                 to={item.path}
-                className="text-white py-3 lg:py-0 w-full"
+                className="text-white py-12 lg:py-0 w-full"
                 key={index}>
                 {item.title}
               </Link>
