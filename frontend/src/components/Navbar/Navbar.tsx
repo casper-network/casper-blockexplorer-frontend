@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface NavProps {
@@ -20,6 +20,17 @@ const navItems = [
 // accepts arr of item objects
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
+  const windowWidth = window.innerWidth;
+
+  useEffect(() => {
+    const closeDropdown = () => {
+      if (window.innerWidth > 1023) {
+        setIsOpened(false);
+      }
+    };
+
+    window.addEventListener('resize', closeDropdown);
+  }, []);
 
   return (
     <nav className="z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
