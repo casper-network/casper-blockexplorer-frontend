@@ -19,6 +19,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     parentHash,
     stateRootHash,
     validatorPublicKey,
+    transactions
   } = block;
 
   const rows = [
@@ -74,6 +75,11 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </>
       ),
     },
+    {
+      key: `transactions-${blockHash}`,
+      detailKey: 'Transactions',
+      value: transactions 
+    }
   ];
 
   return <DetailCard rows={rows} />;
