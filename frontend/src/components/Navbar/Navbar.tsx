@@ -68,7 +68,6 @@ export const Navbar: React.FC = () => {
         </div>
         <button
           type="button"
-          onClick={() => setIsOpened(!isOpened)}
           className={`bg-[#181B38] border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto ${
             isOpened
               ? 'absolute z-10 w-screen mt-20 pb-25 bg-[#181B38] flex flex-col align-items lg:mt-0'
