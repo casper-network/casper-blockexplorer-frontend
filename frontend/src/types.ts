@@ -17,9 +17,9 @@ export type Peer = {
   address: string;
 };
 
-enum DeployStatus {
+export enum DeployStatus {
   Success,
-  Failed
+  Failed,
 }
 
 export type Deploy = {
@@ -29,5 +29,5 @@ export type Deploy = {
   publicKey: string;
   paymentAmount: string;
   cost: string;
-  status: DeployStatus,
-}
+  status: DeployStatus;
+};
