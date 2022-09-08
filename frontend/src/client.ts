@@ -1,40 +1,67 @@
 import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
-import { Block } from './types';
+import { Block, Deploy, DeployStatus, Peer } from './types';
 
 const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
 const DEFAULT_NUM_TO_SHOW = 20;
 
-export const getBlockByHeight = async (height: number) => {
-  return await rpcClient.getBlockInfoByHeight(height).then(getBlockResult => {
-    const { block } = getBlockResult as any;
+export const getBlockByHeight: (height: number) => Promise<Block> = async (
+  height: number,
+) => {
+  return rpcClient.getBlockInfoByHeight(height).then(getBlockResult => {
+    const { block } = getBlockResult;
+
     if (!block) throw Error('Missing block');
 
+    const { hash, header } = block;
+
+    const {
+      timestamp,
+      era_id: eraID,
+      state_root_hash: stateRootHash,
+      parent_hash: parentHash,
+    } = header;
+
+    // there are a few incorrect types coming from the SDK here..
+    const {
+      proposer: validatorPublicKey,
+      deploy_hashes: deployHashes,
+      transfer_hashes: transferHashes,
+    } = (block as any).body;
+
+    // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/restrict-plus-operands
+    const deployCount = deployHashes?.length ?? 0 + transferHashes?.length ?? 0;
+
     return {
-      height: block.header.height,
-      eraID: block.header.era_id,
-      deployCount: block.body.deploy_hashes.length ?? 0 + block.body.transfer_hashes.length ?? 0,
-      timestamp: Date.parse(block.header.timestamp.toString()),
-      hash: block.hash,
-      validatorPublicKey: block.body.proposer,
-    };
+      hash,
+      height,
+      eraID,
+      deployCount,
+      timestamp: Date.parse(timestamp.toString()),
+      validatorPublicKey,
+      stateRootHash,
+      parentHash,
+    } as Block;
   });
 };
 
-export const getCurrentBlockHeight = async () => {
+export const getCurrentBlockHeight: () => Promise<number> = async () => {
   const { block } = await rpcClient.getLatestBlockInfo();
   return block!.header.height;
-}
+};
 
-export const getBlocks = async (fromHeight?: number, numToShow = DEFAULT_NUM_TO_SHOW) => {
-  const currentHeight = fromHeight || await getCurrentBlockHeight();
+export const getBlocks: (
+  fromHeight?: number,
+  numToShow?: number,
+) => Promise<Block[]> = async (fromHeight, numToShow = DEFAULT_NUM_TO_SHOW) => {
+  const currentHeight = fromHeight || (await getCurrentBlockHeight());
 
   const blocks: Block[] = [];
 
   for (let i = currentHeight; i > currentHeight - numToShow; i--) {
     await getBlockByHeight(i)
       .then(block => {
-        blocks.push(block as Block);
+        blocks.push(block);
       })
       .catch(err => {
         console.log('Block By Height Error: ', err);
@@ -52,22 +79,56 @@ export const getAccount = async (publicKeyHex: string) => {
   return result;
 };
 
-export const getBalance = async (uref: string) => {
+export const getBalance: (
+  uref: string,
+) => Promise<string | null> = async uref => {
   const stateRootHash = await rpcClient.getStateRootHash();
   const balance = await rpcClient.getAccountBalance(stateRootHash, uref);
+
   if (balance) {
     return balance.toString();
   }
+
   return null;
-}
-
-export const getDeploy = async (deployHash: string) => {
-  const result = await rpcClient.getDeployInfo(deployHash);
-
-  return result;
 };
 
-export const getBlock = async (blockHash: string) => {
+export const getDeploy: (
+  deployHash: string,
+) => Promise<Deploy | undefined> = async deployHash => {
+  const { deploy, execution_results: executionResults } =
+    await rpcClient.getDeployInfo(deployHash);
+
+  const { header, approvals } = deploy;
+
+  const { timestamp, gas_price: gasPrice } = header;
+
+  const { block_hash: blockHash, result: executionResult } =
+    executionResults[0];
+
+  const { signature: publicKey } = approvals[0];
+
+  const status = executionResult.Success
+    ? DeployStatus.Success
+    : DeployStatus.Failed;
+
+  const cost = executionResult.Success
+    ? executionResult.Success.cost
+    : executionResult.Failure?.cost ?? 0;
+
+  return {
+    timestamp,
+    deployHash,
+    blockHash,
+    publicKey,
+    paymentAmount: gasPrice.toString(),
+    cost: cost.toString(),
+    status,
+  };
+};
+
+export const getBlock: (
+  blockHash: string,
+) => Promise<Block | undefined> = async blockHash => {
   const blockResult = await rpcClient.getBlockInfo(blockHash);
 
   const { block: rawBlockData } = blockResult;
@@ -85,11 +146,13 @@ export const getBlock = async (blockHash: string) => {
   } = header;
 
   // there are a few incorrect types coming from the SDK here..
-  const { proposer: validatorPublicKey, deploy_hashes: deployHashes, transfer_hashes: transferHashes } = (
-    rawBlockData as any
-  ).body;
+  const {
+    proposer: validatorPublicKey,
+    deploy_hashes: deployHashes,
+    transfer_hashes: transferHashes,
+  } = (rawBlockData as any).body;
 
-
+  // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/restrict-plus-operands
   const deployCount = deployHashes?.length ?? 0 + transferHashes?.length ?? 0;
 
   const tailoredBlock = {
@@ -105,13 +168,12 @@ export const getBlock = async (blockHash: string) => {
     parentHash,
   };
 
-  return tailoredBlock as Block;
+  return tailoredBlock;
 };
 
-export const getPeers = async () => {
+export const getPeers: () => Promise<Peer[]> = async () => {
   const { peers } = await rpcClient.getPeers();
 
-  // TODO: Add some underscore->camelcase converter
   return peers.map(p => ({ id: p.node_id, address: p.address }));
 };
 
