@@ -19,6 +19,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     parentHash,
     stateRootHash,
     validatorPublicKey,
+    deployCount,
+    transferHashes,
+    deployHashes,
   } = block;
 
   const rows = [
@@ -72,6 +75,36 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </Link>
           <CopyToClipboard textToCopy={validatorPublicKey} />
         </>
+      ),
+    },
+    {
+      key: `deploys-${blockHash}`,
+      detailKey: 'Deploys',
+      value: deployHashes?.length ? (
+        <ul>
+          {deployHashes?.map(deployHash => (
+            <a key={deployHash} href={`/deploy/${deployHash}`}>
+              <li>{deployHash}</li>
+            </a>
+          ))}
+        </ul>
+      ) : (
+        'No deploys'
+      ),
+    },
+    {
+      key: `transfers-${blockHash}`,
+      detailKey: 'Transfers',
+      value: transferHashes?.length ? (
+        <ul>
+          {transferHashes?.map(transferHash => (
+            <a key={transferHash} href={`/deploy/${transferHash}`}>
+              <li>{transferHash}</li>
+            </a>
+          ))}
+        </ul>
+      ) : (
+        'No transfers'
       ),
     },
   ];

@@ -3,40 +3,38 @@ import { Block } from './types';
 
 const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
-const NUM_TO_SHOW = 20;
+const DEFAULT_NUM_TO_SHOW = 20;
+
+export const getBlockByHeight = async (height: number) => {
+  return await rpcClient.getBlockInfoByHeight(height).then(getBlockResult => {
+    const { block } = getBlockResult as any;
+    if (!block) throw Error('Missing block');
+
+    return {
+      height: block.header.height,
+      eraID: block.header.era_id,
+      deployCount: block.body.deploy_hashes.length ?? 0 + block.body.transfer_hashes.length ?? 0,
+      timestamp: Date.parse(block.header.timestamp.toString()),
+      hash: block.hash,
+      validatorPublicKey: block.body.proposer,
+    };
+  });
+};
 
 export const getCurrentBlockHeight = async () => {
   const { block } = await rpcClient.getLatestBlockInfo();
-  const currentHeight = block!.header.height;
+  return block!.header.height;
+}
 
-  return currentHeight;
-};
-
-export const getBlocks = async () => {
-  const currentHeight = await getCurrentBlockHeight();
+export const getBlocks = async (fromHeight?: number, numToShow = DEFAULT_NUM_TO_SHOW) => {
+  const currentHeight = fromHeight || await getCurrentBlockHeight();
 
   const blocks: Block[] = [];
 
-  for (let i = currentHeight; i > currentHeight - NUM_TO_SHOW; i--) {
-    await rpcClient
-      .getBlockInfoByHeight(i)
-      .then(getBlockResult => {
-        const { block } = getBlockResult;
-
-        if (!block) throw Error('Missing block');
-
-        // TODO: update typing to include body
-        const blockBody = (block as any).body;
-
-        blocks.push({
-          height: block.header.height,
-          eraID: block.header.era_id,
-          transactions: blockBody.deploy_hashes.length ?? 0,
-          timestamp: Date.parse(block.header.timestamp.toString()),
-          hash: block.hash,
-          validatorPublicKey: blockBody.proposer,
-          parentHash: blockBody.parent_hash,
-        });
+  for (let i = currentHeight; i > currentHeight - numToShow; i--) {
+    await getBlockByHeight(i)
+      .then(block => {
+        blocks.push(block as Block);
       })
       .catch(err => {
         console.log('Block By Height Error: ', err);
@@ -53,6 +51,15 @@ export const getAccount = async (publicKeyHex: string) => {
 
   return result;
 };
+
+export const getBalance = async (uref: string) => {
+  const stateRootHash = await rpcClient.getStateRootHash();
+  const balance = await rpcClient.getAccountBalance(stateRootHash, uref);
+  if (balance) {
+    return balance.toString();
+  }
+  return null;
+}
 
 export const getDeploy = async (deployHash: string) => {
   const result = await rpcClient.getDeployInfo(deployHash);
@@ -78,9 +85,12 @@ export const getBlock = async (blockHash: string) => {
   } = header;
 
   // there are a few incorrect types coming from the SDK here..
-  const { proposer: validatorPublicKey, deploy_hashes: deployHashes } = (
+  const { proposer: validatorPublicKey, deploy_hashes: deployHashes, transfer_hashes: transferHashes } = (
     rawBlockData as any
   ).body;
+
+
+  const deployCount = deployHashes?.length ?? 0 + transferHashes?.length ?? 0;
 
   const tailoredBlock = {
     timestamp,
@@ -88,7 +98,9 @@ export const getBlock = async (blockHash: string) => {
     eraID,
     hash,
     validatorPublicKey,
-    transactions: deployHashes?.length ?? 0,
+    deployCount,
+    transferHashes,
+    deployHashes,
     stateRootHash,
     parentHash,
   };

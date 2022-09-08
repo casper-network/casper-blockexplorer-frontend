@@ -12,6 +12,7 @@ import { getBlocks, getPeers } from './client';
 const Blocks: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   useAsyncEffect(async () => {
     const rawBlocks = await getBlocks();
     setBlocks(rawBlocks);

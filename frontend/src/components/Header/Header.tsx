@@ -18,8 +18,9 @@ export const Header: React.FC = () => {
     if (filter === 'account') {
       navigate(`/account/${trimmedValue}`);
     } else if (filter === 'deploy') {
-      console.log('deploy');
       navigate(`/deploy/${trimmedValue}`);
+    } else if (filter === 'block') {
+      navigate(`/block/${trimmedValue}`);
     } else {
       alert('Wrong value');
     }
@@ -49,7 +50,8 @@ export const Header: React.FC = () => {
             <option value="account" defaultValue={''}>
               Account
             </option>
-            <option value="deploy">Deploy</option>
+            <option value="deploy">Deploy Hash</option>
+            <option value="block">Block Hash</option>
           </select>
           <input
             value={search}
@@ -58,7 +60,6 @@ export const Header: React.FC = () => {
             id="search"
             className="block p-4 pl-20 w-200 text-xs  text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none 
              xxs:w-400 xxs:text-sm xxs:pr-32"
-            placeholder="Public Key or Deploy Hash"
             required
           />
 
