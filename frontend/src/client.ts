@@ -3,7 +3,7 @@ import { Block } from './types';
 
 const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
-const NUM_TO_SHOW = 20;
+const DEFAULT_NUM_TO_SHOW = 20;
 
 export const getBlockByHeight = async (height: number) => {
   return await rpcClient.getBlockInfoByHeight(height).then(getBlockResult => {
@@ -25,15 +25,15 @@ export const getCurrentBlockHeight = async () => {
   return block!.header.height;
 }
 
-export const getBlocks = async () => {
-  const currentHeight = await getCurrentBlockHeight();
+export const getBlocks = async (fromHeight?: number, numToShow = DEFAULT_NUM_TO_SHOW) => {
+  const currentHeight = fromHeight || await getCurrentBlockHeight();
 
   const blocks: Block[] = [];
 
-  for (let i = currentHeight; i > currentHeight - NUM_TO_SHOW; i--) {
+  for (let i = currentHeight; i > currentHeight - numToShow; i--) {
     await getBlockByHeight(i)
       .then(block => {
-        blocks.push(block);
+        blocks.push(block as Block);
       })
       .catch(err => {
         console.log('Block By Height Error: ', err);
@@ -55,6 +55,44 @@ export const getDeploy = async (deployHash: string) => {
   const result = await rpcClient.getDeployInfo(deployHash);
 
   return result;
+};
+
+export const getBlock = async (blockHash: string) => {
+  const blockResult = await rpcClient.getBlockInfo(blockHash);
+
+  const { block: rawBlockData } = blockResult;
+
+  if (!rawBlockData) return;
+
+  const { hash, header } = rawBlockData;
+
+  const {
+    timestamp,
+    height,
+    era_id: eraID,
+    state_root_hash: stateRootHash,
+    parent_hash: parentHash,
+  } = header;
+
+  // there are a few incorrect types coming from the SDK here..
+  const { proposer: validatorPublicKey, deploy_hashes: deployHashes, transfer_hashes: transferHashes } = (
+    rawBlockData as any
+  ).body;
+
+  const transactionsCount = deployHashes?.length ?? 0 + transferHashes?.length ?? 0;
+
+  const tailoredBlock = {
+    timestamp,
+    height,
+    eraID,
+    hash,
+    validatorPublicKey,
+    transactions: transactionsCount,
+    stateRootHash,
+    parentHash,
+  };
+
+  return tailoredBlock as Block;
 };
 
 export const getPeers = async () => {
