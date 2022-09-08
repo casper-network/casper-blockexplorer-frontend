@@ -63,7 +63,6 @@ export const getBalance = async (uref: string) => {
 
 export const getDeploy = async (deployHash: string) => {
   const result = await rpcClient.getDeployInfo(deployHash);
-  console.log(result);
 
   return result;
 };
