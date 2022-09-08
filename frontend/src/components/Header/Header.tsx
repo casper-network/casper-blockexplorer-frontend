@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/images/logo.png';
+import { useNavigate, Link } from 'react-router-dom';
+
 import { Navbar } from '../Navbar/Navbar';
+import logo from '../../assets/images/logo.png';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -29,12 +30,14 @@ export const Header: React.FC = () => {
     <div className="bg-[#171B38]">
       <Navbar />
       <div className="flex flex-row justify-center pb-35 pt-20 xxs:pt-50 xxs:py-50 xmd:h-155 lg:flex-col lg:justify-center lg:pl-50">
-        <div className="flex flex-row">
-          <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
-          <h1 className="text-white text-21 xxs:text-24 xxs:pt-6  lg:pl-15">
-            Casper BlockExplorer
-          </h1>
-        </div>
+        <Link to="/" className="no-underline hover:no-underline">
+          <div className="flex flex-row">
+            <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
+            <h1 className="text-white text-21 xxs:text-24 xxs:pt-6  lg:pl-15">
+              Casper BlockExplorer
+            </h1>
+          </div>
+        </Link>
       </div>
       <form>
         <label htmlFor="default-search" className="sr-only">
