@@ -24,13 +24,13 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const closeDropdown = () => {
-      if (window.innerWidth > 1023) {
+      if (windowWidth > 1024) {
         setIsOpened(false);
       }
     };
 
     window.addEventListener('resize', closeDropdown);
-  }, []);
+  }, [windowWidth]);
 
   return (
     <nav className="z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
