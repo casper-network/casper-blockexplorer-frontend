@@ -12,18 +12,6 @@ const navItems = [
     path: '/',
   },
   {
-    title: 'Deploys',
-    path: '/deploys',
-  },
-  {
-    title: 'Blocks',
-    path: '/blocks',
-  },
-  {
-    title: 'Accounts',
-    path: '/accounts',
-  },
-  {
     title: 'Peers',
     path: '/peers',
   },
