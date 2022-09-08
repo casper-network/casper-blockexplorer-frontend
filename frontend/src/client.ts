@@ -9,10 +9,11 @@ export const getBlockByHeight = async (height: number) => {
   return await rpcClient.getBlockInfoByHeight(height).then(getBlockResult => {
     const { block } = getBlockResult as any;
     if (!block) throw Error('Missing block');
+
     return {
       height: block.header.height,
       eraID: block.header.era_id,
-      transactions: block.body.deploy_hashes.length ?? 0,
+      deployCount: block.body.deploy_hashes.length ?? 0 + block.body.transfer_hashes.length ?? 0,
       timestamp: Date.parse(block.header.timestamp.toString()),
       hash: block.hash,
       validatorPublicKey: block.body.proposer,
@@ -79,7 +80,8 @@ export const getBlock = async (blockHash: string) => {
     rawBlockData as any
   ).body;
 
-  const transactionsCount = deployHashes?.length ?? 0 + transferHashes?.length ?? 0;
+
+  const deployCount = deployHashes?.length ?? 0 + transferHashes?.length ?? 0;
 
   const tailoredBlock = {
     timestamp,
@@ -87,7 +89,9 @@ export const getBlock = async (blockHash: string) => {
     eraID,
     hash,
     validatorPublicKey,
-    transactions: transactionsCount,
+    deployCount,
+    transferHashes,
+    deployHashes,
     stateRootHash,
     parentHash,
   };

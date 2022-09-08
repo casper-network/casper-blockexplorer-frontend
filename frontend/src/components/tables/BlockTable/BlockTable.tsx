@@ -13,7 +13,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
   const blockTableTitles = [
     'Block Height',
     'Era',
-    'Deploys',
+    'Deploy',
     'Age',
     'Block Hash',
     'Validator',
@@ -24,12 +24,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
   });
 
   const blockRows = blocks.map(
-    ({ height, eraID, transactions, timestamp, hash, validatorPublicKey }) => {
+    ({ height, eraID, deployCount, timestamp, hash, validatorPublicKey }) => {
       const key = `${hash}-${timestamp}`;
       const items = [
         { content: height, key: `${key}-hash` },
         { content: eraID, key: `${key}-era` },
-        { content: transactions, key: `${key}-deploys` },
+        { content: deployCount, key: `${key}-deploys` },
         { content: timestamp, key: `${key}-age` },
         {
           content: (

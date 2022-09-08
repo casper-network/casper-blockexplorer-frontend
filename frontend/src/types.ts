@@ -1,7 +1,9 @@
 export type Block = {
   height: number;
   eraID: number;
-  transactions: number;
+  deployCount: number;
+  deployHashes?: string[];
+  transferHashes?: string[];
   timestamp: number;
   hash: string;
   validatorPublicKey: string;

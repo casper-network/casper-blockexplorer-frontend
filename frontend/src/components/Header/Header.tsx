@@ -60,7 +60,6 @@ export const Header: React.FC = () => {
             id="search"
             className="block p-4 pl-20 w-200 text-xs  text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none 
              xxs:w-400 xxs:text-sm xxs:pr-32"
-            placeholder="Public Key or Deploy Hash"
             required
           />
 
