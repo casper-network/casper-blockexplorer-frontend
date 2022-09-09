@@ -1,3 +1,10 @@
+export type Account = {
+  trimmedAccountHash: string;
+  rawAccountHash: string;
+  publicKey: string;
+  mainPurse: string;
+}
+
 export type Block = {
   height: number;
   eraID: number;
