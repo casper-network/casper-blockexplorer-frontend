@@ -7,17 +7,23 @@ import { Table } from '../../base';
 
 interface BlockTableProps {
   readonly blocks: Block[];
+  readonly showValidators: boolean;
 }
 
-export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
+export const BlockTable: React.FC<BlockTableProps> = ({
+  blocks,
+  showValidators,
+}) => {
   const blockTableTitles = [
     'Block Height',
     'Era',
     'Deploy',
     'Age',
     'Block Hash',
-    'Validator',
   ];
+  if (showValidators) {
+    blockTableTitles.push('Validators');
+  }
 
   const blockTableHeads = blockTableTitles.map(title => {
     return { title: <p className="font-bold">{title}</p>, key: title };
@@ -26,6 +32,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
   const blockRows = blocks.map(
     ({ height, eraID, deployCount, timestamp, hash, validatorPublicKey }) => {
       const key = `${hash}-${timestamp}`;
+
       const items = [
         { content: height, key: `${key}-hash` },
         { content: eraID, key: `${key}-era` },
@@ -45,21 +52,26 @@ export const BlockTable: React.FC<BlockTableProps> = ({ blocks }) => {
           ),
           key: `${key}-block-hash`,
         },
-        {
-          content: (
-            <>
-              <Link
-                to={{
-                  pathname: `/validator/${validatorPublicKey}`,
-                }}>
-                {truncateHash(validatorPublicKey)}
-              </Link>
-              <CopyToClipboard textToCopy={validatorPublicKey} />
-            </>
-          ),
-          key: `${key}-validator`,
-        },
       ];
+
+      const validatorColumn = {
+        content: (
+          <>
+            <Link
+              to={{
+                pathname: `/validator/${validatorPublicKey}`,
+              }}>
+              {truncateHash(validatorPublicKey)}
+            </Link>
+            <CopyToClipboard textToCopy={validatorPublicKey} />
+          </>
+        ),
+        key: `${key}-validator`,
+      };
+
+      if (showValidators) {
+        items.push(validatorColumn);
+      }
 
       return { items, key };
     },
