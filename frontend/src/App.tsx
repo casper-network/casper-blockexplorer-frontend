@@ -53,7 +53,6 @@ const Home = () => {
     <div>
       <div>
         <Blocks />
-        {/* <Peers /> */}
       </div>
     </div>
   );
