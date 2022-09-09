@@ -85,7 +85,7 @@ export const getAccount: (
   
   if (!Account) return;
 
-  return { accountHash: accountHash.slice(13), publicKey: publicKeyHex, mainPurse: Account.mainPurse};
+  return { rawAccountHash: accountHash, trimmedAccountHash: accountHash.slice(13), publicKey: publicKeyHex, mainPurse: Account.mainPurse};
 };
 
 export const getBalance: (
