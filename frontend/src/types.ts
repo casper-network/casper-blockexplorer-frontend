@@ -1,3 +1,9 @@
+export type Account = {
+  accountHash: string;
+  publicKey: string;
+  mainPurse: string;
+}
+
 export type Block = {
   height: number;
   eraID: number;
