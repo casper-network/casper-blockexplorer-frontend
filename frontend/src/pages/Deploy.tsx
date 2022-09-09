@@ -26,8 +26,6 @@ export const DeployPage: React.FC = () => {
     }
   }, [deployHash]);
 
-  console.log(deployHash);
-
   if (!deployHash) {
     return (
       <div>
