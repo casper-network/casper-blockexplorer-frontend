@@ -100,28 +100,22 @@ export const getDeploy: (
 
   const { header, approvals } = deploy;
 
-  const { timestamp, gas_price: gasPrice } = header;
+  const { timestamp } = header;
 
   const { block_hash: blockHash, result: executionResult } =
     executionResults[0];
 
-  const { signature: publicKey } = approvals[0];
+  const { signer: publicKey } = approvals[0];
 
   const status = executionResult.Success
     ? DeployStatus.Success
     : DeployStatus.Failed;
-
-  const cost = executionResult.Success
-    ? executionResult.Success.cost
-    : executionResult.Failure?.cost ?? 0;
 
   return {
     timestamp,
     deployHash,
     blockHash,
     publicKey,
-    paymentAmount: gasPrice.toString(),
-    cost: cost.toString(),
     status,
   };
 };
