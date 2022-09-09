@@ -19,8 +19,8 @@ export const AccountPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (data) {
-      const balance = await getBalance(data.Account?.mainPurse);
-      setBalance(balance);
+      const balanceData = await getBalance(data.Account?.mainPurse);
+      setBalance(balanceData);
     }
   }, [data]);
 
@@ -28,7 +28,7 @@ export const AccountPage: React.FC = () => {
     <div>
       <h2>Account</h2>
       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
-      {balance && <>Balance: {balance} motes</> }
+      {balance && <>Balance: {balance} motes</>}
     </div>
   );
 };
