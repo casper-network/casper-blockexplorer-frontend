@@ -1,6 +1,4 @@
-import { BalanceServiceByJsonRPC } from 'casper-js-sdk';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Account } from '../../../types';
 import { DetailCard } from '../../base';
 import { CopyToClipboard } from '../../utility';
@@ -14,21 +12,21 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
 }) => {
-  const { accountHash, publicKey } = account;
+  const { trimmedAccountHash, publicKey } = account;
 
   const rows = [
     {
-      key: `${accountHash}`,
+      key: `accountHash-${trimmedAccountHash}`,
       detailKey: 'Account Hash',
       value: (
         <>
-          <p>{accountHash}</p>
-          <CopyToClipboard textToCopy={accountHash} />
+          <p>{trimmedAccountHash}</p>
+          <CopyToClipboard textToCopy={trimmedAccountHash} />
         </>
       ),
     },
     {
-      key: `${publicKey}`,
+      key: `publicKey-${publicKey}`,
       detailKey: 'Public Key',
       value: (
         <>
@@ -38,7 +36,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       ),
     },
     {
-      key: `${balance}`,
+      key: `balance-${balance}`,
       detailKey: 'Balance',
       value: (
         <>
