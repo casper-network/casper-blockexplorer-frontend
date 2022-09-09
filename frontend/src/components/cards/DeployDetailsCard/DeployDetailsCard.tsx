@@ -11,13 +11,11 @@ export interface DeployDetailsCardProps {
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
 }) => {
-  const { timestamp, deployHash, blockHash, publicKey } = deploy;
-
-  // console.log(deploy);
+  const { timestamp, deployHash, blockHash, publicKey, status } = deploy;
 
   const rows = [
     {
-      key: `timestamp-${deploy.timestamp}`,
+      key: `timestamp-${timestamp}`,
       detailKey: 'Timestamp',
       value: timestamp,
     },
@@ -32,28 +30,33 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       ),
     },
     {
-      key: `blockHash-${deployHash}`,
+      key: `blockHash-${blockHash}`,
       detailKey: 'Block Hash',
       value: (
         <>
-          <Link to="">
+          <Link to={`/block/${blockHash}`}>
             <p>{blockHash}</p>
-            <CopyToClipboard textToCopy={blockHash} />
           </Link>
+          <CopyToClipboard textToCopy={blockHash} />
         </>
       ),
     },
     {
-      key: `publicKey-${deployHash}`,
+      key: `publicKey-${publicKey}`,
       detailKey: 'Public Key',
       value: (
         <>
-          <Link to="">
+          <Link to={`/account/${publicKey}`}>
             <p>{publicKey}</p>
-            <CopyToClipboard textToCopy={publicKey} />
           </Link>
+          <CopyToClipboard textToCopy={publicKey} />
         </>
       ),
+    },
+    {
+      key: `status-${status}`,
+      detailKey: 'Status',
+      value: status,
     },
   ];
 
