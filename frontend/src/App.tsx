@@ -23,11 +23,7 @@ const Blocks: React.FC = () => {
     <div>
       <div className="px-20 bg-light-grey py-20">
         <h2 className="text-24 mb-25">Blocks</h2>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <BlockTable blocks={blocks} showValidators={true} />
-        )}
+        {isLoading ? <Loader /> : <BlockTable blocks={blocks} showValidators />}
       </div>
     </div>
   );
