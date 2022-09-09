@@ -22,7 +22,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     'Block Hash',
   ];
   if (showValidators) {
-    blockTableTitles.push('Validators');
+    blockTableTitles.push('Validator');
   }
 
   const blockTableHeads = blockTableTitles.map(title => {
