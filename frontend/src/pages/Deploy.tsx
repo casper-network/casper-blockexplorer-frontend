@@ -22,7 +22,7 @@ export const DeployPage: React.FC = () => {
         return;
       }
 
-      // setDeploy(deployData);
+      setDeploy(deployData);
     }
   }, [deployHash]);
 
@@ -38,7 +38,7 @@ export const DeployPage: React.FC = () => {
 
   if (!deploy) {
     return (
-      <div className="w-full px-48 my-24">
+      <div className="bg-light-grey w-full px-48 my-24">
         <div className="w-full max-w-1200">
           <Loader />
         </div>
@@ -47,7 +47,7 @@ export const DeployPage: React.FC = () => {
   }
 
   if (error) {
-    <div className="w-full px-48 my-24">
+    <div className="bg-light-grey w-full px-48 my-24">
       <div className="w-full max-w-1200">
         <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
         <p>We were unable to fetch block with hash:</p>
@@ -59,7 +59,7 @@ export const DeployPage: React.FC = () => {
   const truncatedDeployHash = truncateHash(deployHash);
 
   return (
-    <div className="w-full px-48 my-24">
+    <div className="bg-light-grey w-full px-48 pt-20 pl-20">
       <div className="w-full max-w-1200">
         <div className="w-full text-black mb-24">
           <h2 className="text-24 mb-16">
@@ -74,21 +74,3 @@ export const DeployPage: React.FC = () => {
     </div>
   );
 };
-// export const DeployPage: React.FC = () => {
-//   const params = useParams();
-//   const [data, setData] = useState<any>(null);
-
-//   useAsyncEffect(async () => {
-//     if (params.id) {
-//       const fetchedData = await getDeploy(params.id);
-//       setData(fetchedData);
-//     }
-//   }, [params.id]);
-
-//   return (
-//     <div>
-//       <h2>Deploy</h2>
-//       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
-//     </div>
-//   );
-// };
