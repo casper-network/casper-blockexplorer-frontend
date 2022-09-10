@@ -1,5 +1,5 @@
 import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
-import { Block, Deploy, DeployStatus, Peer } from './types';
+import { Account, Block, Deploy, DeployStatus, Peer } from './types';
 
 const rpcClient = new CasperServiceByJsonRPC('/node-rpc/');
 
@@ -71,12 +71,21 @@ export const getBlocks: (
   return blocks;
 };
 
-export const getAccount = async (publicKeyHex: string) => {
+export const getAccount: (
+  publicKeyHex: string,
+) => Promise<Account | void> = async publicKeyHex => {
   const stateRootHash = await rpcClient.getStateRootHash();
   const accountHash = CLPublicKey.fromHex(publicKeyHex).toAccountHashStr();
-  const result = await rpcClient.getBlockState(stateRootHash, accountHash, []);
+  
+  const { Account } = await rpcClient.getBlockState(
+    stateRootHash,
+    accountHash,
+    [],
+  );
+  
+  if (!Account) return;
 
-  return result;
+  return { rawAccountHash: accountHash, trimmedAccountHash: accountHash.slice(13), publicKey: publicKeyHex, mainPurse: Account.mainPurse};
 };
 
 export const getBalance: (
