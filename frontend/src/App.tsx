@@ -21,7 +21,7 @@ const Blocks: React.FC = () => {
 
   return (
     <div>
-      <div className="px-20 bg-light-grey py-20">
+      <div className="bg-light-grey px-20 py-20">
         <h2 className="text-24 mb-25">Blocks</h2>
         {isLoading ? <Loader /> : <BlockTable blocks={blocks} />}
       </div>
@@ -40,7 +40,7 @@ const Peers = () => {
 
   return (
     <div>
-      <div className="px-20 bg-light-grey py-20">
+      <div className="bg-light-grey px-20 py-20">
         <h2 className="text-24 mb-25">Connected Peers</h2>
         {isLoading ? <Loader /> : <PeerTable peers={peers} />}
       </div>
