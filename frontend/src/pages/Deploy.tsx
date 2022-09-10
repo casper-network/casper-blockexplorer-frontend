@@ -36,10 +36,8 @@ export const DeployPage: React.FC = () => {
 
   if (!deploy) {
     return (
-      <div className="bg-light-grey w-full px-48 my-24">
-        <div className="w-full max-w-1200">
-          <Loader />
-        </div>
+      <div className="w-full max-w-1200">
+        <Loader />
       </div>
     );
   }
