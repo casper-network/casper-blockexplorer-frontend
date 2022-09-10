@@ -43,7 +43,7 @@ export const DeployPage: React.FC = () => {
   }
 
   if (error) {
-    <div className="bg-light-grey w-full px-48 my-24">
+    <div className="w-full px-48 my-24">
       <div className="w-full max-w-1200">
         <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
         <p>We were unable to fetch block with hash:</p>
@@ -55,7 +55,7 @@ export const DeployPage: React.FC = () => {
   const truncatedDeployHash = truncateHash(deployHash);
 
   return (
-    <div className="bg-light-grey w-full px-48 pt-20 pl-20">
+    <div className=" w-full px-48 pt-20 pl-20">
       <div className="w-full max-w-1200">
         <div className="w-full text-black mb-24">
           <h2 className="text-24 mb-16">

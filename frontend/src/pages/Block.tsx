@@ -28,7 +28,7 @@ export const BlockPage: React.FC = () => {
 
   if (!blockHash) {
     return (
-      <div className="w-full px-48 my-24">
+      <div className=" w-full px-48 my-24">
         <div className="w-full max-w-1200">
           <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
           <p>Please check if your url includes a block hash.</p>
@@ -39,7 +39,7 @@ export const BlockPage: React.FC = () => {
 
   if (!block) {
     return (
-      <div className="w-full px-48 my-24">
+      <div className=" w-full px-48 my-24">
         <div className="w-full max-w-1200">
           <Loader />
         </div>
@@ -48,7 +48,7 @@ export const BlockPage: React.FC = () => {
   }
 
   if (error) {
-    <div className="w-full px-48 my-24">
+    <div className=" w-full px-48 my-24">
       <div className="w-full max-w-1200">
         <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
         <p>We were unable to fetch block with hash:</p>
