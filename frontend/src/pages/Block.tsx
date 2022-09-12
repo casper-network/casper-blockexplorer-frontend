@@ -55,7 +55,7 @@ export const BlockPage: React.FC = () => {
     </div>;
   }
 
-  // const truncatedBlockHash = truncateHash(blockHash);
+  const truncatedBlockHash = truncateHash(blockHash);
 
   return (
     <div className="w-full h-[75vh] px-48 mt-24">
@@ -63,7 +63,7 @@ export const BlockPage: React.FC = () => {
         <div className="w-full text-black mb-24">
           <h2 className="text-24 mb-16">
             Block:{' '}
-            {/* <span className="tracking-2 font-normal">{truncatedBlockHash}</span> */}
+            <span className="tracking-2 font-normal">{truncatedBlockHash}</span>
           </h2>
         </div>
         <BlockDetailsCard block={block} />
