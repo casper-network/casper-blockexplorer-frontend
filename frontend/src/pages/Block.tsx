@@ -39,16 +39,14 @@ export const BlockPage: React.FC = () => {
 
   if (!block) {
     return (
-      <div className=" w-full px-48 my-24">
-        <div className="w-full max-w-1200">
-          <Loader />
-        </div>
+      <div className="w-full h-[75vh] px-48 mt-24">
+        <Loader />
       </div>
     );
   }
 
   if (error) {
-    <div className=" w-full px-48 my-24">
+    <div className=" w-full h-[75vh] px-48 mt-24">
       <div className="w-full max-w-1200">
         <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
         <p>We were unable to fetch block with hash:</p>
@@ -57,15 +55,15 @@ export const BlockPage: React.FC = () => {
     </div>;
   }
 
-  const truncatedBlockHash = truncateHash(blockHash);
+  // const truncatedBlockHash = truncateHash(blockHash);
 
   return (
-    <div className="w-full px-48 my-24">
+    <div className="w-full h-[75vh] px-48 mt-24">
       <div className="w-full max-w-1200">
         <div className="w-full text-black mb-24">
           <h2 className="text-24 mb-16">
             Block:{' '}
-            <span className="tracking-2 font-normal">{truncatedBlockHash}</span>
+            {/* <span className="tracking-2 font-normal">{truncatedBlockHash}</span> */}
           </h2>
         </div>
         <BlockDetailsCard block={block} />
