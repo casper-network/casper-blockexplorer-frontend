@@ -60,7 +60,7 @@ const Home = () => {
 
 const App = () => {
   return (
-    <div className="bg-pink-600">
+    <div className="bg-light-grey">
       <BrowserRouter>
         <Header />
         <Routes>
