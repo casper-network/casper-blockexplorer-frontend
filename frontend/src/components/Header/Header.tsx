@@ -15,8 +15,19 @@ export const Header: React.FC = () => {
   const submitValue = () => {
     const trimmedValue = search.trim();
 
+    const isHexadecimal = /^[A-F0-9]+$/i.test(search);
+
+    if (!trimmedValue || !isHexadecimal) {
+      alert(`Please enter a valid ${filter} key'`);
+    }
+
+    // if (!/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(publicKeyHex)) {
+
     // TODO: Move this magic strings to some constant variables
-    if (filter === 'account') {
+    else if (
+      filter === 'account' &&
+      !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)
+    ) {
       navigate(`/account/${trimmedValue}`);
     } else if (filter === 'deploy') {
       navigate(`/deploy/${trimmedValue}`);
