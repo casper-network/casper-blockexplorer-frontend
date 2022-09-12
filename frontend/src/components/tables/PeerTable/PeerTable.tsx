@@ -16,8 +16,8 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
   const peerRows = peers.map(({ id, address }) => {
     const key = id;
     const items = [
-      { content: id, key: id },
-      { content: address, key: id },
+      { content: id, key: `id-${id}` },
+      { content: address, key: `address-${id}` },
     ];
 
     return { items, key };
