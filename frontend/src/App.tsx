@@ -21,7 +21,7 @@ const Blocks: React.FC = () => {
 
   return (
     <div>
-      <div className="px-20 bg-light-grey py-20">
+      <div className="px-20 py-20">
         <h2 className="text-24 mb-25">Blocks</h2>
         {isLoading ? <Loader /> : <BlockTable blocks={blocks} showValidators />}
       </div>
@@ -40,7 +40,7 @@ const Peers = () => {
 
   return (
     <div>
-      <div className="px-20 bg-light-grey py-20">
+      <div className="px-20 py-20">
         <h2 className="text-24 mb-25">Connected Peers</h2>
         {isLoading ? <Loader /> : <PeerTable peers={peers} />}
       </div>
@@ -60,16 +60,18 @@ const Home = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/peers" element={<Peers />} />
-        <Route path="/account/:id" element={<AccountPage />} />
-        <Route path="/deploy/:id" element={<DeployPage />} />
-        <Route path="/block/:id" element={<BlockPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="bg-light-grey grid min-h-screen grid-rows-layout">
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/peers" element={<Peers />} />
+          <Route path="/account/:id" element={<AccountPage />} />
+          <Route path="/deploy/:id" element={<DeployPage />} />
+          <Route path="/block/:id" element={<BlockPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 

@@ -28,13 +28,13 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#171B38]">
+    <div>
       <Navbar />
-      <div className="flex flex-row justify-center pb-35 pt-20 xxs:pt-50 xxs:py-50 xmd:h-155 lg:flex-col lg:justify-center lg:pl-50">
-        <Link to="/" className="no-underline hover:no-underline">
+      <div className="bg-casper-blue flex flex-row justify-center pb-25 xxs:pb-35 pt-20 xxs:pt-50 xxs:py-50 xmd:h-155 lg:flex-col lg:justify-center lg:pl-50">
+        <Link style={{ textDecoration: 'none' }} to="/">
           <div className="flex flex-row">
             <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
-            <h1 className="text-white text-21 xxs:text-24 xxs:pt-6  lg:pl-15">
+            <h1 className="text-white text-21 xxs:text-24 xxs:pt-6 lg:pl-15 ">
               Casper BlockExplorer
             </h1>
           </div>
@@ -44,10 +44,10 @@ export const Header: React.FC = () => {
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div className="flex relative justify-center  pl-10 pb-30 xmd:pl-30 lg:pt-20">
+        <div className="bg-casper-blue flex relative justify-center  pl-10 pb-40 xmd:pl-30 lg:pt-20">
           <select
             onChange={ev => setFilter(ev.target.value)}
-            className="relative left-10 w-75 h-30 text-center rounded-r-none bg-[#FF0013] rounded-lg border-none text-white text-bold focus:outline-none text-xs xxs:text-sm xxs:w-95"
+            className="relative left-10 w-90 h-30 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-xs xxs:text-sm xxs:w-105"
             name=""
             id="">
             <option value="account" defaultValue={''}>
@@ -61,15 +61,14 @@ export const Header: React.FC = () => {
             onChange={ev => setSearch(ev.target.value)}
             type="search"
             id="search"
-            className="block p-4 pl-20 w-200 text-xs  text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none 
+            className="block p-4 pl-20 w-175 text-xs text-gray-900 bg-gray-50 rounded-lg  border-1 border-solid border-gray-400 focus:outline-none 
              xxs:w-400 xxs:text-sm xxs:pr-32"
             required
           />
-
           <button
             onClick={submitValue}
             type="submit"
-            className="bg-[#FF0013] relative right-20 hover:bg-red-400 focus:outline-none  font-medium rounded-r-lg border-none">
+            className="bg-casper-red relative right-20 hover:bg-red-400 focus:outline-none  font-medium rounded-r-lg border-none">
             <svg
               aria-hidden="true"
               className="w-20 h-20 text-white pt-5"
