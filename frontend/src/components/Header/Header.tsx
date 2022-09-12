@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="bg-casper-blue flex flex-row justify-center pb-25 xxs:pb-35 pt-20 xxs:pt-50 xxs:py-50 xmd:h-155 lg:flex-col lg:justify-center lg:pl-50">
+      <div className="bg-casper-blue flex flex-row justify-center py-50 lg:absolute lg:left-0 lg:top-0 lg:pt-20 lg:pl-50">
         <Link style={{ textDecoration: 'none' }} to="/">
           <div className="flex flex-row">
             <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
