@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Loader: React.FC = () => {
   return (
-    <div className="h-[55vh]">
+    <div>
       <div
         className="flex justify-center mt-75"
         aria-label="Loading..."

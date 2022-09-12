@@ -60,7 +60,7 @@ const Home = () => {
 
 const App = () => {
   return (
-    <div className="bg-light-grey  grid min-h-screen grid-rows-layout">
+    <div className="bg-light-grey grid min-h-screen grid-rows-layout">
       <BrowserRouter>
         <Header />
         <Routes>

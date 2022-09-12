@@ -36,7 +36,7 @@ export const AccountPage: React.FC = () => {
 
   if (!accountHash) {
     return (
-      <div className="w-full h-[75vh] px-48 mt-24">
+      <div className="w-full px-48 mt-24">
         <div className="w-full max-w-1200">
           <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
           <p>Please check if your url includes an account hash.</p>

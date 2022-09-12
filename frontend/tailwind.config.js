@@ -48,7 +48,7 @@ const colors = {
   grey: '#828282',
   'light-grey': 'rgb(245, 245, 247)',
   //Theme Colors
-  'casper-blue': '#FF0013',
+  'casper-blue': '#171B38',
   'casper-red': '#FF0013',
 };
 
@@ -320,6 +320,10 @@ const allVariants = [
   'disabled',
 ];
 
+const gridTemplateRows = {
+  layout: 'auto 1fr',
+};
+
 module.exports = {
   prefix: '', // only edit if you absolutely must
   important: false, // not recommended to use important
@@ -375,6 +379,7 @@ module.exports = {
       textColor,
       transform,
       translate,
+      gridTemplateRows,
     },
   },
 

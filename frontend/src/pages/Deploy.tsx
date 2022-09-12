@@ -36,7 +36,7 @@ export const DeployPage: React.FC = () => {
 
   if (!deploy) {
     return (
-      <div className="w-full h-[75vh] px-48 mt-24">
+      <div className="w-full px-48 mt-24">
         <Loader />
       </div>
     );
