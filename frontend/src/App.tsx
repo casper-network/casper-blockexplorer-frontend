@@ -26,7 +26,7 @@ const Blocks: React.FC = () => {
   const isLoading = blockLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
-    if (Loading.Idle === blockLoadingStatus) {
+    if (blockLoadingStatus === Loading.Idle) {
       dispatch(fetchBlocks());
     }
   }, []);
@@ -50,7 +50,7 @@ const Peers = () => {
   const isLoading = peerLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
-    if (Loading.Idle === peerLoadingStatus) {
+    if (peerLoadingStatus === Loading.Idle) {
       dispatch(fetchPeers());
     }
   }, []);
