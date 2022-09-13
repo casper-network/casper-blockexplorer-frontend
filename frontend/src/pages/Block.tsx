@@ -14,21 +14,22 @@ export const BlockPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (blockHash) {
-      const blockData = await casperApi.getBlock(blockHash);
+      try {
+        const blockData = await casperApi.getBlock(blockHash);
 
-      if (!blockData) {
+        if (!blockData) {
+          setError({
+            message: `We were unable to locate block data for hash ${blockHash}`,
+          });
+          return;
+        }
+
+        setBlock(blockData);
+      } catch (err: any) {
         setError({
-          message: `We were unable to locate Account data for hash ${blockHash}`,
+          message: (err as Error).message,
         });
-        return;
       }
-
-      setBlock(blockData);
-    } else {
-      setError({
-        message:
-          'We were unable to fetch block. Please check if your url includes an block hash.',
-      });
     }
   }, [blockHash]);
 

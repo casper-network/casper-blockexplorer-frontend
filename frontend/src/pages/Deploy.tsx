@@ -15,21 +15,22 @@ export const DeployPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (deployHash) {
-      const deployData = await casperApi.getDeploy(deployHash);
+      try {
+        const deployData = await casperApi.getDeploy(deployHash);
 
-      if (!deployData) {
+        if (!deployData) {
+          setError({
+            message: `We were unable to locate deploy data for hash ${deployHash}`,
+          });
+          return;
+        }
+
+        setDeploy(deployData);
+      } catch (err: any) {
         setError({
-          message: `We were unable to locate Account data for hash ${deployHash}`,
+          message: (err as Error).message,
         });
-        return;
       }
-
-      setDeploy(deployData);
-    } else {
-      setError({
-        message:
-          'We were unable to fetch deploy. Please check if your url includes an deploy hash.',
-      });
     }
   }, [deployHash]);
 

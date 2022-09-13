@@ -15,21 +15,22 @@ export const AccountPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (accountHash) {
-      const accountData = await casperApi.getAccount(accountHash);
+      try {
+        const accountData = await casperApi.getAccount(accountHash);
 
-      if (!accountData) {
+        if (!accountData) {
+          setError({
+            message: `We were unable to locate account data for hash ${accountHash}`,
+          });
+          return;
+        }
+
+        setAccount(accountData);
+      } catch (err: any) {
         setError({
-          message: `We were unable to locate Account data for hash ${accountHash}`,
+          message: (err as Error).message,
         });
-        return;
       }
-
-      setAccount(accountData);
-    } else {
-      setError({
-        message:
-          'We were unable to fetch account. Please check if your url includes an account hash.',
-      });
     }
   }, [accountHash]);
 
