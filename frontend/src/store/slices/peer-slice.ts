@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getPeers } from '../../client';
+import { casperApi } from '../../api';
 import { Peer } from '../../types';
 import { Loading } from '../loading.type';
 
@@ -16,7 +16,7 @@ const initialState: PeerState = {
 
 export const fetchPeers = createAsyncThunk('rpcClient/fetchPeers', async () => {
   try {
-    const peers = await getPeers();
+    const peers = await casperApi.getPeers();
 
     return peers;
   } catch (error: any) {
