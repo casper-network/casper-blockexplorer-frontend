@@ -1,7 +1,7 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { Loader, PeerTable } from '../components';
+import { PageWrapper, PeerTable } from '../components';
 
 import {
   getPeers,
@@ -27,11 +27,9 @@ export const Peers: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className="px-20 py-20">
-        <h2 className="text-24 mb-25">Connected Peers</h2>
-        {isLoading ? <Loader /> : <PeerTable peers={peers} />}
-      </div>
-    </div>
+    <PageWrapper isLoading={isLoading}>
+      <h2 className="text-24 mb-25">Connected Peers</h2>
+      <PeerTable peers={peers} />
+    </PageWrapper>
   );
 };
