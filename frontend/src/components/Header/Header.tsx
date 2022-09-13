@@ -25,12 +25,18 @@ export const Header: React.FC = () => {
         } else alert('Please enter a valid public key.');
         break;
       case 'deploy':
-        if (isHexadecimal) {
+        if (
+          isHexadecimal &&
+          !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)
+        ) {
           navigate(`/deploy/${trimmedValue}`);
         } else alert('Please enter a valid deploy hash.');
         break;
       case 'block':
-        if (isHexadecimal) {
+        if (
+          isHexadecimal &&
+          !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)
+        ) {
           navigate(`/block/${trimmedValue}`);
         } else alert('Please enter a valid block hash.');
         break;
