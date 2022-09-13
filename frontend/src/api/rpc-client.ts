@@ -190,6 +190,7 @@ export class RpcApi {
             blocks.push(block);
           })
           .catch(err => {
+            // eslint-disable-next-line no-console
             console.error('Block By Height Error: ', err);
           });
       }
