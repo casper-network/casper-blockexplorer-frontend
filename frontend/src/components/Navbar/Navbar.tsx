@@ -17,7 +17,6 @@ const navItems = [
   },
 ];
 
-// accepts arr of item objects
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   const windowWidth = window.innerWidth;
