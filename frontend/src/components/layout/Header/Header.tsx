@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { Navbar } from '../Navbar/Navbar';
-import logo from '../../assets/images/logo.png';
+import logo from '../../../assets/images/logo.png';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
