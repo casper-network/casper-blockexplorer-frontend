@@ -12,29 +12,30 @@ export const Header: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState('');
 
+  // TODO: Move this magic strings to some constant variables
+
   const submitValue = () => {
     const trimmedValue = search.trim();
-
     const isHexadecimal = /^[A-F0-9]+$/i.test(search);
 
-    if (!trimmedValue || !isHexadecimal) {
-      alert(`Please enter a valid ${filter} key'`);
-    }
-
-    // if (!/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(publicKeyHex)) {
-
-    // TODO: Move this magic strings to some constant variables
-    else if (
-      filter === 'account' &&
-      !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)
-    ) {
-      navigate(`/account/${trimmedValue}`);
-    } else if (filter === 'deploy') {
-      navigate(`/deploy/${trimmedValue}`);
-    } else if (filter === 'block') {
-      navigate(`/block/${trimmedValue}`);
-    } else {
-      alert('Wrong value');
+    switch (filter) {
+      case 'account':
+        if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
+          navigate(`/account/${trimmedValue}`);
+        } else alert('Please enter a valid public key.');
+        break;
+      case 'deploy':
+        if (isHexadecimal) {
+          navigate(`/deploy/${trimmedValue}`);
+        } else alert('Please enter a valid deploy hash.');
+        break;
+      case 'block':
+        if (isHexadecimal) {
+          navigate(`/block/${trimmedValue}`);
+        } else alert('Please enter a valid block hash.');
+        break;
+      default:
+        return null;
     }
   };
 
