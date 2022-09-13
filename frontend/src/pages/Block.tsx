@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Block } from '../types';
 import { truncateHash } from '../utils';
 import { BlockDetailsCard, Loader } from '../components';
-
-import { getBlock } from '../client';
+import { casperApi } from '../api';
 
 export const BlockPage: React.FC = () => {
   const { id: blockHash } = useParams();
@@ -15,7 +14,7 @@ export const BlockPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (blockHash) {
-      const blockData = await getBlock(blockHash);
+      const blockData = await casperApi.getBlock(blockHash);
 
       if (!blockData) {
         setError(true);

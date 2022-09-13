@@ -5,7 +5,7 @@ import { Deploy } from '../types';
 import { truncateHash } from '../utils';
 import { DeployDetailsCard, Loader } from '../components';
 
-import { getDeploy } from '../client';
+import { casperApi } from '../api';
 
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();
@@ -15,7 +15,7 @@ export const DeployPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (deployHash) {
-      const deployData = await getDeploy(deployHash);
+      const deployData = await casperApi.getDeploy(deployHash);
 
       if (!deployData) {
         setError(true);

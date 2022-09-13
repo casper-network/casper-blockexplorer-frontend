@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Account } from '../types';
 import { truncateHash } from '../utils';
 import { AccountDetailsCard, Loader } from '../components';
-import { getAccount, getBalance } from '../client';
+import { casperApi } from '../api';
 
 export const AccountPage: React.FC = () => {
   const { id: accountHash } = useParams();
@@ -15,7 +15,7 @@ export const AccountPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (accountHash) {
-      const accountData = await getAccount(accountHash);
+      const accountData = await casperApi.getAccount(accountHash);
 
       if (!accountData) {
         setError(true);
@@ -28,7 +28,7 @@ export const AccountPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (account) {
-      const balanceData = await getBalance(account.mainPurse);
+      const balanceData = await casperApi.getBalance(account.mainPurse);
 
       setBalance(balanceData);
     }
