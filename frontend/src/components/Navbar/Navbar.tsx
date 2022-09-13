@@ -10,14 +10,15 @@ const navItems = [
   {
     title: 'Home',
     path: '/',
+    key: 'home',
   },
   {
     title: 'Peers',
     path: '/peers',
+    key: 'peers',
   },
 ];
 
-// accepts arr of item objects
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   const windowWidth = window.innerWidth;
@@ -72,13 +73,13 @@ export const Navbar: React.FC = () => {
               ? 'absolute z-10 w-screen mt-20 pb-25 bg-[#181B38] flex flex-col align-items lg:mt-0'
               : 'hidden'
           }`}>
-          {navItems.map((item, index) => {
+          {navItems.map(({ path, title, key }) => {
             return (
               <Link
-                to={item.path}
+                to={path}
                 className="text-white py-5 xxs:py-11 lg:py-0 w-full"
-                key={index}>
-                {item.title}
+                key={key}>
+                {title}
               </Link>
             );
           })}

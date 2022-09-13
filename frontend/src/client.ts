@@ -64,7 +64,7 @@ export const getBlocks: (
         blocks.push(block);
       })
       .catch(err => {
-        console.log('Block By Height Error: ', err);
+        console.error('Block By Height Error: ', err);
       });
   }
 
@@ -76,16 +76,21 @@ export const getAccount: (
 ) => Promise<Account | void> = async publicKeyHex => {
   const stateRootHash = await rpcClient.getStateRootHash();
   const accountHash = CLPublicKey.fromHex(publicKeyHex).toAccountHashStr();
-  
-  const { Account } = await rpcClient.getBlockState(
+
+  const { Account: account } = await rpcClient.getBlockState(
     stateRootHash,
     accountHash,
     [],
   );
-  
-  if (!Account) return;
 
-  return { rawAccountHash: accountHash, trimmedAccountHash: accountHash.slice(13), publicKey: publicKeyHex, mainPurse: Account.mainPurse};
+  if (!account) return;
+
+  return {
+    rawAccountHash: accountHash,
+    trimmedAccountHash: accountHash.slice(13),
+    publicKey: publicKeyHex,
+    mainPurse: account.mainPurse,
+  };
 };
 
 export const getBalance: (
