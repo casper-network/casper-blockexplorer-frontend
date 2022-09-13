@@ -2,11 +2,8 @@ import React from 'react';
 
 export const Loader: React.FC = () => {
   return (
-    <div>
-      <div
-        className="flex justify-center mt-75"
-        aria-label="Loading..."
-        role="status">
+    <div className="h-full w-full grid place-items-center">
+      <div aria-label="Loading..." role="status">
         <svg className="h-80 w-80 animate-spin" viewBox="3 3 18 18">
           <path
             className="fill-[#171B38]"
