@@ -17,6 +17,9 @@ export const Header: React.FC = () => {
   const submitValue = () => {
     const trimmedValue = search.trim();
     const isHexadecimal = /^[A-F0-9]+$/i.test(search);
+    const notPublicKey = !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
+      trimmedValue,
+    );
 
     switch (filter) {
       case 'account':
@@ -25,18 +28,12 @@ export const Header: React.FC = () => {
         } else alert('Please enter a valid public key.');
         break;
       case 'deploy':
-        if (
-          isHexadecimal &&
-          !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)
-        ) {
+        if (isHexadecimal && notPublicKey) {
           navigate(`/deploy/${trimmedValue}`);
         } else alert('Please enter a valid deploy hash.');
         break;
       case 'block':
-        if (
-          isHexadecimal &&
-          !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)
-        ) {
+        if (isHexadecimal && notPublicKey) {
           navigate(`/block/${trimmedValue}`);
         } else alert('Please enter a valid block hash.');
         break;
