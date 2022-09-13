@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
             return (
               <Link
                 to={path}
-                className="text-white py-5 xxs:py-11 lg:py-0 w-full"
+                className="text-white text-18 py-5 xxs:py-11 lg:py-0 w-full"
                 key={key}>
                 {title}
               </Link>
