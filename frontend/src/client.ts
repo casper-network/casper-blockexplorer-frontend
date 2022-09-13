@@ -64,7 +64,7 @@ export const getBlocks: (
         blocks.push(block);
       })
       .catch(err => {
-        console.log('Block By Height Error: ', err);
+        console.error('Block By Height Error: ', err);
       });
   }
 
