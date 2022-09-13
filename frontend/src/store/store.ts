@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { blockSlice } from './slices';
+import { blockSlice, peerSlice } from './slices';
 
 export const store = configureStore({
   reducer: {
     block: blockSlice.reducer,
+    peer: peerSlice.reducer,
   },
 });
 
