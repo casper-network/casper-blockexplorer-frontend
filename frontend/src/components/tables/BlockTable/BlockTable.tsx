@@ -7,7 +7,7 @@ import { Table } from '../../base';
 
 interface BlockTableProps {
   readonly blocks: Block[];
-  readonly showValidators: boolean;
+  readonly showValidators?: boolean;
 }
 
 export const BlockTable: React.FC<BlockTableProps> = ({
