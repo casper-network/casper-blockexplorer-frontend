@@ -46,7 +46,7 @@ export const Header: React.FC = () => {
     <header className="w-full bg-casper-blue flex justify-center">
       <div className="relative w-full max-w-1600">
         <Navbar />
-        <div className="flex flex-row justify-center py-50 lg:absolute lg:left-0 lg:top-0 lg:pt-20 lg:pl-50">
+        <div className="flex flex-row justify-center pt-30 pb-50 lg:absolute lg:left-0 lg:top-0 lg:pt-20 lg:pl-50">
           <Link style={{ textDecoration: 'none' }} to="/">
             <div className="flex flex-row">
               <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
@@ -73,8 +73,7 @@ export const Header: React.FC = () => {
               onChange={ev => setSearch(ev.target.value)}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none 
-              xxs:w-400 xxs:text-sm xxs:pr-32"
+              className="block p-4 sm:p-6 md:p-10 pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-280 xxs:w-400 xxs:text-sm xxs:pr-32"
               required
             />
             <button

@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
   }, [windowWidth]);
 
   return (
-    <nav className="z-10 w-full py-10 pb-10 pr-10 lg:pt-20 lg:pr-56 bg-[#181B38]">
+    <nav className="z-10 w-full py-10 pb-10 pr-10 lg:py-20 lg:pr-56 bg-[#181B38]">
       <div className="flex flex-col lg:flex-row lg:justify-between">
         <div className="flex flex-row justify-end lg:justify-between">
           <button
@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="2"
                 stroke="white"
-                className="w-24 h-24">
+                className="w-40 h-40">
                 <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
@@ -56,7 +56,7 @@ export const Navbar: React.FC = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="white"
-                className="w-24 h-24">
+                className="w-40 h-40">
                 <path
                   fillRule="evenodd"
                   d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
@@ -73,16 +73,21 @@ export const Navbar: React.FC = () => {
               ? 'absolute z-10 w-screen mt-20 pb-25 bg-[#181B38] flex flex-col align-items lg:mt-0'
               : 'hidden'
           }`}>
-          {navItems.map(({ path, title, key }) => {
-            return (
-              <Link
-                to={path}
-                className="text-white text-18 py-5 xxs:py-11 lg:py-0 w-full"
-                key={key}>
-                {title}
-              </Link>
-            );
-          })}
+          <nav>
+            <ul className="flex gap-x-8">
+              {navItems.map(({ path, title, key }) => {
+                return (
+                  <li key={key}>
+                    <Link
+                      to={path}
+                      className="text-white text-18 py-5 xxs:py-11 lg:py-0 w-full">
+                      {title}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
         </button>
       </div>
     </nav>
