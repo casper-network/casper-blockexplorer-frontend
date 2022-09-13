@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Loader } from '../../utility/Loader';
 
 export interface PageError {
@@ -35,6 +36,9 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
       <BaseContentWrapper>
         <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
         <p>{error.message}</p>
+        <p>
+          Go back to <Link to="/">Home</Link>
+        </p>
       </BaseContentWrapper>
     );
   }
