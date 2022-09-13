@@ -2,21 +2,15 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { casperApi } from '../../api';
 import { Block } from '../../types';
-
-export enum BlockLoading {
-  Idle = 'idle',
-  Pending = 'pending',
-  Complete = 'complete',
-  Failed = 'failed',
-}
+import { Loading } from '../loading.type';
 
 export interface BlockState {
-  status: BlockLoading;
+  status: Loading;
   blocks: Block[];
 }
 
 const initialState: BlockState = {
-  status: BlockLoading.Idle,
+  status: Loading.Idle,
   blocks: [],
 };
 
@@ -41,17 +35,17 @@ export const blockSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchBlocks.pending, state => {
-        state.status = BlockLoading.Pending;
+        state.status = Loading.Pending;
       })
       .addCase(
         fetchBlocks.fulfilled,
         (state, { payload }: PayloadAction<Block[]>) => {
-          state.status = BlockLoading.Complete;
+          state.status = Loading.Complete;
           state.blocks = payload;
         },
       )
       .addCase(fetchBlocks.rejected, state => {
-        state.status = BlockLoading.Failed;
+        state.status = Loading.Failed;
       });
   },
 });

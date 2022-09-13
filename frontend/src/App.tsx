@@ -13,8 +13,9 @@ import {
   getBLockLoadingStatus,
   useAppDispatch,
   useAppSelector,
+  Loading,
+  fetchBlocks,
 } from './store';
-import { BlockLoading, fetchBlocks } from './store/slices/block-slice';
 
 const Blocks: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,10 +23,10 @@ const Blocks: React.FC = () => {
   const blocks = useAppSelector(getBlocks);
   const blockLoadingStatus = useAppSelector(getBLockLoadingStatus);
 
-  const isLoading = blockLoadingStatus !== BlockLoading.Complete;
+  const isLoading = blockLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
-    if (BlockLoading.Idle === blockLoadingStatus) {
+    if (Loading.Idle === blockLoadingStatus) {
       dispatch(fetchBlocks());
     }
   }, []);
