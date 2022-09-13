@@ -21,7 +21,7 @@ export const Peers: React.FC = () => {
   const isLoading = peerLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
-    if (Loading.Idle === peerLoadingStatus) {
+    if (peerLoadingStatus === Loading.Idle) {
       dispatch(fetchPeers());
     }
   }, []);

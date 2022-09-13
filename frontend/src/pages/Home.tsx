@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
   const isLoading = blockLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
-    if (Loading.Idle === blockLoadingStatus) {
+    if (blockLoadingStatus === Loading.Idle) {
       dispatch(fetchBlocks());
     }
   }, []);
