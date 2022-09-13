@@ -36,13 +36,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       ),
     },
     {
-      key: `balance-${balance}`,
+      key: `balance-${balance || 'missing'}`,
       detailKey: 'Balance',
-      value: (
-        <>
-          <p>{balance} motes</p>
-        </>
-      ),
+      value: <p>{balance || 0} motes</p>,
     },
   ];
 

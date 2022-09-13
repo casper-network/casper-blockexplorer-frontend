@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
-
-import { Block, Peer } from './types';
 
 import { Header, BlockTable, Loader, PeerTable } from './components';
 import { AccountPage, BlockPage, DeployPage } from './pages';
 
-import { getBlocks, getPeers } from './client';
+import {
+  getBlocks,
+  getBlockLoadingStatus,
+  getPeers,
+  getPeerLoadingStatus,
+  useAppDispatch,
+  useAppSelector,
+  Loading,
+  fetchBlocks,
+  fetchPeers,
+} from './store';
 
 const Blocks: React.FC = () => {
-  const [blocks, setBlocks] = useState<Block[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
+
+  const blocks = useAppSelector(getBlocks);
+  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+
+  const isLoading = blockLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
-    const rawBlocks = await getBlocks();
-    setBlocks(rawBlocks);
-    setIsLoading(false);
+    if (blockLoadingStatus === Loading.Idle) {
+      dispatch(fetchBlocks());
+    }
   }, []);
 
   return (
@@ -30,12 +42,17 @@ const Blocks: React.FC = () => {
 };
 
 const Peers = () => {
-  const [peers, setPeers] = useState<Peer[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
+
+  const peers = useAppSelector(getPeers);
+  const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
+
+  const isLoading = peerLoadingStatus !== Loading.Complete;
+
   useAsyncEffect(async () => {
-    const rawPeers = await getPeers();
-    setPeers(rawPeers);
-    setIsLoading(false);
+    if (peerLoadingStatus === Loading.Idle) {
+      dispatch(fetchPeers());
+    }
   }, []);
 
   return (

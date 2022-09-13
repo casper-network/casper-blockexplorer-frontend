@@ -3,7 +3,7 @@ export type Account = {
   rawAccountHash: string;
   publicKey: string;
   mainPurse: string;
-}
+};
 
 export type Block = {
   height: number;

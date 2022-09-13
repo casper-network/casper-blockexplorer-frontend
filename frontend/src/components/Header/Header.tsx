@@ -18,6 +18,7 @@ export const Header: React.FC = () => {
     const trimmedValue = search.trim();
     const isHexadecimal = /^[A-F0-9]+$/i.test(search);
 
+
     switch (filter) {
       case 'account':
         if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
@@ -42,7 +43,7 @@ export const Header: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="bg-casper-blue flex flex-row justify-center pb-25 xxs:pb-35 pt-20 xxs:pt-50 xxs:py-50 xmd:h-155 lg:flex-col lg:justify-center lg:pl-50">
+      <div className="bg-casper-blue flex flex-row justify-center py-50 lg:absolute lg:left-0 lg:top-0 lg:pt-20 lg:pl-50">
         <Link style={{ textDecoration: 'none' }} to="/">
           <div className="flex flex-row">
             <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
@@ -59,12 +60,8 @@ export const Header: React.FC = () => {
         <div className="bg-casper-blue flex relative justify-center  pl-10 pb-40 xmd:pl-30 lg:pt-20">
           <select
             onChange={ev => setFilter(ev.target.value)}
-            className="relative left-10 w-90 h-30 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-xs xxs:text-sm xxs:w-105"
-            name=""
-            id="">
-            <option value="account" defaultValue={''}>
-              Account
-            </option>
+            className="relative left-10 w-90 h-30 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-xs xxs:text-sm xxs:w-105">
+            <option value="account">Account</option>
             <option value="deploy">Deploy Hash</option>
             <option value="block">Block Hash</option>
           </select>
