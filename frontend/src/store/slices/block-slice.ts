@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { casperApi } from '../../api';
+import { getBlocks } from '../../client';
 import { Block } from '../../types';
 import { Loading } from '../loading.type';
 
@@ -18,7 +18,7 @@ export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
   async () => {
     try {
-      const blocks = await casperApi.getBlocks();
+      const blocks = await getBlocks();
 
       return blocks;
     } catch (error: any) {
