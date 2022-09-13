@@ -4,6 +4,6 @@ export const getBlocks = (state: RootState) => {
   return state.block.blocks;
 };
 
-export const getBLockLoadingStatus = (state: RootState) => {
+export const getBlockLoadingStatus = (state: RootState) => {
   return state.block.status;
 };
