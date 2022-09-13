@@ -19,7 +19,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     parentHash,
     stateRootHash,
     validatorPublicKey,
-    deployCount,
     transferHashes,
     deployHashes,
   } = block;
