@@ -18,7 +18,6 @@ export const Header: React.FC = () => {
     const trimmedValue = search.trim();
     const isHexadecimal = /^[A-F0-9]+$/i.test(search);
 
-
     switch (filter) {
       case 'account':
         if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
