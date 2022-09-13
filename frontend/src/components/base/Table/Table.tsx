@@ -20,11 +20,11 @@ export const Table: React.FC<TableProps> = ({ headColumns, rows }) => {
         <tbody>
           {rows.map(({ items, key }) => {
             return (
-              <tr key={key} className="h-50">
+              <tr key={key} className="h-50 hover:bg-light-grey">
                 {items.map(({ content, key: itemKey }) => {
                   return (
                     <td
-                      className="text-center border-0 border-b-1 border-light-grey border-solid"
+                      className="text-center border-0 border-b-1 border-light-grey border-solid "
                       key={itemKey}>
                       {content}
                     </td>
