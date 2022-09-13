@@ -2,21 +2,32 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
 
-import { Block, Peer } from './types';
+import { Peer } from './types';
 
 import { Header, BlockTable, Loader, PeerTable } from './components';
 import { AccountPage, BlockPage, DeployPage } from './pages';
 
-import { getBlocks, getPeers } from './client';
+import { getPeers } from './client';
+import {
+  getBlocks,
+  getBLockLoadingStatus,
+  useAppDispatch,
+  useAppSelector,
+} from './store';
+import { BlockLoading, fetchBlocks } from './store/slices/block-slice';
 
 const Blocks: React.FC = () => {
-  const [blocks, setBlocks] = useState<Block[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
+
+  const blocks = useAppSelector(getBlocks);
+  const blockLoadingStatus = useAppSelector(getBLockLoadingStatus);
+
+  const isLoading = blockLoadingStatus !== BlockLoading.Complete;
 
   useAsyncEffect(async () => {
-    const rawBlocks = await getBlocks();
-    setBlocks(rawBlocks);
-    setIsLoading(false);
+    if (BlockLoading.Idle === blockLoadingStatus) {
+      dispatch(fetchBlocks());
+    }
   }, []);
 
   return (
