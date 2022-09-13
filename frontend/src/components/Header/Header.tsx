@@ -23,6 +23,8 @@ export const Header: React.FC = () => {
     } else if (filter === 'block') {
       navigate(`/block/${trimmedValue}`);
     } else {
+      // TODO: Handle error better
+      // eslint-disable-next-line no-alert
       alert('Wrong value');
     }
   };
@@ -47,12 +49,8 @@ export const Header: React.FC = () => {
         <div className="bg-casper-blue flex relative justify-center  pl-10 pb-40 xmd:pl-30 lg:pt-20">
           <select
             onChange={ev => setFilter(ev.target.value)}
-            className="relative left-10 w-90 h-30 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-xs xxs:text-sm xxs:w-105"
-            name=""
-            id="">
-            <option value="account" defaultValue={''}>
-              Account
-            </option>
+            className="relative left-10 w-90 h-30 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-xs xxs:text-sm xxs:w-105">
+            <option value="account">Account</option>
             <option value="deploy">Deploy Hash</option>
             <option value="block">Block Hash</option>
           </select>
