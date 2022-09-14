@@ -90,3 +90,13 @@ a:hover {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.max-w-screen-p-incl {
+  max-width: calc(100vw - 4rem);
+}
+
+@media only screen and (min-width: 768px) {
+  .max-w-screen-p-incl {
+    max-width: calc(100vw - 5rem);
+  }
+}
