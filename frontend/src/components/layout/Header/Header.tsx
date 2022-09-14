@@ -63,7 +63,7 @@ export const Header: React.FC = () => {
           <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
               onChange={ev => setFilter(ev.target.value)}
-              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 sm:text-14 md:text-16 xxs:w-105">
+              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
               <option value="account">Account</option>
               <option value="deploy">Deploy</option>
               <option value="block">Block</option>
@@ -73,7 +73,7 @@ export const Header: React.FC = () => {
               onChange={ev => setSearch(ev.target.value)}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-280 xxs:w-400 xxs:text-sm xxs:pr-32"
+              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
               required
             />
             <button
