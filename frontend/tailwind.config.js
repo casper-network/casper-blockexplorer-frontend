@@ -158,6 +158,7 @@ const width = {
   1440: pxToRem(1440),
   1600: pxToRem(1600),
   1800: pxToRem(1800),
+  '20ch': '20ch',
   ...sizing,
 };
 
