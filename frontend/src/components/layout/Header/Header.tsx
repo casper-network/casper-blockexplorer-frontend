@@ -44,23 +44,23 @@ export const Header: React.FC = () => {
 
   return (
     <header className="w-full bg-casper-blue flex justify-center">
-      <div className="relative w-full max-w-1600">
-        <Navbar />
-        <div className="flex flex-row justify-center pt-30 pb-50 lg:absolute lg:left-0 lg:top-0 lg:pt-20 lg:pl-50">
-          <Link style={{ textDecoration: 'none' }} to="/">
-            <div className="flex flex-row">
+      <div className="relative w-full max-w-1600 pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
+        <div className="flex flex-row justify-center pt-20 pb-30">
+          <Link className="no-underline flex flex-row items-center" to="/">
+            <div className="flex flex-row items-center">
               <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
-              <h1 className="text-white text-21 xxs:text-24 xxs:pt-6 lg:pl-15 ">
+              <p className="text-white text-21 xxs:text-24 lg:pl-15 font-bold w-20ch">
                 Casper BlockExplorer
-              </h1>
+              </p>
             </div>
           </Link>
+          <Navbar />
         </div>
         <form>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
-          <div className="bg-casper-blue flex relative justify-center pl-10 pb-40 xmd:pl-30 lg:pt-20">
+          <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
               onChange={ev => setFilter(ev.target.value)}
               className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 sm:text-14 md:text-16 xxs:w-105">
@@ -73,7 +73,7 @@ export const Header: React.FC = () => {
               onChange={ev => setSearch(ev.target.value)}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-280 xxs:w-400 xxs:text-sm xxs:pr-32"
+              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-280 xxs:w-400 xxs:text-sm xxs:pr-32"
               required
             />
             <button

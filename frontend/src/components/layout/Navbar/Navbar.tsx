@@ -34,12 +34,12 @@ export const Navbar: React.FC = () => {
   }, [windowWidth]);
 
   return (
-    <nav className="z-10 w-full py-10 pb-10 pr-10 lg:py-20 lg:pr-56 bg-[#181B38]">
+    <nav className="z-10 w-full py-10 lg:py-20 bg-[#181B38]">
       <div className="flex flex-col lg:flex-row lg:justify-between">
-        <div className="flex flex-row justify-end lg:justify-between">
+        <div className="z-30 flex flex-row justify-end lg:justify-between">
           <button
             type="button"
-            className="lg:hidden bg-transparent border-none"
+            className="lg:hidden bg-transparent border-none p-0 h-40"
             onClick={() => setIsOpened(!isOpened)}>
             {isOpened ? (
               <svg
@@ -66,21 +66,32 @@ export const Navbar: React.FC = () => {
             )}
           </button>
         </div>
-        <button
-          type="button"
-          className={`bg-[#181B38] border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto ${
-            isOpened
-              ? 'absolute z-10 w-screen mt-20 pb-25 bg-[#181B38] flex flex-col align-items lg:mt-0'
-              : 'hidden'
-          }`}>
-          <nav>
+        <div className="bg-[#181B38] border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto">
+          {isOpened && (
+            <nav className="lg:hidden">
+              <ul className="z-10 bg-casper-blue flex flex-col gap-4 absolute w-full h-full items-center justify-center left-0 top-0">
+                {navItems.map(({ path, title, key }) => {
+                  return (
+                    <li key={key}>
+                      <Link
+                        to={path}
+                        className="text-white text-22 py-5 xxs:py-11 w-full font-medium tracking-wide">
+                        {title}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          )}
+          <nav className="hidden lg:block">
             <ul className="flex gap-x-8">
               {navItems.map(({ path, title, key }) => {
                 return (
                   <li key={key}>
                     <Link
                       to={path}
-                      className="text-white text-18 py-5 xxs:py-11 lg:py-0 w-full">
+                      className="text-white text-18 py-5 xxs:py-11 lg:py-0 w-full font-medium tracking-wide">
                       {title}
                     </Link>
                   </li>
@@ -88,7 +99,7 @@ export const Navbar: React.FC = () => {
               })}
             </ul>
           </nav>
-        </button>
+        </div>
       </div>
     </nav>
   );
