@@ -46,7 +46,9 @@ export const Header: React.FC = () => {
     <header className="w-full bg-casper-blue flex justify-center">
       <div className="relative w-full max-w-1600 pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
         <div className="flex flex-row justify-center pt-20 pb-30">
-          <Link className="no-underline flex flex-row items-center" to="/">
+          <Link
+            className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"
+            to="/">
             <div className="flex flex-row items-center">
               <img className="h-40 xxs:h-50" src={logo} alt="Casper Logo" />
               <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20ch">
