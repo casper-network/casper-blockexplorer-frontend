@@ -4,7 +4,7 @@ import { DetailCardProps } from './DetailCard.types';
 export const DetailCard: React.FC<DetailCardProps> = ({ rows }) => {
   return (
     <section className="w-full m-0 p-0">
-      <div className="w-full bg-[#FFF] shadow-card rounded-lg px-16 pb-0 overflow-x-auto">
+      <div className="w-full bg-white shadow-card rounded-lg px-16 pb-0 overflow-x-auto">
         <table className="w-full">
           <tbody>
             {rows.map(({ detailKey, value, key }) => {
