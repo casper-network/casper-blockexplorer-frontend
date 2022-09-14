@@ -12,6 +12,7 @@ export type Block = {
   deployHashes?: string[];
   transferHashes?: string[];
   timestamp: number;
+  readableTimestamp: string;
   timeSince: string;
   hash: string;
   validatorPublicKey: string;
@@ -33,6 +34,7 @@ export enum DeployStatus {
 export type Deploy = {
   timestamp: number;
   timeSince: string;
+  readableTimestamp: string;
   deployHash: string;
   blockHash: string;
   publicKey: string;
