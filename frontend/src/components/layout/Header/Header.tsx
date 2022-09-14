@@ -48,8 +48,8 @@ export const Header: React.FC = () => {
         <div className="flex flex-row justify-center pt-20 pb-30">
           <Link className="no-underline flex flex-row items-center" to="/">
             <div className="flex flex-row items-center">
-              <img className="h-35 xxs:h-50" src={logo} alt="Casper Logo" />
-              <p className="text-white text-21 xxs:text-24 lg:pl-15 font-bold w-20ch">
+              <img className="h-40 xxs:h-50" src={logo} alt="Casper Logo" />
+              <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20ch">
                 Casper BlockExplorer
               </p>
             </div>
