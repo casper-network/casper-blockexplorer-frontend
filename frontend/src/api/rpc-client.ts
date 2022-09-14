@@ -1,13 +1,8 @@
 import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
 import { Block, Deploy, DeployStatus, Peer } from '../types';
+import { formatDate, formatTimeAgo } from '../utils';
 
 const DEFAULT_NUM_TO_SHOW = 20;
-
-TimeAgo.addDefaultLocale(en);
-
-const timeAgo = new TimeAgo('en-US');
 
 // temporary add to deal with incorrect types from the SDK
 // TODO: update the SDK types to be more accurate
@@ -52,11 +47,15 @@ export class RpcApi {
       const countHashes = deployHashes || transferHashes;
       const deployCount = countHashes ? countHashes.length : 0;
 
-      const timeSince = timeAgo.format(new Date(timestamp), 'round');
+      const dateTime = new Date(timestamp);
+
+      const timeSince = formatTimeAgo(dateTime);
+      const readableTimestamp = formatDate(dateTime);
 
       const tailoredBlock = {
         timestamp,
         timeSince,
+        readableTimestamp,
         height,
         eraID,
         hash,
@@ -99,11 +98,15 @@ export class RpcApi {
         ? executionResult.Success.cost
         : executionResult.Failure?.cost ?? 0;
 
-      const timeSince = timeAgo.format(new Date(timestamp), 'round');
+      const dateTime = new Date(timestamp);
+
+      const timeSince = formatTimeAgo(dateTime);
+      const readableTimestamp = formatDate(dateTime);
 
       return {
         timestamp,
         timeSince,
+        readableTimestamp,
         deployHash,
         blockHash,
         publicKey,
@@ -177,13 +180,17 @@ export class RpcApi {
       const countHashes = deployHashes || transferHashes;
       const deployCount = countHashes ? countHashes.length : 0;
 
-      const timeSince = timeAgo.format(new Date(timestamp), 'round');
+      const dateTime = new Date(timestamp);
+
+      const timeSince = formatTimeAgo(dateTime);
+      const readableTimestamp = formatDate(dateTime);
 
       return {
         hash,
         height,
         eraID,
         deployCount,
+        readableTimestamp,
         timestamp,
         timeSince,
         validatorPublicKey,
