@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Deploy } from '../../../types';
+import { truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard } from '../../utility';
 
@@ -54,7 +55,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       value: (
         <>
           <Link to={`/account/${publicKey}`}>
-            <p>{publicKey}</p>
+            <p>{truncateHash(publicKey)}</p>
           </Link>
           <CopyToClipboard textToCopy={publicKey} />
         </>
