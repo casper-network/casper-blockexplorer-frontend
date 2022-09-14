@@ -27,8 +27,8 @@ export type Peer = {
 };
 
 export enum DeployStatus {
-  Success,
-  Failed,
+  Success = 'Success',
+  Failed = 'Failed',
 }
 
 export type Deploy = {
