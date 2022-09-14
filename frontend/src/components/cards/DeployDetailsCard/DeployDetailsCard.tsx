@@ -11,13 +11,20 @@ export interface DeployDetailsCardProps {
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
 }) => {
-  const { timestamp, deployHash, blockHash, publicKey, status } = deploy;
+  const {
+    timestamp,
+    readableTimestamp,
+    deployHash,
+    blockHash,
+    publicKey,
+    status,
+  } = deploy;
 
   const rows = [
     {
       key: `timestamp-${timestamp}`,
       detailKey: 'Timestamp',
-      value: timestamp,
+      value: readableTimestamp,
     },
     {
       key: `deployHash-${deployHash}`,
