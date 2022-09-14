@@ -64,7 +64,6 @@ const sizing = {
 };
 
 const screens = {
-  ...defaultTheme.screens,
   xxs: '420px',
   xs: '480px',
   sm: '640px',
