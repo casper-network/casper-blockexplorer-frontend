@@ -31,7 +31,29 @@ export const Navbar: React.FC = () => {
     };
 
     window.addEventListener('resize', closeDropdown);
+
+    return () => {
+      window.removeEventListener('resize', closeDropdown);
+    };
   }, [windowWidth]);
+
+  useEffect(() => {
+    const escKeyHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+
+        if (isOpened) {
+          setIsOpened(false);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', escKeyHandler);
+
+    return () => {
+      document.removeEventListener('keydown', escKeyHandler);
+    };
+  }, [isOpened]);
 
   return (
     <nav className="z-10 w-full py-10 lg:py-20 bg-[#181B38]">
