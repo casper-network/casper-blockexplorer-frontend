@@ -65,8 +65,8 @@ export const Header: React.FC = () => {
               onChange={ev => setFilter(ev.target.value)}
               className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 sm:text-14 md:text-16 xxs:w-105">
               <option value="account">Account</option>
-              <option value="deploy">Deploy Hash</option>
-              <option value="block">Block Hash</option>
+              <option value="deploy">Deploy</option>
+              <option value="block">Block</option>
             </select>
             <input
               value={search}
