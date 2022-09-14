@@ -1,7 +1,13 @@
 import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 import { Block, Deploy, DeployStatus, Peer } from '../types';
 
 const DEFAULT_NUM_TO_SHOW = 20;
+
+TimeAgo.addDefaultLocale(en);
+
+const timeAgo = new TimeAgo('en-US');
 
 // temporary add to deal with incorrect types from the SDK
 // TODO: update the SDK types to be more accurate
@@ -46,8 +52,11 @@ export class RpcApi {
       const countHashes = deployHashes || transferHashes;
       const deployCount = countHashes ? countHashes.length : 0;
 
+      const timeSince = timeAgo.format(new Date(timestamp), 'round');
+
       const tailoredBlock = {
         timestamp,
+        timeSince,
         height,
         eraID,
         hash,
@@ -90,8 +99,11 @@ export class RpcApi {
         ? executionResult.Success.cost
         : executionResult.Failure?.cost ?? 0;
 
+      const timeSince = timeAgo.format(new Date(timestamp), 'round');
+
       return {
         timestamp,
+        timeSince,
         deployHash,
         blockHash,
         publicKey,
@@ -165,16 +177,19 @@ export class RpcApi {
       const countHashes = deployHashes || transferHashes;
       const deployCount = countHashes ? countHashes.length : 0;
 
+      const timeSince = timeAgo.format(new Date(timestamp), 'round');
+
       return {
         hash,
         height,
         eraID,
         deployCount,
-        timestamp: Date.parse(timestamp.toString()),
+        timestamp,
+        timeSince,
         validatorPublicKey,
         stateRootHash,
         parentHash,
-      } as Block;
+      };
     });
   };
 

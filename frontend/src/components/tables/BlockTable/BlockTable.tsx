@@ -30,14 +30,22 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   });
 
   const blockRows = blocks.map(
-    ({ height, eraID, deployCount, timestamp, hash, validatorPublicKey }) => {
+    ({
+      height,
+      eraID,
+      deployCount,
+      timeSince,
+      timestamp,
+      hash,
+      validatorPublicKey,
+    }) => {
       const key = `${hash}-${timestamp}`;
 
       const items = [
         { content: height, key: `${key}-hash` },
         { content: eraID, key: `${key}-era` },
         { content: deployCount, key: `${key}-deploys` },
-        { content: timestamp, key: `${key}-age` },
+        { content: timeSince, key: `${key}-age` },
         {
           content: (
             <>
