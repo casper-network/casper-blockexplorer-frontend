@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../types';
 import { DetailCard } from '../../base';
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface BlockDetailsCardProps {
   block: Block;
@@ -21,6 +21,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     validatorPublicKey,
     transferHashes,
     deployHashes,
+    rawBlock,
   } = block;
 
   const rows = [
@@ -109,6 +110,11 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       ) : (
         'No transfers'
       ),
+    },
+    {
+      key: 'raw-json',
+      detailKey: 'Raw Deploy',
+      value: <RawData rawData={rawBlock} />,
     },
   ];
 
