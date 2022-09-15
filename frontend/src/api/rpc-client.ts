@@ -86,6 +86,7 @@ export class RpcApi {
         await this.rpcClient.getDeployInfo(deployHash);
 
       // TODO: Add typings
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const paymentMap = new Map((deploy.payment as any).ModuleBytes.args);
 
       const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
