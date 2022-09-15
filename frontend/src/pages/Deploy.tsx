@@ -3,44 +3,38 @@ import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { Deploy } from '../types';
 import { truncateHash } from '../utils';
-import { DeployDetailsCard, Loader } from '../components';
+import { DeployDetailsCard, PageError, PageWrapper } from '../components';
 
-import { getDeploy } from '../client';
+import { casperApi } from '../api';
 
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();
 
   const [deploy, setDeploy] = useState<Deploy>();
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<PageError>();
 
   useAsyncEffect(async () => {
     if (deployHash) {
-      const deployData = await getDeploy(deployHash);
+      try {
+        const deployData = await casperApi.getDeploy(deployHash);
 
-      if (!deployData) {
-        setError(true);
-        return;
+        if (!deployData) {
+          setError({
+            message: `We were unable to locate deploy data for hash ${deployHash}`,
+          });
+          return;
+        }
+
+        setDeploy(deployData);
+      } catch (err: any) {
+        setError({
+          message: (err as Error).message,
+        });
       }
-
-      setDeploy(deployData);
     }
   }, [deployHash]);
 
-  if (!deployHash) {
-    return (
-      <div>
-        <p>Error!</p>
-      </div>
-    );
-  }
-
-  if (!deploy) {
-    return (
-      <div className="w-full px-48 mt-24">
-        <Loader />
-      </div>
-    );
-  }
+  const isLoading = !deploy;
 
   if (error) {
     return (
@@ -54,21 +48,21 @@ export const DeployPage: React.FC = () => {
     );
   }
 
-  const truncatedDeployHash = truncateHash(deployHash);
-
   return (
-    <div className=" w-full h-[75vh] px-48 mt-24">
-      <div className="w-full max-w-1200">
-        <div className="w-full text-black mb-24">
-          <h2 className="text-24 mb-16">
-            Deploy:{' '}
-            <span className="tracking-2 font-normal">
-              {truncatedDeployHash}
-            </span>
-          </h2>
-        </div>
-        <DeployDetailsCard deploy={deploy} />
-      </div>
-    </div>
+    <PageWrapper error={error} isLoading={isLoading}>
+      {!isLoading && deployHash && (
+        <>
+          <div className="w-full text-black mb-24">
+            <h2 className="text-24 mb-16">
+              Deploy:{' '}
+              <span className="tracking-2 font-normal">
+                {truncateHash(deployHash)}
+              </span>
+            </h2>
+          </div>
+          <DeployDetailsCard deploy={deploy} />
+        </>
+      )}
+    </PageWrapper>
   );
 };

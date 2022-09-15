@@ -5,7 +5,7 @@ export const Table: React.FC<TableProps> = ({ headColumns, rows }) => {
   const totalRows = rows.length;
 
   return (
-    <div className="w-full mb-32 shadow-card rounded-lg overflow-x-auto bg-white">
+    <div className="w-full mb-32 shadow-card rounded-lg overflow-x-auto max-w-screen-p-incl bg-white">
       <div className="w-full py-12">
         <p className="text-grey pl-32">{totalRows} total rows</p>
       </div>

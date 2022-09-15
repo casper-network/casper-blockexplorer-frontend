@@ -13,7 +13,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
 }) => {
   const {
     hash: blockHash,
-    timestamp,
+    readableTimestamp,
     height: blockHeight,
     eraID: era,
     parentHash,
@@ -24,7 +24,11 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   } = block;
 
   const rows = [
-    { key: `timestamp-${blockHash}`, detailKey: 'Timestamp', value: timestamp },
+    {
+      key: `timestamp-${blockHash}`,
+      detailKey: 'Timestamp',
+      value: readableTimestamp,
+    },
     {
       key: `blockHash-${blockHash}`,
       detailKey: 'Block Hash',

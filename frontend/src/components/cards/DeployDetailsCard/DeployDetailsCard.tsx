@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Deploy } from '../../../types';
+import { truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard } from '../../utility';
 
@@ -11,13 +12,20 @@ export interface DeployDetailsCardProps {
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
 }) => {
-  const { timestamp, deployHash, blockHash, publicKey, status } = deploy;
+  const {
+    timestamp,
+    readableTimestamp,
+    deployHash,
+    blockHash,
+    publicKey,
+    status,
+  } = deploy;
 
   const rows = [
     {
       key: `timestamp-${timestamp}`,
       detailKey: 'Timestamp',
-      value: timestamp,
+      value: readableTimestamp,
     },
     {
       key: `deployHash-${deployHash}`,
@@ -47,7 +55,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       value: (
         <>
           <Link to={`/account/${publicKey}`}>
-            <p>{publicKey}</p>
+            <p>{truncateHash(publicKey)}</p>
           </Link>
           <CopyToClipboard textToCopy={publicKey} />
         </>

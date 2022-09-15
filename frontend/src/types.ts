@@ -12,6 +12,8 @@ export type Block = {
   deployHashes?: string[];
   transferHashes?: string[];
   timestamp: number;
+  readableTimestamp: string;
+  timeSince: string;
   hash: string;
   validatorPublicKey: string;
   parentHash: string;
@@ -25,14 +27,18 @@ export type Peer = {
 };
 
 export enum DeployStatus {
-  Success,
-  Failed,
+  Success = 'Success',
+  Failed = 'Failed',
 }
 
 export type Deploy = {
   timestamp: number;
+  timeSince: string;
+  readableTimestamp: string;
   deployHash: string;
   blockHash: string;
   publicKey: string;
   status: DeployStatus;
+  paymentAmount: string;
+  cost: string;
 };
