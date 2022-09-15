@@ -126,6 +126,7 @@ export class RpcApi {
         paymentAmount,
         cost: cost.toString(),
         status,
+        rawDeploy: JSON.stringify({ deploy, execution_results: executionResults }, null, 2)
       };
     };
 

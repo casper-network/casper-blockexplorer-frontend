@@ -41,4 +41,5 @@ export type Deploy = {
   status: DeployStatus;
   paymentAmount: string;
   cost: string;
+  rawDeploy: string;
 };

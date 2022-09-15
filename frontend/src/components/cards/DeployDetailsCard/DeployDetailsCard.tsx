@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactJson from '@microlink/react-json-view';
+
 import { Link } from 'react-router-dom';
 import { Deploy } from '../../../types';
 import { truncateHash } from '../../../utils';
@@ -20,7 +22,8 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     publicKey,
     status,
     cost,
-    paymentAmount
+    paymentAmount,
+    rawDeploy
   } = deploy;
 
   const rows = [
@@ -78,6 +81,13 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       detailKey: 'Cost',
       value: cost,
     },
+    {
+      key: `raw-json`,
+      detailKey: 'Raw Deploy',
+      value: (
+        <ReactJson src={JSON.parse(rawDeploy)} collapsed />
+      )
+    }
   ];
 
   return <DetailCard rows={rows} />;
