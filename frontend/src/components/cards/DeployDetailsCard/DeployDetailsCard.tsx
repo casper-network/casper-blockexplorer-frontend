@@ -23,7 +23,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     status,
     cost,
     paymentAmount,
-    rawDeploy
+    rawDeploy,
   } = deploy;
 
   const rows = [
@@ -82,12 +82,11 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       value: cost,
     },
     {
-      key: `raw-json`,
+      key: 'raw-json',
       detailKey: 'Raw Deploy',
-      value: (
-        <ReactJson src={JSON.parse(rawDeploy)} collapsed />
-      )
-    }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      value: <ReactJson src={JSON.parse(rawDeploy)} collapsed />,
+    },
   ];
 
   return <DetailCard rows={rows} />;

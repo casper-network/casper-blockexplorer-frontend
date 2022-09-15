@@ -86,13 +86,14 @@ export class RpcApi {
         await this.rpcClient.getDeployInfo(deployHash);
 
       // TODO: Add typings
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
       const paymentMap = new Map((deploy.payment as any).ModuleBytes.args);
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
         .unwrap()
         .value()
-        .toString();
+        .toString() as string;
 
       const { header, approvals } = deploy;
 
@@ -126,7 +127,10 @@ export class RpcApi {
         paymentAmount,
         cost: cost.toString(),
         status,
-        rawDeploy: JSON.stringify({ deploy, execution_results: executionResults })
+        rawDeploy: JSON.stringify({
+          deploy,
+          execution_results: executionResults,
+        }),
       };
     };
 
