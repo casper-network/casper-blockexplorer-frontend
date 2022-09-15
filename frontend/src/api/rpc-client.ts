@@ -1,4 +1,8 @@
-import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
+import {
+  CLValueParsers,
+  CasperServiceByJsonRPC,
+  CLPublicKey,
+} from 'casper-js-sdk';
 import { Block, Deploy, DeployStatus, Peer } from '../types';
 import { formatDate, formatTimeAgo } from '../utils';
 
@@ -81,9 +85,18 @@ export class RpcApi {
       const { deploy, execution_results: executionResults } =
         await this.rpcClient.getDeployInfo(deployHash);
 
+      // TODO: Add typings
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const paymentMap = new Map((deploy.payment as any).ModuleBytes.args);
+
+      const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
+        .unwrap()
+        .value()
+        .toString();
+
       const { header, approvals } = deploy;
 
-      const { timestamp, gas_price: gasPrice } = header;
+      const { timestamp } = header;
 
       const { block_hash: blockHash, result: executionResult } =
         executionResults[0];
@@ -110,7 +123,7 @@ export class RpcApi {
         deployHash,
         blockHash,
         publicKey,
-        paymentAmount: gasPrice.toString(),
+        paymentAmount,
         cost: cost.toString(),
         status,
       };
