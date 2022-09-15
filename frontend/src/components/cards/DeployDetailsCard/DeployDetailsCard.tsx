@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactJson from '@microlink/react-json-view';
 
 import { Link } from 'react-router-dom';
 import { Deploy } from '../../../types';
