@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Deploy } from '../../../types';
 import { truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -84,8 +84,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     {
       key: 'raw-json',
       detailKey: 'Raw Deploy',
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      value: <ReactJson src={JSON.parse(rawDeploy)} collapsed />,
+      value: <RawData rawData={rawDeploy} />,
     },
   ];
 
