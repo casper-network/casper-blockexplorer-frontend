@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+import { useForm } from 'react-hook-form';
+
 import { Navbar } from '../Navbar/Navbar';
 import logo from '../../../assets/images/logo.png';
+
+type Input = {
+  error: string;
+};
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -10,7 +16,13 @@ export const Header: React.FC = () => {
   const [filter, setFilter] = useState('account');
   // TODO: remove this when used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState('');
+
+  const {
+    register,
+    formState: { error },
+  } = useForm<Input>();
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   // TODO: Move this magic strings to some constant variables
 
@@ -25,17 +37,17 @@ export const Header: React.FC = () => {
       case 'account':
         if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
           navigate(`/account/${trimmedValue}`);
-        } else alert('Please enter a valid public key.');
+        } else setError('Please enter a valid public key.');
         break;
       case 'deploy':
         if (isHexadecimal && notPublicKey) {
           navigate(`/deploy/${trimmedValue}`);
-        } else alert('Please enter a valid deploy hash.');
+        } else setError('Please enter a valid deploy hash.');
         break;
       case 'block':
         if (isHexadecimal && notPublicKey) {
           navigate(`/block/${trimmedValue}`);
-        } else alert('Please enter a valid block hash.');
+        } else setError('Please enter a valid block hash.');
         break;
       default:
         return null;
@@ -62,7 +74,7 @@ export const Header: React.FC = () => {
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
-          <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
+          <div className="bg-casper-blue flex relative justify-center pb-20 pt-4">
             <select
               onChange={ev => setFilter(ev.target.value)}
               className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
@@ -80,6 +92,7 @@ export const Header: React.FC = () => {
             />
             <button
               onClick={submitValue}
+              {...register('exampleRequired', { required: true })}
               type="submit"
               className="bg-casper-red relative right-20 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
               <svg
@@ -99,6 +112,18 @@ export const Header: React.FC = () => {
             </button>
           </div>
         </form>
+        <div className="flex flex-row justify-center pb-25">
+          {error !== '' ? (
+            <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2 pb">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+              />
+            </svg>
+          ) : null}
+          <p className="text-casper-red">{error}</p>
+        </div>
       </div>
     </header>
   );
