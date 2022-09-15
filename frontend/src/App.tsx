@@ -1,13 +1,23 @@
-import React, { StrictMode } from 'react';
+import React, { StrictMode, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import useMeasure from 'react-use-measure';
 
 import { Header } from './components';
 import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
+import { updateBounds, useAppDispatch } from './store';
 
 const App = () => {
+  const [ref, bounds] = useMeasure();
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(updateBounds(bounds));
+  }, [bounds, dispatch]);
   return (
     <StrictMode>
-      <div className="bg-light-grey grid min-h-screen grid-rows-layout">
+      <div
+        ref={ref}
+        className="bg-light-grey grid min-h-screen grid-rows-layout">
         <BrowserRouter>
           <Header />
           <Routes>
