@@ -19,6 +19,8 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     blockHash,
     publicKey,
     status,
+    cost,
+    paymentAmount
   } = deploy;
 
   const rows = [
@@ -62,9 +64,19 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       ),
     },
     {
+      key: `payment-${deployHash}`,
+      detailKey: 'Payment Amount',
+      value: paymentAmount,
+    },
+    {
       key: `status-${status}`,
       detailKey: 'Status',
       value: status,
+    },
+    {
+      key: `cost-${deployHash}`,
+      detailKey: 'Cost',
+      value: cost,
     },
   ];
 
