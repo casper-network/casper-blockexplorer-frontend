@@ -10,10 +10,10 @@ export const DetailCard: React.FC<DetailCardProps> = ({ rows }) => {
             {rows.map(({ detailKey, value, key }) => {
               return (
                 <tr key={key}>
-                  <td className="h-full py-16 border-0 border-b-1 border-light-grey border-solid text-slate-500 whitespace-nowrap pr-32">
+                  <td className="h-full w-200 py-16 border-0 border-b-1 border-light-grey border-solid text-slate-500 whitespace-nowrap pr-32 align-top">
                     {detailKey}
                   </td>
-                  <td className="h-full py-16 border-0 border-b-1 flex items-center border-light-grey border-solid">
+                  <td className="h-full w-auto py-16 border-0 border-b-1 flex items-center border-light-grey border-solid">
                     {value}
                   </td>
                 </tr>
