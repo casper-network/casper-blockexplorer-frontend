@@ -69,6 +69,7 @@ export class RpcApi {
         deployHashes,
         stateRootHash,
         parentHash,
+        rawBlock: JSON.stringify(rawBlockData),
       };
 
       return tailoredBlock;
@@ -151,6 +152,7 @@ export class RpcApi {
       trimmedAccountHash: accountHash.slice(13),
       publicKey: publicKeyHex,
       mainPurse: account.mainPurse,
+      rawAccount: JSON.stringify(account),
     };
   };
 
@@ -214,6 +216,7 @@ export class RpcApi {
         validatorPublicKey,
         stateRootHash,
         parentHash,
+        rawBlock: JSON.stringify(block),
       };
     });
   };
@@ -227,7 +230,7 @@ export class RpcApi {
       for (let i = currentHeight; i > currentHeight - numToShow; i--) {
         await this.getBlockByHeight(i)
           .then(block => {
-            blocks.push(block);
+            blocks.push({ ...block, rawBlock: JSON.stringify(block) });
           })
           .catch(err => {
             // eslint-disable-next-line no-console
