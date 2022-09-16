@@ -4,7 +4,10 @@ import useMeasure from 'react-use-measure';
 
 import { Header } from './components';
 import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
-import { updateBounds, useAppDispatch } from './store';
+import { updateBounds, fetchBlocks, fetchPeers, useAppDispatch } from './store';
+
+// currently two minutes
+const REFRESH_INTERVAL = 1000 * 60 * 2;
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -13,6 +16,17 @@ const App = () => {
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
+
+    const refreshAppData = () => {
+      dispatch(fetchBlocks);
+      dispatch(fetchPeers);
+    };
+
+    const interval = setInterval(() => {
+      refreshAppData();
+    }, REFRESH_INTERVAL);
+
+    return () => clearInterval(interval);
   }, [bounds, dispatch]);
 
   return (
