@@ -100,3 +100,7 @@ a:hover {
     max-width: calc(100vw - 5rem);
   }
 }
+
+.break-word {
+  word-break: break-word;
+}
