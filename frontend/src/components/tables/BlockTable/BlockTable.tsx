@@ -67,7 +67,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
           <>
             <Link
               to={{
-                pathname: `/validator/${validatorPublicKey}`,
+                pathname: `/account/${validatorPublicKey}`,
               }}>
               {truncateHash(validatorPublicKey)}
             </Link>
