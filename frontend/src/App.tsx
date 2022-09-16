@@ -10,9 +10,11 @@ const App = () => {
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
+  
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
+  
   return (
     <StrictMode>
       <div
