@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
-          <div className="bg-casper-blue flex relative justify-center pb-20 pt-4">
+          <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
               onChange={ev => setFilter(ev.target.value)}
               className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
@@ -112,9 +112,8 @@ export const Header: React.FC = () => {
               </svg>
             </button>
           </div>
-
           {errors.exampleRequired && (
-            <div className="flex flex-row justify-center pb-25">
+            <div className="flex flex-row justify-center relative bottom-25">
               <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2 pb">
                 <path
                   strokeLinecap="round"
