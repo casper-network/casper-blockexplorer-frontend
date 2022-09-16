@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-export interface NavProps {
-  readonly title: string;
-  readonly path: string;
-}
+import { useAppSelector } from '../../../store';
+import { getBounds } from '../../../store';
 
 const navItems = [
   {
@@ -21,21 +18,13 @@ const navItems = [
 
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
-  const windowWidth = window.innerWidth;
+  const bounds = useAppSelector(getBounds);
 
-  useEffect(() => {
-    const closeDropdown = () => {
-      if (windowWidth > 1024) {
-        setIsOpened(false);
-      }
-    };
+  const windowWidth = bounds?.width || 0;
 
-    window.addEventListener('resize', closeDropdown);
-
-    return () => {
-      window.removeEventListener('resize', closeDropdown);
-    };
-  }, [windowWidth]);
+  if (isOpened && windowWidth > 1024) {
+    setIsOpened(false);
+  }
 
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {
