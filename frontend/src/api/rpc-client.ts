@@ -56,7 +56,9 @@ export class RpcApi {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         } = (rawBlockData as any).body as BlockBody;
 
-        const deployCount = deployHashes ? deployHashes.length : 0;
+        const deployHashCount = deployHashes?.length || 0;
+        const transferHashCount = transferHashes?.length || 0;
+        const deployCount = deployHashCount + transferHashCount;
 
         const dateTime = new Date(timestamp);
 
@@ -295,8 +297,9 @@ export class RpcApi {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       } = (block as any).body as BlockBody;
 
-      const countHashes = deployHashes;
-      const deployCount = countHashes ? countHashes.length : 0;
+      const deployHashCount = deployHashes?.length || 0;
+      const transferHashCount = transferHashes?.length || 0;
+      const deployCount = deployHashCount + transferHashCount;
 
       const dateTime = new Date(timestamp);
 
