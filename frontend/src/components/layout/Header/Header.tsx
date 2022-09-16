@@ -7,7 +7,7 @@ import { Navbar } from '../Navbar/Navbar';
 import logo from '../../../assets/images/logo.png';
 
 type Input = {
-  error: string;
+  exampleRequired: string;
 };
 
 export const Header: React.FC = () => {
@@ -19,7 +19,8 @@ export const Header: React.FC = () => {
 
   const {
     register,
-    formState: { error },
+    handleSubmit,
+    formState: { errors },
   } = useForm<Input>();
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,6 +28,7 @@ export const Header: React.FC = () => {
   // TODO: Move this magic strings to some constant variables
 
   const submitValue = () => {
+    console.log('test');
     const trimmedValue = search.trim();
     const isHexadecimal = /^[A-F0-9]+$/i.test(search);
     const notPublicKey = !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
@@ -37,17 +39,17 @@ export const Header: React.FC = () => {
       case 'account':
         if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
           navigate(`/account/${trimmedValue}`);
-        } else setError('Please enter a valid public key.');
+        } else setErrorMessage('Please enter a valid public key.');
         break;
       case 'deploy':
         if (isHexadecimal && notPublicKey) {
           navigate(`/deploy/${trimmedValue}`);
-        } else setError('Please enter a valid deploy hash.');
+        } else setErrorMessage('Please enter a valid deploy hash.');
         break;
       case 'block':
         if (isHexadecimal && notPublicKey) {
           navigate(`/block/${trimmedValue}`);
-        } else setError('Please enter a valid block hash.');
+        } else setErrorMessage('Please enter a valid block hash.');
         break;
       default:
         return null;
@@ -70,7 +72,7 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        <form>
+        <form onSubmit={handleSubmit(submitValue)}>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
@@ -84,15 +86,14 @@ export const Header: React.FC = () => {
             </select>
             <input
               value={search}
+              {...register('exampleRequired', { required: true })}
               onChange={ev => setSearch(ev.target.value)}
               type="search"
               id="search"
               className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
-              required
             />
             <button
               onClick={submitValue}
-              {...register('exampleRequired', { required: true })}
               type="submit"
               className="bg-casper-red relative right-20 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
               <svg
@@ -111,19 +112,20 @@ export const Header: React.FC = () => {
               </svg>
             </button>
           </div>
+
+          {errors.exampleRequired && (
+            <div className="flex flex-row justify-center pb-25">
+              <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2 pb">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                />
+              </svg>
+              <p className="text-casper-red">{errorMessage}</p>
+            </div>
+          )}
         </form>
-        <div className="flex flex-row justify-center pb-25">
-          {error !== '' ? (
-            <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2 pb">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
-            </svg>
-          ) : null}
-          <p className="text-casper-red">{error}</p>
-        </div>
       </div>
     </header>
   );
