@@ -73,7 +73,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <>
           <Link
             to={{
-              pathname: `/validator/${validatorPublicKey}`,
+              pathname: `/account/${validatorPublicKey}`,
             }}>
             {validatorPublicKey}
           </Link>
