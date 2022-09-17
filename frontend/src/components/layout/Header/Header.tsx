@@ -48,6 +48,7 @@ const resolver: Resolver<FormValues> = async values => {
       } else currentErrorMessage = errorMessage.block;
       break;
     default:
+      throw new Error('Please enter a valid hash');
   }
 
   return {
