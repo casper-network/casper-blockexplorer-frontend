@@ -1,60 +1,80 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
 
 import { Navbar } from '../Navbar/Navbar';
 import logo from '../../../assets/images/logo.png';
 
-type Input = {
-  exampleRequired: string;
+type FormValues = {
+  hash: string;
+  filterOptions: string;
+  path: string;
+};
+
+const resolver: Resolver<FormValues> = async values => {
+  let currentErrorMessage;
+
+  const errorMessage = {
+    account: 'Please enter a valid public key.',
+    deploy: 'Please enter a valid deploy hash.',
+    block: 'Please enter a valid block hash.',
+  };
+
+  const path = {
+    account: `/account/${values.hash}`,
+    deploy: `/deploy/${values.hash}`,
+    block: `/block/${values.hash}`,
+  };
+
+  const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
+  const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
+    values.hash,
+  );
+
+  switch (values.filterOptions) {
+    case 'account':
+      if (isPublicKey) {
+        values.path = path.account;
+      } else currentErrorMessage = errorMessage.account;
+      break;
+    case 'deploy':
+      if (isHexadecimal) {
+        values.path = path.deploy;
+      } else currentErrorMessage = errorMessage.deploy;
+      break;
+    case 'block':
+      if (isHexadecimal) {
+        values.path = path.block;
+      } else currentErrorMessage = errorMessage.block;
+      break;
+    default:
+  }
+
+  return {
+    values: values.filterOptions ? values : {},
+    errors: !values.path
+      ? {
+          hash: {
+            type: 'required',
+            message: `${currentErrorMessage}`,
+          },
+        }
+      : {},
+  };
 };
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('account');
   // TODO: remove this when used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // TODO: Move this magic strings to some constant variables
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Input>();
-
-  const [errorMessage, setErrorMessage] = useState('');
-
-  // TODO: Move this magic strings to some constant variables
-
-  const submitValue = () => {
-    console.log('test');
-    const trimmedValue = search.trim();
-    const isHexadecimal = /^[A-F0-9]+$/i.test(search);
-    const notPublicKey = !/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
-      trimmedValue,
-    );
-
-    switch (filter) {
-      case 'account':
-        if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
-          navigate(`/account/${trimmedValue}`);
-        } else setErrorMessage('Please enter a valid public key.');
-        break;
-      case 'deploy':
-        if (isHexadecimal && notPublicKey) {
-          navigate(`/deploy/${trimmedValue}`);
-        } else setErrorMessage('Please enter a valid deploy hash.');
-        break;
-      case 'block':
-        if (isHexadecimal && notPublicKey) {
-          navigate(`/block/${trimmedValue}`);
-        } else setErrorMessage('Please enter a valid block hash.');
-        break;
-      default:
-        return null;
-    }
-  };
+  } = useForm<FormValues>({ resolver });
+  const onSubmit: SubmitHandler<FormValues> = data => navigate(data.path);
 
   return (
     <header className="w-full bg-casper-blue flex justify-center">
@@ -72,28 +92,25 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        <form onSubmit={handleSubmit(submitValue)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
           <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
-              onChange={ev => setFilter(ev.target.value)}
+              {...register('filterOptions')}
               className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
               <option value="account">Account</option>
               <option value="deploy">Deploy</option>
               <option value="block">Block</option>
             </select>
             <input
-              value={search}
-              {...register('exampleRequired', { required: true })}
-              onChange={ev => setSearch(ev.target.value)}
+              {...register('hash', { required: true })}
               type="search"
               id="search"
               className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
             />
             <button
-              onClick={submitValue}
               type="submit"
               className="bg-casper-red relative right-20 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
               <svg
@@ -112,7 +129,7 @@ export const Header: React.FC = () => {
               </svg>
             </button>
           </div>
-          {errors.exampleRequired && (
+          {errors.hash && (
             <div className="flex flex-row justify-center relative bottom-25">
               <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2 pb">
                 <path
@@ -121,7 +138,7 @@ export const Header: React.FC = () => {
                   d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
                 />
               </svg>
-              <p className="text-casper-red">{errorMessage}</p>
+              <p className="text-casper-red">{errors.hash.message}</p>
             </div>
           )}
         </form>
