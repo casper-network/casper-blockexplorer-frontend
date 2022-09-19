@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
 
@@ -83,9 +83,20 @@ export const Header: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({ resolver });
-  const onSubmit: SubmitHandler<FormValues> = data => navigate(data.path);
+    reset,
+    formState,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<FormValues>({ resolver, defaultValues: { hash: '' } });
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    navigate(data.path);
+    reset(data);
+  };
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ hash: '' });
+    }
+  }, [formState, isSubmitSuccessful, reset]);
 
   return (
     <header className="w-full bg-casper-blue flex justify-center">
