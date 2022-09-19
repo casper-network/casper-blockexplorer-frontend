@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
-import { useParams, useLocation, useSearchParams } from 'react-router-dom';
-import { Block, BlockSearchType } from '../types';
+import { useParams, useLocation } from 'react-router-dom';
+import { Block } from '../types';
 import { truncateHash } from '../utils';
 import { BlockDetailsCard, PageError, PageWrapper } from '../components';
 import { casperApi } from '../api';
@@ -19,6 +19,7 @@ export const BlockPage: React.FC = () => {
   const [block, setBlock] = useState<Block>();
   const [error, setError] = useState<PageError>();
 
+  // TODO: Get rid of this 'magic string'
   const isHashIdentifier = query.get('type') !== 'height';
 
   useAsyncEffect(async () => {
