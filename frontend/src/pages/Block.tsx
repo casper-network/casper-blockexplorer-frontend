@@ -47,6 +47,7 @@ export const BlockPage: React.FC = () => {
 
   const isLoading = !block;
 
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
       {!isLoading && blockIndentifier && (
@@ -55,7 +56,7 @@ export const BlockPage: React.FC = () => {
             <h2 className="text-24 mb-16">
               Block:{' '}
               <span className="tracking-2 font-normal">
-                {truncateHash(blockIndentifier)}
+                {truncateHash(block.hash)}
               </span>
             </h2>
           </div>
