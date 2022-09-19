@@ -45,3 +45,9 @@ export type Deploy = {
   cost: string;
   rawDeploy: string;
 };
+
+export enum BlockSearchType {
+  Hash,
+  Height
+}
+

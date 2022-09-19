@@ -18,12 +18,14 @@ const resolver: Resolver<FormValues> = async values => {
     account: 'Please enter a valid public key.',
     deploy: 'Please enter a valid deploy hash.',
     block: 'Please enter a valid block hash.',
+    blockHeight: 'Please enter a valid block height',
   };
 
   const path = {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
     block: `/block/${values.hash}`,
+    blockHeight: `/block/${values.hash}?type=height`,
   };
 
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
@@ -47,8 +49,13 @@ const resolver: Resolver<FormValues> = async values => {
         values.path = path.block;
       } else currentErrorMessage = errorMessage.block;
       break;
+    case 'blockHeight':
+      if (values.hash) {
+        values.path = path.blockHeight;
+      } else currentErrorMessage = errorMessage.blockHeight;
+      break;
     default:
-      throw new Error('Please enter a valid hash');
+      throw new Error('Please enter a valid hash or block height');
   }
 
   return {
@@ -100,10 +107,11 @@ export const Header: React.FC = () => {
           <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
               {...register('filterOptions')}
-              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
+              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 md:w-114 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
               <option value="account">Account</option>
-              <option value="deploy">Deploy</option>
-              <option value="block">Block</option>
+              <option value="deploy">Deploy Hash</option>
+              <option value="block">Block Hash</option>
+              <option value="blockHeight">Block Height</option>
             </select>
             <input
               {...register('hash', { required: true })}
@@ -114,7 +122,7 @@ export const Header: React.FC = () => {
             />
             <button
               type="submit"
-              className="bg-casper-red relative right-12 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
+              className="bg-casper-red relative right-20 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
               <svg
                 aria-hidden="true"
                 className="w-24 h-24 text-white pt-5"
