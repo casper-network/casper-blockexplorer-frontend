@@ -84,16 +84,15 @@ export const Header: React.FC = () => {
     register,
     handleSubmit,
     reset,
-    formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm<FormValues>({ resolver, defaultValues: { hash: '' } });
   const onSubmit: SubmitHandler<FormValues> = data => navigate(data.path);
 
   useEffect(() => {
-    if (formState.isSubmitSuccessful) {
+    if (isSubmitSuccessful) {
       reset({ hash: '' });
     }
-  }, [formState, isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <header className="w-full bg-casper-blue flex justify-center">
