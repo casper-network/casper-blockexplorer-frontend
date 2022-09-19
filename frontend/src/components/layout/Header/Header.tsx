@@ -9,9 +9,17 @@ type FormValues = {
   hash: string;
   filterOptions: string;
   path: string;
+  blockHeight: string | number;
 };
 
 const resolver: Resolver<FormValues> = async values => {
+  const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
+  const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
+    values.hash,
+  );
+  const isBlockHeight = values.hash.split(',').join('');
+  const onlyNumbers = /^[0-9]+$/.test(isBlockHeight);
+
   let currentErrorMessage;
 
   const errorMessage = {
@@ -25,13 +33,8 @@ const resolver: Resolver<FormValues> = async values => {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
     block: `/block/${values.hash}`,
-    blockHeight: `/block/${values.hash}?type=height`,
+    blockHeight: `/block/${isBlockHeight}?type=height`,
   };
-
-  const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
-  const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
-    values.hash,
-  );
 
   switch (values.filterOptions) {
     case 'account':
@@ -50,7 +53,7 @@ const resolver: Resolver<FormValues> = async values => {
       } else currentErrorMessage = errorMessage.block;
       break;
     case 'blockHeight':
-      if (values.hash) {
+      if (isBlockHeight && onlyNumbers) {
         values.path = path.blockHeight;
       } else currentErrorMessage = errorMessage.blockHeight;
       break;
