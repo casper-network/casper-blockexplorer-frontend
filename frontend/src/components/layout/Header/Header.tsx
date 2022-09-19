@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, createSearchParams, Link } from 'react-router-dom';
 
 import { Navbar } from '../Navbar/Navbar';
 import logo from '../../../assets/images/logo.png';
@@ -22,20 +22,28 @@ export const Header: React.FC = () => {
     );
 
     switch (filter) {
-      case 'account':
+      case 'account-pk':
         if (/^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(trimmedValue)) {
           navigate(`/account/${trimmedValue}`);
         } else alert('Please enter a valid public key.');
         break;
-      case 'deploy':
+      case 'deploy-hash':
         if (isHexadecimal && notPublicKey) {
           navigate(`/deploy/${trimmedValue}`);
         } else alert('Please enter a valid deploy hash.');
         break;
-      case 'block':
+      case 'block-hash':
         if (isHexadecimal && notPublicKey) {
           navigate(`/block/${trimmedValue}`);
         } else alert('Please enter a valid block hash.');
+        break;
+      case 'block-height':
+        if (notPublicKey) {
+          navigate({
+            pathname: `/block/${trimmedValue}`,
+            search: createSearchParams({ type: 'height' }).toString(),
+          });
+        } else alert('Please enter a valid block height.');
         break;
       default:
         return null;
@@ -65,10 +73,11 @@ export const Header: React.FC = () => {
           <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
               onChange={ev => setFilter(ev.target.value)}
-              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
-              <option value="account">Account</option>
-              <option value="deploy">Deploy</option>
-              <option value="block">Block</option>
+              className="relative left-10 w-100 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-115">
+              <option value="account-pk">Account</option>
+              <option value="deploy-hash">Deploy Hash</option>
+              <option value="block-hash">Block Hash</option>
+              <option value="block-height">Block Height</option>
             </select>
             <input
               value={search}
