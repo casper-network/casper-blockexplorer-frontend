@@ -1,0 +1,38 @@
+---
+kind: pipeline
+type: docker
+name: ci-frontend
+
+steps:
+- name: npm install
+  image: casperlabs/node-build-u1804
+  commands:
+  - make frontend-install
+
+- name: npm audit
+  image: casperlabs/node-build-u1804
+  commands:
+  - make frontend-audit
+
+- name: npm lint
+  image: casperlabs/node-build-u1804
+  commands:
+  - make frontend-lint
+
+- name: npm test
+  image: casperlabs/node-build-u1804
+  commands:
+  - make frontend-test
+
+trigger:
+  branch:
+  - dev
+  - "feat-*"
+  - "release-*"
+  event:
+    include:
+    - pull_request
+    - push
+    exclude:
+    - tag
+    - cron
