@@ -9,11 +9,11 @@ import { updateBounds, useAppDispatch } from './store';
 const App = () => {
   const [ref, bounds] = useMeasure();
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   
-  // useEffect(() => {
-  //   dispatch(updateBounds(bounds));
-  // }, [bounds, dispatch]);
+  useEffect(() => {
+    dispatch(updateBounds(bounds));
+  }, [bounds, dispatch]);
   
   return (
     <StrictMode>
@@ -28,7 +28,7 @@ const App = () => {
             <Route path="/account/:id" element={<AccountPage />} />
             <Route path="/deploy/:id" element={<DeployPage />} />
             <Route path="/block/:id" element={<BlockPage />} />
-            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </div>
