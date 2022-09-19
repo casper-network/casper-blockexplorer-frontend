@@ -17,7 +17,7 @@ const resolver: Resolver<FormValues> = async values => {
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
     values.hash,
   );
-  const isBlockHeight = values.hash.split(',').join('');
+  const isBlockHeight = values.hash.split(',').join('').trim();
   const onlyNumbers = /^[0-9]+$/.test(isBlockHeight);
 
   let currentErrorMessage;
