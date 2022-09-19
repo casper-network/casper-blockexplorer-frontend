@@ -31,7 +31,7 @@ export const BlockPage: React.FC = () => {
 
         if (!blockData) {
           setError({
-            message: `We were unable to locate block data for hash ${blockIndentifier}`,
+            message: `We were unable to locate block data for ${isHashIdentifier ? 'hash' : 'height'} ${blockIndentifier}`,
           });
           return;
         }
