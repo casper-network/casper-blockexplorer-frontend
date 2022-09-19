@@ -29,6 +29,8 @@ const resolver: Resolver<FormValues> = async values => {
     blockHeight: 'Please enter a valid block height',
   };
 
+  const defaultErrorMessage = 'Please enter a valid hash or block height';
+
   const path = {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
@@ -58,7 +60,7 @@ const resolver: Resolver<FormValues> = async values => {
       } else currentErrorMessage = errorMessage.blockHeight;
       break;
     default:
-      throw new Error('Please enter a valid hash or block height');
+      currentErrorMessage = defaultErrorMessage;
   }
 
   return {
@@ -67,7 +69,7 @@ const resolver: Resolver<FormValues> = async values => {
       ? {
           hash: {
             type: 'required',
-            message: `${currentErrorMessage}`,
+            message: `${currentErrorMessage || defaultErrorMessage}`,
           },
         }
       : {},
@@ -76,9 +78,6 @@ const resolver: Resolver<FormValues> = async values => {
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
-  // TODO: remove this when used
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // TODO: Move this magic strings to some constant variables
 
   const {
     register,
@@ -103,7 +102,7 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={() => handleSubmit(onSubmit)}>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
@@ -120,7 +119,7 @@ export const Header: React.FC = () => {
               {...register('hash', { required: true })}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
+              className="block py-4 sm:py-6 md:py-10 px-20 sm:pl-20 md:px-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
               required
             />
             <button

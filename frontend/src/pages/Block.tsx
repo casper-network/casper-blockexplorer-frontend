@@ -13,7 +13,7 @@ const useQuery = () => {
 };
 
 export const BlockPage: React.FC = () => {
-  const { id: blockIndentifier } = useParams();
+  const { id: blockIdentifier } = useParams();
   const query = useQuery();
 
   const [block, setBlock] = useState<Block>();
@@ -23,15 +23,17 @@ export const BlockPage: React.FC = () => {
   const isHashIdentifier = query.get('type') !== 'height';
 
   useAsyncEffect(async () => {
-    if (blockIndentifier) {
+    if (blockIdentifier) {
       try {
         const blockData = isHashIdentifier
-          ? await casperApi.getBlock(blockIndentifier)
-          : await casperApi.getBlockByHeight(parseInt(blockIndentifier));
+          ? await casperApi.getBlock(blockIdentifier)
+          : await casperApi.getBlockByHeight(parseInt(blockIdentifier, 10));
 
         if (!blockData) {
           setError({
-            message: `We were unable to locate block data for ${isHashIdentifier ? 'hash' : 'height'} ${blockIndentifier}`,
+            message: `We were unable to locate block data for ${
+              isHashIdentifier ? 'hash' : 'height'
+            } ${blockIdentifier}`,
           });
           return;
         }
@@ -43,14 +45,13 @@ export const BlockPage: React.FC = () => {
         });
       }
     }
-  }, [blockIndentifier]);
+  }, [blockIdentifier]);
 
   const isLoading = !block;
 
-
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      {!isLoading && blockIndentifier && (
+      {!isLoading && blockIdentifier && (
         <>
           <div className="w-full text-black mb-24">
             <h2 className="text-24 mb-16">

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../store';
-import { getBounds } from '../../../store';
+import { useAppSelector, getBounds } from '../../../store';
 
 const navItems = [
   {
