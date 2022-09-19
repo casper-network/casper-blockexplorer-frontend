@@ -87,10 +87,7 @@ export const Header: React.FC = () => {
     formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm<FormValues>({ resolver, defaultValues: { hash: '' } });
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    navigate(data.path);
-    reset(data);
-  };
+  const onSubmit: SubmitHandler<FormValues> = data => navigate(data.path);
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
