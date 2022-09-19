@@ -17,8 +17,8 @@ const resolver: Resolver<FormValues> = async values => {
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
     values.hash,
   );
-  const isBlockHeight = values.hash.split(',').join('').trim();
-  const onlyNumbers = /^[0-9]+$/.test(isBlockHeight);
+  const formattedBlockHeight = values.hash.split(',').join('').trim();
+  const onlyNumbers = /^[0-9]+$/.test(formattedBlockHeight);
 
   let currentErrorMessage;
 
@@ -33,7 +33,7 @@ const resolver: Resolver<FormValues> = async values => {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
     block: `/block/${values.hash}`,
-    blockHeight: `/block/${isBlockHeight}?type=height`,
+    blockHeight: `/block/${formattedBlockHeight}?type=height`,
   };
 
   switch (values.filterOptions) {
@@ -53,7 +53,7 @@ const resolver: Resolver<FormValues> = async values => {
       } else currentErrorMessage = errorMessage.block;
       break;
     case 'blockHeight':
-      if (isBlockHeight && onlyNumbers) {
+      if (formattedBlockHeight && onlyNumbers) {
         values.path = path.blockHeight;
       } else currentErrorMessage = errorMessage.blockHeight;
       break;
