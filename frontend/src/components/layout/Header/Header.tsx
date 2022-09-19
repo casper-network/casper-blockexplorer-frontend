@@ -29,6 +29,8 @@ const resolver: Resolver<FormValues> = async values => {
     blockHeight: 'Please enter a valid block height',
   };
 
+  const defaultErrorMessage = 'Please enter a valid hash or block height';
+
   const path = {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
@@ -58,7 +60,7 @@ const resolver: Resolver<FormValues> = async values => {
       } else currentErrorMessage = errorMessage.blockHeight;
       break;
     default:
-      throw new Error('Please enter a valid hash or block height');
+      currentErrorMessage = defaultErrorMessage;
   }
 
   return {
@@ -67,7 +69,7 @@ const resolver: Resolver<FormValues> = async values => {
       ? {
           hash: {
             type: 'required',
-            message: `${currentErrorMessage}`,
+            message: `${currentErrorMessage || defaultErrorMessage}`,
           },
         }
       : {},
@@ -76,9 +78,6 @@ const resolver: Resolver<FormValues> = async values => {
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
-  // TODO: remove this when used
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // TODO: Move this magic strings to some constant variables
 
   const {
     register,
@@ -103,7 +102,7 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={() => handleSubmit(onSubmit)}>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>

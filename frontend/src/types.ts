@@ -48,6 +48,5 @@ export type Deploy = {
 
 export enum BlockSearchType {
   Hash,
-  Height
+  Height,
 }
-
