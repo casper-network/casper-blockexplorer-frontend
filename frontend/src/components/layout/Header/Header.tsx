@@ -110,10 +110,11 @@ export const Header: React.FC = () => {
               type="search"
               id="search"
               className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
+              required
             />
             <button
               type="submit"
-              className="bg-casper-red relative right-20 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
+              className="bg-casper-red relative right-12 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
               <svg
                 aria-hidden="true"
                 className="w-24 h-24 text-white pt-5"

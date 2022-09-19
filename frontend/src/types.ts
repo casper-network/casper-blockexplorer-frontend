@@ -3,6 +3,7 @@ export type Account = {
   rawAccountHash: string;
   publicKey: string;
   mainPurse: string;
+  rawAccount: string;
 };
 
 export type Block = {
@@ -19,6 +20,7 @@ export type Block = {
   parentHash: string;
   stateRootHash?: string;
   proofs?: any[];
+  rawBlock: string;
 };
 
 export type Peer = {
@@ -41,4 +43,5 @@ export type Deploy = {
   status: DeployStatus;
   paymentAmount: string;
   cost: string;
+  rawDeploy: string;
 };

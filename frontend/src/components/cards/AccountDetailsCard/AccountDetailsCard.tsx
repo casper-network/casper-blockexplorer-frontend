@@ -1,7 +1,7 @@
 import React from 'react';
 import { Account } from '../../../types';
 import { DetailCard } from '../../base';
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account;
@@ -12,7 +12,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
 }) => {
-  const { trimmedAccountHash, publicKey } = account;
+  const { trimmedAccountHash, publicKey, rawAccount } = account;
 
   const rows = [
     {
@@ -39,6 +39,11 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       key: `balance-${balance || 'missing'}`,
       detailKey: 'Balance',
       value: <p>{balance || 0} motes</p>,
+    },
+    {
+      key: 'raw-json',
+      detailKey: 'Raw Deploy',
+      value: <RawData rawData={rawAccount} />,
     },
   ];
 

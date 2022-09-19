@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { Deploy } from '../../../types';
 import { truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -19,6 +20,9 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     blockHash,
     publicKey,
     status,
+    cost,
+    paymentAmount,
+    rawDeploy,
   } = deploy;
 
   const rows = [
@@ -62,9 +66,24 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       ),
     },
     {
+      key: `payment-${deployHash}`,
+      detailKey: 'Payment Amount',
+      value: paymentAmount,
+    },
+    {
       key: `status-${status}`,
       detailKey: 'Status',
       value: status,
+    },
+    {
+      key: `cost-${deployHash}`,
+      detailKey: 'Cost',
+      value: cost,
+    },
+    {
+      key: 'raw-json',
+      detailKey: 'Raw Deploy',
+      value: <RawData rawData={rawDeploy} />,
     },
   ];
 
