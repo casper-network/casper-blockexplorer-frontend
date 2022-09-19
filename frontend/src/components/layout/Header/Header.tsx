@@ -119,7 +119,7 @@ export const Header: React.FC = () => {
               {...register('hash', { required: true })}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
+              className="block py-4 sm:py-6 md:py-10 px-20 sm:pl-20 md:px-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
               required
             />
             <button
