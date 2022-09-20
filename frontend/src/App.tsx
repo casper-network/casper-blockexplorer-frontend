@@ -4,22 +4,33 @@ import useMeasure from 'react-use-measure';
 
 import { Header } from './components';
 import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
-import { updateBounds, fetchBlocks, fetchPeers, useAppDispatch } from './store';
+import {
+  updateBounds,
+  useAppDispatch,
+  refreshBlocks,
+  useAppSelector,
+  getLatestBlockHeight,
+  refreshBlockTimes,
+} from './store';
 
-// currently two minutes
-const REFRESH_INTERVAL = 1000 * 60 * 2;
+const REFRESH_INTERVAL = 1000 * 30;
 
 const App = () => {
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
+  const latestBlockHeight = useAppSelector(getLatestBlockHeight);
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
 
     const refreshAppData = () => {
-      dispatch(fetchBlocks);
-      dispatch(fetchPeers);
+      dispatch(refreshBlockTimes());
+
+      // will not exist until first application load
+      if (latestBlockHeight) {
+        dispatch(refreshBlocks(latestBlockHeight));
+      }
     };
 
     const interval = setInterval(() => {
@@ -27,7 +38,7 @@ const App = () => {
     }, REFRESH_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [bounds, dispatch]);
+  }, [bounds, dispatch, latestBlockHeight]);
 
   return (
     <StrictMode>
