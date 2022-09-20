@@ -36,3 +36,39 @@ trigger:
     exclude:
     - tag
     - cron
+
+---
+kind: pipeline
+type: docker
+name: nightly-testing
+
+steps:
+- name: npm install
+  image: casperlabs/node-build-u1804
+  commands:
+  - make frontend-install
+
+- name: npm test
+  image: casperlabs/node-build-u1804
+  commands:
+  - make frontend-test
+
+- name: notify
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook_nightly
+    template:
+    - |
+      Casper-BlockExplorer Nightly Test Status: *{{ uppercasefirst build.status }}*
+      Repo: {{ repo.name }}
+      Author: {{ build.author }}
+      Drone Build: <{{ build.link }}|#{{ build.number }}>
+      Commit Link: <https://github.com/{{repo.owner}}/{{repo.name}}/commit/{{build.commit}}|{{ truncate build.commit 10 }}>
+  when:
+    status:
+    - failure
+    - success
+
+trigger:
+  cron: [ nightly-tests-cron ]
