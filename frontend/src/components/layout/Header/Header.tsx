@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
 
@@ -9,27 +9,34 @@ type FormValues = {
   hash: string;
   filterOptions: string;
   path: string;
+  blockHeight: string | number;
 };
 
 const resolver: Resolver<FormValues> = async values => {
+  const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
+  const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
+    values.hash,
+  );
+  const formattedBlockHeight = values.hash.split(',').join('').trim();
+  const onlyNumbers = /^[0-9]+$/.test(formattedBlockHeight);
+
   let currentErrorMessage;
 
   const errorMessage = {
     account: 'Please enter a valid public key.',
     deploy: 'Please enter a valid deploy hash.',
     block: 'Please enter a valid block hash.',
+    blockHeight: 'Please enter a valid block height',
   };
+
+  const defaultErrorMessage = 'Please enter a valid hash or block height';
 
   const path = {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
     block: `/block/${values.hash}`,
+    blockHeight: `/block/${formattedBlockHeight}?type=height`,
   };
-
-  const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
-  const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
-    values.hash,
-  );
 
   switch (values.filterOptions) {
     case 'account':
@@ -47,8 +54,13 @@ const resolver: Resolver<FormValues> = async values => {
         values.path = path.block;
       } else currentErrorMessage = errorMessage.block;
       break;
+    case 'blockHeight':
+      if (formattedBlockHeight && onlyNumbers) {
+        values.path = path.blockHeight;
+      } else currentErrorMessage = errorMessage.blockHeight;
+      break;
     default:
-      throw new Error('Please enter a valid hash');
+      currentErrorMessage = defaultErrorMessage;
   }
 
   return {
@@ -57,7 +69,7 @@ const resolver: Resolver<FormValues> = async values => {
       ? {
           hash: {
             type: 'required',
-            message: `${currentErrorMessage}`,
+            message: `${currentErrorMessage || defaultErrorMessage}`,
           },
         }
       : {},
@@ -66,16 +78,20 @@ const resolver: Resolver<FormValues> = async values => {
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
-  // TODO: remove this when used
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // TODO: Move this magic strings to some constant variables
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({ resolver });
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<FormValues>({ resolver, defaultValues: { hash: '' } });
   const onSubmit: SubmitHandler<FormValues> = data => navigate(data.path);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ hash: '' });
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <header className="w-full bg-casper-blue flex justify-center">
@@ -93,28 +109,29 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={() => handleSubmit(onSubmit)}>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
           <div className="bg-casper-blue flex relative justify-center pb-50 pt-4">
             <select
               {...register('filterOptions')}
-              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
+              className="relative left-10 w-90 h-32 sm:h-36 md:h-42 md:w-114 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
               <option value="account">Account</option>
-              <option value="deploy">Deploy</option>
-              <option value="block">Block</option>
+              <option value="deploy">Deploy Hash</option>
+              <option value="block">Block Hash</option>
+              <option value="blockHeight">Block Height</option>
             </select>
             <input
               {...register('hash', { required: true })}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
+              className="block py-4 sm:py-6 md:py-10 px-20 sm:pl-20 md:px-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
               required
             />
             <button
               type="submit"
-              className="bg-casper-red relative right-12 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
+              className="bg-casper-red relative right-20 px-16 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
               <svg
                 aria-hidden="true"
                 className="w-24 h-24 text-white pt-5"
