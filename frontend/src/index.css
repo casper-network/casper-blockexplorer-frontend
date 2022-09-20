@@ -104,3 +104,10 @@ a:hover {
 .break-word {
   word-break: break-word;
 }
+
+/* temporary fix for safari select positioning */
+button,
+input {
+  margin: 0;
+  padding: 0;
+}
