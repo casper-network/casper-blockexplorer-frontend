@@ -28,6 +28,11 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
+// Core NodeJS polyfills
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+
+const includeNodeJsPolyfills = true;
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -746,6 +751,10 @@ module.exports = function (webpackEnv) {
               }),
             },
           },
+        }),
+      includeNodeJsPolyfills &&
+        new NodePolyfillPlugin({
+          excludeAliases: ['console'],
         }),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
