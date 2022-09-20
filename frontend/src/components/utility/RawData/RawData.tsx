@@ -22,6 +22,8 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const rawDataJSON: object = parseJSON(rawData);
 
+  console.log({ rawData });
+
   return (
     <Accordion allowZeroExpanded>
       <AccordionItem>
@@ -35,7 +37,7 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
           </AccordionItemButton>
         </AccordionItemHeading>
         <AccordionItemPanel className="mt-24">
-          <ReactJson src={rawDataJSON} collapsed />
+          <ReactJson src={rawDataJSON} displayDataTypes={false} collapsed />
         </AccordionItemPanel>
       </AccordionItem>
     </Accordion>
