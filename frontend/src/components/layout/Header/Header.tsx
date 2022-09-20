@@ -17,8 +17,8 @@ const resolver: Resolver<FormValues> = async values => {
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
     values.hash,
   );
-  const isBlockHeight = values.hash.split(',').join('').trim();
-  const onlyNumbers = /^[0-9]+$/.test(isBlockHeight);
+  const formattedBlockHeight = values.hash.split(',').join('').trim();
+  const onlyNumbers = /^[0-9]+$/.test(formattedBlockHeight);
 
   let currentErrorMessage;
 
@@ -35,7 +35,7 @@ const resolver: Resolver<FormValues> = async values => {
     account: `/account/${values.hash}`,
     deploy: `/deploy/${values.hash}`,
     block: `/block/${values.hash}`,
-    blockHeight: `/block/${isBlockHeight}?type=height`,
+    blockHeight: `/block/${formattedBlockHeight}?type=height`,
   };
 
   switch (values.filterOptions) {
@@ -55,7 +55,7 @@ const resolver: Resolver<FormValues> = async values => {
       } else currentErrorMessage = errorMessage.block;
       break;
     case 'blockHeight':
-      if (isBlockHeight && onlyNumbers) {
+      if (formattedBlockHeight && onlyNumbers) {
         values.path = path.blockHeight;
       } else currentErrorMessage = errorMessage.blockHeight;
       break;
@@ -126,7 +126,8 @@ export const Header: React.FC = () => {
               {...register('hash', { required: true })}
               type="search"
               id="search"
-              className="block p-4 sm:p-6 md:p-10 pl-20 sm:pl-20 md:pl-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
+              className="block py-4 sm:py-6 md:py-10 px-20 sm:pl-20 md:px-20 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xxs:max-w-400 xxs:text-sm xxs:pr-32"
+              required
             />
             <button
               type="submit"
