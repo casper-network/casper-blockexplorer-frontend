@@ -113,7 +113,7 @@ a:hover {
   box-sizing: border-box;
 }
 
-/* temporary fix for safari positioning */
+/* temporary fix for safari select positioning */
 button,
 input {
   margin: 0;
