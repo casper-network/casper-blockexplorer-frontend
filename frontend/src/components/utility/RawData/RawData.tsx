@@ -35,7 +35,7 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
           </AccordionItemButton>
         </AccordionItemHeading>
         <AccordionItemPanel className="mt-24">
-          <ReactJson src={rawDataJSON} collapsed />
+          <ReactJson src={rawDataJSON} displayDataTypes={false} collapsed />
         </AccordionItemPanel>
       </AccordionItem>
     </Accordion>
