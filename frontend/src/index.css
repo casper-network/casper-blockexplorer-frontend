@@ -105,14 +105,6 @@ a:hover {
   word-break: break-word;
 }
 
-/* Reset Select */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 /* temporary fix for safari select positioning */
 button,
 input {
