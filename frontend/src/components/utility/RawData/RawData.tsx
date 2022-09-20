@@ -22,8 +22,6 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const rawDataJSON: object = parseJSON(rawData);
 
-  console.log({ rawData });
-
   return (
     <Accordion allowZeroExpanded>
       <AccordionItem>
