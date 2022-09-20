@@ -85,7 +85,7 @@ export const Header: React.FC = () => {
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<FormValues>({ resolver, defaultValues: { hash: '' } });
-  const onSubmit: SubmitHandler<FormValues> = data => navigate(data.path);
+  const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -109,7 +109,8 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        <form onSubmit={() => handleSubmit(onSubmit)}>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <form onSubmit={handleSubmit(submitPath)}>
           <label htmlFor="default-search" className="sr-only">
             Search
           </label>
