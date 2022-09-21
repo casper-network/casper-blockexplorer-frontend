@@ -14,6 +14,10 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   blocks,
   showValidators,
 }) => {
+  const headContent = (
+    <p className="text-grey pl-32">{blocks.length} total rows</p>
+  );
+
   const blockTableTitles = [
     'Block Height',
     'Era',
@@ -85,5 +89,11 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     },
   );
 
-  return <Table headColumns={blockTableHeads} rows={blockRows} />;
+  return (
+    <Table
+      headContent={headContent}
+      headColumns={blockTableHeads}
+      rows={blockRows}
+    />
+  );
 };
