@@ -111,3 +111,8 @@ input {
   margin: 0;
   padding: 0;
 }
+
+/* temporary tooltip  */
+.tooltip:hover .tooltip-container {
+  display: block;
+}
