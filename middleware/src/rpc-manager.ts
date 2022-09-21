@@ -32,8 +32,16 @@ class NodeManager {
   }
 }
 
-if (!process.env.RPC_ENDPOINTS) {
-  throw Error("Missing RPC_ENDPOINTS env variable");
+console.log(process.env.NODE_URLS);
+console.log(process.env.NODE_URLS);
+console.log(process.env.NODE_URLS);
+console.log(process.env.NODE_URLS);
+console.log(process.env.NODE_URLS);
+console.log(process.env.NODE_URLS);
+console.log(process.env.NODE_URLS);
+
+if (!process.env.NODE_URLS) {
+  throw Error("Missing NODE_URLS env variable");
 }
 
-export default new NodeManager(process.env.RPC_ENDPOINTS.split(","));
+export default new NodeManager(process.env.NODE_URLS.split(","));

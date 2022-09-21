@@ -1,23 +1,11 @@
 version: "3.2"
 
 services:
-  server:
-    image: nginx
-    environment:
-      - NGINX_NODE_RPC=${NODE_URL}
-    volumes:
-    - ./../server/templates:/etc/nginx/templates
-    - ./../server/nginx.conf:/etc/nginx/nginx.conf
-    - ./../server/includes:/etc/nginx/my-includes
-    restart: on-failure
-    ports:
-      - "3000:3000"
-
   frontend:
     build:
       context: ../.
       dockerfile: frontend/Dockerfile.dev
-    image: casperselfie-reedem
+    image: blockexplorer-frontend
     environment:
       - NODE_ENV=development
     restart: on-failure
@@ -25,6 +13,18 @@ services:
       - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
       - ./../frontend:/app
     ports:
+      - "3000:3000"
+
+  middleware:
+    image: blockexplorer-middleware
+    build:
+      context: ../.
+      dockerfile: middleware/Dockerfile.dev
+    environment:
+      - NODE_URLS
+      - PORT
+    restart: on-failure
+    volumes:
+      - ./../middleware:/app
+    ports:
       - "4000:4000"
-    depends_on:
-      - server

@@ -5,7 +5,7 @@ import axios from "axios";
 import nodeManager from "./rpc-manager";
 
 const app: Express = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
