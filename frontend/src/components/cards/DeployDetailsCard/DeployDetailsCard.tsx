@@ -79,7 +79,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       value: status === DeployStatus.Failed ? (
         <>
           <div className="text-dark-red">{status}</div>
-          <img className="w-15 m-5" src={failure} />
+          <img className="w-15 m-5" src={failure} alt="failure icon" />
         </>
       ) : (
         <>
