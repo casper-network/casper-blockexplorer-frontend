@@ -6,17 +6,9 @@ import {
 import { Block, Deploy, DeployStatus, Peer } from '../types';
 import { formatDate, formatTimeAgo } from '../utils';
 import { ApiError } from './api-error';
+import { JsonBlockWithBody, JsonDeployPayment } from './missing-sdk-types';
 
 export const DEFAULT_NUM_TO_SHOW = 10;
-
-// temporary add to deal with incorrect types from the SDK
-// TODO: update the SDK types to be more accurate
-interface BlockBody {
-  proposer: string;
-  deploy_hashes?: string[];
-  transfer_hashes?: string[];
-}
-
 export class RpcApi {
   constructor(
     private readonly rpcClient: CasperServiceByJsonRPC,
@@ -48,13 +40,11 @@ export class RpcApi {
           parent_hash: parentHash,
         } = header;
 
-        // there are a few incorrect types coming from the SDK here..
         const {
           proposer: validatorPublicKey,
           deploy_hashes: deployHashes,
           transfer_hashes: transferHashes,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        } = (rawBlockData as any).body as BlockBody;
+        } = (rawBlockData as JsonBlockWithBody).body;
 
         const deployHashCount = deployHashes?.length || 0;
         const transferHashCount = transferHashes?.length || 0;
@@ -120,9 +110,9 @@ export class RpcApi {
         const { deploy, execution_results: executionResults } =
           await this.rpcClient.getDeployInfo(deployHash);
 
-        // TODO: Add typings
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-        const paymentMap = new Map((deploy.payment as any).ModuleBytes.args);
+        const paymentMap = new Map(
+          (deploy.payment as JsonDeployPayment).ModuleBytes.args,
+        );
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
@@ -289,13 +279,11 @@ export class RpcApi {
         parent_hash: parentHash,
       } = header;
 
-      // there are a few incorrect types coming from the SDK here..
       const {
         proposer: validatorPublicKey,
         deploy_hashes: deployHashes,
         transfer_hashes: transferHashes,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      } = (block as any).body as BlockBody;
+      } = (block as JsonBlockWithBody).body;
 
       const deployHashCount = deployHashes?.length || 0;
       const transferHashCount = transferHashes?.length || 0;
