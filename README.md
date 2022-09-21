@@ -11,7 +11,8 @@ You need to have Docker and Docker Compose set and running.
 Example:
 
 ```
-NODE_URL=http://localhost:7777/rpc
+MIDDLEWARE_URL=http://localhost:4000/rpc # middleware URL, by default its http://localhost:4000/rpc
+NODE_URLS=http://3.138.177.248:7777/rpc # it can be comma separated list of RPCs
 NETWORK_NAME=integration-test
 ```
 
