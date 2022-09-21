@@ -20,3 +20,17 @@ prod-start:
 clean:
 	$(PROD_DC) stop
 	$(DEV_DC) stop
+
+frontend-all: frontend-install frontend-audit frontend-lint frontend-test
+
+frontend-install:
+	cd frontend && npm install
+
+frontend-audit:
+	cd frontend && npm audit
+
+frontend-lint:
+	cd frontend && npm run lint
+
+frontend-test:
+	cd frontend && npm run test
