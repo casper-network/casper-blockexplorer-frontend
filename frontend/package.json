@@ -75,7 +75,7 @@
     "build": "node scripts/build.js",
     "build:clean": "npm run clean && npm run build",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
-    "lint": "eslint --ext .ts,.tsx src",
+    "lint": "eslint --ext .ts,.tsx src --max-warnings=0",
     "style:check": "prettier --check 'src/**/**/*.{ts,tsx}'",
     "style:fix": "prettier --write src/**/**/*.{ts,tsx}",
     "test": "node scripts/test.js --verbose --watchAll=false",
