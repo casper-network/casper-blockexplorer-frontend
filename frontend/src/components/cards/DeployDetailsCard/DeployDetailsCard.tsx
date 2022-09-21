@@ -84,7 +84,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       ) : (
         <>
           <div className="text-green">{status}</div>
-          <img className="w-15 m-5" src={success} />
+          <img className="w-15 m-5" src={success} alt="success icon" />
         </>
       ),
     },
