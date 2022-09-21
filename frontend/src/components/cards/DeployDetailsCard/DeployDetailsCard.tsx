@@ -76,7 +76,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     {
       key: `status-${status}`,
       detailKey: 'Status',
-      value: status.includes('Failed') ? (
+      value: status === DeployStatus.Failed ? (
         <>
           <div className="text-dark-red">{status}</div>
           <img className="w-15 m-5" src={failure} />
