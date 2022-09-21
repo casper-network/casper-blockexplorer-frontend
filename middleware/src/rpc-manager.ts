@@ -32,14 +32,6 @@ class NodeManager {
   }
 }
 
-console.log(process.env.NODE_URLS);
-console.log(process.env.NODE_URLS);
-console.log(process.env.NODE_URLS);
-console.log(process.env.NODE_URLS);
-console.log(process.env.NODE_URLS);
-console.log(process.env.NODE_URLS);
-console.log(process.env.NODE_URLS);
-
 if (!process.env.NODE_URLS) {
   throw Error("Missing NODE_URLS env variable");
 }
