@@ -28,7 +28,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
         </svg>
       </button>
       <div className="hidden tooltip-container relative">
-        <p className="bg-casper-blue p-10 text-white z-10 rounded-lg absolute  bottom-20 -left-44 xl:left-7  xl:pb-13">
+        <p className="bg-casper-blue p-10 text-white z-10 rounded-lg absolute bottom-20 -left-44 xl:left-7 xl:pb-13">
           Copy
         </p>
       </div>
