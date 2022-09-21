@@ -11,9 +11,11 @@ import {
   useAppSelector,
   getLatestBlockHeight,
   refreshBlockTimes,
+  updateRefreshTimer,
 } from './store';
+import { REFRESH_TIMER_SECONDS } from './utils';
 
-const REFRESH_INTERVAL = 1000 * 30;
+const REFRESH_INTERVAL = 1000 * REFRESH_TIMER_SECONDS;
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -33,11 +35,18 @@ const App = () => {
       }
     };
 
-    const interval = setInterval(() => {
+    const refreshTimerInterval = setInterval(() => {
+      dispatch(updateRefreshTimer());
+    }, 1000);
+
+    const refreshInterval = setInterval(() => {
       refreshAppData();
     }, REFRESH_INTERVAL);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(refreshInterval);
+      clearInterval(refreshTimerInterval);
+    };
   }, [bounds, dispatch, latestBlockHeight]);
 
   return (
