@@ -1,0 +1,7 @@
+FROM node:current-alpine
+
+WORKDIR /app
+
+EXPOSE 4000
+
+CMD npm install && npm run dev

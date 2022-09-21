@@ -21,8 +21,7 @@ export const fetchBlocks = createAsyncThunk(
 
       return blocks;
     } catch (error: any) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return error.message;
+      throw new Error('An error occurred while fetching blocks.');
     }
   },
 );
