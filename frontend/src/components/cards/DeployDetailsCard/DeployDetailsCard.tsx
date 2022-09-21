@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Deploy } from '../../../types';
+import { Deploy, DeployStatus } from '../../../types';
 import { truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard, RawData } from '../../utility';
+
+import failure from '../../../assets/icons/failure.svg';
+import success from '../../../assets/icons/success.svg';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -73,7 +76,17 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     {
       key: `status-${status}`,
       detailKey: 'Status',
-      value: status,
+      value: status.includes('Failed') ? (
+        <>
+          <div className="text-dark-red">{status}</div>
+          <img className="w-15 m-5" src={failure} />
+        </>
+      ) : (
+        <>
+          <div className="text-green">{status}</div>
+          <img className="w-15 m-5" src={success} />
+        </>
+      ),
     },
     {
       key: `cost-${deployHash}`,
