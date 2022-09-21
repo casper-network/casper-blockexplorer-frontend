@@ -8,6 +8,7 @@ services:
     image: blockexplorer-frontend
     environment:
       - NODE_ENV=development
+      - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
     restart: on-failure
     volumes:
       - /app/node_modules # prefer container's node_modules instead of volume-mounted ones

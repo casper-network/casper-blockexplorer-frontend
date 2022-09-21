@@ -1,6 +1,6 @@
 ## Blockexplorer
 
-The app uses nginx reverse proxy so its eliminates CORS errors that can happen when quering the node when it's running casper-node < 1.5.
+The app uses our custom Node.js middleware which acts as reverse proxy and support list of multiple nodes.
 
 ### Setup
 

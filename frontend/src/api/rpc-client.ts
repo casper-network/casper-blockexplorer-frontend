@@ -378,6 +378,6 @@ export enum RpcApiError {
   GetBlocksFailed = 'getBlocks/fetch-failed',
 }
 
-  const casperJsonRpcService = new CasperServiceByJsonRPC('http://localhost:4000/rpc');
+const casperJsonRpcService = new CasperServiceByJsonRPC(process.env.REACT_APP_MIDDLEWARE_URL!);
 
 export const casperApi = new RpcApi(casperJsonRpcService);
