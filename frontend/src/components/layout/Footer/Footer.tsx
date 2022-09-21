@@ -2,8 +2,9 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="block bg-casper-blue text-white text-center pl py-30 lg:text-left lg:pl-30">
-      ChainSpec Data
+    <footer className="block bg-casper-blue text-white text-xs text-center pl py-25 ">
+      <p>Casper Node version: 1.4.8 (b94c4f79a)</p>
+      <p>Network Name: `integration-test`</p>
     </footer>
   );
 };
