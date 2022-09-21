@@ -76,17 +76,18 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     {
       key: `status-${status}`,
       detailKey: 'Status',
-      value: status === DeployStatus.Failed ? (
-        <>
-          <div className="text-dark-red">{status}</div>
-          <img className="w-15 m-5" src={failure} alt="failure icon" />
-        </>
-      ) : (
-        <>
-          <div className="text-green">{status}</div>
-          <img className="w-15 m-5" src={success} alt="success icon" />
-        </>
-      ),
+      value:
+        status === DeployStatus.Failed ? (
+          <>
+            <div className="text-dark-red">{status}</div>
+            <img className="w-15 m-5" src={failure} alt="failure icon" />
+          </>
+        ) : (
+          <>
+            <div className="text-green">{status}</div>
+            <img className="w-15 m-5" src={success} alt="success icon" />
+          </>
+        ),
     },
     {
       key: `cost-${deployHash}`,
