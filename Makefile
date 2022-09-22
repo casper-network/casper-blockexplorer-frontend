@@ -2,8 +2,8 @@ export
 
 .PHONY: dev-build dev-start clean
 
-DEV_DC = docker-compose -p casperexplorer -f docker/docker-compose.dev.yml --env-file ./.env
-PROD_DC = docker-compose -f docker/docker-compose.prod.yml --env-file ./.env
+DEV_DC = docker-compose -p casperexplorer -f docker/docker-compose.yml -f docker/docker-compose.dev.yml --env-file ./.env
+PROD_DC = docker-compose -f docker/docker-compose.yml --env-file ./.env
 
 dev-build:
 	$(DEV_DC) build
