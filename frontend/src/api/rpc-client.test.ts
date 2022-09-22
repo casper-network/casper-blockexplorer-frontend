@@ -174,7 +174,7 @@ describe('rpc-client', () => {
       const mockBlockHash =
         '05ebc114e9c28b22dc9830b561b02569642698358a100b4c0f1123766d3a73bd';
       const mockPublicKey =
-        '01f45448b1339e4c674af6c65caed2a2db17aaf3a2cdcd0420617e53fe026446a7086684a8e01be2f632999a2c1e3a5a861db0838c119206fb2fa5e9bdf4ee2701';
+        '01b426de500f84ff4f2d765928fb8053539cf10dd917fb1ff6104eda48a2759e10';
 
       const mockRawDeploy = {
         hash: mockDeployHash,
