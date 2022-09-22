@@ -81,7 +81,25 @@ export const blockSlice = createSlice({
       .addCase(
         refreshBlocks.fulfilled,
         (state, { payload }: PayloadAction<Block[]>) => {
-          state.blocks = [...payload, ...state.blocks];
+          const potentialOldBlocksToRemove = state.blocks.slice(
+            0,
+            payload.length,
+          );
+
+          // ensure the array has no duplicates incase refresh takes longer than the next refresh
+          const nonDuplicateAddedBlocks = [
+            ...new Map(
+              [...payload, ...potentialOldBlocksToRemove].map(block => [
+                block.height,
+                block,
+              ]),
+            ).values(),
+          ].sort((blockA, blockB) => blockB.height - blockA.height);
+
+          state.blocks = [
+            ...nonDuplicateAddedBlocks,
+            ...state.blocks.slice(payload.length),
+          ];
         },
       );
   },
