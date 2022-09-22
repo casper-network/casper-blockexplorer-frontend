@@ -104,7 +104,7 @@ export const DemoHeader: React.FC = () => {
       reset({ hash: '' });
     }
   }, [isSubmitSuccessful, reset]);
-  // *********************************************
+
   const [isOpened, setIsOpened] = useState(false);
   const bounds = useAppSelector(getBounds);
 
@@ -136,7 +136,7 @@ export const DemoHeader: React.FC = () => {
         <div
           className={`${
             isOpened ? 'pt-0' : ''
-          }bg-casper-blue flex relative justify-center lg:pt-33`}>
+          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-33`}>
           <select
             {...register('filterOptions')}
             className="relative left-10 w-90 h-32 sm:h-36 md:h-35 md:w-114 md:mt-7 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
@@ -173,26 +173,23 @@ export const DemoHeader: React.FC = () => {
         </div>
         {errors.hash && (
           <div className="flex flex-row justify-center relative -bottom-5">
-            <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2">
+            <svg className="fill-casper-blue w-20 h-30 stroke-casper-red stroke-2 mr-2 pt-10">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
               />
             </svg>
-            <p className="text-casper-red">{errors.hash.message}</p>
+            <p className="text-casper-red pt-10">{errors.hash.message}</p>
           </div>
         )}
       </form>
     </div>
   );
-
-  // **********************************************
-
   return (
     <header className="w-full bg-casper-blue">
       <div className="flex flex-row justify-between relative w-full max-w-1600 pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
-        <div className=" pt-30 pb-35">
+        <div className="pt-30 pb-35">
           <Link
             className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"
             to="/">
@@ -204,13 +201,13 @@ export const DemoHeader: React.FC = () => {
             </div>
           </Link>
         </div>
-        {form}
-        <nav className="z-10 py-10 lg:py-40 bg-[#181B38] lg:w-200">
+        {windowWidth > 1025 ? form : null}
+        <nav className="z-10 py-10 lg:py-40 bg-casper-blue lg:w-200">
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className="z-30 flex flex-row justify-end lg:justify-between">
               <button
                 type="button"
-                className="lg:hidden bg-transparent border-none p-0 h-40"
+                className="lg:hidden bg-transparent border-none h-40"
                 onClick={() => setIsOpened(!isOpened)}>
                 {isOpened ? (
                   <svg
@@ -239,8 +236,8 @@ export const DemoHeader: React.FC = () => {
             </div>
             <div className="bg-casper-blue border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto">
               {isOpened && (
-                <nav className="lg:hidden">
-                  <ul className="z-10 bg-casper-blue flex flex-col gap-4 absolute w-full h-200 items-center justify-center left-0 top-0 ">
+                <nav className="pr-20 pl-20 lg:hidden">
+                  <ul className="z-10 bg-casper-blue flex flex-col gap-2 absolute w-screen h-200 items-center justify-center left-0 top-0">
                     {navItems.map(({ path, title, key }) => {
                       return (
                         <li key={key}>
