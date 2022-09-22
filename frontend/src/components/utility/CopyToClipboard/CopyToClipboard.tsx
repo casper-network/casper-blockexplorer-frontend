@@ -16,7 +16,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 
   useEffect(() => {
     if (isCopied) {
-      setTimeout(() => setCopied(false), 30000);
+      setTimeout(() => setCopied(false), 5000);
     }
   }, [isCopied]);
 
