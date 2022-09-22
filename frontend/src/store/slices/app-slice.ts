@@ -22,7 +22,7 @@ export const appSlice = createSlice({
     updateRefreshTimer: state => {
       const updatedTime = state.refreshTimer - 1;
 
-      if (updatedTime < 1) {
+      if (updatedTime < 0) {
         state.refreshTimer = REFRESH_TIMER_SECONDS;
       } else {
         state.refreshTimer = updatedTime;

@@ -12,42 +12,38 @@ import {
   getLatestBlockHeight,
   refreshBlockTimes,
   updateRefreshTimer,
+  getRefreshTimer,
 } from './store';
-import { REFRESH_TIMER_SECONDS } from './utils';
-
-const REFRESH_INTERVAL = 1000 * REFRESH_TIMER_SECONDS;
 
 const App = () => {
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
   const latestBlockHeight = useAppSelector(getLatestBlockHeight);
+  const refreshTimer = useAppSelector(getRefreshTimer);
+
+  const shouldRefreshBlocks = refreshTimer === 0;
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
 
     const refreshAppData = () => {
-      dispatch(refreshBlockTimes());
-
-      // will not exist until first application load
-      if (latestBlockHeight) {
+      // latestBlockHeight will not exist until first application load
+      if (latestBlockHeight && shouldRefreshBlocks) {
+        dispatch(refreshBlockTimes());
         dispatch(refreshBlocks(latestBlockHeight));
       }
     };
 
-    const refreshTimerInterval = setInterval(() => {
+    const refreshInterval = setInterval(() => {
+      refreshAppData();
       dispatch(updateRefreshTimer());
     }, 1000);
 
-    const refreshInterval = setInterval(() => {
-      refreshAppData();
-    }, REFRESH_INTERVAL);
-
     return () => {
-      clearInterval(refreshInterval);
-      clearInterval(refreshTimerInterval);
+      clearTimeout(refreshInterval);
     };
-  }, [bounds, dispatch, latestBlockHeight]);
+  }, [bounds, dispatch, latestBlockHeight, shouldRefreshBlocks]);
 
   return (
     <StrictMode>
