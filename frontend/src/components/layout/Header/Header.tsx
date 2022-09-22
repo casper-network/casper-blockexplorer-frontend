@@ -109,7 +109,6 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form onSubmit={handleSubmit(submitPath)}>
           <label htmlFor="default-search" className="sr-only">
             Search

@@ -3,29 +3,16 @@ version: "3.2"
 services:
   frontend:
     build:
-      context: ../.
-      dockerfile: frontend/Dockerfile.dev
+      target: base
     image: blockexplorer-frontend
-    environment:
-      - NODE_ENV=development
-      - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
-    restart: on-failure
+    command: sh -c "npm install && npm run start"
     volumes:
-      - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
-      - ./../frontend:/app
-    ports:
-      - "3000:3000"
+      - /usr/src/app/node_modules
 
   middleware:
     image: blockexplorer-middleware
     build:
-      context: ../.
-      dockerfile: middleware/Dockerfile.dev
-    environment:
-      - NODE_URLS
-      - PORT
-    restart: on-failure
+      target: base
+    command: sh -c "npm install && npm run dev"
     volumes:
-      - ./../middleware:/app
-    ports:
-      - "4000:4000"
+      - /usr/src/app/node_modules
