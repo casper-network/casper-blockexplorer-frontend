@@ -1,0 +1,31 @@
+version: "3.2"
+
+services:
+  frontend:
+    build:
+      context: ../.
+      dockerfile: frontend/Dockerfile
+    image: blockexplorer-frontend
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
+    restart: on-failure
+    volumes:
+      - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
+      - ./../frontend:/app
+    ports:
+      - "3000:3000"
+
+  middleware:
+    image: blockexplorer-middleware
+    build:
+      context: ../.
+      dockerfile: middleware/Dockerfile
+    environment:
+      - NODE_URLS
+      - PORT
+    restart: on-failure
+    volumes:
+      - ./../middleware:/app
+    ports:
+      - "4000:4000"
