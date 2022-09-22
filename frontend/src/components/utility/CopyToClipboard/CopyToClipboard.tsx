@@ -21,21 +21,19 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   }, [isCopied]);
 
   const copiedTextAndStyles = (
-    <div className="relative bg-green rounded-sm ml-2 h-17 bottom-3">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 20 21"
-        strokeWidth="2"
-        stroke="white"
-        className="w-16 h-19 pb-7 pr-2 pt-2">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.5 12.75l6 6 9-13.5"
-        />
-      </svg>
-    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 25 24"
+      strokeWidth="2"
+      stroke="white"
+      className="w-17 h-17 bg-green rounded-sm ml-4">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4.5 12.75l6 6 9-13.5"
+      />
+    </svg>
   );
 
   return (
@@ -48,11 +46,11 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
         copiedTextAndStyles
       ) : (
         <svg
-          width="16"
+          width="17"
           height="16"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-slate-500 hover:fill-casper-red focus:text-green-400 transition-all w-17 h-17">
+          className="fill-slate-500 hover:fill-casper-red focus:text-green-400 transition-all w-17 h-17  ml-4">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
