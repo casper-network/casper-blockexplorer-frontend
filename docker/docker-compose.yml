@@ -13,8 +13,7 @@ services:
       - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
     restart: on-failure
     volumes:
-      - /app/node_modules # prefer container's node_modules instead of volume-mounted ones
-      - ./../frontend:/app
+      - ./../frontend:/usr/src/app
     ports:
       - "3000:3000"
 
@@ -28,6 +27,7 @@ services:
       - PORT
     restart: on-failure
     volumes:
-      - ./../middleware:/app
+      - ./../middleware:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "4000:4000"
