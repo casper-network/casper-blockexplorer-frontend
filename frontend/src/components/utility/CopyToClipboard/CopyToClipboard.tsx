@@ -20,7 +20,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
     }
   }, [isCopied]);
 
-  const copied = (
+  const copiedTextAndStyles = (
     <div className="relative">
       <span className="absolute bg-casper-red p-10 text-white text-xs rounded-lg -bottom-50 -left-50 xl:-bottom-19 xl:left-5 xl:pb-13">
         Copied
@@ -35,7 +35,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       disabled={isCopied}
       onClick={copyFn}>
       {isCopied ? (
-        copied
+        copiedTextAndStyles
       ) : (
         <svg
           width="16"
