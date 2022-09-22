@@ -7,3 +7,9 @@ export const getBlocks = (state: RootState) => {
 export const getBlockLoadingStatus = (state: RootState) => {
   return state.block.status;
 };
+
+export const getLatestBlockHeight: (
+  state: RootState,
+) => number | undefined = state => {
+  return state.block.blocks[0]?.height;
+};
