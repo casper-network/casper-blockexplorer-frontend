@@ -15,7 +15,7 @@ NODE_URLS=http://3.138.177.248:7777/rpc # it can be comma separated list of RPCs
 NETWORK_NAME=integration-test # network name, you can check it in chainspec
 ```
 
-2. Run `make dev-build` or `make prod-build` \*
+2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes. (HMR and debug modes will be enabled)
 3. Run `make prod-build` if you are using the app for production (optimized builds) or `make dev-start` for development. 
 4. The frontend will be running at port `3000` and middleware at port `4000`.
 
