@@ -27,7 +27,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       viewBox="0 0 25 24"
       strokeWidth="2"
       stroke="white"
-      className="w-17 h-17 bg-green rounded-sm ml-4">
+      className="w-17 h-17 bg-green rounded-sm ml-5">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -50,7 +50,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
           height="16"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-slate-500 hover:fill-casper-red focus:text-green-400 transition-all w-17 h-17  ml-4">
+          className="fill-slate-500 hover:fill-casper-red focus:text-green-400 transition-all w-17 h-17 ml-5">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
