@@ -19,4 +19,3 @@ NETWORK_NAME=integration-test # network name, you can check it in chainspec
 3. Run `make prod-build` if you are using the app for production (optimized builds) or `make dev-start` for development. 
 4. The frontend will be running at port `3000` and middleware at port `4000`.
 
-\* - first one is for developers (with HMR and debug modes enabled) and second one is for production (optimized builds)
