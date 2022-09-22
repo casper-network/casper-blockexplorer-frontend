@@ -2,11 +2,7 @@ import React, { StrictMode, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
-<<<<<<< HEAD
-import { DemoHeader } from './components';
-=======
-import { Header, Footer } from './components';
->>>>>>> dev
+import { DemoHeader, Footer } from './components';
 import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
 import { updateBounds, useAppDispatch } from './store';
 
