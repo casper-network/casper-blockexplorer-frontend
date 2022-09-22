@@ -28,3 +28,5 @@ COPY ./middleware/package*.json ./
 RUN npm install --production
 
 COPY --from=base /usr/src/app/dist ./dist
+
+CMD npm start

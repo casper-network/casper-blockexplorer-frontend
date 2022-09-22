@@ -5,6 +5,8 @@ services:
     build:
       context: ../.
       dockerfile: frontend/Dockerfile
+      args:
+        - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
     image: blockexplorer-frontend
     environment:
       - NODE_ENV=development
