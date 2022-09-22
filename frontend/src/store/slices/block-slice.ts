@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { formatTimeAgo } from 'src/utils';
 import { casperApi } from '../../api';
 import { Block } from '../../types';
 import { Loading } from '../loading.type';
@@ -26,10 +27,42 @@ export const fetchBlocks = createAsyncThunk(
   },
 );
 
+export const refreshBlocks = createAsyncThunk(
+  'rpcClient/refreshBlocks',
+  async (latestReduxStoredHeight: number) => {
+    try {
+      const currentBlockHeight = await casperApi.getCurrentBlockHeight();
+      const newBlocks: Block[] = [];
+
+      let blockHeightStart = latestReduxStoredHeight + 1;
+
+      while (blockHeightStart < currentBlockHeight) {
+        const nextBlock = await casperApi.getBlockByHeight(blockHeightStart);
+        newBlocks.push(nextBlock);
+        blockHeightStart++;
+      }
+
+      return newBlocks;
+    } catch (error) {
+      throw new Error('An error occurred while refreshing blocks');
+    }
+  },
+);
+
 export const blockSlice = createSlice({
   name: 'block',
   initialState,
-  reducers: {},
+  reducers: {
+    refreshBlockTimes: state => {
+      state.blocks = state.blocks.map(block => {
+        const { timestamp } = block;
+
+        const timeSince = formatTimeAgo(new Date(timestamp));
+
+        return { ...block, timeSince };
+      });
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchBlocks.pending, state => {
@@ -44,6 +77,32 @@ export const blockSlice = createSlice({
       )
       .addCase(fetchBlocks.rejected, state => {
         state.status = Loading.Failed;
-      });
+      })
+      .addCase(
+        refreshBlocks.fulfilled,
+        (state, { payload }: PayloadAction<Block[]>) => {
+          const potentialOldBlocksToRemove = state.blocks.slice(
+            0,
+            payload.length,
+          );
+
+          // ensure the array has no duplicates incase refresh takes longer than the next refresh
+          const nonDuplicateAddedBlocks = [
+            ...new Map(
+              [...payload, ...potentialOldBlocksToRemove].map(block => [
+                block.height,
+                block,
+              ]),
+            ).values(),
+          ].sort((blockA, blockB) => blockB.height - blockA.height);
+
+          state.blocks = [
+            ...nonDuplicateAddedBlocks,
+            ...state.blocks.slice(payload.length),
+          ];
+        },
+      );
   },
 });
+
+export const { refreshBlockTimes } = blockSlice.actions;

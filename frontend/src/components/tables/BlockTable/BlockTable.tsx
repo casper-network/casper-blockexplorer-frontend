@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getRefreshTimer, useAppSelector } from 'src/store';
 import { Block } from '../../../types';
 import { truncateHash } from '../../../utils';
 import { CopyToClipboard } from '../../utility';
@@ -14,6 +15,15 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   blocks,
   showValidators,
 }) => {
+  const refreshTimer = useAppSelector(getRefreshTimer);
+
+  const headContent = (
+    <div className="flex justify-between text-grey px-32">
+      <p>{blocks.length} total rows</p>
+      Refreshing in {refreshTimer} seconds..
+    </div>
+  );
+
   const blockTableTitles = [
     'Block Height',
     'Era',
@@ -85,5 +95,11 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     },
   );
 
-  return <Table headColumns={blockTableHeads} rows={blockRows} />;
+  return (
+    <Table
+      headContent={headContent}
+      headColumns={blockTableHeads}
+      rows={blockRows}
+    />
+  );
 };

@@ -120,14 +120,10 @@ export class RpcApi {
           .value()
           .toString() as string;
 
-        const { header, approvals } = deploy;
-
-        const { timestamp } = header;
+        const { timestamp, account: publicKey } = deploy.header;
 
         const { block_hash: blockHash, result: executionResult } =
           executionResults[0];
-
-        const { signature: publicKey } = approvals[0];
 
         const status = executionResult.Success
           ? DeployStatus.Success

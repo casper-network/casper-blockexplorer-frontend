@@ -1,14 +1,14 @@
 import React from 'react';
 import { TableProps } from './Table.types';
 
-export const Table: React.FC<TableProps> = ({ headColumns, rows }) => {
-  const totalRows = rows.length;
-
+export const Table: React.FC<TableProps> = ({
+  headColumns,
+  rows,
+  headContent,
+}) => {
   return (
     <div className="w-full mb-32 shadow-card rounded-lg overflow-x-auto max-w-screen-p-incl bg-white">
-      <div className="w-full py-12">
-        <p className="text-grey pl-32">{totalRows} total rows</p>
-      </div>
+      <div className="w-full py-12">{headContent}</div>
       <table className="table-auto w-full border-spacing-0 min-w-800 bg-white">
         <thead className="bg-light-grey">
           <tr className="h-40 ">

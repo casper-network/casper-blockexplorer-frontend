@@ -4,16 +4,46 @@ import useMeasure from 'react-use-measure';
 
 import { Header, Footer } from './components';
 import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
-import { updateBounds, useAppDispatch } from './store';
+import {
+  updateBounds,
+  useAppDispatch,
+  refreshBlocks,
+  useAppSelector,
+  getLatestBlockHeight,
+  refreshBlockTimes,
+  updateRefreshTimer,
+  getRefreshTimer,
+} from './store';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
+  const latestBlockHeight = useAppSelector(getLatestBlockHeight);
+  const refreshTimer = useAppSelector(getRefreshTimer);
+
+  const shouldRefreshBlocks = refreshTimer === 0;
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
-  }, [bounds, dispatch]);
+
+    const refreshAppData = () => {
+      // latestBlockHeight will not exist until first application load
+      if (latestBlockHeight && shouldRefreshBlocks) {
+        dispatch(refreshBlockTimes());
+        dispatch(refreshBlocks(latestBlockHeight));
+      }
+    };
+
+    const refreshInterval = setInterval(() => {
+      refreshAppData();
+      dispatch(updateRefreshTimer());
+    }, 1000);
+
+    return () => {
+      clearTimeout(refreshInterval);
+    };
+  }, [bounds, dispatch, latestBlockHeight, shouldRefreshBlocks]);
 
   return (
     <StrictMode>
