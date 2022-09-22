@@ -1,11 +1,3 @@
-FROM node:lts-alpine
-
-WORKDIR /app
-
-EXPOSE 3000
-
-CMD npm install && npm start
-
 FROM node:16.14.0-alpine AS base
 
 ARG REACT_APP_MIDDLEWARE_URL
