@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getRefreshTimer, useAppSelector } from 'src/store';
+import {
+  fetchMoreBlocks,
+  getEarliestLoadedBlock,
+  getLatestBlockHeight,
+  getLoadingMoreBlocksStatus,
+  getRefreshTimer,
+  Loading,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
 import { Block } from '../../../types';
-import { truncateHash } from '../../../utils';
-import { CopyToClipboard } from '../../utility';
+import { standardizeNumber, truncateHash } from '../../../utils';
+import { CopyToClipboard, Loader } from '../../utility';
 import { Table } from '../../base';
 
 interface BlockTableProps {
@@ -15,12 +24,35 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   blocks,
   showValidators,
 }) => {
+  const dispatch = useAppDispatch();
+
   const refreshTimer = useAppSelector(getRefreshTimer);
+  const latestBlockHeight = useAppSelector(getLatestBlockHeight);
+  const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
+  const loadingMoreBlocksStatus = useAppSelector(getLoadingMoreBlocksStatus);
 
   const headContent = (
     <div className="flex justify-between text-grey px-32">
-      <p>{blocks.length} total rows</p>
+      <p>{standardizeNumber(latestBlockHeight || 0)} total rows</p>
       Refreshing in {refreshTimer} seconds..
+    </div>
+  );
+
+  const isLoadingMoreBlocks = loadingMoreBlocksStatus === Loading.Pending;
+
+  const footContent = (
+    <div className="flex justify-around px-32 py-20">
+      <button
+        type="button"
+        disabled={isLoadingMoreBlocks}
+        onClick={() => {
+          if (earliestLoadedBlockHeight) {
+            dispatch(fetchMoreBlocks(earliestLoadedBlockHeight));
+          }
+        }}
+        className="bg-light-grey hover:bg-light-red text-dark-red min-w-150 py-8 text-14 w-fit rounded-md border-none font-medium">
+        {isLoadingMoreBlocks ? <Loader size="sm" /> : 'Show more'}
+      </button>
     </div>
   );
 
@@ -52,7 +84,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       const key = `${hash}-${timestamp}`;
 
       const items = [
-        { content: height, key: `${key}-hash` },
+        { content: standardizeNumber(height), key: `${key}-hash` },
         { content: eraID, key: `${key}-era` },
         { content: deployCount, key: `${key}-deploys` },
         { content: timeSince, key: `${key}-age` },
@@ -100,6 +132,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       headContent={headContent}
       headColumns={blockTableHeads}
       rows={blockRows}
+      footContent={footContent}
     />
   );
 };
