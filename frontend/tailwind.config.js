@@ -52,6 +52,7 @@ const colors = {
   'casper-red': '#FF0013',
   'light-red': 'rgba(255, 0, 19, 0.125)',
   'dark-red': '#BF000E',
+  'green': '#09A129'
 };
 
 const spacing = {

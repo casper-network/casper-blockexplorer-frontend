@@ -14,6 +14,7 @@ export interface TableRow {
 }
 
 export interface TableProps {
+  readonly headContent: React.ReactNode;
   readonly headColumns: TableHeadColumn[];
   readonly rows: TableRow[];
 }

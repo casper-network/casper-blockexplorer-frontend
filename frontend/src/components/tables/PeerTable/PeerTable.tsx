@@ -9,6 +9,10 @@ interface PeerTableProps {
 export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
   const peerTableTitles = ['Node Id', 'Address'];
 
+  const headContent = (
+    <p className="text-grey pl-32">{peers.length} total rows</p>
+  );
+
   const peerTableHeads = peerTableTitles.map(title => {
     return { title: <p className="font-bold">{title}</p>, key: title };
   });
@@ -23,5 +27,11 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
     return { items, key };
   });
 
-  return <Table headColumns={peerTableHeads} rows={peerRows} />;
+  return (
+    <Table
+      headContent={headContent}
+      headColumns={peerTableHeads}
+      rows={peerRows}
+    />
+  );
 };

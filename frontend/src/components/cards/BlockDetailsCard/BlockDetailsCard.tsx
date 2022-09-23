@@ -26,6 +26,21 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
 
   const rows = [
     {
+      key: `parentHash-${blockHash}`,
+      detailKey: 'Parent Hash',
+      value: (
+        <>
+          <Link
+            to={{
+              pathname: `/block/${parentHash}`,
+            }}>
+            {blockHash}
+          </Link>
+          <CopyToClipboard textToCopy={parentHash} />
+        </>
+      ),
+    },
+    {
       key: `timestamp-${blockHash}`,
       detailKey: 'Timestamp',
       value: readableTimestamp,
@@ -46,21 +61,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       value: blockHeight,
     },
     { key: `era-${blockHash}`, detailKey: 'Era', value: era },
-    {
-      key: `parentHash-${blockHash}`,
-      detailKey: 'Parent Hash',
-      value: (
-        <>
-          <Link
-            to={{
-              pathname: `/block/${parentHash}`,
-            }}>
-            {blockHash}
-          </Link>
-          <CopyToClipboard textToCopy={parentHash} />
-        </>
-      ),
-    },
     {
       key: `stateRootHash-${blockHash}`,
       detailKey: 'State Root Hash',
