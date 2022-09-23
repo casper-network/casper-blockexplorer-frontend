@@ -128,6 +128,7 @@ export const blockSlice = createSlice({
             ...nonDuplicateAddedBlocks,
             ...state.blocks.slice(payload.length),
           ];
+          state.isLoadingMoreBlocks = Loading.Complete;
         },
       )
       .addCase(refreshBlocks.rejected, state => {
