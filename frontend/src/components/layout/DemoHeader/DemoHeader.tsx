@@ -201,7 +201,7 @@ export const DemoHeader: React.FC = () => {
             </div>
           </Link>
         </div>
-        {windowWidth > 1025 ? form : null}
+        {windowWidth > 1023 ? form : null}
         <nav className="z-10 py-10 lg:py-40 bg-casper-blue lg:w-200">
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className="z-30 flex flex-row justify-end lg:justify-between">

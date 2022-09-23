@@ -109,7 +109,6 @@ export const Header: React.FC = () => {
           </Link>
           <Navbar />
         </div>
-
         <form onSubmit={handleSubmit(submitPath)}>
           <label htmlFor="default-search" className="sr-only">
             Search
