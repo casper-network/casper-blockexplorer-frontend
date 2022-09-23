@@ -1,7 +1,7 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { BlockTable, PageWrapper } from '../components';
+import { PageWrapper, LatestBlocks } from '../components';
 
 import {
   getBlocks,
@@ -28,8 +28,8 @@ export const Home: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <h2 className="text-24 mb-25">Blocks</h2>
-      <BlockTable blocks={blocks} />
+      <h2 className="text-24 mb-25">Home</h2>
+      <LatestBlocks blocks={blocks} />
     </PageWrapper>
   );
 };
