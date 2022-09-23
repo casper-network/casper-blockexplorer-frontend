@@ -3,7 +3,14 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
 import { DemoHeader, Footer } from './components';
-import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
+import {
+  AccountPage,
+  BlockPage,
+  Blocks,
+  DeployPage,
+  Home,
+  Peers,
+} from './pages';
 import {
   updateBounds,
   useAppDispatch,
@@ -58,6 +65,7 @@ const App = () => {
             <Route path="/account/:id" element={<AccountPage />} />
             <Route path="/deploy/:id" element={<DeployPage />} />
             <Route path="/block/:id" element={<BlockPage />} />
+            <Route path="/blocks" element={<Blocks />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
