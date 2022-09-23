@@ -150,7 +150,7 @@ export const Header: React.FC = () => {
           </div>
           {errors.hash && (
             <div className="flex flex-row justify-center relative bottom-25">
-              <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2 pb">
+              <svg className="fill-casper-blue w-20 h-20 stroke-casper-red stroke-2 mr-2">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
