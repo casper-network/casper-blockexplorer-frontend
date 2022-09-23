@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
 import { useAppSelector, getBounds } from '../../../store';
+
 import logo from '../../../assets/images/logo.png';
+import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-icon.svg';
+import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
+import { ReactComponent as ErrorIcon } from '../../../assets/icons/error-icon.svg';
 
 type FormValues = {
   hash: string;
@@ -109,6 +113,7 @@ export const DemoHeader: React.FC = () => {
   const bounds = useAppSelector(getBounds);
 
   const windowWidth = bounds?.width || 0;
+  const MOBILE_BREAKPOINT = 1023;
 
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {
@@ -172,15 +177,9 @@ export const DemoHeader: React.FC = () => {
           </button>
         </div>
         {errors.hash && (
-          <div className="flex flex-row justify-center relative -bottom-5">
-            <svg className="fill-casper-blue w-20 h-30 stroke-casper-red stroke-2 mr-2 pt-10">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
-            </svg>
-            <p className="text-casper-red pt-10">{errors.hash.message}</p>
+          <div className="flex flex-row justify-center relative -bottom-4 xxs:-bottom-4 sm:-bottom-2 md:-bottom-1 lg:pb-17">
+            <ErrorIcon />
+            <p className="text-casper-red pl-6 pt-10">{errors.hash.message}</p>
           </div>
         )}
       </form>
@@ -201,37 +200,15 @@ export const DemoHeader: React.FC = () => {
             </div>
           </Link>
         </div>
-        {windowWidth > 1023 ? form : null}
+        {windowWidth > MOBILE_BREAKPOINT ? form : null}
         <nav className="z-10 py-10 lg:py-40 bg-casper-blue lg:w-200">
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className="z-30 flex flex-row justify-end lg:justify-between">
               <button
                 type="button"
-                className="lg:hidden bg-transparent border-none h-40"
+                className="lg:hidden bg-transparent border-none h-40 mt-20 xxs:mt-24"
                 onClick={() => setIsOpened(!isOpened)}>
-                {isOpened ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="white"
-                    className="w-40 h-40">
-                    <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="white"
-                    className="w-40 h-40">
-                    <path
-                      fillRule="evenodd"
-                      d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
+                {isOpened ? <OpenMenuIcon /> : <CloseMenuIcon />}
               </button>
             </div>
             <div className="bg-casper-blue border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto">
