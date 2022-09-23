@@ -2,7 +2,7 @@ import React, { StrictMode, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
-import { Header, Footer } from './components';
+import { DemoHeader, Footer } from './components';
 import { AccountPage, BlockPage, DeployPage, Home, Peers } from './pages';
 import {
   updateBounds,
@@ -51,7 +51,7 @@ const App = () => {
         ref={ref}
         className="bg-light-grey grid min-h-screen grid-rows-layout">
         <BrowserRouter>
-          <Header />
+          <DemoHeader />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/peers" element={<Peers />} />
