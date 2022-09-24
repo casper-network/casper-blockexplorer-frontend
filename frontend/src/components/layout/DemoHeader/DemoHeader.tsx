@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useForm, SubmitHandler, Resolver, Controller } from 'r
-eact-hook-form';
-import Select from 'react-dropdown-select';
+import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
@@ -10,7 +8,6 @@ import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-
 import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/error-icon.svg';
 import { ReactComponent as ButtonIcon } from '../../../assets/icons/button-icon.svg';
-import { ReactComponent as ChevronIcon } from '../../../assets/icons/chevron-icon.svg';
 
 type FormValues = {
   hash: string;
@@ -195,7 +192,19 @@ export const DemoHeader: React.FC = () => {
             <option value="blockHeight">Block Height</option>
           </select>
           <div className="relative">
-            <ChevronIcon />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="white"
+              className="w-20 h-20 absolute -left-10 top-6 sm:top-8 md:top-15">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+              />
+            </svg>
           </div>
           <input
             {...register('hash', { required: true })}
