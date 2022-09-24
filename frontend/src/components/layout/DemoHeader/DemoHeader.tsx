@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
+import { useForm, SubmitHandler, Resolver, Controller } from 'r
+eact-hook-form';
+import Select from 'react-dropdown-select';
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
@@ -8,6 +10,7 @@ import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-
 import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/error-icon.svg';
 import { ReactComponent as ButtonIcon } from '../../../assets/icons/button-icon.svg';
+import { ReactComponent as ChevronIcon } from '../../../assets/icons/chevron-icon.svg';
 
 type FormValues = {
   hash: string;
@@ -93,15 +96,27 @@ const navItems = [
   },
 ];
 
+const filterOptions = [
+  { value: 'account', label: 'Account' },
+  { value: 'deploy', label: 'Deploy Hash' },
+  { value: 'block', label: 'Block Hash' },
+  { value: 'blockHeight', label: 'Block Height' },
+];
+
 export const DemoHeader: React.FC = () => {
   const navigate = useNavigate();
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<FormValues>({ resolver, defaultValues: { hash: '' } });
+  } = useForm<FormValues>({
+    resolver,
+    defaultValues: { hash: '' },
+    mode: 'onChange',
+  });
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
   useEffect(() => {
@@ -133,6 +148,11 @@ export const DemoHeader: React.FC = () => {
     };
   }, [isOpened]);
 
+  interface GroupBase<Option> {
+    readonly options: readonly Option[];
+    label?: string;
+  }
+
   const form = (
     <div className={`${isOpened ? 'block' : 'hidden'} lg:block`}>
       <form onSubmit={handleSubmit(submitPath)}>
@@ -143,14 +163,40 @@ export const DemoHeader: React.FC = () => {
           className={`${
             isOpened ? 'pt-0' : ''
           } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-33`}>
+          {/* <Controller
+            control={control}
+            name="filterOptions"
+            render={({ field: { onChange } }) => (
+              <Select
+                dropdownHandle
+                keepSelectedInList
+                color="#333"
+                dropdownGap={0}
+                searchable={false}
+                options={[
+                  { value: 'account', label: 'Account' },
+                  { value: 'deploy', label: 'Deploy Hash' },
+                  { value: 'block', label: 'Block Hash' },
+                  { value: 'blockHeight', label: 'Block Height' },
+                ]}
+                values={[]}
+                onChange={value => onChange(value[0].value)}
+                className="search-select"
+                // className="search-select w-90 h-32 sm:h-36 md:h-35 md:w-114 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105"
+              />
+            )}
+          /> */}
           <select
             {...register('filterOptions')}
-            className="relative left-10 w-90 h-32 sm:h-36 md:h-35 md:w-114 md:mt-7 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 xxs:w-105">
+            className="relative left-10 w-100 h-32 sm:h-36 xxs:w-109 md:w-135 md:mt-7 md:h-35 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 appearance-none pr-20">
             <option value="account">Account</option>
             <option value="deploy">Deploy Hash</option>
             <option value="block">Block Hash</option>
             <option value="blockHeight">Block Height</option>
           </select>
+          <div className="relative">
+            <ChevronIcon />
+          </div>
           <input
             {...register('hash', { required: true })}
             type="search"
@@ -160,7 +206,7 @@ export const DemoHeader: React.FC = () => {
           />
           <button
             type="submit"
-            className="bg-casper-red relative right-20 px-16 md:mt-7 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none">
+            className="bg-casper-red relative right-20 px-16 md:mt-7 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>
@@ -173,6 +219,7 @@ export const DemoHeader: React.FC = () => {
       </form>
     </div>
   );
+
   return (
     <header className="w-full bg-casper-blue">
       <div className="flex flex-row justify-between relative w-full max-w-1600 pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
