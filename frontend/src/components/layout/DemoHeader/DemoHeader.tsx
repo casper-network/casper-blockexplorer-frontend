@@ -158,10 +158,10 @@ export const DemoHeader: React.FC = () => {
         <div
           className={`${
             isOpened ? 'pt-0' : ''
-          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-33`}>
+          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-31`}>
           <select
             {...register('filterOptions')}
-            className="relative left-10 w-100 h-32 sm:h-36 xxs:w-109 md:w-135 md:mt-7 md:h-35 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 appearance-none pr-20">
+            className="relative left-14 w-100 h-32 sm:h-36 xxs:w-109 md:w-135 md:mt-7 md:h-35 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 appearance-none pr-20">
             <option value="account">Account</option>
             <option value="deploy">Deploy Hash</option>
             <option value="block">Block Hash</option>
@@ -186,7 +186,7 @@ export const DemoHeader: React.FC = () => {
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 rounded-lg border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32"
+            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
@@ -216,7 +216,7 @@ export const DemoHeader: React.FC = () => {
 
   return (
     <header className="w-full bg-casper-blue">
-      <div className="flex flex-row justify-between relative w-full max-w-1600 pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
+      <div className="flex flex-row justify-between relative w-full max-w-1600 pl-15 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
         <div className="pt-30 pb-35">
           <Link
             className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"
@@ -260,7 +260,7 @@ export const DemoHeader: React.FC = () => {
                 </nav>
               )}
               <nav className="hidden lg:block">
-                <ul className="flex gap-x-8 pt-4">
+                <ul className="flex gap-x-8 pt-2">
                   {navItems.map(({ path, title, key }) => {
                     return (
                       <li key={key}>
