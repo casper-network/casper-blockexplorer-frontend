@@ -103,7 +103,6 @@ export const DemoHeader: React.FC = () => {
   const navigate = useNavigate();
 
   const {
-    control,
     register,
     handleSubmit,
     reset,
@@ -143,11 +142,6 @@ export const DemoHeader: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
-
-  interface GroupBase<Option> {
-    readonly options: readonly Option[];
-    label?: string;
-  }
 
   const form = (
     <div className={`${isOpened ? 'block' : 'hidden'} lg:block`}>
@@ -223,7 +217,7 @@ export const DemoHeader: React.FC = () => {
             to="/">
             <div className="flex flex-row items-center">
               <img className="h-40 xxs:h-50" src={logo} alt="Casper Logo" />
-              <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20ch">
+              <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20">
                 Casper BlockExplorer
               </p>
             </div>
