@@ -1,13 +1,14 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { BlockCarouselCard } from 'src/components/cards/BlockCarouselCard';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
-
-import { Navigation } from 'swiper';
+import 'swiper/css/pagination';
+import { Navigation, Pagination } from 'swiper';
 
 import { Block } from '../../../types';
-import { BlockDetailsCard } from '../BlockDetailsCard';
 
 interface MobileBlocksProps {
   readonly blocks: Block[];
@@ -18,10 +19,16 @@ export const MobileBlocksCarousel: React.FC<MobileBlocksProps> = ({
 }) => {
   return (
     <div className="max-w-screen-p-incl">
-      <Swiper modules={[Navigation]} spaceBetween={100}>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        spaceBetween={100}
+        pagination={{
+          clickable: true,
+        }}>
         {blocks.map(block => (
           <SwiperSlide key={block.hash}>
-            <BlockDetailsCard isCarousel block={block} />
+            <BlockCarouselCard block={block} />
           </SwiperSlide>
         ))}
       </Swiper>
