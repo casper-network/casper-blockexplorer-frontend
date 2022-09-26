@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getRefreshTimer, useAppSelector } from 'src/store';
 import { Block } from '../../../types';
-import { truncateHash } from '../../../utils';
 import { CopyToClipboard } from '../../utility';
 import { Table } from '../../base';
 
