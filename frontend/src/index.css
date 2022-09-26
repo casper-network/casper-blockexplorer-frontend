@@ -111,3 +111,9 @@ input {
   margin: 0;
   padding: 0;
 }
+
+/* needed for moving carousel pagination out of card */
+.swiper-pagination{
+  margin-top: 25px;
+  position: relative;
+}
