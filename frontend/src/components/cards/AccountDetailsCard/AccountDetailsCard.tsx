@@ -1,4 +1,5 @@
 import React from 'react';
+import { truncateHash } from 'src/utils';
 import { Account } from '../../../types';
 import { DetailCard } from '../../base';
 import { CopyToClipboard, RawData } from '../../utility';
@@ -20,7 +21,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       detailKey: 'Account Hash',
       value: (
         <>
-          <p>{trimmedAccountHash}</p>
+          <p>{truncateHash(trimmedAccountHash)}</p>
           <CopyToClipboard textToCopy={trimmedAccountHash} />
         </>
       ),
@@ -30,7 +31,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       detailKey: 'Public Key',
       value: (
         <>
-          <p>{publicKey}</p>
+          <p>{truncateHash(publicKey)}</p>
           <CopyToClipboard textToCopy={publicKey} />
         </>
       ),
