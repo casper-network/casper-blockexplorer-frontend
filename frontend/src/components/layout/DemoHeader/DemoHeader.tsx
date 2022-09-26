@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
