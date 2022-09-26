@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { MobileBlocksCarousel } from 'src/components/cards/MobileBlocksDisply/MobileBlocksCarousel';
+import { MobileBlocksCarousel } from 'src/components/cards/MobileBlocksCarousel/MobileBlocksCarousel';
 import { BlockTable, PageWrapper } from '../components';
 
 import {
