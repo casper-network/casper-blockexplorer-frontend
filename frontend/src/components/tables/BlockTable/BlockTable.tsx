@@ -5,14 +5,13 @@ import {
   getEarliestLoadedBlock,
   getLatestBlockHeight,
   getLoadingMoreBlocksStatus,
-  getRefreshTimer,
   Loading,
   useAppDispatch,
   useAppSelector,
 } from 'src/store';
 import { Block } from '../../../types';
 import { standardizeNumber, truncateHash } from '../../../utils';
-import { CopyToClipboard, Loader } from '../../utility';
+import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 
 interface BlockTableProps {
@@ -26,7 +25,6 @@ export const BlockTable: React.FC<BlockTableProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const refreshTimer = useAppSelector(getRefreshTimer);
   const latestBlockHeight = useAppSelector(getLatestBlockHeight);
   const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
   const loadingMoreBlocksStatus = useAppSelector(getLoadingMoreBlocksStatus);
@@ -34,7 +32,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   const headContent = (
     <div className="flex justify-between text-grey px-32">
       <p>{standardizeNumber(latestBlockHeight || 0)} total rows</p>
-      Refreshing in {refreshTimer} seconds..
+      <RefreshTimer />
     </div>
   );
 

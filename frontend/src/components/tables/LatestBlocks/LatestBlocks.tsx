@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { getRefreshTimer, useAppSelector } from 'src/store';
 import { Block } from '../../../types';
 import { standardizeNumber, truncateHash } from '../../../utils';
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 
 interface LatestBlocksProps {
@@ -15,12 +14,10 @@ export const LatestBlocks: React.FC<LatestBlocksProps> = ({
   blocks,
   showValidators,
 }) => {
-  const refreshTimer = useAppSelector(getRefreshTimer);
-
   const headContent = (
     <div className="flex justify-between text-grey px-32">
       <p>Latest Blocks</p>
-      Refreshing in {refreshTimer} seconds..
+      <RefreshTimer />
     </div>
   );
 

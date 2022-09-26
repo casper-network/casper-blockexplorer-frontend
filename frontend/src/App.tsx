@@ -11,46 +11,16 @@ import {
   Home,
   Peers,
 } from './pages';
-import {
-  updateBounds,
-  useAppDispatch,
-  refreshBlocks,
-  useAppSelector,
-  getLatestBlockHeight,
-  refreshBlockTimes,
-  updateRefreshTimer,
-  getRefreshTimer,
-} from './store';
+import { updateBounds, useAppDispatch } from './store';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
-  const latestBlockHeight = useAppSelector(getLatestBlockHeight);
-  const refreshTimer = useAppSelector(getRefreshTimer);
-
-  const shouldRefreshBlocks = refreshTimer === 0;
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
-
-    const refreshAppData = () => {
-      // latestBlockHeight will not exist until first application load
-      if (latestBlockHeight && shouldRefreshBlocks) {
-        dispatch(refreshBlockTimes());
-        dispatch(refreshBlocks(latestBlockHeight));
-      }
-    };
-
-    const refreshInterval = setInterval(() => {
-      refreshAppData();
-      dispatch(updateRefreshTimer());
-    }, 1000);
-
-    return () => {
-      clearTimeout(refreshInterval);
-    };
-  }, [bounds, dispatch, latestBlockHeight, shouldRefreshBlocks]);
+  }, [bounds, dispatch]);
 
   return (
     <StrictMode>
