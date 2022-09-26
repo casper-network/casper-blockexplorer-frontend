@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { MOBILE_BREAKPOINT } from 'src/constants';
+import { useAppSelector, getBounds } from 'src/store';
+
 import { Link } from 'react-router-dom';
 import { Deploy, DeployStatus } from '../../../types';
 import { truncateHash } from '../../../utils';
@@ -28,6 +31,10 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
     rawDeploy,
   } = deploy;
 
+  const bounds = useAppSelector(getBounds);
+  const windowWidth = bounds?.width || 0;
+  const isMobile = windowWidth < MOBILE_BREAKPOINT;
+
   const rows = [
     {
       key: `timestamp-${timestamp}`,
@@ -39,7 +46,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       detailKey: 'Deploy Hash',
       value: (
         <>
-          <p>{deployHash}</p>
+          <p>{isMobile ? truncateHash(deployHash) : deployHash}</p>
           <CopyToClipboard textToCopy={deployHash} />
         </>
       ),
@@ -50,7 +57,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       value: (
         <>
           <Link to={`/block/${blockHash}`}>
-            <p>{blockHash}</p>
+            <p>{isMobile ? truncateHash(blockHash) : blockHash}</p>
           </Link>
           <CopyToClipboard textToCopy={blockHash} />
         </>
@@ -62,7 +69,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       value: (
         <>
           <Link to={`/account/${publicKey}`}>
-            <p>{truncateHash(publicKey)}</p>
+            <p>{isMobile ? truncateHash(publicKey) : publicKey}</p>
           </Link>
           <CopyToClipboard textToCopy={publicKey} />
         </>

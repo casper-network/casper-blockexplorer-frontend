@@ -63,7 +63,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
                 to={{
                   pathname: `/block/${hash}`,
                 }}>
-                {truncateHash(hash)}
+                {hash}
               </Link>
               <CopyToClipboard textToCopy={hash} />
             </>
@@ -79,7 +79,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
               to={{
                 pathname: `/account/${validatorPublicKey}`,
               }}>
-              {truncateHash(validatorPublicKey)}
+              {validatorPublicKey}
             </Link>
             <CopyToClipboard textToCopy={validatorPublicKey} />
           </>
