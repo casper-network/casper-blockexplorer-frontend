@@ -174,12 +174,12 @@ export const DemoHeader: React.FC = () => {
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32"
+            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
             type="submit"
-            className="bg-casper-red relative right-20 px-16 md:mt-7 hover:bg-red-400 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
+            className="bg-casper-red relative right-20 px-16 md:mt-7 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>
