@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { MobileBlocksCarousel } from 'src/components/cards/MobileBlocksCarousel/MobileBlocksCarousel';
-import { BlockTable, PageWrapper } from '../components';
+import { MOBILE_BREAKPOINT } from 'src/constants';
+
+import { BlockTable, PageWrapper, MobileBlocksCarousel } from '../components';
 
 import {
   getBlocks,
@@ -21,18 +22,10 @@ export const Home: React.FC = () => {
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
 
   const isLoading = blockLoadingStatus !== Loading.Complete;
-  const [isMobile, setIsMobile] = useState(false);
 
   const bounds = useAppSelector(getBounds);
-
   const windowWidth = bounds?.width || 0;
-
-  if (!isMobile && windowWidth < 1024) {
-    setIsMobile(true);
-  }
-  if (isMobile && windowWidth > 1024) {
-    setIsMobile(false);
-  }
+  const isMobile = windowWidth < MOBILE_BREAKPOINT;
 
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
