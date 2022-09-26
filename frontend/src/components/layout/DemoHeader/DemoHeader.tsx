@@ -92,13 +92,6 @@ const navItems = [
   },
 ];
 
-const filterOptions = [
-  { value: 'account', label: 'Account' },
-  { value: 'deploy', label: 'Deploy Hash' },
-  { value: 'block', label: 'Block Hash' },
-  { value: 'blockHeight', label: 'Block Height' },
-];
-
 export const DemoHeader: React.FC = () => {
   const navigate = useNavigate();
 
@@ -180,7 +173,7 @@ export const DemoHeader: React.FC = () => {
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32"
             required
           />
           <button
@@ -217,7 +210,7 @@ export const DemoHeader: React.FC = () => {
             to="/">
             <div className="flex flex-row items-center">
               <img className="h-40 xxs:h-50" src={logo} alt="Casper Logo" />
-              <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20">
+              <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20ch">
                 Casper BlockExplorer
               </p>
             </div>
