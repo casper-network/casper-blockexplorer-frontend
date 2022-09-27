@@ -34,3 +34,14 @@ frontend-lint:
 
 frontend-test:
 	cd frontend && npm run test
+
+middleware-all: middleware-install middleware-audit middleware-test
+
+middleware-install:
+	cd middleware && npm install
+
+middleware-audit:
+	cd middleware && npm audit
+
+middleware-test:
+	cd middleware && npm run test
