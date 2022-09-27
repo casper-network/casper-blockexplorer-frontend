@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useAppSelector, getNetworkStatus } from '../../../store';
 
 export const Footer: React.FC = () => {
