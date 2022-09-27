@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getRefreshTimer, useAppSelector } from 'src/store';
+import { truncateHash } from 'src/utils';
 import { Block } from '../../../types';
 import { CopyToClipboard } from '../../utility';
 import { Table } from '../../base';
@@ -62,7 +63,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
                 to={{
                   pathname: `/block/${hash}`,
                 }}>
-                {hash}
+                {truncateHash(hash)}
               </Link>
               <CopyToClipboard textToCopy={hash} />
             </>
@@ -78,7 +79,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
               to={{
                 pathname: `/account/${validatorPublicKey}`,
               }}>
-              {validatorPublicKey}
+              {truncateHash(validatorPublicKey)}
             </Link>
             <CopyToClipboard textToCopy={validatorPublicKey} />
           </>
