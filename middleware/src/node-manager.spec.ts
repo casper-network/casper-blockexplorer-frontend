@@ -47,4 +47,25 @@ describe("NodeManager", () => {
     });
   });
 
+  it("it throws an error when all provided nodes are dead", () => {
+    const firstActive = nodeManager.getActiveNode();
+    expect(firstActive).to.be.deep.eq({
+      id: 1,
+      url: listOfNodes[1],
+      isDead: false,
+    });
+    nodeManager.setDeadNode(firstActive.id);
+
+    const secondActive = nodeManager.getActiveNode();
+    expect(secondActive).to.be.deep.eq({
+      id: 2,
+      url: listOfNodes[2],
+      isDead: false,
+    });
+    nodeManager.setDeadNode(secondActive.id);
+
+    const erroredFn = () => nodeManager.getActiveNode();
+
+    expect(erroredFn).to.throw('All provided nodes are dead');
+  });
 });
