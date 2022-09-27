@@ -21,4 +21,12 @@ describe("NodeManager", () => {
 
     expect(nodeManager.nodeAddresses).to.be.deep.eq(expectedNodeAddresses);
   });
+
+  it("getActiveNode() returns first not-dead node address (1 of 3)", () => {
+    expect(nodeManager.getActiveNode()).to.be.deep.eq({
+      id: 0,
+      url: listOfNodes[0],
+      isDead: false,
+    });
+  });
 });
