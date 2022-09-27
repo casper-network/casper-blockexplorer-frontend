@@ -9,7 +9,7 @@ import {
   Loading,
   useAppDispatch,
   useAppSelector,
-} from 'src/store';
+} from '../../../store';
 import { Block } from '../../../types';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
