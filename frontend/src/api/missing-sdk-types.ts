@@ -1,4 +1,4 @@
-import { JsonBlock } from 'casper-js-sdk';
+import { JsonBlock, GetStatusResult } from 'casper-js-sdk';
 
 export interface JsonDeployPayment {
   ModuleBytes: {
@@ -13,4 +13,8 @@ export interface JsonBlockWithBody extends JsonBlock {
     deploy_hashes?: string[];
     transfer_hashes?: string[];
   };
+}
+
+export interface GetStatusResultExtended extends GetStatusResult {
+  chainspec_name: string;
 }

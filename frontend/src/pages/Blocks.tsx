@@ -1,9 +1,7 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { MOBILE_BREAKPOINT } from 'src/constants';
-
-import { PageWrapper, LatestBlocks, MobileBlocksCarousel } from '../components';
+import { BlockTable, PageWrapper } from '../components';
 
 import {
   getBlocks,
@@ -12,20 +10,15 @@ import {
   useAppSelector,
   Loading,
   fetchBlocks,
-  getBounds,
 } from '../store';
 
-export const Home: React.FC = () => {
+export const Blocks: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const blocks = useAppSelector(getBlocks);
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
 
   const isLoading = blockLoadingStatus !== Loading.Complete;
-
-  const bounds = useAppSelector(getBounds);
-  const windowWidth = bounds?.width || 0;
-  const isMobile = windowWidth < MOBILE_BREAKPOINT;
 
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
@@ -35,12 +28,8 @@ export const Home: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <h2 className="text-24 mb-25">Home</h2>
-      {isMobile ? (
-        <MobileBlocksCarousel blocks={blocks} />
-      ) : (
-        <LatestBlocks blocks={blocks} />
-      )}
+      <h2 className="text-24 mb-25">Blocks</h2>
+      <BlockTable blocks={blocks} />
     </PageWrapper>
   );
 };

@@ -1,58 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
-import {
-  fetchMoreBlocks,
-  getEarliestLoadedBlock,
-  getLatestBlockHeight,
-  getLoadingMoreBlocksStatus,
-  Loading,
-  useAppDispatch,
-  useAppSelector,
-} from 'src/store';
+import { Link, NavLink } from 'react-router-dom';
 import { Block } from '../../../types';
 import { standardizeNumber, truncateHash } from '../../../utils';
-import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
-
+import { CopyToClipboard, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 
-interface BlockTableProps {
+interface LatestBlocksProps {
   readonly blocks: Block[];
   readonly showValidators?: boolean;
 }
 
-export const BlockTable: React.FC<BlockTableProps> = ({
+export const LatestBlocks: React.FC<LatestBlocksProps> = ({
   blocks,
   showValidators,
 }) => {
-  const dispatch = useAppDispatch();
-
-  const latestBlockHeight = useAppSelector(getLatestBlockHeight);
-  const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
-  const loadingMoreBlocksStatus = useAppSelector(getLoadingMoreBlocksStatus);
-
   const headContent = (
     <div className="flex justify-between text-grey px-32">
-      <p>{standardizeNumber(latestBlockHeight || 0)} total rows</p>
+      <p>Latest Blocks</p>
       <RefreshTimer />
     </div>
   );
 
-  const isLoadingMoreBlocks = loadingMoreBlocksStatus === Loading.Pending;
-
   const footContent = (
-    <div className="flex justify-around px-32 py-20">
-      <button
-        type="button"
-        disabled={isLoadingMoreBlocks}
-        onClick={() => {
-          if (earliestLoadedBlockHeight) {
-            dispatch(fetchMoreBlocks(earliestLoadedBlockHeight));
-          }
-        }}
-        className="bg-light-grey hover:bg-light-red text-dark-red min-w-150 py-8 text-14 w-fit rounded-md border-none font-medium">
-        {isLoadingMoreBlocks ? <Loader size="sm" /> : 'Show more'}
-      </button>
+    <div className="flex justify-around text-grey p-20">
+      <NavLink
+        to="/blocks"
+        className="bg-light-grey hover:bg-light-red text-dark-red px-16 py-8 text-14 w-fit rounded-md font-medium">
+        View Blocks
+      </NavLink>
     </div>
   );
 
@@ -71,7 +46,9 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     return { title: <p className="font-bold">{title}</p>, key: title };
   });
 
-  const blockRows = blocks.map(
+  const firstTenBlocks = blocks.slice(0, 10);
+
+  const blockRows = firstTenBlocks.map(
     ({
       height,
       eraID,

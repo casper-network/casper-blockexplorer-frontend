@@ -5,7 +5,7 @@ interface RpcListItem {
 }
 
 class NodeManager {
-  private nodeAddresses: RpcListItem[] = [];
+  public nodeAddresses: RpcListItem[] = [];
 
   constructor(listOfRpcs: string[]) {
     this.nodeAddresses = listOfRpcs.map((url, id) => ({
@@ -32,8 +32,4 @@ class NodeManager {
   }
 }
 
-if (!process.env.NODE_URLS) {
-  throw Error("Missing NODE_URLS env variable");
-}
-
-export default new NodeManager(process.env.NODE_URLS.split(","));
+export default NodeManager;

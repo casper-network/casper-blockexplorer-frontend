@@ -5,6 +5,7 @@ export const Table: React.FC<TableProps> = ({
   headColumns,
   rows,
   headContent,
+  footContent,
 }) => {
   return (
     <div className="w-full mb-32 shadow-card rounded-lg overflow-x-auto max-w-screen-p-incl bg-white">
@@ -35,6 +36,7 @@ export const Table: React.FC<TableProps> = ({
           })}
         </tbody>
       </table>
+      {footContent && footContent}
     </div>
   );
 };

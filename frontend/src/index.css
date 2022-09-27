@@ -117,3 +117,9 @@ input {
   margin-top: 1.5625rem;
   position: relative;
 }
+ 
+select {
+  -webkit-appearance: none;
+  padding: 0 0.5em;
+  cursor: pointer;
+}
