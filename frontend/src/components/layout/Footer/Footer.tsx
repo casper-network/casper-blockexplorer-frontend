@@ -1,10 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 export const Footer: React.FC = () => {
+  const { version, build, networkName } = useSelector(
+    (state: RootState) => state.networkStatus,
+  );
+
   return (
     <footer className="block bg-casper-blue text-white text-xs text-center py-25">
-      <p>Casper Node version: 1.4.8 (b94c4f79a)</p>
-      <p>Network Name: `integration-test`</p>
+      <p>
+        Casper Node version: {version} ({build})
+      </p>
+      <p>Network Name: {networkName}</p>
     </footer>
   );
 };

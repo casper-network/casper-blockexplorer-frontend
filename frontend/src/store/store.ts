@@ -5,7 +5,7 @@ export const store = configureStore({
   reducer: {
     block: blockSlice.reducer,
     peer: peerSlice.reducer,
-    network: networkSlice.reducer,
+    networkStatus: networkSlice.reducer,
     app: appSlice.reducer,
   },
 });

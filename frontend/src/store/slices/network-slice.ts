@@ -5,12 +5,16 @@ import { Loading } from '../loading.type';
 
 export interface NetworkState {
   status: Loading;
-  network: NetworkStatus | null;
+  version?: string;
+  build?: string;
+  networkName?: string;
 }
 
 const initialState: NetworkState = {
   status: Loading.Idle,
-  network: null,
+  version: undefined,
+  build: undefined,
+  networkName: undefined,
 };
 
 export const fetchStatus = createAsyncThunk(
@@ -39,7 +43,9 @@ export const networkSlice = createSlice({
         fetchStatus.fulfilled,
         (state, { payload }: PayloadAction<NetworkStatus>) => {
           state.status = Loading.Complete;
-          state.network = payload;
+          state.version = payload.version;
+          state.build = payload.build;
+          state.networkName = payload.networkName;
         },
       )
       .addCase(fetchStatus.rejected, state => {
