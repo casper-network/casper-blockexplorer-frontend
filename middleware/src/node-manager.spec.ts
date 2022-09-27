@@ -11,3 +11,14 @@ const listOfNodes = [
 
 const nodeManager = new NodeManager(listOfNodes);
 
+describe("NodeManager", () => {
+  it("init with a valid list of nodes", () => {
+    const expectedNodeAddresses = [
+      { id: 0, url: listOfNodes[0], isDead: false },
+      { id: 1, url: listOfNodes[1], isDead: false },
+      { id: 2, url: listOfNodes[2], isDead: false },
+    ];
+
+    expect(nodeManager.nodeAddresses).to.be.deep.eq(expectedNodeAddresses);
+  });
+});
