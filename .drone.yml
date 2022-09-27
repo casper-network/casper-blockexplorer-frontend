@@ -40,18 +40,57 @@ trigger:
 ---
 kind: pipeline
 type: docker
+name: ci-middleware
+
+steps:
+- name: npm install
+  image: casperlabs/node-build-u1804
+  commands:
+  - make middleware-install
+
+- name: npm audit
+  image: casperlabs/node-build-u1804
+  commands:
+  - make middleware-audit
+
+- name: npm lint
+  image: casperlabs/node-build-u1804
+  commands:
+  - make middleware-lint
+
+- name: npm test
+  image: casperlabs/node-build-u1804
+  commands:
+  - make middleware-test
+
+trigger:
+  branch:
+  - dev
+  - "feat-*"
+  - "release-*"
+  event:
+    include:
+    - pull_request
+    - push
+    exclude:
+    - tag
+    - cron
+
+---
+kind: pipeline
+type: docker
 name: nightly-testing
 
 steps:
 - name: npm install
   image: casperlabs/node-build-u1804
   commands:
-  - make frontend-install
+  - make nightly-npm-install
 
 - name: npm test
   image: casperlabs/node-build-u1804
   commands:
-  - make frontend-test
+  - make nightly-npm-tests
 
 - name: notify
   image: plugins/slack
