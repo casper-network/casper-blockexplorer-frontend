@@ -29,7 +29,7 @@ app.post("/rpc", (req: Request, res: Response) => {
     axios
       .post(node.url, req.body)
       .then((nodeRes) => res.json(nodeRes.data))
-      .catch((e) => {
+      .catch(() => {
         nodeManager.setDeadNode(node.id);
         rpcCall();
       });
