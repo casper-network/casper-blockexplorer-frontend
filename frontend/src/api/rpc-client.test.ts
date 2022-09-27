@@ -840,6 +840,48 @@ describe('rpc-client', () => {
       }
     });
   });
+
+  describe('getStatus', () => {
+    it('should return network status data', async () => {
+      const version = '1.3.2';
+      const build = 'e2027dbe9';
+      const chainspecName = 'integration-test';
+
+      const mockJsonRpc = {
+        getStatus: jest.fn().mockResolvedValue({
+          build_version: `${version}-${build}`,
+          chainspec_name: chainspecName,
+        }),
+      };
+
+      const mockRpcClient = new RpcApi(mockJsonRpc as any);
+
+      const currentStatus = await mockRpcClient.getStatus();
+
+      expect(mockJsonRpc.getStatus).toHaveBeenCalledTimes(1);
+      expect(currentStatus.version).toBe(version);
+      expect(currentStatus.build).toBe(build);
+      expect(currentStatus.networkName).toBe(chainspecName);
+    });
+
+    it('should throw GetStatusFailed ApiError when an Error is caught', async () => {
+      const mockJsonRpc = {
+        getStatus: jest
+          .fn()
+          .mockRejectedValue(new Error('something went wrong')),
+      };
+
+      const mockRpcClient = new RpcApi(mockJsonRpc as any);
+
+      expect.assertions(1);
+
+      try {
+        await mockRpcClient.getStatus();
+      } catch (err: any) {
+        expect(err.type).toBe(RpcApiError.GetStatusFailed);
+      }
+    });
+  });
 });
 
 export {};
