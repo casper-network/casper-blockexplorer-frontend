@@ -11,7 +11,7 @@ import {
   Home,
   Peers,
 } from './pages';
-import { updateBounds, useAppDispatch } from './store';
+import { updateBounds, useAppDispatch, fetchStatus } from './store';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -21,6 +21,10 @@ const App = () => {
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchStatus());
+  }, [dispatch]);
 
   return (
     <StrictMode>

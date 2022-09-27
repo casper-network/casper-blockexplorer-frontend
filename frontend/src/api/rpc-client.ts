@@ -3,10 +3,14 @@ import {
   CasperServiceByJsonRPC,
   CLPublicKey,
 } from 'casper-js-sdk';
-import { Block, Deploy, DeployStatus, Peer } from '../types';
+import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from '../types';
 import { formatDate, formatTimeAgo } from '../utils';
 import { ApiError } from './api-error';
-import { JsonBlockWithBody, JsonDeployPayment } from './missing-sdk-types';
+import {
+  JsonBlockWithBody,
+  JsonDeployPayment,
+  GetStatusResultExtended,
+} from './missing-sdk-types';
 
 export const DEFAULT_NUM_TO_SHOW = 10;
 export class RpcApi {
@@ -252,9 +256,7 @@ export class RpcApi {
     }
   };
 
-  getBlockByHeight: (height: number) => Promise<Block> = async (
-    height: number,
-  ) => {
+  getBlockByHeight: (height: number) => Promise<Block> = async height => {
     try {
       const { block } = await this.rpcClient.getBlockInfoByHeight(height);
 
@@ -346,6 +348,29 @@ export class RpcApi {
         });
       }
     };
+
+  getStatus: () => Promise<NetworkStatus> = async () => {
+    try {
+      const { build_version: buildVersion, chainspec_name: networkName } =
+        (await this.rpcClient.getStatus()) as GetStatusResultExtended;
+
+      const [version, build] = buildVersion.split('-');
+
+      return {
+        version,
+        build,
+        networkName,
+      };
+    } catch (err) {
+      throw new ApiError({
+        type: RpcApiError.GetStatusFailed,
+        message: 'An error occurred while fetching blocks',
+        data: {
+          err,
+        },
+      });
+    }
+  };
 }
 
 export enum RpcApiError {
@@ -360,6 +385,7 @@ export enum RpcApiError {
   CurrentBlockHeightFailed = 'getCurrentBlockHeight/fetch-failed',
   BlockByHeightFailed = 'getBlockByHeight/fetch-failed',
   GetBlocksFailed = 'getBlocks/fetch-failed',
+  GetStatusFailed = 'getStatus/fetch-failed',
 }
 
 const casperJsonRpcService = new CasperServiceByJsonRPC(
