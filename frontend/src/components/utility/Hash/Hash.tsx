@@ -1,7 +1,7 @@
 import React from 'react';
-import { MOBILE_BREAKPOINT } from 'src/constants';
-import { useAppSelector, getBounds } from 'src/store';
-import { truncateHash } from '../truncate-hash';
+import { MOBILE_BREAKPOINT } from '../../../constants';
+import { useAppSelector, getBounds } from '../../../store';
+import { truncateHash } from '../../../utils/truncate-hash';
 
 interface HashProps {
   readonly hash: string;
