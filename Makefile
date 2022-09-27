@@ -43,5 +43,8 @@ middleware-install:
 middleware-audit:
 	cd middleware && npm audit
 
+middleware-lint:
+	cd middleware && npm run lint
+
 middleware-test:
 	cd middleware && npm run test
