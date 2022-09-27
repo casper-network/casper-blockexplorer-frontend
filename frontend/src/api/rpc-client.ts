@@ -363,7 +363,7 @@ export class RpcApi {
       };
     } catch (err) {
       throw new ApiError({
-        type: RpcApiError.GetBlocksFailed,
+        type: RpcApiError.GetStatusFailed,
         message: 'An error occurred while fetching blocks',
         data: {
           err,
