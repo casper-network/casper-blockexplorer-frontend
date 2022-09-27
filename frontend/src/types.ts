@@ -50,3 +50,9 @@ export enum BlockSearchType {
   Hash,
   Height,
 }
+
+export type NodeStatus = {
+  version: string;
+  build: string;
+  networkName: string;
+};
