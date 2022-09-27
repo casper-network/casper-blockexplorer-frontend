@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
+import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
+import Select from 'react-select';
+//
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
@@ -15,6 +17,10 @@ type FormValues = {
   blockHeight: string | number;
 };
 
+interface SelectOptions {
+  value: string;
+  label: string;
+}
 const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
@@ -96,6 +102,7 @@ export const DemoHeader: React.FC = () => {
   const navigate = useNavigate();
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
@@ -103,7 +110,6 @@ export const DemoHeader: React.FC = () => {
   } = useForm<FormValues>({
     resolver,
     defaultValues: { hash: '' },
-    mode: 'onChange',
   });
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
@@ -136,6 +142,13 @@ export const DemoHeader: React.FC = () => {
     };
   }, [isOpened]);
 
+  const selectOptions: SelectOptions[] = [
+    { value: 'account', label: 'Account' },
+    { value: 'deploy', label: 'Deploy Hash' },
+    { value: 'block', label: 'Block Hash' },
+    { value: 'blockHeight', label: 'Block Height' },
+  ];
+
   const form = (
     <div className={`${isOpened ? 'block' : 'hidden'} lg:block`}>
       <form onSubmit={handleSubmit(submitPath)}>
@@ -145,41 +158,45 @@ export const DemoHeader: React.FC = () => {
         <div
           className={`${
             isOpened ? 'pt-0' : ''
-          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-31`}>
-          <select
-            {...register('filterOptions')}
-            className="relative left-14 w-100 h-32 sm:h-36 xxs:w-109 md:w-135 md:mt-7 md:h-35 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 appearance-none pr-20">
-            <option value="account">Account</option>
-            <option value="deploy">Deploy Hash</option>
-            <option value="block">Block Hash</option>
-            <option value="blockHeight">Block Height</option>
-          </select>
-          <div className="relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              pointerEvents="none"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              className="w-20 h-20 absolute -left-10 top-6 sm:top-8 md:top-15">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-              />
-            </svg>
-          </div>
+          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-39`}>
+          <Controller
+            control={control}
+            render={({ field: { onChange, value, name } }) => {
+              const currentSelection = selectOptions.find(
+                option => option.value === value,
+              );
+              const handleSelectChange = (
+                selectedOption: SelectOptions | null,
+              ) => {
+                onChange(selectedOption?.value);
+              };
+              return (
+                <Select
+                  value={currentSelection}
+                  name={name}
+                  options={selectOptions}
+                  onChange={handleSelectChange}
+                  noOptionsMessage={() => null}
+                  isSearchable
+                  classNamePrefix="react-select"
+                />
+              );
+            }}
+            name="filterOptions"
+            rules={{
+              required: true,
+            }}
+          />
           <input
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
             type="submit"
-            className="bg-casper-red relative right-20 px-16 md:mt-7 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
+            className="bg-casper-red relative right-20 px-16 md:mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>

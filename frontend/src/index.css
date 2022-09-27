@@ -105,15 +105,103 @@ a:hover {
   word-break: break-word;
 }
 
-/* temporary fix for safari select positioning */
-button,
-input {
-  margin: 0;
-  padding: 0;
+/* react-select */
+
+.react-select-container {
+  background-color: transparent;
 }
 
-select {
-  -webkit-appearance: none;
-  padding: 0 0.5em;
-  cursor: pointer;
+.react-select__control {
+  background-color: transparent !important;
+  display: flex;
+  width: 150px;
+  position: relative !important;
+  left: 4px;
+  padding: 0px 0px 0px 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.react-select__value-container {
+  background-color: #ff0013;
+  padding: 3px 8px !important;
+  margin: 0;
+  border-radius: 8px 0 0 8px;
+}
+
+.react-select__value-container--has-value:focus {
+  border: none !important;
+}
+
+.react-select__single-value {
+  color: white !important;
+}
+
+.react-select__indicators {
+  /* line-height: 0; */
+  background-color: #ff0013;
+  padding: 0px !important;
+  margin: 0;
+}
+
+.react-select__input-container {
+  color: white !important;
+}
+
+.react-select__placeholder {
+  color: white !important;
+  /* line-height: 0; */
+}
+
+.react-select__indicator-separator {
+  background-color: white !important;
+}
+
+.react-select__indicator {
+  color: white !important;
+}
+
+.react-select__menu-list {
+  color: white;
+  padding: 0 !important;
+  margin: 0;
+  background-color: #ff0013;
+  border-radius: 8px;
+}
+
+.react-select-control {
+  width: 200px;
+  border: none !important;
+}
+
+.react-select-control--is-focused {
+  border: none !important;
+}
+
+.react-select__menu {
+  color: white !important;
+  background-color: transparent !important;
+  border-radius: 8px !important;
+}
+
+.react-select-option {
+  background-color: transparent !important;
+}
+
+.react-select__option--is-focused {
+  background-color: transparent !important;
+}
+
+.react-select__option:hover,
+.react-select__option:focus {
+  transition: ease-in;
+  color: white;
+  transition-duration: 200ms;
+  transition-property: font-weight;
+  font-weight: bolder;
+  background-color: transparent !important;
+}
+
+.react-select__option--is-selected {
+  background-color: #ff0013 !important ;
 }
