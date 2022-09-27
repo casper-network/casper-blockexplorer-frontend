@@ -29,4 +29,22 @@ describe("NodeManager", () => {
       isDead: false,
     });
   });
+
+  it("setDeadNode() sets first active node as a dead one", () => {
+    const firstActive = nodeManager.getActiveNode();
+    nodeManager.setDeadNode(firstActive.id);
+
+    expect(nodeManager.nodeAddresses[0]).to.be.deep.eq({
+      id: 0,
+      url: listOfNodes[0],
+      isDead: true,
+    });
+
+    expect(nodeManager.getActiveNode()).to.be.deep.eq({
+      id: 1,
+      url: listOfNodes[1],
+      isDead: false,
+    });
+  });
+
 });
