@@ -48,12 +48,13 @@ const colors = {
   grey: '#828282',
   'light-grey': 'rgb(245, 245, 247)',
   //Theme Colors
-  'casper-blue': '#171B38',
-  'casper-red': '#FF0013',
+  'casper-blue': '#03105B',
+  'casper-red': '#da2f54',
   'light-red': 'rgba(255, 0, 19, 0.125)',
   'dark-red': '#BF000E',
-  'green': '#09A129'
-};
+  'green': '#09A129',
+  
+}
 
 const spacing = {
   0: '0',

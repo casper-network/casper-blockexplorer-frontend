@@ -53,7 +53,7 @@ export const DeployPage: React.FC = () => {
       {!isLoading && deployHash && (
         <>
           <div className="w-full text-black mb-24">
-            <h2 className="text-24 mb-16">
+            <h2 className="text-24 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red mb-16">
               Deploy:{' '}
               <span className="tracking-2 font-normal">
                 {truncateHash(deployHash)}
