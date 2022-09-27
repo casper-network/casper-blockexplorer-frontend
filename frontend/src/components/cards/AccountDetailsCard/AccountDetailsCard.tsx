@@ -1,7 +1,6 @@
 import React from 'react';
-import { MOBILE_BREAKPOINT } from 'src/constants';
-import { useAppSelector, getBounds } from 'src/store';
-import { truncateHash } from 'src/utils';
+
+import { Hash } from 'src/utils';
 import { Account } from '../../../types';
 import { DetailCard } from '../../base';
 import { CopyToClipboard, RawData } from '../../utility';
@@ -17,19 +16,13 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 }) => {
   const { trimmedAccountHash, publicKey, rawAccount } = account;
 
-  const bounds = useAppSelector(getBounds);
-  const windowWidth = bounds?.width || 0;
-  const isMobile = windowWidth < MOBILE_BREAKPOINT;
-
   const rows = [
     {
       key: `accountHash-${trimmedAccountHash}`,
       detailKey: 'Account Hash',
       value: (
         <>
-          <p>
-            {isMobile ? truncateHash(trimmedAccountHash) : trimmedAccountHash}
-          </p>
+          <Hash hash={trimmedAccountHash} />
           <CopyToClipboard textToCopy={trimmedAccountHash} />
         </>
       ),
@@ -39,7 +32,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       detailKey: 'Public Key',
       value: (
         <>
-          <p>{isMobile ? truncateHash(publicKey) : publicKey}</p>
+          <Hash hash={publicKey} />
           <CopyToClipboard textToCopy={publicKey} />
         </>
       ),

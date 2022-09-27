@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MOBILE_BREAKPOINT } from 'src/constants';
-import { useAppSelector, getBounds } from 'src/store';
 import { Block } from '../../../types';
-import { truncateHash } from '../../../utils';
+import { Hash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard, RawData } from '../../utility';
 
@@ -27,9 +25,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     rawBlock,
   } = block;
 
-  const bounds = useAppSelector(getBounds);
-  const windowWidth = bounds?.width || 0;
-  const isMobile = windowWidth < MOBILE_BREAKPOINT;
   const rows = [
     {
       key: `parentHash-${blockHash}`,
@@ -40,7 +35,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             to={{
               pathname: `/block/${parentHash}`,
             }}>
-            {isMobile ? truncateHash(blockHash) : blockHash}
+            <Hash hash={parentHash} />
           </Link>
           <CopyToClipboard textToCopy={parentHash} />
         </>
@@ -56,7 +51,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       detailKey: 'Block Hash',
       value: (
         <>
-          <p>{isMobile ? truncateHash(blockHash) : blockHash}</p>
+          <Hash hash={blockHash} />
           <CopyToClipboard textToCopy={blockHash} />
         </>
       ),
@@ -74,7 +69,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <ul>
           {transferHashes?.map(transferHash => (
             <a key={transferHash} href={`/deploy/${transferHash}`}>
-              <li>{transferHash}</li>
+              <li>
+                <Hash hash={transferHash} />
+              </li>
             </a>
           ))}
         </ul>
@@ -91,7 +88,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             to={{
               pathname: `/account/${validatorPublicKey}`,
             }}>
-            {isMobile ? truncateHash(validatorPublicKey) : validatorPublicKey}
+            <Hash hash={validatorPublicKey} />
           </Link>
           <CopyToClipboard textToCopy={validatorPublicKey} />
         </>
@@ -104,7 +101,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <ul>
           {deployHashes?.map(deployHash => (
             <a key={deployHash} href={`/deploy/${deployHash}`}>
-              <li>{isMobile ? truncateHash(deployHash) : deployHash}</li>
+              <li>
+                <Hash hash={deployHash} />
+              </li>
             </a>
           ))}
         </ul>
@@ -115,8 +114,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     {
       key: `stateRootHash-${blockHash}`,
       detailKey: 'State Root Hash',
-      value:
-        isMobile && stateRootHash ? truncateHash(stateRootHash) : stateRootHash,
+      value: stateRootHash ? <Hash hash={stateRootHash} /> : '',
     },
     {
       key: 'raw-json',
