@@ -3,7 +3,7 @@ import {
   CasperServiceByJsonRPC,
   CLPublicKey,
 } from 'casper-js-sdk';
-import { Block, Deploy, DeployStatus, Peer, NodeStatus } from '../types';
+import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from '../types';
 import { formatDate, formatTimeAgo } from '../utils';
 import { ApiError } from './api-error';
 import {
@@ -349,7 +349,7 @@ export class RpcApi {
       }
     };
 
-  getStatus: () => Promise<NodeStatus> = async () => {
+  getStatus: () => Promise<NetworkStatus> = async () => {
     try {
       const { build_version: buildVersion, chainspec_name: networkName } =
         (await this.rpcClient.getStatus()) as GetStatusResultExtended;

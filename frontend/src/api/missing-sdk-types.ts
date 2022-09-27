@@ -18,5 +18,3 @@ export interface JsonBlockWithBody extends JsonBlock {
 export interface GetStatusResultExtended extends GetStatusResult {
   chainspec_name: string;
 }
-
-

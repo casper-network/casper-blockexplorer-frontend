@@ -3,12 +3,12 @@ import { casperApi } from '../../api';
 import { NetworkStatus } from '../../types';
 import { Loading } from '../loading.type';
 
-export interface PeerState {
+export interface NetworkState {
   status: Loading;
   network: NetworkStatus | null;
 }
 
-const initialState: PeerState = {
+const initialState: NetworkState = {
   status: Loading.Idle,
   network: null,
 };
@@ -26,7 +26,7 @@ export const fetchStatus = createAsyncThunk(
   },
 );
 
-export const peerSlice = createSlice({
+export const networkSlice = createSlice({
   name: 'networkStatus',
   initialState,
   reducers: {},
