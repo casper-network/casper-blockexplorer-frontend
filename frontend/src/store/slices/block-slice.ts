@@ -1,17 +1,19 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { formatTimeAgo } from 'src/utils';
-import { casperApi } from '../../api';
+import { casperApi, DEFAULT_NUM_TO_SHOW } from '../../api';
 import { Block } from '../../types';
 import { Loading } from '../loading.type';
 
 export interface BlockState {
   status: Loading;
   blocks: Block[];
+  isLoadingMoreBlocks: Loading;
 }
 
 const initialState: BlockState = {
   status: Loading.Idle,
   blocks: [],
+  isLoadingMoreBlocks: Loading.Idle,
 };
 
 export const fetchBlocks = createAsyncThunk(
@@ -49,6 +51,29 @@ export const refreshBlocks = createAsyncThunk(
   },
 );
 
+export const fetchMoreBlocks = createAsyncThunk(
+  'rpcClient/fetchMoreBlocks',
+  async (earliestLoadedBlockHeight: number) => {
+    try {
+      const newlyFetchedBlocks: Block[] = [];
+
+      let blockHeightStart = earliestLoadedBlockHeight - 1;
+      const targetHeight = blockHeightStart - DEFAULT_NUM_TO_SHOW;
+
+      while (blockHeightStart > targetHeight) {
+        if (blockHeightStart < 0) break;
+        const prevBlock = await casperApi.getBlockByHeight(blockHeightStart);
+        newlyFetchedBlocks.push(prevBlock);
+        blockHeightStart--;
+      }
+
+      return newlyFetchedBlocks;
+    } catch (error) {
+      throw new Error('An error occurred while fetching more blocks');
+    }
+  },
+);
+
 export const blockSlice = createSlice({
   name: 'block',
   initialState,
@@ -78,6 +103,9 @@ export const blockSlice = createSlice({
       .addCase(fetchBlocks.rejected, state => {
         state.status = Loading.Failed;
       })
+      .addCase(refreshBlocks.pending, state => {
+        state.isLoadingMoreBlocks = Loading.Pending;
+      })
       .addCase(
         refreshBlocks.fulfilled,
         (state, { payload }: PayloadAction<Block[]>) => {
@@ -100,6 +128,20 @@ export const blockSlice = createSlice({
             ...nonDuplicateAddedBlocks,
             ...state.blocks.slice(payload.length),
           ];
+          state.isLoadingMoreBlocks = Loading.Complete;
+        },
+      )
+      .addCase(refreshBlocks.rejected, state => {
+        state.isLoadingMoreBlocks = Loading.Failed;
+      })
+      .addCase(fetchMoreBlocks.pending, state => {
+        state.isLoadingMoreBlocks = Loading.Pending;
+      })
+      .addCase(
+        fetchMoreBlocks.fulfilled,
+        (state, { payload }: PayloadAction<Block[]>) => {
+          state.blocks = [...state.blocks, ...payload];
+          state.isLoadingMoreBlocks = Loading.Complete;
         },
       );
   },

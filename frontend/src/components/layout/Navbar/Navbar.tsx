@@ -9,6 +9,11 @@ const navItems = [
     key: 'home',
   },
   {
+    title: 'Blocks',
+    path: '/blocks',
+    key: 'blocks',
+  },
+  {
     title: 'Peers',
     path: '/peers',
     key: 'peers',

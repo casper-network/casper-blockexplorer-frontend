@@ -13,7 +13,7 @@ const initialState: AppState = {
 };
 
 export const appSlice = createSlice({
-  name: 'bounds',
+  name: 'app',
   initialState,
   reducers: {
     updateBounds: (state, action: PayloadAction<RectReadOnly>) => {
