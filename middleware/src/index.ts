@@ -2,13 +2,19 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import axios from "axios";
 
-import nodeManager from "./rpc-manager";
+import NodeManager from "./node-manager";
 
 const app: Express = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
+
+if (!process.env.NODE_URLS) {
+  throw Error("Missing NODE_URLS env variable");
+}
+
+const nodeManager = new NodeManager(process.env.NODE_URLS.split(","));
 
 // Routes
 app.get("/health-check", (req: Request, res: Response) => {
