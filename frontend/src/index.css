@@ -114,6 +114,6 @@ input {
 
 /* needed for moving carousel pagination out of card */
 .swiper-pagination{
-  margin-top: 25px;
+  margin-top: 1.5625rem;
   position: relative;
 }
