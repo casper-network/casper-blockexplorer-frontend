@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CSPR Block Explorer",
+  "name": "Casper Block Explorer",
   "icons": [
     {
       "src": "favicon.ico",
