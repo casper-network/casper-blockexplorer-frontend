@@ -208,3 +208,20 @@ a:hover {
 .react-select__option--is-selected {
   background-color: #ff0013 !important ;
 }
+
+@media (max-width: 420px) {
+  .react-select__indicator-separator {
+    display: none;
+  }
+  .react-select__control {
+    padding: 5px, 0;
+    width: 137px;
+  }
+  .react-select__value-container {
+    text-align: center;
+    padding: 3px 0px !important;
+  }
+  .react-select__dropdown-indicator {
+    padding: 2px !important;
+  }
+}

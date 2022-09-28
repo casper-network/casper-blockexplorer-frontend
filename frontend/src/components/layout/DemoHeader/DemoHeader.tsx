@@ -191,8 +191,7 @@ export const DemoHeader: React.FC = () => {
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            // className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
-            className="block py-4 sm:py-6 mb-0 mt-0 px-20 sm:pl-20 md:px-20 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 mb-0 mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
