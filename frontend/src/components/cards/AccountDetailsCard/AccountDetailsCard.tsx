@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Account } from '../../../types';
 import { DetailCard } from '../../base';
-import { CopyToClipboard, RawData } from '../../utility';
+import { CopyToClipboard, RawData, Hash } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account;
@@ -20,7 +21,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       detailKey: 'Account Hash',
       value: (
         <>
-          <p>{trimmedAccountHash}</p>
+          <Hash hash={trimmedAccountHash} />
           <CopyToClipboard textToCopy={trimmedAccountHash} />
         </>
       ),
@@ -30,7 +31,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       detailKey: 'Public Key',
       value: (
         <>
-          <p>{publicKey}</p>
+          <Hash hash={publicKey} />
           <CopyToClipboard textToCopy={publicKey} />
         </>
       ),

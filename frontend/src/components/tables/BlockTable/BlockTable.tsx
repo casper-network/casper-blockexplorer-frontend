@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import {
   fetchMoreBlocks,
   getEarliestLoadedBlock,
@@ -12,6 +13,7 @@ import {
 import { Block } from '../../../types';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
+
 import { Table } from '../../base';
 
 interface BlockTableProps {
