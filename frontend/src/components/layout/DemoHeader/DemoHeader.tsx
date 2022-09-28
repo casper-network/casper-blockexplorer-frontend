@@ -160,7 +160,7 @@ export const DemoHeader: React.FC = () => {
         <div
           className={`${
             isOpened ? 'pt-0' : ''
-          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-39`}>
+          } bg-casper-blue pl-3 flex relative justify-center pt-10 lg:pt-39`}>
           <Controller
             control={control}
             render={({ field: { onChange, value, name } }) => {
@@ -178,8 +178,8 @@ export const DemoHeader: React.FC = () => {
                   name={name}
                   options={selectOptions}
                   onChange={handleSelectChange}
+                  isSearchable={false}
                   noOptionsMessage={() => null}
-                  isSearchable
                   className="custom-select"
                   classNamePrefix="react-select"
                 />
@@ -194,18 +194,18 @@ export const DemoHeader: React.FC = () => {
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 mb-0 mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block h-38 py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 mb-0 mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
             type="submit"
-            className="bg-casper-red relative right-20 px-16 mb-0 mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
+            className="bg-casper-red relative h-38 right-20 px-5 xxs:px-16 mb-0 mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>
         {errors.hash && (
           <div className="flex flex-row justify-center relative -bottom-4 xxs:-bottom-4 sm:-bottom-2 md:-bottom-1 lg:pb-17">
-            <div className="fill-casper-blue w-20 h-30 stroke-casper-red stroke-2 pt-10">
+            <div className="fill-casper-blue w-20 h-30 stroke-casper-red stroke-2 pt-9">
               <svg>
                 <path
                   viewBox="0 0 30 16"
@@ -215,7 +215,7 @@ export const DemoHeader: React.FC = () => {
                 />
               </svg>
             </div>
-            <p className="text-casper-red pl-6 pt-10">{errors.hash.message}</p>
+            <p className="text-casper-red pl-6 pt-9">{errors.hash.message}</p>
           </div>
         )}
       </form>
