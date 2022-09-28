@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
 import Select from 'react-select';
-//
+
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
@@ -191,12 +191,13 @@ export const DemoHeader: React.FC = () => {
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            // className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block py-4 sm:py-6 mb-0 mt-0 px-20 sm:pl-20 md:px-20 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
             type="submit"
-            className="bg-casper-red relative right-20 px-16 md:mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
+            className="bg-casper-red relative right-20 px-16 mb-0 mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>
@@ -221,7 +222,7 @@ export const DemoHeader: React.FC = () => {
 
   return (
     <header className="w-full bg-casper-blue">
-      <div className="flex flex-row justify-between relative w-full max-w-1600 pl-15 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
+      <div className="flex flex-row justify-between relative w-full max-w-1800 pl-15 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
         <div className="pt-30 pb-35">
           <Link
             className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"

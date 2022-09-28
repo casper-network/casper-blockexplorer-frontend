@@ -114,9 +114,9 @@ a:hover {
 .react-select__control {
   background-color: transparent !important;
   display: flex;
-  width: 150px;
+  width: 165px;
   position: relative !important;
-  left: 4px;
+  left: 16px;
   padding: 0px 0px 0px 0 !important;
   box-shadow: none !important;
   border: none !important;
@@ -138,7 +138,6 @@ a:hover {
 }
 
 .react-select__indicators {
-  /* line-height: 0; */
   background-color: #ff0013;
   padding: 0px !important;
   margin: 0;
@@ -150,7 +149,6 @@ a:hover {
 
 .react-select__placeholder {
   color: white !important;
-  /* line-height: 0; */
 }
 
 .react-select__indicator-separator {
@@ -163,13 +161,16 @@ a:hover {
 
 .react-select__menu-list {
   color: white;
+  text-align: center;
   padding: 0 !important;
   margin: 0;
+  width: 140px;
   background-color: #ff0013;
   border-radius: 8px;
 }
 
 .react-select-control {
+  max-height: 41px;
   width: 200px;
   border: none !important;
 }
@@ -182,6 +183,8 @@ a:hover {
   color: white !important;
   background-color: transparent !important;
   border-radius: 8px !important;
+  width: 140px !important;
+  left: 16px;
 }
 
 .react-select-option {
