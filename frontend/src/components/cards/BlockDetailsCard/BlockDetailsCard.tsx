@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../types';
 import { DetailCard } from '../../base';
-import { CopyToClipboard, RawData } from '../../utility';
+import { CopyToClipboard, RawData, Hash } from '../../utility';
 
 export interface BlockDetailsCardProps {
   block: Block;
@@ -34,7 +34,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             to={{
               pathname: `/block/${parentHash}`,
             }}>
-            {blockHash}
+            <Hash hash={parentHash} />
           </Link>
           <CopyToClipboard textToCopy={parentHash} />
         </>
@@ -50,7 +50,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       detailKey: 'Block Hash',
       value: (
         <>
-          <p>{blockHash}</p>
+          <Hash hash={blockHash} />
           <CopyToClipboard textToCopy={blockHash} />
         </>
       ),
@@ -64,7 +64,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     {
       key: `stateRootHash-${blockHash}`,
       detailKey: 'State Root Hash',
-      value: stateRootHash,
+      value: stateRootHash ? <Hash hash={stateRootHash} /> : '',
     },
     {
       key: `validator-${blockHash}`,
@@ -75,25 +75,10 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             to={{
               pathname: `/account/${validatorPublicKey}`,
             }}>
-            {validatorPublicKey}
+            <Hash hash={validatorPublicKey} />
           </Link>
           <CopyToClipboard textToCopy={validatorPublicKey} />
         </>
-      ),
-    },
-    {
-      key: `deploys-${blockHash}`,
-      detailKey: 'Deploys',
-      value: deployHashes?.length ? (
-        <ul>
-          {deployHashes?.map(deployHash => (
-            <a key={deployHash} href={`/deploy/${deployHash}`}>
-              <li>{deployHash}</li>
-            </a>
-          ))}
-        </ul>
-      ) : (
-        'No deploys'
       ),
     },
     {
@@ -103,12 +88,31 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <ul>
           {transferHashes?.map(transferHash => (
             <a key={transferHash} href={`/deploy/${transferHash}`}>
-              <li>{transferHash}</li>
+              <li>
+                <Hash hash={transferHash} />
+              </li>
             </a>
           ))}
         </ul>
       ) : (
         'No transfers'
+      ),
+    },
+    {
+      key: `deploys-${blockHash}`,
+      detailKey: 'Deploys',
+      value: deployHashes?.length ? (
+        <ul>
+          {deployHashes?.map(deployHash => (
+            <a key={deployHash} href={`/deploy/${deployHash}`}>
+              <li>
+                <Hash hash={deployHash} />
+              </li>
+            </a>
+          ))}
+        </ul>
+      ) : (
+        'No deploys'
       ),
     },
     {

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
+import { MOBILE_BREAKPOINT } from 'src/constants';
+
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
 import { useAppSelector, getBounds } from '../../../store';
@@ -117,7 +120,6 @@ export const DemoHeader: React.FC = () => {
   const bounds = useAppSelector(getBounds);
 
   const windowWidth = bounds?.width || 0;
-  const MOBILE_BREAKPOINT = 1023;
 
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {

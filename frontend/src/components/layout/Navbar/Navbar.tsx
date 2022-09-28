@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { MOBILE_BREAKPOINT } from 'src/constants';
 import { useAppSelector, getBounds } from '../../../store';
 
 const navItems = [
@@ -26,7 +27,7 @@ export const Navbar: React.FC = () => {
 
   const windowWidth = bounds?.width || 0;
 
-  if (isOpened && windowWidth > 1024) {
+  if (isOpened && windowWidth > MOBILE_BREAKPOINT) {
     setIsOpened(false);
   }
 

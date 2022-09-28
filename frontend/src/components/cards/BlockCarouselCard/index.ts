@@ -1,0 +1,1 @@
+export { BlockCarouselCard } from './BlockCarouselCard';
