@@ -180,6 +180,7 @@ export const DemoHeader: React.FC = () => {
                   onChange={handleSelectChange}
                   noOptionsMessage={() => null}
                   isSearchable
+                  className="custom-select"
                   classNamePrefix="react-select"
                 />
               );
