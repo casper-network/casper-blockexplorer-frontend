@@ -36,6 +36,8 @@ export const Home: React.FC = () => {
   return (
     <PageWrapper isLoading={isLoading}>
       <h2 className="text-24 mb-25 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red">
+        Home
+      </h2>
       {isMobile ? (
         <MobileBlocksCarousel blocks={blocks} />
       ) : (
