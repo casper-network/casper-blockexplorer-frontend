@@ -128,7 +128,7 @@ a:hover {
 }
 
 .custom-select .react-select__value-container {
-  height: 2.375rem; /* this is the "select" height" */
+  height: 2.375rem;
   background-color: #d5294a;
   padding: 0.3rem 0.5rem;
   margin: 0;
@@ -144,7 +144,7 @@ a:hover {
 }
 
 .custom-select .react-select__indicators {
-  height: 2.375rem; /* this is the "select" height" */
+  height: 2.375rem;
   background-color: #d5294a;
   padding: 0px;
   margin: 0;
