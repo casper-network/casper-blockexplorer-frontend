@@ -62,21 +62,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     },
     { key: `era-${blockHash}`, detailKey: 'Era', value: era },
     {
-      key: `transfers-${blockHash}`,
-      detailKey: 'Transfers',
-      value: transferHashes?.length ? (
-        <ul>
-          {transferHashes?.map(transferHash => (
-            <a key={transferHash} href={`/deploy/${transferHash}`}>
-              <li>
-                <Hash hash={transferHash} />
-              </li>
-            </a>
-          ))}
-        </ul>
-      ) : (
-        'No transfers'
-      ),
+      key: `stateRootHash-${blockHash}`,
+      detailKey: 'State Root Hash',
+      value: stateRootHash ? <Hash hash={stateRootHash} /> : '',
     },
     {
       key: `validator-${blockHash}`,
@@ -91,6 +79,23 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </Link>
           <CopyToClipboard textToCopy={validatorPublicKey} />
         </>
+      ),
+    },
+    {
+      key: `transfers-${blockHash}`,
+      detailKey: 'Transfers',
+      value: transferHashes?.length ? (
+        <ul>
+          {transferHashes?.map(transferHash => (
+            <a key={transferHash} href={`/deploy/${transferHash}`}>
+              <li>
+                <Hash hash={transferHash} />
+              </li>
+            </a>
+          ))}
+        </ul>
+      ) : (
+        'No transfers'
       ),
     },
     {
@@ -109,11 +114,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       ) : (
         'No deploys'
       ),
-    },
-    {
-      key: `stateRootHash-${blockHash}`,
-      detailKey: 'State Root Hash',
-      value: stateRootHash ? <Hash hash={stateRootHash} /> : '',
     },
     {
       key: 'raw-json',
