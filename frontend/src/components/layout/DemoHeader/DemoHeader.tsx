@@ -24,6 +24,7 @@ interface SelectOptions {
   value: string;
   label: string;
 }
+
 const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
@@ -167,11 +168,13 @@ export const DemoHeader: React.FC = () => {
               const currentSelection = selectOptions.find(
                 option => option.value === value,
               );
+
               const handleSelectChange = (
                 selectedOption: SelectOptions | null,
               ) => {
                 onChange(selectedOption?.value);
               };
+
               return (
                 <Select
                   value={currentSelection}
