@@ -180,7 +180,6 @@ a:hover {
 }
 
 .custom-select .react-select-control {
-  /* max-height: 41px; */
   width: 9.4rem;
   border: none;
 }
