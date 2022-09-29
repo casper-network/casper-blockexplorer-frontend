@@ -118,7 +118,7 @@ export const DemoHeader: React.FC = () => {
 
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
-  const [currentFilterOption, setCurrentFilterOption] = useState('');
+  const [currentFilterOption, setCurrentFilterOption] = useState('account');
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -182,6 +182,7 @@ export const DemoHeader: React.FC = () => {
               return (
                 <Select
                   value={currentSelection}
+                  defaultValue={selectOptions[0]}
                   name={name}
                   options={selectOptions}
                   onChange={handleSelectChange}

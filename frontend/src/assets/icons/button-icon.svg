@@ -1,6 +1,6 @@
 <svg
     aria-hidden="true"
-    className="w-24 h-24 text-white pt-5"
+    className="w-24 h-24 text-white pt-5 hover:[#E18683]"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
