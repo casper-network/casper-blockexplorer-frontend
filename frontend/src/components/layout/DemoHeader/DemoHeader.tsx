@@ -119,7 +119,7 @@ export const DemoHeader: React.FC = () => {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset({ hash: '' });
+      reset({ hash: '', filterOptions: 'account' });
     }
   }, [isSubmitSuccessful, reset]);
 
@@ -177,6 +177,7 @@ export const DemoHeader: React.FC = () => {
 
               return (
                 <Select
+                  defaultValue={selectOptions[0]}
                   value={currentSelection}
                   name={name}
                   options={selectOptions}
@@ -190,7 +191,7 @@ export const DemoHeader: React.FC = () => {
             }}
             name="filterOptions"
             rules={{
-              required: true,
+              required: false,
             }}
           />
           <input
