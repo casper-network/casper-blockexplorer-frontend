@@ -3,7 +3,7 @@ import { render } from '../../../test-utils';
 import { PageWrapper } from './PageWrapper';
 
 describe(PageWrapper, () => {
-  it('should render loader is page is loading', () => {
+  it('should render loader when page is loading', () => {
     const { getByTestId } = render(
       <PageWrapper isLoading>Content</PageWrapper>,
     );
