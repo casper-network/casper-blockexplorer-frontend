@@ -85,7 +85,7 @@ const resolver: Resolver<FormValues> = async values => {
 const navItems = [
   {
     title: 'Blocks',
-    path: '/',
+    path: '/blocks',
     key: 'blocks',
   },
   {
