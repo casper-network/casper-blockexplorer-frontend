@@ -15,13 +15,20 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   };
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     if (isCopied) {
-      setTimeout(() => setCopied(false), 3000);
+      timeoutId = setTimeout(() => setCopied(false), 3000);
     }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [isCopied]);
 
   const copiedIcon = (
     <svg
+      data-testid="copied-icon"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 25 24"
@@ -38,6 +45,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 
   const copyIcon = (
     <svg
+      data-testid="copy-icon"
       width="17"
       height="16"
       viewBox="0 0 16 16"
