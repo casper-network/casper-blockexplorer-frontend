@@ -118,11 +118,13 @@ export const DemoHeader: React.FC = () => {
 
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
+  const [currentFilterOption, setCurrentFilterOption] = useState('');
+
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({ hash: '', filterOptions: currentFilterOption });
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, currentFilterOption]);
 
   const [isOpened, setIsOpened] = useState(false);
   const bounds = useAppSelector(getBounds);
@@ -145,8 +147,6 @@ export const DemoHeader: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
-
-  const [currentFilterOption, setCurrentFilterOption] = useState('');
 
   const selectOptions: SelectOptions[] = [
     { value: 'account', label: 'Account' },
