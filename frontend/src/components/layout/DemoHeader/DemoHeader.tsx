@@ -115,11 +115,12 @@ export const DemoHeader: React.FC = () => {
     resolver,
     defaultValues: { hash: '' },
   });
+
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset({ hash: '', filterOptions: 'account' });
+      reset({ hash: '', filterOptions: currentFilterOption });
     }
   }, [isSubmitSuccessful, reset]);
 
@@ -144,6 +145,8 @@ export const DemoHeader: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
+
+  const [currentFilterOption, setCurrentFilterOption] = useState('');
 
   const selectOptions: SelectOptions[] = [
     { value: 'account', label: 'Account' },
@@ -173,11 +176,12 @@ export const DemoHeader: React.FC = () => {
                 selectedOption: SelectOptions | null,
               ) => {
                 onChange(selectedOption?.value);
+                setCurrentFilterOption(selectedOption?.value!);
+                console.log(currentFilterOption);
               };
 
               return (
                 <Select
-                  defaultValue={selectOptions[0]}
                   value={currentSelection}
                   name={name}
                   options={selectOptions}
