@@ -177,7 +177,6 @@ export const DemoHeader: React.FC = () => {
               ) => {
                 onChange(selectedOption?.value);
                 setCurrentFilterOption(selectedOption?.value!);
-                console.log(currentFilterOption);
               };
 
               return (
