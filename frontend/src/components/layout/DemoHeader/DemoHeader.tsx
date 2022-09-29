@@ -191,7 +191,7 @@ export const DemoHeader: React.FC = () => {
             }}
             name="filterOptions"
             rules={{
-              required: false,
+              required: true,
             }}
           />
           <input
