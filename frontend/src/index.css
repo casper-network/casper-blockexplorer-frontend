@@ -105,21 +105,140 @@ a:hover {
   word-break: break-word;
 }
 
-/* temporary fix for safari select positioning */
-button,
-input {
-  margin: 0;
-  padding: 0;
-}
-
 /* needed for moving carousel pagination out of card */
-.swiper-pagination{
+.swiper-pagination {
   margin-top: 1.5625rem;
   position: relative;
 }
- 
-select {
-  -webkit-appearance: none;
-  padding: 0 0.5em;
+
+/* react-select */
+
+.custom-select .react-select-container {
+  background-color: transparent;
+}
+
+.custom-select .react-select__control {
+  background-color: transparent;
+  display: flex;
+  width: 9.4rem;
+  position: relative;
+  left: 1rem;
+  box-shadow: none;
+  border: none;
+}
+
+.custom-select .react-select__value-container {
+  height: 2.375rem;
+  background-color: #d5294a;
+  padding: 0.3rem 0.5rem;
+  margin: 0;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.custom-select .react-select__value-container:hover {
   cursor: pointer;
+}
+
+.custom-select .react-select__value-container--has-value:focus {
+  border: none;
+}
+
+.custom-select .react-select__single-value {
+  color: white;
+}
+
+.custom-select .react-select__indicators {
+  height: 2.375rem;
+  background-color: #d5294a;
+  padding: 0px;
+  margin: 0;
+}
+
+.custom-select .react-select__input-container {
+  color: white;
+}
+
+.custom-select .react-select__placeholder {
+  color: white;
+}
+
+.custom-select .react-select__indicator-separator {
+  background-color: white;
+}
+
+.custom-select .react-select__indicator-separator:hover {
+  cursor: pointer;
+}
+
+.custom-select .react-select__indicator {
+  color: white;
+}
+
+.custom-select .react-select__indicator:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.custom-select .react-select__menu-list {
+  color: white;
+  padding: 0;
+  margin: 0;
+  width: 7.8rem;
+  background-color: #d5294a;
+  border-radius: 0.5rem;
+}
+
+.custom-select .react-select-control {
+  width: 9.4rem;
+  border: none;
+}
+
+.custom-select .react-select-control--is-focused {
+  border: none;
+}
+
+.custom-select .react-select__menu {
+  color: white;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  width: 7.9rem;
+  left: 1rem;
+}
+
+.custom-select .react-select-option {
+  background-color: transparent;
+}
+
+.custom-select .react-select__option--is-focused {
+  background-color: transparent;
+}
+
+.custom-select .react-select__option:hover,
+.custom-select .react-select__option:focus {
+  transition: ease-in;
+  color: white;
+  transition-duration: 200ms;
+  transition-property: font-weight;
+  font-weight: bolder;
+  background-color: transparent;
+}
+
+.custom-select .react-select__option--is-selected {
+  background-color: #d5294a;
+}
+
+@media (max-width: 420px) {
+  .custom-select .react-select__indicator-separator {
+    display: none;
+  }
+  .custom-select .react-select__control {
+    width: 7.6rem;
+  }
+  .custom-select .react-select__value-container {
+    text-align: center;
+    padding: 0.3rem 0px;
+  }
+  .custom-select .react-select__dropdown-indicator {
+    padding: 0.1rem;
+  }
 }

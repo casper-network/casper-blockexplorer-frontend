@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { MOBILE_BREAKPOINT } from 'src/constants';
 
 import { useNavigate, Link } from 'react-router-dom';
-import { useForm, SubmitHandler, Resolver } from 'react-hook-form';
+import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
+import Select from 'react-select';
+
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
@@ -17,6 +19,11 @@ type FormValues = {
   path: string;
   blockHeight: string | number;
 };
+
+interface SelectOptions {
+  value: string;
+  label: string;
+}
 
 const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
@@ -35,7 +42,7 @@ const resolver: Resolver<FormValues> = async values => {
     blockHeight: 'Please enter a valid block height',
   };
 
-  const defaultErrorMessage = 'Please enter a valid hash or block height';
+  const defaultErrorMessage = 'Please select an option and enter a value';
 
   const path = {
     account: `/account/${values.hash}`,
@@ -99,6 +106,7 @@ export const DemoHeader: React.FC = () => {
   const navigate = useNavigate();
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
@@ -106,15 +114,17 @@ export const DemoHeader: React.FC = () => {
   } = useForm<FormValues>({
     resolver,
     defaultValues: { hash: '' },
-    mode: 'onChange',
   });
+
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
+
+  const [currentFilterOption, setCurrentFilterOption] = useState('');
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset({ hash: '' });
+      reset({ hash: '', filterOptions: currentFilterOption });
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, currentFilterOption]);
 
   const [isOpened, setIsOpened] = useState(false);
   const bounds = useAppSelector(getBounds);
@@ -138,6 +148,13 @@ export const DemoHeader: React.FC = () => {
     };
   }, [isOpened]);
 
+  const selectOptions: SelectOptions[] = [
+    { value: 'account', label: 'Account' },
+    { value: 'deploy', label: 'Deploy Hash' },
+    { value: 'block', label: 'Block Hash' },
+    { value: 'blockHeight', label: 'Block Height' },
+  ];
+
   const form = (
     <div className={`${isOpened ? 'block' : 'hidden'} lg:block`}>
       <form onSubmit={handleSubmit(submitPath)}>
@@ -147,47 +164,56 @@ export const DemoHeader: React.FC = () => {
         <div
           className={`${
             isOpened ? 'pt-0' : ''
-          } bg-casper-blue pl-10 flex relative justify-center pt-10 lg:pt-31`}>
-          <select
-            {...register('filterOptions')}
-            className="relative left-14 w-100 h-32 sm:h-36 xxs:w-109 md:w-135 md:mt-7 md:h-35 text-center rounded-r-none bg-casper-red rounded-lg border-none text-white focus:outline-none text-12 xs:text-13 sm:text-14 md:text-16 appearance-none pr-20">
-            <option value="account">Account</option>
-            <option value="deploy">Deploy Hash</option>
-            <option value="block">Block Hash</option>
-            <option value="blockHeight">Block Height</option>
-          </select>
-          <div className="relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              pointerEvents="none"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              className="w-20 h-20 absolute -left-10 top-6 sm:top-8 md:top-15">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-              />
-            </svg>
-          </div>
+          } bg-casper-blue pl-3 flex relative justify-center pt-10 lg:pt-39`}>
+          <Controller
+            control={control}
+            render={({ field: { onChange, value, name } }) => {
+              const currentSelection = selectOptions.find(
+                option => option.value === value,
+              );
+
+              const handleSelectChange = (
+                selectedOption: SelectOptions | null,
+              ) => {
+                onChange(selectedOption?.value);
+                setCurrentFilterOption(selectedOption?.value!);
+              };
+
+              return (
+                <Select
+                  value={currentSelection}
+                  name={name}
+                  options={selectOptions}
+                  onChange={handleSelectChange}
+                  isSearchable={false}
+                  noOptionsMessage={() => null}
+                  className="custom-select"
+                  classNamePrefix="react-select"
+                />
+              );
+            }}
+            name="filterOptions"
+            rules={{
+              required: true,
+            }}
+          />
           <input
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 md:mt-7 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block h-38 py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 mb-0 mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
             required
           />
           <button
             type="submit"
-            className="bg-casper-red relative right-20 px-16 md:mt-7 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
+            className="bg-casper-red relative h-38 right-20 px-5 xxs:px-16 mb-0 mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>
         {errors.hash && (
-          <div className="flex flex-row justify-center relative -bottom-4 xxs:-bottom-4 sm:-bottom-2 md:-bottom-1 lg:pb-17">
-            <div className="fill-casper-blue w-20 h-30 stroke-casper-red stroke-2 pt-10">
+          // <div className="flex flex-row justify-center relative -bottom-4 px-5 xxs:-bottom-4 sm:-bottom-5 md:-bottom-1 lg:pb-17">
+          <div className="flex flex-row justify-center px-5 lg:pb-16 ">
+            <div className="fill-casper-blue pt-12 w-20 h-30 stroke-casper-red stroke-2 mr-7 ">
               <svg>
                 <path
                   viewBox="0 0 30 16"
@@ -197,7 +223,9 @@ export const DemoHeader: React.FC = () => {
                 />
               </svg>
             </div>
-            <p className="text-casper-red pl-6 pt-10">{errors.hash.message}</p>
+            <p className="text-casper-red text-[0.9rem] xxs:text-base pt-14 xxs:pt-12">
+              {errors.hash.message}
+            </p>
           </div>
         )}
       </form>
@@ -206,7 +234,7 @@ export const DemoHeader: React.FC = () => {
 
   return (
     <header className="w-full bg-casper-blue">
-      <div className="flex flex-row justify-between relative w-full max-w-1600 pl-15 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
+      <div className="flex flex-row justify-between relative w-full max-w-1800 pl-15 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
         <div className="pt-30 pb-35">
           <Link
             className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"
