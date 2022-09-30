@@ -34,7 +34,7 @@ const tableRows = [
   {
     items: [
       { content: 'Row 3 Col 1 Content', key: 1 },
-      { content: 'Row 3ol 2 Content', key: 2 },
+      { content: 'Row 3 Col 2 Content', key: 2 },
       { content: 'Row 3 Col 3 Content', key: 3 },
       { content: 'Row 3 Col 4 Content', key: 4 },
       { content: 'Row 3 Col 5 Content', key: 5 },
