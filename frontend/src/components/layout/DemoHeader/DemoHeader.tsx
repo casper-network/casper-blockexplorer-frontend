@@ -211,7 +211,6 @@ export const DemoHeader: React.FC = () => {
           </button>
         </div>
         {errors.hash && (
-          // <div className="flex flex-row justify-center relative -bottom-4 px-5 xxs:-bottom-4 sm:-bottom-5 md:-bottom-1 lg:pb-17">
           <div className="flex flex-row justify-center px-5 lg:pb-16 ">
             <div className="fill-casper-blue pt-12 w-20 h-30 stroke-casper-red stroke-2 mr-7 ">
               <svg>
