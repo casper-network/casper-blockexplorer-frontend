@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-array-constructor */
 import React from 'react';
 import { createMockBlocks, render } from '../../test-utils';
 import { Home } from '../Home';
