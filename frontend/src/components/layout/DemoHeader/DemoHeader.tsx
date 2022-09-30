@@ -42,8 +42,7 @@ const resolver: Resolver<FormValues> = async values => {
     blockHeight: 'Please enter a valid block height',
   };
 
-  const defaultErrorMessage =
-    'Please select an option and enter a valid hash or block height';
+  const defaultErrorMessage = 'Please select an option and enter a value';
 
   const path = {
     account: `/account/${values.hash}`,
@@ -212,8 +211,9 @@ export const DemoHeader: React.FC = () => {
           </button>
         </div>
         {errors.hash && (
-          <div className="flex flex-row justify-center relative -bottom-4 xxs:-bottom-4 sm:-bottom-2 md:-bottom-1 lg:pb-17">
-            <div className="fill-casper-blue w-20 h-30 stroke-casper-red stroke-2 pt-9">
+          // <div className="flex flex-row justify-center relative -bottom-4 px-5 xxs:-bottom-4 sm:-bottom-5 md:-bottom-1 lg:pb-17">
+          <div className="flex flex-row justify-center px-5 lg:pb-16 ">
+            <div className="fill-casper-blue pt-12 w-20 h-30 stroke-casper-red stroke-2 mr-7 ">
               <svg>
                 <path
                   viewBox="0 0 30 16"
@@ -223,7 +223,9 @@ export const DemoHeader: React.FC = () => {
                 />
               </svg>
             </div>
-            <p className="text-casper-red pl-6 pt-9">{errors.hash.message}</p>
+            <p className="text-casper-red text-[0.9rem] xxs:text-base pt-14 xxs:pt-12">
+              {errors.hash.message}
+            </p>
           </div>
         )}
       </form>
