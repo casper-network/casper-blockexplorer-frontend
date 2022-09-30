@@ -135,6 +135,10 @@ a:hover {
   border-radius: 0.5rem 0 0 0.5rem;
 }
 
+.custom-select .react-select__value-container:hover {
+  cursor: pointer;
+}
+
 .custom-select .react-select__value-container--has-value:focus {
   border: none;
 }
@@ -162,12 +166,17 @@ a:hover {
   background-color: white;
 }
 
+.custom-select .react-select__indicator-separator:hover {
+  cursor: pointer;
+}
+
 .custom-select .react-select__indicator {
   color: white;
 }
 
 .custom-select .react-select__indicator:hover {
-  color: lightcoral;
+  color: white;
+  cursor: pointer;
 }
 
 .custom-select .react-select__menu-list {

@@ -118,13 +118,15 @@ export const DemoHeader: React.FC = () => {
 
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
-  const [currentFilterOption, setCurrentFilterOption] = useState('account');
+  const [currentFilterOption, setCurrentFilterOption] = useState('');
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({ hash: '', filterOptions: currentFilterOption });
     }
   }, [isSubmitSuccessful, reset, currentFilterOption]);
+
+  console.log(currentFilterOption);
 
   const [isOpened, setIsOpened] = useState(false);
   const bounds = useAppSelector(getBounds);
@@ -182,7 +184,6 @@ export const DemoHeader: React.FC = () => {
               return (
                 <Select
                   value={currentSelection}
-                  defaultValue={selectOptions[0]}
                   name={name}
                   options={selectOptions}
                   onChange={handleSelectChange}
