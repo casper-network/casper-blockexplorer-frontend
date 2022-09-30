@@ -42,7 +42,8 @@ const resolver: Resolver<FormValues> = async values => {
     blockHeight: 'Please enter a valid block height',
   };
 
-  const defaultErrorMessage = 'Please enter a valid hash or block height';
+  const defaultErrorMessage =
+    'Please select an option and/or enter a valid hash or block height';
 
   const path = {
     account: `/account/${values.hash}`,
@@ -126,8 +127,6 @@ export const DemoHeader: React.FC = () => {
     }
   }, [isSubmitSuccessful, reset, currentFilterOption]);
 
-  console.log(currentFilterOption);
-
   const [isOpened, setIsOpened] = useState(false);
   const bounds = useAppSelector(getBounds);
 
@@ -196,7 +195,7 @@ export const DemoHeader: React.FC = () => {
             }}
             name="filterOptions"
             rules={{
-              required: true,
+              required: false,
             }}
           />
           <input
