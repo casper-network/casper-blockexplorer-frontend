@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
-import { MOBILE_BREAKPOINT } from 'src/constants';
-
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
 import Select from 'react-select';
 
+import { MOBILE_BREAKPOINT } from '../../../constants';
 import { useAppSelector, getBounds } from '../../../store';
 
 import logo from '../../../assets/images/logo.png';
