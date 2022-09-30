@@ -43,7 +43,7 @@ const resolver: Resolver<FormValues> = async values => {
   };
 
   const defaultErrorMessage =
-    'Please select an option and/or enter a valid hash or block height';
+    'Please select an option and enter a valid hash or block height';
 
   const path = {
     account: `/account/${values.hash}`,
