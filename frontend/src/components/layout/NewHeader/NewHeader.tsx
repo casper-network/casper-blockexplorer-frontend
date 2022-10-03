@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
+import { MOBILE_BREAKPOINT } from 'src/constants';
+
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
 import Select from 'react-select';
 
-import { MOBILE_BREAKPOINT } from '../../../constants';
 import { useAppSelector, getBounds } from '../../../store';
 
-import logo from '../../../assets/images/logo.png';
+import blueLogo from '../../../assets/images/blue-casper-logo.svg';
 import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-icon.svg';
 import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
 import { ReactComponent as ButtonIcon } from '../../../assets/icons/button-icon.svg';
@@ -89,9 +91,24 @@ const resolver: Resolver<FormValues> = async values => {
 
 const navItems = [
   {
+    title: 'Home',
+    path: '/home',
+    key: 'home',
+  },
+  {
     title: 'Blocks',
     path: '/blocks',
     key: 'blocks',
+  },
+  {
+    title: 'Deploys',
+    path: '/deploys',
+    key: 'deploys',
+  },
+  {
+    title: 'Accounts',
+    path: '/accounts',
+    key: 'accounts',
   },
   {
     title: 'Peers',
@@ -100,7 +117,7 @@ const navItems = [
   },
 ];
 
-export const DemoHeader: React.FC = () => {
+export const NewHeader: React.FC = () => {
   const navigate = useNavigate();
 
   const {
@@ -116,7 +133,7 @@ export const DemoHeader: React.FC = () => {
 
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
-  const [currentFilterOption, setCurrentFilterOption] = useState('');
+  const [currentFilterOption, setCurrentFilterOption] = useState('account');
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -148,74 +165,96 @@ export const DemoHeader: React.FC = () => {
 
   const selectOptions: SelectOptions[] = [
     { value: 'account', label: 'Account' },
-    { value: 'deploy', label: 'Deploy Hash' },
-    { value: 'block', label: 'Block Hash' },
-    { value: 'blockHeight', label: 'Block Height' },
+    { value: 'block', label: 'Blk Hash' },
+    { value: 'blockHeight', label: 'Blk Height' },
+    { value: 'deploy', label: 'Deploy' },
   ];
 
-  console.log(selectOptions[0]);
+  //   console.log(selectOptions[0]);
 
   const form = (
-    <div className={`${isOpened ? 'block' : 'hidden'} lg:block`}>
+    <div className="flex justify-center py-64">
       <form onSubmit={handleSubmit(submitPath)}>
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div
-          className={`${
-            isOpened ? 'pt-0' : ''
-          } bg-casper-blue pl-3 flex relative justify-center pt-10 lg:pt-39`}>
-          <Controller
-            control={control}
-            render={({ field: { onChange, value, name } }) => {
-              const currentSelection = selectOptions.find(
-                option => option.value === value,
-              );
 
-              const handleSelectChange = (
-                selectedOption: SelectOptions | null,
-              ) => {
-                onChange(selectedOption?.value);
-                setCurrentFilterOption(selectedOption?.value!);
-              };
+        <Controller
+          control={control}
+          render={({ field: { onChange, value, name } }) => {
+            const currentSelection = selectOptions.find(
+              option => option.value === value,
+            );
 
+            const handleSelectChange = (
+              selectedOption: SelectOptions | null,
+            ) => {
+              onChange(selectedOption?.value);
+              setCurrentFilterOption(selectedOption?.value!);
               console.log(currentSelection);
+            };
 
-              return (
-                <Select
-                  defaultValue={selectOptions[0]}
-                  value={currentSelection}
-                  name={name}
-                  options={selectOptions}
-                  onChange={handleSelectChange}
-                  isSearchable={false}
-                  noOptionsMessage={() => null}
-                  className="custom-select"
-                  classNamePrefix="react-select"
-                />
-              );
-            }}
-            name="filterOptions"
-            rules={{
-              required: true,
-            }}
-          />
+            return (
+              <ul className="flex flex-row justify-between">
+                {selectOptions.map((option, key) => {
+                  const handleClick = () => {
+                    console.log(option.value);
+                    onChange(option.value);
+                    setCurrentFilterOption(option.value);
+                  };
+
+                  return (
+                    <li key={`${key}-selectOption`}>
+                      <button
+                        onClick={handleClick}
+                        className={`${
+                          currentFilterOption === option.value
+                            ? 'bg-cobalt-blue text-white'
+                            : 'bg-[#e6e6e7] text-black'
+                        } text-xs text-bold border-none rounded-full py-5 px-10`}
+                        type="button">
+                        {option.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              // <Select
+              //   defaultValue={selectOptions[0]}
+              //   value={currentSelection}
+              //   name={name}
+              //   options={selectOptions}
+              //   onChange={handleSelectChange}
+              //   isSearchable={false}
+              //   noOptionsMessage={() => null}
+              //   className="custom-select"
+              //   classNamePrefix="react-select"
+              // />
+            );
+          }}
+          name="filterOptions"
+          rules={{
+            required: true,
+          }}
+        />
+        <div className="flex justify-center bg-casper-white pt-25 lg:pt-39">
           <input
             {...register('hash', { required: true })}
             type="search"
             id="search"
-            className="block h-38 py-4 sm:py-6 md:py-5 px-20 sm:pl-20 md:px-20 mb-0 mt-0 text-xs text-gray-900 bg-gray-50 border-1 border-solid border-gray-400 focus:outline-none w-full max-w-280 xl:w-500 xxs:text-sm xxs:pr-32 appearance-none"
+            className="block h-45 rounded-l-md md:py-5 px-20 sm:pl-20 md:px-20 mb-0 mt-0 text-sm text-gray-900 bg-gray-50 border-none shadow-inner shadow-gray-300 focus:outline-none w-screen max-w-260 appearance-none"
+            placeholder="Select search criteria"
             required
           />
           <button
             type="submit"
-            className="bg-casper-red relative h-38 right-20 px-5 xxs:px-16 mb-0 mt-0 focus:outline-none font-medium rounded-r-lg border-none cursor-pointer">
+            className="bg-cobalt-blue w-45 relative h-45 right-1 focus:outline-none font-medium rounded-r-md border-none cursor-pointer">
             <ButtonIcon />
           </button>
         </div>
         {errors.hash && (
           <div className="flex flex-row justify-center px-5 lg:pb-16 ">
-            <div className="fill-casper-blue pt-12 w-20 h-30 stroke-casper-red stroke-2 mr-7 ">
+            <div className="fill-casper-white pt-12 w-20 h-30 stroke-casper-red stroke-2 mr-7 ">
               <svg>
                 <path
                   viewBox="0 0 30 16"
@@ -235,35 +274,35 @@ export const DemoHeader: React.FC = () => {
   );
 
   return (
-    <header className="w-full bg-casper-blue">
-      <div className="flex flex-row justify-between relative w-full max-w-1800 pl-15 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
-        <div className="pt-30 pb-35">
+    <header className="w-full bg-casper-white">
+      <div className="flex flex-row justify-between w-full max-w-1800 px-40 py-20 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52">
+        <div className="pt-7">
           <Link
             className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"
             to="/">
             <div className="flex flex-row items-center">
-              <img className="h-40 xxs:h-50" src={logo} alt="Casper Logo" />
-              <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20ch">
-                Casper BlockExplorer
-              </p>
+              <img
+                className="h-26 w-28 xxs:h-50"
+                src={blueLogo}
+                alt="Casper Logo"
+              />
             </div>
           </Link>
         </div>
-        {windowWidth > MOBILE_BREAKPOINT ? form : null}
-        <nav className="z-10 py-10 lg:py-40 bg-casper-blue lg:w-200">
+        <nav className="z-10 lg:py-40 bg-casper-white lg:w-200">
           <div className="flex flex-col lg:flex-row lg:justify-between">
-            <div className="z-30 flex flex-row justify-end lg:justify-between">
+            <div className="z-30 pt-3 flex flex-row justify-end lg:justify-between">
               <button
                 type="button"
-                className="lg:hidden bg-transparent border-none h-40 mt-20 xxs:mt-24"
+                className="lg:hidden bg-transparent border-none"
                 onClick={() => setIsOpened(!isOpened)}>
-                {isOpened ? <OpenMenuIcon /> : <CloseMenuIcon />}
+                {isOpened ? <CloseMenuIcon /> : <OpenMenuIcon />}
               </button>
             </div>
-            <div className="bg-casper-blue border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto">
+            <div className="bg-casper-white border-none lg:flex lg:space-x-12 lg:flex-row lg:w-auto">
               {isOpened && (
-                <nav className="pr-20 pl-20 lg:hidden">
-                  <ul className="z-10 bg-casper-blue flex flex-col gap-2 absolute w-screen h-200 items-center justify-center left-0 top-0">
+                <nav className="px-20 lg:hidden">
+                  <ul className="z-10 bg-cobalt-blue flex flex-col gap-5 absolute w-screen h-screen items-center justify-center left-0 top-0">
                     {navItems.map(({ path, title, key }) => {
                       return (
                         <li key={key}>
@@ -275,7 +314,6 @@ export const DemoHeader: React.FC = () => {
                         </li>
                       );
                     })}
-                    {form}
                   </ul>
                 </nav>
               )}
@@ -298,6 +336,12 @@ export const DemoHeader: React.FC = () => {
           </div>
         </nav>
       </div>
+      <div className="flex justify-center pt-4">
+        <h1 className="text-transparent text-inter bg-clip-text font-bold leading-10 text-[2.75rem] max-w-250  w-20ch bg-gradient-to-r from-[#1E1D86] to-[#E2324A]">
+          Discover the Casper Blockchain.
+        </h1>
+      </div>
+      {form}
     </header>
   );
 };
