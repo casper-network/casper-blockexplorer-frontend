@@ -18,6 +18,7 @@ describe('truncateHash', () => {
     try {
       truncateHash(mockBlockHash);
     } catch (error: any) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(error.message).toBe(`Hash too short: ${mockBlockHash}`);
     }
   });
