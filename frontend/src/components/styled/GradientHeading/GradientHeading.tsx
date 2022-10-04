@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Heading, HeadingProps } from '../../base';
 
 interface GradientHeadingProps extends HeadingProps {
-  gradient?: string;
+  readonly gradient?: string;
 }
 
 const baseGradient =
@@ -11,6 +11,7 @@ const baseGradient =
 export const GradientHeading = styled(Heading)<GradientHeadingProps>`
   background: ${({ gradient }) => gradient ?? baseGradient};
   background-clip: text;
+  width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
