@@ -7,5 +7,8 @@ export interface DetailCardRow {
 }
 
 export interface DetailCardProps {
+  readonly headContent?: React.ReactNode;
   readonly rows: DetailCardRow[];
+  readonly footContent?: React.ReactNode;
+  readonly noDividers?: boolean;
 }
