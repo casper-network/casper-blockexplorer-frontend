@@ -4,9 +4,9 @@ import React from 'react';
 export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface HeadingProps {
-  type: HeadingType;
-  children: React.ReactNode;
-  className?: string;
+  readonly type: HeadingType;
+  readonly children: React.ReactNode;
+  readonly className?: string;
 }
 
 export const Heading: React.FC<HeadingProps> = ({
