@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { Deploy } from '../types';
-import {
-  DeployDetailsCard,
-  GradientHeading,
-  Hash,
-  PageError,
-  PageWrapper,
-} from '../components';
+import { DeployDetailsCard, PageError, PageWrapper } from '../components';
 
 import { casperApi } from '../api';
 
@@ -43,16 +37,7 @@ export const DeployPage: React.FC = () => {
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      {!isLoading && deployHash && (
-        <>
-          <div className="w-full text-black mb-24">
-            <GradientHeading type="h2">
-              Deploy: <Hash hash={deployHash} alwaysTruncate />
-            </GradientHeading>
-          </div>
-          <DeployDetailsCard deploy={deploy} />
-        </>
-      )}
+      {!isLoading && deployHash && <DeployDetailsCard deploy={deploy} />}
     </PageWrapper>
   );
 };
