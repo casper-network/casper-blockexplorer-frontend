@@ -36,18 +36,6 @@ export const DeployPage: React.FC = () => {
 
   const isLoading = !deploy;
 
-  if (error) {
-    return (
-      <div className="w-full h-[75vh] px-48 mt-24">
-        <div className="w-full max-w-1200">
-          <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
-          <p>We were unable to fetch deploy with hash:</p>
-          <h3>{deployHash}</h3>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <PageWrapper error={error} isLoading={isLoading}>
       {!isLoading && deployHash && (
