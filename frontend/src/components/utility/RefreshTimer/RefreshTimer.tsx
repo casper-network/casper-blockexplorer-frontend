@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppRefresh } from 'src/hooks';
+import { useAppRefresh } from '../../../hooks';
 
 export const RefreshTimer: React.FC = () => {
   const { refreshTimer } = useAppRefresh();

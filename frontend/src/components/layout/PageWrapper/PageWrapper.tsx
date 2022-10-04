@@ -35,7 +35,9 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     return (
       <BaseContentWrapper>
         <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
-        <p className="break-word">{error.message}</p>
+        <p className="break-word" data-testid="error-content">
+          {error.message}
+        </p>
         <p>
           Go back to <Link to="/">Home</Link>
         </p>

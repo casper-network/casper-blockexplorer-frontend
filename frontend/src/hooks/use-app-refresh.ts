@@ -7,7 +7,7 @@ import {
   updateRefreshTimer,
   useAppDispatch,
   useAppSelector,
-} from 'src/store';
+} from '../store';
 
 export const useAppRefresh = () => {
   const dispatch = useAppDispatch();

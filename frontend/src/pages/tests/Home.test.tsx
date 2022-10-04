@@ -1,4 +1,4 @@
-describe('BlockTable', () => {
+describe('Home', () => {
   it('stub', () => {});
 });
 

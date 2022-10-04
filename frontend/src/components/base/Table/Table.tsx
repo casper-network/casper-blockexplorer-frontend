@@ -13,20 +13,28 @@ export const Table: React.FC<TableProps> = ({
       <table className="table-auto w-full border-spacing-0 min-w-800 bg-white">
         <thead className="bg-light-grey">
           <tr className="h-40 ">
-            {headColumns.map(({ title, key }) => {
-              return <th key={key}>{title}</th>;
+            {headColumns.map(({ title, key }, index) => {
+              return (
+                <th key={key} data-testid={`head-${index + 1}`}>
+                  {title}
+                </th>
+              );
             })}
           </tr>
         </thead>
         <tbody>
-          {rows.map(({ items, key }) => {
+          {rows.map(({ items, key }, rowIndex) => {
             return (
-              <tr key={key} className="h-50 hover:bg-light-grey">
-                {items.map(({ content, key: itemKey }) => {
+              <tr
+                key={key}
+                className="h-50 hover:bg-light-grey"
+                data-testid={`row-${rowIndex + 1}`}>
+                {items.map(({ content, key: itemKey }, rowColIndex) => {
                   return (
                     <td
                       className="text-center border-0 border-b-1 border-light-grey border-solid "
-                      key={itemKey}>
+                      key={itemKey}
+                      data-testid={`rowCol-${rowColIndex + 1}`}>
                       {content}
                     </td>
                   );

@@ -1,13 +1,12 @@
 import React from 'react';
+import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import { BlockCarouselCard } from 'src/components/cards/BlockCarouselCard';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination } from 'swiper';
 
+import { BlockCarouselCard } from '../../cards/BlockCarouselCard';
 import { Block } from '../../../types';
 
 interface MobileBlocksProps {

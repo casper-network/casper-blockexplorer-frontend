@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MOBILE_BREAKPOINT } from 'src/constants';
+import { MOBILE_BREAKPOINT } from '../../../constants';
 import { useAppSelector, getBounds } from '../../../store';
 
 const navItems = [

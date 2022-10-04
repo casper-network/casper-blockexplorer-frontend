@@ -1,7 +1,7 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { MOBILE_BREAKPOINT } from 'src/constants';
+import { MOBILE_BREAKPOINT } from '../constants';
 
 import { PageWrapper, LatestBlocks, MobileBlocksCarousel } from '../components';
 
