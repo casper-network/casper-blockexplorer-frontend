@@ -1,7 +1,7 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { BlockTable, PageWrapper } from '../components';
+import { BlockTable, GradientHeading, PageWrapper } from '../components';
 
 import {
   getBlocks,
@@ -28,9 +28,7 @@ export const Blocks: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <h2 className="text-24 mb-25 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red">
-        Blocks
-      </h2>
+      <GradientHeading type="h2">Blocks</GradientHeading>
       <BlockTable blocks={blocks} />
     </PageWrapper>
   );

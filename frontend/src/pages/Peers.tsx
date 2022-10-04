@@ -1,7 +1,7 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { PageWrapper, PeerTable } from '../components';
+import { GradientHeading, PageWrapper, PeerTable } from '../components';
 
 import {
   getPeers,
@@ -28,9 +28,7 @@ export const Peers: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <h2 className="text-24 mb-25 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red">
-        Connected Peers
-      </h2>
+      <GradientHeading type="h2">Peers</GradientHeading>
       <PeerTable peers={peers} />
     </PageWrapper>
   );

@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { Account } from '../types';
-import { truncateHash } from '../utils';
-import { AccountDetailsCard, PageError, PageWrapper } from '../components';
+import {
+  AccountDetailsCard,
+  GradientHeading,
+  Hash,
+  PageError,
+  PageWrapper,
+} from '../components';
 import { casperApi } from '../api';
 
 export const AccountPage: React.FC = () => {
@@ -49,12 +54,9 @@ export const AccountPage: React.FC = () => {
       {!isLoading && accountHash && (
         <>
           <div className="w-full mb-24">
-            <h2 className="text-24 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red mb-16">
-              Account:{' '}
-              <span className="tracking-2 font-normal">
-                {truncateHash(accountHash)}
-              </span>
-            </h2>
+            <GradientHeading type="h2">
+              Account: <Hash hash={accountHash} alwaysTruncate />
+            </GradientHeading>
           </div>
           <AccountDetailsCard account={account} balance={balance} />
         </>

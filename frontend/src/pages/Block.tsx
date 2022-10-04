@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
 import { Block } from '../types';
-import { truncateHash } from '../utils';
-import { BlockDetailsCard, PageError, PageWrapper } from '../components';
+import {
+  BlockDetailsCard,
+  GradientHeading,
+  Hash,
+  PageError,
+  PageWrapper,
+} from '../components';
 import { casperApi } from '../api';
 
 const useQuery = () => {
@@ -54,12 +59,9 @@ export const BlockPage: React.FC = () => {
       {!isLoading && blockIdentifier && (
         <>
           <div className="w-full mb-24">
-            <h2 className="text-24 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red mb-16">
-              Block:{' '}
-              <span className="tracking-2 font-normal">
-                {truncateHash(block.hash)}
-              </span>
-            </h2>
+            <GradientHeading type="h2">
+              Block: <Hash hash={blockIdentifier} alwaysTruncate />
+            </GradientHeading>
           </div>
           <BlockDetailsCard block={block} />
         </>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Loader } from '../../utility/Loader';
+import { GradientHeading } from '../../styled';
+import { Loader } from '../../utility';
 
 export interface PageError {
   message: string;
@@ -34,7 +35,9 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   if (error) {
     return (
       <BaseContentWrapper>
-        <h2 className="text-24 mb-8">Whoops! Something went wrong!</h2>
+        <GradientHeading type="h2">
+          Whoops! Something went wrong!
+        </GradientHeading>
         <p className="break-word" data-testid="error-content">
           {error.message}
         </p>
