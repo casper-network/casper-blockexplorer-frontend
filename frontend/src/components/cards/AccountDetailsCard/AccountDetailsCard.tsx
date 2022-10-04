@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Account } from '../../../types';
 import { DetailCard } from '../../base';
-import { CopyToClipboard, RawData, Hash } from '../../utility';
+import { Hash } from '../../styled';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account;

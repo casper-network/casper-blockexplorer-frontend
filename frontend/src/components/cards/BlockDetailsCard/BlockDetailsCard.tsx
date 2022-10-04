@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../types';
 import { DetailCard } from '../../base';
-import { CopyToClipboard, RawData, Hash } from '../../utility';
+import { Hash } from '../../styled';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface BlockDetailsCardProps {
   block: Block;
