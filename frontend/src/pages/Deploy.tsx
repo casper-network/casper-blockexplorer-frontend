@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { Deploy } from '../types';
-import { truncateHash } from '../utils';
-import { DeployDetailsCard, PageError, PageWrapper } from '../components';
+import {
+  DeployDetailsCard,
+  GradientHeading,
+  Hash,
+  PageError,
+  PageWrapper,
+} from '../components';
 
 import { casperApi } from '../api';
 
@@ -41,12 +46,9 @@ export const DeployPage: React.FC = () => {
       {!isLoading && deployHash && (
         <>
           <div className="w-full text-black mb-24">
-            <h2 className="text-24 bg-clip-text text-transparent bg-gradient-to-r from-casper-blue to-casper-red mb-16">
-              Deploy:{' '}
-              <span className="tracking-2 font-normal">
-                {truncateHash(deployHash)}
-              </span>
-            </h2>
+            <GradientHeading type="h2">
+              Deploy: <Hash hash={deployHash} alwaysTruncate />
+            </GradientHeading>
           </div>
           <DeployDetailsCard deploy={deploy} />
         </>
