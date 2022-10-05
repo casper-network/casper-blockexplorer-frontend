@@ -1,1 +1,1 @@
-export * from './AvatarIcon';
+export * from './AvatarIcon.styled';

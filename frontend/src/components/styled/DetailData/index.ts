@@ -1,1 +1,1 @@
-export * from './DetailData';
+export * from './DetailData.styled';
