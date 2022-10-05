@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { AVATAR_URL } from 'src/utils';
+import { AVATAR_URL } from '../../../utils';
 
 import { Account } from '../../../types';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   GradientHeading,
   Hash,
+  AvatarIcon,
+  DetailDataWrapper,
   DetailDataLabel,
   DetailDataValue,
-  DetailDataWrapper,
-  AvatarIcon,
 } from '../../styled';
 
 import { CopyToClipboard, RawData } from '../../utility';

@@ -1,8 +1,15 @@
+import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../types';
-import { DetailCard } from '../../base';
-import { Hash } from '../../styled';
+import { DetailCard, HeadContentWrapper, Heading, InfoCard } from '../../base';
+import {
+  DetailDataLabel,
+  DetailDataValue,
+  DetailDataWrapper,
+  GradientHeading,
+  Hash,
+} from '../../styled';
 import { CopyToClipboard, RawData } from '../../utility';
 
 export interface BlockDetailsCardProps {
@@ -123,5 +130,50 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     },
   ];
 
-  return <DetailCard rows={rows} />;
+  return (
+    <InfoCard>
+      <HeadContentWrapper>
+        <AccountHeading type="h1">Block Details</AccountHeading>
+
+        <HashHeading type="h2">
+          <Hash hash={blockHash} alwaysTruncate />
+        </HashHeading>
+      </HeadContentWrapper>
+      <DetailDataWrapper>
+        <li>
+          <DetailDataLabel>Parent Hash</DetailDataLabel>
+          <DetailDataValue>
+            <Hash hash={parentHash} />
+            <CopyToClipboard textToCopy={parentHash} />
+          </DetailDataValue>
+        </li>
+        <li>
+          <DetailDataLabel>Block Hash</DetailDataLabel>
+          <DetailDataValue>
+            <Hash hash={blockHash} />
+            <CopyToClipboard textToCopy={blockHash} />
+          </DetailDataValue>
+        </li>
+        <li>
+          <DetailDataLabel>State Root Hash</DetailDataLabel>
+          <DetailDataValue>{stateRootHash}</DetailDataValue>
+        </li>
+        <li>
+          <DetailDataLabel>Validator</DetailDataLabel>
+          <DetailDataValue>{validatorPublicKey}</DetailDataValue>
+        </li>
+      </DetailDataWrapper>
+    </InfoCard>
+  );
 };
+
+const AccountHeading = styled(Heading)`
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+`;
+
+const HashHeading = styled(GradientHeading)`
+  font-weight: 800;
+  display: inline;
+`;
