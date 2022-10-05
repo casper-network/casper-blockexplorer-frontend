@@ -25,8 +25,18 @@ import {
   NavComponentsContainer,
   NavButtonContainer,
   NavButton,
-  NavMenuContainer,
+  NavItemsContainer,
+  DesktopNav,
+  DesktopNavItemsContainer,
+  DesktopNavItemLink,
+  MobileNav,
+  MobileNavItemsContainer,
+  MobileNavItemLink,
+  H1Container,
+  H1,
+  LogoLink,
 } from './NewHeader.styled';
+
 import { FormValues, SelectOptions } from './NewHeader.types';
 
 import { useAppSelector, getBounds } from '../../../store';
@@ -201,6 +211,7 @@ export const NewHeader: React.FC = () => {
 
               return (
                 <li key={`${key}-selectOption`}>
+                  {' '}
                   <button
                     onClick={handleClick}
                     className={`${
@@ -307,13 +318,11 @@ export const NewHeader: React.FC = () => {
     <Header>
       <HeaderComponentsContainer>
         <LogoContainer>
-          <Link
-            className="no-underline hover:no-underline focus:no-underline flex flex-row items-center"
-            to="/">
+          <LogoLink to="/">
             <ImageContainer>
               <CasperLogo src={blueLogo} alt="Casper Logo" />
             </ImageContainer>
-          </Link>
+          </LogoLink>
         </LogoContainer>
         <Nav>
           <NavComponentsContainer>
@@ -322,48 +331,40 @@ export const NewHeader: React.FC = () => {
                 {isOpened ? <CloseMenuIcon /> : <OpenMenuIcon />}
               </NavButton>
             </NavButtonContainer>
-            <NavMenuContainer>
+            <NavItemsContainer>
               {isOpened && (
-                <nav className="px-20 lg:hidden">
-                  <ul className="z-10 bg-cobalt-blue flex flex-col gap-5 absolute w-screen h-screen items-center justify-center left-0 top-0">
+                <DesktopNav>
+                  <DesktopNavItemsContainer>
                     {navItems.map(({ path, title, key }) => {
                       return (
                         <li key={key}>
-                          <Link
-                            to={path}
-                            className="text-white text-22 p-5 xxs:py-11 w-full font-medium tracking-wide">
+                          <DesktopNavItemLink to={path}>
                             {title}
-                          </Link>
+                          </DesktopNavItemLink>
                         </li>
                       );
                     })}
-                  </ul>
-                </nav>
+                  </DesktopNavItemsContainer>
+                </DesktopNav>
               )}
-              <nav className="hidden lg:block">
-                <ul className="flex gap-x-8 pt-2">
+              <MobileNav>
+                <MobileNavItemsContainer>
                   {navItems.map(({ path, title, key }) => {
                     return (
                       <li key={key}>
-                        <Link
-                          to={path}
-                          className="text-cobalt-blue text-15 py-5 xxs:py-11 lg:py-0 w-full font-medium tracking-wide">
-                          {title}
-                        </Link>
+                        <MobileNavItemLink to={path}>{title}</MobileNavItemLink>
                       </li>
                     );
                   })}
-                </ul>
-              </nav>
-            </NavMenuContainer>
+                </MobileNavItemsContainer>
+              </MobileNav>
+            </NavItemsContainer>
           </NavComponentsContainer>
         </Nav>
       </HeaderComponentsContainer>
-      <div className="flex justify-center pt-4">
-        <h1 className="text-transparent text-inter bg-clip-text font-bold leading-10 text-[2.75rem] max-w-250  w-20ch bg-gradient-to-r from-[#1E1D86] to-[#E2324A]">
-          Discover the Casper Blockchain.
-        </h1>
-      </div>
+      <H1Container>
+        <H1 type="h1">Discover the Casper Blockchain.</H1>
+      </H1Container>
       {form}
     </Header>
   );

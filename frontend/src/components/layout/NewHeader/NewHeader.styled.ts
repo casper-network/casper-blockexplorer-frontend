@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { GradientHeading } from '../../styled';
 
-const breakpoints = [420, 480, 640, 768, 992, 1024, 1200, 1440, 1600, 1800];
-const mq = breakpoints.map(bp => `@media (min-width: ${bp}px)`);
+// const breakpoints = [420, 480, 640, 768, 992, 1024, 1200, 1440, 1600, 1800];
+// const mq = breakpoints.map(bp => `@media (min-width: ${bp}px)`);
 
 export const MobileSelectContainer = styled.ul`
   display: flex;
@@ -35,7 +37,7 @@ export const InputButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 1.5625rem;
-  ${mq[5]} {
+  @media (min-width: 1024px) {
     padding-top: 0;
   }
 `;
@@ -69,7 +71,7 @@ export const SubmitButton = styled.button`
   width: 2.8125rem;
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
-  cursor: pointer
+  cursor: pointer;
   position: relative;
   right: 0.0625rem;
   border-style: none;
@@ -132,6 +134,20 @@ export const LogoContainer = styled.div`
   padding: 0.4375rem 0 0 0;
 `;
 
+// className =
+//   'no-underline hover:no-underline focus:no-underline flex flex-row items-center';
+
+export const LogoLink = styled(Link)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration-line: none;
+  :hover,
+  :focus {
+    text-decoration-line: none;
+  }
+`;
+
 // className = 'flex flex-row items-center';
 
 export const ImageContainer = styled.div`
@@ -143,8 +159,8 @@ export const ImageContainer = styled.div`
 // className = 'h-26 w-28  xxs:h-50';
 
 export const CasperLogo = styled.img`
-height: 3.125rem
-width: 1.75rem;
+  height: 3.125rem;
+  width: 1.75rem;
 `;
 
 // className = 'z-10 lg:py-15 bg-casper-white lg:w-500';
@@ -153,7 +169,7 @@ export const Nav = styled.nav`
   background-color: #fff;
   z-index: 10;
   padding: 0 0.9375rem;
-  ${mq[5]} {
+  @media (min-width: 1024px) {
     width: 31.25rem;
   }
 `;
@@ -163,7 +179,7 @@ export const Nav = styled.nav`
 export const NavComponentsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  ${mq[5]} {
+  @media (min-width: 1024px) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -177,7 +193,7 @@ export const NavButtonContainer = styled.div`
   flex-direction: row;
   justify-content: end;
   padding-top: 0.3125rem;
-  ${mq[5]} {
+  @media (min-width: 1024px) {
     justify-content: space-between;
   }
 `;
@@ -187,21 +203,104 @@ export const NavButtonContainer = styled.div`
 export const NavButton = styled.button`
   background-color: green;
   border-style: none;
-  ${mq[5]} {
+  @media (min-width: 1024px) {
     display: none;
   }
 `;
 
 // className=" lg:space-x-12 "
 
-export const NavMenuContainer = styled.div`
+export const NavItemsContainer = styled.div`
   background-color: yellow;
   border-style: none;
-  ${mq[5]} {
+  @media (min-width: 1024px) {
     display: flex;
     flex-direction: row;
     width: auto;
   }
+`;
+
+// nav className="px-20 lg:hidden"
+
+export const DesktopNav = styled.nav`
+  @media (min-width: 1024px) {
+    display: none;
+  }
+`;
+
+// ul className="z-10 bg-cobalt-blue flex flex-col gap-5 absolute w-screen h-screen items-center justify-center left-0 top-0"
+
+export const DesktopNavItemsContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  gap: 1.25rem;
+  z-index: 10;
+  background-color: #0325d1;
+  position: absolute;
+  left: 0;
+  top: 0;
+`;
+
+// className = 'text-white text-22 p-5 xxs:py-11 w-full font-medium tracking-wide';
+
+export const DesktopNavItemLink = styled(Link)`
+  color: white;
+  font-size: 1.375rem;
+  padding: 0.3125rem;
+  width: 100%;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+`;
+
+// className = 'hidden lg:block';
+
+export const MobileNav = styled.nav`
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
+`;
+
+// ul className="flex gap-x-8 pt-2"
+
+export const MobileNavItemsContainer = styled.ul`
+  display: flex;
+  column-gap: 2rem;
+  padding-top: 0.125rem;
+`;
+
+// className="text-cobalt-blue text-15 py-5 xxs:py-11 lg:py-0 w-full font-medium tracking-wide
+
+export const MobileNavItemLink = styled(Link)`
+  color: #0325d1;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  font-size: 0.9375rem;
+  padding: 0 0.3125rem;
+  width: 100%;
+`;
+
+// div className="flex justify-center pt-4"
+
+export const H1Container = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 0.25rem;
+`;
+
+// className =
+//   'text-transparent text-inter bg-clip-text font-bold leading-10 text-[2.75rem] max-w-250  w-20ch bg-gradient-to-r from-[#1E1D86] to-[#E2324A]';
+
+export const H1 = styled(GradientHeading)`
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+  width: 20ch;
+  max-width: 15.625rem;
 `;
 
 // {`${
