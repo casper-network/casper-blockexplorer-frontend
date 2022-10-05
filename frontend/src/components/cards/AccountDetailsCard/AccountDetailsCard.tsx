@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { AVATAR_URL } from 'src/utils';
 
 import { Account } from '../../../types';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
@@ -30,8 +31,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       <HeadContentWrapper>
         <AccountHeading type="h1">Account Details</AccountHeading>
         <AvatarIcon
-          src={`https://avatars.dicebear.com/api/identicon/:${trimmedAccountHash}.svg
-`}
+          src={`${AVATAR_URL}${trimmedAccountHash}.svg`}
           alt="avatar"
         />
         <HashHeading type="h2">
