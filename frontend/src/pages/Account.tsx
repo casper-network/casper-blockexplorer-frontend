@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { Account } from '../types';
-import {
-  AccountDetailsCard,
-  GradientHeading,
-  Hash,
-  PageError,
-  PageWrapper,
-} from '../components';
+import { AccountDetailsCard, PageError, PageWrapper } from '../components';
 import { casperApi } from '../api';
 
 export const AccountPage: React.FC = () => {
@@ -52,14 +46,7 @@ export const AccountPage: React.FC = () => {
   return (
     <PageWrapper error={error} isLoading={isLoading}>
       {!isLoading && accountHash && (
-        <>
-          <div className="w-full mb-24">
-            <GradientHeading type="h2">
-              Account: <Hash hash={accountHash} alwaysTruncate />
-            </GradientHeading>
-          </div>
-          <AccountDetailsCard account={account} balance={balance} />
-        </>
+        <AccountDetailsCard account={account} balance={balance} />
       )}
     </PageWrapper>
   );

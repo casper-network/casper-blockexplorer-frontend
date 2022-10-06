@@ -26,7 +26,7 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
     <Accordion allowZeroExpanded>
       <AccordionItem>
         <AccordionItemHeading>
-          <AccordionItemButton className="bg-light-grey hover:bg-light-red text-dark-red px-16 py-6 text-13 w-fit rounded-md">
+          <AccordionItemButton className="mt-8 bg-light-grey hover:bg-light-red text-dark-red px-16 py-6 text-13 w-fit rounded-md">
             <AccordionItemState>
               {({ expanded }) =>
                 !expanded ? 'Show raw data' : 'Hide raw data'
