@@ -15,7 +15,10 @@ export const Table: React.FC<TableProps> = ({
           <tr className="h-40 ">
             {headColumns.map(({ title, key }, index) => {
               return (
-                <th key={key} data-testid={`head-${index + 1}`}>
+                <th
+                  className="text-start px-32"
+                  key={key}
+                  data-testid={`head-${index + 1}`}>
                   {title}
                 </th>
               );
@@ -32,7 +35,7 @@ export const Table: React.FC<TableProps> = ({
                 {items.map(({ content, key: itemKey }, rowColIndex) => {
                   return (
                     <td
-                      className="text-center border-0 border-b-1 border-light-grey border-solid "
+                      className="text-start px-32 border-0 border-b-1 border-light-grey border-solid "
                       key={itemKey}
                       data-testid={`rowCol-${rowColIndex + 1}`}>
                       {content}
