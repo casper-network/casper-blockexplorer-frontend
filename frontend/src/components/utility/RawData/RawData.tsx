@@ -8,6 +8,8 @@ import {
   AccordionItemPanel,
   AccordionItemState,
 } from 'react-accessible-accordion';
+import styled from '@emotion/styled';
+import { colors } from '../../../styled-theme';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -26,18 +28,43 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
     <Accordion allowZeroExpanded>
       <AccordionItem>
         <AccordionItemHeading>
-          <AccordionItemButton className="mt-8 bg-light-grey hover:bg-light-red text-dark-red px-16 py-6 text-13 w-fit rounded-md">
+          <RawDataToggleButton>
             <AccordionItemState>
               {({ expanded }) =>
                 !expanded ? 'Show raw data' : 'Hide raw data'
               }
             </AccordionItemState>
-          </AccordionItemButton>
+          </RawDataToggleButton>
         </AccordionItemHeading>
-        <AccordionItemPanel className="mt-24">
-          <ReactJson src={rawDataJSON} displayDataTypes={false} collapsed />
+        <AccordionItemPanel>
+          <CodeBackground>
+            <ReactJson src={rawDataJSON} displayDataTypes={false} collapsed />
+          </CodeBackground>
         </AccordionItemPanel>
       </AccordionItem>
     </Accordion>
   );
 };
+
+const RawDataToggleButton = styled(AccordionItemButton)`
+  margin-top: 0.5rem;
+
+  background-color: ${colors.lightGrey};
+  color: ${colors.darkRed};
+  padding: 0.4rem 1.25rem;
+  font-size: 0.875rem;
+  width: fit-content;
+  border-radius: 0.35rem;
+  transition: ease-in 0.2s;
+
+  &:hover {
+    background-color: ${colors.lightRed};
+  }
+`;
+
+const CodeBackground = styled.div`
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1.5rem;
+  background-color: ${colors.lightGrey};
+`;
