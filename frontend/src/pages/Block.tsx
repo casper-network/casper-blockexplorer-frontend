@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
 import { Block } from '../types';
+import { MOBILE_BREAKPOINT } from '../constants';
+import { getBounds, useAppSelector } from '../store';
 import {
   BlockDetailsCard,
-  GradientHeading,
-  Hash,
+  MobileBlockDetailsCard,
   PageError,
   PageWrapper,
 } from '../components';
@@ -23,6 +24,10 @@ export const BlockPage: React.FC = () => {
 
   const [block, setBlock] = useState<Block>();
   const [error, setError] = useState<PageError>();
+
+  const bounds = useAppSelector(getBounds);
+  const windowWidth = bounds?.width || 0;
+  const isMobile = windowWidth < MOBILE_BREAKPOINT;
 
   // TODO: Get rid of this 'magic string'
   const isHashIdentifier = query.get('type') !== 'height';
@@ -56,15 +61,11 @@ export const BlockPage: React.FC = () => {
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      {!isLoading && blockIdentifier && (
-        <>
-          <div className="w-full mb-24">
-            <GradientHeading type="h2">
-              Block: <Hash hash={blockIdentifier} alwaysTruncate />
-            </GradientHeading>
-          </div>
-          <BlockDetailsCard block={block} />
-        </>
+      {!isMobile && !isLoading && blockIdentifier && (
+        <BlockDetailsCard block={block} />
+      )}
+      {isMobile && !isLoading && blockIdentifier && (
+        <MobileBlockDetailsCard block={block} />
       )}
     </PageWrapper>
   );
