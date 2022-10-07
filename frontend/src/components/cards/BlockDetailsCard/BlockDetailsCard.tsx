@@ -128,7 +128,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 {transferHashes?.map(transferHash => (
                   <a key={transferHash} href={`/deploy/${transferHash}`}>
                     <li>
-                      <Hash hash={transferHash} />
+                      <Hash alwaysTruncate hash={transferHash} />
                     </li>
                   </a>
                 ))}
