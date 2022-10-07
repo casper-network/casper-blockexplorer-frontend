@@ -11,7 +11,7 @@ import {
   DetailDataValue,
 } from '../../styled';
 
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RawData } from '../../utility';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -20,7 +20,7 @@ export interface DeployDetailsCardProps {
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
 }) => {
-  const { deployHash, blockHash, publicKey } = deploy;
+  const { deployHash, blockHash, publicKey, rawDeploy } = deploy;
 
   return (
     <InfoCard>
@@ -54,6 +54,12 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
           <DetailDataValue>
             <Hash hash={deployHash} />
             <CopyToClipboard textToCopy={deployHash} />
+          </DetailDataValue>
+        </li>
+        <li>
+          <DetailDataLabel>Raw Data</DetailDataLabel>
+          <DetailDataValue>
+            <RawData rawData={rawDeploy} />
           </DetailDataValue>
         </li>
       </DetailDataWrapper>
