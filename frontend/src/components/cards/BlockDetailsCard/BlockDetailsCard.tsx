@@ -110,7 +110,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 {deployHashes?.map(deployHash => (
                   <a key={deployHash} href={`/deploy/${deployHash}`}>
                     <li>
-                      <Hash hash={deployHash} />
+                      <Hash alwaysTruncate hash={deployHash} />
                     </li>
                   </a>
                 ))}
