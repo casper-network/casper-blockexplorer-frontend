@@ -43,7 +43,7 @@ export const Form = styled.form`
     width: 63%;
   }
   @media (min-width: 1024px) {
-    width: 83%;
+    width: 75%;
     max-width: 50rem;
   }
 `;
@@ -190,7 +190,7 @@ export const DesktopToolsContainer = styled.nav`
   background-color: #02115f;
   height: 41.5rem;
   width: 6.25rem;
-  border-radius: 0 0 0.35rem 0;
+  border-radius: 0 00.35rem 0;
   position: absolute;
   top: 0;
   left: 0;
