@@ -2,56 +2,84 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GradientHeading } from '../../styled';
 
-// const breakpoints = [420, 480, 640, 768, 992, 1024, 1200, 1440, 1600, 1800];
-// const mq = breakpoints.map(bp => `@media (min-width: ${bp}px)`);
-
 export const MobileSelectContainer = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 20.25rem;
+  @media (min-width: 768px) {
+    margin: 0 auto;
+  }
 `;
 
-export const MobileSelectButtons = styled.button<{ isSelected?: boolean }>`
-  font-size: 0.75rem;
-  font-style: bold;
-  line-height: 1rem;
+export const MobileSelectButton = styled.button`
+  font-size: 0.8rem;
   border-style: none;
-  border-radius: 9999px;
-  padding: 0.3125rem 0.625rem; ;
+  font-weight: 500;
+  border-radius: 0.938rem;
+  padding: 0.3125rem 0.625rem;
 `;
 
-// color: ${({ isSelected }) => (isSelected ? 'white' : 'black')};
-// background-color: ${({ isSelected }) =>
-// isSelected ? '#0325D1' : '#e6e6e7'};
+// **************************************************************  Form
 
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-`;
-
-// className="flex justify-center bg-casper-white pt-25 lg:pt-0"
-
-export const InputButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 1.5625rem;
+  padding-top: 2.8rem;
+  padding-bottom: 3.137rem;
   @media (min-width: 1024px) {
-    padding-top: 0;
+    justify-content: start;
+    padding: 5rem 0 8.5rem 14.5rem;
+    width: 100%;
+  }
+  @media (min-width: 1340px) {
+    justify-content: center;
+    padding-left: 8.2rem;
   }
 `;
-// className =  shadow-inner shadow-gray-300;
+// ****************************************************Input Width
+export const Form = styled.form`
+  @media (min-width: 768px) {
+    width: 63%;
+  }
+  @media (min-width: 1024px) {
+    width: 83%;
+    max-width: 50rem;
+  }
+`;
+
+export const FormComponentsContainer = styled.div`
+  @media (min-width: 1024px) {
+    display: flex;
+    width: 100%;
+  }
+`;
+
+// **************************************************************  Input
+
+export const InputAndButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1.4rem;
+  @media (min-width: 1024px) {
+    background-color: white;
+    padding-top: 0;
+    width: 100%;
+  }
+`;
+
 export const SearchInput = styled.input`
   display: block;
-  color: #84888e;
+  color: black;
   background-color: #fff;
   height: 2.8125rem;
-  max-width: 16.25rem;
+  width: 100%;
+  font-size: clamp(0.9rem, 1.1vw, 1.4rem);
   border-radius: 0.375rem 0 0 0.375rem;
   padding: 0 1.25rem;
   margin-top: 0;
   margin-bottom: 0;
+  box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.2);
   border-style: none;
   appearance: none;
   :hover,
@@ -59,16 +87,21 @@ export const SearchInput = styled.input`
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
+  @media (min-width: 768px) {
+  }
+  @media (min-width: 1024px) {
+    height: 3.2rem;
+    border-radius: 0;
+  }
 `;
 
-// className =
-//   'bg-cobalt-blue w-45 relative h-45 right-1 focus:outline-none font-medium rounded-r-md border-none cursor-pointer';
+// **************************************************************  Button
 
 export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #0325d1;
   height: 2.8125rem;
-  width: 2.8125rem;
+  width: 3.3rem;
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;
@@ -80,17 +113,22 @@ export const SubmitButton = styled.button`
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
+  @media (min-width: 1024px) {
+    height: 3.2rem;
+    width: 3.9rem;
+  }
 `;
 
-// className = ' lg:pb-16 ';
+// **************************************************************  Error
+
 export const ErrorMessageContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 0 0.3125rem;
+  position: relative;
+  margin: 0 auto;
 `;
-
-// className = 'fill-casper-white pt-12 w-20 h-30 stroke-casper-red stroke-2 mr-7';
 
 export const ErrorSvgContainer = styled.div`
   height: 1.875rem;
@@ -99,25 +137,22 @@ export const ErrorSvgContainer = styled.div`
   stroke-width: 2;
   fill: #fff;
   padding-top: 0.75rem;
-  margin-right: 0.4375rem;
+  position: absolute;
 `;
-
-// className = 'text-casper-red text-[0.9rem] xxs:text-base pt-14 xxs:pt-12';
 
 export const ErrorMessage = styled.p`
   color: #da2f54;
-  font-size: 1rem;
-  padding-top: 0.875rem;
+  font-size: clamp(0.9rem, 1.3vw, 1.4rem);
+  padding-top: 2rem;
+  position: absolute;
 `;
 
-// className="w-full bg-casper-white
+// **************************************************************  Header
 
 export const Header = styled.header`
   width: 100%;
   background-color: #fff;
 `;
-
-// className = 'px-40 py-20 xxs:pl-22 md:pl-30 xl:pl-46 pr-28 md:pr-36 xl:pr-52';
 
 export const HeaderComponentsContainer = styled.div`
   display: flex;
@@ -125,17 +160,14 @@ export const HeaderComponentsContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   max-width: 112.5rem;
-  padding: 1.25rem 2.5rem;
+  padding: 1.75rem 1.7rem 1.75rem 2.17rem;
+  @media (min-width: 1024px) {
+    justify-content: flex-end;
+    padding: 3.5rem 7% 1.75rem 2.17rem;
+  }
 `;
 
-// className="pt-7
-
-export const LogoContainer = styled.div`
-  padding: 0.4375rem 0 0 0;
-`;
-
-// className =
-//   'no-underline hover:no-underline focus:no-underline flex flex-row items-center';
+// Logo ***************************************************************Logos
 
 export const LogoLink = styled(Link)`
   display: flex;
@@ -148,89 +180,75 @@ export const LogoLink = styled(Link)`
   }
 `;
 
-// className = 'flex flex-row items-center';
-
-export const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+export const BlueCasperLogo = styled.img`
+  width: 90%;
 `;
 
-// className = 'h-26 w-28  xxs:h-50';
-
-export const CasperLogo = styled.img`
-  height: 3.125rem;
-  width: 1.75rem;
-`;
-
-// className = 'z-10 lg:py-15 bg-casper-white lg:w-500';
-
-export const Nav = styled.nav`
-  background-color: #fff;
-  z-index: 10;
-  padding: 0 0.9375rem;
-  @media (min-width: 1024px) {
-    width: 31.25rem;
-  }
-`;
-
-// className = 'flex flex-col lg:flex-row lg:justify-between';
-
-export const NavComponentsContainer = styled.div`
+export const DesktopToolsContainer = styled.nav`
   display: flex;
   flex-direction: column;
+  background-color: #02115f;
+  height: 41.5rem;
+  width: 6.25rem;
+  border-radius: 0 0 0.35rem 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const WhiteCasperLogo = styled.img`
+  width: 1.9rem;
+  margin: 2rem auto;
+`;
+// Nav ******************************************************************* Nav
+
+export const Nav = styled.nav`
   @media (min-width: 1024px) {
-    flex-direction: row;
-    justify-content: space-between;
+    width: 42%;
+    max-width: 29.7rem;
   }
 `;
 
-// className = 'z-30 pt-5 flex flex-row justify-end lg:justify-between';
+// Nav ************************************************************ Nav ComponentsContainer
+// ****************This container prevents 'X' icon from disappearing
+export const NavComponentsContainer = styled.div`
+  display: flex;
+`;
+// Nav ************************************************************** Nav buttons
 
 export const NavButtonContainer = styled.div`
-  display: flex;
   z-index: 30;
-  flex-direction: row;
-  justify-content: end;
-  padding-top: 0.3125rem;
-  @media (min-width: 1024px) {
-    justify-content: space-between;
-  }
 `;
-
-// className = 'lg:hidden bg-transparent border-none';
 
 export const NavButton = styled.button`
-  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin: 0 auto;
+  padding: 0;
+  width: 90%;
   border-style: none;
   @media (min-width: 1024px) {
     display: none;
   }
 `;
 
-// className=" lg:space-x-12 "
+// Nav ******************************************************* Nav Items Container
 
 export const NavItemsContainer = styled.div`
-  background-color: yellow;
-  border-style: none;
-  @media (min-width: 1024px) {
-    display: flex;
-    flex-direction: row;
-    width: auto;
-  }
+  width: 100%;
 `;
 
-// nav className="px-20 lg:hidden"
+// **************************************************************  Mobile
 
-export const DesktopNav = styled.nav`
+export const MobileNav = styled.nav`
   @media (min-width: 1024px) {
     display: none;
   }
 `;
 
-// ul className="z-10 bg-cobalt-blue flex flex-col gap-5 absolute w-screen h-screen items-center justify-center left-0 top-0"
-
-export const DesktopNavItemsContainer = styled.ul`
+export const MobileNavItemsContainer = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -245,75 +263,96 @@ export const DesktopNavItemsContainer = styled.ul`
   top: 0;
 `;
 
-// className = 'text-white text-22 p-5 xxs:py-11 w-full font-medium tracking-wide';
-
-export const DesktopNavItemLink = styled(Link)`
+export const MobileNavItemLink = styled(Link)`
   color: white;
   font-size: 1.375rem;
   padding: 0.3125rem;
   width: 100%;
   font-weight: 500;
   letter-spacing: 0.025em;
-`;
-
-// className = 'hidden lg:block';
-
-export const MobileNav = styled.nav`
-  display: none;
-  @media (min-width: 1024px) {
-    display: block;
+  :hover {
+    transition: ease-in;
+    color: #d51e4a;
+    transition-duration: 200ms;
+    transition-property: color;
+    text-decoration: none;
   }
 `;
 
-// ul className="flex gap-x-8 pt-2"
+// **************************************************************  Desktop
 
-export const MobileNavItemsContainer = styled.ul`
-  display: flex;
-  column-gap: 2rem;
-  padding-top: 0.125rem;
+export const DesktopNav = styled.nav`
+  display: none;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
 `;
 
-// className="text-cobalt-blue text-15 py-5 xxs:py-11 lg:py-0 w-full font-medium tracking-wide
-
-export const MobileNavItemLink = styled(Link)`
-  color: #0325d1;
-  font-weight: 500;
-  letter-spacing: 0.025em;
-  font-size: 0.9375rem;
-  padding: 0 0.3125rem;
+export const DesktopNavItemsContainer = styled.ul`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 `;
 
-// div className="flex justify-center pt-4"
+export const DesktopNavItemLink = styled(Link)`
+  color: #0325d1;
+  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: 0.0001rem;
+  text-decoration: none;
+  width: 100%;
+  :hover,
+  :focus {
+    background-color: #0325d1;
+    transition: ease-in;
+    background-image: linear-gradient(
+      90deg,
+      #1c1e90,
+      #693590,
+      #d81d54,
+      #d81e54,
+      #fd6b52
+    );
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    text-decoration: none;
+  }
+`;
+
+// **************************************************************  H1
 
 export const H1Container = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 0.25rem;
+  @media (min-width: 1024px) {
+    padding: 8rem 0rem 0rem 14.55rem;
+    justify-content: start;
+  }
+  @media (min-width: 1340px) {
+    justify-content: center;
+    padding-left: 0;
+  }
 `;
-
-// className =
-//   'text-transparent text-inter bg-clip-text font-bold leading-10 text-[2.75rem] max-w-250  w-20ch bg-gradient-to-r from-[#1E1D86] to-[#E2324A]';
 
 export const H1 = styled(GradientHeading)`
-  font-size: 2.75rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  line-height: 2.5rem;
-  width: 20ch;
-  max-width: 15.625rem;
+  line-height: 2.57rem;
+  padding-right: 1rem;
+  max-width: 18rem;
+  @media (min-width: 768px) {
+    font-size: 3.7rem;
+    line-height: 3.4rem;
+    padding-right: 0rem;
+    max-width: 36rem;
+  }
+  @media (min-width: 1024px) {
+    font-size: 4.3rem;
+    line-height: 4.3rem;
+    max-width: 42rem;
+  }
 `;
-
-// {`${
-//     currentFilterOption === option.value
-//       ? 'bg-cobalt-blue text-white'
-//       : 'bg-[#e6e6e7] text-black'
-//   } text-xs text-bold border-none rounded-full py-5 px-10`}
-
-// export const TableData = styled.td<{ noDividers?: boolean }>`
-//   height: 100%;
-//   width: auto;
-//   padding: 1rem 0;
-//   border: none;
-//   border-bottom: ${({ noDividers }) =>
-//     noDividers ? 'none' : '1px solid rgb(245 245 247)'};
-// `;
