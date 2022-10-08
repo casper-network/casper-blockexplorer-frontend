@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 
 import { MOBILE_BREAKPOINT } from 'src/constants';
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
 import Select from 'react-select';
 
-import { css } from '@emotion/react';
 import {
   MobileSelectContainer,
+  MobileSelectButton,
   FormContainer,
-  InputButtonContainer,
+  Form,
+  FormComponentsContainer,
+  InputAndButtonContainer,
   SearchInput,
   SubmitButton,
   ErrorMessageContainer,
@@ -18,11 +20,12 @@ import {
   ErrorMessage,
   Header,
   HeaderComponentsContainer,
-  LogoContainer,
-  ImageContainer,
-  CasperLogo,
-  Nav,
+  LogoLink,
+  BlueCasperLogo,
+  DesktopToolsContainer,
+  WhiteCasperLogo,
   NavComponentsContainer,
+  Nav,
   NavButtonContainer,
   NavButton,
   NavItemsContainer,
@@ -34,7 +37,6 @@ import {
   MobileNavItemLink,
   H1Container,
   H1,
-  LogoLink,
 } from './NewHeader.styled';
 
 import { FormValues, SelectOptions } from './NewHeader.types';
@@ -42,6 +44,7 @@ import { FormValues, SelectOptions } from './NewHeader.types';
 import { useAppSelector, getBounds } from '../../../store';
 
 import blueLogo from '../../../assets/images/blue-casper-logo.svg';
+import whiteLogo from '../../../assets/images/white-casper-logo.svg';
 import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-icon.svg';
 import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
 import { ReactComponent as ButtonIcon } from '../../../assets/icons/button-icon.svg';
@@ -187,8 +190,8 @@ export const NewHeader: React.FC = () => {
   const selectOptions: SelectOptions[] = [
     { value: 'account', label: 'Account' },
     { value: 'deploy', label: 'Deploy' },
-    { value: 'block', label: 'Blk Hash' },
-    { value: 'blockHeight', label: 'Blk Height' },
+    { value: 'block', label: 'Block Hash' },
+    { value: 'blockHeight', label: 'Block Height' },
   ];
 
   const mobileSelect = (
@@ -198,8 +201,6 @@ export const NewHeader: React.FC = () => {
         const currentSelection = selectOptions.find(
           option => option.value === value,
         );
-
-        console.log(currentSelection);
 
         return (
           <MobileSelectContainer>
@@ -212,16 +213,21 @@ export const NewHeader: React.FC = () => {
               return (
                 <li key={`${key}-selectOption`}>
                   {' '}
-                  <button
+                  <MobileSelectButton
                     onClick={handleClick}
-                    className={`${
-                      currentFilterOption === option.value
-                        ? 'bg-cobalt-blue text-white'
-                        : 'bg-[#e6e6e7] text-black'
-                    } text-xs text-bold border-none rounded-full py-5 px-10`}
+                    style={{
+                      backgroundColor:
+                        currentFilterOption === option.value
+                          ? '#0325d1'
+                          : '#F1F1F4',
+                      color:
+                        currentFilterOption === option.value ? '#fff' : '#000',
+                    }}
                     type="button">
-                    {option.label}
-                  </button>
+                    {option.label.includes('Block')
+                      ? option.label.replace('Block', 'Blk')
+                      : option.label}
+                  </MobileSelectButton>
                 </li>
               );
             })}
@@ -271,18 +277,13 @@ export const NewHeader: React.FC = () => {
 
   const form = (
     <FormContainer>
-      <form onSubmit={handleSubmit(submitPath)}>
+      <Form onSubmit={handleSubmit(submitPath)}>
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div
-          className={`${
-            windowWidth > MOBILE_BREAKPOINT
-              ? 'flex justify-center bg-casper-white pt-25 lg:pt-0'
-              : ''
-          }`}>
+        <FormComponentsContainer>
           {windowWidth > MOBILE_BREAKPOINT ? desktopSelect : mobileSelect}
-          <InputButtonContainer>
+          <InputAndButtonContainer>
             <SearchInput
               {...register('hash', { required: true })}
               type="search"
@@ -293,8 +294,8 @@ export const NewHeader: React.FC = () => {
             <SubmitButton type="submit">
               <ButtonIcon />
             </SubmitButton>
-          </InputButtonContainer>
-        </div>
+          </InputAndButtonContainer>
+        </FormComponentsContainer>
         {errors.hash && (
           <ErrorMessageContainer>
             <ErrorSvgContainer>
@@ -310,20 +311,28 @@ export const NewHeader: React.FC = () => {
             <ErrorMessage>{errors.hash.message}</ErrorMessage>
           </ErrorMessageContainer>
         )}
-      </form>
+      </Form>
     </FormContainer>
+  );
+
+  const MobileLogo = (
+    <LogoLink to="/">
+      <BlueCasperLogo src={blueLogo} alt="Casper Logo" />
+    </LogoLink>
+  );
+
+  const DesktopTools = (
+    <DesktopToolsContainer>
+      <LogoLink to="/">
+        <WhiteCasperLogo src={whiteLogo} alt="Casper Logo" />
+      </LogoLink>
+    </DesktopToolsContainer>
   );
 
   return (
     <Header>
       <HeaderComponentsContainer>
-        <LogoContainer>
-          <LogoLink to="/">
-            <ImageContainer>
-              <CasperLogo src={blueLogo} alt="Casper Logo" />
-            </ImageContainer>
-          </LogoLink>
-        </LogoContainer>
+        {windowWidth > MOBILE_BREAKPOINT ? DesktopTools : MobileLogo}
         <Nav>
           <NavComponentsContainer>
             <NavButtonContainer>
@@ -333,31 +342,35 @@ export const NewHeader: React.FC = () => {
             </NavButtonContainer>
             <NavItemsContainer>
               {isOpened && (
-                <DesktopNav>
-                  <DesktopNavItemsContainer>
+                <MobileNav>
+                  <MobileNavItemsContainer>
                     {navItems.map(({ path, title, key }) => {
                       return (
                         <li key={key}>
-                          <DesktopNavItemLink to={path}>
+                          <MobileNavItemLink
+                            to={path}
+                            onClick={() => setIsOpened(false)}>
                             {title}
-                          </DesktopNavItemLink>
+                          </MobileNavItemLink>
                         </li>
                       );
                     })}
-                  </DesktopNavItemsContainer>
-                </DesktopNav>
+                  </MobileNavItemsContainer>
+                </MobileNav>
               )}
-              <MobileNav>
-                <MobileNavItemsContainer>
+              <DesktopNav>
+                <DesktopNavItemsContainer>
                   {navItems.map(({ path, title, key }) => {
                     return (
                       <li key={key}>
-                        <MobileNavItemLink to={path}>{title}</MobileNavItemLink>
+                        <DesktopNavItemLink to={path}>
+                          {title}
+                        </DesktopNavItemLink>
                       </li>
                     );
                   })}
-                </MobileNavItemsContainer>
-              </MobileNav>
+                </DesktopNavItemsContainer>
+              </DesktopNav>
             </NavItemsContainer>
           </NavComponentsContainer>
         </Nav>
