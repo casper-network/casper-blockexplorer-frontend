@@ -190,7 +190,7 @@ export const DesktopToolsContainer = styled.nav`
   background-color: #02115f;
   height: 41.5rem;
   width: 6.25rem;
-  border-radius: 0 00.35rem 0;
+  border-radius: 0 0 0.35rem 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -200,7 +200,7 @@ export const WhiteCasperLogo = styled.img`
   width: 1.9rem;
   margin: 2rem auto;
 `;
-// Nav ******************************************************************* Nav
+// Nav ************************************************************** Nav
 
 export const Nav = styled.nav`
   @media (min-width: 1024px) {
@@ -209,7 +209,7 @@ export const Nav = styled.nav`
   }
 `;
 
-// Nav ************************************************************ Nav ComponentsContainer
+// Nav ******************************************** Nav ComponentsContainer
 // ****************This container prevents 'X' icon from disappearing
 export const NavComponentsContainer = styled.div`
   display: flex;
@@ -234,13 +234,13 @@ export const NavButton = styled.button`
   }
 `;
 
-// Nav ******************************************************* Nav Items Container
+// Nav **************************************************** Nav Items Container
 
 export const NavItemsContainer = styled.div`
   width: 100%;
 `;
 
-// **************************************************************  Mobile
+// **********************************************************  Mobile
 
 export const MobileNav = styled.nav`
   @media (min-width: 1024px) {
