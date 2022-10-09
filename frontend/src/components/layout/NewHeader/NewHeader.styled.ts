@@ -345,10 +345,11 @@ export const H1 = styled(GradientHeading)`
   padding-right: 1rem;
   max-width: 18rem;
   @media (min-width: 768px) {
-    font-size: 3.7rem;
-    line-height: 3.4rem;
-    padding-right: 0rem;
-    max-width: 36rem;
+    border: solid 2px blue;
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+    padding-right: 0.5rem;
+    max-width: 34rem;
   }
   @media (min-width: 1024px) {
     font-size: 4.3rem;
