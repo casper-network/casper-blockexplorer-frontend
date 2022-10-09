@@ -197,11 +197,7 @@ export const NewHeader: React.FC = () => {
   const mobileSelect = (
     <Controller
       control={control}
-      render={({ field: { onChange, value } }) => {
-        const currentSelection = selectOptions.find(
-          option => option.value === value,
-        );
-
+      render={({ field: { onChange } }) => {
         return (
           <MobileSelectContainer>
             {selectOptions.map((option, key) => {
