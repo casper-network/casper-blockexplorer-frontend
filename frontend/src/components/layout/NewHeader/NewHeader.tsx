@@ -207,7 +207,7 @@ export const NewHeader: React.FC = () => {
               };
 
               return (
-                <li key={`${key}-selectOption`}>
+                <li key={key}>
                   {' '}
                   <MobileSelectButton
                     onClick={handleClick}
@@ -358,7 +358,7 @@ export const NewHeader: React.FC = () => {
                 <DesktopNavItemsContainer>
                   {navItems.map(({ path, title, key }) => {
                     return (
-                      <li key={key}>
+                      <li key={key + 1}>
                         <DesktopNavItemLink to={path}>
                           {title}
                         </DesktopNavItemLink>
