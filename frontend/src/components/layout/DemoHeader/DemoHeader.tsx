@@ -153,8 +153,6 @@ export const DemoHeader: React.FC = () => {
     { value: 'blockHeight', label: 'Block Height' },
   ];
 
-  console.log(selectOptions[0]);
-
   const form = (
     <div className={`${isOpened ? 'block' : 'hidden'} lg:block`}>
       <form onSubmit={handleSubmit(submitPath)}>
@@ -178,8 +176,6 @@ export const DemoHeader: React.FC = () => {
                 onChange(selectedOption?.value);
                 setCurrentFilterOption(selectedOption?.value!);
               };
-
-              console.log(currentSelection);
 
               return (
                 <Select
