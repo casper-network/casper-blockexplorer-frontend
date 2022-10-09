@@ -345,7 +345,6 @@ export const H1 = styled(GradientHeading)`
   padding-right: 1rem;
   max-width: 18rem;
   @media (min-width: 768px) {
-    border: solid 2px blue;
     font-size: 3.5rem;
     line-height: 3.5rem;
     padding-right: 0.5rem;
