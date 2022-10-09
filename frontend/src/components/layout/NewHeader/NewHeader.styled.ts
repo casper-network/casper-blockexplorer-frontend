@@ -41,9 +41,11 @@ export const FormContainer = styled.div`
 export const Form = styled.form`
   @media (min-width: 768px) {
     width: 63%;
+    min-width: 40rem;
   }
   @media (min-width: 1024px) {
     width: 75%;
+    min-width: 40.6rem;
     max-width: 50rem;
   }
 `;
