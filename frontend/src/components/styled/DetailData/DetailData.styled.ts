@@ -6,9 +6,16 @@ export const DetailDataLabel = styled.h3`
   color: #64748b;
 `;
 
-export const DetailDataWrapper = styled.ul`
+export const DetailDataWrapper = styled.div``;
+
+interface DetailDataListProps {
+  width?: string;
+}
+
+export const DetailDataList = styled.ul<DetailDataListProps>`
   display: grid;
-  gap: 2rem;
+  gap: 2.5rem;
+  width: ${({ width }) => width ?? 'inherit'};
 `;
 
 export const DetailDataValue = styled.p`

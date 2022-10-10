@@ -9,6 +9,7 @@ import {
   DetailDataLabel,
   DetailDataWrapper,
   DetailDataValue,
+  DetailDataList,
 } from '../../styled';
 
 import { CopyToClipboard, RawData } from '../../utility';
@@ -31,37 +32,39 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
         </HashHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
-        <li>
-          <DetailDataLabel>Block Hash</DetailDataLabel>
-          <DetailDataValue>
-            <Link to={`/block/${blockHash}`}>
-              <Hash hash={blockHash} />
-            </Link>
-            <CopyToClipboard textToCopy={blockHash} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Public Key</DetailDataLabel>
-          <DetailDataValue>
-            <Link to={`/account/${publicKey}`}>
-              <Hash hash={publicKey} />
-            </Link>
-            <CopyToClipboard textToCopy={publicKey} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Deploy Hash</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={deployHash} />
-            <CopyToClipboard textToCopy={deployHash} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Raw Data</DetailDataLabel>
-          <DetailDataValue>
-            <RawData rawData={rawDeploy} />
-          </DetailDataValue>
-        </li>
+        <DetailDataList>
+          <li>
+            <DetailDataLabel>Block Hash</DetailDataLabel>
+            <DetailDataValue>
+              <Link to={`/block/${blockHash}`}>
+                <Hash hash={blockHash} />
+              </Link>
+              <CopyToClipboard textToCopy={blockHash} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Public Key</DetailDataLabel>
+            <DetailDataValue>
+              <Link to={`/account/${publicKey}`}>
+                <Hash hash={publicKey} />
+              </Link>
+              <CopyToClipboard textToCopy={publicKey} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Deploy Hash</DetailDataLabel>
+            <DetailDataValue>
+              <Hash hash={deployHash} />
+              <CopyToClipboard textToCopy={deployHash} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataValue>
+              <RawData rawData={rawDeploy} />
+            </DetailDataValue>
+          </li>
+        </DetailDataList>
       </DetailDataWrapper>
     </InfoCard>
   );

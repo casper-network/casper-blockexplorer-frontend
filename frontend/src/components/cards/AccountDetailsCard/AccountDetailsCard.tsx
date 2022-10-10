@@ -11,6 +11,7 @@ import {
   DetailDataWrapper,
   DetailDataLabel,
   DetailDataValue,
+  DetailDataList,
 } from '../../styled';
 
 import { CopyToClipboard, RawData } from '../../utility';
@@ -39,30 +40,32 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </HashHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
-        <li>
-          <DetailDataLabel>Account Hash</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={trimmedAccountHash} />
-            <CopyToClipboard textToCopy={trimmedAccountHash} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Public Key</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={publicKey} />
-            <CopyToClipboard textToCopy={publicKey} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Balance</DetailDataLabel>
-          <DetailDataValue>{balance} Motes</DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Raw Data</DetailDataLabel>
-          <DetailDataValue>
-            <RawData rawData={rawAccount} />
-          </DetailDataValue>
-        </li>
+        <DetailDataList>
+          <li>
+            <DetailDataLabel>Account Hash</DetailDataLabel>
+            <DetailDataValue>
+              <Hash hash={trimmedAccountHash} />
+              <CopyToClipboard textToCopy={trimmedAccountHash} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Public Key</DetailDataLabel>
+            <DetailDataValue>
+              <Hash hash={publicKey} />
+              <CopyToClipboard textToCopy={publicKey} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Balance</DetailDataLabel>
+            <DetailDataValue>{balance} Motes</DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataValue>
+              <RawData rawData={rawAccount} />
+            </DetailDataValue>
+          </li>
+        </DetailDataList>
       </DetailDataWrapper>
     </InfoCard>
   );
