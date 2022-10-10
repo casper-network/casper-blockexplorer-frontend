@@ -29,6 +29,15 @@ export const breakpoints = {
   xxxl: '1600px',
 };
 
+export const fontWeight = {
+  thin: 100,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  bold: 700,
+  black: 900,
+};
+
 export const pxToRem = (px: number, base: number = 16) => {
   return `${px / base}rem`;
 };
