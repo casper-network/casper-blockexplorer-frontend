@@ -10,7 +10,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../store';
-import { Block } from '../../../types';
+import { Block } from '../../../api';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
 

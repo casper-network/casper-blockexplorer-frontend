@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { BlockCarouselCard } from '../../cards/BlockCarouselCard';
-import { Block } from '../../../types';
+import { Block } from '../../../api';
 
 interface MobileBlocksProps {
   readonly blocks: Block[];

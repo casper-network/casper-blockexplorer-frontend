@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { casperApi } from '../../api';
-import { Peer } from '../../types';
+import { casperApi, Peer } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface PeerState {

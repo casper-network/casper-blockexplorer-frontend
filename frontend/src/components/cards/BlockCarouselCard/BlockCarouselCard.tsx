@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Block } from '../../../types';
+import { Block } from '../../../api';
 import { truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard } from '../../utility';

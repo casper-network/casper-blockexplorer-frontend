@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { AVATAR_URL } from '../../../constants';
 
-import { Account } from '../../../types';
+import { Account } from '../../../api';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   GradientHeading,

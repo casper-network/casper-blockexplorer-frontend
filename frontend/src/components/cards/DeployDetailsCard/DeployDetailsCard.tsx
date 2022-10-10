@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Deploy } from '../../../types';
+import { Deploy } from '../../../api';
 import { Heading, InfoCard, HeadContentWrapper } from '../../base';
 import {
   GradientHeading,

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
-import { Deploy } from '../types';
+import { casperApi, Deploy } from '../api';
 import { DeployDetailsCard, PageError, PageWrapper } from '../components';
-
-import { casperApi } from '../api';
 
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();

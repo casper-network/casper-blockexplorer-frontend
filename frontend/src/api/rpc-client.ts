@@ -3,7 +3,7 @@ import {
   CasperServiceByJsonRPC,
   CLPublicKey,
 } from 'casper-js-sdk';
-import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from '../types';
+import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from './types';
 import { formatDate, formatTimeAgo } from '../utils';
 import { ApiError } from './api-error';
 import {
