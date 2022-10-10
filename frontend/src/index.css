@@ -138,8 +138,8 @@ a:hover {
 .custom-select .react-select__indicators {
   display: block;
   position: absolute;
-  top: 8px;
-  left: 127px;
+  top: 0.5rem;
+  left: 7.938rem;
   padding: 0;
 }
 
@@ -182,8 +182,8 @@ a:hover {
   color: white;
   background-color: #fff;
   border-radius: 0.375rem;
-  width: 7.9rem;
-  left: 1rem;
+  width: 10.9rem;
+  /* left: 1rem; */
 }
 
 .custom-select .react-select__option:hover,
