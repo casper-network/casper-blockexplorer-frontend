@@ -124,7 +124,6 @@ export const Home: React.FC = () => {
           <PeersDetails>
             <H3>Currently online</H3>
             <H3Data>{currentPeers}</H3Data>
-            {/* <DataContext>1 minute ago</DataContext> */}
           </PeersDetails>
         </Peers>
       </HomeContentContainer>
@@ -150,12 +149,12 @@ const HomeContentContainer = styled.div`
   }
   @media (min-width: 1200px) {
     margin: 0 0 0 11.5rem;
-    max-width: 60rem;
+    max-width: rem;
   }
   @media (min-width: 1340px) {
     margin: 0 auto;
-    max-width: 75rem;
-    padding-left: 17rem;
+    min-width: 80rem;
+    padding-left: 19rem;
   }
 `;
 // *******************************************************************Blocks
@@ -171,7 +170,7 @@ const Blocks = styled.section`
     margin-right: 3.125rem;
   }
   @media (min-width: 1024px) {
-    width: 40%;
+    min-width: 40.5%;
     margin: 0 7% 4rem 0;
   }
 `;
@@ -281,12 +280,9 @@ const Deploys = styled.section`
     margin-bottom: 4.25rem;
   }
   @media (min-width: 1024px) {
-    width: 40%;
+    min-width: 40.5%;
     margin-bottom: 4rem;
   }
-  /* @media (min-width: 1414px) {
-    max-width: 35%;
-  } */
 `;
 
 const DeploysHeader = styled.header`
@@ -320,8 +316,8 @@ const Validators = styled.section`
     margin-right: 3.125rem;
   }
   @media (min-width: 1024px) {
-    width: 40%;
-    margin: 0 8% 6rem 0;
+    min-width: 40.5%;
+    margin: 0 7% 4rem 0;
   }
 `;
 
@@ -356,8 +352,8 @@ const Peers = styled.section`
     margin-bottom: 4.25rem;
   }
   @media (min-width: 1024px) {
-    width: 40%;
-    margin-bottom: 6rem;
+    min-width: 40.5%;
+    margin-bottom: 4rem;
   }
 `;
 

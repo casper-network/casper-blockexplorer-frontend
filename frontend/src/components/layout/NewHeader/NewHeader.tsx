@@ -197,7 +197,7 @@ export const NewHeader: React.FC = () => {
   const mobileSelect = (
     <Controller
       control={control}
-      render={({ field: { onChange } }) => {
+      render={({ field: { onChange, value } }) => {
         return (
           <MobileSelectContainer>
             {selectOptions.map((option, key) => {
@@ -208,7 +208,6 @@ export const NewHeader: React.FC = () => {
 
               return (
                 <li key={key}>
-                  {' '}
                   <MobileSelectButton
                     onClick={handleClick}
                     style={{
@@ -358,7 +357,7 @@ export const NewHeader: React.FC = () => {
                 <DesktopNavItemsContainer>
                   {navItems.map(({ path, title, key }) => {
                     return (
-                      <li key={key + 1}>
+                      <li key={key}>
                         <DesktopNavItemLink to={path}>
                           {title}
                         </DesktopNavItemLink>

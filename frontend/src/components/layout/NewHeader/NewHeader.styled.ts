@@ -34,7 +34,7 @@ export const FormContainer = styled.div`
   }
   @media (min-width: 1340px) {
     justify-content: center;
-    padding-left: 8.2rem;
+    padding-left: 6rem;
   }
 `;
 // ****************************************************Input Width
@@ -45,8 +45,8 @@ export const Form = styled.form`
   }
   @media (min-width: 1024px) {
     width: 75%;
-    min-width: 40.6rem;
-    max-width: 50rem;
+    min-width: 42.4rem;
+    max-width: 48rem;
   }
 `;
 
