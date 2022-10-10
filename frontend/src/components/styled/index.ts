@@ -1,8 +1,7 @@
-export * from './GradientHeading';
-export * from './Hash';
 export * from './AvatarIcon';
-export {
-  DetailDataWrapper,
-  DetailDataLabel,
-  DetailDataValue,
-} from './DetailData';
+export * from './DetailData';
+export * from './Flex';
+export * from './GradientHeading';
+export * from './Grid';
+export * from './Hash';
+export * from './HideOn';
