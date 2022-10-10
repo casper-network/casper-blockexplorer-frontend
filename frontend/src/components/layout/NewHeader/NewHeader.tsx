@@ -197,17 +197,17 @@ export const NewHeader: React.FC = () => {
   const mobileSelect = (
     <Controller
       control={control}
-      render={({ field: { onChange, value } }) => {
+      render={({ field: { onChange } }) => {
         return (
           <MobileSelectContainer>
-            {selectOptions.map((option, key) => {
+            {selectOptions.map(option => {
               const handleClick = () => {
                 onChange(option.value);
                 setCurrentFilterOption(option.value);
               };
 
               return (
-                <li key={key}>
+                <li key={option.value}>
                   <MobileSelectButton
                     onClick={handleClick}
                     style={{
