@@ -1,5 +1,3 @@
-import React from 'react';
-
 export type FormValues = {
   hash: string;
   filterOptions: string;
