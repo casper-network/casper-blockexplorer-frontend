@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { casperApi, Deploy } from '../api';
-import { DeployDetailsCard, PageError, PageWrapper } from '../components';
+import {
+  DeployDetailsCard,
+  Grid,
+  PageError,
+  PageWrapper,
+  TransactionDetailsCard,
+} from '../components';
 
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();
@@ -35,7 +41,12 @@ export const DeployPage: React.FC = () => {
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      {!isLoading && deployHash && <DeployDetailsCard deploy={deploy} />}
+      {!isLoading && deployHash && (
+        <Grid gap="2.5rem">
+          <DeployDetailsCard deploy={deploy} />
+          <TransactionDetailsCard deploy={deploy} />
+        </Grid>
+      )}
     </PageWrapper>
   );
 };
