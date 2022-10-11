@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { fonts } from '../../../styled-theme';
-import { MOBILE_BREAKPOINT } from '../../../constants';
-import { useAppSelector, getBounds } from '../../../store';
 import { truncateHash } from '../../../utils';
+import { useAppWidth } from '../../../hooks';
 
 interface HashProps {
   readonly hash: string;
@@ -11,11 +10,9 @@ interface HashProps {
 }
 
 export const Hash: React.FC<HashProps> = ({ hash, alwaysTruncate }) => {
-  const bounds = useAppSelector(getBounds);
+  const { isMobile } = useAppWidth();
 
-  const isMobileScreen = bounds && bounds.width < MOBILE_BREAKPOINT;
-
-  if (alwaysTruncate || isMobileScreen) {
+  if (alwaysTruncate || isMobile) {
     return <StyledHash>{truncateHash(hash)}</StyledHash>;
   }
 

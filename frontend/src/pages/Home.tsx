@@ -1,8 +1,6 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
 
-import { MOBILE_BREAKPOINT } from '../constants';
-
 import {
   PageWrapper,
   LatestBlocks,
@@ -17,8 +15,8 @@ import {
   useAppSelector,
   Loading,
   fetchBlocks,
-  getBounds,
 } from '../store';
+import { useAppWidth } from '../hooks';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,11 +24,9 @@ export const Home: React.FC = () => {
   const blocks = useAppSelector(getBlocks);
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
 
-  const isLoading = blockLoadingStatus !== Loading.Complete;
+  const { isMobile } = useAppWidth();
 
-  const bounds = useAppSelector(getBounds);
-  const windowWidth = bounds?.width || 0;
-  const isMobile = windowWidth < MOBILE_BREAKPOINT;
+  const isLoading = blockLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
