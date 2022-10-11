@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
 import { Block } from '../types';
-import { MOBILE_BREAKPOINT } from '../constants';
-import { getBounds, useAppSelector } from '../store';
+import { useAppWidth } from '../hooks';
+
 import {
   BlockDetailsCard,
   MobileBlockDetailsCard,
@@ -25,9 +25,7 @@ export const BlockPage: React.FC = () => {
   const [block, setBlock] = useState<Block>();
   const [error, setError] = useState<PageError>();
 
-  const bounds = useAppSelector(getBounds);
-  const windowWidth = bounds?.width || 0;
-  const isMobile = windowWidth < MOBILE_BREAKPOINT;
+  const { isMobile } = useAppWidth();
 
   // TODO: Get rid of this 'magic string'
   const isHashIdentifier = query.get('type') !== 'height';
