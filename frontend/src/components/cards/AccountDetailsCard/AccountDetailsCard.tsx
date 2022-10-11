@@ -14,11 +14,11 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import { CopyToClipboard, RawData } from '../../utility';
+import { Coin, CopyToClipboard, RawData } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account;
-  balance?: string;
+  balance: string;
 }
 
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
@@ -57,7 +57,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           </li>
           <li>
             <DetailDataLabel>Balance</DetailDataLabel>
-            <DetailDataValue>{balance} Motes</DetailDataValue>
+            <DetailDataValue>
+              <Coin>{balance}</Coin>
+            </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>Raw Data</DetailDataLabel>
