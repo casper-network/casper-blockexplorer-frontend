@@ -293,6 +293,7 @@ describe('rpc-client', () => {
         deployHash: mockDeployHash,
         blockHash: mockBlockHash,
         publicKey: mockPublicKey,
+        action: 'init',
         paymentAmount: '60000000000',
         cost: '2500000000',
         status: DeployStatus.Failed,
