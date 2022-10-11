@@ -6,8 +6,10 @@ import {
   DetailDataValue,
   DetailDataWrapper,
   Grid,
+  HideOnDesktop,
+  HideOnMobile,
 } from '../../styled';
-import { fonts, fontWeight, pxToRem } from '../../../styled-theme';
+import { breakpoints, fonts, fontWeight, pxToRem } from '../../../styled-theme';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import { Coin } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
@@ -20,8 +22,15 @@ interface TransactionDetailsCardProps {
 export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
   deploy,
 }) => {
-  const { paymentAmount, cost, amount, readableTimestamp, action, status } =
-    deploy;
+  const {
+    paymentAmount,
+    cost,
+    amount,
+    readableTimestamp,
+    action,
+    status,
+    deployType,
+  } = deploy;
 
   const statusIcon =
     status === DeployStatus.Success ? <SuccessIcon /> : <FailureIcon />;
@@ -32,8 +41,8 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
         <TransactionHeading type="h2">Transaction Details</TransactionHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
-        <Grid gap="2rem" templateColumns="1fr 1fr">
-          <DetailDataList gap="1.5rem">
+        <TransactionGrid gap="2rem">
+          <DetailDataList gap="2rem">
             {!!amount && (
               <li>
                 <Grid gap="1rem" templateColumns="9rem auto">
@@ -61,28 +70,53 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               </Grid>
             </li>
           </DetailDataList>
-          <Grid templateColumns="1fr 1fr" templateRows="1fr 1fr" gap="1rem">
+          <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
             <div>
               <DetailDataLabel>Timestamp</DetailDataLabel>
               <TransactionDetailData>{readableTimestamp}</TransactionDetailData>
             </div>
-            <div>
-              <DetailDataLabel>Status</DetailDataLabel>
-              <TransactionDetailData>
-                {status}
-                <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
-              </TransactionDetailData>
-            </div>
-            <ActionTypeWrapper>
+            <HideOnMobile>
+              <div>
+                <DetailDataLabel>Status</DetailDataLabel>
+                <DeployStatusData>
+                  {status}
+                  <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                </DeployStatusData>
+              </div>
+            </HideOnMobile>
+            <HideOnDesktop>
+              <SpanTwoCols>
+                <DetailDataLabel>Status</DetailDataLabel>
+                <DeployStatusData>
+                  {status}
+                  <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                </DeployStatusData>
+              </SpanTwoCols>
+            </HideOnDesktop>
+            <ActionAndDeployTypeWrapper>
               <DetailDataLabel>Action</DetailDataLabel>
               <TransactionDetailData>{action}</TransactionDetailData>
-            </ActionTypeWrapper>
+            </ActionAndDeployTypeWrapper>
+            {!!deployType && (
+              <ActionAndDeployTypeWrapper>
+                <DetailDataLabel>Deploy Type</DetailDataLabel>
+                <TransactionDetailData>{deployType}</TransactionDetailData>
+              </ActionAndDeployTypeWrapper>
+            )}
           </Grid>
-        </Grid>
+        </TransactionGrid>
       </DetailDataWrapper>
     </InfoCard>
   );
 };
+
+const TransactionGrid = styled(Grid)`
+  grid-template-columns: 1fr;
+
+  @media only screen and (min-width: ${breakpoints.lg}) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const TransactionHeading = styled(Heading)`
   font-size: ${pxToRem(18)};
@@ -91,16 +125,22 @@ const TransactionHeading = styled(Heading)`
 
 const TransactionDetailData = styled.div`
   font-size: ${pxToRem(26)};
+`;
+
+const DeployStatusData = styled(TransactionDetailData)`
   display: flex;
   gap: 0.75rem;
 `;
 
-const ActionTypeWrapper = styled(TransactionDetailData)`
-  flex-direction: column;
+const SpanTwoCols = styled(TransactionDetailData)`
   grid-column: span 2;
+`;
+
+const ActionAndDeployTypeWrapper = styled(SpanTwoCols)`
+  flex-direction: column;
   font-family: ${fonts.jetBrains};
 
-  p {
+  div {
     font-size: ${pxToRem(24)};
   }
 `;

@@ -137,7 +137,7 @@ export class RpcApi {
 
         const deploySession = deploy.session as JsonDeploySession;
 
-        const { deployType, amount } = determineDeploySessionData(
+        const { action, deployType, amount } = determineDeploySessionData(
           deploySession,
           status,
         );
@@ -158,7 +158,8 @@ export class RpcApi {
           deployHash,
           blockHash,
           publicKey,
-          action: deployType,
+          action,
+          deployType,
           amount,
           paymentAmount,
           cost: cost.toString(),

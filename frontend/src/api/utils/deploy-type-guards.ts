@@ -1,22 +1,21 @@
 import {
+  JsonDeployEntryPointSession,
   JsonDeploySession,
-  JsonDeployDelegateSession,
   JsonDeployTransferSession,
   JsonDeployWasmSession,
-  JsonDeployNASession,
 } from '../missing-sdk-types';
 
-export const isDelegateDeploy = (
+export const isEntryPointDeploy = (
   deploySession: JsonDeploySession | any,
 ): deploySession is JsonDeploySession => {
-  const storedContractByHash = (deploySession as JsonDeployDelegateSession)
+  const storedContractByHash = (deploySession as JsonDeployEntryPointSession)
     .StoredContractByHash;
 
-  if (!storedContractByHash) return false;
+  const storedVersionedContractByName = (
+    deploySession as JsonDeployEntryPointSession
+  ).StoredVersionedContractByName;
 
-  const { entry_point: entryPoint } = storedContractByHash;
-
-  return entryPoint === 'delegate';
+  return !!storedContractByHash || !!storedVersionedContractByName;
 };
 
 export const isTransferDeploy = (
@@ -29,10 +28,4 @@ export const isWasmDeploy = (
   deploySession: JsonDeploySession | any,
 ): deploySession is JsonDeploySession => {
   return !!(deploySession as JsonDeployWasmSession).ModuleBytes;
-};
-
-export const isNADeploy = (
-  deploySession: JsonDeploySession | any,
-): deploySession is JsonDeploySession => {
-  return !!(deploySession as JsonDeployNASession).StoredVersionedContractByName;
 };

@@ -1,16 +1,13 @@
 import { CLValueParsers } from 'casper-js-sdk';
 import {
   JsonDeploySession,
-  JsonDeployDelegateSession,
   JsonDeployTransferSession,
-  JsonDeployUnknownSession,
   JsonDeployWasmSession,
-  JsonDeployNASession,
+  JsonDeployEntryPointSession,
 } from '../missing-sdk-types';
 import { DeployStatus } from '../types';
 import {
-  isDelegateDeploy,
-  isNADeploy,
+  isEntryPointDeploy,
   isTransferDeploy,
   isWasmDeploy,
 } from './deploy-type-guards';
@@ -19,40 +16,48 @@ export const determineDeploySessionData: (
   deploySession: JsonDeploySession,
   deployStatus: DeployStatus,
 ) => {
-  deployType: string;
+  action: string;
+  deployType?: string;
   amount?: string;
 } = (deploySession, deployStatus) => {
   let sessionMap: Map<unknown, unknown>;
-  let deployType: string;
+  let action: string = 'N/A';
+  let deployType: string | undefined;
 
   if (isWasmDeploy(deploySession)) {
-    deployType = 'WASM deploy';
+    action = 'WASM deploy';
     sessionMap = new Map(
       (deploySession as JsonDeployWasmSession).ModuleBytes.args,
     );
   } else if (isTransferDeploy(deploySession)) {
-    deployType = 'Transfer';
+    action = 'Transfer';
     sessionMap = new Map(
       (deploySession as JsonDeployTransferSession).Transfer.args,
     );
-  } else if (isDelegateDeploy(deploySession)) {
-    deployType = 'Delegate';
-    sessionMap = new Map(
-      (deploySession as JsonDeployDelegateSession).StoredContractByHash.args,
-    );
-  } else if (isNADeploy(deploySession)) {
-    deployType = 'N/A';
-    sessionMap = new Map(
-      (deploySession as JsonDeployNASession).StoredVersionedContractByName.args,
-    );
+  } else if (isEntryPointDeploy(deploySession)) {
+    const typedDeploySession = deploySession as JsonDeployEntryPointSession;
+
+    if (!!typedDeploySession.StoredContractByHash) {
+      deployType = 'StoredContractByHash';
+      action = typedDeploySession.StoredContractByHash.entry_point;
+      sessionMap = new Map(typedDeploySession.StoredContractByHash.args);
+    } else if (!!typedDeploySession.StoredVersionedContractByName) {
+      deployType = 'StoredVersionContractByName';
+      action = typedDeploySession.StoredVersionedContractByName.entry_point;
+      sessionMap = new Map(
+        typedDeploySession.StoredVersionedContractByName.args,
+      );
+    } else {
+      return { action };
+    }
+
+    return { deployType, action };
   } else {
-    deployType = (deploySession as JsonDeployUnknownSession)
-      .StoredContractByHash.entry_point;
-    return { deployType };
+    return { action };
   }
 
   if (deployStatus === DeployStatus.Failed) {
-    return { deployType };
+    return { action };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -61,5 +66,5 @@ export const determineDeploySessionData: (
     .value()
     .toString() as string;
 
-  return { deployType, amount };
+  return { action, deployType, amount };
 };

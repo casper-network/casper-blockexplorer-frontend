@@ -43,6 +43,7 @@ export type Deploy = {
   status: DeployStatus;
   amount?: string;
   action: string;
+  deployType?: string;
   paymentAmount: string;
   cost: string;
   rawDeploy: string;
