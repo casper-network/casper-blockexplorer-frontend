@@ -15,6 +15,7 @@ import {
 } from '../../styled';
 
 import { Coin, CopyToClipboard, RawData } from '../../utility';
+import { fontWeight } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account;
@@ -75,11 +76,11 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
 const AccountHeading = styled(Heading)`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   margin-bottom: 1rem;
 `;
 
 const HashHeading = styled(GradientHeading)`
-  font-weight: 800;
+  font-weight: ${fontWeight.extraBold};
   display: inline;
 `;

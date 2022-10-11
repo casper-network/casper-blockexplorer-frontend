@@ -15,6 +15,7 @@ export const colors = {
   lightRed: 'rgba(255, 0, 19, 0.125)',
   darkRed: '#BF000E',
   green: '#09A129',
+  greyBlue: '#64748b',
 };
 
 export const breakpoints = {
@@ -31,7 +32,7 @@ export const breakpoints = {
 
 export const fonts = {
   inter: 'Inter, sans-serif',
-  jetBrains: 'JetBrains Mono, sans-serif',
+  jetBrains: 'JetBrains Mono, monospace',
 };
 
 export const fontWeight = {
@@ -40,6 +41,7 @@ export const fontWeight = {
   normal: 400,
   medium: 500,
   bold: 700,
+  extraBold: 800,
   black: 900,
 };
 

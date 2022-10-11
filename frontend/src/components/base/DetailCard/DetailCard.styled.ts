@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { colors } from '../../../styled-theme';
 
 export const TableData = styled.td<{ noDividers?: boolean }>`
   height: 100%;
@@ -11,7 +12,7 @@ export const TableData = styled.td<{ noDividers?: boolean }>`
 
 export const TableLabel = styled(TableData)`
   width: 12.5rem;
-  color: #64748b;
+  color: ${colors.greyBlue};
   white-space: nowrap;
   padding-right: 2rem;
   vertical-align: top;

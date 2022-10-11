@@ -13,6 +13,7 @@ import {
 } from '../../styled';
 
 import { CopyToClipboard, RawData } from '../../utility';
+import { fontWeight } from '../../../styled-theme';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -72,10 +73,10 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
 
 const DeployHeading = styled(Heading)`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   margin-bottom: 1rem;
 `;
 
 const HashHeading = styled(GradientHeading)`
-  font-weight: 800;
+  font-weight: ${fontWeight.extraBold};
 `;

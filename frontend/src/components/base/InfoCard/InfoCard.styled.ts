@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { breakpoints } from '../../../styled-theme';
 
 export const InfoCardSection = styled.section`
   margin: 0;
@@ -17,7 +18,7 @@ export const InfoCardContentWrapper = styled.div`
   max-width: calc(100vw - 4rem);
   margin-bottom: 2rem;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: ${breakpoints.md}) {
     max-width: calc(100vw - 5rem);
   }
 `;

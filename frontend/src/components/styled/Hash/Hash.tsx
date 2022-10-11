@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { fonts } from '../../../styled-theme';
 import { MOBILE_BREAKPOINT } from '../../../constants';
 import { useAppSelector, getBounds } from '../../../store';
 import { truncateHash } from '../../../utils';
@@ -22,5 +23,5 @@ export const Hash: React.FC<HashProps> = ({ hash, alwaysTruncate }) => {
 };
 
 export const StyledHash = styled.span`
-  font-family: 'JetBrains Mono', monospace;
+  font-family: ${fonts.jetBrains};
 `;

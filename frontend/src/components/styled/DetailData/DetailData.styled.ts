@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+import { colors, fontWeight } from '../../../styled-theme';
 
 export const DetailDataLabel = styled.h3`
-  font-weight: 400;
-  font-size: 0.625rem;
-  color: #64748b;
+  font-weight: ${fontWeight.normal};
+  font-size: 1.05rem;
+  color: ${colors.greyBlue};
 `;
 
 export const DetailDataWrapper = styled.div``;
@@ -23,5 +24,5 @@ export const DetailDataList = styled.ul<DetailDataListProps>`
 export const DetailDataValue = styled.div`
   font-size: 1.25rem;
   color: black;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
 `;
