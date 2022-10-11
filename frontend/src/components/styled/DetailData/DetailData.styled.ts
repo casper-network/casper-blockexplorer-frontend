@@ -10,12 +10,14 @@ export const DetailDataWrapper = styled.div``;
 
 interface DetailDataListProps {
   width?: string;
+  gap?: string;
 }
 
 export const DetailDataList = styled.ul<DetailDataListProps>`
   display: grid;
-  gap: 2.5rem;
+  gap: ${({ gap }) => gap ?? '2.5rem'};
   width: ${({ width }) => width ?? 'inherit'};
+  height: fit-content;
 `;
 
 export const DetailDataValue = styled.p`
