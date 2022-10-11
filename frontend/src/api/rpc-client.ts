@@ -169,7 +169,6 @@ export class RpcApi {
           }),
         };
       } catch (err) {
-        console.error(err);
         throw new ApiError({
           type: RpcApiError.DeployFetchFailed,
           message: 'An error occurred while fetching deploy with hash',
