@@ -3,13 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Block } from '../../../types';
-import { HeadContentWrapper, InfoCard } from '../../base';
+import { InfoCard } from '../../base';
 import {
   DetailDataLabel,
-  DetailDataWrapperRow,
   DetailDataValue,
   DetailDataWrapper,
-  GradientHeading,
   Hash,
 } from '../../styled';
 import { CopyToClipboard, RawData } from '../../utility';
@@ -36,13 +34,12 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
 
   return (
     <>
-      <HeadContentWrapper>
-        <HashHeading type="h2">
-          <Hash hash={blockHash} alwaysTruncate />
-        </HashHeading>
-      </HeadContentWrapper>
+      <PageHeading>
+        <Hash hash={blockHash} alwaysTruncate />
+      </PageHeading>
+
       <InfoCard>
-        <DetailDataWrapperRow>
+        <DetailDataRowWrapper>
           <li>
             <DetailDataLabel>Block Height</DetailDataLabel>
             <DetailDataValue>{blockHeight}</DetailDataValue>
@@ -55,7 +52,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
             <DetailDataLabel>Timestamp</DetailDataLabel>
             <DetailDataValue>{readableTimestamp}</DetailDataValue>
           </li>
-        </DetailDataWrapperRow>
+        </DetailDataRowWrapper>
       </InfoCard>
       <InfoCard>
         <DetailDataWrapper>
@@ -148,7 +145,26 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
   );
 };
 
-const HashHeading = styled(GradientHeading)`
+const PageHeading = styled.h2`
+  font-size: 2.75rem;
+  margin-bottom: 1rem;
   font-weight: 800;
   display: inline;
+  background: linear-gradient(
+    93.67deg,
+    #1c1e90 1.63%,
+    #693590 64.2%,
+    #d81d54 92.03%,
+    #d81e54 92.49%,
+    #fd6b52 151.99%
+  );
+  background-clip: text;
+  width: fit-content;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const DetailDataRowWrapper = styled(DetailDataWrapper)`
+  display: flex;
+  flex-wrap: wrap;
 `;

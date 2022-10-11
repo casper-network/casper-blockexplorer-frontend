@@ -5,5 +5,4 @@ export {
   DetailDataWrapper,
   DetailDataLabel,
   DetailDataValue,
-  DetailDataWrapperRow,
 } from './DetailData';

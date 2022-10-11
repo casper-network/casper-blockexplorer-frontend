@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { DetailDataWrapperRow } from '../../styled/DetailData';
 import { Block } from '../../../types';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
@@ -42,7 +41,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <Hash hash={blockHash} alwaysTruncate />
         </HashHeading>
       </HeadContentWrapper>
-      <DetailDataWrapperRow>
+      <DetailDataRowWrapper>
         <li>
           <DetailDataLabel>Block Height</DetailDataLabel>
           <DetailDataValue>{blockHeight}</DetailDataValue>
@@ -55,7 +54,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataLabel>Timestamp</DetailDataLabel>
           <DetailDataValue>{readableTimestamp}</DetailDataValue>
         </li>
-      </DetailDataWrapperRow>
+      </DetailDataRowWrapper>
       <DetailDataWrapper>
         <li>
           <DetailDataLabel>Parent Hash</DetailDataLabel>
@@ -95,7 +94,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </DetailDataValue>
         </li>
       </DetailDataWrapper>
-      <DetailDataWrapperRow>
+      <DetailDataRowWrapper>
         <li>
           <DetailDataLabel>Raw Data</DetailDataLabel>
           <DetailDataValue>
@@ -138,7 +137,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             )}
           </DetailDataValue>
         </li>
-      </DetailDataWrapperRow>
+      </DetailDataRowWrapper>
     </InfoCard>
   );
 };
@@ -152,4 +151,9 @@ const AccountHeading = styled(Heading)`
 const HashHeading = styled(GradientHeading)`
   font-weight: 800;
   display: inline;
+`;
+
+const DetailDataRowWrapper = styled(DetailDataWrapper)`
+  grid-template-columns: 0.75fr 0.75fr 3fr;
+  margin: 2.5rem 0;
 `;
