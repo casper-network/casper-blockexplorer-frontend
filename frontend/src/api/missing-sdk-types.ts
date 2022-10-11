@@ -46,7 +46,9 @@ export interface JsonDeployWasmSession {
 export type JsonDeploySession =
   | JsonDeployTransferSession
   | JsonDeployWasmSession
-  | JsonDeployDelegateSession;
+  | JsonDeployDelegateSession
+  | JsonDeployUnknownSession
+  | JsonDeployNASession;
 
 export interface JsonBlockWithBody extends JsonBlock {
   body: {
