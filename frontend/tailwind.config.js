@@ -82,7 +82,6 @@ const screens = {
 
 const fontFamily = {
   gelion: ['Gelion', 'sans-serif'],
-  // New Block Explorer font
   inter: ['Inter', 'sans-serif'],
 };
 

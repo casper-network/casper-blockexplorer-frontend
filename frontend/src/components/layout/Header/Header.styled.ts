@@ -4,12 +4,9 @@ import { GradientHeading } from '../../styled';
 
 export const MobileSelectContainer = styled.ul`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  width: 20.25rem;
-  @media (min-width: 768px) {
-    margin: 0 auto;
-  }
+  width: 20.5rem;
+  margin: 0 auto;
 `;
 
 export const MobileSelectButton = styled.button`
@@ -25,8 +22,10 @@ export const MobileSelectButton = styled.button`
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 2.8rem;
-  padding-bottom: 3.137rem;
+  padding-top: 3.55rem;
+  padding-bottom: 2.7rem;
+  margin: 0 auto;
+
   @media (min-width: 1024px) {
     justify-content: start;
     padding: 5rem 0 8.5rem 14.5rem;
@@ -39,10 +38,12 @@ export const FormContainer = styled.div`
 `;
 // ****************************************************Input Width
 export const Form = styled.form`
+  width: 92%;
   @media (min-width: 768px) {
     width: 63%;
     min-width: 40rem;
   }
+
   @media (min-width: 1024px) {
     width: 75%;
     min-width: 42.4rem;
@@ -63,8 +64,11 @@ export const InputAndButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 1.4rem;
+  margin: 0 auto;
+  width: 91%;
+
   @media (min-width: 1024px) {
-    background-color: white;
+    /* background-color: white; */
     padding-top: 0;
     width: 100%;
   }
@@ -89,8 +93,7 @@ export const SearchInput = styled.input`
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
-  @media (min-width: 768px) {
-  }
+
   @media (min-width: 1024px) {
     height: 3.2rem;
     border-radius: 0;
@@ -103,7 +106,7 @@ export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #0325d1;
   height: 2.8125rem;
-  width: 3.3rem;
+  width: 3.4rem;
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;
@@ -115,6 +118,7 @@ export const SubmitButton = styled.button`
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
+
   @media (min-width: 1024px) {
     height: 3.2rem;
     width: 3.9rem;
@@ -151,7 +155,7 @@ export const ErrorMessage = styled.p`
 
 // **************************************************************  Header
 
-export const Header = styled.header`
+export const HeaderComponent = styled.header`
   width: 100%;
   background-color: #fff;
 `;
@@ -163,6 +167,7 @@ export const HeaderComponentsContainer = styled.div`
   width: 100%;
   max-width: 112.5rem;
   padding: 1.75rem 1.7rem 1.75rem 2.17rem;
+
   @media (min-width: 1024px) {
     justify-content: flex-end;
     padding: 3.5rem 7% 1.75rem 2.17rem;
@@ -231,6 +236,7 @@ export const NavButton = styled.button`
   padding: 0;
   width: 90%;
   border-style: none;
+
   @media (min-width: 1024px) {
     display: none;
   }
@@ -273,9 +279,8 @@ export const MobileNavItemLink = styled(Link)`
   font-weight: 500;
   letter-spacing: 0.025em;
   :hover {
-    transition: ease-in;
+    transition: color ease-in 200ms;
     color: #d51e4a;
-    transition-duration: 200ms;
     transition-property: color;
     text-decoration: none;
   }
@@ -285,6 +290,7 @@ export const MobileNavItemLink = styled(Link)`
 
 export const DesktopNav = styled.nav`
   display: none;
+
   @media (min-width: 1024px) {
     display: flex;
   }
@@ -300,7 +306,6 @@ export const DesktopNavItemLink = styled(Link)`
   color: #0325d1;
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;
-  letter-spacing: 0.0001rem;
   text-decoration: none;
   width: 100%;
   :hover,
@@ -326,7 +331,7 @@ export const DesktopNavItemLink = styled(Link)`
 
 // **************************************************************  H1
 
-export const H1Container = styled.div`
+export const HeroContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 0.25rem;
@@ -340,7 +345,7 @@ export const H1Container = styled.div`
   }
 `;
 
-export const H1 = styled(GradientHeading)`
+export const HeroHeading = styled(GradientHeading)`
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 2.57rem;
@@ -358,3 +363,46 @@ export const H1 = styled(GradientHeading)`
     max-width: 42rem;
   }
 `;
+
+// export const HeroContainer = styled.div`
+//   margin-left: 2.2rem;
+//   width: 25ch;
+
+//   @media (min-width: 400px) {
+//     margin: 0 auto;
+//   }
+
+//   @media (min-width: 768px) {
+//     width: 55ch;
+//   }
+
+//   @media (min-width: 1024px) {
+//     border: green 2px solid;
+//     width: 66ch;
+//     padding: 8.4rem 0 0 0;
+//   }
+
+//   @media (min-width: 1340px) {
+
+//   }
+// `;
+
+// export const HeroHeading = styled(GradientHeading)`
+//   font-size: 2.6rem;
+//   font-weight: 700;
+//   line-height: 2.57rem;
+
+//   margin: 0;
+
+//   @media (min-width: 768px) {
+//     font-size: 3.5rem;
+//     line-height: 3.5rem;
+
+//   }
+
+//   @media (min-width: 1024px) {
+//     font-size: 4.3rem;
+//     line-height: 4.3rem;
+//     /* max-width: 42rem; */
+//   }
+// `;

@@ -36,24 +36,23 @@ export const Home: React.FC = () => {
   const isLoading = blockLoadingStatus !== Loading.Complete;
   const blocksAreLoading = blockLoadingStatus !== Loading.Complete;
 
-  const firstListedBlockHeight =
-    blockLoadingStatus === 'complete'
-      ? blocks[0].height.toLocaleString()
-      : 'n/a';
-  const firstListedBlockEraID =
-    blockLoadingStatus === 'complete'
-      ? blocks[0].eraID.toLocaleString()
-      : 'n/a';
-  const firstListedBlockEraTimeStamp =
-    blockLoadingStatus === 'complete' ? blocks[0].readableTimestamp : 'n/a';
-
   const peers = useAppSelector(getPeers);
+
   const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
 
-  const PeersAreLoading = peerLoadingStatus !== Loading.Complete;
+  const firstListedBlockHeight = !blocksAreLoading
+    ? blocks[0].height.toLocaleString()
+    : 'n/a';
+  const firstListedBlockEraID = !blocksAreLoading
+    ? blocks[0].eraID.toLocaleString()
+    : 'n/a';
+  const firstListedBlockEraTimeStamp = !blocksAreLoading
+    ? blocks[0].readableTimestamp
+    : 'n/a';
 
-  const currentPeers =
-    peerLoadingStatus === 'complete' ? peers.length.toLocaleString() : 'n/a';
+  const peersAreLoading = peerLoadingStatus !== Loading.Complete;
+
+  const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
 
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
@@ -65,9 +64,9 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <PageWrapper isLoading={blocksAreLoading || PeersAreLoading}>
+    <PageWrapper isLoading={blocksAreLoading || peersAreLoading}>
       <HomeContentContainer>
-        <Blocks>
+        <BlocksInfoDisplay>
           <BlocksHeader>
             <IconH2Container>
               <BlocksIcon />
@@ -82,8 +81,8 @@ export const Home: React.FC = () => {
             <H3>Current Era</H3>
             <H3Data>{firstListedBlockEraID}</H3Data>
           </BlockDetails>
-        </Blocks>
-        <Deploys>
+        </BlocksInfoDisplay>
+        <DeploysInfoDisplay>
           <DeploysHeader>
             <IconH2Container>
               <DeploysIcon />
@@ -98,8 +97,8 @@ export const Home: React.FC = () => {
             <H3>Today</H3>
             <H3Data>n/a</H3Data>
           </DeployDetails>
-        </Deploys>
-        <Validators>
+        </DeploysInfoDisplay>
+        <ValidatorsInfoDisplay>
           <ValidatorsHeader>
             <IconH2Container>
               <ValidatorsIcon />
@@ -112,8 +111,8 @@ export const Home: React.FC = () => {
             <H3Data>n/a</H3Data>
             <DataContext>out of 0 active bids</DataContext>
           </ValidatorDetails>
-        </Validators>
-        <Peers>
+        </ValidatorsInfoDisplay>
+        <PeersInfoDisplay>
           <PeersHeader>
             <IconH2Container>
               <PeersIcon />
@@ -125,7 +124,7 @@ export const Home: React.FC = () => {
             <H3>Currently online</H3>
             <H3Data>{currentPeers}</H3Data>
           </PeersDetails>
-        </Peers>
+        </PeersInfoDisplay>
       </HomeContentContainer>
     </PageWrapper>
   );
@@ -135,13 +134,15 @@ const HomeContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: 18.563rem;
+  max-width: 17.2rem;
+
   @media (min-width: 768px) {
     min-width: 44.75rem;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
   }
+
   @media (min-width: 1024px) {
     margin: 0 0 0 12.5rem;
     justify-content: start;
@@ -158,17 +159,19 @@ const HomeContentContainer = styled.div`
   }
 `;
 // *******************************************************************Blocks
-const Blocks = styled.section`
+const BlocksInfoDisplay = styled.section`
   background: #ffffff;
   border: 0.063rem solid #e3e3e9;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
   margin-bottom: 3.25rem;
+
   @media (min-width: 768px) {
     margin-bottom: 4.25rem;
     margin-right: 3.125rem;
   }
+
   @media (min-width: 1024px) {
     min-width: 40.5%;
     margin: 0 7% 4rem 0;
@@ -181,15 +184,14 @@ const BlocksHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 1.15rem 2rem;
-  @media (min-width: 1024px) {
-  }
 `;
 
 const IconH2Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   width: 84%;
+
   @media (min-width: 1024px) {
     max-width: 12.7rem;
   }
@@ -200,12 +202,13 @@ const H2 = styled.h2`
   font-weight: 600;
   line-height: 1.875rem;
   max-width: 10.5rem;
-  padding: 0 5rem 0 0.8rem;
+  padding-left: 0.7rem;
 `;
 
 const PageLink = styled(Link)`
   color: #0325d1;
   font-size: clamp(0.67rem, 1.25vw, 1rem);
+  text-align: right;
   font-weight: 500;
   min-width: 3.5rem;
   text-decoration: none;
@@ -236,39 +239,31 @@ const BlockDetails = styled.section`
   border-top: 0.094rem solid #f2f3f5;
   padding: 0 0;
   margin: 0 2rem;
-  @media (min-width: 1024px) {
-  }
 `;
 
 const H3 = styled.h3`
   font-weight: 500;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.25vw, 1rem);
   line-height: 1.188rem;
   padding: 1.45rem 0 0 0;
-  @media (min-width: 1024px) {
-  }
 `;
 
 const H3Data = styled.p`
   color: #0325d1;
   font-weight: 800;
-  font-size: 2rem;
+  font-size: clamp(1.6rem, 1.25vw, 1rem);
   padding: 0.55rem 0 0.2rem 0;
-  @media (min-width: 1024px) {
-  }
 `;
 
 const DataContext = styled.p`
   color: #7f8095;
   font-weight: 500;
-  font-size: 1rem;
-  @media (min-width: 1024px) {
-  }
+  font-size: clamp(0.9rem, 1.25vw, 1rem);
 `;
 
 // *******************************************************************Deploys
 
-const Deploys = styled.section`
+const DeploysInfoDisplay = styled.section`
   box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
   background: #ffffff;
@@ -276,9 +271,11 @@ const Deploys = styled.section`
   box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
   margin-bottom: 3.25rem;
+
   @media (min-width: 768px) {
     margin-bottom: 4.25rem;
   }
+
   @media (min-width: 1024px) {
     min-width: 40.5%;
     margin-bottom: 4rem;
@@ -304,17 +301,19 @@ const DeployDetails = styled.section`
 
 // *******************************************************************Validators
 
-const Validators = styled.section`
+const ValidatorsInfoDisplay = styled.section`
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
   background: #ffffff;
   border: 0.063rem solid #e3e3e9;
   padding-bottom: 1.5rem;
   margin-bottom: 3.25rem;
+
   @media (min-width: 768px) {
     margin-bottom: 4.25rem;
     margin-right: 3.125rem;
   }
+
   @media (min-width: 1024px) {
     min-width: 40.5%;
     margin: 0 7% 4rem 0;
@@ -334,13 +333,13 @@ const ValidatorDetails = styled.section`
   flex-direction: column;
   justify-content: start;
   border-top: 0.094rem solid #f2f3f5;
-  padding: 0 0;
+  padding: 0;
   margin: 0 2rem;
 `;
 
 // *******************************************************************Peers
 
-const Peers = styled.section`
+const PeersInfoDisplay = styled.section`
   box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
   background: #ffffff;
@@ -348,9 +347,11 @@ const Peers = styled.section`
   box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
   margin-bottom: 3.25rem;
+
   @media (min-width: 768px) {
     margin-bottom: 4.25rem;
   }
+
   @media (min-width: 1024px) {
     min-width: 40.5%;
     margin-bottom: 4rem;
