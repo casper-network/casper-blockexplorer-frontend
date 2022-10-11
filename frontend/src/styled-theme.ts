@@ -29,6 +29,11 @@ export const breakpoints = {
   xxxl: '1600px',
 };
 
+export const fonts = {
+  inter: 'Inter, sans-serif',
+  jetBrains: 'JetBrains Mono, sans-serif',
+};
+
 export const fontWeight = {
   thin: 100,
   light: 300,
