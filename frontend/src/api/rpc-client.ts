@@ -397,7 +397,6 @@ export enum RpcApiError {
   BlockByHeightFailed = 'getBlockByHeight/fetch-failed',
   GetBlocksFailed = 'getBlocks/fetch-failed',
   GetStatusFailed = 'getStatus/fetch-failed',
-  GetDeployTypeMissing = 'getDeploy/deploy-type-missing',
 }
 
 const casperJsonRpcService = new CasperServiceByJsonRPC(
