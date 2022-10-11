@@ -10,7 +10,9 @@ import {
   JsonBlockWithBody,
   JsonDeployPayment,
   GetStatusResultExtended,
+  JsonDeploySession,
 } from './missing-sdk-types';
+import { determineDeploySessionData } from './utils';
 
 export const DEFAULT_NUM_TO_SHOW = 10;
 export class RpcApi {
@@ -133,6 +135,13 @@ export class RpcApi {
           ? DeployStatus.Success
           : DeployStatus.Failed;
 
+        const deploySession = deploy.session as JsonDeploySession;
+
+        const { deployType, amount } = determineDeploySessionData(
+          deploySession,
+          status,
+        );
+
         const cost = executionResult.Success
           ? executionResult.Success.cost
           : executionResult.Failure?.cost ?? 0;
@@ -149,6 +158,8 @@ export class RpcApi {
           deployHash,
           blockHash,
           publicKey,
+          action: deployType,
+          amount,
           paymentAmount,
           cost: cost.toString(),
           status,
@@ -158,6 +169,7 @@ export class RpcApi {
           }),
         };
       } catch (err) {
+        console.error(err);
         throw new ApiError({
           type: RpcApiError.DeployFetchFailed,
           message: 'An error occurred while fetching deploy with hash',
@@ -386,6 +398,7 @@ export enum RpcApiError {
   BlockByHeightFailed = 'getBlockByHeight/fetch-failed',
   GetBlocksFailed = 'getBlocks/fetch-failed',
   GetStatusFailed = 'getStatus/fetch-failed',
+  GetDeployTypeMissing = 'getDeploy/deploy-type-missing',
 }
 
 const casperJsonRpcService = new CasperServiceByJsonRPC(
