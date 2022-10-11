@@ -286,6 +286,8 @@ describe('rpc-client', () => {
 
       const deploy = await mockRpcClient.getDeploy(mockDeployHash);
 
+      console.log(deploy);
+
       const mockDeploy = {
         timestamp: dateTimeString,
         timeSince: deploy?.timeSince,
@@ -294,6 +296,8 @@ describe('rpc-client', () => {
         blockHash: mockBlockHash,
         publicKey: mockPublicKey,
         action: 'init',
+        amount: undefined,
+        deployType: 'StoredContractByHash',
         paymentAmount: '60000000000',
         cost: '2500000000',
         status: DeployStatus.Failed,
