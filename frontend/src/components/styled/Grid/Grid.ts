@@ -4,6 +4,8 @@ interface GridProps {
   gap?: string;
   templateColumns?: string;
   templateRows?: string;
+  placeContent?: string;
+  placeItems?: string;
 }
 
 export const Grid = styled.div<GridProps>`
