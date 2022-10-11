@@ -89,7 +89,7 @@ const TransactionHeading = styled(Heading)`
   font-weight: ${fontWeight.medium};
 `;
 
-const TransactionDetailData = styled.p`
+const TransactionDetailData = styled.div`
   font-size: ${pxToRem(26)};
   display: flex;
   gap: 0.75rem;

@@ -20,8 +20,8 @@ export const DetailDataList = styled.ul<DetailDataListProps>`
   height: fit-content;
 `;
 
-export const DetailDataValue = styled.p`
-  font-size: 1.5rem;
+export const DetailDataValue = styled.div`
+  font-size: 1.25rem;
   color: black;
   font-weight: 500;
 `;
