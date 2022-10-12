@@ -11,13 +11,13 @@ import {
 } from './HomeComponents.styled';
 import { ReactComponent as BlocksIcon } from '../../assets/icons/blocks-icon.svg';
 
-interface TopBlockInfoProps {
+interface BlockInfoProps {
   readonly blockHeight: string;
   readonly blockEraTimeStamp: string;
   readonly blockEraID: string;
 }
 
-export const BlocksInfo: React.FC<TopBlockInfoProps> = ({
+export const BlocksInfo: React.FC<BlockInfoProps> = ({
   blockHeight,
   blockEraTimeStamp,
   blockEraID,
