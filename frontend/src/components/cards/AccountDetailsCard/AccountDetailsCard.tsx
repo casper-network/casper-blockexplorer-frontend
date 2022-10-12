@@ -41,7 +41,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </HashHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
-        <DetailDataList>
+        <DetailDataList gap="1.75rem">
           <li>
             <DetailDataLabel>Account Hash</DetailDataLabel>
             <DetailDataValue>
