@@ -286,8 +286,6 @@ describe('rpc-client', () => {
 
       const deploy = await mockRpcClient.getDeploy(mockDeployHash);
 
-      console.log(deploy);
-
       const mockDeploy = {
         timestamp: dateTimeString,
         timeSince: deploy?.timeSince,
