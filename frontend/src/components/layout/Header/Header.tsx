@@ -43,11 +43,8 @@ import { FormValues, SelectOptions } from './Header.types';
 
 import { useAppSelector, getBounds } from '../../../store';
 
-import blueLogo from '../../../assets/images/blue-casper-logo.svg';
-import whiteLogo from '../../../assets/images/white-casper-logo.svg';
-import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-icon.svg';
-import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
-import { ReactComponent as ButtonIcon } from '../../../assets/icons/button-icon.svg';
+import { BlueLogo } from '../../logos';
+import { OpenMenuIcon, CloseMenuIcon, ButtonIcon } from '../../icons';
 
 const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
@@ -329,7 +326,8 @@ export const Header: React.FC = () => {
       <HeaderComponentsContainer>
         {/* {windowWidth > MOBILE_BREAKPOINT ? DesktopTools : MobileLogo} */}
         <LogoLink to="/">
-          <BlueCasperLogo src={blueLogo} alt="Casper Logo" />
+          {/* <BlueCasperLogo src={blueLogo} alt="Casper Logo" /> */}
+          <BlueLogo />
         </LogoLink>
         <Nav>
           <NavComponentsContainer>
