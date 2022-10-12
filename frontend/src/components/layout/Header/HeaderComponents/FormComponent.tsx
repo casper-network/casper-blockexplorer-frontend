@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 
 import { ButtonIcon } from 'src/components/icons';
 import {
-  Control,
-  FieldValues,
   SubmitHandler,
   UseFormHandleSubmit,
   UseFormRegister,
