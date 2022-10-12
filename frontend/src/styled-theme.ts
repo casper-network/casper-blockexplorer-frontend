@@ -16,6 +16,8 @@ export const colors = {
   darkRed: '#BF000E',
   green: '#09A129',
   greyBlue: '#64748b',
+  cobaltBlue: '#0325D1',
+  darkBlue: '#02115f',
 };
 
 export const breakpoints = {
