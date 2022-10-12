@@ -21,19 +21,6 @@ interface FlexProps {
     | 'self-end'
     | 'left;  '
     | 'right';
-  justifySelf?:
-    | 'auto'
-    | 'normal'
-    | 'stretch'
-    | 'start'
-    | 'end'
-    | 'center'
-    | 'left'
-    | 'right'
-    | 'flex-start'
-    | 'flex-end'
-    | 'self-start'
-    | 'self-end';
   alignItems?:
     | 'stretch'
     | 'flex-start'
@@ -59,13 +46,6 @@ interface FlexProps {
     | 'baseline'
     | 'first baseline'
     | 'last baseline';
-  alignSelf?:
-    | 'auto'
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'baseline'
-    | 'stretch';
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
   gap?: string;
 }
@@ -73,6 +53,11 @@ interface FlexProps {
 export const Flex = styled.div<FlexProps>`
   display: flex;
   flex-direction: ${({ direction }) => direction ?? 'row'};
+  justify-content: ${({ justifyContent }) => justifyContent ?? 'flex-start'};
+  justify-items: ${({ justifyItems }) => justifyItems ?? 'legacy'};
+  align-content: ${({ alignContent }) => alignContent ?? 'stretch'};
+  align-items: ${({ alignItems }) => alignItems ?? 'stretch'};
+  flex-wrap: ${({ wrap }) => wrap ?? 'nowrap'};
   gap: ${({ gap }) => gap ?? '0px'};
   width: 100%;
 `;
