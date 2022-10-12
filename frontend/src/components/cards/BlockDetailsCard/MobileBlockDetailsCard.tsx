@@ -103,11 +103,11 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
               {deployHashes?.length ? (
                 <ul>
                   {deployHashes?.map(deployHash => (
-                    <a key={deployHash} href={`/deploy/${deployHash}`}>
-                      <li>
+                    <li>
+                      <a key={deployHash} href={`/deploy/${deployHash}`}>
                         <Hash hash={deployHash} />
-                      </li>
-                    </a>
+                      </a>
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -121,11 +121,11 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
               {transferHashes?.length ? (
                 <ul>
                   {transferHashes?.map(transferHash => (
-                    <a key={transferHash} href={`/deploy/${transferHash}`}>
-                      <li>
+                    <li>
+                      <a key={transferHash} href={`/deploy/${transferHash}`}>
                         <Hash hash={transferHash} />
-                      </li>
-                    </a>
+                      </a>
+                    </li>
                   ))}
                 </ul>
               ) : (
