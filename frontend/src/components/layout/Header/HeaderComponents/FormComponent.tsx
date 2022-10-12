@@ -88,8 +88,6 @@ export const FormComponent: React.FC<FormProps> = ({
   </FormContainer>
 );
 
-// **************************************************************  Form
-
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -103,7 +101,7 @@ export const FormContainer = styled.div`
     width: 100%;
   }
 `;
-// ****************************************************Input Width
+
 export const Form = styled.form`
   width: 92%;
   @media (min-width: 768px) {
@@ -124,8 +122,6 @@ export const FormComponentsContainer = styled.div`
     width: 100%;
   }
 `;
-
-// **************************************************************  Input
 
 export const InputAndButtonContainer = styled.div`
   display: flex;
@@ -166,8 +162,6 @@ export const SearchInput = styled.input`
   }
 `;
 
-// **************************************************************  Button
-
 export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #0325d1;
@@ -190,8 +184,6 @@ export const SubmitButton = styled.button`
     width: 3.9rem;
   }
 `;
-
-// **************************************************************  Error
 
 export const ErrorMessageContainer = styled.div`
   display: flex;
