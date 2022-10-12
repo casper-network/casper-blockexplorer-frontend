@@ -87,7 +87,7 @@ const HomeContentContainer = styled.div`
   max-width: 17.2rem;
 
   @media (min-width: 768px) {
-    min-width: 44.75rem;
+    min-width: 39rem;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;

@@ -51,6 +51,7 @@ const BlockInfoDisplay = styled.section`
   @media (min-width: 768px) {
     margin-bottom: 4.25rem;
     margin-right: 3.125rem;
+    min-width: 44.5%;
   }
 
   @media (min-width: 1024px) {

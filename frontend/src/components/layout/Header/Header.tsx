@@ -2,28 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
-import Select from 'react-select';
 
-import { MOBILE_BREAKPOINT } from '../../../constants';
+import { FormComponent } from './HeaderComponents';
 
 import {
-  MobileSelectContainer,
-  MobileSelectButton,
-  FormContainer,
-  Form,
-  FormComponentsContainer,
-  InputAndButtonContainer,
-  SearchInput,
-  SubmitButton,
-  ErrorMessageContainer,
-  ErrorSvgContainer,
-  ErrorMessage,
   HeaderComponent,
   HeaderComponentsContainer,
   LogoLink,
-  BlueCasperLogo,
-  // DesktopToolsContainer,
-  // WhiteCasperLogo,
   NavComponentsContainer,
   Nav,
   NavButtonContainer,
@@ -44,7 +29,7 @@ import { FormValues, SelectOptions } from './Header.types';
 import { useAppSelector, getBounds } from '../../../store';
 
 import { BlueLogo } from '../../logos';
-import { OpenMenuIcon, CloseMenuIcon, ButtonIcon } from '../../icons';
+import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
 
 const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
@@ -191,142 +176,10 @@ export const Header: React.FC = () => {
     { value: 'blockHeight', label: 'Block Height' },
   ];
 
-  const mobileSelect = (
-    <Controller
-      control={control}
-      render={({ field: { onChange } }) => {
-        return (
-          <MobileSelectContainer>
-            {selectOptions.map(option => {
-              const handleClick = () => {
-                onChange(option.value);
-                setCurrentFilterOption(option.value);
-              };
-
-              return (
-                <li key={option.value}>
-                  <MobileSelectButton
-                    onClick={handleClick}
-                    style={{
-                      backgroundColor:
-                        currentFilterOption === option.value
-                          ? '#0325d1'
-                          : '#F1F1F4',
-                      color:
-                        currentFilterOption === option.value ? '#fff' : '#000',
-                    }}
-                    type="button">
-                    {option.label.includes('Block')
-                      ? option.label.replace('Block', 'Blk')
-                      : option.label}
-                  </MobileSelectButton>
-                </li>
-              );
-            })}
-          </MobileSelectContainer>
-        );
-      }}
-      name="filterOptions"
-      rules={{
-        required: true,
-      }}
-    />
-  );
-
-  const desktopSelect = (
-    <Controller
-      control={control}
-      render={({ field: { onChange, value, name } }) => {
-        const currentSelection = selectOptions.find(
-          option => option.value === value,
-        );
-
-        const handleSelectChange = (selectedOption: SelectOptions | null) => {
-          onChange(selectedOption?.value);
-          setCurrentFilterOption(selectedOption?.value!);
-        };
-
-        return (
-          <Select
-            defaultValue={selectOptions[0]}
-            value={currentSelection}
-            name={name}
-            options={selectOptions}
-            onChange={handleSelectChange}
-            isSearchable={false}
-            noOptionsMessage={() => null}
-            className="custom-select"
-            classNamePrefix="react-select"
-          />
-        );
-      }}
-      name="filterOptions"
-      rules={{
-        required: true,
-      }}
-    />
-  );
-
-  const form = (
-    <FormContainer>
-      <Form onSubmit={handleSubmit(submitPath)}>
-        <label htmlFor="default-search" className="sr-only">
-          Search
-        </label>
-        <FormComponentsContainer>
-          {windowWidth > MOBILE_BREAKPOINT ? desktopSelect : mobileSelect}
-          <InputAndButtonContainer>
-            <SearchInput
-              {...register('hash', { required: true })}
-              type="search"
-              id="search"
-              placeholder="Select search criteria"
-              required
-            />
-            <SubmitButton type="submit">
-              <ButtonIcon />
-            </SubmitButton>
-          </InputAndButtonContainer>
-        </FormComponentsContainer>
-        {errors.hash && (
-          <ErrorMessageContainer>
-            <ErrorSvgContainer>
-              <svg>
-                <path
-                  viewBox="0 0 30 16"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-                />
-              </svg>
-            </ErrorSvgContainer>
-            <ErrorMessage>{errors.hash.message}</ErrorMessage>
-          </ErrorMessageContainer>
-        )}
-      </Form>
-    </FormContainer>
-  );
-
-  // const MobileLogo = (
-  //   <LogoLink to="/">
-  //     <BlueCasperLogo src={blueLogo} alt="Casper Logo" />
-  //   </LogoLink>
-  // );
-
-  // const DesktopTools = (
-  //   <DesktopToolsContainer>
-  //     <LogoLink to="/">
-  //       <WhiteCasperLogo src={whiteLogo} alt="Casper Logo" />
-  //     </LogoLink>
-  //   </DesktopToolsContainer>
-  // );
-
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>
-        {/* {windowWidth > MOBILE_BREAKPOINT ? DesktopTools : MobileLogo} */}
         <LogoLink to="/">
-          {/* <BlueCasperLogo src={blueLogo} alt="Casper Logo" /> */}
           <BlueLogo />
         </LogoLink>
         <Nav>
@@ -374,7 +227,17 @@ export const Header: React.FC = () => {
       <HeroContainer>
         <HeroHeading type="h1">Discover the Casper Blockchain.</HeroHeading>
       </HeroContainer>
-      {form}
+      <FormComponent
+        handleSubmit={handleSubmit}
+        submitPath={submitPath}
+        register={register}
+        errors={errors}
+        windowWidth={windowWidth}
+        control={control}
+        selectOptions={selectOptions}
+        currentFilterOption={currentFilterOption}
+        setCurrentFilterOption={setCurrentFilterOption}
+      />
     </HeaderComponent>
   );
 };
