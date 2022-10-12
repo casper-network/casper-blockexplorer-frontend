@@ -15,6 +15,7 @@ export const InfoCardContentWrapper = styled.div`
   padding: 2rem;
   overflow-x: auto;
   max-width: calc(100vw - 4rem);
+  margin-bottom: 2rem;
 
   @media only screen and (min-width: 768px) {
     max-width: calc(100vw - 5rem);

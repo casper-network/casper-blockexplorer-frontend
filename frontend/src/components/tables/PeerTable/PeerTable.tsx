@@ -10,7 +10,10 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
   const peerTableTitles = ['Node Id', 'Address'];
 
   const headContent = (
-    <p className="text-grey pl-32">{peers.length} total rows</p>
+    <div className="flex pl-32">
+      <p className="text-black font-bold pr-32">Currently Online</p>
+      <p className="text-grey">{peers.length} total rows</p>
+    </div>
   );
 
   const peerTableHeads = peerTableTitles.map(title => {
