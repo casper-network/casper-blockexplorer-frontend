@@ -107,8 +107,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             {deployHashes?.length ? (
               <ul>
                 {deployHashes?.map(deployHash => (
-                  <li>
-                    <a key={deployHash} href={`/deploy/${deployHash}`}>
+                  <li key={deployHash}>
+                    <a href={`/deploy/${deployHash}`}>
                       <Hash alwaysTruncate hash={deployHash} />
                     </a>
                   </li>
@@ -125,8 +125,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             {transferHashes?.length ? (
               <ul>
                 {transferHashes?.map(transferHash => (
-                  <li>
-                    <a key={transferHash} href={`/deploy/${transferHash}`}>
+                  <li key={transferHash}>
+                    <a href={`/deploy/${transferHash}`}>
                       <Hash alwaysTruncate hash={transferHash} />
                     </a>
                   </li>
