@@ -27,13 +27,9 @@ export const FormContainer = styled.div`
   margin: 0 auto;
 
   @media (min-width: 1024px) {
-    justify-content: start;
-    padding: 5rem 0 8.5rem 14.5rem;
+    padding: 5rem 0rem 8.5rem 0rem;
+    /* padding-left: 4rem; */
     width: 100%;
-  }
-  @media (min-width: 1340px) {
-    justify-content: center;
-    padding-left: 6rem;
   }
 `;
 // ****************************************************Input Width
@@ -45,8 +41,8 @@ export const Form = styled.form`
   }
 
   @media (min-width: 1024px) {
-    width: 75%;
     min-width: 42.4rem;
+    width: 100%;
     max-width: 48rem;
   }
 `;
@@ -68,7 +64,6 @@ export const InputAndButtonContainer = styled.div`
   width: 91%;
 
   @media (min-width: 1024px) {
-    /* background-color: white; */
     padding-top: 0;
     width: 100%;
   }
@@ -169,8 +164,8 @@ export const HeaderComponentsContainer = styled.div`
   padding: 1.75rem 1.7rem 1.75rem 2.17rem;
 
   @media (min-width: 1024px) {
-    justify-content: flex-end;
-    padding: 3.5rem 7% 1.75rem 2.17rem;
+    justify-content: space-between;
+    padding: 3.5rem 7% 1.75rem 7%;
   }
 `;
 
@@ -185,28 +180,18 @@ export const LogoLink = styled(Link)`
   :focus {
     text-decoration-line: none;
   }
+  @media (min-width: 1024px) {
+    width: 2rem;
+  }
 `;
 
 export const BlueCasperLogo = styled.img`
   width: 90%;
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
 `;
 
-export const DesktopToolsContainer = styled.nav`
-  display: flex;
-  flex-direction: column;
-  background-color: #02115f;
-  height: 41.5rem;
-  width: 6.25rem;
-  border-radius: 0 0 0.35rem 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-export const WhiteCasperLogo = styled.img`
-  width: 1.9rem;
-  margin: 2rem auto;
-`;
 // Nav ************************************************************** Nav
 
 export const Nav = styled.nav`
@@ -336,12 +321,9 @@ export const HeroContainer = styled.div`
   justify-content: center;
   padding-top: 0.25rem;
   @media (min-width: 1024px) {
-    padding: 8rem 0rem 0rem 14.55rem;
-    justify-content: start;
-  }
-  @media (min-width: 1340px) {
+    padding: 8rem 6rem 0rem 0rem;
+    width: 100%;
     justify-content: center;
-    padding-left: 0;
   }
 `;
 
@@ -363,46 +345,3 @@ export const HeroHeading = styled(GradientHeading)`
     max-width: 42rem;
   }
 `;
-
-// export const HeroContainer = styled.div`
-//   margin-left: 2.2rem;
-//   width: 25ch;
-
-//   @media (min-width: 400px) {
-//     margin: 0 auto;
-//   }
-
-//   @media (min-width: 768px) {
-//     width: 55ch;
-//   }
-
-//   @media (min-width: 1024px) {
-//     border: green 2px solid;
-//     width: 66ch;
-//     padding: 8.4rem 0 0 0;
-//   }
-
-//   @media (min-width: 1340px) {
-
-//   }
-// `;
-
-// export const HeroHeading = styled(GradientHeading)`
-//   font-size: 2.6rem;
-//   font-weight: 700;
-//   line-height: 2.57rem;
-
-//   margin: 0;
-
-//   @media (min-width: 768px) {
-//     font-size: 3.5rem;
-//     line-height: 3.5rem;
-
-//   }
-
-//   @media (min-width: 1024px) {
-//     font-size: 4.3rem;
-//     line-height: 4.3rem;
-//     /* max-width: 42rem; */
-//   }
-// `;

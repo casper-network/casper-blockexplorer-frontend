@@ -22,8 +22,8 @@ import {
   HeaderComponentsContainer,
   LogoLink,
   BlueCasperLogo,
-  DesktopToolsContainer,
-  WhiteCasperLogo,
+  // DesktopToolsContainer,
+  // WhiteCasperLogo,
   NavComponentsContainer,
   Nav,
   NavButtonContainer,
@@ -310,24 +310,27 @@ export const Header: React.FC = () => {
     </FormContainer>
   );
 
-  const MobileLogo = (
-    <LogoLink to="/">
-      <BlueCasperLogo src={blueLogo} alt="Casper Logo" />
-    </LogoLink>
-  );
+  // const MobileLogo = (
+  //   <LogoLink to="/">
+  //     <BlueCasperLogo src={blueLogo} alt="Casper Logo" />
+  //   </LogoLink>
+  // );
 
-  const DesktopTools = (
-    <DesktopToolsContainer>
-      <LogoLink to="/">
-        <WhiteCasperLogo src={whiteLogo} alt="Casper Logo" />
-      </LogoLink>
-    </DesktopToolsContainer>
-  );
+  // const DesktopTools = (
+  //   <DesktopToolsContainer>
+  //     <LogoLink to="/">
+  //       <WhiteCasperLogo src={whiteLogo} alt="Casper Logo" />
+  //     </LogoLink>
+  //   </DesktopToolsContainer>
+  // );
 
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>
-        {windowWidth > MOBILE_BREAKPOINT ? DesktopTools : MobileLogo}
+        {/* {windowWidth > MOBILE_BREAKPOINT ? DesktopTools : MobileLogo} */}
+        <LogoLink to="/">
+          <BlueCasperLogo src={blueLogo} alt="Casper Logo" />
+        </LogoLink>
         <Nav>
           <NavComponentsContainer>
             <NavButtonContainer>
