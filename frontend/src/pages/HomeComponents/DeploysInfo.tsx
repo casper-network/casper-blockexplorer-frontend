@@ -1,6 +1,6 @@
 import React from 'react';
-
 import styled from '@emotion/styled';
+
 import {
   IconH2Container,
   H2,
@@ -9,8 +9,8 @@ import {
   H3Data,
   DataContext,
 } from './HomeComponents.styled';
-
-import { ReactComponent as DeploysIcon } from '../../assets/icons/deploys-icon.svg';
+import { breakpoints } from '../../styled-theme';
+import { DeploysIcon } from '../../components/icons';
 
 export const DeploysInfo: React.FC = () => (
   <DeploysInfoDisplay>
@@ -40,12 +40,12 @@ const DeploysInfoDisplay = styled.section`
   padding-bottom: 1.5rem;
   margin-bottom: 3.25rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.md}) {
     margin-bottom: 4.25rem;
     min-width: 44.5%;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     min-width: 45%;
     margin-bottom: 4rem;
   }

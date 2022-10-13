@@ -1,6 +1,5 @@
 import React from 'react';
 import useAsyncEffect from 'use-async-effect';
-
 import styled from '@emotion/styled';
 
 import {
@@ -23,23 +22,20 @@ import {
   fetchBlocks,
   fetchPeers,
 } from '../store';
-import { useAppWidth } from '../hooks';
+import { breakpoints } from '../styled-theme';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const blocks = useAppSelector(getBlocks);
-
-  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
-
-  const { isMobile } = useAppWidth();
-
-  const isLoading = blockLoadingStatus !== Loading.Complete;
-  const blocksAreLoading = blockLoadingStatus !== Loading.Complete;
-
   const peers = useAppSelector(getPeers);
 
+  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
   const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
+
+  const blocksAreLoading = blockLoadingStatus !== Loading.Complete;
+  const peersAreLoading = peerLoadingStatus !== Loading.Complete;
+  const isLoading = blocksAreLoading || peersAreLoading;
 
   const firstListedBlockHeight = !blocksAreLoading
     ? blocks[0].height.toLocaleString()
@@ -50,8 +46,6 @@ export const Home: React.FC = () => {
   const firstListedBlockEraTimeStamp = !blocksAreLoading
     ? blocks[0].readableTimestamp
     : 'n/a';
-
-  const peersAreLoading = peerLoadingStatus !== Loading.Complete;
 
   const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
 
@@ -65,7 +59,7 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <PageWrapper isLoading={blocksAreLoading || peersAreLoading}>
+    <PageWrapper isLoading={isLoading}>
       <HomeContentContainer>
         <BlocksInfo
           blockHeight={firstListedBlockHeight}
@@ -86,14 +80,14 @@ const HomeContentContainer = styled.div`
   margin: 0 auto;
   max-width: 17.2rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.md}) {
     min-width: 39rem;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     min-width: 54.8rem;
     max-width: 65rem;
   }

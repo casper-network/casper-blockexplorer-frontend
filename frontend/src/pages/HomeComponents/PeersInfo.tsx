@@ -1,6 +1,6 @@
 import React from 'react';
-
 import styled from '@emotion/styled';
+
 import {
   IconH2Container,
   H2,
@@ -8,8 +8,8 @@ import {
   H3,
   H3Data,
 } from './HomeComponents.styled';
-
-import { ReactComponent as PeersIcon } from '../../assets/icons/peers-icon.svg';
+import { breakpoints } from '../../styled-theme';
+import { PeersIcon } from '../../components/icons';
 
 interface PeersInfoProps {
   readonly currentPeers: string;
@@ -40,12 +40,12 @@ const PeersInfoDisplay = styled.section`
   padding-bottom: 1.5rem;
   margin-bottom: 3.25rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.md}) {
     margin-bottom: 4.25rem;
     min-width: 44.5%;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     min-width: 45%;
     margin-bottom: 4rem;
   }
