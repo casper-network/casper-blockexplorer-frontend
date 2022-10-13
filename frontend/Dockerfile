@@ -3,6 +3,12 @@ FROM node:16.14.0-alpine AS base
 ARG REACT_APP_MIDDLEWARE_URL
 ENV REACT_APP_MIDDLEWARE_URL "$REACT_APP_MIDDLEWARE_URL"
 
+ARG REACT_APP_ORG_NAME
+ENV REACT_APP_ORG_NAME "$REACT_APP_ORG_NAME"
+
+ARG REACT_APP_ORG_LOGO_URL
+ENV REACT_APP_ORG_LOGO_URL "$REACT_APP_ORG_LOGO_URL"
+
 WORKDIR /usr/src/app
 
 EXPOSE 3000
@@ -23,8 +29,8 @@ ENV NODE_ENV "production"
 USER root
 
 RUN \
-apk --no-cache --update add dumb-init && \
-rm -rf /var/cache/apk/*
+  apk --no-cache --update add dumb-init && \
+  rm -rf /var/cache/apk/*
 
 RUN npm install -g serve
 

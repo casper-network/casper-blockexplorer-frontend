@@ -4,13 +4,15 @@ import {
   CLPublicKey,
 } from 'casper-js-sdk';
 import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from '../types';
-import { formatDate, formatTimeAgo } from '../utils';
+import { formatDate, formatTimeAgo, loadConfig } from '../utils';
 import { ApiError } from './api-error';
 import {
   JsonBlockWithBody,
   JsonDeployPayment,
   GetStatusResultExtended,
 } from './missing-sdk-types';
+
+const { middlewareUrl } = loadConfig();
 
 export const DEFAULT_NUM_TO_SHOW = 10;
 export class RpcApi {
@@ -388,8 +390,6 @@ export enum RpcApiError {
   GetStatusFailed = 'getStatus/fetch-failed',
 }
 
-const casperJsonRpcService = new CasperServiceByJsonRPC(
-  process.env.REACT_APP_MIDDLEWARE_URL!,
-);
+const casperJsonRpcService = new CasperServiceByJsonRPC(middlewareUrl);
 
 export const casperApi = new RpcApi(casperJsonRpcService);

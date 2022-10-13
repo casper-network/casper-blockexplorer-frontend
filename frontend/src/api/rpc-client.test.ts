@@ -883,5 +883,3 @@ describe('rpc-client', () => {
     });
   });
 });
-
-export {};
