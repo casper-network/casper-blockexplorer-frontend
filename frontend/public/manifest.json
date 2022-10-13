@@ -1,6 +1,6 @@
 {
-  "short_name": "CSPR Block Explorer",
-  "name": "Casper Block Explorer",
+  "short_name": "Block Explorer",
+  "name": "Block Explorer",
   "icons": [
     {
       "src": "favicon.ico",
