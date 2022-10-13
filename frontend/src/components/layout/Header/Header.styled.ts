@@ -60,20 +60,20 @@ export const HeroContainer = styled.div`
 export const HeroHeading = styled(GradientHeading)`
   font-size: 2.8rem;
   font-weight: 700;
-  line-height: 2.57rem;
+  line-height: 1;
   padding-right: 1rem;
   max-width: 18rem;
 
   @media (min-width: ${breakpoints.md}) {
     font-size: 3.5rem;
-    line-height: 3.5rem;
+    line-height: 1;
     padding-right: 0.5rem;
     max-width: 34rem;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     font-size: 4.3rem;
-    line-height: 4.3rem;
+    line-height: 1;
     max-width: 42rem;
   }
 `;

@@ -13,7 +13,7 @@ export const IconH2Container = styled.div`
 export const H2 = styled.h2`
   font-size: clamp(1.5rem, 2vw, 1.7rem);
   font-weight: ${fontWeight.semiBold};
-  line-height: 1.875rem;
+  line-height: 1;
   max-width: 10.5rem;
   padding-left: 0.7rem;
 `;
@@ -50,7 +50,7 @@ export const PageLink = styled(Link)`
 export const H3 = styled.h3`
   font-weight: ${fontWeight.medium};
   font-size: clamp(0.9rem, 1.35vw, 1rem);
-  line-height: 1.188rem;
+  line-height: 1;
   padding-top: 1.45rem;
 `;
 
