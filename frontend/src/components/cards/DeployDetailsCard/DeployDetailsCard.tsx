@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Deploy } from '../../../types';
+import { Deploy } from '../../../api';
 import { Heading, InfoCard, HeadContentWrapper } from '../../base';
 import {
   GradientHeading,
@@ -9,9 +9,11 @@ import {
   DetailDataLabel,
   DetailDataWrapper,
   DetailDataValue,
+  DetailDataList,
 } from '../../styled';
 
-import { CopyToClipboard } from '../../utility';
+import { CopyToClipboard, RawData } from '../../utility';
+import { fontWeight } from '../../../styled-theme';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -20,7 +22,7 @@ export interface DeployDetailsCardProps {
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
 }) => {
-  const { deployHash, blockHash, publicKey } = deploy;
+  const { deployHash, blockHash, publicKey, rawDeploy } = deploy;
 
   return (
     <InfoCard>
@@ -31,31 +33,39 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
         </HashHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
-        <li>
-          <DetailDataLabel>Block Hash</DetailDataLabel>
-          <DetailDataValue>
-            <Link to={`/block/${blockHash}`}>
-              <Hash hash={blockHash} />
-            </Link>
-            <CopyToClipboard textToCopy={blockHash} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Public Key</DetailDataLabel>
-          <DetailDataValue>
-            <Link to={`/account/${publicKey}`}>
-              <Hash hash={publicKey} />
-            </Link>
-            <CopyToClipboard textToCopy={publicKey} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Deploy Hash</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={deployHash} />
-            <CopyToClipboard textToCopy={deployHash} />
-          </DetailDataValue>
-        </li>
+        <DetailDataList>
+          <li>
+            <DetailDataLabel>Block Hash</DetailDataLabel>
+            <DetailDataValue>
+              <Link to={`/block/${blockHash}`}>
+                <Hash hash={blockHash} />
+              </Link>
+              <CopyToClipboard textToCopy={blockHash} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Public Key</DetailDataLabel>
+            <DetailDataValue>
+              <Link to={`/account/${publicKey}`}>
+                <Hash hash={publicKey} />
+              </Link>
+              <CopyToClipboard textToCopy={publicKey} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Deploy Hash</DetailDataLabel>
+            <DetailDataValue>
+              <Hash hash={deployHash} />
+              <CopyToClipboard textToCopy={deployHash} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataValue>
+              <RawData rawData={rawDeploy} />
+            </DetailDataValue>
+          </li>
+        </DetailDataList>
       </DetailDataWrapper>
     </InfoCard>
   );
@@ -63,10 +73,10 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
 
 const DeployHeading = styled(Heading)`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   margin-bottom: 1rem;
 `;
 
 const HashHeading = styled(GradientHeading)`
-  font-weight: 800;
+  font-weight: ${fontWeight.extraBold};
 `;

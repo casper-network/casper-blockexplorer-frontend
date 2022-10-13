@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
-import { Block } from '../types';
+import { casperApi, Block } from '../api';
 import { useAppWidth } from '../hooks';
-
 import {
   BlockDetailsCard,
   MobileBlockDetailsCard,
   PageError,
   PageWrapper,
 } from '../components';
-import { casperApi } from '../api';
 
 const useQuery = () => {
   const { search } = useLocation();

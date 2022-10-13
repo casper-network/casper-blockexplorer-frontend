@@ -1,4 +1,4 @@
-import { Block } from 'src/types';
+import { Block } from '../api';
 
 export const mockBlock: Block = {
   height: 1,

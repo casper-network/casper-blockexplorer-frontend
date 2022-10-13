@@ -3,14 +3,16 @@ import {
   CasperServiceByJsonRPC,
   CLPublicKey,
 } from 'casper-js-sdk';
-import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from '../types';
+import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from './types';
 import { formatDate, formatTimeAgo } from '../utils';
 import { ApiError } from './api-error';
 import {
   JsonBlockWithBody,
   JsonDeployPayment,
   GetStatusResultExtended,
+  JsonDeploySession,
 } from './missing-sdk-types';
+import { determineDeploySessionData } from './utils';
 
 export const DEFAULT_NUM_TO_SHOW = 10;
 export class RpcApi {
@@ -133,6 +135,13 @@ export class RpcApi {
           ? DeployStatus.Success
           : DeployStatus.Failed;
 
+        const deploySession = deploy.session as JsonDeploySession;
+
+        const { action, deployType, amount } = determineDeploySessionData(
+          deploySession,
+          status,
+        );
+
         const cost = executionResult.Success
           ? executionResult.Success.cost
           : executionResult.Failure?.cost ?? 0;
@@ -149,6 +158,9 @@ export class RpcApi {
           deployHash,
           blockHash,
           publicKey,
+          action,
+          deployType,
+          amount,
           paymentAmount,
           cost: cost.toString(),
           status,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Block } from '../../../types';
+import { Block } from '../../../api';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, RefreshTimer } from '../../utility';
 import { Table } from '../../base';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Peer } from '../../../types';
+import { Peer } from '../../../api';
 import { Table } from '../../base';
 
 interface PeerTableProps {

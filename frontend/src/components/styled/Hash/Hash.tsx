@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { MOBILE_BREAKPOINT } from '../../../constants';
-import { useAppSelector, getBounds } from '../../../store';
+import { fonts } from '../../../styled-theme';
 import { truncateHash } from '../../../utils';
+import { useAppWidth } from '../../../hooks';
 
 interface HashProps {
   readonly hash: string;
@@ -10,11 +10,9 @@ interface HashProps {
 }
 
 export const Hash: React.FC<HashProps> = ({ hash, alwaysTruncate }) => {
-  const bounds = useAppSelector(getBounds);
+  const { isMobile } = useAppWidth();
 
-  const isMobileScreen = bounds && bounds.width < MOBILE_BREAKPOINT;
-
-  if (alwaysTruncate || isMobileScreen) {
+  if (alwaysTruncate || isMobile) {
     return <StyledHash>{truncateHash(hash)}</StyledHash>;
   }
 
@@ -22,5 +20,5 @@ export const Hash: React.FC<HashProps> = ({ hash, alwaysTruncate }) => {
 };
 
 export const StyledHash = styled.span`
-  font-family: 'JetBrains Mono', monospace;
+  font-family: ${fonts.jetBrains};
 `;

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { casperApi } from '../../api';
-import { NetworkStatus } from '../../types';
+import { casperApi, NetworkStatus } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface NetworkState {

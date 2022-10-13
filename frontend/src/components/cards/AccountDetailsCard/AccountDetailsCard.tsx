@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { AVATAR_URL } from '../../../utils';
+import { AVATAR_URL } from '../../../constants';
 
-import { Account } from '../../../types';
+import { Account } from '../../../api';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   GradientHeading,
@@ -11,13 +11,15 @@ import {
   DetailDataWrapper,
   DetailDataLabel,
   DetailDataValue,
+  DetailDataList,
 } from '../../styled';
 
-import { CopyToClipboard, RawData } from '../../utility';
+import { Coin, CopyToClipboard, RawData } from '../../utility';
+import { fontWeight } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account;
-  balance?: string;
+  balance: string;
 }
 
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
@@ -39,30 +41,34 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </HashHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
-        <li>
-          <DetailDataLabel>Account Hash</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={trimmedAccountHash} />
-            <CopyToClipboard textToCopy={trimmedAccountHash} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Public Key</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={publicKey} />
-            <CopyToClipboard textToCopy={publicKey} />
-          </DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Balance</DetailDataLabel>
-          <DetailDataValue>{balance} Motes</DetailDataValue>
-        </li>
-        <li>
-          <DetailDataLabel>Raw Data</DetailDataLabel>
-          <DetailDataValue>
-            <RawData rawData={rawAccount} />
-          </DetailDataValue>
-        </li>
+        <DetailDataList gap="1.75rem">
+          <li>
+            <DetailDataLabel>Account Hash</DetailDataLabel>
+            <DetailDataValue>
+              <Hash hash={trimmedAccountHash} />
+              <CopyToClipboard textToCopy={trimmedAccountHash} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Public Key</DetailDataLabel>
+            <DetailDataValue>
+              <Hash hash={publicKey} />
+              <CopyToClipboard textToCopy={publicKey} />
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Balance</DetailDataLabel>
+            <DetailDataValue>
+              <Coin>{balance}</Coin>
+            </DetailDataValue>
+          </li>
+          <li>
+            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataValue>
+              <RawData rawData={rawAccount} />
+            </DetailDataValue>
+          </li>
+        </DetailDataList>
       </DetailDataWrapper>
     </InfoCard>
   );
@@ -70,11 +76,11 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
 const AccountHeading = styled(Heading)`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   margin-bottom: 1rem;
 `;
 
 const HashHeading = styled(GradientHeading)`
-  font-weight: 800;
+  font-weight: ${fontWeight.extraBold};
   display: inline;
 `;

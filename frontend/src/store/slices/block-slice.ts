@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { formatTimeAgo } from '../../utils';
-import { casperApi, DEFAULT_NUM_TO_SHOW } from '../../api';
-import { Block } from '../../types';
+import { casperApi, DEFAULT_NUM_TO_SHOW, Block } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface BlockState {

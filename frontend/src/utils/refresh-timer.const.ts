@@ -1,1 +1,0 @@
-export const REFRESH_TIMER_SECONDS = 30;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RectReadOnly } from 'react-use-measure';
-import { REFRESH_TIMER_SECONDS } from '../../utils';
+import { REFRESH_TIMER_SECONDS } from '../../constants';
 
 export interface AppState {
   bounds?: RectReadOnly;

@@ -41,6 +41,9 @@ export type Deploy = {
   blockHash: string;
   publicKey: string;
   status: DeployStatus;
+  amount?: string;
+  action: string;
+  deployType?: string;
   paymentAmount: string;
   cost: string;
   rawDeploy: string;

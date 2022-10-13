@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
-import { Account } from '../types';
+import { casperApi, Account } from '../api';
 import { AccountDetailsCard, PageError, PageWrapper } from '../components';
-import { casperApi } from '../api';
 
 export const AccountPage: React.FC = () => {
   const { id: accountHash } = useParams();
