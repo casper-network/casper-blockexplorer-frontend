@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { Control, Controller } from 'react-hook-form';
 import Select from 'react-select';
-import { FormValues, SelectOptions } from '../Header.types';
+import { FormValues, SelectOptions } from './partials.types';
 
 interface MobileSelectProps {
   readonly control: Control<FormValues, any>;

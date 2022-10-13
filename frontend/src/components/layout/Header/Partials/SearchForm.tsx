@@ -7,19 +7,12 @@ import { ButtonIcon } from '../../../icons';
 
 import { useAppSelector, getBounds } from '../../../../store';
 
-import { MobileSelect, DesktopSelect } from './SelectComponent';
+import { MobileSelect, DesktopSelect } from './SearchSelect';
 
 import { MOBILE_BREAKPOINT } from '../../../../constants';
-import { SelectOptions } from '../Header.types';
+import { SelectOptions, FormValues } from './partials.types';
 
 interface SearchFormProps {}
-
-export type FormValues = {
-  hash: string;
-  filterOptions: string;
-  path: string;
-  blockHeight: string | number;
-};
 
 const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
