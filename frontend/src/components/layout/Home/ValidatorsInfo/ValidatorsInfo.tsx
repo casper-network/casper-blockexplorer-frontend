@@ -8,9 +8,9 @@ import {
   H3,
   H3Data,
   DataContext,
-} from './HomeComponents.styled';
-import { breakpoints } from '../../styled-theme';
-import { ValidatorsIcon } from '../../components/icons';
+} from '../HomeComponents.styled';
+import { breakpoints } from '../../../../styled-theme';
+import { ValidatorsIcon } from '../../../icons';
 
 export const ValidatorsInfo: React.FC = () => (
   <ValidatorsInfoDisplay>

@@ -7,31 +7,31 @@ import {
   PageLink,
   H3,
   H3Data,
-} from './HomeComponents.styled';
-import { breakpoints } from '../../styled-theme';
-import { PeersIcon } from '../../components/icons';
+  DataContext,
+} from '../HomeComponents.styled';
+import { breakpoints } from '../../../../styled-theme';
+import { DeploysIcon } from '../../../icons';
 
-interface PeersInfoProps {
-  readonly currentPeers: string;
-}
-
-export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => (
-  <PeersInfoDisplay>
-    <PeersHeader>
+export const DeploysInfo: React.FC = () => (
+  <DeploysInfoDisplay>
+    <DeploysHeader>
       <IconH2Container>
-        <PeersIcon />
-        <H2>Peers</H2>
+        <DeploysIcon />
+        <H2>Deploys</H2>
       </IconH2Container>
-      <PageLink to="/peers">View all</PageLink>
-    </PeersHeader>
-    <PeersDetails>
-      <H3>Currently online</H3>
-      <H3Data>{currentPeers}</H3Data>
-    </PeersDetails>
-  </PeersInfoDisplay>
+      <PageLink to="/deploys">View all</PageLink>
+    </DeploysHeader>
+    <DeployDetails>
+      <H3>Total Deploys</H3>
+      <H3Data>n/a</H3Data>
+      <DataContext>n/a</DataContext>
+      <H3>Today</H3>
+      <H3Data>n/a</H3Data>
+    </DeployDetails>
+  </DeploysInfoDisplay>
 );
 
-const PeersInfoDisplay = styled.section`
+const DeploysInfoDisplay = styled.section`
   box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
   background: #ffffff;
@@ -51,7 +51,7 @@ const PeersInfoDisplay = styled.section`
   }
 `;
 
-const PeersHeader = styled.header`
+const DeploysHeader = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -59,7 +59,7 @@ const PeersHeader = styled.header`
   padding: 1.15rem 2rem;
 `;
 
-const PeersDetails = styled.section`
+const DeployDetails = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: start;

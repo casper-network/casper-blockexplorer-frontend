@@ -8,9 +8,9 @@ import {
   H3,
   H3Data,
   DataContext,
-} from './HomeComponents.styled';
-import { breakpoints } from '../../styled-theme';
-import { BlocksIcon } from '../../components/icons';
+} from '../HomeComponents.styled';
+import { breakpoints } from '../../../../styled-theme';
+import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
   readonly blockHeight: string;

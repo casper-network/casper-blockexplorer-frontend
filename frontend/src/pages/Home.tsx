@@ -7,7 +7,7 @@ import {
   DeploysInfo,
   ValidatorsInfo,
   PeersInfo,
-} from './HomeComponents/index';
+} from '../components/layout/Home/index';
 
 import { PageWrapper } from '../components';
 

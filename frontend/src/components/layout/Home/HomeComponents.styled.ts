@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
-import { fontWeight } from '../../styled-theme';
+import { fontWeight } from '../../../styled-theme';
 
 export const IconH2Container = styled.div`
   display: flex;
