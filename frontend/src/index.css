@@ -5,6 +5,7 @@ body {
   margin: 0;
   height: 100%;
   font-family: 'Inter', sans-serif;
+  background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
