@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { breakpoints } from 'src/styled-theme';
 
 export const FormContainer = styled.div`
   display: flex;
@@ -7,7 +8,7 @@ export const FormContainer = styled.div`
   padding-bottom: 2.7rem;
   margin: 0 auto;
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     padding: 5rem 0rem 8.5rem 0rem;
     width: 100%;
   }
@@ -16,12 +17,12 @@ export const FormContainer = styled.div`
 export const Form = styled.form`
   width: 92%;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.md}) {
     width: 63%;
     min-width: 40rem;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     min-width: 42.4rem;
     width: 100%;
     max-width: 48rem;
@@ -29,7 +30,7 @@ export const Form = styled.form`
 `;
 
 export const FormComponentsContainer = styled.div`
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     display: flex;
     width: 100%;
   }
@@ -42,7 +43,7 @@ export const InputAndButtonContainer = styled.div`
   margin: 0 auto;
   width: 91%;
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     padding-top: 0;
     width: 100%;
   }
@@ -69,7 +70,7 @@ export const SearchInput = styled.input`
     outline-offset: 2px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     height: 3.2rem;
     border-radius: 0;
   }
@@ -93,7 +94,7 @@ export const SubmitButton = styled.button`
     outline-offset: 2px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     height: 3.2rem;
     width: 3.9rem;
   }

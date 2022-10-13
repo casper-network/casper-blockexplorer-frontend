@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
+import { fontWeight } from '../../styled-theme';
 
 export const IconH2Container = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ export const IconH2Container = styled.div`
 
 export const H2 = styled.h2`
   font-size: clamp(1.5rem, 2vw, 1.7rem);
-  font-weight: 600;
+  font-weight: ${fontWeight.semiBold};
   line-height: 1.875rem;
   max-width: 10.5rem;
   padding-left: 0.7rem;
@@ -21,7 +22,7 @@ export const PageLink = styled(Link)`
   color: #0325d1;
   font-size: clamp(0.67rem, 1.25vw, 1rem);
   text-align: right;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   min-width: 3.5rem;
   text-decoration: none;
 
@@ -37,6 +38,7 @@ export const PageLink = styled(Link)`
       #fd6b52
     );
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -46,7 +48,7 @@ export const PageLink = styled(Link)`
 `;
 
 export const H3 = styled.h3`
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   font-size: clamp(0.9rem, 1.35vw, 1rem);
   line-height: 1.188rem;
   padding-top: 1.45rem;
@@ -54,13 +56,13 @@ export const H3 = styled.h3`
 
 export const H3Data = styled.p`
   color: #0325d1;
-  font-weight: 800;
+  font-weight: ${fontWeight.extraBold};
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   padding: 0.55rem 0 0.2rem 0;
 `;
 
 export const DataContext = styled.p`
   color: #7f8095;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
   font-size: clamp(0.9rem, 1.25vw, 1rem);
 `;

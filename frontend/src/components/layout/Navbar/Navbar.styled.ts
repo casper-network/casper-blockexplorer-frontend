@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { breakpoints } from '../../../styled-theme';
 
 export const Nav = styled.nav`
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     width: 25%;
   }
 `;
@@ -25,7 +26,7 @@ export const NavButton = styled.button`
   width: 90%;
   border-style: none;
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     display: none;
   }
 `;
@@ -35,7 +36,7 @@ export const NavItemsContainer = styled.div`
 `;
 
 export const MobileNav = styled.nav`
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     display: none;
   }
 `;
@@ -74,7 +75,7 @@ export const MobileNavItemLink = styled(Link)`
 export const DesktopNav = styled.nav`
   display: none;
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${breakpoints.lg}) {
     display: flex;
   }
 `;
@@ -104,6 +105,7 @@ export const DesktopNavItemLink = styled(Link)`
       #fd6b52
     );
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
