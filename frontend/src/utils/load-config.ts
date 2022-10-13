@@ -1,4 +1,11 @@
-export const loadConfig = () => {
+export interface AppConfig {
+  isProduction: boolean;
+  middlewareUrl: string;
+  orgName: string;
+  orgLogoUrl?: string;
+}
+
+export const loadConfig: () => AppConfig = () => {
   const {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: middlewareUrl,
