@@ -7,10 +7,6 @@ export const IconH2Container = styled.div`
   justify-content: start;
   align-items: center;
   width: 84%;
-
-  @media (min-width: 1024px) {
-    max-width: 12.7rem;
-  }
 `;
 
 export const H2 = styled.h2`
@@ -28,6 +24,7 @@ export const PageLink = styled(Link)`
   font-weight: 500;
   min-width: 3.5rem;
   text-decoration: none;
+
   :hover,
   :focus {
     background-color: #0325d1;
@@ -52,7 +49,7 @@ export const H3 = styled.h3`
   font-weight: 500;
   font-size: clamp(0.9rem, 1.35vw, 1rem);
   line-height: 1.188rem;
-  padding: 1.45rem 0 0 0;
+  padding-top: 1.45rem;
 `;
 
 export const H3Data = styled.p`

@@ -97,13 +97,13 @@ export const FormContainer = styled.div`
 
   @media (min-width: 1024px) {
     padding: 5rem 0rem 8.5rem 0rem;
-    /* padding-left: 4rem; */
     width: 100%;
   }
 `;
 
 export const Form = styled.form`
   width: 92%;
+
   @media (min-width: 768px) {
     width: 63%;
     min-width: 40rem;
@@ -150,6 +150,7 @@ export const SearchInput = styled.input`
   box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.2);
   border-style: none;
   appearance: none;
+
   :hover,
   :focus {
     outline: 2px solid transparent;
@@ -173,6 +174,7 @@ export const SubmitButton = styled.button`
   position: relative;
   right: 0.0625rem;
   border-style: none;
+
   :hover,
   :focus {
     outline: 2px solid transparent;

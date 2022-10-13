@@ -26,6 +26,7 @@ export const LogoLink = styled(Link)`
   flex-direction: row;
   align-items: center;
   text-decoration-line: none;
+
   :hover,
   :focus {
     text-decoration-line: none;
@@ -106,6 +107,7 @@ export const MobileNavItemLink = styled(Link)`
   width: 100%;
   font-weight: 500;
   letter-spacing: 0.025em;
+
   :hover {
     transition: color ease-in 200ms;
     color: #d51e4a;
@@ -134,6 +136,7 @@ export const DesktopNavItemLink = styled(Link)`
   font-weight: 500;
   text-decoration: none;
   width: 100%;
+
   :hover,
   :focus {
     background-color: #0325d1;
