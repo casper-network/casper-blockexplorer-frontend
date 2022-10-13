@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { SearchForm } from './Partials';
+import { Navbar } from '../Navbar/Navbar';
 
 import {
   HeaderComponent,
@@ -19,6 +20,7 @@ export const Header: React.FC = () => {
         <LogoLink to="/">
           <BlueLogo />
         </LogoLink>
+        <Navbar />
       </HeaderComponentsContainer>
       <HeroContainer>
         <HeroHeading type="h1">Discover the Casper Blockchain.</HeroHeading>
