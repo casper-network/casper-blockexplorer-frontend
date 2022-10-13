@@ -5,11 +5,13 @@ export const mockLoadConfig: () => AppConfig = () => {
   const middlewareUrl = 'https://example.com:4000/rpc';
   const orgName = 'Casper';
   const orgLogoUrl = undefined;
+  const disableLogo = false;
 
   return {
     isProduction,
     middlewareUrl,
     orgName,
     orgLogoUrl,
+    disableLogo,
   };
 };

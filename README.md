@@ -20,6 +20,7 @@ And if so desired, change the application brand name and brand logo by adding:
 ```
 ORG_NAME=your org name
 ORG_LOGO_URL=https://example.com/your-org-logo
+DISABLE_LOGO=false // disable default casper logo
 ```
 
 2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes. (HMR and debug modes will be enabled)
