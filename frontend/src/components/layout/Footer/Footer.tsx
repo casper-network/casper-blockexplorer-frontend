@@ -1,7 +1,8 @@
 import React from 'react';
+import { loadConfig } from '../../../utils';
 import { useAppSelector, getNetworkStatus } from '../../../store';
 
-const orgName = process.env.ORG_NAME || 'Casper';
+const { orgName } = loadConfig();
 
 export const Footer: React.FC = () => {
   const { version, build, networkName } = useAppSelector(getNetworkStatus);

@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Resolver, Controller } from 'react-hook-form';
 import Select from 'react-select';
 
+import { loadConfig } from '../../../utils';
 import { MOBILE_BREAKPOINT } from '../../../constants';
 import { useAppSelector, getBounds } from '../../../store';
 
@@ -11,8 +12,7 @@ import { ReactComponent as OpenMenuIcon } from '../../../assets/icons/open-menu-
 import { ReactComponent as CloseMenuIcon } from '../../../assets/icons/close-menu-icon.svg';
 import { ReactComponent as ButtonIcon } from '../../../assets/icons/button-icon.svg';
 
-const orgName = process.env.ORG_NAME || 'Casper';
-const orgLogo = process.env.ORG_LOGO_URL;
+const { orgLogoUrl, orgName } = loadConfig();
 
 type FormValues = {
   hash: string;
@@ -242,7 +242,7 @@ export const Header: React.FC = () => {
             <div className="flex flex-row items-center">
               <img
                 className="h-40 xxs:h-50"
-                src={orgLogo || logo}
+                src={orgLogoUrl || logo}
                 alt={`${orgName} Logo`}
               />
               <p className="text-white text-18 xs:text-20 sm:text-24 md:text-26 pl-10 lg:pl-12 font-bold w-20ch">
