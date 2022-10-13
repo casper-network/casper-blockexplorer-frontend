@@ -17,7 +17,7 @@ interface FormProps {
   readonly handleSubmit: UseFormHandleSubmit<FormValues>;
   readonly submitPath: SubmitHandler<FormValues>;
   readonly register: UseFormRegister<FormValues>;
-  readonly errors: any /* this needs some love */;
+  readonly errors: any;
   readonly windowWidth: number;
   readonly control: any /* this as well */;
   readonly selectOptions: SelectOptions[];
