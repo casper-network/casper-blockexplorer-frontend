@@ -1,13 +1,9 @@
 import React from 'react';
-
 import { Control, Controller } from 'react-hook-form';
 import Select from 'react-select';
+
 import { FormValues, SelectOptions } from '../partials.types';
-
-import { useAppSelector, getBounds } from '../../../../../store';
-
-import { MOBILE_BREAKPOINT } from '../../../../../constants';
-
+import { useAppWidth } from '../../../../../hooks';
 import {
   MobileSelectButton,
   MobileSelectContainer,
@@ -24,8 +20,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   currentFilterOption,
   setCurrentFilterOption,
 }) => {
-  const bounds = useAppSelector(getBounds);
-  const windowWidth = bounds?.width || 0;
+  const { isMobile } = useAppWidth();
 
   const selectOptions: SelectOptions[] = [
     { value: 'account', label: 'Account' },
@@ -47,7 +42,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
           setCurrentFilterOption(selectedOption?.value!);
         };
 
-        return windowWidth > MOBILE_BREAKPOINT ? (
+        return !isMobile ? (
           <Select
             defaultValue={selectOptions[0]}
             value={currentSelection}
