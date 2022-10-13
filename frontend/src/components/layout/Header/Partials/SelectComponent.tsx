@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { Control, Controller, FieldValues } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import Select from 'react-select';
-import { SelectOptions } from '../Header.types';
+import { FormValues, SelectOptions } from '../Header.types';
 
 interface MobileSelectProps {
-  readonly control: Control<FieldValues, any>;
+  readonly control: Control<FormValues, any>;
   readonly selectOptions: SelectOptions[];
   readonly currentFilterOption: string;
   readonly setCurrentFilterOption: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface DesktopSelectProps {
-  readonly control: Control<FieldValues, any>;
+  readonly control: Control<FormValues, any>;
   readonly selectOptions: SelectOptions[];
   readonly setCurrentFilterOption: React.Dispatch<React.SetStateAction<string>>;
 }

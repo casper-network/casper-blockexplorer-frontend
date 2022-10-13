@@ -12,7 +12,6 @@ export const HeaderComponentsContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  max-width: 112.5rem;
   padding: 1.75rem 1.7rem 1.75rem 2.17rem;
 
   @media (min-width: 1024px) {
@@ -47,8 +46,7 @@ export const BlueCasperLogo = styled.img`
 
 export const Nav = styled.nav`
   @media (min-width: 1024px) {
-    width: 42%;
-    max-width: 29.7rem;
+    width: 25%;
   }
 `;
 
@@ -135,7 +133,6 @@ export const DesktopNavItemLink = styled(Link)`
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;
   text-decoration: none;
-  width: 100%;
 
   :hover,
   :focus {
