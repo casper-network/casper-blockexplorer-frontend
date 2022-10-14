@@ -13,7 +13,7 @@ export const HeaderComponentsContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 1.75rem 1.7rem 1.75rem 2.17rem;
+  padding: 1.75rem 1.7rem 0rem 2.17rem;
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: space-between;
