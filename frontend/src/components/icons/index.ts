@@ -7,3 +7,4 @@ export { ReactComponent as BlocksIcon } from '../../assets/icons/blocks-icon.svg
 export { ReactComponent as DeploysIcon } from '../../assets/icons/deploys-icon.svg';
 export { ReactComponent as PeersIcon } from '../../assets/icons/peers-icon.svg';
 export { ReactComponent as ValidatorsIcon } from '../../assets/icons/validators-icon.svg';
+export { ReactComponent as ErrorIcon } from '../../assets/icons/error-icon.svg';
