@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { FormValues, SelectOptions } from '../partials.types';
 import { useAppWidth } from '../../../../../hooks';
 import {
+  CustomSelect,
   MobileSelectButton,
   MobileSelectContainer,
 } from './SearchSelect.styled';
@@ -43,17 +44,30 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
         };
 
         return !isMobile ? (
-          <Select
-            defaultValue={selectOptions[0]}
-            value={currentSelection}
-            name={name}
-            options={selectOptions}
-            onChange={handleSelectChange}
-            isSearchable={false}
-            noOptionsMessage={() => null}
-            className="custom-select"
-            classNamePrefix="react-select"
-          />
+          <div>
+            {/* <Select
+              defaultValue={selectOptions[0]}
+              value={currentSelection}
+              name={name}
+              options={selectOptions}
+              onChange={handleSelectChange}
+              isSearchable={false}
+              noOptionsMessage={() => null}
+              className="custom-select"
+              classNamePrefix="react-select"
+            /> */}
+            <CustomSelect
+              defaultValue={selectOptions[0]}
+              value={currentSelection}
+              name={name}
+              options={selectOptions}
+              // onChange={handleSelectChange}
+              isSearchable={false}
+              noOptionsMessage={() => null}
+              className="custom-select"
+              classNamePrefix="react-select"
+            />
+          </div>
         ) : (
           <MobileSelectContainer>
             {selectOptions.map(option => {
