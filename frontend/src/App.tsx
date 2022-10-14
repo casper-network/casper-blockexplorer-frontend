@@ -2,7 +2,7 @@ import React, { StrictMode, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
-import { DemoHeader, Footer } from './components';
+import { Header } from './components';
 import {
   AccountPage,
   BlockPage,
@@ -32,7 +32,7 @@ const App = () => {
         ref={ref}
         className="bg-light-grey grid min-h-screen grid-rows-layout">
         <BrowserRouter>
-          <DemoHeader />
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/peers" element={<Peers />} />
@@ -43,7 +43,6 @@ const App = () => {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
-        <Footer />
       </div>
     </StrictMode>
   );

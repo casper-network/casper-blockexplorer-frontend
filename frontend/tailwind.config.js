@@ -50,6 +50,8 @@ const colors = {
   //Theme Colors
   'casper-blue': '#03105B',
   'casper-red': '#da2f54',
+  'casper-white': '#F5F5F5',
+  'cobalt-blue': '#0325D1',
   'light-red': 'rgba(255, 0, 19, 0.125)',
   'dark-red': '#BF000E',
   'green': '#09A129',
@@ -80,6 +82,7 @@ const screens = {
 
 const fontFamily = {
   gelion: ['Gelion', 'sans-serif'],
+  inter: ['Inter', 'sans-serif'],
 };
 
 const fontSize = {

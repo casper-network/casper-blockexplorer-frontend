@@ -3,3 +3,7 @@ export { ReactComponent as CloseMenuIcon } from '../../assets/icons/close-menu-i
 export { ReactComponent as FailureIcon } from '../../assets/icons/failure.svg';
 export { ReactComponent as OpenMenuIcon } from '../../assets/icons/open-menu-icon.svg';
 export { ReactComponent as SuccessIcon } from '../../assets/icons/success.svg';
+export { ReactComponent as BlocksIcon } from '../../assets/icons/blocks-icon.svg';
+export { ReactComponent as DeploysIcon } from '../../assets/icons/deploys-icon.svg';
+export { ReactComponent as PeersIcon } from '../../assets/icons/peers-icon.svg';
+export { ReactComponent as ValidatorsIcon } from '../../assets/icons/validators-icon.svg';

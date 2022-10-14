@@ -21,7 +21,7 @@ const BaseContentWrapper: React.FC<BaseContentWrapperProps> = ({
   children,
 }) => {
   return (
-    <main className="w-full max-w-1600 mx-auto bg-light-grey py-24">
+    <main className="w-full max-w-1800 mx-auto bg-[#fff] py-24">
       <div className="w-full h-full px-24 md:px-32 xl:px-48">{children}</div>
     </main>
   );

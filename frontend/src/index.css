@@ -5,6 +5,7 @@ body {
   margin: 0;
   height: 100%;
   font-family: 'Inter', sans-serif;
+  background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -113,133 +114,99 @@ a:hover {
 }
 
 /* react-select */
-
-.custom-select .react-select-container {
-  background-color: transparent;
+.custom-select {
+  background-color: #fff;
+  height: 3.2rem;
+  border-radius: 0.375rem;
 }
 
 .custom-select .react-select__control {
-  background-color: transparent;
-  display: flex;
-  width: 9.4rem;
-  position: relative;
-  left: 1rem;
+  width: 11rem;
   box-shadow: none;
   border: none;
 }
 
 .custom-select .react-select__value-container {
-  height: 2.375rem;
-  background-color: #d5294a;
-  padding: 0.3rem 0.5rem;
+  height: 3.2rem;
+  background-color: white;
+  padding: 0.7rem 0rem 0.7rem 0rem;
   margin: 0;
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 0.375rem 0 0 0.375rem;
+  box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.3);
+  position: relative;
+}
+
+.custom-select .react-select__indicators {
+  display: block;
+  position: absolute;
+  top: 0.5rem;
+  left: 7.938rem;
+  padding: 0;
 }
 
 .custom-select .react-select__value-container:hover {
   cursor: pointer;
 }
 
-.custom-select .react-select__value-container--has-value:focus {
-  border: none;
-}
-
 .custom-select .react-select__single-value {
-  color: white;
-}
-
-.custom-select .react-select__indicators {
-  height: 2.375rem;
-  background-color: #d5294a;
-  padding: 0px;
+  color: black;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.2vw, 1.4rem);
+  text-align: left;
+  padding-right: 1.5rem;
+  padding-left: 1rem;
+  padding-bottom: 0.05rem;
   margin: 0;
 }
 
-.custom-select .react-select__input-container {
-  color: white;
-}
-
-.custom-select .react-select__placeholder {
-  color: white;
-}
-
-.custom-select .react-select__indicator-separator {
-  background-color: white;
-}
-
-.custom-select .react-select__indicator-separator:hover {
-  cursor: pointer;
+.css-tj5bde-Svg {
+  color: black;
+  width: 25px;
 }
 
 .custom-select .react-select__indicator {
-  color: white;
-}
-
-.custom-select .react-select__indicator:hover {
-  color: white;
-  cursor: pointer;
+  display: block;
+  color: black;
+  width: 5px;
+  padding: 0.5rem 0.4rem 0.5rem 0;
 }
 
 .custom-select .react-select__menu-list {
-  color: white;
+  color: black;
+  font-size: clamp(1rem, 1.2vw, 1.4rem);
   padding: 0;
   margin: 0;
-  width: 7.8rem;
-  background-color: #d5294a;
-  border-radius: 0.5rem;
-}
-
-.custom-select .react-select-control {
-  width: 9.4rem;
-  border: none;
-}
-
-.custom-select .react-select-control--is-focused {
-  border: none;
+  border-radius: 0.375rem;
 }
 
 .custom-select .react-select__menu {
   color: white;
-  background-color: transparent;
-  border-radius: 0.5rem;
-  width: 7.9rem;
-  left: 1rem;
-}
-
-.custom-select .react-select-option {
-  background-color: transparent;
-}
-
-.custom-select .react-select__option--is-focused {
-  background-color: transparent;
+  background-color: #fff;
+  border-radius: 0.375rem;
+  width: 10.9rem;
 }
 
 .custom-select .react-select__option:hover,
 .custom-select .react-select__option:focus {
-  transition: ease-in;
-  color: white;
-  transition-duration: 200ms;
-  transition-property: font-weight;
-  font-weight: bolder;
+  color: black;
+  transition-property: font-weight, color, 200ms, ease-in;
+  background-image: linear-gradient(
+    90deg,
+    #1c1e90,
+    #693590,
+    #d81d54,
+    #d81e54,
+    #fd6b52
+  );
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  font-weight: 700;
   background-color: transparent;
 }
 
 .custom-select .react-select__option--is-selected {
-  background-color: #d5294a;
-}
-
-@media (max-width: 420px) {
-  .custom-select .react-select__indicator-separator {
-    display: none;
-  }
-  .custom-select .react-select__control {
-    width: 7.6rem;
-  }
-  .custom-select .react-select__value-container {
-    text-align: center;
-    padding: 0.3rem 0px;
-  }
-  .custom-select .react-select__dropdown-indicator {
-    padding: 0.1rem;
-  }
+  background-color: #0721cb;
 }
