@@ -23,7 +23,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 }) => {
   const { isMobile } = useAppWidth();
 
-  const selectOptions: readonly SelectOptions[] | null = [
+  const selectOptions: SelectOptions[] | null = [
     { value: 'account', label: 'Account' },
     { value: 'deploy', label: 'Deploy' },
     { value: 'block', label: 'Block Hash' },
