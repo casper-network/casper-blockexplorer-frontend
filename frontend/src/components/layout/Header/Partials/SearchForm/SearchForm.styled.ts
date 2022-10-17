@@ -4,7 +4,7 @@ import { breakpoints } from 'src/styled-theme';
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 3.55rem;
+  padding-top: 2.6rem;
   padding-bottom: 2.7rem;
   margin: 0 auto;
   position: relative;

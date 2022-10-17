@@ -48,7 +48,7 @@ export const BlueCasperLogo = styled.img`
 export const HeroContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 0.25rem;
+  padding-top: 2rem;
 
   @media (min-width: ${breakpoints.lg}) {
     padding: 8rem 6rem 0rem 0rem;
