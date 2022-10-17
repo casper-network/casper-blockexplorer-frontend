@@ -47,12 +47,12 @@ export const SelectWrapper = styled.div`
   .react-select__single-value {
     color: black;
     font-weight: 500;
-    font-size: clamp(1rem, 1.1vw, 1.2rem);
+    font-size: clamp(1rem, 1vw, 1.1rem);
     text-align: left;
-    padding-right: 1.5rem;
+    padding-right: 2.3rem;
     padding-left: 1rem;
     padding-bottom: 0.05rem;
-    margin: 0;
+    margin: 0 auto;
   }
 
   .react-select__dropdown-indicator svg {

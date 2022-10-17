@@ -53,7 +53,6 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
               onChange={handleSelectChange}
               isSearchable={false}
               noOptionsMessage={() => null}
-              className="custom-select"
               classNamePrefix="react-select"
             />
           </SelectWrapper>
