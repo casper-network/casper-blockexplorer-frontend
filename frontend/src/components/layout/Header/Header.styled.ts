@@ -13,7 +13,7 @@ export const HeaderComponentsContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 1.75rem 1.7rem 1.75rem 2.17rem;
+  padding: 1.75rem 1.7rem 0rem 2.17rem;
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: space-between;
@@ -48,7 +48,7 @@ export const BlueCasperLogo = styled.img`
 export const HeroContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 0.25rem;
+  padding-top: 2rem;
 
   @media (min-width: ${breakpoints.lg}) {
     padding: 8rem 6rem 0rem 0rem;

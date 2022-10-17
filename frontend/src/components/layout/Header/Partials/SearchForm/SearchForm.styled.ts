@@ -4,9 +4,10 @@ import { breakpoints } from 'src/styled-theme';
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 3.55rem;
+  padding-top: 2.6rem;
   padding-bottom: 2.7rem;
   margin: 0 auto;
+  position: relative;
 
   @media (min-width: ${breakpoints.lg}) {
     padding: 5rem 0rem 8.5rem 0rem;
@@ -104,24 +105,22 @@ export const ErrorMessageContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 0 0.3125rem;
-  position: relative;
-  margin: 0 auto;
+  padding: 1rem 0;
+  position: absolute;
+  right: 0;
+  left: 0;
 `;
 
 export const ErrorSvgContainer = styled.div`
-  height: 1.875rem;
-  width: 1.25rem;
+  height: 1.55rem;
+  width: 1.55rem;
   stroke: #da2f54;
   stroke-width: 2;
   fill: #fff;
-  padding-top: 0.75rem;
-  position: absolute;
 `;
 
 export const ErrorMessage = styled.p`
   color: #da2f54;
-  font-size: clamp(0.9rem, 1.3vw, 1.4rem);
-  padding-top: 2rem;
-  position: absolute;
+  font-size: 0.9rem;
+  padding-top: 0.1rem;
 `;
