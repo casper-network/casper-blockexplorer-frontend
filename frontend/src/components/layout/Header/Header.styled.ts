@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { GradientHeading } from 'src/components/styled';
 import { breakpoints } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
@@ -56,26 +57,12 @@ export const HeroContainer = styled.div`
   }
 `;
 
-export const HeroHeading = styled.div`
+export const HeroHeading = styled(GradientHeading)`
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 1;
   padding-right: 1rem;
   max-width: 18rem;
-  background: linear-gradient(
-    95.02deg,
-    #1c1e90 0.62%,
-    #693590 48.99%,
-    #d81d54 70.51%,
-    #d81e54 70.85%,
-    #fd6b52 116.85%
-  );
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  background-color: transparent;
 
   @media (min-width: ${breakpoints.md}) {
     font-size: 3.5rem;

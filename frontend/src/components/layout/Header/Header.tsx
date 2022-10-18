@@ -23,7 +23,7 @@ export const Header: React.FC = () => {
         <Navbar />
       </HeaderComponentsContainer>
       <HeroContainer>
-        <HeroHeading>Discover the Casper Blockchain.</HeroHeading>
+        <HeroHeading type="h1">Discover the Casper Blockchain.</HeroHeading>
       </HeroContainer>
       <SearchForm />
     </HeaderComponent>
