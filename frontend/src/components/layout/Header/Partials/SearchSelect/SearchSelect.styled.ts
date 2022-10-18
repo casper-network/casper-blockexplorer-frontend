@@ -77,9 +77,11 @@ export const SelectWrapper = styled.div`
 
   .react-select__menu {
     color: white;
+    text-align: center;
     background-color: #fff;
     border-radius: 0.375rem;
-    width: 10.9rem;
+    width: 10.2rem;
+    margin-left: 0.4rem;
   }
 
   .react-select__option:hover,
@@ -95,7 +97,7 @@ export const SelectWrapper = styled.div`
       #d81e54 70.85%,
       #fd6b52 116.85%
     );
-    background-size: 65%;
+    background-size: 100%;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -108,5 +110,6 @@ export const SelectWrapper = styled.div`
 
   .react-select__option--is-selected {
     background-color: #0721cb;
+    width: 100%;
   }
 `;
