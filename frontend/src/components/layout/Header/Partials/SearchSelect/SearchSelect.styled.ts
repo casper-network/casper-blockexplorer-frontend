@@ -87,7 +87,7 @@ export const SelectWrapper = styled.div`
   .react-select__option:hover,
   .react-select__option:focus {
     color: black;
-    transition-property: font-weight, color, 200ms, ease-in;
+    transition: ease-in-out, font-weight, color, 400ms;
     font-weight: 700;
     background: linear-gradient(
       95.02deg,
@@ -109,6 +109,6 @@ export const SelectWrapper = styled.div`
   }
 
   .react-select__option--is-selected {
-    background-color: #0721cb;
+    display: none;
   }
 `;
