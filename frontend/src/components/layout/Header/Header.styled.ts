@@ -57,12 +57,14 @@ export const HeroContainer = styled.div`
   }
 `;
 
-export const HeroHeading = styled.div`
+export const HeroHeading = styled.h1`
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 1;
   padding-right: 1rem;
   max-width: 18rem;
+  width: 100%;
+
   background: linear-gradient(
     95.02deg,
     #1c1e90 0.62%,
@@ -71,7 +73,7 @@ export const HeroHeading = styled.div`
     #d81e54 70.85%,
     #fd6b52 116.85%
   );
-  background-size: 100%;
+  background-size: 90%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -83,6 +85,7 @@ export const HeroHeading = styled.div`
     line-height: 1;
     padding-right: 0.5rem;
     max-width: 34rem;
+    background-size: 100%;
   }
 
   @media (min-width: ${breakpoints.lg}) {
