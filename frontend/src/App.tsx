@@ -28,9 +28,7 @@ const App = () => {
 
   return (
     <StrictMode>
-      <div
-        ref={ref}
-        className="bg-light-grey grid min-h-screen grid-rows-layout">
+      <div ref={ref} className="bg-white grid min-h-screen grid-rows-layout">
         <BrowserRouter>
           <Header />
           <Routes>
