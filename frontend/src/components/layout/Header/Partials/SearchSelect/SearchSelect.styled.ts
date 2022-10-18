@@ -86,20 +86,20 @@ export const SelectWrapper = styled.div`
   .react-select__option:focus {
     color: black;
     transition-property: font-weight, color, 200ms, ease-in;
-    background-image: linear-gradient(
-      90deg,
-      #1c1e90,
-      #693590,
-      #d81d54,
-      #d81e54,
-      #fd6b52
+    font-weight: 700;
+    background: linear-gradient(
+      95.02deg,
+      #1c1e90 0.62%,
+      #693590 48.99%,
+      #d81d54 70.51%,
+      #d81e54 70.85%,
+      #fd6b52 116.85%
     );
-    background-size: 100%;
+    background-size: 65%;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
-    font-weight: 700;
     background-color: transparent;
   }
   .react-select__option {
