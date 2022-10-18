@@ -110,6 +110,5 @@ export const SelectWrapper = styled.div`
 
   .react-select__option--is-selected {
     background-color: #0721cb;
-    width: 100%;
   }
 `;
