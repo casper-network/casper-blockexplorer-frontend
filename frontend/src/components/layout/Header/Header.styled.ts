@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { GradientHeading } from 'src/components/styled';
+import { GradientHeading } from '../../styled';
 import { breakpoints } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
