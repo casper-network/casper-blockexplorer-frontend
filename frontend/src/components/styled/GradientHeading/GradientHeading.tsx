@@ -6,12 +6,15 @@ interface GradientHeadingProps extends HeadingProps {
 }
 
 const baseGradient =
-  'linear-gradient(93.67deg, #1C1E90 1.63%, #693590 64.2%, #D81D54 92.03%, #D81E54 92.49%, #FD6B52 151.99%)';
+  'linear-gradient(95.02deg, #1C1E90 0.62%, #693590 48.99%, #D81D54 70.51%, #D81E54 70.85%, #FD6B52 116.85%)';
 
 export const GradientHeading = styled(Heading)<GradientHeadingProps>`
   background: ${({ gradient }) => gradient ?? baseGradient};
   background-clip: text;
+  background-size: 100%;
   width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
 `;
