@@ -672,6 +672,46 @@ describe('rpc-client', () => {
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
     });
+    it('should return a deploy of type WASM deploy', async () => {
+      const dateTime = new Date();
+      const dateTimeString = dateTime.toString();
+
+      const mockDeployHash =
+        '960643427f7d2ff61fdf1cf4d40b4bc580c627c036dd4d600d6c9770581d289a';
+      const mockBlockHash =
+        '05f3b5e6bec1744b60564cdcc9e98bbd3f339727ca7fe78b5087298d727ef663';
+      const mockPublicKey =
+        '015d4d230841ae93139f23124597468f4e9d7f7f68479f5394ccd0079814661504';
+
+      const mockRawDeploy = {
+        hash: mockDeployHash,
+        header: {
+          ttl: '30m',
+          account:
+            '015d4d230841ae93139f23124597468f4e9d7f7f68479f5394ccd0079814661504',
+          body_hash:
+            '410d27699bdb35946e85fcbd4ed16555a9822fa7664a5d37c211bbfaaf97a50f',
+          gas_price: 1,
+          timestamp: dateTimeString,
+          chain_name: 'casper-test',
+          dependencies: [],
+        },
+        payment: {
+          ModuleBytes: {
+            args: [
+              'amount',
+              {
+                bytes: '0500e40b5402',
+                parsed: '10000000000',
+                cl_type: 'U512',
+              },
+            ],
+            module_bytes: '',
+          },
+        },
+        session: {},
+      };
+    });
   });
 
   describe('getAccount', () => {
@@ -919,8 +959,8 @@ describe('rpc-client', () => {
       const block = await mockRpcClient.getBlockByHeight(mockBlockHeight);
 
       const mockBlock = {
-        timestamp: dateTimeString,
-        // w e have to use the returned timeSince as mocking it will inevitably be unreliable
+        timestamp: dateTimeStrin g,
+        // w e have to use the returned timeSince as mocking it wi ll inevitably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
