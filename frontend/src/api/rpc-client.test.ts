@@ -2376,6 +2376,1761 @@ describe('rpc-client', () => {
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
     });
+
+    it('should return a deploy of type transfer_token', async () => {
+      const dateTime = new Date();
+      const dateTimeString = dateTime.toString();
+
+      const mockDeployHash =
+        '077ad24364d06a77facda9ce0c3af440c7718ad9b3cf4c2a5f0f64d5c6157d9a';
+      const mockBlockHash =
+        '04ac53e7eb7d5514c0b4202b9c8662238d5261ce57d28db190b380d2c345b1fc';
+      const mockPublicKey =
+        '0203a810758f6a796c8648a836c519c7f62d4b364d7a711d1c0f3f9d6f8138c59f49';
+
+      const mockRawDeploy = {
+        hash: mockDeployHash,
+        header: {
+          ttl: '30m',
+          account:
+            '0203a810758f6a796c8648a836c519c7f62d4b364d7a711d1c0f3f9d6f8138c59f49',
+          body_hash:
+            'cb345123393f88d103b3334fdc8f07709a168c11631761974ce195814c88cf61',
+          gas_price: 1,
+          timestamp: dateTimeString,
+          chain_name: 'casper-test',
+          dependencies: [],
+        },
+        payment: {
+          ModuleBytes: {
+            args: [
+              [
+                'amount',
+                {
+                  bytes: '04002f6859',
+                  parsed: '1500000000',
+                  cl_type: 'U512',
+                },
+              ],
+            ],
+            module_bytes: '',
+          },
+        },
+        session: {
+          StoredContractByHash: {
+            args: [
+              [
+                'recipient',
+                {
+                  bytes:
+                    '0084deac2708b7f616431ad400795fbf05dea8c82c6e4cddc43ce212429763c2f5',
+                  parsed: {
+                    Account:
+                      'account-hash-84deac2708b7f616431ad400795fbf05dea8c82c6e4cddc43ce212429763c2f5',
+                  },
+                  cl_type: 'Key',
+                },
+              ],
+              [
+                'token_id',
+                {
+                  bytes:
+                    '340000007a627974652d63657034372d6e66742d30366338343434322d656134612d346139342d383932372d353635396134653339373132',
+                  parsed:
+                    'zbyte-cep47-nft-06c84442-ea4a-4a94-8927-5659a4e39712',
+                  cl_type: 'String',
+                },
+              ],
+            ],
+            hash: '69106fcd2191bca4f21d3939f83e69acd411f71bdf5196654e5f0afd0ca1cd3f',
+            entry_point: 'transfer_token',
+          },
+          approvals: [
+            {
+              signer:
+                '0203a810758f6a796c8648a836c519c7f62d4b364d7a711d1c0f3f9d6f8138c59f49',
+              signature: mockPublicKey,
+            },
+          ],
+        },
+      };
+
+      const mockRawExecutionResults = [
+        {
+          block_hash: mockBlockHash,
+          result: {
+            Success: {
+              cost: '1129323210',
+              effect: {
+                operations: [],
+                transforms: [
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-b9a5f8d574aa06a6fc23be18a1b7acec5204e3e73850073b7bc65eba91d02326',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-b9a5f8d574aa06a6fc23be18a1b7acec5204e3e73850073b7bc65eba91d02326',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '0680dd13b5c22a',
+                        parsed: '47015750000000',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      AddUInt512: '1500000000',
+                    },
+                  },
+                  {
+                    key: 'hash-69106fcd2191bca4f21d3939f83e69acd411f71bdf5196654e5f0afd0ca1cd3f',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-07f325378c0ad7222cc084d2dc82fc289157ef2925099d56b61556702a69adf2',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-0c6666d7dafac7b8b4b5e9b805d194309e079a420535c65cf6df9419606cbcd7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'uref-39f6d2122e90276cbdefe367e1778055a6a1dee02aced2cdb5e242b530218554-000',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-49c2e8cc92fa92737a2daa16bc90d2795c2d3122d8a77bdc1ab54f9326b1fb6f',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-49c2e8cc92fa92737a2daa16bc90d2795c2d3122d8a77bdc1ab54f9326b1fb6f',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '22000000010084deac2708b7f616431ad400795fbf05dea8c82c6e4cddc43ce212429763c2f50d0b200000002a7ef02f70d8d215a53b7fdaad10a2fadef99f283b099b92b619a47ce40316d2340000007a627974652d63657034372d6e66742d30366338343434322d656134612d346139342d383932372d353635396134653339373132',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-d32621d6045b76f255c0a17ff1bf73d9342efac76792181627dd6916ac3cc19f',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-f65152b379bf1c3c13d1a5533755e201cc45d8a8fde4de2d980d0e50f4c32a5d',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-97da2368b51a6c5f06ce3d40b888aaf56858f9fa0b08e39e77e435f83c8d6658',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-867cf1900a18dc183dc4f487b1d3d27a417b37d74b67257562bc8db23405b9c9',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '04000000010243040d0720000000f3cc15e280d134cf300db7281b649eb24f48387adc0e51f7186db96d025dded74000000061303264613631626534313036393030353863626133363664336237333838616339663637663635313365636463663238613030363961376132373638316532',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-a5bf78e7952a291914c5068917063d51238f672e0d3853c2f87ebdfc4eab96e5',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '3900000001340000007a627974652d63657034372d6e66742d3638613633 6637342d303236 372d346635332d383439392d3564343533303733313166370d0a200000007f92c8a8b5ec1fd674d00cb27549baa8dd6fe8592c171bb24a89d06759d92c934000000036326438363132323261383263303932323561313036353861326437363733303930303962626662623333386463366438653266356230313362613739656234',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-97da2368b51a6c5f06ce3d40b888aaf56858f9fa0b08e39e77e435f83c8d6658',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '01000000000d0a200000007f92c8a8b5ec1fd674d00cb27549baa8dd6fe8592c171bb24a89d06759d92c934000000038363863313866316639613632333764306134326562646662663163376533323266323931643936363738633866303734316134646565333864663837373537',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-d32621d6045b76f255c0a17ff1bf73d9342efac76792181627dd6916ac3cc19f',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '04000000010245040d0720000000e5309685a8de30bbeff2ae44c7afec01b8b7083e871248cd9ebc5f24cc8d3a364000000039303839373931353761623262383638353332646433396437303136663333633036363536383435396132646633383538363865386238336337666161326562',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-f65152b379bf1c3c13d1a5533755e201cc45d8a8fde4de2d980d0e50f4c32a5d',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '01000000000d0720000000f3cc15e280d134cf300db7281b649eb24f48387adc0e51f7186db96d025dded74000000037326333363030343062306461663234373430623065356530633139663830623565373966346330323464383339313738643561356362366432333139643132',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-3d4152d340ad0bd72e93e983ae2e4da72d03d824785cf958b8495ef494b7a33a',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-2c0047c6a8ffa74f27b649f4e2c94aea8a590ec5d3177064edd643dbc8f0f78b',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '030000000101200d0720000000f3cc15e280d134cf300db7281b649eb24f48387adc0e51f7186db96d025dded74000000061613438393333396232333338633466353035306161363930323039643665663632616563626531306530313239313331326133373536633264356163633065',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-344e1f43bda9c5555b292c838d17c0af3caf3ef0020ee21cbda135c4223c450d',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '3900000001340000007a627974652d63657034372d6e66742d30366338343434322d656134612d346139342d383932372d3536353961346533393731320d0a200000007f92c8a8b5ec1fd674d00cb27549baa8dd6fe8592c171bb24a89d06759d92c934000000034333366643264646332633662633362636562336561306437623937356138653531336264656232366465386533373431656162613636303065386363393461',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-3d4152d340ad0bd72e93e983ae2e4da72d03d824785cf958b8495ef494b7a33a',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '030000000101210d0720000000e5309685a8de30bbeff2ae44c7afec01b8b7083e871248cd9ebc5f24cc8d3a364000000038346465616332373038623766363136343331616434303037393566626630356465613863383263366534636464633433636532313234323937363363326635',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'uref-080d027d8a0f043ca1ca1dfbfb7eff68a6c6ba92751fbd0c370c52d7fe639b3a-000',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'uref-940a905e0390644a957586a9d61a6e440f639ad84efb90044bbaca90609e2fca-000',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '0500000015000000636f6e74726163745f7061636b6167655f6861736840000000303766333235333738633061643732323263633038346432646338326663323839313537656632393235303939643536623631353536373032613639616466320a0000006576656e745f747970651400000063657034375f7472616e736665725f746f6b656e09000000726563697069656e744e0000004b65793a3a4163636f756e742838346465616332373038623766363136343331616434303037393566626630356465613863383263366534636464633433636532313234323937363363326635290600000073656e6465724e0000004b65793a3a4163636f756e7428393038393739313537616232623836383533326464333964373031366633336330363635363834353961326466333835383638653862383363376661613265622908000000746f6b656e5f6964340000007a627974652d63657034372d6e66742d30366338343434322d656134612d346139342d383932372d353635396134653339373132',
+                        parsed: [
+                          {
+                            key: 'contract_package_hash',
+                            value:
+                              '07f325378c0ad7222cc084d2dc82fc289157ef2925099d56b61556702a69adf2',
+                          },
+                          {
+                            key: 'event_type',
+                            value: 'cep47_transfer_token',
+                          },
+                          {
+                            key: 'recipient',
+                            value:
+                              'Key::Account(84deac2708b7f616431ad400795fbf05dea8c82c6e4cddc43ce212429763c2f5)',
+                          },
+                          {
+                            key: 'sender',
+                            value:
+                              'Key::Account(908979157ab2b868532dd39d7016f33c066568459a2df385868e8b83c7faa2eb)',
+                          },
+                          {
+                            key: 'token_id',
+                            value:
+                              'zbyte-cep47-nft-06c84442-ea4a-4a94-8927-5659a4e39712',
+                          },
+                        ],
+                        cl_type: {
+                          Map: {
+                            key: 'String',
+                            value: 'String',
+                          },
+                        },
+                      },
+                    },
+                  },
+                  {
+                    key: 'deploy-077ad24364d06a77facda9ce0c3af440c7718ad9b3cf4c2a5f0f64d5c6157d9a',
+                    transform: {
+                      WriteDeployInfo: {
+                        gas: '1129323210',
+                        from: 'account-hash-908979157ab2b868532dd39d7016f33c066568459a2df385868e8b83c7faa2eb',
+                        source:
+                          'uref-b9a5f8d574aa06a6fc23be18a1b7acec5204e3e73850073b7bc65eba91d02326-007',
+                        transfers: [],
+                        deploy_hash:
+                          '077ad24364d06a77facda9ce0c3af440c7718ad9b3cf4c2a5f0f64d5c6157d9a',
+                      },
+                    },
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-8bcbcf17fce2fadb37599b3f01e1f278c0d3465d667de66b8c9f3d614687cd99',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '00',
+                        parsed: '0',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-8bcbcf17fce2fadb37599b3f01e1f278c0d3465d667de66b8c9f3d614687cd99',
+                    transform: {
+                      AddUInt512: '1500000000',
+                    },
+                  },
+                ],
+              },
+              transfers: [],
+            },
+          },
+        },
+      ];
+
+      const mockJsonRpc = {
+        getDeployInfo: jest.fn().mockResolvedValue({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+
+      const mockRpcClient = new RpcApi(mockJsonRpc as any);
+
+      const deploy = await mockRpcClient.getDeploy(mockDeployHash);
+
+      const mockDeploy = {
+        timestamp: dateTimeString,
+        timeSince: deploy?.timeSince,
+        readableTimestamp: formatDate(dateTime),
+        deployHash: mockDeployHash,
+        blockHash: mockBlockHash,
+        publicKey: mockPublicKey,
+        action: 'transfer_token',
+        amount: undefined,
+        deployType: 'StoredContractByHash',
+        paymentAmount: '1500000000',
+        cost: '1129323210',
+        status: DeployStatus.Success,
+        rawDeploy: JSON.stringify({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
+      expect(deploy).toEqual(mockDeploy);
+    });
+
+    it('should return a deploy of type mint_one', async () => {
+      const dateTime = new Date();
+      const dateTimeString = dateTime.toString();
+
+      const mockDeployHash =
+        '223c30035d4409e7f3b930b9904ff5488b5c2485c4180c435359f89514a18ba8';
+      const mockBlockHash =
+        'b97193913b6804355067c0b054fe5a8d1123947cd0f6741832206869997b989f';
+      const mockPublicKey =
+        '0151cfcc0e740203030902649d1cdd18e55018175d08a4cb985dacd53e237f129c';
+
+      const mockRawDeploy = {
+        hash: mockDeployHash,
+        header: {
+          ttl: '30m',
+          account:
+            '0151cfcc0e740203030902649d1cdd18e55018175d08a4cb985dacd53e237f129c',
+          body_hash:
+            '56e14a29f408281aba011fc56e734815d81da5b545d746bab8113229d8dabba8',
+          gas_price: 1,
+          timestamp: dateTimeString,
+          chain_name: 'casper-test',
+          dependencies: [],
+        },
+        payment: {
+          ModuleBytes: {
+            args: [
+              [
+                'amount',
+                {
+                  bytes: '0400ca9a3b',
+                  parsed: '1000000000',
+                  cl_type: 'U512',
+                },
+              ],
+            ],
+            module_bytes: '',
+          },
+        },
+        session: {
+          StoredContractByHash: {
+            args: [
+              [
+                'recipient',
+                {
+                  bytes:
+                    '004fc1df829b2dba8fa3a8e12160245c175ebba116b21e70ed7558d83499cd7e8f',
+                  parsed: {
+                    Account:
+                      'account-hash-4fc1df829b2dba8fa3a8e12160245c175ebba116b21e70ed7558d83499cd7e8f',
+                  },
+                  cl_type: 'Key',
+                },
+              ],
+              [
+                'token_id',
+                {
+                  bytes: '010a000000544543482d3132333434',
+                  parsed: 'TECH-12344',
+                  cl_type: {
+                    Option: 'String',
+                  },
+                },
+              ],
+              [
+                'token_meta',
+                {
+                  bytes:
+                    '0300000007000000746f6b656e49640a000000544543482d31323334340d000000746f6b656e4d657461486173682c0000003551587a334c5a514e63652f2f6a784d5876466132722b58436753476259536e366a704d6a6663504357493d0300000075726c3d00000068747470733a2f2f6e66742d6d657461646174612d6e6f6e70726f642e73332e616d617a6f6e6177732e636f6d2f544543482d31323334342e6a736f6e',
+                  parsed: [
+                    {
+                      key: 'tokenId',
+                      value: 'TECH-12344',
+                    },
+                    {
+                      key: 'tokenMetaHash',
+                      value: '5QXz3LZQNce//jxMXvFa2r+XCgSGbYSn6jpMjfcPCWI=',
+                    },
+                    {
+                      key: 'url',
+                      value:
+                        'https://nft-metadata-nonprod.s3.amazonaws.com/TECH-12344.json',
+                    },
+                  ],
+                  cl_type: {
+                    Map: {
+                      key: 'String',
+                      value: 'String',
+                    },
+                  },
+                },
+              ],
+            ],
+            hash: '7121e50205ef765872796d7c359f588ba5e06edcd21be58dbd7330bcb1f7fbb8',
+            entry_point: 'mint_one',
+          },
+          approvals: [
+            {
+              signer:
+                '9b09374894bb8cc68b7ec220d0a80dff625c7a99fe20133a586bc2f02923646d',
+              signature: mockPublicKey,
+            },
+          ],
+        },
+      };
+
+      const mockRawExecutionResults = [
+        {
+          block_hash: mockBlockHash,
+          result: {
+            Success: {
+              cost: '778479340',
+              effect: {
+                operations: [],
+                transforms: [
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-1087b51b0c508bd240c5a5c2f5a6011eea1329ccb8d720dbee39e2aa71919b32',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-1087b51b0c508bd240c5a5c2f5a6011eea1329ccb8d720dbee39e2aa71919b32',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '065014c30d3450',
+                        parsed: '88184499410000',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      AddUInt512: '1000000000',
+                    },
+                  },
+                  {
+                    key: 'hash-7121e50205ef765872796d7c359f588ba5e06edcd21be58dbd7330bcb1f7fbb8',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-b62ba8b3cf7d0781fa7d52cc0f35cf7260535ce660ad004fc8bb4336c52daedd',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-b9a0b077ce7b5ac6cd49eb1217d9ef895378a05ccc2385d02dc40c5d8d6aa980',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-ca5fb25907de8a1207613cb2e5bfa29ce05eb4fc1e675c9758a000d5ee1b5ca3',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          'a7000000010300000007000000746f6b656e49640a000000544543482d31323334340d000000746f6b656e4d657461486173682c0000003551587a334c5a514e63652f2f6a784d5876466132722b58436753476259536e366a704d6a6663504357493d0300000075726c3d00000068747470733a2f2f6e66742d6d657461646174612d6e6f6e70726f642e73332e616d617a6f6e6177732e636f6d2f544543482d31323334342e6a736f6e0d110a0a200000008ee8f9c8c471297ae549cd985ea063f72271527d6b80a27195fd00096e22b03d0a000000544543482d3132333434',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-6ae52f56d773c33fa922a719b0353ddba7e2d97fd1d66179f22cb69cc0ad9d30',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '2200000001004fc1df829b2dba8fa3a8e12160245c175ebba116b21e70ed7558d83499cd7e8f0d0b20000000520160022e0059eb984d8817cc8c7b17ab9ab2c9810e82d015389b5346fe6ac50a000000544543482d3132333434',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-8a35c1423bcfb0a8bb1a830e497d4b8a1025831eece081444e861f53ab22ea90',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '22000000010088b076ff165bb3c3e2c63c96366bc99a27b7cbe9a48266c4c73d0065811d59610d0b20000000386bf2c2e1ca3eb5dc33c403ca22ca72e82b393ac34ffca4da4c58f196fe7cd80a000000544543482d3132333434',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-bcadf1dc7b7524375ff3b890f5db72b5551d778ec91806d0a306f269444f2093',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'dictionary-1aff8108402b710cf39fc9360be2a2058e64fb6c4d6f199f151210c7e2584198',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '030000000101120d07200000006c995fcebeeefdec9ea3cf8c1a3966e954f631beda524cb0d4ea0a9948ac660b4000000038326433656463333136393662333365306463343066666161393034643830343434393839306162323536396435393530323366363331616263633363363230',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-6e15e921c569641b0aa5da3166a76a7ad31b2712ca541472737dea0d4605a414',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '0f000000010a000000544543482d31323334340d0a2000000017b6c09c1a131503d38b1d24ff78b2ffabef06a93875b0a0a5d9084eaec4fa344000000031386262663935326661653463393834646638653535666130366438343466646362333234323439373861653232636165313433633232313134353961623035',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'dictionary-bcadf1dc7b7524375ff3b890f5db72b5551d778ec91806d0a306f269444f2093',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '030000000101130d0720000000c3a3f040c079ebbce4e3ca078b7b2128ef6c571b560b6803ad879ee43dee2e494000000034666331646638323962326462613866613361386531323136303234356331373565626261313136623231653730656437353538643833343939636437653866',
+                        parsed: null,
+                        cl_type: 'Any',
+                      },
+                    },
+                  },
+                  {
+                    key: 'uref-0ef42c1dff264bdc1e2bb4636ea9ee4dd4742b54387c95903249356ee8dd6e30-000',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'uref-0ef42c1dff264bdc1e2bb4636ea9ee4dd4742b54387c95903249356ee8dd6e30-000',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '0117',
+                        parsed: '23',
+                        cl_type: 'U256',
+                      },
+                    },
+                  },
+                  {
+                    key: 'uref-d2e1093e35742d7054c6a496184b76cbe237ec85036dc3594426bb8b6051e003-000',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'uref-769c20b9064d82090186f9671e23ef28e07379d795a94695b94bad797d91faf0-000',
+                    transform: {
+                      WriteCLValue: {
+                        bytes:
+                          '0400000015000000636f6e74726163745f7061636b6167655f6861736840000000623632626138623363663764303738316661376435326363306633356366373236303533356365363630616430303466633862623433333663353264616564640a0000006576656e745f747970650e00000063657034375f6d696e745f6f6e6509000000726563697069656e744e0000004b65793a3a4163636f756e7428346663316466383239623264626138666133613865313231363032343563313735656262613131366232316537306564373535386438333439396364376538662908000000746f6b656e5f69640a000000544543482d3132333434',
+                        parsed: [
+                          {
+                            key: 'contract_package_hash',
+                            value:
+                              'b62ba8b3cf7d0781fa7d52cc0f35cf7260535ce660ad004fc8bb4336c52daedd',
+                          },
+                          {
+                            key: 'event_type',
+                            value: 'cep47_mint_one',
+                          },
+                          {
+                            key: 'recipient',
+                            value:
+                              'Key::Account(4fc1df829b2dba8fa3a8e12160245c175ebba116b21e70ed7558d83499cd7e8f)',
+                          },
+                          {
+                            key: 'token_id',
+                            value: 'TECH-12344',
+                          },
+                        ],
+                        cl_type: {
+                          Map: {
+                            key: 'String',
+                            value: 'String',
+                          },
+                        },
+                      },
+                    },
+                  },
+                  {
+                    key: 'deploy-223c30035d4409e7f3b930b9904ff5488b5c2485c4180c435359f89514a18ba8',
+                    transform: {
+                      WriteDeployInfo: {
+                        gas: '778479340',
+                        from: 'account-hash-88b076ff165bb3c3e2c63c96366bc99a27b7cbe9a48266c4c73d0065811d5961',
+                        source:
+                          'uref-1087b51b0c508bd240c5a5c2f5a6011eea1329ccb8d720dbee39e2aa71919b32-007',
+                        transfers: [],
+                        deploy_hash:
+                          '223c30035d4409e7f3b930b9904ff5488b5c2485c4180c435359f89514a18ba8',
+                      },
+                    },
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-917253870c7bafa7a8985add41dcee118ef2ff268581771e47e57704bc465c7d',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '00',
+                        parsed: '0',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-917253870c7bafa7a8985add41dcee118ef2ff268581771e47e57704bc465c7d',
+                    transform: {
+                      AddUInt512: '1000000000',
+                    },
+                  },
+                ],
+              },
+              transfers: [],
+            },
+          },
+        },
+      ];
+
+      const mockJsonRpc = {
+        getDeployInfo: jest.fn().mockResolvedValue({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+
+      const mockRpcClient = new RpcApi(mockJsonRpc as any);
+
+      const deploy = await mockRpcClient.getDeploy(mockDeployHash);
+
+      const mockDeploy = {
+        timestamp: dateTimeString,
+        timeSince: deploy?.timeSince,
+        readableTimestamp: formatDate(dateTime),
+        deployHash: mockDeployHash,
+        blockHash: mockBlockHash,
+        publicKey: mockPublicKey,
+        action: 'mint_one',
+        amount: undefined,
+        deployType: 'StoredContractByHash',
+        paymentAmount: '1000000000',
+        cost: '778479340',
+        status: DeployStatus.Success,
+        rawDeploy: JSON.stringify({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
+      expect(deploy).toEqual(mockDeploy);
+    });
+
+    it('should return a deploy of type delegate', async () => {
+      const dateTime = new Date();
+      const dateTimeString = dateTime.toString();
+
+      const mockDeployHash =
+        '1b67aca31c016bb97c0d3b4bc5a83d75e370eeafeb3c726b313da08b4e93132f';
+      const mockBlockHash =
+        '56f71784b297aa03d244c629251a6e73e7a0f7befd6806a70306a893c8ca95c6';
+      const mockPublicKey =
+        '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7';
+
+      const mockRawDeploy = {
+        hash: mockDeployHash,
+        header: {
+          ttl: '30m',
+          account:
+            '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7',
+          body_hash:
+            '8ec82a872f45248c324e074e2f8d6d82b341da0ec3876ad12056e357c873db7e',
+          gas_price: 1,
+          timestamp: dateTimeString,
+          chain_name: 'casper-test',
+          dependencies: [],
+        },
+        payment: {
+          ModuleBytes: {
+            args: [
+              [
+                'amount',
+                {
+                  bytes: '0400f90295',
+                  parsed: '2500000000',
+                  cl_type: 'U512',
+                },
+              ],
+            ],
+            module_bytes: '',
+          },
+        },
+        session: {
+          StoredContractByHash: {
+            args: [
+              [
+                'delegator',
+                {
+                  bytes:
+                    '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7',
+                  parsed:
+                    '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7',
+                  cl_type: 'PublicKey',
+                },
+              ],
+              [
+                'validator',
+                {
+                  bytes:
+                    '017a684f6787e78e68c0063aad5a4fb26448b340d36c0e8aa79d67d82ce03dad28',
+                  parsed:
+                    '017a684f6787e78e68c0063aad5a4fb26448b340d36c0e8aa79d67d82ce03dad28',
+                  cl_type: 'PublicKey',
+                },
+              ],
+              [
+                'amount',
+                {
+                  bytes: '0500e288c006',
+                  parsed: '29000000000',
+                  cl_type: 'U512',
+                },
+              ],
+            ],
+            hash: '93d923e336b20a4c4ca14d592b60e5bd3fe330775618290104f9beb326db7ae2',
+            entry_point: 'delegate',
+          },
+          approvals: [
+            {
+              signer:
+                '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7',
+              signature: mockPublicKey,
+            },
+          ],
+        },
+      };
+
+      const mockRawExecutionResults = [
+        {
+          block_hash: mockBlockHash,
+          result: {
+            Success: {
+              cost: '2500000000',
+              effect: {
+                operations: [],
+                transforms: [
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-05bd18e83b91a3a02438d523ff2e68b21ff88c4778b867d10680d7bdf91e4f3b',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-05bd18e83b91a3a02438d523ff2e68b21ff88c4778b867d10680d7bdf91e4f3b',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '05b0ab4c534f',
+                        parsed: '340699950000',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      AddUInt512: '2500000000',
+                    },
+                  },
+                  {
+                    key: 'hash-93d923e336b20a4c4ca14d592b60e5bd3fe330775618290104f9beb326db7ae2',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-e375d42c29c0e4b2baefa63cf2d70af34439eda851e08129d8515515d63bd6a9',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'bid-2ff11f85e93bcd297bb605200f76a274086d5a71db95c7499ea30aa78db02eb2',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-05bd18e83b91a3a02438d523ff2e68b21ff88c4778b867d10680d7bdf91e4f3b',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-be16cc52bfbe5c1a017b65b31a92214b90c8a59877f5a9a23140135d286cb483',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-05bd18e83b91a3a02438d523ff2e68b21ff88c4778b867d10680d7bdf91e4f3b',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '05b0c9c39248',
+                        parsed: '311699950000',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-be16cc52bfbe5c1a017b65b31a92214b90c8a59877f5a9a23140135d286cb483',
+                    transform: {
+                      AddUInt512: '29000000000',
+                    },
+                  },
+                  {
+                    key: 'transfer-f713c730a5629586866e1fa74008195e547fdbaaa50fbb51457d24d651dfed92',
+                    transform: {
+                      WriteTransfer: {
+                        id: null,
+                        to: 'account-hash-6174cf2e6f8fed1715c9a3bace9c50bfe572eecb763b0ed3f644532616452008',
+                        gas: '0',
+                        from: 'account-hash-92f3359730c9b6e0a0db5dcbba164dd5250c6d0e5712a968267bdf575c6acdde',
+                        amount: '29000000000',
+                        source:
+                          'uref-05bd18e83b91a3a02438d523ff2e68b21ff88c4778b867d10680d7bdf91e4f3b-007',
+                        target:
+                          'uref-be16cc52bfbe5c1a017b65b31a92214b90c8a59877f5a9a23140135d286cb483-007',
+                        deploy_hash:
+                          '1b67aca31c016bb97c0d3b4bc5a83d75e370eeafeb3c726b313da08b4e93132f',
+                      },
+                    },
+                  },
+                  {
+                    key: 'bid-2ff11f85e93bcd297bb605200f76a274086d5a71db95c7499ea30aa78db02eb2',
+                    transform: {
+                      WriteBid: {
+                        inactive: false,
+                        delegators: {
+                          '0124c673e74f3c62c81abc4d35fc171c2e06fe38462c076087121bca6cdff85545':
+                            {
+                              bonding_purse:
+                                'uref-c5633074950d4e36a5b69b564299be89938274fa72a7fd7dedfc203a6eef34b0-007',
+                              staked_amount: '53610146848',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '0124c673e74f3c62c81abc4d35fc171c2e06fe38462c076087121bca6cdff85545',
+                              validator_public_key:
+                                '017a684f6787e78e68c0063aad5a4fb26448b340d36c0e8aa79d67d82ce03dad28',
+                            },
+                          '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7':
+                            {
+                              bonding_purse:
+                                'uref-be16cc52bfbe5c1a017b65b31a92214b90c8a59877f5a9a23140135d286cb483-007',
+                              staked_amount: '561686437402',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01cc03dc746892d42f8a7c498511f7d4e66c5423216131c1f43b01e4eabf78a8c7',
+                              validator_public_key:
+                                '017a684f6787e78e68c0063aad5a4fb26448b340d36c0e8aa79d67d82ce03dad28',
+                            },
+                        },
+                        bonding_purse:
+                          'uref-56aef0a3865f3bcb3f35e9cc7b0d36aa574d715f800a05449470aa78d2145778-007',
+                        staked_amount: '140720054898222',
+                        delegation_rate: 10,
+                        vesting_schedule: null,
+                        validator_public_key:
+                          '017a684f6787e78e68c0063aad5a4fb26448b340d36c0e8aa79d67d82ce03dad28',
+                      },
+                    },
+                  },
+                  {
+                    key: 'deploy-1b67aca31c016bb97c0d3b4bc5a83d75e370eeafeb3c726b313da08b4e93132f',
+                    transform: {
+                      WriteDeployInfo: {
+                        gas: '2500000000',
+                        from: 'account-hash-92f3359730c9b6e0a0db5dcbba164dd5250c6d0e5712a968267bdf575c6acdde',
+                        source:
+                          'uref-05bd18e83b91a3a02438d523ff2e68b21ff88c4778b867d10680d7bdf91e4f3b-007',
+                        transfers: [
+                          'transfer-f713c730a5629586866e1fa74008195e547fdbaaa50fbb51457d24d651dfed92',
+                        ],
+                        deploy_hash:
+                          '1b67aca31c016bb97c0d3b4bc5a83d75e370eeafeb3c726b313da08b4e93132f',
+                      },
+                    },
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-62f7fe1cecb1a4c600ffa791479ce52fb8cbda408815f4dd1b1e0d82e704579a',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '00',
+                        parsed: '0',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-62f7fe1cecb1a4c600ffa791479ce52fb8cbda408815f4dd1b1e0d82e704579a',
+                    transform: {
+                      AddUInt512: '2500000000',
+                    },
+                  },
+                ],
+              },
+              transfers: [
+                'transfer-f713c730a5629586866e1fa74008195e547fdbaaa50fbb51457d24d651dfed92',
+              ],
+            },
+          },
+        },
+      ];
+
+      const mockJsonRpc = {
+        getDeployInfo: jest.fn().mockResolvedValue({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+
+      const mockRpcClient = new RpcApi(mockJsonRpc as any);
+
+      const deploy = await mockRpcClient.getDeploy(mockDeployHash);
+
+      const mockDeploy = {
+        timestamp: dateTimeString,
+        timeSince: deploy?.timeSince,
+        readableTimestamp: formatDate(dateTime),
+        deployHash: mockDeployHash,
+        blockHash: mockBlockHash,
+        publicKey: mockPublicKey,
+        action: 'delegate',
+        amount: undefined,
+        deployType: 'StoredContractByHash',
+        paymentAmount: '2500000000',
+        cost: '2500000000',
+        status: DeployStatus.Success,
+        rawDeploy: JSON.stringify({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
+      expect(deploy).toEqual(mockDeploy);
+    });
+
+    it('should return a deploy of type undelegate', async () => {
+      const dateTime = new Date();
+      const dateTimeString = dateTime.toString();
+
+      const mockDeployHash =
+        '6219d151c008993ad7a854d66c508dde486cdbda9c7580e92a974ea7b08fdab6';
+      const mockBlockHash =
+        '7a6bc0ea6f1d38703d6b782ee98dd7dfb26e05237ed21e1b6f7ef20ef9b434a0';
+      const mockPublicKey =
+        '0203eb17b6f95ec520ef0cee25b396dcf4db835c40405804155532f63cb5e21e345a';
+
+      const mockRawDeploy = {
+        hash: mockDeployHash,
+        header: {
+          ttl: '30m',
+          account:
+            '0203eb17b6f95ec520ef0cee25b396dcf4db835c40405804155532f63cb5e21e345a',
+          body_hash:
+            'e536be8f5b14edb802e054dd51d76ca66389e1012a804c89a4813493642621cf',
+          gas_price: 1,
+          timestamp: dateTimeString,
+          chain_name: 'casper-test',
+          dependencies: [],
+        },
+        payment: {
+          ModuleBytes: {
+            args: [
+              [
+                'amount',
+                {
+                  bytes: '021027',
+                  parsed: '10000',
+                  cl_type: 'U512',
+                },
+              ],
+            ],
+            module_bytes: '',
+          },
+        },
+        session: {
+          StoredContractByHash: {
+            args: [
+              [
+                'delegator',
+                {
+                  bytes:
+                    '0203eb17b6f95ec520ef0cee25b396dcf4db835c40405804155532f63cb5e21e345a',
+                  parsed:
+                    '0203eb17b6f95ec520ef0cee25b396dcf4db835c40405804155532f63cb5e21e345a',
+                  cl_type: 'PublicKey',
+                },
+              ],
+              [
+                'validator',
+                {
+                  bytes:
+                    '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                  parsed:
+                    '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                  cl_type: 'PublicKey',
+                },
+              ],
+              [
+                'amount',
+                {
+                  bytes: '050088526a74',
+                  parsed: '500000000000',
+                  cl_type: 'U512',
+                },
+              ],
+            ],
+            hash: '93d923e336b20a4c4ca14d592b60e5bd3fe330775618290104f9beb326db7ae2',
+            entry_point: 'undelegate',
+          },
+          approvals: [
+            {
+              signer:
+                '0203eb17b6f95ec520ef0cee25b396dcf4db835c40405804155532f63cb5e21e345a',
+              signature: mockPublicKey,
+            },
+          ],
+        },
+      };
+
+      const mockRawExecutionResults = [
+        {
+          block_hash: mockBlockHash,
+          result: {
+            Success: {
+              cost: '10000',
+              effect: {
+                operations: [],
+                transforms: [
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-7c711372b1bfccf1db8ba33e8a3939d0df9746558f85e850ac5ce5a5f1561922',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-7c711372b1bfccf1db8ba33e8a3939d0df9746558f85e850ac5ce5a5f1561922',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '059507689871',
+                        parsed: '487888258965',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      AddUInt512: '10000',
+                    },
+                  },
+                  {
+                    key: 'hash-93d923e336b20a4c4ca14d592b60e5bd3fe330775618290104f9beb326db7ae2',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-e375d42c29c0e4b2baefa63cf2d70af34439eda851e08129d8515515d63bd6a9',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'bid-9d3751e053ab242b1720f40bd13799eda0fdc3a4b001bc763b20d811f9f9964d',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-27a0260de1af1ca864007d81e376c1cd15f0fc169a8ee92be0ab968682c12d1e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'withdraw-9d3751e053ab242b1720f40bd13799eda0fdc3a4b001bc763b20d811f9f9964d',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'uref-550c01b27069f943c354364c49a496b5013ee5bdf61d8644e4f0712cf22410f1-000',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'withdraw-9d3751e053ab242b1720f40bd13799eda0fdc3a4b001bc763b20d811f9f9964d',
+                    transform: {
+                      WriteWithdraw: [
+                        {
+                          amount: '500000000000',
+                          bonding_purse:
+                            'uref-27a0260de1af1ca864007d81e376c1cd15f0fc169a8ee92be0ab968682c12d1e-007',
+                          era_of_creation: 7015,
+                          unbonder_public_key:
+                            '0203eb17b6f95ec520ef0cee25b396dcf4db835c40405804155532f63cb5e21e345a',
+                          validator_public_key:
+                            '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                        },
+                      ],
+                    },
+                  },
+                  {
+                    key: 'uref-7b7bd65a7d32c4939d0b97bd902adc5d5f5baf2c2d4365d16953066877930fab-000',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'bid-9d3751e053ab242b1720f40bd13799eda0fdc3a4b001bc763b20d811f9f9964d',
+                    transform: {
+                      WriteBid: {
+                        inactive: true,
+                        delegators: {
+                          '0108ce22bc4ab164f43ea550dc3e63d3c4e7e3e8bb48a8aec0e6b2bc4183769cb3':
+                            {
+                              bonding_purse:
+                                'uref-35996ba9c6c76dcc8cb07309d218ca5bac6555d8480d377f36b79ec7a53106ac-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '0108ce22bc4ab164f43ea550dc3e63d3c4e7e3e8bb48a8aec0e6b2bc4183769cb3',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '010c74c16ceb80297e5eb7b838bcfe3c659044d411301cc4c6f6f6a4a6a667f389':
+                            {
+                              bonding_purse:
+                                'uref-b12b106645c23925b5e1d0358f3891f73598841f70077f52be642609e04927d8-007',
+                              staked_amount: '1052244599599',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '010c74c16ceb80297e5eb7b838bcfe3c659044d411301cc4c6f6f6a4a6a667f389',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '011291d23e624f51083ea7e9de7796d0ab2c404e61a21383f6ad4a96d21f2aaaea':
+                            {
+                              bonding_purse:
+                                'uref-dff1e706332e904486f766f9ba8f64d3db591b503d7c475ecd8548e7e914f982-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '011291d23e624f51083ea7e9de7796d0ab2c404e61a21383f6ad4a96d21f2aaaea',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01178541ff76dbb3a426ed2ca32dc12cb7864be16c27f8b4c012531b2181af3f45':
+                            {
+                              bonding_purse:
+                                'uref-1f65b5a9c582345ca27c8dbb5bd6fab64c277fd0b03d8f64687c102e7ba938e1-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01178541ff76dbb3a426ed2ca32dc12cb7864be16c27f8b4c012531b2181af3f45',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '011f8052e480c0e989eaef9b432aef29b654f784eb0b3ea5d142d36aca3c62348f':
+                            {
+                              bonding_purse:
+                                'uref-7f98b799ff9506b6b473a1dd5f3e1449abd399af08583fd552e9caae1c1b7ce1-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '011f8052e480c0e989eaef9b432aef29b654f784eb0b3ea5d142d36aca3c62348f',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '012485da0f89cffc02ad3fd2a855753870c9e010eed1adc3a5e1feefdc21403dba':
+                            {
+                              bonding_purse:
+                                'uref-cd089c98d2e320288c4fef6d94e35a77df5aa1dbe066a0f387b503f0f0fa79a3-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '012485da0f89cffc02ad3fd2a855753870c9e010eed1adc3a5e1feefdc21403dba',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01385303d7424cfc14f552276ae235be7bf74bda8979fc3c25233ba9f364d7ba0a':
+                            {
+                              bonding_purse:
+                                'uref-2517949fd5cd3a321b512f80a849325c4edc5ebba6ba40b6a27b8749726daea2-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01385303d7424cfc14f552276ae235be7bf74bda8979fc3c25233ba9f364d7ba0a',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '013e180d46e12309370d8367733917f852deae5cdf51007c819a2ec21ca1c439a2':
+                            {
+                              bonding_purse:
+                                'uref-78ae27a500c0b732beedd2080911491461069bf2caceebff682f5c6022d0756e-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '013e180d46e12309370d8367733917f852deae5cdf51007c819a2ec21ca1c439a2',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '014996a7f68e68ae6e35a5d4aaf44afe49705434f5a18f50e97d7966616e03b630':
+                            {
+                              bonding_purse:
+                                'uref-65029f5610bbd68ba88df58a44a81f810d70937ab26c75d7f3d87f996f41416b-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '014996a7f68e68ae6e35a5d4aaf44afe49705434f5a18f50e97d7966616e03b630',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '0158b25f33a0d746115d067f2fe12f90a4a8af63203c07586bd5d4db90960eb248':
+                            {
+                              bonding_purse:
+                                'uref-abbadb441060285629c417528c28746f659b09c0cb2c33aa12f44eff34595682-007',
+                              staked_amount: '93412610802933',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '0158b25f33a0d746115d067f2fe12f90a4a8af63203c07586bd5d4db90960eb248',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '017143c9270c18aa3a0a64c8a5cf7b59eb737882757ba4d1307ee6929ddf35e5e8':
+                            {
+                              bonding_purse:
+                                'uref-ebbc38c40da952d9cac059568458f2eeef67eeb6c4001527c75693e13b30144f-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '017143c9270c18aa3a0a64c8a5cf7b59eb737882757ba4d1307ee6929ddf35e5e8',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '017fc7440c223f195f9026c3852d2d1470745e15d670c19442a21c8eb20f592d1a':
+                            {
+                              bonding_purse:
+                                'uref-697bdada8eb696a2a6dae50ed25bb297d5beb0278d6afdfa7c9bc128e147423d-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '017fc7440c223f195f9026c3852d2d1470745e15d670c19442a21c8eb20f592d1a',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '0185578ee2f4d92679831c5d98a3572a9b754b5079a0000f91d61992ceca6242fb':
+                            {
+                              bonding_purse:
+                                'uref-b2be43df8d0d1791c9b06961acb56b992eb78416c78b67a2261e86387d4b4f80-007',
+                              staked_amount: '534463165779',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '0185578ee2f4d92679831c5d98a3572a9b754b5079a0000f91d61992ceca6242fb',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01a61b8ae498d8e74c5ea9b4a410b23499e2f83a234808de65ee3fa48933420c69':
+                            {
+                              bonding_purse:
+                                'uref-5bb133c44692e07f508e4a6ddff23d6d383e7bb63dfeeec61a78d1db75cf0bea-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01a61b8ae498d8e74c5ea9b4a410b23499e2f83a234808de65ee3fa48933420c69',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01bc32e44c49a172c906a8cb44c12c725d6a9276f5b7ead3bf10dc14ba41fad732':
+                            {
+                              bonding_purse:
+                                'uref-2e146d125341c996cf886ddf02202558d3ccfdd400ff5cf089d67b053a388057-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01bc32e44c49a172c906a8cb44c12c725d6a9276f5b7ead3bf10dc14ba41fad732',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01bd034a1b3ef8ab38c54996c753cd1f09ef7be0bd7aeb202fcf7785a29403207c':
+                            {
+                              bonding_purse:
+                                'uref-0197ce7b7f76cd7f32f8c70abd73ea44ed3bcab3fe159bea3271651e1dd0f0cb-007',
+                              staked_amount: '1107768809043',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01bd034a1b3ef8ab38c54996c753cd1f09ef7be0bd7aeb202fcf7785a29403207c',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01bd053f8af77e5b1d7c738448baae538c4628444b4f396b3804e5a929ed759830':
+                            {
+                              bonding_purse:
+                                'uref-98141a78059c53314f977b111936079c2739939f417028d38a9d62c2fcaaa7c0-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01bd053f8af77e5b1d7c738448baae538c4628444b4f396b3804e5a929ed759830',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01c06d46ae0902b06aa7c5e10984cbaa73a64bce81469c6168e861d3d1ddfbf738':
+                            {
+                              bonding_purse:
+                                'uref-006c39c95e66fbf739d7d84ba97b9c1e1156d682cf69e9b63f487af36b5b03bd-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01c06d46ae0902b06aa7c5e10984cbaa73a64bce81469c6168e861d3d1ddfbf738',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01d81a4aa1e56ffb0c7757cd805ceca5bee1a3a1df0c14d548014b31166ba8ba8b':
+                            {
+                              bonding_purse:
+                                'uref-c2a07885ab0d4a0d26ebf0bafa96c6f81f194e5d729aae9febd6fd40811dce09-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01d81a4aa1e56ffb0c7757cd805ceca5bee1a3a1df0c14d548014b31166ba8ba8b',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01dc08212c244d8445648c5e5bab4a2b61366aa0ac5e38acfffb41ac2bcac0e371':
+                            {
+                              bonding_purse:
+                                'uref-cf682dfa19e0edbe85b952f4ae9a4ff0fee0cdf886a0897645745f07ccf2314d-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01dc08212c244d8445648c5e5bab4a2b61366aa0ac5e38acfffb41ac2bcac0e371',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01e20e675c9fced7f3bbfa0ab6263968ad4bf3b928b97fa57883b624e179af038b':
+                            {
+                              bonding_purse:
+                                'uref-994deaeeede20fea81ada1fafa093646768ea6fedcc228c05c961ec493b07431-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01e20e675c9fced7f3bbfa0ab6263968ad4bf3b928b97fa57883b624e179af038b',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01ede1ebde84b91c0c97b9ee32d8636181eab85f0611b26528ca1e678bc1c08ba7':
+                            {
+                              bonding_purse:
+                                'uref-24352eac6bc7ea26c25e0f202c7d0a782ee52fdeff2f627e45b28eb60f120f03-007',
+                              staked_amount: '22275745415775',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01ede1ebde84b91c0c97b9ee32d8636181eab85f0611b26528ca1e678bc1c08ba7',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01f330875578d100fb4981e20a02141a82cb008193dc3adf49a22a6314a325e6d1':
+                            {
+                              bonding_purse:
+                                'uref-ac58b75fe1ac61872e02b2fcba3c4e8cfd341a1ef1cd812002aa65e2343a64a1-007',
+                              staked_amount: '1108190349360',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01f330875578d100fb4981e20a02141a82cb008193dc3adf49a22a6314a325e6d1',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01f5136cdb81e074a9bfd640be833eaf76b1da276145beb9c5eb299da38a27d7fc':
+                            {
+                              bonding_purse:
+                                'uref-ae393d659876acde0b1259577722a213f87e1bed7ed805c58d1307d90162087e-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01f5136cdb81e074a9bfd640be833eaf76b1da276145beb9c5eb299da38a27d7fc',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '01fb15ba6791eac006b4358caef81570ec3d8fd340a656a0fff3c019984175db5c':
+                            {
+                              bonding_purse:
+                                'uref-7036dca7898ac3c6b460074fc7de8f253baa07aa8dddcc72a4979be9bfedc210-007',
+                              staked_amount: '1116160996998',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '01fb15ba6791eac006b4358caef81570ec3d8fd340a656a0fff3c019984175db5c',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '02021e9c3647c52a2be25effe4abc01db9789b9fadc1c7395aa72573b0e7ec0320b6':
+                            {
+                              bonding_purse:
+                                'uref-9a3877d4026f35522c7e38d35d87f0227d345c233559b1ade17c02a3ed8038b0-007',
+                              staked_amount: '529141143940',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '02021e9c3647c52a2be25effe4abc01db9789b9fadc1c7395aa72573b0e7ec0320b6',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '02036ccd012682c0a7896e483ee24e2292203557083fb8226f7f4930d8572b0b8642':
+                            {
+                              bonding_purse:
+                                'uref-a9449d24ea44c96ca1a81f3f5250dabb950130902d07eb248c3abd7267fd2a6c-007',
+                              staked_amount: '961685811210',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '02036ccd012682c0a7896e483ee24e2292203557083fb8226f7f4930d8572b0b8642',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                          '0203add7620725de2afc4f7e93cad357b291d3297723374e6fa572aa56f584d6d57c':
+                            {
+                              bonding_purse:
+                                'uref-6753c1e626cbe27bcb360c21fea44e35b3ed640cd9344da7527e6d8c049967b6-007',
+                              staked_amount: '557778655797',
+                              vesting_schedule: null,
+                              delegator_public_key:
+                                '0203add7620725de2afc4f7e93cad357b291d3297723374e6fa572aa56f584d6d57c',
+                              validator_public_key:
+                                '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                            },
+                        },
+                        bonding_purse:
+                          'uref-8363336c4487d675e303087df24d3d53365b04d6421c4699d233075ffa620da2-007',
+                        staked_amount: '5877429595483',
+                        delegation_rate: 2,
+                        vesting_schedule: null,
+                        validator_public_key:
+                          '01f4712780715807e7d84cd4036a43f8a497cf08e8bc0f1aabec483133d3253a83',
+                      },
+                    },
+                  },
+                  {
+                    key: 'deploy-6219d151c008993ad7a854d66c508dde486cdbda9c7580e92a974ea7b08fdab6',
+                    transform: {
+                      WriteDeployInfo: {
+                        gas: '10000',
+                        from: 'account-hash-3156edfa7b1149342501b572cd16ea05bc39c03ac01786c6ae488048a2871686',
+                        source:
+                          'uref-7c711372b1bfccf1db8ba33e8a3939d0df9746558f85e850ac5ce5a5f1561922-007',
+                        transfers: [],
+                        deploy_hash:
+                          '6219d151c008993ad7a854d66c508dde486cdbda9c7580e92a974ea7b08fdab6',
+                      },
+                    },
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-624dbe2395b9d9503fbee82162f1714ebff6b639f96d2084d26d944c354ec4c5',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-8cf5e4acf51f54eb59291599187838dc3bc234089c46fc6ca8ad17e762ae4401',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-010c3fe81b7b862e50c77ef9a958a05bfa98444f26f96f23d37a13c96244cfb7',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'hash-9824d60dc3a5c44a20b9fd260a412437933835b52fc683d8ae36e4ec2114843e',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-fb1c5f18db52e7d009b6f216aa70cd5fdba23982a5a2f457f5d82fab88038f60',
+                    transform: 'Identity',
+                  },
+                  {
+                    key: 'balance-98d945f5324f865243b7c02c0417ab6eac361c5c56602fd42ced834a1ba201b6',
+                    transform: {
+                      WriteCLValue: {
+                        bytes: '00',
+                        parsed: '0',
+                        cl_type: 'U512',
+                      },
+                    },
+                  },
+                  {
+                    key: 'balance-fb1c5f18db52e7d009b6f216aa70cd5fdba23982a5a2f457f5d82fab88038f60',
+                    transform: {
+                      AddUInt512: '10000',
+                    },
+                  },
+                ],
+              },
+              transfers: [],
+            },
+          },
+        },
+      ];
+
+      const mockJsonRpc = {
+        getDeployInfo: jest.fn().mockResolvedValue({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+
+      const mockRpcClient = new RpcApi(mockJsonRpc as any);
+
+      const deploy = await mockRpcClient.getDeploy(mockDeployHash);
+
+      const mockDeploy = {
+        timestamp: dateTimeString,
+        timeSince: deploy?.timeSince,
+        readableTimestamp: formatDate(dateTime),
+        deployHash: mockDeployHash,
+        blockHash: mockBlockHash,
+        publicKey: mockPublicKey,
+        action: 'undelegate',
+        // amount: '500000000000',
+        amount: undefined,
+        deployType: 'StoredContractByHash',
+        paymentAmount: '10000',
+        cost: '10000',
+        status: DeployStatus.Success,
+        rawDeploy: JSON.stringify({
+          deploy: mockRawDeploy,
+          execution_results: mockRawExecutionResults,
+        }),
+      };
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
+      expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
+      expect(deploy).toEqual(mockDeploy);
+    });
   });
 
   describe('getAccount', () => {
