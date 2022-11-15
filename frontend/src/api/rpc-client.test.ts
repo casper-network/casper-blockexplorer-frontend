@@ -658,7 +658,6 @@ describe('rpc-client', () => {
         publicKey: mockPublicKey,
         action: 'Transfer',
         amount: '999900000000',
-        // what should be don about undefined deployTypes?
         deployType: undefined,
         paymentAmount: '100000000',
         cost: '100000000',
@@ -1663,11 +1662,9 @@ describe('rpc-client', () => {
         blockHash: mockBlockHash,
         publicKey: mockPublicKey,
         action: 'WASM deploy',
-        // amount: '1000000000', the value listed is 1,000.00000
         amount: undefined,
         deployType: undefined,
         paymentAmount: '3000000000',
-        // cost: '1000000', this value is has been rounded
         cost: '9995660',
         status: DeployStatus.Failed,
         rawDeploy: JSON.stringify({
@@ -2627,7 +2624,7 @@ describe('rpc-client', () => {
 
       const mockBlock = {
         timestamp: dateTimeString,
-        // we ha v  e t o  use the returned timeSince as mocking it will inevitably be unreliable
+        // we ha v  e t o  use the returned timeSince as mocking it   w ill i n  e vi tably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
