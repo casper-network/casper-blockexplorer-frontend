@@ -667,6 +667,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -1456,6 +1457,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -1672,6 +1674,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -1886,6 +1889,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -2094,6 +2098,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -2372,6 +2377,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -2783,6 +2789,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -3177,6 +3184,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -3519,6 +3527,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -4126,6 +4135,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -4496,6 +4506,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -5325,6 +5336,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -5541,6 +5553,7 @@ describe('rpc-client', () => {
           execution_results: mockRawExecutionResults,
         }),
       };
+
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledTimes(1);
       expect(mockJsonRpc.getDeployInfo).toHaveBeenCalledWith(mockDeployHash);
       expect(deploy).toEqual(mockDeploy);
@@ -5793,7 +5806,7 @@ describe('rpc-client', () => {
 
       const mockBlock = {
         timestamp: dateTimeString,
-        // we ha v  e t o  use the returne d t imeSince as mocking it   w ill i n  e vi tably be unreliable
+        // we have to  use the returned timeSince as mocking it will inevitably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
