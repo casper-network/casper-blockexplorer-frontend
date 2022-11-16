@@ -57,7 +57,7 @@ export const HeroContainer = styled.div`
   }
 `;
 
-export const HeroHeading1 = styled(GradientHeading)`
+export const HeroHeading = styled(GradientHeading)`
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 1;
