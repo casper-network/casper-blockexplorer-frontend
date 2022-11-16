@@ -4116,7 +4116,6 @@ describe('rpc-client', () => {
         blockHash: mockBlockHash,
         publicKey: mockPublicKey,
         action: 'undelegate',
-        // amount: '500000000000',
         amount: undefined,
         deployType: 'StoredContractByHash',
         paymentAmount: '10000',
@@ -4487,7 +4486,6 @@ describe('rpc-client', () => {
         blockHash: mockBlockHash,
         publicKey: mockPublicKey,
         action: 'burn',
-        // "amount" 2000000000
         amount: undefined,
         deployType: 'StoredContractByHash',
         paymentAmount: '2000000000',
@@ -5795,7 +5793,7 @@ describe('rpc-client', () => {
 
       const mockBlock = {
         timestamp: dateTimeString,
-        // we ha v  e t o  use the returned timeSince as mocking it   w ill i n  e vi tably be unreliable
+        // we ha v  e t o  use the returne d t imeSince as mocking it   w ill i n  e vi tably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
