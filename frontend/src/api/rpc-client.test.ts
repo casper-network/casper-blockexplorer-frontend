@@ -5706,9 +5706,9 @@ describe('rpc-client', () => {
       );
     });
 
-    it('should throw an BalanceFetchFailed ApiEr  ror if an Error is caught', async () => {
+    it('should throw an BalanceFetchFailed ApiError if an Error is caught', async () => {
       const mockUref =
-        'uref-62f7fe1cecb1a4c600ffa791479ce52fb8 cbd a408815f4dd1b1e0d82e704579a-007';
+        'uref-62f7fe1cecb1a4c600ffa791479ce52fb8cbda408815f4dd1b1e0d82e704579a-007';
       const mockStateRootHash = 'state-root-hash';
 
       const mockJsonRpc = {
@@ -5806,7 +5806,7 @@ describe('rpc-client', () => {
 
       const mockBlock = {
         timestamp: dateTimeString,
-        // we have to  use the returned timeSince as mocking it will inevitably be unreliable
+        // we have to use the returned timeSince as mocking it will inevitably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
