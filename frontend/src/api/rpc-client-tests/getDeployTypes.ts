@@ -4,7 +4,7 @@ import { formatDate } from '../../utils';
 import { RpcApi } from '../rpc-client';
 import { DeployStatus } from '../types';
 
-export const transfer = () => {
+export const deployTypeTransfer = () => {
   it('should return a deploy of type Transfer', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -348,7 +348,7 @@ export const transfer = () => {
   });
 };
 
-export const bridgeOut = () => {
+export const deployTypeBridgeOut = () => {
   it('should return a deploy of type bridge_out', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -719,7 +719,7 @@ export const bridgeOut = () => {
   });
 };
 
-export const bid = () => {
+export const deployTypeBid = () => {
   it('should return a deploy of type bid', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -953,7 +953,7 @@ export const bid = () => {
   });
 };
 
-export const mint = () => {
+export const deployTypeMint = () => {
   it('should return a deploy of type mint', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -1144,7 +1144,7 @@ export const mint = () => {
   });
 };
 
-export const wasmDeploy = () => {
+export const deployTypeWasmDeploy = () => {
   it('should return a deploy of type WASM deploy', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -1363,7 +1363,7 @@ export const wasmDeploy = () => {
   });
 };
 
-export const claim = () => {
+export const deployTypeClaim = () => {
   it('should return a deploy of type claim', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -1580,7 +1580,7 @@ export const claim = () => {
   });
 };
 
-export const addToAccountWhitelist = () => {
+export const deployTypeAddToAccountWhitelist = () => {
   it('should return a deploy of type add_to_account_whitelist', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -1791,7 +1791,7 @@ export const addToAccountWhitelist = () => {
   });
 };
 
-export const approveDeploy = () => {
+export const deployTypeApproveDeploy = () => {
   it('should return a deploy of type approve_deploy', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -2072,7 +2072,7 @@ export const approveDeploy = () => {
   });
 };
 
-export const transferToken = () => {
+export const deployTypeTransferToken = () => {
   it('should return a deploy of type transfer_token', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -2485,7 +2485,7 @@ export const transferToken = () => {
   });
 };
 
-export const mintOne = () => {
+export const deployTypeMintOne = () => {
   it('should return a deploy of type mint_one', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -2882,7 +2882,7 @@ export const mintOne = () => {
   });
 };
 
-export const delegate = () => {
+export const deployTypeDelegate = () => {
   it('should return a deploy of type delegate', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -3227,7 +3227,7 @@ export const delegate = () => {
   });
 };
 
-export const undelegate = () => {
+export const deployTypeUndelegate = () => {
   it('should return a deploy of type undelegate', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -3837,7 +3837,7 @@ export const undelegate = () => {
   });
 };
 
-export const burn = () => {
+export const deployTypeBurn = () => {
   it('should return a deploy of type burn', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -4210,7 +4210,7 @@ export const burn = () => {
   });
 };
 
-export const mintCopies = () => {
+export const deployTypeMintCopies = () => {
   it('should return a deploy of type mint_copies', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();
@@ -5042,7 +5042,7 @@ export const mintCopies = () => {
   });
 };
 
-export const revokeBid = () => {
+export const deployTypeRevokeBid = () => {
   it('should return a deploy of type revoke_bid', async () => {
     const dateTime = new Date();
     const dateTimeString = dateTime.toString();

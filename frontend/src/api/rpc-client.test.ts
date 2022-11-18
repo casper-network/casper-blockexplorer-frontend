@@ -4,21 +4,21 @@ import { DeployStatus } from './types';
 import { formatDate } from '../utils';
 import { DEFAULT_NUM_TO_SHOW, RpcApi, RpcApiError } from './rpc-client';
 import {
-  addToAccountWhitelist,
-  approveDeploy,
-  bid,
-  bridgeOut,
-  burn,
-  claim,
-  delegate,
-  mint,
-  mintCopies,
-  mintOne,
-  revokeBid,
-  transfer,
-  transferToken,
-  undelegate,
-  wasmDeploy,
+  deployTypeAddToAccountWhitelist,
+  deployTypeApproveDeploy,
+  deployTypeBid,
+  deployTypeBridgeOut,
+  deployTypeBurn,
+  deployTypeClaim,
+  deployTypeDelegate,
+  deployTypeMint,
+  deployTypeMintCopies,
+  deployTypeMintOne,
+  deployTypeRevokeBid,
+  deployTypeTransfer,
+  deployTypeTransferToken,
+  deployTypeUndelegate,
+  deployTypeWasmDeploy,
 } from './rpc-client-tests/getDeployTypes';
 
 describe('rpc-client', () => {
@@ -51,7 +51,7 @@ describe('rpc-client', () => {
 
       const mockRpcClient = new RpcApi(mockJsonRpc as any);
 
-      const mockBlockHash = 'block-hash';
+      const mockBlockHash = 'b lock-hash';
 
       const block = await mockRpcClient.getBlock(mockBlockHash);
 
@@ -162,7 +162,7 @@ describe('rpc-client', () => {
       expect(peers).toEqual(mockPeers);
     });
 
-    it('should throw n PeersFetchFailed ApiError when an Error is caught', async () => {
+    it('should thrown PeersFetchFailed ApiError when an Error is caught', async () => {
       const mockJsonRpc = {
         getPeers: jest
           .fn()
@@ -347,21 +347,22 @@ describe('rpc-client', () => {
         expect(err.type).toBe(RpcApiError.DeployFetchFailed);
       }
     });
-    transfer();
-    bridgeOut();
-    bid();
-    mint();
-    wasmDeploy();
-    claim();
-    addToAccountWhitelist();
-    approveDeploy();
-    transferToken();
-    mintOne();
-    delegate();
-    undelegate();
-    burn();
-    mintCopies();
-    revokeBid();
+
+    deployTypeTransfer();
+    deployTypeBridgeOut();
+    deployTypeBid();
+    deployTypeMint();
+    deployTypeWasmDeploy();
+    deployTypeClaim();
+    deployTypeAddToAccountWhitelist();
+    deployTypeApproveDeploy();
+    deployTypeTransferToken();
+    deployTypeMintOne();
+    deployTypeDelegate();
+    deployTypeUndelegate();
+    deployTypeBurn();
+    deployTypeMintCopies();
+    deployTypeRevokeBid();
   });
 
   describe('getAccount', () => {
