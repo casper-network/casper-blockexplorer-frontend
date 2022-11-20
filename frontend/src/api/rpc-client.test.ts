@@ -348,21 +348,43 @@ describe('rpc-client', () => {
       }
     });
 
-    deployTypeTransfer();
-    deployTypeBridgeOut();
-    deployTypeBid();
-    deployTypeMint();
-    deployTypeWasmDeploy();
-    deployTypeClaim();
-    deployTypeAddToAccountWhitelist();
-    deployTypeApproveDeploy();
-    deployTypeTransferToken();
-    deployTypeMintOne();
-    deployTypeDelegate();
-    deployTypeUndelegate();
-    deployTypeBurn();
-    deployTypeMintCopies();
-    deployTypeRevokeBid();
+    it('should return a deploy of type Transfer', deployTypeTransfer);
+
+    it('should return a deploy of type bridge_out', deployTypeBridgeOut);
+
+    it('should return a deploy of type bid', deployTypeBid);
+
+    it('should return a deploy of type mint', deployTypeMint);
+
+    it('should return a deploy of type WASM deploy', deployTypeWasmDeploy);
+
+    it('should return a deploy of type claim', deployTypeClaim);
+
+    it(
+      'should return a deploy of type add_to_account_whitelist',
+      deployTypeAddToAccountWhitelist,
+    );
+
+    it(
+      'should return a deploy of type approve_deploy',
+      deployTypeApproveDeploy,
+    );
+
+    it(
+      'should return a deploy of type transfer_token',
+      deployTypeTransferToken,
+    );
+    it('should return a deploy of type mint_one', deployTypeMintOne);
+
+    it('should return a deploy of type delegate', deployTypeDelegate);
+
+    it('should return a deploy of type undelegate', deployTypeUndelegate);
+
+    it('should return a deploy of type burn', deployTypeBurn);
+
+    it('should return a deploy of type mint_copies', deployTypeMintCopies);
+
+    it('should return a deploy of type revoke_bid', deployTypeRevokeBid);
   });
 
   describe('getAccount', () => {
@@ -611,7 +633,7 @@ describe('rpc-client', () => {
 
       const mockBlock = {
         timestamp: dateTimeString,
-        // we have to use the returned timeSince as mocking it will inevitably be unreliable
+        //  we have to use the returned timeSince as mocking it will inevitably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
