@@ -162,7 +162,7 @@ describe('rpc-client', () => {
       expect(peers).toEqual(mockPeers);
     });
 
-    it('should thrown PeersFetchFailed ApiError when an Error is caught', async () => {
+    it('should throw PeersFetchFailed ApiError when an Error is caught', async () => {
       const mockJsonRpc = {
         getPeers: jest
           .fn()
