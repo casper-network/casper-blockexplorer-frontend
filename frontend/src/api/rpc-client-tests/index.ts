@@ -1,1 +1,1 @@
-export * from './getDeployTypes';
+export * from './deploy-types';

@@ -4,22 +4,22 @@ import { DeployStatus } from './types';
 import { formatDate } from '../utils';
 import { DEFAULT_NUM_TO_SHOW, RpcApi, RpcApiError } from './rpc-client';
 import {
-  deployTypeAddToAccountWhitelist,
-  deployTypeApproveDeploy,
-  deployTypeBid,
-  deployTypeBridgeOut,
-  deployTypeBurn,
-  deployTypeClaim,
-  deployTypeDelegate,
-  deployTypeMint,
-  deployTypeMintCopies,
-  deployTypeMintOne,
-  deployTypeRevokeBid,
-  deployTypeTransfer,
-  deployTypeTransferToken,
-  deployTypeUndelegate,
-  deployTypeWasmDeploy,
-} from './rpc-client-tests/getDeployTypes';
+  addToAccountWhitelist,
+  approveDeploy,
+  bid,
+  bridgeOut,
+  burn,
+  claim,
+  delegate,
+  mint,
+  mintCopies,
+  mintOne,
+  revokeBid,
+  transfer,
+  transferToken,
+  undelegate,
+  wasmDeploy,
+} from './rpc-client-tests';
 
 describe('rpc-client', () => {
   describe('getBlock', () => {
@@ -51,7 +51,7 @@ describe('rpc-client', () => {
 
       const mockRpcClient = new RpcApi(mockJsonRpc as any);
 
-      const mockBlockHash = 'b lock-hash';
+      const mockBlockHash = 'block-hash';
 
       const block = await mockRpcClient.getBlock(mockBlockHash);
 
@@ -348,43 +348,38 @@ describe('rpc-client', () => {
       }
     });
 
-    it('should return a deploy of type Transfer', deployTypeTransfer);
-
-    it('should return a deploy of type bridge_out', deployTypeBridgeOut);
-
-    it('should return a deploy of type bid', deployTypeBid);
-
-    it('should return a deploy of type mint', deployTypeMint);
-
-    it('should return a deploy of type WASM deploy', deployTypeWasmDeploy);
-
-    it('should return a deploy of type claim', deployTypeClaim);
-
     it(
       'should return a deploy of type add_to_account_whitelist',
-      deployTypeAddToAccountWhitelist,
+      addToAccountWhitelist,
     );
 
-    it(
-      'should return a deploy of type approve_deploy',
-      deployTypeApproveDeploy,
-    );
+    it('should return a deploy of type approve_deploy', approveDeploy);
 
-    it(
-      'should return a deploy of type transfer_token',
-      deployTypeTransferToken,
-    );
-    it('should return a deploy of type mint_one', deployTypeMintOne);
+    it('should return a deploy of type bid', bid);
 
-    it('should return a deploy of type delegate', deployTypeDelegate);
+    it('should return a deploy of type bridge_out', bridgeOut);
 
-    it('should return a deploy of type undelegate', deployTypeUndelegate);
+    it('should return a deploy of type burn', burn);
 
-    it('should return a deploy of type burn', deployTypeBurn);
+    it('should return a deploy of type claim', claim);
 
-    it('should return a deploy of type mint_copies', deployTypeMintCopies);
+    it('should return a deploy of type delegate', delegate);
 
-    it('should return a deploy of type revoke_bid', deployTypeRevokeBid);
+    it('should return a deploy of type mint_copies', mintCopies);
+
+    it('should return a deploy of type mint_one', mintOne);
+
+    it('should return a deploy of type mint', mint);
+
+    it('should return a deploy of type revoke_bid', revokeBid);
+
+    it('should return a deploy of type transfer_token', transferToken);
+
+    it('should return a deploy of type Transfer', transfer);
+
+    it('should return a deploy of type undelegate', undelegate);
+
+    it('should return a deploy of type WASM deploy', wasmDeploy);
   });
 
   describe('getAccount', () => {
