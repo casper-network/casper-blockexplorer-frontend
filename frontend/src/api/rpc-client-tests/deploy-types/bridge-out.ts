@@ -269,7 +269,7 @@ export const bridgeOut = async () => {
                 },
               },
               {
-                key: 'deploy-3609df6a9c574a db250e8e9c4dd8924d58df0c6fe2fe96f b b5f9da2ba2f8b76f',
+                key: 'deploy-3609df6a9c574adb250e8e9c4dd8924d58df0c6fe2fe96fbb5f9da2ba2f8b76f',
                 transform: {
                   WriteDeployInfo: {
                     gas: '302543230',
