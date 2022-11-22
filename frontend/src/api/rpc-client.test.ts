@@ -628,7 +628,7 @@ describe('rpc-client', () => {
 
       const mockBlock = {
         timestamp: dateTimeString,
-        //  we have to use the returned timeSince as mocking it will inevitably be unreliable
+        // we have to use the returned timeSince as mocking it will inevitably be unreliable
         timeSince: block?.timeSince,
         readableTimestamp: formatDate(dateTime),
         height: 1,
