@@ -69,6 +69,7 @@ export const HeroHeading = styled(GradientHeading)`
     line-height: 1;
     padding-right: 0.5rem;
     max-width: 34rem;
+    background-size: 100%;
   }
 
   @media (min-width: ${breakpoints.lg}) {

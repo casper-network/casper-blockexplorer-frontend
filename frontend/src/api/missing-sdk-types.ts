@@ -34,6 +34,7 @@ export type JsonDeploySession =
   | JsonDeployTransferSession
   | JsonDeployWasmSession
   | JsonDeployEntryPointSession;
+
 export interface JsonBlockWithBody extends JsonBlock {
   body: {
     proposer: string;

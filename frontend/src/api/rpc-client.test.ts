@@ -3,6 +3,23 @@
 import { DeployStatus } from './types';
 import { formatDate } from '../utils';
 import { DEFAULT_NUM_TO_SHOW, RpcApi, RpcApiError } from './rpc-client';
+import {
+  addToAccountWhitelist,
+  approveDeploy,
+  bid,
+  bridgeOut,
+  burn,
+  claim,
+  delegate,
+  mint,
+  mintCopies,
+  mintOne,
+  revokeBid,
+  transfer,
+  transferToken,
+  undelegate,
+  wasmDeploy,
+} from './rpc-client-tests';
 
 describe('rpc-client', () => {
   describe('getBlock', () => {
@@ -145,7 +162,7 @@ describe('rpc-client', () => {
       expect(peers).toEqual(mockPeers);
     });
 
-    it('should throw n PeersFetchFailed ApiError when an Error is caught', async () => {
+    it('should throw PeersFetchFailed ApiError when an Error is caught', async () => {
       const mockJsonRpc = {
         getPeers: jest
           .fn()
@@ -330,6 +347,39 @@ describe('rpc-client', () => {
         expect(err.type).toBe(RpcApiError.DeployFetchFailed);
       }
     });
+
+    it(
+      'should return a deploy of type add_to_account_whitelist',
+      addToAccountWhitelist,
+    );
+
+    it('should return a deploy of type approve_deploy', approveDeploy);
+
+    it('should return a deploy of type bid', bid);
+
+    it('should return a deploy of type bridge_out', bridgeOut);
+
+    it('should return a deploy of type burn', burn);
+
+    it('should return a deploy of type claim', claim);
+
+    it('should return a deploy of type delegate', delegate);
+
+    it('should return a deploy of type mint_copies', mintCopies);
+
+    it('should return a deploy of type mint_one', mintOne);
+
+    it('should return a deploy of type mint', mint);
+
+    it('should return a deploy of type revoke_bid', revokeBid);
+
+    it('should return a deploy of type transfer_token', transferToken);
+
+    it('should return a deploy of type Transfer', transfer);
+
+    it('should return a deploy of type undelegate', undelegate);
+
+    it('should return a deploy of type WASM deploy', wasmDeploy);
   });
 
   describe('getAccount', () => {
