@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import { NavButton } from 'src/components/buttons/NavButton';
 import {
   NavComponentsContainer,
   Nav,
-  NavButtonContainer,
-  NavButton,
   NavItemsContainer,
   DesktopNav,
   DesktopNavItemsContainer,
@@ -57,11 +56,12 @@ export const Navbar: React.FC = () => {
   return (
     <Nav>
       <NavComponentsContainer>
-        <NavButtonContainer>
-          <NavButton type="button" onClick={() => setIsOpened(!isOpened)}>
-            {isOpened ? <CloseMenuIcon /> : <OpenMenuIcon />}
-          </NavButton>
-        </NavButtonContainer>
+        <NavButton
+          type="button"
+          onClick={() => setIsOpened(!isOpened)}
+          color="transparent">
+          {isOpened ? <CloseMenuIcon /> : <OpenMenuIcon />}
+        </NavButton>
         <NavItemsContainer>
           {isOpened && (
             <MobileNav>

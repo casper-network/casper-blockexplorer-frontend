@@ -12,25 +12,6 @@ export const NavComponentsContainer = styled.div`
   display: flex;
 `;
 
-export const NavButtonContainer = styled.div`
-  z-index: 30;
-`;
-
-export const NavButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  margin: 0 auto;
-  padding: 0;
-  width: 90%;
-  border-style: none;
-
-  @media (min-width: ${breakpoints.lg}) {
-    display: none;
-  }
-`;
-
 export const NavItemsContainer = styled.div`
   width: 100%;
 `;
