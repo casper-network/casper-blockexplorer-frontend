@@ -12,11 +12,11 @@ export const NavButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <NavButtonContainer>
-      <StyledButton>
+      <ButtonStyles>
         <Button type={type} onClick={onClick} color={color}>
           {children}
         </Button>
-      </StyledButton>
+      </ButtonStyles>
     </NavButtonContainer>
   );
 };
@@ -25,7 +25,7 @@ export const NavButtonContainer = styled.div`
   z-index: 30;
 `;
 
-export const StyledButton = styled.button`
+export const ButtonStyles = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
