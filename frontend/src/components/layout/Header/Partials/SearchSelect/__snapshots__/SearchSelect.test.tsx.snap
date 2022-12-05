@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchSelect should not display react-select component if screen width is less than 1023px 1`] = `
+<div>
+  <section
+    data-testid="search-select"
+  >
+    <ul
+      class="css-1mwiq5w"
+    >
+      <li>
+        <button
+          class="css-1u867rd"
+          style="background-color: rgb(241, 241, 244); color: rgb(0, 0, 0);"
+          type="button"
+        >
+          Account
+        </button>
+      </li>
+      <li>
+        <button
+          class="css-1u867rd"
+          style="background-color: rgb(241, 241, 244); color: rgb(0, 0, 0);"
+          type="button"
+        >
+          Deploy
+        </button>
+      </li>
+      <li>
+        <button
+          class="css-1u867rd"
+          style="background-color: rgb(241, 241, 244); color: rgb(0, 0, 0);"
+          type="button"
+        >
+          Blk Hash
+        </button>
+      </li>
+      <li>
+        <button
+          class="css-1u867rd"
+          style="background-color: rgb(241, 241, 244); color: rgb(0, 0, 0);"
+          type="button"
+        >
+          Blk Height
+        </button>
+      </li>
+    </ul>
+  </section>
+</div>
+`;
