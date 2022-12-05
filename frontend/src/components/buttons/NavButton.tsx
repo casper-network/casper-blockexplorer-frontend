@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { breakpoints } from 'src/styled-theme';
+import { breakpoints } from '../../styled-theme';
 import { Button } from '../base';
 import { ButtonProps } from '../base/Button/Button';
 
@@ -25,7 +25,7 @@ export const NavButtonContainer = styled.div`
   z-index: 30;
 `;
 
-export const ButtonStyles = styled.button`
+export const ButtonStyles = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

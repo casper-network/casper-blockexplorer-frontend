@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { NavButton } from 'src/components/buttons/NavButton';
+import { NavButton } from '../../buttons/NavButton';
+
 import {
   NavComponentsContainer,
   Nav,
@@ -54,7 +55,7 @@ export const Navbar: React.FC = () => {
   }, [isOpened]);
 
   return (
-    <Nav>
+    <Nav aria-label="navigation">
       <NavComponentsContainer>
         <NavButton
           type="button"
