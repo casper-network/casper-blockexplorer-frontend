@@ -3,6 +3,13 @@ import { fireEvent, render } from '../../../test-utils';
 import { Button } from './Button';
 
 describe('Button', () => {
+  it('should render without errors', () => {
+    const { getByRole } = render(<Button type="button">button</Button>);
+    const button = getByRole('button', { name: 'button' });
+
+    expect(button).toBeInTheDocument();
+  });
+
   it('should produce an event on click if not disabled', () => {
     const { getByRole } = render(<Button type="button">button</Button>);
     const button = getByRole('button', { name: 'button' });
