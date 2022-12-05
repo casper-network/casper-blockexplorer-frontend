@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import Select, { PropsValue } from 'react-select';
-import { pxToRem, colors } from 'src/styled-theme';
+import { pxToRem, colors } from '../../../../../styled-theme';
 import { SelectOptions } from '../partials.types';
 
 export interface CustomSelectProps {
@@ -24,8 +24,13 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   onChange,
 }) => {
   return (
-    <SelectWrapper isMenuOpen={isMenuOpen}>
+    <SelectWrapper isMenuOpen={isMenuOpen} data-testid="select-wrapper">
+      <label htmlFor="select" className="sr-only">
+        Select
+      </label>
       <Select
+        aria-label="select-button"
+        inputId="select"
         onMenuOpen={() => setIsMenuOpen(true)}
         onMenuClose={() => setIsMenuOpen(false)}
         defaultValue={defaultValue}
