@@ -5,14 +5,14 @@ import { render, renderHook } from '../../../../../test-utils';
 import { SearchSelect } from './SearchSelect';
 import { FormValues } from '../partials.types';
 
-window.resizeTo = function resizeTo(width, height): void {
-  Object.assign(this, {
-    innerWidth: width,
-    innerHeight: height,
-    outerWidth: width,
-    outerHeight: height,
-  }).dispatchEvent(new this.Event('resize'));
-};
+// window.resizeTo = function resizeTo(width, height): void {
+//   Object.assign(this, {
+//     innerWidth: width,
+//     innerHeight: height,
+//     outerWidth: width,
+//     outerHeight: height,
+//   }).dispatchEvent(new this.Event('resize'));
+// };
 
 describe('SearchSelect', () => {
   it('should render without error', () => {
