@@ -19,14 +19,14 @@ describe('Navbar', () => {
   });
 
   it('should hide navigation options when screen width is below 1023px', () => {
-    const { container: mobile, getByText } = render(
+    const { container: mobile } = render(
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       <ResponsiveContext.Provider value={{ width: 1022 }}>
         <Navbar />
       </ResponsiveContext.Provider>,
     );
 
-    const navItem = getByText('Home');
+    // const navItem = getByText('Home');
     // expect(navItem).not.toBeInTheDocument();
 
     expect(mobile).toMatchSnapshot();
