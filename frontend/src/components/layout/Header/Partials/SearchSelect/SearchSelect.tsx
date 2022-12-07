@@ -46,8 +46,6 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 
           return !isMobile ? (
             <CustomSelect
-              aria-label="select-button"
-              data-testid="react-select"
               defaultValue={selectOptions[0]}
               currentSelection={currentSelection}
               name={name}
