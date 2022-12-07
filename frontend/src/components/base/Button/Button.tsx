@@ -37,7 +37,7 @@ const StyledButton = styled.button<{ bgColor: string }>`
   color: white;
   background-color: ${({ bgColor }) => bgColor};
   text-align: center;
-  padding: 10px;
+  padding: ${pxToRem(10)};
   border-radius: ${pxToRem(10)};
   cursor: pointer;
   border: none;
