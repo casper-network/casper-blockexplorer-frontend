@@ -1,9 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Context as ResponsiveContext } from 'react-responsive';
 import { render, renderHook } from '../../../../../test-utils';
 import { SearchSelect } from './SearchSelect';
 import { FormValues } from '../partials.types';
+
+jest.mock('../../../../../hooks', () => {
+  return {
+    useAppWidth: () => {
+      return { windowWidth: 1024, isMobile: false };
+    },
+  };
+});
 
 describe('SearchSelect', () => {
   it('should render without error', () => {
@@ -26,17 +33,16 @@ describe('SearchSelect', () => {
     const { result } = renderHook(useForm<FormValues>);
 
     const mockCurrentFilterOption = 'current option';
-    const { container: mobile } = render(
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      <ResponsiveContext.Provider value={{ width: 1022 }}>
-        <SearchSelect
-          control={result.current.control}
-          currentFilterOption={mockCurrentFilterOption}
-          setCurrentFilterOption={jest.fn()}
-        />
-      </ResponsiveContext.Provider>,
+    const { getByLabelText } = render(
+      <SearchSelect
+        control={result.current.control}
+        currentFilterOption={mockCurrentFilterOption}
+        setCurrentFilterOption={jest.fn()}
+      />,
     );
 
-    expect(mobile).toMatchSnapshot();
+    const selectButton = getByLabelText('select-button');
+
+    expect(selectButton).toBeInTheDocument();
   });
 });
