@@ -6,7 +6,7 @@ import { Button } from './Button';
 describe('Button', () => {
   const mockCallBack = jest.fn();
 
-  it('should render without errors', () => {
+  it('should render', () => {
     const { getByRole } = render(<Button type="button">button</Button>);
     const button = getByRole('button', { name: 'button' });
 
