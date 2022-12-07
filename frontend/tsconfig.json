@@ -28,9 +28,9 @@
     "experimentalDecorators": true,
     "preserveConstEnums": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "./cypress.config.ts"],
   "exclude": ["node_modules"],
   "watchOptions": {
-    "excludeFiles": ["**/*.test.ts", "**.*spec.ts"]
+    "excludeFiles": ["**/*.test.ts", "**.*spec.ts", "cypress.config.ts"]
   }
 }

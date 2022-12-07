@@ -99,7 +99,12 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['yarn.lock', '.eslintrc.js', 'tailwind.config.js'],
+  ignorePatterns: [
+    'yarn.lock',
+    '.eslintrc.js',
+    'tailwind.config.js',
+    './cypress/*',
+  ],
   settings: {
     'import/resolver': {
       node: {
