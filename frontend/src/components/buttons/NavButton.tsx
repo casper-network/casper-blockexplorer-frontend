@@ -11,19 +11,13 @@ export const NavButton: React.FC<ButtonProps> = ({
   color,
 }) => {
   return (
-    <NavButtonContainer>
-      <ButtonStyles>
-        <Button type={type} onClick={onClick} color={color}>
-          {children}
-        </Button>
-      </ButtonStyles>
-    </NavButtonContainer>
+    <ButtonStyles>
+      <Button type={type} onClick={onClick} color={color}>
+        {children}
+      </Button>
+    </ButtonStyles>
   );
 };
-
-export const NavButtonContainer = styled.div`
-  z-index: 30;
-`;
 
 export const ButtonStyles = styled.div`
   display: flex;
@@ -34,6 +28,7 @@ export const ButtonStyles = styled.div`
   padding: 0;
   width: 90%;
   border-style: none;
+  z-index: 20;
 
   @media (min-width: ${breakpoints.lg}) {
     display: none;

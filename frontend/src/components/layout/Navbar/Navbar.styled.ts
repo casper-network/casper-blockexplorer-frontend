@@ -32,7 +32,7 @@ export const MobileNavItemsContainer = styled.ul`
   gap: 1.25rem;
   z-index: 10;
   background-color: #0325d1;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
 `;
