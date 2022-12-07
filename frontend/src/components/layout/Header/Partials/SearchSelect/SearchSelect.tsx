@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { FormValues, SelectOptions } from '../partials.types';
@@ -20,7 +20,6 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   currentFilterOption,
   setCurrentFilterOption,
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isMobile } = useAppWidth();
 
   const selectOptions: SelectOptions[] | null = [
@@ -49,8 +48,6 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
             <CustomSelect
               aria-label="select-button"
               data-testid="react-select"
-              isMenuOpen={isMenuOpen}
-              setIsMenuOpen={setIsMenuOpen}
               defaultValue={selectOptions[0]}
               currentSelection={currentSelection}
               name={name}

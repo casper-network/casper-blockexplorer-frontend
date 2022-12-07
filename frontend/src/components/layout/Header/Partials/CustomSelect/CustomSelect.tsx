@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import Select, { PropsValue } from 'react-select';
 import { pxToRem, colors } from '../../../../../styled-theme';
 import { SelectOptions } from '../partials.types';
 
 export interface CustomSelectProps {
-  readonly isMenuOpen: boolean;
-  readonly setIsMenuOpen: (value: React.SetStateAction<boolean>) => void;
   readonly currentSelection: SelectOptions | undefined;
   readonly name: string;
   readonly defaultValue: PropsValue<SelectOptions>;
@@ -15,14 +13,14 @@ export interface CustomSelectProps {
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({
-  isMenuOpen,
-  setIsMenuOpen,
   currentSelection,
   name,
   defaultValue,
   options,
   onChange,
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <SelectWrapper isMenuOpen={isMenuOpen} data-testid="select-wrapper">
       <label htmlFor="select" className="sr-only">
