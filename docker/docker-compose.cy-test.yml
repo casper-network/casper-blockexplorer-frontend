@@ -21,4 +21,4 @@ services:
     depends_on:
       - block_explorer
     environment:
-      - CYPRESS_baseUrl=http://block_explorer
+      - CYPRESS_baseUrl=http://block_explorer:3000
