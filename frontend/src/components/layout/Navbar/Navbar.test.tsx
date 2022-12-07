@@ -26,9 +26,6 @@ describe('Navbar', () => {
       </ResponsiveContext.Provider>,
     );
 
-    // const navItem = getByText('Home');
-    // expect(navItem).not.toBeInTheDocument();
-
     expect(mobile).toMatchSnapshot();
   });
 });
