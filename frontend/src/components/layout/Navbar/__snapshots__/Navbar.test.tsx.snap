@@ -10,20 +10,16 @@ exports[`Navbar should hide navigation options when screen width is below 1023px
       class="css-ov1ktg"
     >
       <div
-        class="css-1mbb8hy"
+        class="css-14f0iu3"
       >
-        <div
-          class="css-1x9bva"
+        <button
+          class="css-z0v5vi"
+          type="button"
         >
-          <button
-            class="css-1r8yndd"
-            type="button"
-          >
-            <svg>
-              open-menu-icon.svg
-            </svg>
-          </button>
-        </div>
+          <svg>
+            open-menu-icon.svg
+          </svg>
+        </button>
       </div>
       <div
         class="css-1ago99h"
