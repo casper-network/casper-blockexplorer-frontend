@@ -22,6 +22,7 @@ describe('Button', () => {
     const button = getByRole('button', { name: 'button' });
 
     userEvent.click(button);
+
     expect(button).toBeEnabled();
     expect(mockClickHandler.mock.calls.length).toEqual(1);
     expect(button).toHaveTextContent('button');
@@ -36,6 +37,7 @@ describe('Button', () => {
     const button = getByRole('button', { name: 'button' });
 
     userEvent.click(button);
+
     expect(button).not.toBeEnabled();
     expect(mockClickHandler.mock.calls.length).toEqual(0);
     expect(button).toHaveTextContent('button');
