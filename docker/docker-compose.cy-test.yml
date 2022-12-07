@@ -1,0 +1,24 @@
+# https://github.com/bahmutov/cypress-open-from-docker-compose
+version: '3.2'
+services:
+  block_explorer:
+    build:
+      context: ../.
+      dockerfile: frontend/Dockerfile
+      args:
+        - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
+    environment:
+      - NODE_ENV=test
+      - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
+    image: blockexplorer-frontend-cypress
+    restart: always
+    ports:
+     - "3000:3000"
+  cypress:
+    build:
+      context: ../.
+      dockerfile: frontend/cypress/Dockerfile
+    depends_on:
+      - block_explorer
+    environment:
+      - CYPRESS_baseUrl=http://block_explorer
