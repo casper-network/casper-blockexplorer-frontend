@@ -7,7 +7,11 @@ export const DetailDataLabel = styled.h3`
   color: ${colors.greyBlue};
 `;
 
-export const DetailDataWrapper = styled.div``;
+export const DetailDataWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+`;
 
 interface DetailDataListProps {
   width?: string;
