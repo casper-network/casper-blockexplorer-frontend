@@ -79,6 +79,8 @@
     "build": "node scripts/build.js",
     "build:clean": "npm run clean && npm run build",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "lint": "eslint --ext .ts,.tsx src --max-warnings=0",
     "style:check": "prettier --check 'src/**/**/*.{ts,tsx}'",
     "style:fix": "prettier --write src/**/**/*.{ts,tsx}",
