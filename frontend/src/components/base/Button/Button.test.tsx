@@ -6,7 +6,7 @@ import { Button } from './Button';
 describe('Button', () => {
   const mockClickHandler = jest.fn();
 
-  it('should render', () => {
+  it('should render a button', () => {
     const { getByRole } = render(<Button type="button">button</Button>);
     const button = getByRole('button', { name: 'button' });
 
@@ -24,7 +24,7 @@ describe('Button', () => {
     userEvent.click(button);
 
     expect(button).toBeEnabled();
-    expect(mockClickHandler.mock.calls.length).toEqual(1);
+    expect(mockClickHandler).toHaveBeenCalledTimes(1);
     expect(button).toHaveTextContent('button');
   });
 
@@ -39,7 +39,7 @@ describe('Button', () => {
     userEvent.click(button);
 
     expect(button).not.toBeEnabled();
-    expect(mockClickHandler.mock.calls.length).toEqual(0);
+    expect(mockClickHandler).not.toHaveBeenCalled();
     expect(button).toHaveTextContent('button');
   });
 });
