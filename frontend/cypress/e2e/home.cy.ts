@@ -1,7 +1,9 @@
 describe('Home Page', () => {
-  it('can visit at root url', () => {
+  it('can visit at root url', async () => {
     cy.visit('/');
 
-    expect(true).to.equal(true);
+    const homePageHeroText = 'Discover the Casper Blockchain.';
+
+    cy.contains(homePageHeroText).should('be.visible');
   });
 });
