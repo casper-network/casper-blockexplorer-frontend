@@ -23,7 +23,7 @@ describe('CustomSelect', () => {
     onChange: jest.fn,
   };
 
-  it('should render customSelect with "Option 1" as default value without error', async () => {
+  it('should render customSelect with "Option 1" as default value', async () => {
     const { getByRole, getByTestId } = render(<CustomSelect {...mockProps} />);
     const customSelect = getByRole('combobox', { name: 'select-button' });
     const selectWrapper = getByTestId('select-wrapper');
