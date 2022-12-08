@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
   }, [isOpened]);
 
   return (
-    <Nav aria-label="navigation">
+    <Nav data-testid="navigation">
       <NavComponentsContainer>
         <NavButton
           type="button"
