@@ -22,7 +22,7 @@ import { FormValues } from '../partials.types';
 
 interface SearchFormProps {}
 
-const resolver: Resolver<FormValues> = async values => {
+export const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
     values.hash,

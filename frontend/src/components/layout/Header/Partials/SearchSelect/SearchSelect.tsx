@@ -1,16 +1,15 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
-import Select from 'react-select';
 
 import { FormValues, SelectOptions } from '../partials.types';
 import { useAppWidth } from '../../../../../hooks';
 import {
-  SelectWrapper,
   MobileSelectButton,
   MobileSelectContainer,
 } from './SearchSelect.styled';
+import { CustomSelect } from '../CustomSelect';
 
-interface SearchSelectProps {
+export interface SearchSelectProps {
   readonly control: Control<FormValues, any>;
   readonly currentFilterOption: string;
   readonly setCurrentFilterOption: React.Dispatch<React.SetStateAction<string>>;
@@ -31,66 +30,66 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   ];
 
   return (
-    <Controller
-      control={control}
-      render={({ field: { onChange, value, name } }) => {
-        const currentSelection = selectOptions.find(
-          option => option.value === value,
-        );
+    <section data-testid="search-select">
+      <Controller
+        data-testid="controller"
+        control={control}
+        render={({ field: { onChange, value, name } }) => {
+          const currentSelection = selectOptions.find(
+            option => option.value === value,
+          );
 
-        const handleSelectChange = (selectedOption: SelectOptions | null) => {
-          onChange(selectedOption?.value);
-          setCurrentFilterOption(selectedOption?.value!);
-        };
+          const handleSelectChange = (selectedOption: SelectOptions | null) => {
+            onChange(selectedOption?.value);
+            setCurrentFilterOption(selectedOption?.value!);
+          };
 
-        return !isMobile ? (
-          <SelectWrapper>
-            <Select
+          return !isMobile ? (
+            <CustomSelect
               defaultValue={selectOptions[0]}
-              value={currentSelection}
+              currentSelection={currentSelection}
               name={name}
               options={selectOptions}
               onChange={handleSelectChange}
-              isSearchable={false}
-              noOptionsMessage={() => null}
-              classNamePrefix="react-select"
             />
-          </SelectWrapper>
-        ) : (
-          <MobileSelectContainer>
-            {selectOptions.map(option => {
-              const handleClick = () => {
-                onChange(option.value);
-                setCurrentFilterOption(option.value);
-              };
+          ) : (
+            <MobileSelectContainer>
+              {selectOptions.map((option, index) => {
+                const handleClick = () => {
+                  onChange(option.value);
+                  setCurrentFilterOption(option.value);
+                };
 
-              return (
-                <li key={option.value}>
-                  <MobileSelectButton
-                    onClick={handleClick}
-                    style={{
-                      backgroundColor:
-                        currentFilterOption === option.value
-                          ? '#0325d1'
-                          : '#F1F1F4',
-                      color:
-                        currentFilterOption === option.value ? '#fff' : '#000',
-                    }}
-                    type="button">
-                    {option.label.includes('Block')
-                      ? option.label.replace('Block', 'Blk')
-                      : option.label}
-                  </MobileSelectButton>
-                </li>
-              );
-            })}
-          </MobileSelectContainer>
-        );
-      }}
-      name="filterOptions"
-      rules={{
-        required: true,
-      }}
-    />
+                return (
+                  <li key={option.value} data-testid={`button-${index + 1}`}>
+                    <MobileSelectButton
+                      onClick={handleClick}
+                      style={{
+                        backgroundColor:
+                          currentFilterOption === option.value
+                            ? '#0325d1'
+                            : '#F1F1F4',
+                        color:
+                          currentFilterOption === option.value
+                            ? '#fff'
+                            : '#000',
+                      }}
+                      type="button">
+                      {option.label.includes('Block')
+                        ? option.label.replace('Block', 'Blk')
+                        : option.label}
+                    </MobileSelectButton>
+                  </li>
+                );
+              })}
+            </MobileSelectContainer>
+          );
+        }}
+        name="filterOptions"
+        rules={{
+          required: true,
+        }}
+      />
+    </section>
   );
 };
