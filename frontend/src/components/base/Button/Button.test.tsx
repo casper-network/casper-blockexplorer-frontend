@@ -4,8 +4,6 @@ import { render } from '../../../test-utils';
 import { Button } from './Button';
 
 describe('Button', () => {
-  const mockClickHandler = jest.fn();
-
   it('should render a button', () => {
     const { getByRole } = render(<Button type="button">button</Button>);
     const button = getByRole('button', { name: 'button' });
@@ -14,6 +12,7 @@ describe('Button', () => {
   });
 
   it('should call a clickHandler if not disabled', () => {
+    const mockClickHandler = jest.fn();
     const { getByRole } = render(
       <Button type="button" onClick={mockClickHandler}>
         button
@@ -29,6 +28,7 @@ describe('Button', () => {
   });
 
   it('should not call a clickHandler if it contains disabled prop', () => {
+    const mockClickHandler = jest.fn();
     const { getByRole } = render(
       <Button type="button" onClick={mockClickHandler} isDisabled>
         button
