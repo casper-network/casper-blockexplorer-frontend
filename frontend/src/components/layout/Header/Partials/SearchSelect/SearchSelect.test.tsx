@@ -13,7 +13,7 @@ jest.mock('../../../../../hooks', () => {
 });
 
 describe('SearchSelect', () => {
-  it('should render without error', () => {
+  it('should render the SearchSelect component', () => {
     const { result } = renderHook(useForm<FormValues>);
     const mockCurrentFilterOption = 'current-option';
     const { getByTestId } = render(
@@ -29,11 +29,11 @@ describe('SearchSelect', () => {
     expect(searchSelectWrapper).toBeInTheDocument();
   });
 
-  it('should not display react-select component if screen width is less than 1023px', () => {
+  it('should display the react-select component if screen width is greater than 1023px', () => {
     const { result } = renderHook(useForm<FormValues>);
 
     const mockCurrentFilterOption = 'current option';
-    const { getByLabelText } = render(
+    const { getByLabelText, queryByTestId } = render(
       <SearchSelect
         control={result.current.control}
         currentFilterOption={mockCurrentFilterOption}
@@ -42,7 +42,9 @@ describe('SearchSelect', () => {
     );
 
     const selectButton = getByLabelText('select-button');
+    const fourthButton = queryByTestId('button-4');
 
     expect(selectButton).toBeInTheDocument();
+    expect(fourthButton).not.toBeInTheDocument();
   });
 });

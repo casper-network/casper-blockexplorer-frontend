@@ -54,14 +54,14 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
             />
           ) : (
             <MobileSelectContainer>
-              {selectOptions.map(option => {
+              {selectOptions.map((option, index) => {
                 const handleClick = () => {
                   onChange(option.value);
                   setCurrentFilterOption(option.value);
                 };
 
                 return (
-                  <li key={option.value}>
+                  <li key={option.value} data-testid={`button-${index + 1}`}>
                     <MobileSelectButton
                       onClick={handleClick}
                       style={{
