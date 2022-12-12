@@ -8,7 +8,7 @@ export interface AppConfig {
 }
 
 /* eslint-disable prefer-destructuring */
-const ENV = (window as any).ENV;
+const ENV = (window as any)?.ENV || {};
 Object.keys(ENV).forEach(key => {
   ENV[key] = ENV[key].indexOf('<!--') !== -1 ? null : ENV[key];
 });
