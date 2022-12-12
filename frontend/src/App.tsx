@@ -1,8 +1,8 @@
-import React, { StrictMode, useEffect } from 'react';
+import React, { StrictMode, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
-import { Header } from './components';
+import { Header, MinimizedHeader } from './components';
 import {
   AccountPage,
   BlockPage,
@@ -14,6 +14,7 @@ import {
 import { updateBounds, useAppDispatch, fetchStatus } from './store';
 
 const App = () => {
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
@@ -26,11 +27,24 @@ const App = () => {
     dispatch(fetchStatus());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isFirstVisit) {
+      document.cookie = 'has-visited; max-age=604800; Secure HttpOnly';
+      // document.cookie = 'dark_mode=true; expires=Fri, 26 Feb 2021 00:00:00 GMT';
+      // document.cookie = 'dark_mode=true; max-age=604800';
+      // document.cookie = 'dark_mode=false; Secure HttpOnly';
+      // new Date object
+    } else {
+      document.cookie = 'first-visit';
+    }
+  }, []);
+
   return (
     <StrictMode>
       <div ref={ref} className="bg-white grid min-h-screen grid-rows-layout">
         <BrowserRouter>
-          <Header />
+          {isFirstVisit ? <Header /> : <MinimizedHeader />}
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/peers" element={<Peers />} />

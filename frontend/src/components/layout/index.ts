@@ -1,4 +1,4 @@
-export * from './Header';
+export * from './Headers';
 export * from './Navbar';
 export * from './PageWrapper';
 export * from './Footer';
