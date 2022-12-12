@@ -1,3 +1,3 @@
 {
-  "eslint.workingDirectories": ["middleware", "frontend", "frontend/cypress"]
+  "eslint.workingDirectories": ["middleware", "frontend", "test"]
 }
