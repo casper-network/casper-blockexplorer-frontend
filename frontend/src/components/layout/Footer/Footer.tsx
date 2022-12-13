@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
   return (
     <FooterWrapper>
       <p>Casper Node version: {build}</p>
-      <p>API version : {api}</p>
+      <p>API version: {api}</p>
     </FooterWrapper>
   );
 };
@@ -18,7 +18,7 @@ const FooterWrapper = styled.footer`
   color: ${colors.cobaltBlue};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: ${fontWeight.medium};
-  padding: 3rem 0 2rem 0;
+  padding-bottom: 3.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
