@@ -363,13 +363,17 @@ export class RpcApi {
 
   getStatus: () => Promise<NetworkStatus> = async () => {
     try {
-      const { build_version: buildVersion, chainspec_name: networkName } =
-        (await this.rpcClient.getStatus()) as GetStatusResultExtended;
+      const {
+        api_version: apiVersion,
+        build_version: buildVersion,
+        chainspec_name: networkName,
+      } = (await this.rpcClient.getStatus()) as GetStatusResultExtended;
 
-      const [version, build] = buildVersion.split('-');
+      const build = buildVersion.slice(0, 5);
+      const api = apiVersion;
 
       return {
-        version,
+        api,
         build,
         networkName,
       };
