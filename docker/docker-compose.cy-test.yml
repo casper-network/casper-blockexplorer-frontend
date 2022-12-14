@@ -1,0 +1,11 @@
+# https://github.com/bahmutov/cypress-open-from-docker-compose
+version: '3.2'
+services:
+  cypress:
+    build:
+      context: ../.
+      dockerfile: test/Dockerfile
+    depends_on:
+      - frontend
+    environment:
+      - CYPRESS_baseUrl=http://frontend:3000
