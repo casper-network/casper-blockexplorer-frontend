@@ -49,7 +49,7 @@ jobs:
       - name: Test
         run: cd middleware && npm test
         env:
-          MIDDLEWARE_URL:http://localhost:4000/rpc # middleware URL
-          NODE_URLS:https://rpc.testnet.casperlabs.io/rpc
-          NETWORK_NAME:casper-test
-          PEERS_UPDATE_INTERVAL:300
+          MIDDLEWARE_URL: http://localhost:4000/rpc # middleware URL
+          NODE_URLS: https://rpc.testnet.casperlabs.io/rpc
+          NETWORK_NAME: casper-test
+          PEERS_UPDATE_INTERVAL: 300
