@@ -8,10 +8,9 @@
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "./src/",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
-  "exclude": [
-      "node_modules",
-      "**/*.spec..ts"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

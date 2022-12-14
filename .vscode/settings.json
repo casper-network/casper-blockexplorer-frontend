@@ -1,3 +1,6 @@
 {
-  "eslint.workingDirectories": ["middleware", "frontend", "test"]
+  "eslint.workingDirectories": ["middleware", "frontend", "test"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  }
 }

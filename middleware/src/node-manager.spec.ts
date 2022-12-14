@@ -1,4 +1,5 @@
 import "mocha";
+
 import { expect } from "chai";
 
 import NodeManager from "./node-manager";
@@ -66,6 +67,6 @@ describe("NodeManager", () => {
 
     const erroredFn = () => nodeManager.getActiveNode();
 
-    expect(erroredFn).to.throw('All provided nodes are dead');
+    expect(erroredFn).to.throw("All provided nodes are dead");
   });
 });
