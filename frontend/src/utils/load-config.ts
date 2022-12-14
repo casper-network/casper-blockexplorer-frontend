@@ -20,7 +20,9 @@ export const loadConfig: () => AppConfig = () => {
 
   const isProduction = NODE_ENV === 'production';
 
-  const webServerUrl = isProduction ? middlewareUrl : reactAppMiddlewareUrl;
+  const webServerUrl = isProduction
+    ? middlewareUrl
+    : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
