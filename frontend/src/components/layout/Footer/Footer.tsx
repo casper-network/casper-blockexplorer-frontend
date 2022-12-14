@@ -18,7 +18,7 @@ const FooterWrapper = styled.footer`
   color: ${colors.cobaltBlue};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: ${fontWeight.medium};
-  padding-bottom: 3.5rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
