@@ -14,7 +14,7 @@ import {
 import { updateBounds, useAppDispatch, fetchStatus } from './store';
 
 const App = () => {
-  const [isFirstVisit, setIsFirstVisit] = useState(true);
+  const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
@@ -27,17 +27,16 @@ const App = () => {
     dispatch(fetchStatus());
   }, [dispatch]);
 
+  const usersVisitationStatus = localStorage.getItem('users-status');
+
+  console.log(usersVisitationStatus);
+
   useEffect(() => {
-    if (isFirstVisit) {
-      document.cookie = 'has-visited; max-age=604800; Secure HttpOnly';
-      // document.cookie = 'dark_mode=true; expires=Fri, 26 Feb 2021 00:00:00 GMT';
-      // document.cookie = 'dark_mode=true; max-age=604800';
-      // document.cookie = 'dark_mode=false; Secure HttpOnly';
-      // new Date object
-    } else {
-      document.cookie = 'first-visit';
+    if (usersVisitationStatus === null) {
+      setIsFirstVisit(true);
     }
-  }, []);
+    localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
+  }, [setIsFirstVisit, usersVisitationStatus]);
 
   return (
     <StrictMode>
