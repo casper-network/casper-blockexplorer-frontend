@@ -7,8 +7,6 @@ on:
       - "feature/*"
     paths:
       - "middleware/**"
-    paths-ignore:
-      - "**.md"
 
   pull_request:
     branches:
@@ -16,8 +14,6 @@ on:
       - "feature/*"
     paths:
       - "middleware/**"
-    paths-ignore:
-      - "**.md"
 
 jobs:
   build:
