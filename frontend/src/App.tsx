@@ -29,8 +29,6 @@ const App = () => {
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 
-  console.log(usersVisitationStatus);
-
   useEffect(() => {
     if (usersVisitationStatus === null) {
       setIsFirstVisit(true);
