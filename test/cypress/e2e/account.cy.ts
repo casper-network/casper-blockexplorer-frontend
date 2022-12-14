@@ -6,7 +6,7 @@ describe('Account Page', () => {
   const middlewareUrl: string =
     Cypress.env('MIDDLEWARE_URL') || 'http://localhost:4000';
 
-  it('can visit at /account/:accountHash', () => {
+  it.skip('can visit at /account/:accountHash', () => {
     cy.intercept({
       method: 'POST',
       url: `${middlewareUrl}/rpc`,

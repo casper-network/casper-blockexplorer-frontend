@@ -1,5 +1,5 @@
 describe('Peers Page', () => {
-  it('can visit at /peers', () => {
+  it.skip('can visit at /peers', () => {
     cy.visit('/peers');
 
     cy.wait(5000);

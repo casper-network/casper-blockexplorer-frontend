@@ -6,7 +6,7 @@ describe('Deploy Page', () => {
   const middlewareUrl: string =
     Cypress.env('MIDDLEWARE_URL') || 'http://localhost:4000';
 
-  it('can visit at /deploy/deployHash', () => {
+  it.skip('can visit at /deploy/deployHash', () => {
     cy.intercept({
       method: 'POST',
       url: `${middlewareUrl}/rpc`,

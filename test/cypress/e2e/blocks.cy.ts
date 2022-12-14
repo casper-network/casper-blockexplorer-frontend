@@ -1,5 +1,5 @@
 describe('Blocks Page', () => {
-  it('can visit at /block/:blockHeight?type=height', () => {
+  it.skip('can visit at /block/:blockHeight?type=height', () => {
     cy.visit('/blocks');
 
     const blocksPageTitle = 'Blocks';
