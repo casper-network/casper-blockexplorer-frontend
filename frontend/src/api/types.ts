@@ -55,7 +55,7 @@ export enum BlockSearchType {
 }
 
 export type NetworkStatus = {
-  version: string;
+  api: string;
   build: string;
   networkName: string;
 };
