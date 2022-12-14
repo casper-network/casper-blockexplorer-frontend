@@ -1,4 +1,4 @@
-## Blockexplorer
+## Block Explorer
 
 The app uses our custom Node.js middleware which acts as reverse proxy and support list of multiple nodes.
 
@@ -19,3 +19,21 @@ NETWORK_NAME=integration-test # network name, you can check it in chainspec
 3. Run `make prod-start` if you are using the app for production (optimized builds) or `make dev-start` for development. 
 4. The frontend will be running at port `3000` and middleware at port `4000`.
 
+### Testing
+To run Cypress tests on the frontend:
+```
+  > cd frontend
+  > npm run cy:run
+```
+
+To open Cypress
+```
+  > cd frontend
+  > npm run cy:open
+```
+
+To run Cypress tests in Docker
+```
+  > make cy-build
+  > make cy-test
+```

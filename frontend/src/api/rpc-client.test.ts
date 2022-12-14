@@ -896,13 +896,14 @@ describe('rpc-client', () => {
 
   describe('getStatus', () => {
     it('should return network status data', async () => {
-      const version = '1.3.2';
-      const build = 'e2027dbe9';
+      const api = '1.4.10';
+      const build = '1.3.2';
       const chainspecName = 'integration-test';
 
       const mockJsonRpc = {
         getStatus: jest.fn().mockResolvedValue({
-          build_version: `${version}-${build}`,
+          api_version: `${api}`,
+          build_version: `${build}`,
           chainspec_name: chainspecName,
         }),
       };
@@ -912,7 +913,7 @@ describe('rpc-client', () => {
       const currentStatus = await mockRpcClient.getStatus();
 
       expect(mockJsonRpc.getStatus).toHaveBeenCalledTimes(1);
-      expect(currentStatus.version).toBe(version);
+      expect(currentStatus.api).toBe(api);
       expect(currentStatus.build).toBe(build);
       expect(currentStatus.networkName).toBe(chainspecName);
     });

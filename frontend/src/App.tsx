@@ -2,7 +2,7 @@ import React, { StrictMode, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
-import { Header } from './components';
+import { Footer, Header } from './components';
 import {
   AccountPage,
   BlockPage,
@@ -40,6 +40,7 @@ const App = () => {
             <Route path="/blocks" element={<Blocks />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </div>
     </StrictMode>

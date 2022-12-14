@@ -32,6 +32,7 @@ export const DeploysInfo: React.FC = () => (
 );
 
 const DeploysInfoDisplay = styled.section`
+  display: none;
   box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
   background: #ffffff;

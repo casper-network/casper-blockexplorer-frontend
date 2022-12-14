@@ -57,7 +57,7 @@ const BlockInfoDisplay = styled.section`
 
   @media (min-width: ${breakpoints.lg}) {
     min-width: 45%;
-    margin: 0 7% 4rem 0;
+    margin: 0 4.8rem 4rem 0;
   }
 `;
 

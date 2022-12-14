@@ -6,8 +6,6 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb-typescript',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -15,14 +13,9 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig',
-    ecmaFeatures: {
-      jsx: true,
-      tsx: true,
-    },
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks'],
   rules: {
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
@@ -79,40 +72,21 @@ module.exports = {
         devDependencies: true,
       },
     ],
-    'react/prop-types': 0,
-    'react/require-default-props': 0,
-    'react/jsx-filename-extension': [1, { extensions: ['.jsx', 'tsx'] }],
-    'react/jsx-closing-bracket-location': 0,
-    'react/jsx-props-no-spreading': 0,
-    'react/jsx-curly-newline': 0,
-    'react/jsx-curly-brace-presence': 0,
-    'react/no-array-index-key': 1,
-    'react/jsx-one-expression-per-line': 0,
-    'react/jsx-wrap-multilines': 0,
-    'react/jsx-indent': 0,
   },
   overrides: [
     {
-      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      files: ['*.js', '*.ts'],
       parserOptions: {
         project: ['./tsconfig.json'],
       },
     },
   ],
-  ignorePatterns: [
-    'yarn.lock',
-    '.eslintrc.js',
-    'tailwind.config.js',
-    './cypress/*',
-  ],
+  ignorePatterns: ['yarn.lock', '.eslintrc.js', './cypress/*'],
   settings: {
     'import/resolver': {
       node: {
         moduleDirectory: ['node_modules', 'src/'],
       },
-    },
-    react: {
-      version: 'detect',
     },
   },
 };
