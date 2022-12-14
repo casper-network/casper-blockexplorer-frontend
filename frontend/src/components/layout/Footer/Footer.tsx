@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { colors, fontWeight } from 'src/styled-theme';
+import { colors, fontWeight } from '../../../styled-theme';
 import { useAppSelector, getNetworkStatus } from '../../../store';
 
 export const Footer: React.FC = () => {
