@@ -1,4 +1,6 @@
-name: ci-casper-js-sdk
+name: ci-middleware
+
+run-name: CI of middleware by @${{ github.actor }}
 
 on:
   push:
