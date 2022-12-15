@@ -1,31 +1,25 @@
 import React from 'react';
 
-import { SearchForm } from './Partials';
+import { BlueBlackLogo } from 'src/components/logos';
+import { MinimizedSearchForm } from './Partials';
 import { Navbar } from '../Navbar/Navbar';
 
 import {
   HeaderComponent,
   HeaderComponentsContainer,
   LogoLink,
-  // HeroContainer,
-  // HeroHeading,
-} from './Header.styled';
-
-import { BlueLogo } from '../../logos';
+} from './MinimizedHeader.styled';
 
 export const MinimizedHeader: React.FC = () => {
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>
         <LogoLink to="/">
-          <BlueLogo />
+          <BlueBlackLogo />
         </LogoLink>
         <Navbar />
       </HeaderComponentsContainer>
-      {/* <HeroContainer>
-        <HeroHeading type="h1">Discover the Casper Blockchain.</HeroHeading>
-      </HeroContainer> */}
-      <SearchForm />
+      <MinimizedSearchForm />
     </HeaderComponent>
   );
 };
