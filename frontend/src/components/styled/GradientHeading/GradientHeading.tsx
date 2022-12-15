@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Heading, HeadingProps } from '../../base';
 
-interface GradientHeadingProps extends HeadingProps {
+export interface GradientHeadingProps extends HeadingProps {
   readonly gradient?: string;
 }
 
