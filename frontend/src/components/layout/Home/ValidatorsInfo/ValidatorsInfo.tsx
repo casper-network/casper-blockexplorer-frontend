@@ -30,6 +30,7 @@ export const ValidatorsInfo: React.FC = () => (
 );
 
 const ValidatorsInfoDisplay = styled.section`
+  display: none;
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
   background: #ffffff;

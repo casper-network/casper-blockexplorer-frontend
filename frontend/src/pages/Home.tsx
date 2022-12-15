@@ -49,6 +49,8 @@ export const Home: React.FC = () => {
 
   const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
 
+  const currentValidators = 'n/a';
+
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
       dispatch(fetchBlocks());
@@ -68,7 +70,10 @@ export const Home: React.FC = () => {
         />
         <DeploysInfo />
         <ValidatorsInfo />
-        <PeersInfo currentPeers={currentPeers} />
+        <PeersInfo
+          currentPeers={currentPeers}
+          currentValidators={currentValidators}
+        />
       </HomeContentContainer>
     </PageWrapper>
   );

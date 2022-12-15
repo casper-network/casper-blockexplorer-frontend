@@ -13,9 +13,13 @@ import { PeersIcon } from '../../../icons';
 
 interface PeersInfoProps {
   readonly currentPeers: string;
+  readonly currentValidators: string;
 }
 
-export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => (
+export const PeersInfo: React.FC<PeersInfoProps> = ({
+  currentPeers,
+  currentValidators,
+}) => (
   <PeersInfoDisplay>
     <PeersHeader>
       <IconH2Container>
@@ -25,9 +29,13 @@ export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => (
       <PageLink to="/peers">View all</PageLink>
     </PeersHeader>
     <PeersDetails>
-      <H3>Currently online</H3>
+      <H3>Peers currently online:</H3>
       <H3Data>{currentPeers}</H3Data>
     </PeersDetails>
+    <ValidatorsDetails>
+      <H3>Validators currently online:</H3>
+      <H3Data>{currentValidators}</H3Data>
+    </ValidatorsDetails>
   </PeersInfoDisplay>
 );
 
@@ -64,6 +72,14 @@ const PeersDetails = styled.section`
   flex-direction: column;
   justify-content: start;
   border-top: 0.094rem solid #f2f3f5;
+  padding: 0 0;
+  margin: 0 2rem;
+`;
+
+const ValidatorsDetails = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   padding: 0 0;
   margin: 0 2rem;
 `;
