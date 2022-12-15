@@ -8,6 +8,7 @@ import {
   HeaderComponent,
   HeaderComponentsContainer,
   LogoLink,
+  LogoText,
 } from './MinimizedHeader.styled';
 
 export const MinimizedHeader: React.FC = () => {
@@ -16,6 +17,7 @@ export const MinimizedHeader: React.FC = () => {
       <HeaderComponentsContainer>
         <LogoLink to="/">
           <BlueBlackLogo />
+          <LogoText>Block Explorer</LogoText>
         </LogoLink>
         <Navbar />
       </HeaderComponentsContainer>
