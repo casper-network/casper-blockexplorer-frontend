@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  frontend-cicd:
+    image: casper-blockexplorer-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.cicd
+    environment:
+      - REACT_APP_MIDDLEWARE_URL=4000
+    ports:
+      - "8080:80"
