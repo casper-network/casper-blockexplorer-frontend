@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GradientHeading } from '../../styled';
-import { breakpoints } from '../../../styled-theme';
+import { breakpoints, pxToRem, fontWeight } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
@@ -17,7 +17,7 @@ export const HeaderComponentsContainer = styled.div`
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: space-between;
-    padding: 3.5rem 7% 1.75rem 7%;
+    padding: 3.5rem 5.3rem 1.75rem 5.3rem;
   }
 `;
 
@@ -33,8 +33,28 @@ export const LogoLink = styled(Link)`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    width: 7.5rem;
+    width: 20rem;
   }
+`;
+
+export const LogoText = styled.span`
+  font-size: ${pxToRem(25)};
+  font-weight: ${fontWeight.medium};
+  padding-top: ${pxToRem(1)};
+  background-image: linear-gradient(
+    90deg,
+    #1c1e90,
+    #693590,
+    #d81d54,
+    #d81e54,
+    #fd6b52
+  );
+  background-size: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 `;
 
 export const HeroContainer = styled.div`
