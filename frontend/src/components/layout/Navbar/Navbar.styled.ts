@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { breakpoints } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav`
   @media (min-width: ${breakpoints.lg}) {
-    width: 25%;
+    width: 27%;
   }
 `;
 
@@ -64,33 +64,28 @@ export const DesktopNav = styled.nav`
 export const DesktopNavItemsContainer = styled.ul`
   display: flex;
   justify-content: space-between;
+  gap: ${pxToRem(4)};
   width: 100%;
+  padding-top: ${pxToRem(6)};
 `;
 
 export const DesktopNavItemLink = styled(Link)`
   color: #0325d1;
+  padding: ${pxToRem(10)} ${pxToRem(20)};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;
   text-decoration: none;
 
-  :hover,
-  :focus {
-    background-color: #0325d1;
-    transition: ease-in;
-    background-image: linear-gradient(
-      90deg,
-      #1c1e90,
-      #693590,
-      #d81d54,
-      #d81e54,
-      #fd6b52
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    text-decoration: none;
+  @media (hover: hover) {
+    :hover,
+    :focus {
+      color: white;
+      background-color: #02115f;
+      border-radius: ${pxToRem(8)};
+      padding: ${pxToRem(10)} ${pxToRem(20)};
+      transition: ease-in-out;
+      background-color: #02115f;
+      text-decoration: none;
+    }
   }
 `;
