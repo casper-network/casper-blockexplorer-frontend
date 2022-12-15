@@ -26,8 +26,8 @@ export const Form = styled.form`
 
   @media (min-width: ${breakpoints.lg}) {
     min-width: 42.4rem;
-    width: 100%;
-    max-width: 48rem;
+    width: 81%;
+    max-width: ${pxToRem(1200)};
   }
 `;
 
