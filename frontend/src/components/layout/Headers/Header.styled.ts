@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GradientHeading } from '../../styled';
-import { breakpoints } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
@@ -22,6 +22,7 @@ export const HeaderComponentsContainer = styled.div`
 `;
 
 export const LogoLink = styled(Link)`
+  padding-top: ${pxToRem(3)};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -51,7 +52,7 @@ export const HeroContainer = styled.div`
   padding-top: 2rem;
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: 8rem 6rem 0rem 0rem;
+    padding: 1.3rem 6rem 0rem 0rem;
     width: 100%;
     justify-content: center;
   }
@@ -73,8 +74,10 @@ export const HeroHeading = styled(GradientHeading)`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    font-size: 4.3rem;
+    font-size: 2.8rem;
     line-height: 1;
-    max-width: 42rem;
+    max-width: 42.5rem;
+    padding-right: 15rem;
+    background-size: 65%;
   }
 `;
