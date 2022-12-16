@@ -47,7 +47,7 @@ const DeploysInfoDisplay = styled.section`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    min-width: 45%;
+    min-width: 35%;
     margin-bottom: 4rem;
   }
 `;

@@ -25,6 +25,7 @@ export const PageLink = styled(Link)`
   font-weight: ${fontWeight.medium};
   min-width: 3.5rem;
   text-decoration: none;
+  white-space: nowrap;
 
   :hover,
   :focus {
