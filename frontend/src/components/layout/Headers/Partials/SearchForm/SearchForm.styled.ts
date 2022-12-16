@@ -10,7 +10,7 @@ export const FormContainer = styled.div`
   position: relative;
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: 5rem 0rem 8.5rem 0rem;
+    padding: 1.6rem 0rem 5.5rem 0rem;
     width: 100%;
   }
 `;
@@ -33,7 +33,7 @@ export const Form = styled.form`
 export const FormComponentsContainer = styled.div`
   @media (min-width: ${breakpoints.lg}) {
     display: flex;
-    width: 100%;
+    width: 80%;
   }
 `;
 
@@ -72,7 +72,7 @@ export const SearchInput = styled.input`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    height: 3.2rem;
+    height: 3rem;
     border-radius: 0;
   }
 `;
@@ -96,8 +96,8 @@ export const SubmitButton = styled.button`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    height: 3.2rem;
-    width: 3.9rem;
+    height: 3rem;
+    width: 3.4rem;
   }
 `;
 
@@ -109,6 +109,11 @@ export const ErrorMessageContainer = styled.div`
   position: absolute;
   right: 0;
   left: 0;
+
+  @media (min-width: ${breakpoints.lg}) {
+    right: 60px;
+    left: 0;
+  }
 `;
 
 export const ErrorSvgContainer = styled.div`
