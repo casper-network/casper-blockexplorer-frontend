@@ -26,21 +26,29 @@ export const LogoLink = styled(Link)`
   flex-direction: row;
   align-items: center;
   text-decoration-line: none;
+  padding-top: ${pxToRem(85)};
+  position: relative;
+  width: 7.5rem;
 
   :hover,
   :focus {
     text-decoration-line: none;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
-    width: 20rem;
+  @media (min-width: ${breakpoints.xxs}) {
+    padding-top: 0;
   }
 `;
 
 export const LogoText = styled.span`
-  font-size: ${pxToRem(25)};
+  font-family: lausanne;
+  font-size: ${pxToRem(26)};
   font-weight: ${fontWeight.medium};
-  padding-top: ${pxToRem(1)};
+  letter-spacing: ${pxToRem(-1)};
+  padding-top: ${pxToRem(6)};
+  position: absolute;
+  left: ${pxToRem(119)};
+  white-space: nowrap;
   background-image: linear-gradient(
     90deg,
     #1c1e90,
