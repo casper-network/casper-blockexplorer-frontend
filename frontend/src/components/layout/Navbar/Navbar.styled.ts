@@ -66,7 +66,7 @@ export const DesktopNavItemsContainer = styled.ul`
   justify-content: space-between;
   gap: ${pxToRem(4)};
   width: 100%;
-  padding-top: ${pxToRem(6)};
+  padding-top: ${pxToRem(8)};
 `;
 
 export const DesktopNavItemLink = styled(Link)`
