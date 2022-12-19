@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import {
   BlocksInfo,
   DeploysInfo,
-  ValidatorsInfo,
   PeersValidatorInfo,
 } from '../components/layout/Home';
 
@@ -69,7 +68,6 @@ export const Home: React.FC = () => {
           blockEraID={firstListedBlockEraID}
         />
         <DeploysInfo />
-        <ValidatorsInfo />
         <PeersValidatorInfo
           currentPeers={currentPeers}
           currentValidators={currentValidators}
