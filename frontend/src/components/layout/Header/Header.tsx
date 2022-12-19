@@ -13,7 +13,6 @@ import {
 } from './Header.styled';
 
 import { BlueLogo } from '../../logos';
-import { LanguageSelector } from '../LanguageSwitcher';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -23,7 +22,6 @@ export const Header: React.FC = () => {
         <LogoLink to="/">
           <BlueLogo />
         </LogoLink>
-        <LanguageSelector />
         <Navbar />
       </HeaderComponentsContainer>
       <HeroContainer>
