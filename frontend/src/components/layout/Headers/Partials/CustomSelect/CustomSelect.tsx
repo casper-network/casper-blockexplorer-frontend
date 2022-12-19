@@ -54,7 +54,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__value-container {
     height: 3rem;
     background-color: #fff;
-    padding: 0.7rem 0rem 0.7rem 0rem;
+    padding: 0.7rem 0rem;
     margin: 0;
     border-radius: 0.375rem 0 0 0.375rem;
     box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.3);
