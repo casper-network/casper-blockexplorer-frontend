@@ -6,7 +6,7 @@ import {
   BlocksInfo,
   DeploysInfo,
   ValidatorsInfo,
-  PeersInfo,
+  PeersValidatorInfo,
 } from '../components/layout/Home';
 
 import { PageWrapper } from '../components';
@@ -70,7 +70,7 @@ export const Home: React.FC = () => {
         />
         <DeploysInfo />
         <ValidatorsInfo />
-        <PeersInfo
+        <PeersValidatorInfo
           currentPeers={currentPeers}
           currentValidators={currentValidators}
         />
