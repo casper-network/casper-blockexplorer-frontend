@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
+
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../api';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
@@ -31,11 +33,11 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     deployHashes,
     rawBlock,
   } = block;
-
+  const { t } = useTranslation();
   return (
     <InfoCard>
       <HeadContentWrapper>
-        <AccountHeading type="h1">Block Details</AccountHeading>
+        <AccountHeading type="h1">{t('block-details')}</AccountHeading>
 
         <HashHeading type="h2">
           <Hash hash={blockHash} alwaysTruncate />
@@ -43,21 +45,21 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       </HeadContentWrapper>
       <DetailDataRowWrapper>
         <li>
-          <DetailDataLabel>Block Height</DetailDataLabel>
+          <DetailDataLabel>{t('block-height')}</DetailDataLabel>
           <DetailDataValue>{blockHeight}</DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>Current Era</DetailDataLabel>
+          <DetailDataLabel>{t('current-era')}</DetailDataLabel>
           <DetailDataValue>{era}</DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>Timestamp</DetailDataLabel>
+          <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
           <DetailDataValue>{readableTimestamp}</DetailDataValue>
         </li>
       </DetailDataRowWrapper>
       <DetailDataWrapper>
         <li>
-          <DetailDataLabel>Parent Hash</DetailDataLabel>
+          <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
           <DetailDataValue>
             <Link
               to={{
@@ -69,20 +71,20 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>Block Hash</DetailDataLabel>
+          <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
           <DetailDataValue>
             <Hash hash={blockHash} />
             <CopyToClipboard textToCopy={blockHash} />
           </DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>State Root Hash</DetailDataLabel>
+          <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
           <DetailDataValue>
             {stateRootHash ? <Hash hash={stateRootHash} /> : ''}
           </DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>Validator</DetailDataLabel>
+          <DetailDataLabel>{t('validator')}</DetailDataLabel>
           <DetailDataValue>
             <Link
               to={{
@@ -96,13 +98,13 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       </DetailDataWrapper>
       <DetailDataRowWrapper>
         <li>
-          <DetailDataLabel>Raw Data</DetailDataLabel>
+          <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
           <DetailDataValue>
             <RawData rawData={rawBlock} />
           </DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>Deploys</DetailDataLabel>
+          <DetailDataLabel>{t('deploys')}</DetailDataLabel>
           <DetailDataValue>
             {deployHashes?.length ? (
               <ul>
@@ -115,12 +117,12 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 ))}
               </ul>
             ) : (
-              'No deploys'
+              t('no-deploys')
             )}
           </DetailDataValue>
         </li>
         <li>
-          <DetailDataLabel>Transfers</DetailDataLabel>
+          <DetailDataLabel>{t('transfers')}</DetailDataLabel>
           <DetailDataValue>
             {transferHashes?.length ? (
               <ul>
@@ -133,7 +135,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 ))}
               </ul>
             ) : (
-              'No transfers'
+              t('no-transfers')
             )}
           </DetailDataValue>
         </li>

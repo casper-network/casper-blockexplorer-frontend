@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { useTranslation } from 'react-i18next';
 import {
   IconH2Container,
   H2,
@@ -22,24 +23,27 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({
   blockHeight,
   blockEraTimeStamp,
   blockEraID,
-}) => (
-  <BlockInfoDisplay>
-    <BlocksHeader>
-      <IconH2Container>
-        <BlocksIcon />
-        <H2>Blocks</H2>
-      </IconH2Container>
-      <PageLink to="/blocks">View all</PageLink>
-    </BlocksHeader>
-    <BlockDetails>
-      <H3>Block Height</H3>
-      <H3Data>{blockHeight}</H3Data>
-      <DataContext>{blockEraTimeStamp}</DataContext>
-      <H3>Current Era</H3>
-      <H3Data>{blockEraID}</H3Data>
-    </BlockDetails>
-  </BlockInfoDisplay>
-);
+}) => {
+  const { t } = useTranslation();
+  return (
+    <BlockInfoDisplay>
+      <BlocksHeader>
+        <IconH2Container>
+          <BlocksIcon />
+          <H2>{t('blocks')}</H2>
+        </IconH2Container>
+        <PageLink to="/blocks">{t('view-all')}</PageLink>
+      </BlocksHeader>
+      <BlockDetails>
+        <H3>{t('block-height')}</H3>
+        <H3Data>{blockHeight}</H3Data>
+        <DataContext>{blockEraTimeStamp}</DataContext>
+        <H3>{t('current-era')}</H3>
+        <H3Data>{blockEraID}</H3Data>
+      </BlockDetails>
+    </BlockInfoDisplay>
+  );
+};
 
 const BlockInfoDisplay = styled.section`
   background: #ffffff;

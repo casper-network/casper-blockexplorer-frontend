@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { casperApi, Deploy } from '../api';
 import {
   DeployDetailsCard,
@@ -13,6 +14,8 @@ import {
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();
 
+  const { t } = useTranslation();
+
   const [deploy, setDeploy] = useState<Deploy>();
   const [error, setError] = useState<PageError>();
 
@@ -23,7 +26,7 @@ export const DeployPage: React.FC = () => {
 
         if (!deployData) {
           setError({
-            message: `We were unable to locate deploy data for hash ${deployHash}`,
+            message: `${t('unable-to-locate-deploy')} ${deployHash}`,
           });
           return;
         }

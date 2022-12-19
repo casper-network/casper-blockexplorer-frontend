@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { NavButton } from '../../buttons/NavButton';
 
 import {
@@ -18,17 +19,17 @@ import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
 
 const navItems = [
   {
-    title: 'Home',
+    title: 'home',
     path: '/',
     key: 'home',
   },
   {
-    title: 'Blocks',
+    title: 'blocks',
     path: '/blocks',
     key: 'blocks',
   },
   {
-    title: 'Peers',
+    title: 'peers',
     path: '/peers',
     key: 'peers',
   },
@@ -36,7 +37,7 @@ const navItems = [
 
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -73,7 +74,7 @@ export const Navbar: React.FC = () => {
                       <MobileNavItemLink
                         to={path}
                         onClick={() => setIsOpened(false)}>
-                        {title}
+                        {t(title)}
                       </MobileNavItemLink>
                     </li>
                   );
@@ -86,7 +87,9 @@ export const Navbar: React.FC = () => {
               {navItems.map(({ path, title, key }) => {
                 return (
                   <li key={key}>
-                    <DesktopNavItemLink to={path}>{title}</DesktopNavItemLink>
+                    <DesktopNavItemLink to={path}>
+                      {t(title)}
+                    </DesktopNavItemLink>
                   </li>
                 );
               })}

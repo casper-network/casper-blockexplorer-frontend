@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { useTranslation } from 'react-i18next';
 import {
   IconH2Container,
   H2,
@@ -12,24 +13,27 @@ import {
 import { breakpoints } from '../../../../styled-theme';
 import { DeploysIcon } from '../../../icons';
 
-export const DeploysInfo: React.FC = () => (
-  <DeploysInfoDisplay>
-    <DeploysHeader>
-      <IconH2Container>
-        <DeploysIcon />
-        <H2>Deploys</H2>
-      </IconH2Container>
-      <PageLink to="/deploys">View all</PageLink>
-    </DeploysHeader>
-    <DeployDetails>
-      <H3>Total Deploys</H3>
-      <H3Data>n/a</H3Data>
-      <DataContext>n/a</DataContext>
-      <H3>Today</H3>
-      <H3Data>n/a</H3Data>
-    </DeployDetails>
-  </DeploysInfoDisplay>
-);
+export const DeploysInfo: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <DeploysInfoDisplay>
+      <DeploysHeader>
+        <IconH2Container>
+          <DeploysIcon />
+          <H2>{t('deploys')}</H2>
+        </IconH2Container>
+        <PageLink to="/deploys">{t('view-all')}</PageLink>
+      </DeploysHeader>
+      <DeployDetails>
+        <H3>{t('total-deploys')}</H3>
+        <H3Data>{t('n/a')}</H3Data>
+        <DataContext>{t('n/a')}</DataContext>
+        <H3>{t('today')}</H3>
+        <H3Data>{t('n/a')}</H3Data>
+      </DeployDetails>
+    </DeploysInfoDisplay>
+  );
+};
 
 const DeploysInfoDisplay = styled.section`
   display: none;

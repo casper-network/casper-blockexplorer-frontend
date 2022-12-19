@@ -1,15 +1,21 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { colors, fontWeight } from 'src/styled-theme';
 import { useAppSelector, getNetworkStatus } from '../../../store';
 
 export const Footer: React.FC = () => {
   const { api, build } = useAppSelector(getNetworkStatus);
+  const { t } = useTranslation();
 
   return (
     <FooterWrapper>
-      <p>Casper Node version: {build}</p>
-      <p>API version: {api}</p>
+      <p>
+        {t('casper-node-version')} {build}
+      </p>
+      <p>
+        {t('api-version')} {api}
+      </p>
     </FooterWrapper>
   );
 };

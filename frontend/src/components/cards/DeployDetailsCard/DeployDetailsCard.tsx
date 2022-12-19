@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { useTranslation } from 'react-i18next';
 import { Deploy } from '../../../api';
 import { Heading, InfoCard, HeadContentWrapper } from '../../base';
 import {
@@ -23,11 +24,12 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
 }) => {
   const { deployHash, blockHash, publicKey, rawDeploy } = deploy;
+  const { t } = useTranslation();
 
   return (
     <InfoCard>
       <HeadContentWrapper>
-        <DeployHeading type="h1">Deploy Details</DeployHeading>
+        <DeployHeading type="h1">{t('deploy-details')}</DeployHeading>
         <HashHeading type="h2">
           <Hash hash={deployHash} alwaysTruncate />
         </HashHeading>
@@ -35,7 +37,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       <DetailDataWrapper>
         <DetailDataList>
           <li>
-            <DetailDataLabel>Block Hash</DetailDataLabel>
+            <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
             <DetailDataValue>
               <Link to={`/block/${blockHash}`}>
                 <Hash hash={blockHash} />
@@ -44,7 +46,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Public Key</DetailDataLabel>
+            <DetailDataLabel>{t('public-key')}</DetailDataLabel>
             <DetailDataValue>
               <Link to={`/account/${publicKey}`}>
                 <Hash hash={publicKey} />
@@ -53,14 +55,14 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Deploy Hash</DetailDataLabel>
+            <DetailDataLabel>{t('deploy-hash')}</DetailDataLabel>
             <DetailDataValue>
               <Hash hash={deployHash} />
               <CopyToClipboard textToCopy={deployHash} />
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>
               <RawData rawData={rawDeploy} />
             </DetailDataValue>
