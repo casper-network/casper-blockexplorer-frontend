@@ -70,20 +70,20 @@ export const DesktopNavItemsContainer = styled.ul`
 `;
 
 export const DesktopNavItemLink = styled(Link)`
+  transition: all 0.2s ease;
   color: #0325d1;
-  padding: ${pxToRem(10)} ${pxToRem(20)};
+  padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;
   text-decoration: none;
+  border-radius: ${pxToRem(8)};
 
   @media (hover: hover) {
     :hover,
     :focus {
       color: white;
       background-color: #02115f;
-      border-radius: ${pxToRem(8)};
-      padding: ${pxToRem(10)} ${pxToRem(20)};
-      transition: ease-in-out;
+      padding: ${pxToRem(6)} ${pxToRem(20)};
       background-color: #02115f;
       text-decoration: none;
     }
