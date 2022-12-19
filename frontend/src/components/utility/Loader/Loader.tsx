@@ -25,7 +25,7 @@ export const Loader: React.FC<LoaderProps> = ({ size } = { size: 'lg' }) => {
   }
 
   return (
-    <div className="h-full w-full grid place-items-center pb-150">
+    <div className="h-full w-full grid place-items-center">
       <div className={loaderSizeClasses} aria-label="Loading..." role="status">
         <svg
           data-testid="loader"
