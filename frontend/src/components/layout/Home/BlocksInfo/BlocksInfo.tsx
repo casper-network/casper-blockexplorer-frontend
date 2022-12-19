@@ -47,17 +47,13 @@ const BlockInfoDisplay = styled.section`
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
-  margin-bottom: 3.25rem;
 
   @media (min-width: ${breakpoints.md}) {
-    margin-bottom: 4.25rem;
-    margin-right: 3.125rem;
     min-width: 44.5%;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     min-width: 35%;
-    margin: 0 4.8rem 4rem 0;
   }
 `;
 

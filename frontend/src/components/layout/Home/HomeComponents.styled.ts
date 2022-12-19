@@ -20,7 +20,7 @@ export const H2 = styled.h2`
 
 export const PageLink = styled(Link)`
   color: #0325d1;
-  font-size: clamp(0.67rem, 1.25vw, 1rem);
+  font-size: clamp(0.67rem, 1.25vw, 0.9rem);
   text-align: right;
   font-weight: ${fontWeight.medium};
   min-width: 3.5rem;
