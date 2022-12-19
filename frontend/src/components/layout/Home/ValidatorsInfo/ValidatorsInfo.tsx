@@ -15,6 +15,7 @@ import { ValidatorsIcon } from '../../../icons';
 
 export const ValidatorsInfo: React.FC = () => {
   const { t } = useTranslation();
+
   return (
     <ValidatorsInfoDisplay>
       <ValidatorsHeader>

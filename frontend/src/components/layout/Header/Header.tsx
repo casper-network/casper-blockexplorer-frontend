@@ -16,6 +16,7 @@ import { BlueLogo } from '../../logos';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
+
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>

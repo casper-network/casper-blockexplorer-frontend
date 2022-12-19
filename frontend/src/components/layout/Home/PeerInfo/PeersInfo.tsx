@@ -18,6 +18,7 @@ interface PeersInfoProps {
 
 export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => {
   const { t } = useTranslation();
+
   return (
     <PeersInfoDisplay>
       <PeersHeader>

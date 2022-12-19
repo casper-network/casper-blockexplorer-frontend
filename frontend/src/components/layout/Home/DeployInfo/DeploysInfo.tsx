@@ -15,6 +15,7 @@ import { DeploysIcon } from '../../../icons';
 
 export const DeploysInfo: React.FC = () => {
   const { t } = useTranslation();
+
   return (
     <DeploysInfoDisplay>
       <DeploysHeader>

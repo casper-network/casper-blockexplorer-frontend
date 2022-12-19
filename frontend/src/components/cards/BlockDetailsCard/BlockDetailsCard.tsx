@@ -34,6 +34,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     rawBlock,
   } = block;
   const { t } = useTranslation();
+
   return (
     <InfoCard>
       <HeadContentWrapper>

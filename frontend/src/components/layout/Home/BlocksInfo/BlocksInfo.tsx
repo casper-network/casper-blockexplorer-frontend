@@ -25,6 +25,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({
   blockEraID,
 }) => {
   const { t } = useTranslation();
+
   return (
     <BlockInfoDisplay>
       <BlocksHeader>

@@ -10,6 +10,7 @@ interface CoinProps {
 
 export const Coin: React.FC<CoinProps> = ({ children }) => {
   const { t } = useTranslation();
+
   return (
     <CoinWrapper>
       {standardizeNumber(children)} {t('motes')}

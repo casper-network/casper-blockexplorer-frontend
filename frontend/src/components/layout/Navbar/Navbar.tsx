@@ -38,6 +38,7 @@ const navItems = [
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   const { t } = useTranslation();
+
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
