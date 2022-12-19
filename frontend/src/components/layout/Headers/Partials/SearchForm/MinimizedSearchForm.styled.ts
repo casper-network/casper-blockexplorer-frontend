@@ -5,14 +5,13 @@ export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 2.6rem;
-  padding-bottom: 2.7rem;
+  padding-bottom: 1.2rem;
   margin: 0 auto;
   position: relative;
 
   @media (min-width: ${breakpoints.lg}) {
-    justify-content: start;
-    padding: ${pxToRem(45)} 0 ${pxToRem(45)} ${pxToRem(87)};
-    width: 100%;
+    justify-content: center;
+    width: 80%;
   }
 `;
 
@@ -26,8 +25,8 @@ export const Form = styled.form`
 
   @media (min-width: ${breakpoints.lg}) {
     min-width: 42.4rem;
-    width: 81%;
-    max-width: ${pxToRem(1200)};
+    width: 85%;
+    max-width: ${pxToRem(845)};
   }
 `;
 
