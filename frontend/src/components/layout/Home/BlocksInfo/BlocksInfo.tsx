@@ -9,7 +9,7 @@ import {
   H3Data,
   DataContext,
 } from '../HomeComponents.styled';
-import { breakpoints } from '../../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../../styled-theme';
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
@@ -47,8 +47,10 @@ const BlockInfoDisplay = styled.section`
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
+  margin-bottom: ${pxToRem(50)};
 
   @media (min-width: ${breakpoints.md}) {
+    margin-bottom: 0;
     min-width: 44.5%;
   }
 
