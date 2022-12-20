@@ -86,12 +86,11 @@ const HomeContentContainer = styled.div`
     min-width: 39rem;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
+    gap: ${pxToRem(60)};
   }
 
   @media (min-width: ${breakpoints.lg}) {
     padding-top: ${pxToRem(32)};
-    gap: ${pxToRem(50)};
     min-width: 54.8rem;
     max-width: 65rem;
   }
