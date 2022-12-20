@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./build",
     "target": "ESNext",
+    "noEmit": true,
+    "types": ["node", "cypress"],
+    "isolatedModules": false,
+    "esModuleInterop": true,
     "lib": [
       "dom",
       "dom.iterable",
@@ -10,7 +14,6 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,19 +21,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
     "baseUrl": ".",
     "declaration": true,
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "preserveConstEnums": true
   },
-  "include": ["src/**/*", "./cypress.config.ts"],
-  "exclude": ["node_modules"],
-  "watchOptions": {
-    "excludeFiles": ["**/*.test.ts", "**.*spec.ts"]
-  }
+  "include": ["./node_modules", "./cypress/**/*.ts", "./cypress.config.ts"]
 }
