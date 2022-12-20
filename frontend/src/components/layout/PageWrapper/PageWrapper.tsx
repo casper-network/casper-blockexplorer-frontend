@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { GradientHeading } from '../../styled';
 import { Loader } from '../../utility';
@@ -32,17 +33,16 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   error,
   children,
 }) => {
+  const { t } = useTranslation();
   if (error) {
     return (
       <BaseContentWrapper>
-        <GradientHeading type="h2">
-          Whoops! Something went wrong!
-        </GradientHeading>
+        <GradientHeading type="h2">{t('whoops')}</GradientHeading>
         <p className="break-word" data-testid="error-content">
           {error.message}
         </p>
         <p>
-          Go back to <Link to="/">Home</Link>
+          {t('go-back-to')} <Link to="/">{t('home')}</Link>
         </p>
       </BaseContentWrapper>
     );

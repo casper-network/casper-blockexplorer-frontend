@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { casperApi, Account } from '../api';
 import { AccountDetailsCard, PageError, PageWrapper } from '../components';
 
 export const AccountPage: React.FC = () => {
   const { id: accountHash } = useParams();
 
+  const { t } = useTranslation();
   const [account, setAccount] = useState<Account>();
   const [error, setError] = useState<PageError>();
   const [balance, setBalance] = useState<string | null>(null);
@@ -18,7 +20,7 @@ export const AccountPage: React.FC = () => {
 
         if (!accountData) {
           setError({
-            message: `We were unable to locate account data for hash ${accountHash}`,
+            message: `${t('unable-to-locate-account')} ${accountHash}`,
           });
           return;
         }
