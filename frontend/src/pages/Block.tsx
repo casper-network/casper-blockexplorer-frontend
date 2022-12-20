@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { casperApi, Block } from '../api';
 import { useAppWidth } from '../hooks';
 import {
@@ -20,6 +21,8 @@ export const BlockPage: React.FC = () => {
   const { id: blockIdentifier } = useParams();
   const query = useQuery();
 
+  const { t } = useTranslation();
+
   const [block, setBlock] = useState<Block>();
   const [error, setError] = useState<PageError>();
 
@@ -37,8 +40,8 @@ export const BlockPage: React.FC = () => {
 
         if (!blockData) {
           setError({
-            message: `We were unable to locate block data for ${
-              isHashIdentifier ? 'hash' : 'height'
+            message: `${t('unable-to-locate-block')} ${
+              isHashIdentifier ? t('hash') : t('height')
             } ${blockIdentifier}`,
           });
           return;

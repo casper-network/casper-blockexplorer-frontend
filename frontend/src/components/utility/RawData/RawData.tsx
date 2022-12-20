@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactJson from '@microlink/react-json-view';
+import { useTranslation } from 'react-i18next';
 import {
   Accordion,
   AccordionItem,
@@ -22,6 +23,7 @@ const parseJSON = (JSONString: string) => {
 };
 
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
+  const { t } = useTranslation();
   const rawDataJSON: object = parseJSON(rawData);
 
   return (
@@ -31,7 +33,7 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
           <RawDataToggleButton>
             <AccordionItemState>
               {({ expanded }) =>
-                !expanded ? 'Show raw data' : 'Hide raw data'
+                !expanded ? t('show-raw-data') : t('hide-raw-data')
               }
             </AccordionItemState>
           </RawDataToggleButton>

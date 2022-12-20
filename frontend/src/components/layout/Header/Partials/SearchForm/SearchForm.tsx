@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
 
+import { useTranslation } from 'react-i18next';
 import {
   FormContainer,
   Form,
@@ -27,16 +28,17 @@ export const resolver: Resolver<FormValues> = async values => {
   const isPublicKey = /^0(1[0-9a-fA-F]{64}|2[0-9a-fA-F]{66})$/.test(
     values.hash,
   );
+
   const formattedBlockHeight = values.hash.split(',').join('').trim();
   const onlyNumbers = /^[0-9]+$/.test(formattedBlockHeight);
 
   let currentErrorMessage;
 
   const errorMessage = {
-    account: 'Please enter a valid public key.',
-    deploy: 'Please enter a valid deploy hash.',
-    block: 'Please enter a valid block hash.',
-    blockHeight: 'Please enter a valid block height',
+    account: 'enter-valid-public-key',
+    deploy: 'enter-valid-deploy-hash',
+    block: 'enter-valid-block-hash',
+    blockHeight: 'enter-valid-block-height',
   };
 
   const defaultErrorMessage = 'Please select an option and enter a value';
@@ -109,11 +111,14 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
 
   const submitPath: SubmitHandler<FormValues> = data => navigate(data.path);
 
+  const { t } = useTranslation();
+  const currentMessage = errors.hash?.message || '';
+
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit(submitPath)}>
         <label htmlFor="default-search" className="sr-only">
-          Search
+          {t('search')}
         </label>
         <FormComponentsContainer>
           <SearchSelect
@@ -126,7 +131,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               {...register('hash', { required: true })}
               type="search"
               id="search"
-              placeholder="Select search criteria"
+              placeholder={t('select-search-criteria') || ''}
               required
             />
             <SubmitButton type="submit">
@@ -139,7 +144,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
             <ErrorSvgContainer>
               <ErrorIcon />
             </ErrorSvgContainer>
-            <ErrorMessage>{errors.hash.message}</ErrorMessage>
+            <ErrorMessage>{t(currentMessage)}</ErrorMessage>
           </ErrorMessageContainer>
         )}
       </Form>

@@ -3,6 +3,20 @@ import selectEvent from 'react-select-event';
 import { render } from '../../../../../test-utils';
 import { CustomSelect } from './CustomSelect';
 
+jest.mock('react-i18next', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const englishTranslations = jest.requireActual(
+    '../../../../../../public/locales/en/translation.json',
+  );
+
+  return {
+    useTranslation: () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+      return { t: (key: string) => englishTranslations[key] };
+    },
+  };
+});
+
 describe('CustomSelect', () => {
   const mockSelectOptions = [
     { value: 'value1', label: 'Option 1' },

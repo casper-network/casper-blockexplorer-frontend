@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Peer } from '../../../api';
 import { Table } from '../../base';
 
@@ -7,17 +8,20 @@ interface PeerTableProps {
 }
 
 export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
-  const peerTableTitles = ['Node Id', 'Address'];
+  const peerTableTitles = ['node-id', 'address'];
+  const { t } = useTranslation();
 
   const headContent = (
     <div className="flex pl-32">
-      <p className="text-black font-bold pr-32">Currently Online</p>
-      <p className="text-grey">{peers.length} total rows</p>
+      <p className="text-black font-bold pr-32">{t('currently-online')}</p>
+      <p className="text-grey">
+        {peers.length} {t('total-rows')}
+      </p>
     </div>
   );
 
   const peerTableHeads = peerTableTitles.map(title => {
-    return { title: <p className="font-bold">{title}</p>, key: title };
+    return { title: <p className="font-bold">{t(title)}</p>, key: title };
   });
 
   const peerRows = peers.map(({ id, address }) => {

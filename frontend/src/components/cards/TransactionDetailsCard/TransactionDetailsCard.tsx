@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useTranslation } from 'react-i18next';
 import {
   DetailDataLabel,
   DetailDataList,
@@ -32,13 +33,17 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
     deployType,
   } = deploy;
 
+  const { t } = useTranslation();
+
   const statusIcon =
     status === DeployStatus.Success ? <SuccessIcon /> : <FailureIcon />;
 
   return (
     <InfoCard>
       <HeadContentWrapper>
-        <TransactionHeading type="h2">Transaction Details</TransactionHeading>
+        <TransactionHeading type="h2">
+          {t('transaction-details')}
+        </TransactionHeading>
       </HeadContentWrapper>
       <DetailDataWrapper>
         <TransactionGrid gap="2rem">
@@ -46,7 +51,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
             {!!amount && (
               <li>
                 <Grid gap="1rem" templateColumns="9rem auto">
-                  <DetailDataLabel>Amount</DetailDataLabel>
+                  <DetailDataLabel>{t('amount')}</DetailDataLabel>
                   <DetailDataValue>
                     <Coin>{amount}</Coin>
                   </DetailDataValue>
@@ -55,7 +60,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
             )}
             <li>
               <Grid gap="1rem" templateColumns="9rem 1fr">
-                <DetailDataLabel>Cost</DetailDataLabel>
+                <DetailDataLabel>{t('cost')}</DetailDataLabel>
                 <DetailDataValue>
                   <Coin>{cost}</Coin>
                 </DetailDataValue>
@@ -63,7 +68,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
             </li>
             <li>
               <Grid gap="1rem" templateColumns="9rem 1fr">
-                <DetailDataLabel>Payment Amount</DetailDataLabel>
+                <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
                 <DetailDataValue>
                   <Coin>{paymentAmount}</Coin>
                 </DetailDataValue>
@@ -72,12 +77,12 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
           </DetailDataList>
           <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
             <div>
-              <DetailDataLabel>Timestamp</DetailDataLabel>
+              <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
               <TransactionDetailData>{readableTimestamp}</TransactionDetailData>
             </div>
             <HideOnMobile>
               <div>
-                <DetailDataLabel>Status</DetailDataLabel>
+                <DetailDataLabel>{t('status')}</DetailDataLabel>
                 <DeployStatusData>
                   {status}
                   <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
@@ -86,7 +91,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
             </HideOnMobile>
             <HideOnDesktop>
               <SpanTwoCols>
-                <DetailDataLabel>Status</DetailDataLabel>
+                <DetailDataLabel>{t('status')}</DetailDataLabel>
                 <DeployStatusData>
                   {status}
                   <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
@@ -94,12 +99,12 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               </SpanTwoCols>
             </HideOnDesktop>
             <ActionAndDeployTypeWrapper>
-              <DetailDataLabel>Action</DetailDataLabel>
+              <DetailDataLabel>{t('action')}</DetailDataLabel>
               <TransactionDetailData>{action}</TransactionDetailData>
             </ActionAndDeployTypeWrapper>
             {!!deployType && (
               <ActionAndDeployTypeWrapper>
-                <DetailDataLabel>Deploy Type</DetailDataLabel>
+                <DetailDataLabel>{t('deploy-time')}</DetailDataLabel>
                 <TransactionDetailData>{deployType}</TransactionDetailData>
               </ActionAndDeployTypeWrapper>
             )}

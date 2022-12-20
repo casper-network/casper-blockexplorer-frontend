@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../api';
 import { truncateHash } from '../../../utils';
@@ -12,6 +13,7 @@ export interface BlockCarouselCardProps {
 export const BlockCarouselCard: React.FC<BlockCarouselCardProps> = ({
   block,
 }) => {
+  const { t } = useTranslation();
   const {
     hash: blockHash,
     height: blockHeight,
@@ -23,23 +25,23 @@ export const BlockCarouselCard: React.FC<BlockCarouselCardProps> = ({
   const rows = [
     {
       key: `blockHeight-${blockHash}`,
-      detailKey: 'Block Height',
+      detailKey: t('block-height'),
       value: blockHeight,
     },
-    { key: `era-${blockHash}`, detailKey: 'Era', value: era },
+    { key: `era-${blockHash}`, detailKey: t('era'), value: era },
     {
       key: `deploys=${blockHash}`,
-      detailKey: 'Deploy',
+      detailKey: t('deploy'),
       value: deployHashes?.length,
     },
     {
       key: `age-${blockHash}`,
-      detailKey: 'Age',
+      detailKey: t('age'),
       value: timeSince,
     },
     {
       key: `hash-${blockHash}`,
-      detailKey: 'Block Hash',
+      detailKey: t('block-hash'),
       value: (
         <>
           <Link
