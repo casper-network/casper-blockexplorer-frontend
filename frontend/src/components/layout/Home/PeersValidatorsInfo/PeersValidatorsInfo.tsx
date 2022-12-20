@@ -11,12 +11,12 @@ import {
 import { breakpoints } from '../../../../styled-theme';
 import { PeersIcon } from '../../../icons';
 
-interface PeersValidatorInfoProps {
+interface PeersValidatorsInfoProps {
   readonly currentPeers: string;
   readonly currentValidators: string;
 }
 
-export const PeersValidatorInfo: React.FC<PeersValidatorInfoProps> = ({
+export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   currentPeers,
   currentValidators,
 }) => (
