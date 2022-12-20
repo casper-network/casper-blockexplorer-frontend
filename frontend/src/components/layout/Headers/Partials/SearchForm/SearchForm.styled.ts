@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { breakpoints } from 'src/styled-theme';
+import { breakpoints, pxToRem } from 'src/styled-theme';
 
 export const FormContainer = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const FormContainer = styled.div`
   position: relative;
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: 1.6rem 0rem 5.5rem 0rem;
+    padding: 1.6rem 0rem ${pxToRem(10)} 0rem;
     width: 100%;
   }
 `;
