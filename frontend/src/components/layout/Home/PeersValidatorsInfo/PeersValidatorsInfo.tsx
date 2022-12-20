@@ -17,7 +17,7 @@ interface PeersValidatorsInfoProps {
   readonly currentValidators: string;
 }
 
-export const PeersInfo: React.FC<PeersValidatorsInfoProps> = ({
+export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   currentPeers,
   currentValidators,
 }) => {
@@ -33,11 +33,11 @@ export const PeersInfo: React.FC<PeersValidatorsInfoProps> = ({
         <PageLink to="/peers">{t('view-all')}</PageLink>
       </PeersHeader>
       <PeersDetails>
-        <H3>{t('currently-online')}</H3>
+        <H3>{t('peers-currently-online')}:</H3>
         <H3Data>{currentPeers}</H3Data>
       </PeersDetails>
       <ValidatorsDetails>
-        <H3>Validators currently online:</H3>
+        <H3>{t('validators-currently-online')}:</H3>
         <H3Data>{currentValidators}</H3Data>
       </ValidatorsDetails>
     </PeersInfoDisplay>
