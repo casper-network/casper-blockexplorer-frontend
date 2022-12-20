@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useAsyncEffect from 'use-async-effect';
 
 import { GradientHeading, PageWrapper, PeerTable } from '../components';
@@ -15,6 +16,8 @@ import {
 export const Peers: React.FC = () => {
   const dispatch = useAppDispatch();
 
+  const { t } = useTranslation();
+
   const peers = useAppSelector(getPeers);
   const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
 
@@ -28,7 +31,7 @@ export const Peers: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <GradientHeading type="h2">Connected Peers</GradientHeading>
+      <GradientHeading type="h2">{t('connected-peers')}</GradientHeading>
       <PeerTable peers={peers} />
     </PageWrapper>
   );

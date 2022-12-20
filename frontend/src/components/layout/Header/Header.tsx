@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { SearchForm } from './Partials';
 import { Navbar } from '../Navbar/Navbar';
 
@@ -14,6 +15,8 @@ import {
 import { BlueLogo } from '../../logos';
 
 export const Header: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>
@@ -23,7 +26,7 @@ export const Header: React.FC = () => {
         <Navbar />
       </HeaderComponentsContainer>
       <HeroContainer>
-        <HeroHeading type="h1">Discover the Casper Blockchain.</HeroHeading>
+        <HeroHeading type="h1">{t('discover-casper')}</HeroHeading>
       </HeroContainer>
       <SearchForm />
     </HeaderComponent>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { useTranslation } from 'react-i18next';
 import {
   IconH2Container,
   H2,
@@ -15,21 +16,25 @@ interface PeersInfoProps {
   readonly currentPeers: string;
 }
 
-export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => (
-  <PeersInfoDisplay>
-    <PeersHeader>
-      <IconH2Container>
-        <PeersIcon />
-        <H2>Peers</H2>
-      </IconH2Container>
-      <PageLink to="/peers">View all</PageLink>
-    </PeersHeader>
-    <PeersDetails>
-      <H3>Currently online</H3>
-      <H3Data>{currentPeers}</H3Data>
-    </PeersDetails>
-  </PeersInfoDisplay>
-);
+export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => {
+  const { t } = useTranslation();
+
+  return (
+    <PeersInfoDisplay>
+      <PeersHeader>
+        <IconH2Container>
+          <PeersIcon />
+          <H2>{t('peers')}</H2>
+        </IconH2Container>
+        <PageLink to="/peers">{t('view-all')}</PageLink>
+      </PeersHeader>
+      <PeersDetails>
+        <H3>{t('currently-online')}</H3>
+        <H3Data>{currentPeers}</H3Data>
+      </PeersDetails>
+    </PeersInfoDisplay>
+  );
+};
 
 const PeersInfoDisplay = styled.section`
   box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);

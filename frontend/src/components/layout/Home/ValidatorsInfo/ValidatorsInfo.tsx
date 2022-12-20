@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { useTranslation } from 'react-i18next';
 import {
   IconH2Container,
   H2,
@@ -12,22 +13,26 @@ import {
 import { breakpoints } from '../../../../styled-theme';
 import { ValidatorsIcon } from '../../../icons';
 
-export const ValidatorsInfo: React.FC = () => (
-  <ValidatorsInfoDisplay>
-    <ValidatorsHeader>
-      <IconH2Container>
-        <ValidatorsIcon />
-        <H2>Validators</H2>
-      </IconH2Container>
-      <PageLink to="/validators">View all</PageLink>
-    </ValidatorsHeader>
-    <ValidatorDetails>
-      <H3>Active Validators</H3>
-      <H3Data>n/a</H3Data>
-      <DataContext>out of 0 active bids</DataContext>
-    </ValidatorDetails>
-  </ValidatorsInfoDisplay>
-);
+export const ValidatorsInfo: React.FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <ValidatorsInfoDisplay>
+      <ValidatorsHeader>
+        <IconH2Container>
+          <ValidatorsIcon />
+          <H2>{t('validators')}</H2>
+        </IconH2Container>
+        <PageLink to="/validators">{t('view-all')}</PageLink>
+      </ValidatorsHeader>
+      <ValidatorDetails>
+        <H3>{t('active-validators')}</H3>
+        <H3Data>{t('n/a')}</H3Data>
+        <DataContext>{t('active-bids')}</DataContext>
+      </ValidatorDetails>
+    </ValidatorsInfoDisplay>
+  );
+};
 
 const ValidatorsInfoDisplay = styled.section`
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);

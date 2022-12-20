@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { Block } from '../../../api';
@@ -32,6 +33,8 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
     rawBlock,
   } = block;
 
+  const { t } = useTranslation();
+
   return (
     <>
       <PageHeading>
@@ -41,15 +44,15 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
       <InfoCard>
         <DetailDataRowWrapper>
           <li>
-            <DetailDataLabel>Block Height</DetailDataLabel>
+            <DetailDataLabel>{t('block-height')}</DetailDataLabel>
             <DetailDataValue>{blockHeight}</DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Current Era</DetailDataLabel>
+            <DetailDataLabel>{t('current-era')}</DetailDataLabel>
             <DetailDataValue>{era}</DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Timestamp</DetailDataLabel>
+            <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
             <DetailDataValue>{readableTimestamp}</DetailDataValue>
           </li>
         </DetailDataRowWrapper>
@@ -57,7 +60,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
       <InfoCard>
         <DetailDataWrapper>
           <li>
-            <DetailDataLabel>Parent Hash</DetailDataLabel>
+            <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
             <DetailDataValue>
               <Link
                 to={{
@@ -69,20 +72,20 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Block Hash</DetailDataLabel>
+            <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
             <DetailDataValue>
               <Hash hash={blockHash} />
               <CopyToClipboard textToCopy={blockHash} />
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>State Root Hash</DetailDataLabel>
+            <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
             <DetailDataValue>
               {stateRootHash ? <Hash hash={stateRootHash} /> : ''}
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Validator</DetailDataLabel>
+            <DetailDataLabel>{t('validator')}</DetailDataLabel>
             <DetailDataValue>
               <Link
                 to={{
@@ -98,7 +101,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
       <InfoCard>
         <DetailDataWrapper>
           <li>
-            <DetailDataLabel>Deploys</DetailDataLabel>
+            <DetailDataLabel>{t('deploys')}</DetailDataLabel>
             <DetailDataValue>
               {deployHashes?.length ? (
                 <ul>
@@ -116,7 +119,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Transfers</DetailDataLabel>
+            <DetailDataLabel>{t('transfers')}</DetailDataLabel>
             <DetailDataValue>
               {transferHashes?.length ? (
                 <ul>
@@ -129,12 +132,12 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   ))}
                 </ul>
               ) : (
-                'No transfers'
+                t('no-transfers')
               )}
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>
               <RawData rawData={rawBlock} />
             </DetailDataValue>
