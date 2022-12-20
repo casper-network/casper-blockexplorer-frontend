@@ -1,53 +1,88 @@
 import React from 'react';
-import { TableProps } from './Table.types';
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 
-export const Table: React.FC<TableProps> = ({
-  headColumns,
-  rows,
-  headContent,
-  footContent,
-}) => {
+export interface TableProps<T> {
+  readonly header?: React.ReactNode;
+  readonly columns: ColumnDef<T>[];
+  readonly data: T[];
+  readonly footer?: React.ReactNode;
+}
+
+export function Table<T extends unknown>({
+  columns,
+  data,
+  header,
+  footer,
+}: TableProps<T>) {
+  const { getHeaderGroups, getRowModel } = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
+
   return (
     <div className="w-full mb-32 shadow-card rounded-lg overflow-x-auto max-w-screen-p-incl bg-white">
-      <div className="w-full py-12">{headContent}</div>
+      <div className="w-full py-12">{header}</div>
       <table className="table-auto w-full border-spacing-0 min-w-800 bg-white">
         <thead className="bg-light-grey">
-          <tr className="h-40 ">
-            {headColumns.map(({ title, key }, index) => {
-              return (
+          {getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id} className="h-40">
+              {headerGroup.headers.map(header => (
                 <th
                   className="text-start px-32"
-                  key={key}
-                  data-testid={`head-${index + 1}`}>
-                  {title}
+                  key={header.id}
+                  colSpan={header.colSpan}>
+                  {header.isPlaceholder ? null : (
+                    <div
+                      {...{
+                        className: `relative ${
+                          header.column.getCanSort()
+                            ? 'cursor-pointer select-none mr-4'
+                            : ''
+                        }`,
+                        onClick: header.column.getToggleSortingHandler(),
+                      }}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                      <span className="absolute right-0 top-1/2">
+                        {{
+                          asc: '🔼',
+                          desc: '🔽',
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </span>
+                    </div>
+                  )}
                 </th>
-              );
-            })}
-          </tr>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody>
-          {rows.map(({ items, key }, rowIndex) => {
-            return (
-              <tr
-                key={key}
-                className="h-50 hover:bg-light-grey"
-                data-testid={`row-${rowIndex + 1}`}>
-                {items.map(({ content, key: itemKey }, rowColIndex) => {
-                  return (
-                    <td
-                      className="text-start px-32 border-0 border-b-1 border-light-grey border-solid "
-                      key={itemKey}
-                      data-testid={`rowCol-${rowColIndex + 1}`}>
-                      {content}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          {getRowModel().rows.map(row => (
+            <tr key={row.id} className="h-50 hover:bg-light-grey">
+              {row.getVisibleCells().map(cell => {
+                return (
+                  <td
+                    key={cell.id}
+                    className="text-start px-32 border-0 border-b-1 border-light-grey border-solid">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
         </tbody>
       </table>
-      {footContent && footContent}
+      {footer}
     </div>
   );
-};
+}

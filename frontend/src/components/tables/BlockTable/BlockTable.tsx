@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useTranslation } from 'react-i18next';
+import { ColumnDef } from '@tanstack/react-table';
+
 import {
   fetchMoreBlocks,
   getEarliestLoadedBlock,
@@ -12,7 +13,12 @@ import {
   useAppSelector,
 } from '../../../store';
 import { Block } from '../../../api';
-import { standardizeNumber, truncateHash } from '../../../utils';
+import {
+  formatDate,
+  formatTimeAgo,
+  standardizeNumber,
+  truncateHash,
+} from '../../../utils';
 import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
 
 import { Table } from '../../base';
@@ -32,111 +38,108 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   const latestBlockHeight = useAppSelector(getLatestBlockHeight);
   const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
   const loadingMoreBlocksStatus = useAppSelector(getLoadingMoreBlocksStatus);
-
-  const headContent = (
-    <div className="flex justify-between text-grey px-32">
-      <p>
-        {standardizeNumber(latestBlockHeight || 0)} {t('total-rows')}
-      </p>
-      <RefreshTimer />
-    </div>
-  );
-
   const isLoadingMoreBlocks = loadingMoreBlocksStatus === Loading.Pending;
 
-  const footContent = (
-    <div className="flex justify-around px-32 py-20">
-      <button
-        type="button"
-        disabled={isLoadingMoreBlocks}
-        onClick={() => {
-          if (earliestLoadedBlockHeight) {
-            dispatch(fetchMoreBlocks(earliestLoadedBlockHeight));
-          }
-        }}
-        className="bg-light-grey hover:bg-light-red text-dark-red min-w-150 py-8 text-14 w-fit rounded-md border-none font-medium">
-        {isLoadingMoreBlocks ? <Loader size="sm" /> : t('show-more')}
-      </button>
-    </div>
+  const header = useMemo(
+    () => (
+      <div className="flex justify-between text-grey px-32">
+        <p>
+          {standardizeNumber(latestBlockHeight || 0)} {t('total-rows')}
+        </p>
+        <RefreshTimer />
+      </div>
+    ),
+    [latestBlockHeight, t],
   );
 
-  const blockTableTitles = [
-    'block-height',
-    'era',
-    'deploy',
-    'age',
-    'block-hash',
-  ];
-  if (showValidators) {
-    blockTableTitles.push('validator');
-  }
+  const footer = useMemo(
+    () => (
+      <div className="flex justify-around px-32 py-20">
+        <button
+          type="button"
+          disabled={isLoadingMoreBlocks}
+          onClick={() => {
+            if (earliestLoadedBlockHeight) {
+              dispatch(fetchMoreBlocks(earliestLoadedBlockHeight));
+            }
+          }}
+          className="bg-light-grey hover:bg-light-red text-dark-red min-w-150 py-8 text-14 w-fit rounded-md border-none font-medium">
+          {isLoadingMoreBlocks ? <Loader size="sm" /> : t('show-more')}
+        </button>
+      </div>
+    ),
+    [dispatch, earliestLoadedBlockHeight, isLoadingMoreBlocks, t],
+  );
 
-  const blockTableHeads = blockTableTitles.map(title => {
-    return { title: <p className="font-bold">{t(title)}</p>, key: title };
-  });
-
-  const blockRows = blocks.map(
-    ({
-      height,
-      eraID,
-      deployCount,
-      timeSince,
-      timestamp,
-      hash,
-      validatorPublicKey,
-    }) => {
-      const key = `${hash}-${timestamp}`;
-
-      const items = [
-        { content: standardizeNumber(height), key: `${key}-hash` },
-        { content: eraID, key: `${key}-era` },
-        { content: deployCount, key: `${key}-deploys` },
-        { content: timeSince, key: `${key}-age` },
-        {
-          content: (
-            <>
-              <Link
-                to={{
-                  pathname: `/block/${hash}`,
-                }}>
-                {truncateHash(hash)}
-              </Link>
-              <CopyToClipboard textToCopy={hash} />
-            </>
-          ),
-          key: `${key}-block-hash`,
-        },
-      ];
-
-      const validatorColumn = {
-        content: (
-          <>
+  const columns = useMemo<ColumnDef<Block>[]>(
+    () => [
+      {
+        header: `${t('block-height')}`,
+        accessorKey: 'height',
+        cell: ({ getValue }) => <>{standardizeNumber(getValue<number>())}</>,
+      },
+      {
+        header: `${t('era')}`,
+        accessorKey: 'eraID',
+      },
+      {
+        header: `${t('deploy')}`,
+        accessorKey: 'deployCount',
+      },
+      {
+        header: `${t('age')}`,
+        accessorKey: 'timestamp',
+        cell: ({ getValue, column }) => (
+          <div>
+            {column.getIsSorted()
+              ? formatDate(new Date(getValue<number>()))
+              : formatTimeAgo(new Date(getValue<number>()))}
+          </div>
+        ),
+      },
+      {
+        header: `${t('block-hash')}`,
+        accessorKey: 'hash',
+        cell: ({ getValue }) => (
+          <div className="flex flex-row items-center">
             <Link
               to={{
-                pathname: `/account/${validatorPublicKey}`,
+                pathname: `/block/${getValue<string>()}`,
               }}>
-              {truncateHash(validatorPublicKey)}
+              {truncateHash(getValue<string>())}
             </Link>
-            <CopyToClipboard textToCopy={validatorPublicKey} />
-          </>
+            <CopyToClipboard textToCopy={getValue<string>()} />
+          </div>
         ),
-        key: `${key}-validator`,
-      };
-
-      if (showValidators) {
-        items.push(validatorColumn);
-      }
-
-      return { items, key };
-    },
+        enableSorting: false,
+      },
+      {
+        header: `${t('validator')}`,
+        accessorKey: 'validatorPublicKey',
+        cell: ({ getValue }) => (
+          <div className="flex flex-row items-center">
+            <Link
+              to={{
+                pathname: `/account/${getValue<string>()}`,
+              }}>
+              {truncateHash(getValue<string>())}
+            </Link>
+            <CopyToClipboard textToCopy={getValue<string>()} />
+          </div>
+        ),
+        enableSorting: false,
+        isVisible: showValidators,
+      },
+    ],
+    [showValidators, t],
   );
 
   return (
-    <Table
-      headContent={headContent}
-      headColumns={blockTableHeads}
-      rows={blockRows}
-      footContent={footContent}
+    <Table<Block>
+      header={header}
+      columns={columns}
+      data={blocks}
+      footer={footer}
     />
   );
 };

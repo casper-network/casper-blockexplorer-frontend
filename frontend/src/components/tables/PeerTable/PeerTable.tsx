@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ColumnDef } from '@tanstack/react-table';
 import { Peer } from '../../../api';
 import { Table } from '../../base';
 
@@ -8,10 +9,24 @@ interface PeerTableProps {
 }
 
 export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
-  const peerTableTitles = ['node-id', 'address'];
   const { t } = useTranslation();
+  const columns = useMemo<ColumnDef<Peer>[]>(
+    () => [
+      {
+        header: `${t('node-id')}`,
+        accessorKey: 'id',
+        enableSorting: false,
+      },
+      {
+        header: `${t('address')}`,
+        accessorKey: 'address',
+        enableSorting: false,
+      },
+    ],
+    [t],
+  );
 
-  const headContent = (
+  const header = (
     <div className="flex pl-32">
       <p className="text-black font-bold pr-32">{t('currently-online')}</p>
       <p className="text-grey">
@@ -20,25 +35,5 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
     </div>
   );
 
-  const peerTableHeads = peerTableTitles.map(title => {
-    return { title: <p className="font-bold">{t(title)}</p>, key: title };
-  });
-
-  const peerRows = peers.map(({ id, address }) => {
-    const key = id;
-    const items = [
-      { content: id, key: `id-${id}` },
-      { content: address, key: `address-${id}` },
-    ];
-
-    return { items, key };
-  });
-
-  return (
-    <Table
-      headContent={headContent}
-      headColumns={peerTableHeads}
-      rows={peerRows}
-    />
-  );
+  return <Table<Peer> header={header} columns={columns} data={peers} />;
 };
