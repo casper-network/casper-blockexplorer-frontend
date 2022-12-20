@@ -38,12 +38,14 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [setIsFirstVisit, usersVisitationStatus]);
 
+  console.log(isFirstVisit);
+
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
         <div ref={ref} className="bg-white grid min-h-screen grid-rows-layout">
           <BrowserRouter>
-            <Header />
+            <Header isFirstVisit={isFirstVisit} />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/peers" element={<Peers />} />
