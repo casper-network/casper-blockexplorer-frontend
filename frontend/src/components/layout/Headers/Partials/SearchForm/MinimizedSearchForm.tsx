@@ -17,8 +17,8 @@ import {
 
 import { ButtonIcon, ErrorIcon } from '../../../../icons';
 
-import { MinimizedSearchSelect } from '../SearchSelect/MinimizedSearchSelect';
 import { FormValues } from '../partials.types';
+import { MinimizedSearchSelect } from '../SearchSelect';
 
 interface SearchFormProps {}
 
