@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Block } from '../../../api';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, RefreshTimer } from '../../utility';
@@ -14,9 +15,10 @@ export const LatestBlocks: React.FC<LatestBlocksProps> = ({
   blocks,
   showValidators,
 }) => {
+  const { t } = useTranslation();
   const headContent = (
     <div className="flex justify-between text-grey px-32">
-      <p>Latest Blocks</p>
+      <p>{t('latest-blocks')}</p>
       <RefreshTimer />
     </div>
   );
@@ -26,24 +28,24 @@ export const LatestBlocks: React.FC<LatestBlocksProps> = ({
       <NavLink
         to="/blocks"
         className="bg-light-grey hover:bg-light-red text-dark-red px-16 py-8 text-14 w-fit rounded-md font-medium">
-        View Blocks
+        {t('view-blocks')}
       </NavLink>
     </div>
   );
 
   const blockTableTitles = [
-    'Block Height',
-    'Era',
-    'Deploy',
-    'Age',
-    'Block Hash',
+    'block-height',
+    'era',
+    'deploy',
+    'age',
+    'block-hash',
   ];
   if (showValidators) {
-    blockTableTitles.push('Validator');
+    blockTableTitles.push('validator');
   }
 
   const blockTableHeads = blockTableTitles.map(title => {
-    return { title: <p className="font-bold">{title}</p>, key: title };
+    return { title: <p className="font-bold">{t(title)}</p>, key: title };
   });
 
   const firstTenBlocks = blocks.slice(0, 10);
