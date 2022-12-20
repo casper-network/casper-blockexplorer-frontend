@@ -4,13 +4,13 @@ import { breakpoints, pxToRem } from 'src/styled-theme';
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 2.6rem;
-  padding-bottom: 1.2rem;
+  padding: ${pxToRem(42)} 0;
   margin: 0 auto;
   position: relative;
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: center;
+    padding-bottom: ${pxToRem(19)};
     width: 80%;
   }
 `;
