@@ -38,8 +38,6 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [setIsFirstVisit, usersVisitationStatus]);
 
-  console.log(isFirstVisit);
-
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
