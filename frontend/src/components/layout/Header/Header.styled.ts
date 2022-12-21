@@ -34,7 +34,7 @@ export const LogoLink = styled(Link)`
     text-decoration-line: none;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${breakpoints.lg}) {
     width: 2rem;
   }
 `;
