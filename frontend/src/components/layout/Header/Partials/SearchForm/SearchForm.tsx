@@ -21,7 +21,9 @@ import { ButtonIcon, ErrorIcon } from '../../../../icons';
 import { SearchSelect } from '../SearchSelect/SearchSelect';
 import { FormValues } from '../partials.types';
 
-interface SearchFormProps {}
+interface SearchFormProps {
+  readonly isFirstVisit: boolean;
+}
 
 export const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
@@ -88,7 +90,7 @@ export const resolver: Resolver<FormValues> = async values => {
   };
 };
 
-export const SearchForm: React.FC<SearchFormProps> = () => {
+export const SearchForm: React.FC<SearchFormProps> = ({ isFirstVisit }) => {
   const navigate = useNavigate();
   const [currentFilterOption, setCurrentFilterOption] = useState('account');
 
@@ -115,7 +117,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
   const currentMessage = errors.hash?.message || '';
 
   return (
-    <FormContainer>
+    <FormContainer isFirstVisit={isFirstVisit}>
       <Form onSubmit={handleSubmit(submitPath)}>
         <label htmlFor="default-search" className="sr-only">
           {t('search')}
