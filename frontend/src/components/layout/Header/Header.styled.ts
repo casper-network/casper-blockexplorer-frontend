@@ -96,21 +96,15 @@ export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
   justify-content: center;
   padding-top: 2rem;
 
-  ${({ isFirstVisit }) =>
-    isFirstVisit
-      ? `@media (min-width: ${breakpoints.lg}) {
-    padding: 1.3rem 6rem 0rem 0rem;
-    width: 100%;
-    justify-content: center;
-  }`
-      : `@media (min-width: ${breakpoints.lg}) {
-    padding: 8rem 6rem 0rem 0rem;
-    width: 100%;
-    justify-content: center;
-  }`}
+  @media (min-width: ${breakpoints.lg}) {
+    justify-content: start;
+    width: 64.5%;
+    max-width: ${pxToRem(792)};
+    margin: 0 auto;
+  }
 `;
 
-export const HeroHeading = styled(GradientHeading)<{ isFirstVisit: boolean }>`
+export const HeroHeading = styled(GradientHeading)`
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 1;
@@ -118,25 +112,19 @@ export const HeroHeading = styled(GradientHeading)<{ isFirstVisit: boolean }>`
   max-width: 18rem;
 
   @media (min-width: ${breakpoints.md}) {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     line-height: 1;
-    padding-right: 0.5rem;
+    padding-right: 3rem;
     max-width: 34rem;
     background-size: 100%;
   }
 
-  ${({ isFirstVisit }) =>
-    isFirstVisit
-      ? ` @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.lg}) {
     font-size: 3.2rem;
     line-height: 1;
+    text-align: left;
     max-width: 42.5rem;
-    padding-right: 12rem;
+    padding-right: 11rem;
     background-size: 71%;
-  }`
-      : ` @media (min-width: ${breakpoints.lg}) {
-    font-size: 4.3rem;
-    line-height: 1;
-    max-width: 42rem;
-  }`}
+  }
 `;
