@@ -5,8 +5,7 @@ import styled from '@emotion/styled';
 import {
   BlocksInfo,
   DeploysInfo,
-  ValidatorsInfo,
-  PeersInfo,
+  PeersValidatorsInfo,
 } from '../components/layout/Home';
 
 import { PageWrapper } from '../components';
@@ -49,6 +48,8 @@ export const Home: React.FC = () => {
 
   const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
 
+  const currentValidators = 'n/a';
+
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
       dispatch(fetchBlocks());
@@ -67,8 +68,10 @@ export const Home: React.FC = () => {
           blockEraID={firstListedBlockEraID}
         />
         <DeploysInfo />
-        <ValidatorsInfo />
-        <PeersInfo currentPeers={currentPeers} />
+        <PeersValidatorsInfo
+          currentPeers={currentPeers}
+          currentValidators={currentValidators}
+        />
       </HomeContentContainer>
     </PageWrapper>
   );
