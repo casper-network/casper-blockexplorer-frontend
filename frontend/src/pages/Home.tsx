@@ -47,6 +47,7 @@ export const Home: React.FC = () => {
     : 'n/a';
 
   const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
+
   const currentValidators = 'n/a';
 
   useAsyncEffect(async () => {
