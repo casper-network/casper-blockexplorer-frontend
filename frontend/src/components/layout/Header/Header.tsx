@@ -40,12 +40,10 @@ export const Header: React.FC<HeaderProps> = ({ isFirstVisit }) => {
       </HeaderComponentsContainer>
       {isFirstVisit ? (
         <HeroContainer isFirstVisit={isFirstVisit}>
-          <HeroHeading type="h1" isFirstVisit={isFirstVisit}>
-            {t('discover-casper')}
-          </HeroHeading>
+          <HeroHeading type="h1">{t('discover-casper')}</HeroHeading>
         </HeroContainer>
       ) : null}
-      <SearchForm />
+      <SearchForm isFirstVisit={isFirstVisit} />
     </HeaderComponent>
   );
 };
