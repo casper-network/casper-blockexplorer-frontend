@@ -197,7 +197,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
 
 const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__control {
-    width: 11rem;
+    width: 9.9rem;
     box-shadow: none;
     border: none;
   }
@@ -216,7 +216,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     display: block;
     position: absolute;
     top: 0.3rem;
-    left: 7.938rem;
+    left: 7.5rem;
     padding: 0;
   }
 
@@ -230,7 +230,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-size: 1rem;
     text-align: left;
     padding-right: 2.3rem;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     padding-bottom: 0.05rem;
     margin: 0 auto;
   }
