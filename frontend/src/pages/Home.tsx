@@ -93,6 +93,6 @@ const HomeContentContainer = styled.div`
   @media (min-width: ${breakpoints.lg}) {
     padding-top: ${pxToRem(32)};
     min-width: 54.8rem;
-    max-width: 65rem;
+    max-width: 64.8rem;
   }
 `;
