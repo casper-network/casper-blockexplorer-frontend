@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector, getIsFirstVisit } from 'src/store';
 
 import { useTranslation } from 'react-i18next';
 import { SearchForm } from './Partials';
@@ -10,18 +11,15 @@ import {
   LogoLink,
   HeroContainer,
   HeroHeading,
-  LogoText,
   MinimizedHeaderLink,
 } from './Header.styled';
 
-import { BlueBlackLogo, BlueLogo } from '../../logos';
+import { BlkExpLogo, BlueBlackLogo, BlueLogo } from '../../logos';
 
-interface HeaderProps {
-  readonly isFirstVisit: boolean;
-}
-
-export const Header: React.FC<HeaderProps> = ({ isFirstVisit }) => {
+export const Header: React.FC = () => {
   const { t } = useTranslation();
+
+  const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   return (
     <HeaderComponent>
@@ -33,17 +31,17 @@ export const Header: React.FC<HeaderProps> = ({ isFirstVisit }) => {
         ) : (
           <MinimizedHeaderLink to="/">
             <BlueBlackLogo />
-            <LogoText>Block Explorer</LogoText>
+            <BlkExpLogo />
           </MinimizedHeaderLink>
         )}
         <Navbar />
       </HeaderComponentsContainer>
       {isFirstVisit ? (
-        <HeroContainer isFirstVisit={isFirstVisit}>
+        <HeroContainer>
           <HeroHeading type="h1">{t('discover-casper')}</HeroHeading>
         </HeroContainer>
       ) : null}
-      <SearchForm isFirstVisit={isFirstVisit} />
+      <SearchForm />
     </HeaderComponent>
   );
 };
