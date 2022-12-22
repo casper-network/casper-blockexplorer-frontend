@@ -12,11 +12,15 @@ import {
 import { breakpoints } from '../../../../styled-theme';
 import { PeersIcon } from '../../../icons';
 
-interface PeersInfoProps {
+interface PeersValidatorsInfoProps {
   readonly currentPeers: string;
+  readonly currentValidators: string;
 }
 
-export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => {
+export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
+  currentPeers,
+  currentValidators,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -29,9 +33,13 @@ export const PeersInfo: React.FC<PeersInfoProps> = ({ currentPeers }) => {
         <PageLink to="/peers">{t('view-all')}</PageLink>
       </PeersHeader>
       <PeersDetails>
-        <H3>{t('currently-online')}</H3>
+        <H3>{t('peers-currently-online')}:</H3>
         <H3Data>{currentPeers}</H3Data>
       </PeersDetails>
+      <ValidatorsDetails>
+        <H3>{t('validators-currently-online')}:</H3>
+        <H3Data>{currentValidators}</H3Data>
+      </ValidatorsDetails>
     </PeersInfoDisplay>
   );
 };
@@ -69,6 +77,14 @@ const PeersDetails = styled.section`
   flex-direction: column;
   justify-content: start;
   border-top: 0.094rem solid #f2f3f5;
+  padding: 0 0;
+  margin: 0 2rem;
+`;
+
+const ValidatorsDetails = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   padding: 0 0;
   margin: 0 2rem;
 `;
