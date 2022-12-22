@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef } from '@tanstack/react-table';
@@ -39,6 +39,15 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
   const loadingMoreBlocksStatus = useAppSelector(getLoadingMoreBlocksStatus);
   const isLoadingMoreBlocks = loadingMoreBlocksStatus === Loading.Pending;
+  const [currentTime, setCurrentTime] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const header = useMemo(
     () => (
@@ -81,10 +90,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       {
         header: `${t('era')}`,
         accessorKey: 'eraID',
+        maxSize: 100,
       },
       {
         header: `${t('deploy')}`,
         accessorKey: 'deployCount',
+        maxSize: 100,
       },
       {
         header: `${t('age')}`,
@@ -96,6 +107,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
               : formatTimeAgo(new Date(getValue<number>()))}
           </div>
         ),
+        minSize: 200,
       },
       {
         header: `${t('block-hash')}`,
@@ -112,6 +124,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
           </div>
         ),
         enableSorting: false,
+        minSize: 230,
       },
       {
         header: `${t('validator')}`,
@@ -129,9 +142,11 @@ export const BlockTable: React.FC<BlockTableProps> = ({
         ),
         enableSorting: false,
         isVisible: showValidators,
+        minSize: 230,
       },
     ],
-    [showValidators, t],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [showValidators, t, currentTime],
   );
 
   return (

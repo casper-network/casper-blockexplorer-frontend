@@ -38,7 +38,8 @@ export function Table<T extends unknown>({
                 <th
                   className="text-start px-32"
                   key={header.id}
-                  colSpan={header.colSpan}>
+                  colSpan={header.colSpan}
+                  style={{ width: header.getSize() }}>
                   {header.isPlaceholder ? null : (
                     <div
                       {...{
@@ -73,7 +74,8 @@ export function Table<T extends unknown>({
                 return (
                   <td
                     key={cell.id}
-                    className="text-start px-32 border-0 border-b-1 border-light-grey border-solid">
+                    className="text-start px-32 border-0 border-b-1 border-light-grey border-solid"
+                    style={{ width: cell.column.getSize() }}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 );
