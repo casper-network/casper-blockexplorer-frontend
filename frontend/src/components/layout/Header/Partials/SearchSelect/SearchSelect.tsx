@@ -1,6 +1,7 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
+import { useTranslation } from 'react-i18next';
 import { FormValues, SelectOptions } from '../partials.types';
 import { useAppWidth } from '../../../../../hooks';
 import {
@@ -21,12 +22,13 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   setCurrentFilterOption,
 }) => {
   const { isMobile } = useAppWidth();
+  const { t } = useTranslation();
 
   const selectOptions: SelectOptions[] | null = [
-    { value: 'account', label: 'Account' },
-    { value: 'deploy', label: 'Deploy' },
-    { value: 'block', label: 'Block Hash' },
-    { value: 'blockHeight', label: 'Block Height' },
+    { value: 'account', label: t('account') },
+    { value: 'deploy', label: t('deploy') },
+    { value: 'block', label: t('block-hash') },
+    { value: 'blockHeight', label: t('block-height') },
   ];
 
   return (
@@ -75,6 +77,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                             : '#000',
                       }}
                       type="button">
+                      {/* TODO: See if colors are affected */}
                       {option.label.includes('Block')
                         ? option.label.replace('Block', 'Blk')
                         : option.label}

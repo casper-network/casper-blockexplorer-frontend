@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -26,12 +27,13 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
 }) => {
+  const { t } = useTranslation();
   const { trimmedAccountHash, publicKey, rawAccount } = account;
 
   return (
     <InfoCard>
       <HeadContentWrapper>
-        <AccountHeading type="h1">Account Details</AccountHeading>
+        <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarIcon
           src={`${AVATAR_URL}${trimmedAccountHash}.svg`}
           alt="avatar"
@@ -43,27 +45,27 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
       <DetailDataWrapper>
         <DetailDataList gap="1.75rem">
           <li>
-            <DetailDataLabel>Account Hash</DetailDataLabel>
+            <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
             <DetailDataValue>
               <Hash hash={trimmedAccountHash} />
               <CopyToClipboard textToCopy={trimmedAccountHash} />
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Public Key</DetailDataLabel>
+            <DetailDataLabel>{t('public-key')}</DetailDataLabel>
             <DetailDataValue>
               <Hash hash={publicKey} />
               <CopyToClipboard textToCopy={publicKey} />
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Balance</DetailDataLabel>
+            <DetailDataLabel>{t('balance')}</DetailDataLabel>
             <DetailDataValue>
               <Coin>{balance}</Coin>
             </DetailDataValue>
           </li>
           <li>
-            <DetailDataLabel>Raw Data</DetailDataLabel>
+            <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>
               <RawData rawData={rawAccount} />
             </DetailDataValue>

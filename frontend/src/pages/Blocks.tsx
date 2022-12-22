@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useAsyncEffect from 'use-async-effect';
 
 import { BlockTable, GradientHeading, PageWrapper } from '../components';
@@ -14,7 +15,7 @@ import {
 
 export const Blocks: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  const { t } = useTranslation();
   const blocks = useAppSelector(getBlocks);
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
 
@@ -28,7 +29,7 @@ export const Blocks: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <GradientHeading type="h2">Blocks</GradientHeading>
+      <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       <BlockTable blocks={blocks} />
     </PageWrapper>
   );

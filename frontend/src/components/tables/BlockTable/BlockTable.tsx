@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import {
   fetchMoreBlocks,
   getEarliestLoadedBlock,
@@ -26,6 +27,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   showValidators,
 }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const latestBlockHeight = useAppSelector(getLatestBlockHeight);
   const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
@@ -33,7 +35,9 @@ export const BlockTable: React.FC<BlockTableProps> = ({
 
   const headContent = (
     <div className="flex justify-between text-grey px-32">
-      <p>{standardizeNumber(latestBlockHeight || 0)} total rows</p>
+      <p>
+        {standardizeNumber(latestBlockHeight || 0)} {t('total-rows')}
+      </p>
       <RefreshTimer />
     </div>
   );
@@ -51,24 +55,24 @@ export const BlockTable: React.FC<BlockTableProps> = ({
           }
         }}
         className="bg-light-grey hover:bg-light-red text-dark-red min-w-150 py-8 text-14 w-fit rounded-md border-none font-medium">
-        {isLoadingMoreBlocks ? <Loader size="sm" /> : 'Show more'}
+        {isLoadingMoreBlocks ? <Loader size="sm" /> : t('show-more')}
       </button>
     </div>
   );
 
   const blockTableTitles = [
-    'Block Height',
-    'Era',
-    'Deploy',
-    'Age',
-    'Block Hash',
+    'block-height',
+    'era',
+    'deploy',
+    'age',
+    'block-hash',
   ];
   if (showValidators) {
-    blockTableTitles.push('Validator');
+    blockTableTitles.push('validator');
   }
 
   const blockTableHeads = blockTableTitles.map(title => {
-    return { title: <p className="font-bold">{title}</p>, key: title };
+    return { title: <p className="font-bold">{t(title)}</p>, key: title };
   });
 
   const blockRows = blocks.map(
