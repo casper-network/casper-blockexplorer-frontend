@@ -1,16 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["es2015", "dom"],
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "rootDir": "./src/",
-    "outDir": "./dist",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  },
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "extends": "./tsconfig.base.json",
+  "exclude": ["node_modules"]
 }
