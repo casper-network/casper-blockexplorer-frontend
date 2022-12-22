@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getIsFirstVisit, useAppSelector } from 'src/store';
 
 import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
 
@@ -21,9 +22,7 @@ import { ButtonIcon, ErrorIcon } from '../../../../icons';
 import { SearchSelect } from '../SearchSelect/SearchSelect';
 import { FormValues } from '../partials.types';
 
-interface SearchFormProps {
-  readonly isFirstVisit: boolean;
-}
+interface SearchFormProps {}
 
 export const resolver: Resolver<FormValues> = async values => {
   const isHexadecimal = /^[A-F0-9]+$/i.test(values.hash);
@@ -90,7 +89,7 @@ export const resolver: Resolver<FormValues> = async values => {
   };
 };
 
-export const SearchForm: React.FC<SearchFormProps> = ({ isFirstVisit }) => {
+export const SearchForm: React.FC<SearchFormProps> = () => {
   const navigate = useNavigate();
   const [currentFilterOption, setCurrentFilterOption] = useState('account');
 
@@ -115,6 +114,8 @@ export const SearchForm: React.FC<SearchFormProps> = ({ isFirstVisit }) => {
 
   const { t } = useTranslation();
   const currentMessage = errors.hash?.message || '';
+
+  const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   return (
     <FormContainer isFirstVisit={isFirstVisit}>
