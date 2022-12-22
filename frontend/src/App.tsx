@@ -13,10 +13,14 @@ import {
   Home,
   Peers,
 } from './pages';
-import { updateBounds, useAppDispatch, fetchStatus } from './store';
+import {
+  updateBounds,
+  useAppDispatch,
+  fetchStatus,
+  setIsFirstVisit,
+} from './store';
 
 const App = () => {
-  const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [ref, bounds] = useMeasure();
 
   const dispatch = useAppDispatch();
@@ -33,17 +37,17 @@ const App = () => {
 
   useEffect(() => {
     if (usersVisitationStatus === null) {
-      setIsFirstVisit(true);
+      dispatch(setIsFirstVisit(true));
     }
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
-  }, [setIsFirstVisit, usersVisitationStatus]);
+  }, [usersVisitationStatus, dispatch]);
 
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
         <div ref={ref} className="bg-white grid min-h-screen grid-rows-layout">
           <BrowserRouter>
-            <Header isFirstVisit={isFirstVisit} />
+            <Header />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/peers" element={<Peers />} />
