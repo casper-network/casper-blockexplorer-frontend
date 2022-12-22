@@ -1,7 +1,10 @@
-import axios from "axios";
+import { CasperServiceByJsonRPC } from "casper-js-sdk";
+import { StatusCodes } from "http-status-codes";
 
-import { Peer, StatusResponse } from "../types";
+import { Peer } from "../types";
+import { ApiError } from "../utils";
 import { getPeers, setPeers } from "./cache";
+import { nodeManager } from "./node-manager";
 
 export const checkPeerIsAlive = async (ip: string) => {
   // Check if given ip is v4 ip
@@ -13,7 +16,9 @@ export const checkPeerIsAlive = async (ip: string) => {
     throw Error(`Invalid IP address: ${ip}`);
   }
   try {
-    await axios.post(`http://${ip}:7777/rpc`);
+    const rpc = new CasperServiceByJsonRPC(`http://${ip}:7777/rpc`);
+
+    await rpc.getStatus();
 
     return true;
   } catch (error) {
@@ -22,36 +27,42 @@ export const checkPeerIsAlive = async (ip: string) => {
   }
 };
 
-export const fetchPeers = async (update = false): Promise<StatusResponse> => {
-  // TODO: Replace hardcoded
-  const node = "http://65.21.229.213:8888/status";
-  const {
-    data: { peers: peersToCheck, ...rest },
-  } = await axios.get<StatusResponse>(node);
-
+export const fetchPeers = async (update = false): Promise<Peer[]> => {
   const existPeers = getPeers();
   if (existPeers && !update) {
-    const result = { ...rest, peers: existPeers };
-    return result;
+    return existPeers;
   }
 
-  const peers = (
-    await Promise.all(
-      peersToCheck.slice(0, 5).map(async (peer) => {
-        const result = await checkPeerIsAlive(peer.address.split(":")[0]);
-        if (result) return peer;
-        return null;
-      })
-    )
-  ).filter((p) => p !== null) as Peer[];
-
-  const result = {
-    ...rest,
-    peers,
+  const rpcCall = async () => {
+    const activeNode = nodeManager.getActiveNode();
+    try {
+      const node = new CasperServiceByJsonRPC(activeNode.url);
+      const { peers } = await node.getPeers();
+      return peers;
+    } catch (error) {
+      nodeManager.setDeadNode(activeNode.id);
+      rpcCall();
+    }
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const peersToCheck = await rpcCall();
+
+  // This is the worst case
+  if (!peersToCheck)
+    throw new ApiError(StatusCodes.NOT_FOUND, "All Peers are dead.");
+
+  const peers: Peer[] = await Promise.all(
+    peersToCheck.map(async (peer) => {
+      const isAlive = await checkPeerIsAlive(peer.address.split(":")[0]);
+      // TODO: Update uptime
+      return { address: peer.address, isAlive, uptime: "" };
+    })
+  );
+
   if (update) {
     console.log("Force update peer list");
   }
   setPeers(peers);
-  return result;
+  return peers;
 };

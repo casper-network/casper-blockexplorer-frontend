@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc -p ./tsconfig.build.json",
     "start": "node dist/index.js",
     "dev": "cross-env NODE_ENV=development ts-node-dev --poll --respawn --transpile-only --no-deps --exit-child --ignore-watch node_modules src/index.ts",
-    "test": "ts-mocha src/**/*.spec.ts",
+    "test": "ts-mocha src/**/*.spec.ts src/*.spec.ts",
     "lint": "eslint --ext .ts src --max-warnings=0"
   },
   "keywords": [],

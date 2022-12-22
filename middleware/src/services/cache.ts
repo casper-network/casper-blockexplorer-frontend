@@ -8,7 +8,7 @@ const cache = new NodeCache({ checkperiod: 120 });
 
 cache.on("expired", async (key: string, _value) => {
   if (key === "peers") {
-    const { peers } = await fetchPeers();
+    const peers = await fetchPeers();
     setPeers(peers);
   }
 });

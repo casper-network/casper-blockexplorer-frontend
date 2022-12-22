@@ -6,6 +6,7 @@ app.listen(PORT, () => {
 });
 
 process.on("uncaughtException", function (err) {
+  console.error("[Attention]: Unhandled Error");
   console.error(err);
-  console.log("Node NOT Exiting...");
+  console.error("--------");
 });

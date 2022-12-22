@@ -1,8 +1,6 @@
-import "mocha";
-
 import { expect } from "chai";
 
-import NodeManager from "./node-manager";
+import { NodeManager } from "./node-manager";
 
 const listOfNodes = [
   "http://3.138.177.248:7777/rpc",

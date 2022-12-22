@@ -4,11 +4,11 @@ import { StatusCodes } from "http-status-codes";
 import { NODE_ENV } from "../config";
 import { ApiError } from "../utils";
 
-export const errorConverter = (
+export const errorConverter: express.ErrorRequestHandler = (
   err: Error,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  req,
+  res,
+  next
 ) => {
   let error = err;
   if (!(error instanceof ApiError)) {
@@ -19,12 +19,14 @@ export const errorConverter = (
   next(error);
 };
 
-export const errorHandler = (
+export const errorHandler: express.ErrorRequestHandler = (
   err: ApiError,
-  req: express.Request,
-  res: express.Response
+  req,
+  res,
+  // Don't remove `next` param, otherwise it won't act as ErrorHandler
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  next
 ) => {
-  console.error(err);
   let { statusCode, message } = err;
   if (NODE_ENV === "production" && !err.isOperational) {
     statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
