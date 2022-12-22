@@ -42,11 +42,10 @@ export const LogoLink = styled(Link)`
 export const MinimizedHeaderLink = styled(Link)`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   text-decoration-line: none;
   padding-top: ${pxToRem(85)};
-  position: relative;
-  width: 7.5rem;
 
   :hover,
   :focus {
@@ -55,6 +54,7 @@ export const MinimizedHeaderLink = styled(Link)`
 
   @media (min-width: ${breakpoints.xxs}) {
     padding-top: 0;
+    width: 18rem;
   }
 `;
 
@@ -66,32 +66,7 @@ export const BlueCasperLogo = styled.img`
   }
 `;
 
-export const LogoText = styled.span`
-  font-family: lausanne;
-  font-size: ${pxToRem(26)};
-  font-weight: ${fontWeight.medium};
-  letter-spacing: ${pxToRem(-1)};
-  padding-top: ${pxToRem(6)};
-  position: absolute;
-  left: ${pxToRem(119)};
-  white-space: nowrap;
-  background-image: linear-gradient(
-    90deg,
-    #1c1e90,
-    #693590,
-    #d81d54,
-    #d81e54,
-    #fd6b52
-  );
-  background-size: 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-`;
-
-export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
+export const HeroContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 2rem;
