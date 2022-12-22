@@ -51,16 +51,13 @@ const PeersInfoDisplay = styled.section`
   border: 0.063rem solid #e3e3e9;
   box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
-  margin-bottom: 3.25rem;
 
   @media (min-width: ${breakpoints.md}) {
-    margin-bottom: 4.25rem;
     min-width: 44.5%;
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    min-width: 45%;
-    margin-bottom: 4rem;
+    min-width: 35%;
   }
 `;
 

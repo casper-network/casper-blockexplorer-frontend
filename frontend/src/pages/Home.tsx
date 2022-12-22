@@ -21,7 +21,7 @@ import {
   fetchBlocks,
   fetchPeers,
 } from '../store';
-import { breakpoints } from '../styled-theme';
+import { breakpoints, pxToRem } from '../styled-theme';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -87,11 +87,12 @@ const HomeContentContainer = styled.div`
     min-width: 39rem;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
+    gap: ${pxToRem(60)};
   }
 
   @media (min-width: ${breakpoints.lg}) {
+    padding-top: ${pxToRem(32)};
     min-width: 54.8rem;
-    max-width: 65rem;
+    max-width: 64.8rem;
   }
 `;
