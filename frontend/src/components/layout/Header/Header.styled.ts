@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GradientHeading } from '../../styled';
-import { breakpoints, fontWeight, pxToRem } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
