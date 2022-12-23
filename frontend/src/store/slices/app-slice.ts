@@ -5,11 +5,13 @@ import { REFRESH_TIMER_SECONDS } from '../../constants';
 export interface AppState {
   bounds?: RectReadOnly;
   refreshTimer: number;
+  isFirstVisit: boolean;
 }
 
 const initialState: AppState = {
   bounds: undefined,
   refreshTimer: REFRESH_TIMER_SECONDS,
+  isFirstVisit: false,
 };
 
 export const appSlice = createSlice({
@@ -28,7 +30,11 @@ export const appSlice = createSlice({
         state.refreshTimer = updatedTime;
       }
     },
+    setIsFirstVisit: (state, action: PayloadAction<boolean>) => {
+      state.isFirstVisit = action.payload;
+    },
   },
 });
 
-export const { updateBounds, updateRefreshTimer } = appSlice.actions;
+export const { updateBounds, updateRefreshTimer, setIsFirstVisit } =
+  appSlice.actions;

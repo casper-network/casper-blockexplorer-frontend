@@ -10,7 +10,7 @@ import {
   H3Data,
   DataContext,
 } from '../HomeComponents.styled';
-import { breakpoints } from '../../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../../styled-theme';
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
@@ -36,10 +36,10 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({
         <PageLink to="/blocks">{t('view-all')}</PageLink>
       </BlocksHeader>
       <BlockDetails>
-        <H3>{t('block-height')}</H3>
+        <H3>{t('block-height')}:</H3>
         <H3Data>{blockHeight}</H3Data>
         <DataContext>{blockEraTimeStamp}</DataContext>
-        <H3>{t('current-era')}</H3>
+        <H3>{t('current-era')}:</H3>
         <H3Data>{blockEraID}</H3Data>
       </BlockDetails>
     </BlockInfoDisplay>
@@ -52,17 +52,15 @@ const BlockInfoDisplay = styled.section`
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
   padding-bottom: 1.5rem;
-  margin-bottom: 3.25rem;
+  margin-bottom: ${pxToRem(50)};
 
   @media (min-width: ${breakpoints.md}) {
-    margin-bottom: 4.25rem;
-    margin-right: 3.125rem;
+    margin-bottom: 0;
     min-width: 44.5%;
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    min-width: 45%;
-    margin: 0 4.8rem 4rem 0;
+    min-width: 35%;
   }
 `;
 

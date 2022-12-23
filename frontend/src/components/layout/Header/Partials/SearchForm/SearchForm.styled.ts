@@ -1,33 +1,32 @@
 import styled from '@emotion/styled';
-import { breakpoints } from 'src/styled-theme';
+import { breakpoints, pxToRem } from 'src/styled-theme';
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: center;
-  padding-top: 2.6rem;
-  padding-bottom: 2.7rem;
+  width: 92%;
+  max-width: ${pxToRem(592)};
+  padding: ${({ isFirstVisit }) =>
+    isFirstVisit ? '2rem 0 2.7rem 0' : `${pxToRem(42)} 0`};
   margin: 0 auto;
   position: relative;
 
+  @media (min-width: ${breakpoints.md}) {
+    width: 80%;
+    max-width: ${pxToRem(740)};
+  }
+
   @media (min-width: ${breakpoints.lg}) {
-    padding: 5rem 0rem 8.5rem 0rem;
-    width: 100%;
+    justify-content: start;
+    width: ${({ isFirstVisit }) => (isFirstVisit ? '64.5%' : '76.5%')};
+    max-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(792)}` : `${pxToRem(975)}`};
+    padding-bottom: ${pxToRem(19)};
   }
 `;
 
 export const Form = styled.form`
-  width: 92%;
-
-  @media (min-width: ${breakpoints.md}) {
-    width: 63%;
-    min-width: 40rem;
-  }
-
-  @media (min-width: ${breakpoints.lg}) {
-    min-width: 42.4rem;
-    width: 100%;
-    max-width: 48rem;
-  }
+  width: 100%;
 `;
 
 export const FormComponentsContainer = styled.div`
@@ -72,7 +71,6 @@ export const SearchInput = styled.input`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    height: 3.2rem;
     border-radius: 0;
   }
 `;
@@ -93,11 +91,6 @@ export const SubmitButton = styled.button`
   :focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
-  }
-
-  @media (min-width: ${breakpoints.lg}) {
-    height: 3.2rem;
-    width: 3.9rem;
   }
 `;
 

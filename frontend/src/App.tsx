@@ -13,7 +13,12 @@ import {
   Home,
   Peers,
 } from './pages';
-import { updateBounds, useAppDispatch, fetchStatus } from './store';
+import {
+  updateBounds,
+  useAppDispatch,
+  fetchStatus,
+  setIsFirstVisit,
+} from './store';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -27,6 +32,15 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchStatus());
   }, [dispatch]);
+
+  const usersVisitationStatus = localStorage.getItem('users-status');
+
+  useEffect(() => {
+    if (usersVisitationStatus === null) {
+      dispatch(setIsFirstVisit(true));
+    }
+    localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
+  }, [usersVisitationStatus, dispatch]);
 
   return (
     <StrictMode>

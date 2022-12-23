@@ -28,7 +28,7 @@ export function Table<T extends unknown>({
   });
 
   return (
-    <div className="w-full mb-32 shadow-card rounded-lg overflow-x-auto max-w-screen-p-incl bg-white">
+    <div className="w-full shadow-card rounded-lg overflow-x-auto max-w-screen-p-incl bg-white">
       <div className="w-full py-12">{header}</div>
       <table className="table-auto w-full border-spacing-0 min-w-800 bg-white">
         <thead className="bg-light-grey">
