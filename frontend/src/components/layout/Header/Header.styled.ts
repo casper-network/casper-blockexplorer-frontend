@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { GradientHeading } from '../../styled';
 import { breakpoints, pxToRem } from '../../../styled-theme';
 
+import { BlueBlackLogo, BlueLogo, ExpLogo } from '../../logos';
+
 export const HeaderComponent = styled.header`
   width: 100%;
   background-color: #fff;
@@ -23,29 +25,12 @@ export const HeaderComponentsContainer = styled.div`
 `;
 
 export const LogoLink = styled(Link)`
-  padding-top: ${pxToRem(3)};
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   text-decoration-line: none;
-
-  :hover,
-  :focus {
-    text-decoration-line: none;
-  }
-
-  @media (min-width: ${breakpoints.lg}) {
-    width: 2rem;
-  }
-`;
-
-export const MinimizedHeaderLink = styled(Link)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-decoration-line: none;
-  padding-top: ${pxToRem(85)};
+  width: 100%;
 
   :hover,
   :focus {
@@ -53,17 +38,32 @@ export const MinimizedHeaderLink = styled(Link)`
   }
 
   @media (min-width: ${breakpoints.xxs}) {
-    padding-top: 0;
-    width: 18rem;
+    max-width: 18rem;
   }
 `;
 
-export const BlueCasperLogo = styled.img`
-  width: 90%;
+export const BlueCasperLogo = styled(BlueLogo)`
+  width: 10%;
+  margin-right: 5px;
 
   @media (min-width: ${breakpoints.lg}) {
-    width: 100%;
+    display: none;
   }
+`;
+
+export const BlueBlackCasperLogo = styled(BlueBlackLogo)`
+  display: none;
+  width: 20%;
+
+  @media (min-width: ${breakpoints.lg}) {
+    display: block;
+    width: 45%;
+  }
+`;
+
+export const ExplorerLogo = styled(ExpLogo)`
+  display: block;
+  width: 40%;
 `;
 
 export const HeroContainer = styled.div`
