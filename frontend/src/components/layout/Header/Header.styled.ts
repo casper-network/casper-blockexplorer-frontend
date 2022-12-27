@@ -66,8 +66,8 @@ export const ExplorerLogo = styled(ExpLogo)`
   width: 40%;
 `;
 
-export const HeroContainer = styled.div`
-  display: flex;
+export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
+  display: ${({ isFirstVisit }) => (isFirstVisit ? 'flex' : 'none')};
   justify-content: center;
   padding-top: 2rem;
 
