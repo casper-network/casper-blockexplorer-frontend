@@ -162,7 +162,7 @@ const ShowMoreButton = styled.button`
   width: fit-content;
   border-radius: 0.375rem;
   border: none;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
 
   :hover {
     background-color: ${colors.lightRed};
