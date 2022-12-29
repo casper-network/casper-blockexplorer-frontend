@@ -1,6 +1,8 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { colors, pxToRem } from 'src/styled-theme';
 import { Block } from '../../../api';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, RefreshTimer } from '../../utility';
@@ -17,20 +19,16 @@ export const LatestBlocks: React.FC<LatestBlocksProps> = ({
 }) => {
   const { t } = useTranslation();
   const headContent = (
-    <div className="flex justify-between text-grey px-32">
+    <LatestBlocksTableHead>
       <p>{t('latest-blocks')}</p>
       <RefreshTimer />
-    </div>
+    </LatestBlocksTableHead>
   );
 
   const footContent = (
-    <div className="flex justify-around text-grey p-20">
-      <NavLink
-        to="/blocks"
-        className="bg-light-grey hover:bg-light-red text-dark-red px-16 py-8 text-14 w-fit rounded-md font-medium">
-        {t('view-blocks')}
-      </NavLink>
-    </div>
+    <LatestBlocksTableFooter>
+      <FooterContent to="/blocks">{t('view-blocks')}</FooterContent>
+    </LatestBlocksTableFooter>
   );
 
   const blockTableTitles = [
@@ -45,7 +43,10 @@ export const LatestBlocks: React.FC<LatestBlocksProps> = ({
   }
 
   const blockTableHeads = blockTableTitles.map(title => {
-    return { title: <p className="font-bold">{t(title)}</p>, key: title };
+    return {
+      title: <BlockTableTitle>{t(title)}</BlockTableTitle>,
+      key: title,
+    };
   });
 
   const firstTenBlocks = blocks.slice(0, 10);
@@ -115,3 +116,34 @@ export const LatestBlocks: React.FC<LatestBlocksProps> = ({
     />
   );
 };
+
+const LatestBlocksTableHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: ${colors.grey};
+  padding: 0 2rem;
+`;
+
+const LatestBlocksTableFooter = styled.div`
+  display: flex;
+  justify-content: space-around;
+  color: ${colors.grey};
+  padding: ${pxToRem(20)};
+`;
+
+const FooterContent = styled(NavLink)`
+  background-color: ${colors.lightGrey};
+  color: ${colors.darkRed};
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  border-radius: 0.375rem;
+  font-weight: 500;
+
+  :hover {
+    background-color: ${colors.lightRed};
+  }
+`;
+
+const BlockTableTitle = styled.p`
+  font-weight: bold;
+`;

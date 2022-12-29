@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { pxToRem } from 'src/styled-theme';
 import { GradientHeading } from '../../styled';
 import { Loader } from '../../utility';
 
@@ -22,9 +24,9 @@ const BaseContentWrapper: React.FC<BaseContentWrapperProps> = ({
   children,
 }) => {
   return (
-    <main className="w-full max-w-1800 mx-auto bg-[#fff] py-24">
-      <div className="w-full h-full px-24 md:px-32 xl:px-48">{children}</div>
-    </main>
+    <BaseContentContainer>
+      <ContentWrapper>{children}</ContentWrapper>
+    </BaseContentContainer>
   );
 };
 
@@ -38,9 +40,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     return (
       <BaseContentWrapper>
         <GradientHeading type="h2">{t('whoops')}</GradientHeading>
-        <p className="break-word" data-testid="error-content">
-          {error.message}
-        </p>
+        <ErrorMessage data-testid="error-content">{error.message}</ErrorMessage>
         <p>
           {t('go-back-to')} <Link to="/">{t('home')}</Link>
         </p>
@@ -58,3 +58,28 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
 
   return <BaseContentWrapper>{children}</BaseContentWrapper>;
 };
+
+const BaseContentContainer = styled.main`
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 0 ${pxToRem(24)};
+  max-width: ${pxToRem(1800)};
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 0 ${pxToRem(24)};
+
+  @media (min-width: 768px) {
+    padding: 0 ${pxToRem(32)};
+  }
+  @media (min-width: 1280px) {
+    padding: 0 ${pxToRem(48)};
+  }
+`;
+
+const ErrorMessage = styled.p`
+  overflow-wrap: break-word;
+`;
