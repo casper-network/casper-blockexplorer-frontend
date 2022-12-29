@@ -54,7 +54,7 @@ const TableWrapper = styled.div`
   overflow-x: auto;
   max-width: calc(100vw - 5rem);
   background-color: white;
-  --tw-shadow-color: inherit;
+  box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.2);
 `;
 
 const HeadContent = styled.div`
