@@ -31,6 +31,7 @@ export const LogoLink = styled(Link)`
   align-items: center;
   text-decoration-line: none;
   width: 100%;
+  padding-top: ${pxToRem(4)};
 
   :hover,
   :focus {
@@ -38,8 +39,13 @@ export const LogoLink = styled(Link)`
   }
 
   @media (min-width: ${breakpoints.xxs}) {
+    padding-top: ${pxToRem(3)};
     max-width: 18rem;
   }
+
+  @media (min-width: ${breakpoints.lg}) {
+    padding: 0;
+  } ;
 `;
 
 export const BlueCasperLogo = styled(BlueLogo)`
@@ -63,6 +69,7 @@ export const BlueBlackCasperLogo = styled(BlueBlackLogo)`
 
 export const ExplorerLogo = styled(ExpLogo)`
   display: block;
+  padding-top: ${pxToRem(1.75)};
   width: 40%;
 `;
 
