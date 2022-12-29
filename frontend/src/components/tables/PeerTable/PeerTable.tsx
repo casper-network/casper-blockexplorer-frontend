@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/styled-theme';
+import { colors, fontWeight } from 'src/styled-theme';
 import { Peer } from '../../../api';
 import { Table } from '../../base';
 
@@ -49,7 +49,7 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
 };
 
 const PeerTableTitle = styled.p`
-  font-weight: bold;
+  font-weight: ${fontWeight.bold};
 `;
 
 const PeerTableHead = styled.div`
@@ -59,7 +59,7 @@ const PeerTableHead = styled.div`
 
 const HeadLabel = styled.p`
   color: black;
-  font-weight: bold;
+  font-weight: ${fontWeight.bold};
   padding-right: 2rem;
 `;
 

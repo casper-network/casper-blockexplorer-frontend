@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-import { colors, pxToRem } from 'src/styled-theme';
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import styled from '@emotion/styled';
 import {
   fetchMoreBlocks,
@@ -169,5 +169,5 @@ const ShowMoreButton = styled.button`
   }
 `;
 const BlockTableTitle = styled.p`
-  font-weight: bold;
+  font-weight: ${fontWeight.bold};
 `;

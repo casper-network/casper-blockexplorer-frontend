@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { pxToRem } from 'src/styled-theme';
+import { breakpoints, pxToRem } from 'src/styled-theme';
 import { GradientHeading } from '../../styled';
 import { Loader } from '../../utility';
 
@@ -72,10 +72,10 @@ const ContentWrapper = styled.div`
   height: 100%;
   padding: 0 ${pxToRem(24)};
 
-  @media (min-width: 768px) {
+  @media (min-width: ${breakpoints.md}) {
     padding: 0 ${pxToRem(32)};
   }
-  @media (min-width: 1280px) {
+  @media (min-width: ${breakpoints.xl}) {
     padding: 0 ${pxToRem(48)};
   }
 `;

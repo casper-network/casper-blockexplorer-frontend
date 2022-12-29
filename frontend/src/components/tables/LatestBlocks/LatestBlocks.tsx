@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { colors, pxToRem } from 'src/styled-theme';
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { Block } from '../../../api';
 import { standardizeNumber, truncateHash } from '../../../utils';
 import { CopyToClipboard, RefreshTimer } from '../../utility';
@@ -137,7 +137,7 @@ const FooterContent = styled(NavLink)`
   padding: 0.5rem 1rem;
   width: fit-content;
   border-radius: 0.375rem;
-  font-weight: 500;
+  font-weight: ${fontWeight.medium};
 
   :hover {
     background-color: ${colors.lightRed};
@@ -145,5 +145,5 @@ const FooterContent = styled(NavLink)`
 `;
 
 const BlockTableTitle = styled.p`
-  font-weight: bold;
+  font-weight: ${fontWeight.bold};
 `;
