@@ -6,7 +6,6 @@ interface LoaderProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
-// TODO: Tailwind removal
 export const Loader: React.FC<LoaderProps> = ({ size } = { size: 'lg' }) => {
   let loaderSize = '80px';
 
