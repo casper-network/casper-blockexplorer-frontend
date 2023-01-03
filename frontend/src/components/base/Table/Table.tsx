@@ -58,8 +58,8 @@ const TableWrapper = styled.div`
 `;
 
 const HeadContent = styled.div`
+  padding: 1rem 2rem;
   width: 100%;
-  padding: 0 3rem;
 `;
 
 const TableContent = styled.table`

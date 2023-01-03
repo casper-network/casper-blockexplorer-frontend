@@ -124,3 +124,15 @@ export const ErrorMessage = styled.p`
   font-size: 0.9rem;
   padding-top: 0.1rem;
 `;
+
+export const SearchLabel = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+`;

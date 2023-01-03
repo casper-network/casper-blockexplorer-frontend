@@ -145,7 +145,6 @@ const BlockTableHead = styled.div`
   display: flex;
   justify-content: space-between;
   color: ${colors.grey};
-  padding: 0 2rem;
 `;
 
 const BlockTableFooter = styled.div`
