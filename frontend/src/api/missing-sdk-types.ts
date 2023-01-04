@@ -1,12 +1,5 @@
 import { JsonBlock, GetStatusResult } from 'casper-js-sdk';
 
-export interface JsonDeployPayment {
-  ModuleBytes: {
-    args: any[];
-    module_bytes: string;
-  };
-}
-
 interface EntryPointSession {
   args: any[];
   hash: string;

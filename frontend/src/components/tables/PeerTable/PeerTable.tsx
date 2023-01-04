@@ -1,5 +1,7 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
+import { colors, fontWeight } from 'src/styled-theme';
 import { Peer } from '../../../api';
 import { Table } from '../../base';
 
@@ -12,16 +14,19 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
   const { t } = useTranslation();
 
   const headContent = (
-    <div className="flex pl-32">
-      <p className="text-black font-bold pr-32">{t('currently-online')}</p>
-      <p className="text-grey">
+    <PeerTableHead>
+      <HeadLabel>{t('currently-online')}</HeadLabel>
+      <HeadValue>
         {peers.length} {t('total-rows')}
-      </p>
-    </div>
+      </HeadValue>
+    </PeerTableHead>
   );
 
   const peerTableHeads = peerTableTitles.map(title => {
-    return { title: <p className="font-bold">{t(title)}</p>, key: title };
+    return {
+      title: <PeerTableTitle>{t(title)}</PeerTableTitle>,
+      key: title,
+    };
   });
 
   const peerRows = peers.map(({ id, address }) => {
@@ -42,3 +47,21 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
     />
   );
 };
+
+const PeerTableTitle = styled.p`
+  font-weight: ${fontWeight.bold};
+`;
+
+const PeerTableHead = styled.div`
+  display: flex;
+`;
+
+const HeadLabel = styled.p`
+  color: black;
+  font-weight: ${fontWeight.bold};
+  padding-right: 2rem;
+`;
+
+const HeadValue = styled.p`
+  color: ${colors.grey};
+`;

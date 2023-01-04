@@ -15,6 +15,7 @@ import {
   ErrorMessageContainer,
   ErrorSvgContainer,
   ErrorMessage,
+  SearchLabel,
 } from './SearchForm.styled';
 
 import { ButtonIcon, ErrorIcon } from '../../../../icons';
@@ -120,9 +121,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
   return (
     <FormContainer isFirstVisit={isFirstVisit}>
       <Form onSubmit={handleSubmit(submitPath)}>
-        <label htmlFor="default-search" className="sr-only">
-          {t('search')}
-        </label>
+        <SearchLabel htmlFor="default-search">{t('search')}</SearchLabel>
         <FormComponentsContainer>
           <SearchSelect
             control={control}
