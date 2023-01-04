@@ -31,7 +31,11 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 
   return (
     <CopyButton type="button" disabled={isCopied} onClick={copyFn}>
-      {isCopied ? <CopiedIcon /> : <CopyIcon />}
+      {isCopied ? (
+        <CopiedIcon data-testid="copied-icon" />
+      ) : (
+        <CopyIcon data-testid="copy-icon" />
+      )}
     </CopyButton>
   );
 };

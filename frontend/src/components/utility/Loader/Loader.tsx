@@ -29,7 +29,7 @@ export const Loader: React.FC<LoaderProps> = ({ size } = { size: 'lg' }) => {
   return (
     <LoaderWrapper>
       <LoaderStatus size={loaderSize} aria-label="Loading..." role="status">
-        <LoaderIcon size={loaderSize} />
+        <LoaderIcon data-testid="loader" size={loaderSize} />
       </LoaderStatus>
     </LoaderWrapper>
   );
