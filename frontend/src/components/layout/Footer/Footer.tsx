@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { colors, fontWeight } from 'src/styled-theme';
+import { colors, fontWeight } from '../../../styled-theme';
 import { useAppSelector, getNetworkStatus } from '../../../store';
 
 export const Footer: React.FC = () => {
@@ -24,7 +24,8 @@ const FooterWrapper = styled.footer`
   color: ${colors.cobaltBlue};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: ${fontWeight.medium};
-  padding-bottom: 3.5rem;
+  line-height: 1.5;
+  padding: 3.3rem 0 3.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;

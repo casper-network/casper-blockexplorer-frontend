@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { breakpoints } from '../../styled-theme';
+import { breakpoints, pxToRem } from '../../styled-theme';
 import { Button } from '../base';
 import { ButtonProps } from '../base/Button/Button';
 
@@ -25,7 +25,7 @@ export const ButtonStyles = styled.div`
   align-items: center;
   background-color: transparent;
   margin: 0 auto;
-  padding: 0;
+  padding-top: ${pxToRem(8.5)};
   width: 90%;
   border-style: none;
   z-index: 20;

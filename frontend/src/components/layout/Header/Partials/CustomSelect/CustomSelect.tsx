@@ -54,13 +54,13 @@ const SelectLabel = styled.label`
 `;
 const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__control {
-    width: 11rem;
+    width: 9.9rem;
     box-shadow: none;
     border: none;
   }
 
   .react-select__value-container {
-    height: 3.2rem;
+    height: 2.8125rem;
     background-color: #fff;
     padding: 0.7rem 0rem 0.7rem 0rem;
     margin: 0;
@@ -72,8 +72,8 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__indicators {
     display: block;
     position: absolute;
-    top: 0.5rem;
-    left: 7.938rem;
+    top: 0.3rem;
+    left: 7.5rem;
     padding: 0;
   }
 
@@ -84,10 +84,10 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__single-value {
     color: black;
     font-weight: 500;
-    font-size: clamp(1rem, 1vw, 1.1rem);
+    font-size: 1rem;
     text-align: left;
     padding-right: 2.3rem;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     padding-bottom: 0.05rem;
     margin: 0 auto;
   }
@@ -142,6 +142,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
       #fd6b52 116.85%
     );
     background-size: 100%;
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;

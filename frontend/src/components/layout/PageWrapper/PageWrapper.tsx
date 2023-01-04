@@ -63,7 +63,7 @@ const BaseContentContainer = styled.main`
   width: 100%;
   margin: 0 auto;
   background-color: #fff;
-  padding: 0 ${pxToRem(24)};
+  padding: ${pxToRem(24)} 0 0 0;
   max-width: ${pxToRem(1800)};
 `;
 

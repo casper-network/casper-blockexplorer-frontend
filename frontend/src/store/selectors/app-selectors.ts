@@ -7,3 +7,7 @@ export const getBounds = (state: RootState) => {
 export const getRefreshTimer = (state: RootState) => {
   return state.app.refreshTimer;
 };
+
+export const getIsFirstVisit = (state: RootState) => {
+  return state.app.isFirstVisit;
+};

@@ -5,8 +5,7 @@ import styled from '@emotion/styled';
 import {
   BlocksInfo,
   DeploysInfo,
-  ValidatorsInfo,
-  PeersInfo,
+  PeersValidatorsInfo,
 } from '../components/layout/Home';
 
 import { PageWrapper } from '../components';
@@ -22,7 +21,7 @@ import {
   fetchBlocks,
   fetchPeers,
 } from '../store';
-import { breakpoints } from '../styled-theme';
+import { breakpoints, pxToRem } from '../styled-theme';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,6 +48,8 @@ export const Home: React.FC = () => {
 
   const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
 
+  const currentValidators = 'n/a';
+
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
       dispatch(fetchBlocks());
@@ -67,8 +68,10 @@ export const Home: React.FC = () => {
           blockEraID={firstListedBlockEraID}
         />
         <DeploysInfo />
-        <ValidatorsInfo />
-        <PeersInfo currentPeers={currentPeers} />
+        <PeersValidatorsInfo
+          currentPeers={currentPeers}
+          currentValidators={currentValidators}
+        />
       </HomeContentContainer>
     </PageWrapper>
   );
@@ -84,11 +87,12 @@ const HomeContentContainer = styled.div`
     min-width: 39rem;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
+    gap: ${pxToRem(60)};
   }
 
   @media (min-width: ${breakpoints.lg}) {
+    padding-top: ${pxToRem(32)};
     min-width: 54.8rem;
-    max-width: 65rem;
+    max-width: 64.8rem;
   }
 `;
