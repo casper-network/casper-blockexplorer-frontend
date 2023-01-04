@@ -54,7 +54,6 @@ const PeerTableTitle = styled.p`
 
 const PeerTableHead = styled.div`
   display: flex;
-  padding-left: 2rem;
 `;
 
 const HeadLabel = styled.p`
