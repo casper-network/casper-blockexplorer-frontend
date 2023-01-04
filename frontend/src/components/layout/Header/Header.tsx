@@ -11,10 +11,10 @@ import {
   LogoLink,
   HeroContainer,
   HeroHeading,
-  MinimizedHeaderLink,
+  BlueBlackCasperLogo,
+  BlueCasperLogo,
+  ExplorerLogo,
 } from './Header.styled';
-
-import { BlkExpLogo, BlueBlackLogo, BlueLogo } from '../../logos';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -24,23 +24,18 @@ export const Header: React.FC = () => {
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>
-        {isFirstVisit ? (
-          <LogoLink to="/">
-            <BlueLogo />
-          </LogoLink>
-        ) : (
-          <MinimizedHeaderLink to="/">
-            <BlueBlackLogo />
-            <BlkExpLogo />
-          </MinimizedHeaderLink>
-        )}
+        <LogoLink to="/">
+          <BlueBlackCasperLogo />
+          <BlueCasperLogo />
+          <ExplorerLogo />
+        </LogoLink>
         <Navbar />
       </HeaderComponentsContainer>
-      {isFirstVisit ? (
-        <HeroContainer>
-          <HeroHeading type="h1">{t('discover-casper')}</HeroHeading>
-        </HeroContainer>
-      ) : null}
+      <HeroContainer isFirstVisit={isFirstVisit}>
+        <HeroHeading type="h1" aria-label="Casper Block Explorer">
+          {t('discover-casper')}
+        </HeroHeading>
+      </HeroContainer>
       <SearchForm />
     </HeaderComponent>
   );
