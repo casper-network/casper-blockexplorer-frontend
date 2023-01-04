@@ -8,7 +8,6 @@ import { formatDate, formatTimeAgo, loadConfig } from '../utils';
 import { ApiError } from './api-error';
 import {
   JsonBlockWithBody,
-  JsonDeployPayment,
   GetStatusResultExtended,
   JsonDeploySession,
 } from './missing-sdk-types';
@@ -119,9 +118,7 @@ export class RpcApi {
         const { deploy, execution_results: executionResults } =
           await this.rpcClient.getDeployInfo(deployHash);
 
-        const paymentMap = new Map(
-          (deploy.payment as JsonDeployPayment).ModuleBytes.args,
-        );
+        const paymentMap = new Map(deploy.payment.ModuleBytes?.args);
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
