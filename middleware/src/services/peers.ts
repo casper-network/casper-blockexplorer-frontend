@@ -6,7 +6,7 @@ import { ApiError } from "../utils";
 import { getPeers, setPeers } from "./cache";
 import { nodeManager } from "./node-manager";
 
-export const checkPeerIsAlive = async (ip: string) => {
+export const fetchPeerInfo = async (ip: string) => {
   // Check if given ip is v4 ip
   if (
     /^(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}$/.test(
@@ -18,12 +18,14 @@ export const checkPeerIsAlive = async (ip: string) => {
   try {
     const rpc = new CasperServiceByJsonRPC(`http://${ip}:7777/rpc`);
 
-    await rpc.getStatus();
+    // TODO: Update SDK type
+    // @ts-ignore
+    const { uptime } = await rpc.getStatus();
 
-    return true;
+    return { uptime, isAlive: true };
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(`Peer ${ip}:`, error);
+    return { uptime: "", isAlive: false };
   }
 };
 
@@ -54,9 +56,8 @@ export const fetchPeers = async (update = false): Promise<Peer[]> => {
 
   const peers: Peer[] = await Promise.all(
     peersToCheck.map(async (peer) => {
-      const isAlive = await checkPeerIsAlive(peer.address.split(":")[0]);
-      // TODO: Update uptime
-      return { address: peer.address, isAlive, uptime: "" };
+      const info = await fetchPeerInfo(peer.address.split(":")[0]);
+      return { address: peer.address, ...info };
     })
   );
 
