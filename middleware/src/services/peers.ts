@@ -25,7 +25,7 @@ export const fetchPeerInfo = async (ip: string) => {
     return { uptime, isAlive: true };
   } catch (error) {
     console.error(`Peer ${ip}:`, error);
-    return { uptime: "", isAlive: false };
+    return { uptime: null, isAlive: false };
   }
 };
 

@@ -7,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import { NODE_ENV } from "../config";
 import { errorConverter, errorHandler, validate } from "../middlewares";
 import { fetchPeers, nodeManager } from "../services";
-import openapiSpecification from "../swagger";
+import openapiSpecification, { uiOptions } from "../swagger";
 import { ApiError, catchAsync } from "../utils";
 
 const router = express.Router();
@@ -25,6 +25,12 @@ router.get("/health-check", (_, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+/**
+ * @openapi
+ * /rpc:
+ *  post:
+ *    description: Act as a rpc middleware
+ */
 router.post("/rpc", (req, res) => {
   const rpcCall = () => {
     const node = nodeManager.getActiveNode();
@@ -49,7 +55,28 @@ router.post("/rpc", (req, res) => {
  *     description: Return peer related info.
  *     responses:
  *       200:
- *         description: A list of users.
+ *         description: A list of peers.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: array
+ *                   items:
+ *                     schema:
+ *                     type: object
+ *                     properties:
+ *                       address:
+ *                         type: string
+ *                       isAlive:
+ *                         type: boolean
+ *                       uptime:
+ *                         type: string
+ *                       lastBlockHash:
+ *                         type: string
+ *       404:
+ *         description: All peers are dead( the worst case and this will never happen )
  *
  */
 router.get(
@@ -63,7 +90,11 @@ router.get(
 );
 
 if (NODE_ENV === "development") {
-  router.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+  router.use(
+    "/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(openapiSpecification, uiOptions)
+  );
 }
 
 router.use((req, res, next) => {

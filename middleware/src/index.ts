@@ -5,7 +5,7 @@ app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });
 
-process.on("uncaughtException", function (err) {
+process.on("uncaughtException", (err) => {
   console.error("[Attention]: Unhandled Error");
   console.error(err);
   console.error("--------");

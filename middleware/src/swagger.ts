@@ -1,10 +1,11 @@
-import swaggerJsdoc from "swagger-jsdoc";
+import swaggerJsdoc, { Options } from "swagger-jsdoc";
+import { SwaggerUiOptions } from "swagger-ui-express";
 
-const options = {
+const options: Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Hello World",
+      title: "Casper Blockexplorer middleware API",
       version: "1.0.0",
     },
   },
@@ -12,5 +13,11 @@ const options = {
 };
 
 const openapiSpecification = swaggerJsdoc(options);
+
+export const uiOptions: SwaggerUiOptions = {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Casper Blockexplorer middleware API",
+  customfavIcon: "/assets/favicon.ico",
+};
 
 export default openapiSpecification;
