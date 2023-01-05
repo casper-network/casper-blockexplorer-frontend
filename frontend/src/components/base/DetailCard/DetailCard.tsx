@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { InfoCard, FootContentWrapper, HeadContentWrapper } from '../InfoCard';
 import { TableLabel, TableValue } from './DetailCard.styled';
 import { DetailCardProps } from './DetailCard.types';
@@ -11,7 +12,7 @@ export const DetailCard: React.FC<DetailCardProps> = ({
   return (
     <InfoCard>
       {!!headContent && <HeadContentWrapper>{headContent}</HeadContentWrapper>}
-      <table className="w-full">
+      <InfoCardTable>
         <tbody>
           {rows.map(({ detailKey, value, key }, index) => {
             return (
@@ -22,8 +23,12 @@ export const DetailCard: React.FC<DetailCardProps> = ({
             );
           })}
         </tbody>
-      </table>
+      </InfoCardTable>
       {!!footContent && <FootContentWrapper>{footContent}</FootContentWrapper>}
     </InfoCard>
   );
 };
+
+const InfoCardTable = styled.table`
+  width: 100%;
+`;

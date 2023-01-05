@@ -1,4 +1,5 @@
 import React, { StrictMode, useEffect } from 'react';
+import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
@@ -13,7 +14,12 @@ import {
   Home,
   Peers,
 } from './pages';
-import { updateBounds, useAppDispatch, fetchStatus } from './store';
+import {
+  updateBounds,
+  useAppDispatch,
+  fetchStatus,
+  setIsFirstVisit,
+} from './store';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -28,10 +34,19 @@ const App = () => {
     dispatch(fetchStatus());
   }, [dispatch]);
 
+  const usersVisitationStatus = localStorage.getItem('users-status');
+
+  useEffect(() => {
+    if (usersVisitationStatus === null) {
+      dispatch(setIsFirstVisit(true));
+    }
+    localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
+  }, [usersVisitationStatus, dispatch]);
+
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
-        <div ref={ref} className="bg-white grid min-h-screen grid-rows-layout">
+        <AppWrapper ref={ref}>
           <BrowserRouter>
             <Header />
             <Routes>
@@ -45,10 +60,17 @@ const App = () => {
             </Routes>
             <Footer />
           </BrowserRouter>
-        </div>
+        </AppWrapper>
       </React.Suspense>
     </StrictMode>
   );
 };
+
+const AppWrapper = styled.div`
+  background-color: white;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr;
+`;
 
 export default App;

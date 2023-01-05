@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getIsFirstVisit, useAppSelector } from 'src/store';
 
 import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
 
@@ -14,6 +15,7 @@ import {
   ErrorMessageContainer,
   ErrorSvgContainer,
   ErrorMessage,
+  SearchLabel,
 } from './SearchForm.styled';
 
 import { ButtonIcon, ErrorIcon } from '../../../../icons';
@@ -114,12 +116,12 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
   const { t } = useTranslation();
   const currentMessage = errors.hash?.message || '';
 
+  const isFirstVisit = useAppSelector(getIsFirstVisit);
+
   return (
-    <FormContainer>
+    <FormContainer isFirstVisit={isFirstVisit}>
       <Form onSubmit={handleSubmit(submitPath)}>
-        <label htmlFor="default-search" className="sr-only">
-          {t('search')}
-        </label>
+        <SearchLabel htmlFor="default-search">{t('search')}</SearchLabel>
         <FormComponentsContainer>
           <SearchSelect
             control={control}
