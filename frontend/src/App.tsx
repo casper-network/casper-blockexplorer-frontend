@@ -1,4 +1,5 @@
 import React, { StrictMode, useEffect } from 'react';
+import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 
@@ -45,7 +46,7 @@ const App = () => {
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
-        <div ref={ref} className="bg-white grid min-h-screen grid-rows-layout">
+        <AppWrapper ref={ref}>
           <BrowserRouter>
             <Header />
             <Routes>
@@ -59,10 +60,17 @@ const App = () => {
             </Routes>
             <Footer />
           </BrowserRouter>
-        </div>
+        </AppWrapper>
       </React.Suspense>
     </StrictMode>
   );
 };
+
+const AppWrapper = styled.div`
+  background-color: white;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr;
+`;
 
 export default App;

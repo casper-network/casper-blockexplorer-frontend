@@ -13,6 +13,7 @@ Example:
 MIDDLEWARE_URL=http://localhost:4000/rpc # middleware URL, by default its http://localhost:4000/rpc
 NODE_URLS=http://3.138.177.248:7777/rpc # it can be comma separated list of RPCs
 NETWORK_NAME=integration-test # network name, you can check it in chainspec
+PEERS_UPDATE_INTERVAL=60 # interval time for update peer list
 ```
 
 2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes. (HMR and debug modes will be enabled)

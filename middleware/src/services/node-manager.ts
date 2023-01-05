@@ -1,10 +1,12 @@
+import { NODE_URLS } from "../config";
+
 interface RpcListItem {
   id: number;
   url: string;
   isDead: boolean;
 }
 
-class NodeManager {
+export class NodeManager {
   public nodeAddresses: RpcListItem[] = [];
 
   constructor(listOfRpcs: string[]) {
@@ -32,4 +34,4 @@ class NodeManager {
   }
 }
 
-export default NodeManager;
+export const nodeManager = new NodeManager(NODE_URLS.split(","));

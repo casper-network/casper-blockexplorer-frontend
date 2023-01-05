@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import styled from '@emotion/styled';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -17,7 +18,7 @@ export const MobileBlocksCarousel: React.FC<MobileBlocksProps> = ({
   blocks,
 }) => {
   return (
-    <div className="max-w-screen-p-incl">
+    <MobileBlocksCarouselWrapper>
       <Swiper
         modules={[Navigation, Pagination]}
         navigation
@@ -31,6 +32,10 @@ export const MobileBlocksCarousel: React.FC<MobileBlocksProps> = ({
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </MobileBlocksCarouselWrapper>
   );
 };
+
+const MobileBlocksCarouselWrapper = styled.div`
+  max-width: calc(100vw - 4rem);
+`;

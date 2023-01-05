@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import styled from '@emotion/styled';
 import {
   fetchMoreBlocks,
   getEarliestLoadedBlock,
@@ -51,34 +53,48 @@ export const BlockTable: React.FC<BlockTableProps> = ({
 
   const header = useMemo(
     () => (
-      <div className="flex justify-between text-grey px-32">
+      <BlockTableHead>
         <p>
           {standardizeNumber(latestBlockHeight || 0)} {t('total-rows')}
         </p>
         <RefreshTimer />
-      </div>
+      </BlockTableHead>
     ),
     [latestBlockHeight, t],
   );
 
   const footer = useMemo(
     () => (
-      <div className="flex justify-around px-32 py-20">
-        <button
+      <BlockTableFooter>
+        <ShowMoreButton
           type="button"
           disabled={isLoadingMoreBlocks}
           onClick={() => {
             if (earliestLoadedBlockHeight) {
               dispatch(fetchMoreBlocks(earliestLoadedBlockHeight));
             }
-          }}
-          className="bg-light-grey hover:bg-light-red text-dark-red min-w-150 py-8 text-14 w-fit rounded-md border-none font-medium">
+          }}>
           {isLoadingMoreBlocks ? <Loader size="sm" /> : t('show-more')}
-        </button>
-      </div>
+        </ShowMoreButton>
+      </BlockTableFooter>
     ),
     [dispatch, earliestLoadedBlockHeight, isLoadingMoreBlocks, t],
   );
+
+  const blockTableTitles = [
+    'block-height',
+    'era',
+    'deploy',
+    'age',
+    'block-hash',
+  ];
+  if (showValidators) {
+    blockTableTitles.push('validator');
+  }
+
+  const blockTableHeads = blockTableTitles.map(title => {
+    return { title: <BlockTableTitle>{t(title)}</BlockTableTitle>, key: title };
+  });
 
   const columns = useMemo<ColumnDef<Block>[]>(
     () => [
@@ -158,3 +174,32 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     />
   );
 };
+const BlockTableHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: ${colors.grey};
+`;
+
+const BlockTableFooter = styled.div`
+  display: flex;
+  justify-content: space-around;
+  padding: ${pxToRem(20)} 2rem;
+`;
+
+const ShowMoreButton = styled.button`
+  background-color: ${colors.lightGrey};
+  color: ${colors.darkRed};
+  min-width: ${pxToRem(150)};
+  padding: 0.5rem 0;
+  width: fit-content;
+  border-radius: 0.375rem;
+  border: none;
+  font-weight: ${fontWeight.medium};
+
+  :hover {
+    background-color: ${colors.lightRed};
+  }
+`;
+const BlockTableTitle = styled.p`
+  font-weight: ${fontWeight.bold};
+`;
