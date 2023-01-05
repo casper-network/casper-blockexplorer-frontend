@@ -4,7 +4,7 @@ import { PEERS_UPDATE_INTERVAL } from "../config";
 import { Peer } from "../types";
 import { fetchPeers } from "./peers";
 
-const cache = new NodeCache({ checkperiod: 120 });
+const cache = new NodeCache({ checkperiod: PEERS_UPDATE_INTERVAL });
 
 cache.on("expired", async (key: string, _value) => {
   if (key === "peers") {
