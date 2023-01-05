@@ -13,6 +13,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.9",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-redux": "^7.1.24",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
     "autoprefixer": "^10.4.8",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.4.2",
@@ -118,26 +125,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.9",
-    "@types/react": "^18.0.18",
-    "@types/react-dom": "^18.0.6",
-    "@types/react-redux": "^7.1.24",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
-    "autoprefixer": "^10.4.8",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^8.23.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8.4.16",
-    "prettier": "^2.7.1"
-  },
+  "devDependencies": {},
   "jest": {
     "roots": [
       "<rootDir>/src"
