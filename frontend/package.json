@@ -43,9 +43,9 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.1",
-    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
@@ -55,11 +55,13 @@
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.0.1",
     "identity-obj-proxy": "^3.0.0",
+    "is-what": "^4.1.8",
     "javascript-time-ago": "^2.5.7",
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "json5": "^2.2.3",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "postcss": "^8.4.16",
@@ -131,7 +133,6 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {},
   "jest": {
     "roots": [
       "<rootDir>/src"
@@ -188,5 +189,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191"
   }
 }

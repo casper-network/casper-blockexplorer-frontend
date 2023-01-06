@@ -1,19 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
 
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import styled from '@emotion/styled';
-import {
-  fetchMoreBlocks,
-  getEarliestLoadedBlock,
-  getLatestBlockHeight,
-  getLoadingMoreBlocksStatus,
-  Loading,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../store';
 import { Block } from '../../../api';
 import {
   formatDate,
@@ -26,21 +17,25 @@ import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 
 interface BlockTableProps {
+  readonly latestBlockHeight?: number;
   readonly blocks: Block[];
   readonly showValidators?: boolean;
+  fetchMore: () => void;
+  isLoadingMoreBlocks: boolean;
+  onSortingChange?: OnChangeFn<SortingState>;
+  sorting?: SortingState;
 }
 
 export const BlockTable: React.FC<BlockTableProps> = ({
+  latestBlockHeight,
   blocks,
   showValidators,
+  fetchMore,
+  isLoadingMoreBlocks,
+  ...props
 }) => {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const latestBlockHeight = useAppSelector(getLatestBlockHeight);
-  const earliestLoadedBlockHeight = useAppSelector(getEarliestLoadedBlock);
-  const loadingMoreBlocksStatus = useAppSelector(getLoadingMoreBlocksStatus);
-  const isLoadingMoreBlocks = loadingMoreBlocksStatus === Loading.Pending;
   const [currentTime, setCurrentTime] = useState(Date.now());
 
   useEffect(() => {
@@ -69,16 +64,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({
         <ShowMoreButton
           type="button"
           disabled={isLoadingMoreBlocks}
-          onClick={() => {
-            if (earliestLoadedBlockHeight) {
-              dispatch(fetchMoreBlocks(earliestLoadedBlockHeight));
-            }
-          }}>
+          onClick={fetchMore}>
           {isLoadingMoreBlocks ? <Loader size="sm" /> : t('show-more')}
         </ShowMoreButton>
       </BlockTableFooter>
     ),
-    [dispatch, earliestLoadedBlockHeight, isLoadingMoreBlocks, t],
+    [fetchMore, isLoadingMoreBlocks, t],
   );
 
   const blockTableTitles = [
@@ -91,10 +82,6 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   if (showValidators) {
     blockTableTitles.push('validator');
   }
-
-  const blockTableHeads = blockTableTitles.map(title => {
-    return { title: <BlockTableTitle>{t(title)}</BlockTableTitle>, key: title };
-  });
 
   const columns = useMemo<ColumnDef<Block>[]>(
     () => [
@@ -171,6 +158,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       columns={columns}
       data={blocks}
       footer={footer}
+      {...props}
     />
   );
 };
@@ -199,7 +187,4 @@ const ShowMoreButton = styled.button`
   :hover {
     background-color: ${colors.lightRed};
   }
-`;
-const BlockTableTitle = styled.p`
-  font-weight: ${fontWeight.bold};
 `;

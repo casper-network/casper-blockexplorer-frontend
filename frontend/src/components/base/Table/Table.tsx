@@ -4,16 +4,22 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
+  OnChangeFn,
+  SortingState,
+  TableOptions,
   useReactTable,
 } from '@tanstack/react-table';
 import styled from '@emotion/styled';
-import { colors, pxToRem } from 'src/styled-theme';
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { css } from '@emotion/react';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
   readonly columns: ColumnDef<T>[];
   readonly data: T[];
   readonly footer?: React.ReactNode;
+  onSortingChange?: OnChangeFn<SortingState>;
+  sorting?: SortingState;
 }
 
 export function Table<T extends unknown>({
@@ -21,61 +27,62 @@ export function Table<T extends unknown>({
   data,
   header,
   footer,
+  onSortingChange,
+  sorting,
 }: TableProps<T>) {
-  const { getHeaderGroups, getRowModel } = useReactTable({
+  const options: TableOptions<T> = {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-  });
+  };
+  if (onSortingChange) options.onSortingChange = onSortingChange;
+  if (sorting) options.state = { sorting };
+
+  const { getHeaderGroups, getRowModel } = useReactTable(options);
 
   return (
     <TableWrapper>
-      <HeadContent>{header}</HeadContent>
-      <TableContent>
+      <Header>{header}</Header>
+      <StyledTable>
         <TableHead>
           {getHeaderGroups().map(headerGroup => (
-            <TableHeadContent key={headerGroup.id}>
+            <TableHeader key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <TableHeadItem
+                <Th
                   key={header.id}
                   colSpan={header.colSpan}
-                  style={{ width: header.getSize() }}>
+                  style={{ width: header.getSize() }}
+                  sortable={header.column.getCanSort()}
+                  {...{
+                    onClick: header.column.getToggleSortingHandler(),
+                  }}>
                   {header.isPlaceholder ? null : (
-                    <div
-                      {...{
-                        className: `relative ${
-                          header.column.getCanSort()
-                            ? 'cursor-pointer select-none mr-4'
-                            : ''
-                        }`,
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}>
+                    <>
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext(),
                       )}
-                      <span className="absolute right-0 top-1/2">
+                      <span>
                         {{
                           asc: '🔼',
                           desc: '🔽',
                         }[header.column.getIsSorted() as string] ?? null}
                       </span>
-                    </div>
+                    </>
                   )}
-                </TableHeadItem>
+                </Th>
               ))}
-            </TableHeadContent>
+            </TableHeader>
           ))}
         </TableHead>
         <tbody>
           {getRowModel().rows.map(row => (
-            <TableBodyRow key={row.id} className="h-50 hover:bg-light-grey">
+            <TableBodyRow key={row.id}>
               {row.getVisibleCells().map(cell => {
                 return (
                   <TableBodyItem
                     key={cell.id}
-                    className="text-start px-32 border-0 border-b-1 border-light-grey border-solid"
                     style={{ width: cell.column.getSize() }}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableBodyItem>
@@ -84,7 +91,7 @@ export function Table<T extends unknown>({
             </TableBodyRow>
           ))}
         </tbody>
-      </TableContent>
+      </StyledTable>
       {footer}
     </TableWrapper>
   );
@@ -100,12 +107,12 @@ const TableWrapper = styled.div`
   box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.2);
 `;
 
-const HeadContent = styled.div`
+const Header = styled.div`
   padding: 1rem 2rem;
   width: 100%;
 `;
 
-const TableContent = styled.table`
+const StyledTable = styled.table`
   table-layout: auto;
   width: 100%;
   border-spacing: 0px 0px;
@@ -117,13 +124,28 @@ const TableHead = styled.thead`
   background-color: ${colors.lightGrey};
 `;
 
-const TableHeadContent = styled.tr`
+const TableHeader = styled.tr`
   height: 4rem;
 `;
 
-const TableHeadItem = styled.th`
+const Th = styled.th<{ sortable?: boolean }>`
   text-align: start;
+  font-weight: ${fontWeight.bold};
   padding: 0 2rem;
+  ${({ sortable }) => {
+    if (sortable)
+      return css`
+        position: relative;
+        user-select: none;
+        cursor: pointer;
+        & > span {
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      `;
+  }}
 `;
 
 const TableBodyRow = styled.tr`

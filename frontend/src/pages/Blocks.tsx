@@ -1,36 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useAsyncEffect from 'use-async-effect';
+import uniqBy from 'lodash/uniqBy';
 
+import { Block } from 'src/api';
+import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
+
+import { SortingState } from '@tanstack/react-table';
 import { BlockTable, GradientHeading, PageWrapper } from '../components';
 
-import {
-  getBlocks,
-  getBlockLoadingStatus,
-  useAppDispatch,
-  useAppSelector,
-  Loading,
-  fetchBlocks,
-} from '../store';
+const DEFAULT_BLOCKS_COUNT_TO_FETCH = 20;
 
 export const Blocks: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [sort, setSort] = useState<SortingState>([]);
+  const [params, setParams] = useState<IUseBlocks>({
+    orderByHeight: 'desc',
+    numToShow: DEFAULT_BLOCKS_COUNT_TO_FETCH,
+  });
+  const [shouldRefetch, setShouldRefetch] = useState(false);
+
   const { t } = useTranslation();
-  const blocks = useAppSelector(getBlocks);
-  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+  const { data: latestBlockHeight } = useLatestBlockHeight();
+  const { data, isLoading, isFetching, refetch: fetchMore } = useBlocks(params);
 
-  const isLoading = blockLoadingStatus !== Loading.Complete;
+  useEffect(() => {
+    if (sort.length === 0) return;
+    const { id, desc } = sort[0];
+    if (id === 'height')
+      setParams(prev => ({ ...prev, orderByHeight: desc ? 'desc' : 'asc' }));
+  }, [sort]);
 
-  useAsyncEffect(async () => {
-    if (blockLoadingStatus === Loading.Idle) {
-      dispatch(fetchBlocks());
-    }
-  }, []);
+  useEffect(() => {
+    setBlocks([]);
+    if (params.orderByHeight === 'desc')
+      setParams(prev => ({
+        ...prev,
+        fromHeight: undefined,
+      }));
+    else
+      setParams(prev => ({
+        ...prev,
+        fromHeight: (params.numToShow || DEFAULT_BLOCKS_COUNT_TO_FETCH) - 1,
+      }));
+    // If call `fetchMore` here it will use old `params` so set flag for refetch and run `fetchMore` whenever it changes
+    setShouldRefetch(prev => !prev);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.orderByHeight]);
+
+  useEffect(() => {
+    if (!data) return;
+
+    setBlocks(prev => uniqBy([...prev, ...data], 'hash'));
+
+    if (data.length < (params.numToShow || DEFAULT_BLOCKS_COUNT_TO_FETCH))
+      return;
+
+    // If there is more blocks to fetch update fetch params
+    if (params.orderByHeight === 'desc')
+      setParams(prev => ({
+        ...prev,
+        fromHeight: data[data.length - 1].height - 1,
+      }));
+    else
+      setParams(prev => ({
+        ...prev,
+        fromHeight:
+          data[data.length - 1].height + DEFAULT_BLOCKS_COUNT_TO_FETCH,
+      }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
+  useEffect(() => {
+    fetchMore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldRefetch]);
 
   return (
     <PageWrapper isLoading={isLoading}>
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
-      <BlockTable blocks={blocks} />
+      {blocks && (
+        <BlockTable
+          latestBlockHeight={latestBlockHeight}
+          blocks={blocks}
+          fetchMore={fetchMore}
+          isLoadingMoreBlocks={isLoading || isFetching}
+          sorting={sort}
+          onSortingChange={setSort}
+        />
+      )}
     </PageWrapper>
   );
 };
