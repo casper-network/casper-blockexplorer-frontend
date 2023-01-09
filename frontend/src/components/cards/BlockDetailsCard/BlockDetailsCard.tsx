@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { colors } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 import { Block } from '../../../api';
 import { Button, HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
@@ -174,15 +174,39 @@ const HashHeading = styled(GradientHeading)`
   font-weight: 800;
   display: inline;
   margin: 0;
-  max-width: 100%;
+  width: 100%;
   overflow-wrap: break-word;
 `;
 
 const HashButton = styled(Button)`
   color: ${colors.greyBlue};
   background-color: transparent;
-  padding: 0;
+  border-style: none;
+  padding: 0 5px;
   width: fit-content;
+  position: relative;
+  right: ${pxToRem(4)};
+
+  :active,
+  :hover {
+    transition: ease-in-out, font-weight, color, 400ms;
+    font-weight: 700;
+    background: linear-gradient(
+      95.02deg,
+      #1c1e90 0.62%,
+      #693590 48.99%,
+      #d81d54 70.51%,
+      #d81e54 70.85%,
+      #fd6b52 116.85%
+    );
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    background-color: transparent;
+  }
 `;
 
 const DetailDataRowWrapper = styled(DetailDataWrapper)`
