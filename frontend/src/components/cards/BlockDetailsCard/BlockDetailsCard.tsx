@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { colors } from 'src/styled-theme';
 import { Block } from '../../../api';
-import { HeadContentWrapper, Heading, InfoCard } from '../../base';
+import { Button, HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
@@ -33,16 +34,29 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     deployHashes,
     rawBlock,
   } = block;
+  const [isHashTruncated, setIsHashTruncated] = useState<Boolean>(true);
   const { t } = useTranslation();
+
+  const toggleHashView = () => {
+    setIsHashTruncated(() => !isHashTruncated);
+  };
 
   return (
     <InfoCard>
       <HeadContentWrapper>
         <AccountHeading type="h1">{t('block-details')}</AccountHeading>
-
-        <HashHeading type="h2">
-          <Hash hash={blockHash} alwaysTruncate />
-        </HashHeading>
+        <HashWrapper>
+          <HashHeading type="h2">
+            {isHashTruncated ? (
+              <Hash hash={blockHash} alwaysTruncate />
+            ) : (
+              <Hash hash={blockHash} />
+            )}
+          </HashHeading>
+          <HashButton type="button" onClick={toggleHashView}>
+            {isHashTruncated ? 'Expand' : 'Collapse'}
+          </HashButton>
+        </HashWrapper>
       </HeadContentWrapper>
       <DetailDataRowWrapper>
         <li>
@@ -151,9 +165,24 @@ const AccountHeading = styled(Heading)`
   margin-bottom: 1rem;
 `;
 
+const HashWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const HashHeading = styled(GradientHeading)`
   font-weight: 800;
   display: inline;
+  margin: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+`;
+
+const HashButton = styled(Button)`
+  color: ${colors.greyBlue};
+  background-color: transparent;
+  padding: 0;
+  width: fit-content;
 `;
 
 const DetailDataRowWrapper = styled(DetailDataWrapper)`
