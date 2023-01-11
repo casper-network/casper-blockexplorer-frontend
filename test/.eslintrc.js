@@ -6,9 +6,9 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb-typescript',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -81,7 +81,7 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['yarn.lock', '.eslintrc.js', './cypress/*'],
+  ignorePatterns: ['.eslintrc.js'],
   settings: {
     'import/resolver': {
       node: {

@@ -1,31 +1,10 @@
 {
   "compilerOptions": {
-    "rootDir": "./",
-    "outDir": "./build",
-    "target": "ESNext",
-    "noEmit": true,
-    "types": ["node", "cypress"],
-    "isolatedModules": false,
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"],
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "preserveConstEnums": true
+    "baseUrl": "."
   },
-  "include": ["./node_modules", "./cypress/**/*.ts", "./cypress.config.ts"]
+  "include": ["**/*.ts"]
 }
