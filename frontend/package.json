@@ -61,7 +61,6 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "json5": "^2.2.3",
-    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "postcss": "^8.4.16",
@@ -189,8 +188,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.191"
   }
 }
