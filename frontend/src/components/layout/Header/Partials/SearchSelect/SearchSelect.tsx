@@ -46,7 +46,11 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
             setCurrentFilterOption(selectedOption?.value!);
           };
 
-          return !isMobile ? (
+          const mobileBreakpoint = !!(window.screen.width > 767);
+
+          console.log(mobileBreakpoint);
+
+          return mobileBreakpoint ? (
             <CustomSelect
               defaultValue={selectOptions[0]}
               currentSelection={currentSelection}
