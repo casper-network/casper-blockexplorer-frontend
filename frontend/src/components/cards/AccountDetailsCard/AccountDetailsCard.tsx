@@ -16,7 +16,7 @@ import {
 } from '../../styled';
 
 import { Coin, CopyToClipboard, RawData } from '../../utility';
-import { colors, fontWeight } from '../../../styled-theme';
+import { colors, fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account;
@@ -54,10 +54,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           </HashHeading>
         </AvatarHashContainer>
       </HeadContentContainer>
-      <HashButton
-        type="button"
-        onClick={toggleHashView}
-        isHashTruncated={isHashTruncated}>
+      <HashButton type="button" onClick={toggleHashView}>
         {isHashTruncated ? 'Expand' : 'Collapse'}
       </HashButton>
 
@@ -118,13 +115,12 @@ const HashHeading = styled(GradientHeading)`
   overflow-wrap: break-word;
 `;
 
-const HashButton = styled(Button)<{ isHashTruncated: boolean }>`
+const HashButton = styled(Button)`
   color: ${colors.greyBlue};
   background-color: transparent;
   border-style: none;
   padding: 0 5px;
-  margin: ${({ isHashTruncated }) =>
-    isHashTruncated ? '0 0 0 65px' : '0 0 0 -5px'};
+  margin-left: ${pxToRem(65)};
   width: fit-content;
   margin-bottom: 2rem;
 
