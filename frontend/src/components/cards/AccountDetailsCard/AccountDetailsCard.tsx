@@ -119,7 +119,7 @@ const HashButton = styled(Button)`
   color: ${colors.greyBlue};
   background-color: transparent;
   border-style: none;
-  padding: 0 5px;
+  padding: 0 ${pxToRem(5)};
   margin-left: ${pxToRem(65)};
   width: fit-content;
   margin-bottom: 2rem;
