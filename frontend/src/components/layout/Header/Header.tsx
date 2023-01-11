@@ -31,12 +31,12 @@ export const Header: React.FC = () => {
         </LogoLink>
         <Navbar />
       </HeaderComponentsContainer>
+      <SearchForm />
       <HeroContainer isFirstVisit={isFirstVisit}>
         <HeroHeading type="h1" aria-label="Casper Block Explorer">
           {t('discover-casper')}
         </HeroHeading>
       </HeroContainer>
-      <SearchForm />
     </HeaderComponent>
   );
 };
