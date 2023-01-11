@@ -107,6 +107,6 @@ export const HeroHeading = styled(GradientHeading)`
     text-align: left;
     max-width: 42.5rem;
     padding-right: 11rem;
-    background-size: 71%;
+    background-size: 72.5%;
   }
 `;
