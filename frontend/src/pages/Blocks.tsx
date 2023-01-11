@@ -1,79 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import uniqBy from 'lodash/uniqBy';
-
-import { Block } from 'src/api';
-import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
 
 import { SortingState } from '@tanstack/react-table';
-import { BlockTable, GradientHeading, PageWrapper } from '../components';
 
-const DEFAULT_BLOCKS_COUNT_TO_FETCH = 20;
+import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
+import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
+import { useAppSelector } from 'src/store';
+
+const DEFAULT_BLOCKS_COUNT_TO_FETCH = 2;
+
+const initialParam: IUseBlocks = {
+  orderByHeight: 'desc',
+  numToShow: DEFAULT_BLOCKS_COUNT_TO_FETCH,
+};
 
 export const Blocks: React.FC = () => {
-  const [blocks, setBlocks] = useState<Block[]>([]);
   const [sort, setSort] = useState<SortingState>([]);
-  const [params, setParams] = useState<IUseBlocks>({
-    orderByHeight: 'desc',
-    numToShow: DEFAULT_BLOCKS_COUNT_TO_FETCH,
-  });
-  const [shouldRefetch, setShouldRefetch] = useState(false);
+  const [params, setParams] = useState<IUseBlocks>(initialParam);
+  const [shouldRefetchBlocks, setShouldRefetchBlocks] = useState(false);
+
+  const { refreshTimer } = useAppSelector(state => state.app);
 
   const { t } = useTranslation();
-  const { data: latestBlockHeight } = useLatestBlockHeight();
-  const { data, isLoading, isFetching, refetch: fetchMore } = useBlocks(params);
+  const { data: latestBlockHeight, refetch: refetchLatestBlockHeight } =
+    useLatestBlockHeight();
+  const {
+    data,
+    isLoading,
+    isFetching,
+    fetchNextPage,
+    refetch: refetchBlocks,
+  } = useBlocks(params);
+
+  const blocks = useMemo(() => {
+    return data?.pages.reduce((accum, page) => [...accum, ...page], []);
+  }, [data]);
+
+  useEffect(() => {
+    if (refreshTimer === 0) {
+      refetchLatestBlockHeight();
+      refetchBlocks();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshTimer]);
 
   useEffect(() => {
     if (sort.length === 0) return;
     const { id, desc } = sort[0];
-    if (id === 'height')
-      setParams(prev => ({ ...prev, orderByHeight: desc ? 'desc' : 'asc' }));
+    if (id === 'height') {
+      setParams(prev => ({
+        ...prev,
+        orderByHeight: desc ? 'desc' : 'asc',
+      }));
+      setShouldRefetchBlocks(prev => !prev);
+    }
   }, [sort]);
 
   useEffect(() => {
-    setBlocks([]);
-    if (params.orderByHeight === 'desc')
-      setParams(prev => ({
-        ...prev,
-        fromHeight: undefined,
-      }));
-    else
-      setParams(prev => ({
-        ...prev,
-        fromHeight: (params.numToShow || DEFAULT_BLOCKS_COUNT_TO_FETCH) - 1,
-      }));
-    // If call `fetchMore` here it will use old `params` so set flag for refetch and run `fetchMore` whenever it changes
-    setShouldRefetch(prev => !prev);
+    refetchBlocks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.orderByHeight]);
-
-  useEffect(() => {
-    if (!data) return;
-
-    setBlocks(prev => uniqBy([...prev, ...data], 'hash'));
-
-    if (data.length < (params.numToShow || DEFAULT_BLOCKS_COUNT_TO_FETCH))
-      return;
-
-    // If there is more blocks to fetch update fetch params
-    if (params.orderByHeight === 'desc')
-      setParams(prev => ({
-        ...prev,
-        fromHeight: data[data.length - 1].height - 1,
-      }));
-    else
-      setParams(prev => ({
-        ...prev,
-        fromHeight:
-          data[data.length - 1].height + DEFAULT_BLOCKS_COUNT_TO_FETCH,
-      }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  useEffect(() => {
-    fetchMore();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldRefetch]);
+  }, [shouldRefetchBlocks]);
 
   return (
     <PageWrapper isLoading={isLoading}>
@@ -82,7 +69,7 @@ export const Blocks: React.FC = () => {
         <BlockTable
           latestBlockHeight={latestBlockHeight}
           blocks={blocks}
-          fetchMore={fetchMore}
+          fetchMore={fetchNextPage}
           isLoadingMoreBlocks={isLoading || isFetching}
           sorting={sort}
           onSortingChange={setSort}

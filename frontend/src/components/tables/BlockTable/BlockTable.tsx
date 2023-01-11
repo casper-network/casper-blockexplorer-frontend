@@ -50,7 +50,8 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     () => (
       <BlockTableHead>
         <p>
-          {standardizeNumber(latestBlockHeight || 0)} {t('total-rows')}
+          {standardizeNumber(latestBlockHeight ? latestBlockHeight + 1 : 0)}{' '}
+          {t('total-rows')}
         </p>
         <RefreshTimer />
       </BlockTableHead>
