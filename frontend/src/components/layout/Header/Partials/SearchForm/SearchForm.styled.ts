@@ -7,7 +7,7 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   width: 92%;
   max-width: ${pxToRem(592)};
   padding: ${({ isFirstVisit }) =>
-    isFirstVisit ? '2rem 0 2.7rem 0' : `${pxToRem(42)} 0`};
+    isFirstVisit ? '0.5rem 0 2.7rem 0' : `${pxToRem(42)} 0`};
   margin: 0 auto;
   position: relative;
 
