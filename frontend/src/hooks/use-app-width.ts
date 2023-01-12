@@ -1,4 +1,4 @@
-import { MOBILE_BREAKPOINT } from '../constants';
+import { MOBILE_BREAKPOINT, SELECT_BREAKPOINT } from '../constants';
 import { getBounds, useAppSelector } from '../store';
 
 export const useAppWidth = () => {
@@ -7,6 +7,7 @@ export const useAppWidth = () => {
   const windowWidth = bounds?.width || 0;
 
   const isMobile = windowWidth < MOBILE_BREAKPOINT;
+  const isDropdownMenu = windowWidth > SELECT_BREAKPOINT;
 
-  return { windowWidth, isMobile };
+  return { windowWidth, isMobile, isDropdownMenu };
 };
