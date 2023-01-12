@@ -75,9 +75,6 @@ const ContentWrapper = styled.div`
   @media (min-width: ${breakpoints.md}) {
     padding: 0 ${pxToRem(32)};
   }
-  @media (min-width: ${breakpoints.xl}) {
-    padding: 0 ${pxToRem(48)};
-  }
 `;
 
 const ErrorMessage = styled.p`
