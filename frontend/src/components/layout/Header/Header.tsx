@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppWidth } from 'src/hooks';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,7 @@ import {
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
+  const { isDropdownMenu } = useAppWidth();
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
@@ -31,12 +33,13 @@ export const Header: React.FC = () => {
         </LogoLink>
         <Navbar />
       </HeaderComponentsContainer>
-      <SearchForm />
+      {isDropdownMenu ? <SearchForm /> : null}
       <HeroContainer isFirstVisit={isFirstVisit}>
         <HeroHeading type="h1" aria-label="Casper Block Explorer">
           {t('discover-casper')}
         </HeroHeading>
       </HeroContainer>
+      {!isDropdownMenu ? <SearchForm /> : null}
     </HeaderComponent>
   );
 };
