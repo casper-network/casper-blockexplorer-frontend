@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
-import { breakpoints } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const InfoCardSection = styled.section`
   margin: 0;
   padding: 0;
   width: 100%;
+
+  @media only screen and (min-width: ${breakpoints.lg}) {
+    padding-top: ${pxToRem(15)};
+  }
 `;
 
 export const InfoCardContentWrapper = styled.div`
