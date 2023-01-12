@@ -7,21 +7,21 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   width: 92%;
   max-width: ${pxToRem(592)};
   padding: ${({ isFirstVisit }) =>
-    isFirstVisit ? '0.5rem 0 2.7rem 0' : `${pxToRem(42)} 0`};
+    isFirstVisit ? `${pxToRem(25)} 0 ${pxToRem(25)} 0` : `${pxToRem(42)} 0`};
   margin: 0 auto;
   position: relative;
 
   @media (min-width: ${breakpoints.md}) {
-    width: 80%;
-    max-width: ${pxToRem(740)};
+    width: 64%;
+    min-width: ${pxToRem(625)};
+    max-width: ${pxToRem(655)};
   }
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: start;
-    width: ${({ isFirstVisit }) => (isFirstVisit ? '64.5%' : '76.5%')};
+    width: ${({ isFirstVisit }) => (isFirstVisit ? '64%' : '76.5%')};
     max-width: ${({ isFirstVisit }) =>
       isFirstVisit ? `${pxToRem(792)}` : `${pxToRem(975)}`};
-    padding-bottom: ${pxToRem(19)};
   }
 `;
 
@@ -30,7 +30,7 @@ export const Form = styled.form`
 `;
 
 export const FormComponentsContainer = styled.div`
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     display: flex;
     width: 100%;
   }
@@ -43,7 +43,7 @@ export const InputAndButtonContainer = styled.div`
   margin: 0 auto;
   width: 91%;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     padding-top: 0;
     width: 100%;
   }
@@ -70,7 +70,7 @@ export const SearchInput = styled.input`
     outline-offset: 2px;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     border-radius: 0;
   }
 `;
