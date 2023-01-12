@@ -62,6 +62,7 @@
     "jest-watch-typeahead": "^1.0.0",
     "json5": "^2.2.3",
     "mini-css-extract-plugin": "^2.4.5",
+    "node-cache": "^5.1.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "postcss": "^8.4.16",
     "postcss-flexbugs-fixes": "^5.0.2",
