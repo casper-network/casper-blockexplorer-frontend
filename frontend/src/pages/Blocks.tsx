@@ -7,7 +7,7 @@ import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
 import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
 import { useAppSelector } from 'src/store';
 
-const DEFAULT_BLOCKS_COUNT_TO_FETCH = 2;
+const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
 
 const initialParam: IUseBlocks = {
   orderByHeight: 'desc',
@@ -27,7 +27,7 @@ export const Blocks: React.FC = () => {
   const {
     data,
     isLoading,
-    isFetching,
+    isFetchingNextPage,
     fetchNextPage,
     refetch: refetchBlocks,
   } = useBlocks(params);
@@ -70,7 +70,7 @@ export const Blocks: React.FC = () => {
           latestBlockHeight={latestBlockHeight}
           blocks={blocks}
           fetchMore={fetchNextPage}
-          isLoadingMoreBlocks={isLoading || isFetching}
+          isLoadingMoreBlocks={isFetchingNextPage}
           sorting={sort}
           onSortingChange={setSort}
         />
