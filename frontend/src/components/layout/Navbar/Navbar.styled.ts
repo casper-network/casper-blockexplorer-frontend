@@ -78,14 +78,16 @@ export const DesktopNavItemLink = styled(Link)`
   text-decoration: none;
   border-radius: ${pxToRem(8)};
 
-  @media (hover: hover) {
-    :hover,
-    :focus {
-      color: white;
-      background-color: #02115f;
-      padding: ${pxToRem(6)} ${pxToRem(20)};
-      background-color: #02115f;
-      text-decoration: none;
-    }
+  :focus {
+    text-decoration: none;
+  }
+
+  :active,
+  :hover {
+    color: white;
+    background-color: #02115f;
+    padding: ${pxToRem(6)} ${pxToRem(20)};
+    background-color: #02115f;
+    text-decoration: none;
   }
 `;
