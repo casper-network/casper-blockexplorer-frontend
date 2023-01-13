@@ -6,9 +6,9 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb-typescript',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -42,13 +42,13 @@ module.exports = {
     '@typescript-eslint/no-unused-expressions': ['error'],
     '@typescript-eslint/no-unsafe-argument': ['warn'],
     '@typescript-eslint/no-unused-vars': ['warn'],
-    '@typescript-eslint/no-unsafe-member-access': ['warn'],
+    '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-use-before-define': ['off'],
     '@typescript-eslint/require-await': 'off',
     '@typescript-eslint/prefer-optional-chain': ['warn'],
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
-    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-call': 'warn',
     '@typescript-eslint/no-unsafe-return': 'warn',
     '@typescript-eslint/no-misused-promises': [
@@ -81,7 +81,7 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['yarn.lock', '.eslintrc.js', './cypress/*'],
+  ignorePatterns: ['.eslintrc.js'],
   settings: {
     'import/resolver': {
       node: {

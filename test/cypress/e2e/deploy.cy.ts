@@ -2,9 +2,7 @@ const deployHash =
   '4ccdb1ab1d47034f615f0e9a16ecbe041d583b3175b84442d9138b53f4764e27';
 
 describe('Deploy Page', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const middlewareUrl: string =
-    Cypress.env('MIDDLEWARE_URL') || 'http://localhost:4000';
+  const middlewareUrl = Cypress.env('MIDDLEWARE_URL') as string;
 
   it.skip('can visit at /deploy/deployHash', () => {
     cy.intercept({
