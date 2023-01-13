@@ -2,9 +2,7 @@ const accountHash =
   '017fec504c642f2b321b8591f1c3008348c57a81acafceb5a392cf8416a5fb4a3c';
 
 describe('Account Page', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const middlewareUrl: string =
-    Cypress.env('MIDDLEWARE_URL') || 'http://localhost:4000';
+  const middlewareUrl = Cypress.env('MIDDLEWARE_URL') as string;
 
   it.skip('can visit at /account/:accountHash', () => {
     cy.intercept({
