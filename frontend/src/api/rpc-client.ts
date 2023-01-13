@@ -3,6 +3,8 @@ import {
   CasperServiceByJsonRPC,
   CLPublicKey,
 } from 'casper-js-sdk';
+import NodeCache from 'node-cache';
+
 import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from './types';
 import { formatDate, formatTimeAgo, loadConfig } from '../utils';
 import { ApiError } from './api-error';
@@ -17,6 +19,7 @@ export const DEFAULT_NUM_TO_SHOW = 10;
 
 const { webServerUrl } = loadConfig();
 
+const rpcCache = new NodeCache();
 export class RpcApi {
   constructor(
     private readonly rpcClient: CasperServiceByJsonRPC,
@@ -112,12 +115,26 @@ export class RpcApi {
     }
   };
 
+  async getValidators() {
+    const latestBlock = await this.rpcClient.getLatestBlockInfo();
+    const latestEraId = latestBlock.block?.header.era_id;
+
+    const validtorsInfo = await this.rpcClient.getValidatorsInfo();
+
+    const currentValidators = validtorsInfo.auction_state.era_validators.find(
+      ({ era_id }) => era_id === latestEraId,
+    );
+
+    return currentValidators?.validator_weights;
+  }
+
   getDeploy: (deployHash: string) => Promise<Deploy | undefined> =
     async deployHash => {
       try {
         const { deploy, execution_results: executionResults } =
           await this.rpcClient.getDeployInfo(deployHash);
 
+        // @ts-ignore
         const paymentMap = new Map(deploy.payment.ModuleBytes?.args);
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -270,6 +287,9 @@ export class RpcApi {
 
   getBlockByHeight: (height: number) => Promise<Block> = async height => {
     try {
+      const exsitBlock = rpcCache.get<Block>(`block:${height}`);
+      if (exsitBlock) return exsitBlock;
+
       const { block } = await this.rpcClient.getBlockInfoByHeight(height);
 
       if (!block) {
@@ -304,7 +324,7 @@ export class RpcApi {
       const timeSince = formatTimeAgo(dateTime);
       const readableTimestamp = formatDate(dateTime);
 
-      return {
+      const result = {
         hash,
         height,
         eraID,
@@ -319,6 +339,10 @@ export class RpcApi {
         parentHash,
         rawBlock: JSON.stringify(block),
       };
+
+      rpcCache.set(`block:${height}`, result);
+
+      return result;
     } catch (err) {
       if ((err as ApiError).type === RpcApiError.BlockByHeightMissing) {
         throw err;
