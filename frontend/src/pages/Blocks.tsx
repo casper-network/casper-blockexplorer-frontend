@@ -14,8 +14,15 @@ const initialParam: IUseBlocks = {
   numToShow: DEFAULT_BLOCKS_COUNT_TO_FETCH,
 };
 
+const initialSorting: SortingState = [
+  {
+    id: 'height',
+    desc: true,
+  },
+];
+
 export const Blocks: React.FC = () => {
-  const [sort, setSort] = useState<SortingState>([]);
+  const [sort, setSort] = useState<SortingState>(initialSorting);
   const [params, setParams] = useState<IUseBlocks>(initialParam);
   const [shouldRefetchBlocks, setShouldRefetchBlocks] = useState(false);
 
@@ -73,6 +80,7 @@ export const Blocks: React.FC = () => {
           isLoadingMoreBlocks={isFetchingNextPage}
           sorting={sort}
           onSortingChange={setSort}
+          initialSorting={initialSorting}
         />
       )}
     </PageWrapper>

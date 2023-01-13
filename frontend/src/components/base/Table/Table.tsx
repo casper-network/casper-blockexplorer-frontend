@@ -20,6 +20,7 @@ export interface TableProps<T> {
   readonly footer?: React.ReactNode;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
+  initialSorting?: SortingState;
 }
 
 export function Table<T extends unknown>({
@@ -29,6 +30,7 @@ export function Table<T extends unknown>({
   footer,
   onSortingChange,
   sorting,
+  initialSorting,
 }: TableProps<T>) {
   const options: TableOptions<T> = {
     data,
@@ -38,6 +40,7 @@ export function Table<T extends unknown>({
   };
   if (onSortingChange) options.onSortingChange = onSortingChange;
   if (sorting) options.state = { sorting };
+  if (initialSorting) options.initialState = { sorting: initialSorting };
 
   const { getHeaderGroups, getRowModel } = useReactTable(options);
 

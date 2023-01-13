@@ -24,6 +24,7 @@ interface BlockTableProps {
   isLoadingMoreBlocks: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
+  initialSorting?: SortingState;
 }
 
 export const BlockTable: React.FC<BlockTableProps> = ({
