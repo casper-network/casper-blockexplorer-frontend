@@ -10,7 +10,7 @@ export const HeaderComponent = styled.header`
   background-color: #fff;
 `;
 
-export const HeaderComponentsContainer = styled.div`
+export const HeaderComponentsContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -18,20 +18,18 @@ export const HeaderComponentsContainer = styled.div`
   padding: 1.75rem 1.7rem 1.7rem 2.17rem;
 
   @media (min-width: ${breakpoints.lg}) {
-    justify-content: space-between;
     padding: 3.5rem 7% 1.75rem 7%;
     transform: 3.5rem 5.3rem 1.75rem 5.3rem;
   }
 `;
 
-export const LogoLink = styled(Link)`
+export const LogoLink = styled(Link)<{ isFirstVisit: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   text-decoration-line: none;
   width: 100%;
-  padding-top: ${pxToRem(4)};
 
   :hover,
   :focus {
@@ -39,17 +37,17 @@ export const LogoLink = styled(Link)`
   }
 
   @media (min-width: ${breakpoints.xxs}) {
-    padding-top: ${pxToRem(3)};
-    max-width: 18rem;
+    width: 9rem;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     padding: 0;
+    width: ${({ isFirstVisit }) => (isFirstVisit ? '15rem' : '9rem')};
   } ;
 `;
 
 export const BlueCasperLogo = styled(BlueLogo)`
-  width: 10%;
+  width: 20%;
   margin-right: 5px;
 
   @media (min-width: ${breakpoints.lg}) {
@@ -63,14 +61,13 @@ export const BlueBlackCasperLogo = styled(BlueBlackLogo)`
 
   @media (min-width: ${breakpoints.lg}) {
     display: block;
-    width: 45%;
+    width: 90%;
   }
 `;
 
 export const ExplorerLogo = styled(ExpLogo)`
   display: block;
-  padding-top: ${pxToRem(1.75)};
-  width: 40%;
+  width: 80%;
 `;
 
 export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
@@ -79,7 +76,7 @@ export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
   padding: 0;
 
   @media (min-width: ${breakpoints.md}) {
-    padding-top: 1rem;
+    padding-top: 2.5rem;
     justify-content: start;
     width: 64.5%;
     min-width: ${pxToRem(628)};
