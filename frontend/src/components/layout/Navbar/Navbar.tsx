@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useAppSelector, getIsFirstVisit } from 'src/store';
 
 import { useTranslation } from 'react-i18next';
+import { BlueLogo } from 'src/components/logos';
+import { useAppWidth } from 'src/hooks';
 import { NavButton } from '../../buttons/NavButton';
+import { SearchForm } from '../Header/Partials';
 
 import {
+  LogoSearchFormWrapper,
+  NavLogoLink,
+  ExplorerLogo,
   NavComponentsContainer,
   Nav,
   NavItemsContainer,
@@ -36,8 +43,11 @@ const navItems = [
 ];
 
 export const Navbar: React.FC = () => {
+  const isFirstVisit = useAppSelector(getIsFirstVisit);
   const [isOpened, setIsOpened] = useState(false);
   const { t } = useTranslation();
+
+  const { isMobile } = useAppWidth();
 
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {
@@ -56,8 +66,18 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpened]);
 
+  const returnVisitDesktop = (
+    <LogoSearchFormWrapper>
+      <NavLogoLink to="/">
+        <BlueLogo />
+        <ExplorerLogo />
+      </NavLogoLink>
+      <SearchForm />
+    </LogoSearchFormWrapper>
+  );
   return (
-    <Nav data-testid="navigation">
+    <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
+      {!isFirstVisit && !isMobile && returnVisitDesktop}
       <NavComponentsContainer>
         <NavButton
           type="button"
