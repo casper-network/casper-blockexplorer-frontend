@@ -1,11 +1,43 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { ExpLogo } from 'src/components/logos';
 import { breakpoints, pxToRem } from '../../../styled-theme';
 
-export const Nav = styled.nav`
+export const Nav = styled.nav<{ isFirstVisit: boolean }>`
+  display: flex;
+  width: fit-content;
   @media (min-width: ${breakpoints.lg}) {
-    width: 27%;
+    width: ${({ isFirstVisit }) => (isFirstVisit ? '27%' : '100%')};
   }
+`;
+
+export const LogoSearchFormWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${pxToRem(20)};
+  width: 100%;
+  padding-left: ${pxToRem(20)};
+`;
+
+export const NavLogoLink = styled(Link)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration-line: none;
+  min-width: ${pxToRem(140)};
+
+  :hover,
+  :focus {
+    text-decoration-line: none;
+  }
+`;
+
+export const ExplorerLogo = styled(ExpLogo)`
+  display: block;
+  width: 100%;
 `;
 
 export const NavComponentsContainer = styled.div`
@@ -64,9 +96,10 @@ export const DesktopNav = styled.nav`
 export const DesktopNavItemsContainer = styled.ul`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: ${pxToRem(4)};
   width: 100%;
-  padding-top: ${pxToRem(8)};
+  min-height: 3.3rem;
 `;
 
 export const DesktopNavItemLink = styled(Link)`
@@ -87,7 +120,6 @@ export const DesktopNavItemLink = styled(Link)`
     color: white;
     background-color: #02115f;
     padding: ${pxToRem(6)} ${pxToRem(20)};
-    background-color: #02115f;
     text-decoration: none;
   }
 `;
