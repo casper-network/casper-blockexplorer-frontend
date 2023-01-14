@@ -6,22 +6,27 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   justify-content: center;
   width: 92%;
   max-width: ${pxToRem(592)};
-  padding: ${({ isFirstVisit }) =>
-    isFirstVisit ? `${pxToRem(25)} 0 ${pxToRem(25)} 0` : `${pxToRem(42)} 0`};
-  margin: 0 auto;
+  padding: ${({ isFirstVisit }) => (isFirstVisit ? `${pxToRem(25)} 0` : '0')};
+  margin: 0 auto 2rem auto;
   position: relative;
+  padding: 0;
 
   @media (min-width: ${breakpoints.md}) {
+    margin: 0 auto;
     width: 64%;
     min-width: ${pxToRem(625)};
     max-width: ${pxToRem(655)};
+    align-items: center;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: start;
-    width: ${({ isFirstVisit }) => (isFirstVisit ? '64%' : '76.5%')};
+    width: ${({ isFirstVisit }) => (isFirstVisit ? '64%' : '100%')};
+    min-width: 0;
     max-width: ${({ isFirstVisit }) =>
       isFirstVisit ? `${pxToRem(792)}` : `${pxToRem(975)}`};
+    padding-right: ${({ isFirstVisit }) =>
+      isFirstVisit ? '0' : `${pxToRem(20)}`};
   }
 `;
 
