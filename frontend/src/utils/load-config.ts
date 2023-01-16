@@ -5,6 +5,7 @@
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
+  logoUrl?: string;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -28,8 +29,12 @@ export const loadConfig: () => AppConfig = () => {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
 
+  const logoUrl = 'https://cspr.live/assets/icons/logos/cspr-live-full.svg';
+  // const logoUrl = '';
+
   return {
     isProduction,
     webServerUrl,
+    logoUrl,
   };
 };
