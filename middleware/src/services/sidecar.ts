@@ -28,34 +28,36 @@ export class Sidecar {
   /**
    * Retrieve information about the last block added to the linear chain.
    */
-  public async getTheLatestBlock(): Promise<SidecarTypes.GetBlock> {
+  public async getTheLatestBlock() {
     const cacheKey = "latestBlock";
-    const existLatestBlock = this.cache.get<SidecarTypes.GetBlock>(cacheKey);
+    const existLatestBlock = this.cache.get<SidecarTypes.Block>(cacheKey);
     if (existLatestBlock) return existLatestBlock;
 
-    const { data } = await this.api.get("/block");
+    const {
+      data: { block },
+    } = await this.api.get<SidecarTypes.GetBlock>("/block");
 
-    this.cache.set(cacheKey, data, 0);
+    this.cache.set(cacheKey, block, 0);
 
-    return data;
+    return block;
   }
 
   /**
    * Retrieve information about a block given its block hash or height.
    * @param hashOrHeight block hash or height to get block
    */
-  public async getBlock(
-    hashOrHeight: string | number
-  ): Promise<SidecarTypes.GetBlock> {
+  public async getBlock(hashOrHeight: string | number) {
     const cacheKey = `block:${hashOrHeight}`;
     const existBlock = this.cache.get<SidecarTypes.GetBlock>(cacheKey);
     if (existBlock) return existBlock;
 
-    const { data } = await this.api.get(`/block/${hashOrHeight}`);
+    const {
+      data: { block },
+    } = await this.api.get<SidecarTypes.GetBlock>(`/block/${hashOrHeight}`);
 
-    this.cache.set(cacheKey, data);
+    this.cache.set(cacheKey, block);
 
-    return data;
+    return block;
   }
 
   /**

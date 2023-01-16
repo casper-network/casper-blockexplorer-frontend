@@ -11,8 +11,7 @@ export class ExtendedSidecar extends Sidecar {
   ) {
     const blocks = [];
 
-    let latestBlockHeight = (await this.getTheLatestBlock()).block.header
-      .height;
+    let latestBlockHeight = (await this.getTheLatestBlock()).header.height;
 
     const fromBlock = from !== undefined ? from : latestBlockHeight;
     const targetBlock =
@@ -24,7 +23,7 @@ export class ExtendedSidecar extends Sidecar {
       orderByHeight === "DESC" ? i-- : i++
     ) {
       try {
-        const { block } = await this.getBlock(i);
+        const block = await this.getBlock(i);
         blocks.push(block);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -33,7 +32,7 @@ export class ExtendedSidecar extends Sidecar {
       }
     }
 
-    latestBlockHeight = (await this.getTheLatestBlock()).block.header.height;
+    latestBlockHeight = (await this.getTheLatestBlock()).header.height;
 
     const total = latestBlockHeight + 1;
 
