@@ -7,7 +7,9 @@
     "build": "npx tsc -p ./tsconfig.build.json",
     "start": "node dist/index.js",
     "dev": "cross-env NODE_ENV=development ts-node-dev --poll --respawn --transpile-only --no-deps --exit-child --ignore-watch node_modules src/index.ts",
-    "test": "ts-mocha src/**/*.spec.ts src/*.spec.ts",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "ts-mocha src/**/*.spec.ts src/*.spec.ts",
+    "test:e2e": "ts-mocha src/**/*.test.ts",
     "lint": "eslint --ext .ts src --max-warnings=0"
   },
   "keywords": [],

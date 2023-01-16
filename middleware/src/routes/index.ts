@@ -9,6 +9,7 @@ import { errorConverter, errorHandler, validate } from "../middlewares";
 import { fetchPeers, nodeManager } from "../services";
 import openapiSpecification, { uiOptions } from "../swagger";
 import { ApiError, catchAsync } from "../utils";
+import sideCarRoutes from "./sidecar";
 
 const router = express.Router();
 
@@ -88,6 +89,8 @@ router.get(
     res.json({ result });
   })
 );
+
+router.use(sideCarRoutes);
 
 if (NODE_ENV === "development") {
   router.use(
