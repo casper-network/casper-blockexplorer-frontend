@@ -3,17 +3,9 @@ name: ci-middleware
 run-name: CI of middleware by @${{ github.actor }}
 
 on:
-  push:
-    branches:
-      - "dev"
-      - "feature/*"
-    paths:
-      - "middleware/**"
-
   pull_request:
     branches:
       - "dev"
-      - "feature/*"
     paths:
       - "middleware/**"
 
@@ -45,7 +37,7 @@ jobs:
         run: cd middleware && npm run lint
 
       - name: Test
-        run: cd middleware && npm test:unit
+        run: cd middleware && npm run test:unit
         env:
           MIDDLEWARE_URL: http://localhost:4000/rpc # middleware URL
           NODE_URLS: https://rpc.testnet.casperlabs.io/rpc
