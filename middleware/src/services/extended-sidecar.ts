@@ -24,7 +24,7 @@ export class ExtendedSidecar extends Sidecar {
       orderByHeight === "DESC" ? i-- : i++
     ) {
       try {
-        const block = await this.getBlock(i);
+        const { block } = await this.getBlock(i);
         blocks.push(block);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 404) {

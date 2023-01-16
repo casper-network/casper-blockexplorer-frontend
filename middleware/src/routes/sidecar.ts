@@ -56,8 +56,6 @@ router.get(
     const orderByHeight =
       sort_by && sort_by === "height" ? order_by : undefined;
 
-    console.log(from);
-
     const result = await sidecar.getBlocks(from, count, orderByHeight);
 
     res.json(result);
