@@ -35,7 +35,7 @@ export class Sidecar {
 
     const { data } = await this.api.get("/block");
 
-    this.cache.set(cacheKey, data);
+    this.cache.set(cacheKey, data, 0);
 
     return data;
   }

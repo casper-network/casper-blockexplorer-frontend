@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import { Sort } from "../types";
 import { Sidecar } from "./sidecar";
 
@@ -7,9 +9,12 @@ export class ExtendedSidecar extends Sidecar {
     count = 20,
     orderByHeight = "DESC" as Sort
   ) {
-    const result = [];
+    const blocks = [];
 
-    const fromBlock = from || 0;
+    let latestBlockHeight = (await this.getTheLatestBlock()).block.header
+      .height;
+
+    const fromBlock = from !== undefined ? from : latestBlockHeight;
     const targetBlock =
       orderByHeight === "DESC" ? fromBlock - count : fromBlock + count;
 
@@ -18,10 +23,20 @@ export class ExtendedSidecar extends Sidecar {
       orderByHeight === "DESC" ? i > targetBlock : i < targetBlock;
       orderByHeight === "DESC" ? i-- : i++
     ) {
-      const block = await this.getBlock(i);
-      result.push(block);
+      try {
+        const block = await this.getBlock(i);
+        blocks.push(block);
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+          break;
+        }
+      }
     }
 
-    return result;
+    latestBlockHeight = (await this.getTheLatestBlock()).block.header.height;
+
+    const total = latestBlockHeight + 1;
+
+    return { blocks, total };
   }
 }
