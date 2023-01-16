@@ -1,34 +1,31 @@
 import React from 'react';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
-
 import { useTranslation } from 'react-i18next';
+import { ConfigurableLogo, DefaultLogo } from './LogoComponents';
+import { loadConfig } from '../../../utils/load-config';
+
 import { SearchForm } from './Partials';
 import { Navbar } from '../Navbar/Navbar';
 
 import {
   HeaderComponent,
   HeaderComponentsContainer,
-  LogoLink,
   HeroContainer,
   HeroHeading,
-  BlueBlackCasperLogo,
-  BlueCasperLogo,
-  ExplorerLogo,
 } from './Header.styled';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
+  const { logoUrl } = loadConfig();
+
+  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultLogo />;
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   return (
     <HeaderComponent>
       <HeaderComponentsContainer>
-        <LogoLink to="/">
-          <BlueBlackCasperLogo />
-          <BlueCasperLogo />
-          <ExplorerLogo />
-        </LogoLink>
+        {logo}
         <Navbar />
       </HeaderComponentsContainer>
       <HeroContainer isFirstVisit={isFirstVisit}>
