@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { pxToRem } from 'src/styled-theme';
 
 import { Block } from '../../../api';
 import { InfoCard } from '../../base';
@@ -153,6 +154,7 @@ const PageHeading = styled.h2`
   margin-bottom: 1rem;
   font-weight: 800;
   display: inline;
+  padding-left: ${pxToRem(15)};
   background: linear-gradient(
     93.67deg,
     #1c1e90 1.63%,
@@ -162,7 +164,6 @@ const PageHeading = styled.h2`
     #fd6b52 151.99%
   );
   background-clip: text;
-  width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
