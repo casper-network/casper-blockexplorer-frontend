@@ -58,7 +58,7 @@ export const SearchInput = styled.input`
   display: block;
   color: black;
   background-color: #fff;
-  height: 2.8125rem;
+  height: 2.7rem;
   width: 100%;
   font-size: clamp(0.9rem, 1.1vw, 1.4rem);
   border-radius: 0.375rem 0 0 0.375rem;
@@ -83,8 +83,8 @@ export const SearchInput = styled.input`
 export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #0325d1;
-  height: 2.8125rem;
-  width: 3.4rem;
+  height: 2.7rem;
+  width: 3.2rem;
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;
