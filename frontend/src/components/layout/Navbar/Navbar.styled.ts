@@ -4,9 +4,10 @@ import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
+  justify-content: flex-end;
   width: fit-content;
   @media (min-width: ${breakpoints.lg}) {
-    width: ${({ isFirstVisit }) => (isFirstVisit ? '27%' : '100%')};
+    width: 100%;
   }
 `;
 
