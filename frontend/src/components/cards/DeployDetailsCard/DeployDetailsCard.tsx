@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
+import { useAppWidth } from 'src/hooks';
 import { Deploy } from '../../../api';
 import { Heading, InfoCard, HeadContentWrapper, Button } from '../../base';
 import {
@@ -25,6 +26,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
 }) => {
   const { deployHash, blockHash, publicKey, rawDeploy } = deploy;
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
+  const { isMobile } = useAppWidth();
   const { t } = useTranslation();
 
   const toggleHashView = () => {
@@ -36,14 +38,17 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       <HeadContentWrapper>
         <DeployHeading type="h1">{t('deploy-details')}</DeployHeading>
         <HashWrapper>
-          <HashHeading type="h2" isTruncated={isTruncated}>
+          <HashHeading type="h2" isTruncated={isTruncated} isMobile={isMobile}>
             {isTruncated ? (
               <Hash hash={blockHash} alwaysTruncate />
             ) : (
               <Hash hash={blockHash} />
             )}
           </HashHeading>
-          <HashButton type="button" onClick={toggleHashView}>
+          <HashButton
+            type="button"
+            onClick={toggleHashView}
+            isMobile={isMobile}>
             {isTruncated ? 'Expand' : 'Collapse'}
           </HashButton>
         </HashWrapper>
@@ -98,22 +103,26 @@ const HashWrapper = styled.div`
   flex-direction: column;
 `;
 
-const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
+const HashHeading = styled(GradientHeading)<{
+  isTruncated: boolean;
+  isMobile: boolean;
+}>`
   font-weight: ${fontWeight.extraBold};
   display: inline;
   margin: 0;
-  width: ${({ isTruncated }) => (isTruncated ? '30%' : '100%')};
-  overflow-wrap: break-word;
+  min-width: ${pxToRem(360)};
+  width: ${({ isTruncated }) => (isTruncated ? '30%' : '95%')};
+  overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
 `;
 
-const HashButton = styled(Button)`
+const HashButton = styled(Button)<{ isMobile: boolean }>`
+  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
   color: ${colors.greyBlue};
   background-color: transparent;
   border-style: none;
   padding: 0 ${pxToRem(5)};
   width: fit-content;
-  position: relative;
-  right: ${pxToRem(4)};
+  margin-bottom: 2rem;
 
   :active,
   :hover {
