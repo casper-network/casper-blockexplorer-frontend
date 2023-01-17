@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 
 import { useTranslation } from 'react-i18next';
-import { BlueLogo } from 'src/components/logos';
 import { useAppWidth } from 'src/hooks';
+import { loadConfig } from 'src/utils';
 import { NavButton } from '../../buttons/NavButton';
 import { SearchForm } from '../Header/Partials';
 
 import {
   LogoSearchFormWrapper,
-  NavLogoLink,
-  ExplorerLogo,
   NavComponentsContainer,
   Nav,
   NavItemsContainer,
@@ -23,6 +21,7 @@ import {
 } from './Navbar.styled';
 
 import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
+import { ConfigurableLogo, DefaultNavLogo } from '../LogoComponents';
 
 const navItems = [
   {
@@ -46,6 +45,7 @@ export const Navbar: React.FC = () => {
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const [isOpened, setIsOpened] = useState(false);
   const { t } = useTranslation();
+  const { logoUrl } = loadConfig();
 
   const { isMobile } = useAppWidth();
 
@@ -66,18 +66,18 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpened]);
 
-  const returnVisitDesktop = (
+  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
+
+  const returnVisitDesktopNavDisplay = (
     <LogoSearchFormWrapper>
-      <NavLogoLink to="/">
-        <BlueLogo />
-        <ExplorerLogo />
-      </NavLogoLink>
+      {logo}
       <SearchForm />
     </LogoSearchFormWrapper>
   );
+
   return (
     <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
-      {!isFirstVisit && !isMobile && returnVisitDesktop}
+      {!isFirstVisit && !isMobile && returnVisitDesktopNavDisplay}
       <NavComponentsContainer>
         <NavButton
           type="button"

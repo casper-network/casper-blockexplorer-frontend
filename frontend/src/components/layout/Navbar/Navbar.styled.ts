@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { ExpLogo } from 'src/components/logos';
 import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
@@ -19,25 +18,6 @@ export const LogoSearchFormWrapper = styled.div`
   gap: ${pxToRem(20)};
   width: 100%;
   padding-left: ${pxToRem(20)};
-`;
-
-export const NavLogoLink = styled(Link)`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  text-decoration-line: none;
-  min-width: ${pxToRem(140)};
-
-  :hover,
-  :focus {
-    text-decoration-line: none;
-  }
-`;
-
-export const ExplorerLogo = styled(ExpLogo)`
-  display: block;
-  width: 100%;
 `;
 
 export const NavComponentsContainer = styled.div`
