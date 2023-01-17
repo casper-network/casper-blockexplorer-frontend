@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppWidth } from 'src/hooks';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
-import { ConfigurableLogo, DefaultLogo } from './LogoComponents';
+import { ConfigurableLogo, DefaultHeaderLogo } from '../LogoComponents';
 import { loadConfig } from '../../../utils/load-config';
 
 import { SearchForm } from './Partials';
@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
   const { isDropdownMenu, isMobile } = useAppWidth();
   const { logoUrl } = loadConfig();
 
-  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultLogo />;
+  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultHeaderLogo />;
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
