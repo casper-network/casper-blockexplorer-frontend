@@ -9,7 +9,7 @@ import {
   H3,
   H3Data,
 } from '../HomeComponents.styled';
-import { breakpoints, pxToRem } from '../../../../styled-theme';
+import { pxToRem } from '../../../../styled-theme';
 import { PeersIcon } from '../../../icons';
 
 interface PeersValidatorsInfoProps {

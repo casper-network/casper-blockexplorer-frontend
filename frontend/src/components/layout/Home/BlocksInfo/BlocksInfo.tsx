@@ -10,7 +10,7 @@ import {
   H3Data,
   DataContext,
 } from '../HomeComponents.styled';
-import { breakpoints, pxToRem } from '../../../../styled-theme';
+import { pxToRem } from '../../../../styled-theme';
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
