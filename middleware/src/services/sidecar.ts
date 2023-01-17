@@ -115,7 +115,7 @@ export class Sidecar {
    * Retrieve the step event emitted at the end of an era, given a valid era identifier.
    * @param eraId era id to get step
    */
-  public async getStepByEra(eraId: number) {
+  public async getStepByEra(eraId: number | string) {
     const cacheKey = `step:${eraId}`;
     const existEra = this.cache.get(cacheKey);
     if (existEra) return existEra;
