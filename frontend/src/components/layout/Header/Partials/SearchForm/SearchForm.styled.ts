@@ -21,10 +21,11 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: start;
-    width: ${({ isFirstVisit }) => (isFirstVisit ? '64%' : '100%')};
-    min-width: 0;
-    max-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(792)}` : `${pxToRem(975)}`};
+    width: 100%;
+    min-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(500)}`};
+    max-width: ${pxToRem(860)};
+    margin: 0 auto;
     padding-right: ${({ isFirstVisit }) =>
       isFirstVisit ? '0' : `${pxToRem(20)}`};
   }
