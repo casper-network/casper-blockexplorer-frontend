@@ -1,3 +1,5 @@
+import { ExecutionResult, JsonHeader as DeployAccepted } from "casper-js-sdk";
+export { JsonHeader as DeployAccepted } from "casper-js-sdk";
 export interface GetBlock {
   block_hash: string;
   block: Block;
@@ -27,4 +29,21 @@ export interface Header {
   era_id: number;
   height: number;
   protocol_version: string;
+}
+
+export interface GetDeploy {
+  deploy_hash: string;
+  deploy_accepted: DeployAccepted;
+  deploy_processed: DeployProcessed | Record<string, never>;
+  deploy_expired: boolean;
+}
+
+export interface DeployProcessed {
+  deploy_hash: string;
+  account: string;
+  timestamp: Date;
+  ttl: string;
+  dependencies: any[];
+  block_hash: string;
+  execution_result: ExecutionResult;
 }

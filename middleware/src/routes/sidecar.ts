@@ -4,7 +4,7 @@ import { param, query } from "express-validator";
 import { SIDE_CAR_REST_URL } from "../config";
 import { validate } from "../middlewares";
 import { ExtendedSidecar } from "../services";
-import { DeployProcessed } from "../services/sidecar";
+import { DeployProcessedEnum } from "../services/sidecar";
 import { Sort } from "../types";
 import { catchAsync, isValidHash, isValidPublicKey } from "../utils";
 
@@ -197,7 +197,7 @@ router.get(
   ]),
   catchAsync(async (req, res) => {
     const { hash, type } = req.params;
-    const deploy = await sidecar.getDeploy(hash, type as DeployProcessed);
+    const deploy = await sidecar.getDeploy(hash, type as DeployProcessedEnum);
     res.json(deploy);
   })
 );

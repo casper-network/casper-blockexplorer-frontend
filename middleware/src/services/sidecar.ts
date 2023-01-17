@@ -2,8 +2,9 @@ import axios, { AxiosInstance } from "axios";
 import NodeCache from "node-cache";
 
 import { SidecarTypes } from "../types";
+import { DeployAccepted, DeployProcessed, GetDeploy } from "../types/sidecar";
 
-export enum DeployProcessed {
+export enum DeployProcessedEnum {
   Accepted = "accepted",
   Processed = "processed",
   Expired = "expired",
@@ -65,14 +66,14 @@ export class Sidecar {
    * @param hash deploy hash to get deploy
    * @param type enum `DeployProcessed`
    */
-  public async getDeploy(hash: string, type?: DeployProcessed) {
+  public async getDeploy(hash: string, type?: DeployProcessedEnum) {
     const cacheKey = `deploy:${hash}-${type}`;
     const existDeploy = this.cache.get(cacheKey);
     if (existDeploy) return existDeploy;
 
-    const { data } = await this.api.get(
-      `/deploy/${type ? type + "/" : ""}${hash}`
-    );
+    const { data } = await this.api.get<
+      GetDeploy | DeployAccepted | DeployProcessed
+    >(`/deploy/${type ? type + "/" : ""}${hash}`);
 
     this.cache.set(cacheKey, data);
 
