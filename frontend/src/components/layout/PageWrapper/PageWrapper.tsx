@@ -60,7 +60,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
 };
 
 const BaseContentContainer = styled.main`
-  width: 100%;
+  width: 99%;
   margin: 0 auto;
   background-color: #fff;
   padding: ${pxToRem(24)} 0 0 0;
