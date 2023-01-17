@@ -27,12 +27,12 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
 }) => {
-  const [isHashTruncated, setIsHashTruncated] = useState<boolean>(true);
+  const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { t } = useTranslation();
   const { trimmedAccountHash, publicKey, rawAccount } = account;
 
   const toggleHashView = () => {
-    setIsHashTruncated(() => !isHashTruncated);
+    setIsTruncated(() => !isTruncated);
   };
 
   return (
@@ -43,10 +43,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           <AvatarIcon
             src={`${AVATAR_URL}${trimmedAccountHash}.svg`}
             alt="avatar"
-            isHashTruncated={isHashTruncated}
+            isTruncated={isTruncated}
           />
-          <HashHeading type="h2">
-            {isHashTruncated ? (
+          <HashHeading type="h2" isTruncated={isTruncated}>
+            {isTruncated ? (
               <Hash hash={trimmedAccountHash} alwaysTruncate />
             ) : (
               <Hash hash={trimmedAccountHash} />
@@ -55,7 +55,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </AvatarHashContainer>
       </HeadContentContainer>
       <HashButton type="button" onClick={toggleHashView}>
-        {isHashTruncated ? 'Expand' : 'Collapse'}
+        {isTruncated ? 'Expand' : 'Collapse'}
       </HashButton>
 
       <DetailDataWrapper>
@@ -107,11 +107,11 @@ const AvatarHashContainer = styled.div`
   flex-direction: row;
 `;
 
-const HashHeading = styled(GradientHeading)`
+const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
   font-weight: ${fontWeight.extraBold};
   display: inline;
   margin: 0;
-  width: 95%;
+  width: ${({ isTruncated }) => (isTruncated ? '30%' : '95%')};
   overflow-wrap: break-word;
 `;
 
