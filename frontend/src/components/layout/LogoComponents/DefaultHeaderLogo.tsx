@@ -29,7 +29,7 @@ export const LogoLink = styled(Link)`
 
   @media (min-width: ${breakpoints.xxs}) {
     padding-top: ${pxToRem(3)};
-    max-width: 18rem;
+    max-width: 16.75rem;
   }
 
   @media (min-width: ${breakpoints.lg}) {
