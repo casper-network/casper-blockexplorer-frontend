@@ -8,14 +8,19 @@ describe("Sidecar", () => {
 
   it("should return the latest block", async () => {
     const latestBlock = await sidecar.getTheLatestBlock();
-    expect(latestBlock).to.have.keys(["block_hash", "block"]);
+    expect(latestBlock).to.have.keys(["hash", "header", "body", "proofs"]);
   });
 
   it("should return the block by height or hash", async () => {
     const firstBlockByHeight = await sidecar.getBlock(0);
-    expect(firstBlockByHeight).to.have.keys(["block_hash", "block"]);
+    expect(firstBlockByHeight).to.have.keys([
+      "hash",
+      "header",
+      "body",
+      "proofs",
+    ]);
 
-    const firstBlockHash = firstBlockByHeight.block_hash;
+    const firstBlockHash = firstBlockByHeight.hash;
 
     const firstBlockByHash = await sidecar.getBlock(firstBlockHash);
 

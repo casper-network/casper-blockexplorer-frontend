@@ -48,7 +48,7 @@ export class Sidecar {
    */
   public async getBlock(hashOrHeight: string | number) {
     const cacheKey = `block:${hashOrHeight}`;
-    const existBlock = this.cache.get<SidecarTypes.GetBlock>(cacheKey);
+    const existBlock = this.cache.get<SidecarTypes.Block>(cacheKey);
     if (existBlock) return existBlock;
 
     const {

@@ -1,3 +1,4 @@
+import axios from "axios";
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 
@@ -12,8 +13,14 @@ export const errorConverter: express.ErrorRequestHandler = (
 ) => {
   let error = err;
   if (!(error instanceof ApiError)) {
-    const statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
-    const message = error.message || StatusCodes[statusCode];
+    let statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+    let message = error.message || StatusCodes[statusCode];
+
+    if (axios.isAxiosError(error)) {
+      statusCode = error.response?.status || StatusCodes.INTERNAL_SERVER_ERROR;
+      message = error.response?.statusText || StatusCodes[statusCode];
+    }
+
     error = new ApiError(statusCode, message, false, err.stack);
   }
   next(error);
