@@ -22,7 +22,7 @@ export const loadConfig: () => AppConfig = () => {
 
   const webServerUrl = isProduction
     ? middlewareUrl
-    : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
+    : reactAppMiddlewareUrl || 'http://localhost:4000';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');

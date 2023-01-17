@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Block } from '../../../api';
-import { truncateHash } from '../../../utils';
+import { formatTimeAgo, truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard } from '../../utility';
 
@@ -16,10 +16,8 @@ export const BlockCarouselCard: React.FC<BlockCarouselCardProps> = ({
   const { t } = useTranslation();
   const {
     hash: blockHash,
-    height: blockHeight,
-    eraID: era,
-    timeSince,
-    deployHashes,
+    header: { height: blockHeight, era_id: era, timestamp },
+    body: { deploy_hashes: deployHashes },
   } = block;
 
   const rows = [
@@ -32,12 +30,12 @@ export const BlockCarouselCard: React.FC<BlockCarouselCardProps> = ({
     {
       key: `deploys=${blockHash}`,
       detailKey: t('deploy'),
-      value: deployHashes?.length,
+      value: deployHashes.length,
     },
     {
       key: `age-${blockHash}`,
       detailKey: t('age'),
-      value: timeSince,
+      value: formatTimeAgo(new Date(timestamp)),
     },
     {
       key: `hash-${blockHash}`,

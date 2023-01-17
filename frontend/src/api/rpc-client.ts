@@ -5,7 +5,7 @@ import {
 } from 'casper-js-sdk';
 import NodeCache from 'node-cache';
 
-import { Block, Deploy, DeployStatus, Peer, NetworkStatus } from './types';
+import { Block, Deploy, DeployStatus, NetworkStatus } from './types';
 import { formatDate, formatTimeAgo, loadConfig } from '../utils';
 import { ApiError } from './api-error';
 import {
@@ -98,22 +98,6 @@ export class RpcApi {
         });
       }
     };
-
-  getPeers: () => Promise<Peer[]> = async () => {
-    try {
-      const { peers } = await this.rpcClient.getPeers();
-
-      return peers.map(p => ({ id: p.node_id, address: p.address }));
-    } catch (err) {
-      throw new ApiError({
-        type: RpcApiError.PeersFetchFailed,
-        message: 'An error occurred while fetching peers',
-        data: {
-          err,
-        },
-      });
-    }
-  };
 
   async getValidators() {
     const latestBlock = await this.rpcClient.getLatestBlockInfo();
@@ -428,6 +412,6 @@ export enum RpcApiError {
   GetStatusFailed = 'getStatus/fetch-failed',
 }
 
-const casperJsonRpcService = new CasperServiceByJsonRPC(webServerUrl);
+const casperJsonRpcService = new CasperServiceByJsonRPC(`${webServerUrl}/rpc`);
 
 export const casperApi = new RpcApi(casperJsonRpcService);

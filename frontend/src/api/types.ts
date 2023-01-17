@@ -23,11 +23,6 @@ export type Block = {
   rawBlock: string;
 };
 
-export type Peer = {
-  id: string;
-  address: string;
-};
-
 export enum DeployStatus {
   Success = 'Success',
   Failed = 'Failed',

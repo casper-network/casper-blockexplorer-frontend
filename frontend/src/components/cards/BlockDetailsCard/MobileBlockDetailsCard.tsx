@@ -22,16 +22,21 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
 }) => {
   const {
     hash: blockHash,
-    readableTimestamp,
-    height: blockHeight,
-    eraID: era,
-    parentHash,
-    stateRootHash,
-    validatorPublicKey,
-    transferHashes,
-    deployHashes,
-    rawBlock,
+    header: {
+      height: blockHeight,
+      timestamp: readableTimestamp,
+      era_id: era,
+      parent_hash: parentHash,
+      state_root_hash: stateRootHash,
+    },
+    body: {
+      proposer: validatorPublicKey,
+      transfer_hashes: transferHashes,
+      deploy_hashes: deployHashes,
+    },
   } = block;
+
+  const rawBlock = JSON.stringify(block);
 
   const { t } = useTranslation();
 
@@ -53,7 +58,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           </li>
           <li>
             <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-            <DetailDataValue>{readableTimestamp}</DetailDataValue>
+            <DetailDataValue>
+              {readableTimestamp.toLocaleString()}
+            </DetailDataValue>
           </li>
         </DetailDataRowWrapper>
       </InfoCard>

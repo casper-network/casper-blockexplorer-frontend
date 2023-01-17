@@ -89,22 +89,24 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     () => [
       {
         header: `${t('block-height')}`,
-        accessorKey: 'height',
+        id: 'height',
+        accessorKey: 'header.height',
         cell: ({ getValue }) => <>{standardizeNumber(getValue<number>())}</>,
       },
       {
         header: `${t('era')}`,
-        accessorKey: 'eraID',
+        accessorKey: 'header.era_id',
         maxSize: 100,
       },
       {
         header: `${t('deploy')}`,
-        accessorKey: 'deployCount',
+        accessorKey: 'body.deploy_hashes',
+        cell: ({ getValue }) => getValue<string[]>().length,
         maxSize: 100,
       },
       {
         header: `${t('age')}`,
-        accessorKey: 'timestamp',
+        accessorKey: 'header.timestamp',
         cell: ({ getValue, column }) => (
           <div>
             {column.getIsSorted()
@@ -133,7 +135,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       },
       {
         header: `${t('validator')}`,
-        accessorKey: 'validatorPublicKey',
+        accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
             <Link

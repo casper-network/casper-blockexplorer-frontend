@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SortingState } from '@tanstack/react-table';
 
-import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
+import { useBlocks, useLatestBlock, IUseBlocks } from 'src/hooks';
 import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
 import { useAppSelector } from 'src/store';
 
@@ -29,8 +29,7 @@ export const Blocks: React.FC = () => {
   const { refreshTimer } = useAppSelector(state => state.app);
 
   const { t } = useTranslation();
-  const { data: latestBlockHeight, refetch: refetchLatestBlockHeight } =
-    useLatestBlockHeight();
+  const { data: latestBlock, refetch: refetchLatestBlock } = useLatestBlock();
   const {
     data,
     isLoading,
@@ -45,7 +44,7 @@ export const Blocks: React.FC = () => {
 
   useEffect(() => {
     if (refreshTimer === 0) {
-      refetchLatestBlockHeight();
+      refetchLatestBlock();
       refetchBlocks();
     }
 
@@ -74,7 +73,7 @@ export const Blocks: React.FC = () => {
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       {blocks && (
         <BlockTable
-          latestBlockHeight={latestBlockHeight}
+          latestBlockHeight={latestBlock?.header.height}
           blocks={blocks}
           fetchMore={fetchNextPage}
           isLoadingMoreBlocks={isFetchingNextPage}
