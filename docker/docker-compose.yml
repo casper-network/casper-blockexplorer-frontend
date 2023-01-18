@@ -7,10 +7,12 @@ services:
       dockerfile: frontend/Dockerfile
       args:
         - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
+        - REACT_APP_ORG_LOGO_URL=${ORG_LOGO_URL}
     image: blockexplorer-frontend
     environment:
       - NODE_ENV=development
       - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
+      - REACT_APP_ORG_LOGO_URL=${ORG_LOGO_URL}
     restart: on-failure
     volumes:
       - ./../frontend:/usr/src/app
