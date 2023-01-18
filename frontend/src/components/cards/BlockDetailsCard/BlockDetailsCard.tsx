@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { colors, pxToRem } from 'src/styled-theme';
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { Block } from '../../../api';
 import { Button, HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
@@ -34,11 +34,11 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     deployHashes,
     rawBlock,
   } = block;
-  const [isHashTruncated, setIsHashTruncated] = useState<Boolean>(true);
+  const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { t } = useTranslation();
 
   const toggleHashView = () => {
-    setIsHashTruncated(() => !isHashTruncated);
+    setIsTruncated(() => !isTruncated);
   };
 
   return (
@@ -46,15 +46,15 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       <HeadContentWrapper>
         <AccountHeading type="h1">{t('block-details')}</AccountHeading>
         <HashWrapper>
-          <HashHeading type="h2">
-            {isHashTruncated ? (
+          <HashHeading type="h2" isTruncated={isTruncated}>
+            {isTruncated ? (
               <Hash hash={blockHash} alwaysTruncate />
             ) : (
               <Hash hash={blockHash} />
             )}
           </HashHeading>
           <HashButton type="button" onClick={toggleHashView}>
-            {isHashTruncated ? 'Expand' : 'Collapse'}
+            {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
           </HashButton>
         </HashWrapper>
       </HeadContentWrapper>
@@ -170,11 +170,12 @@ const HashWrapper = styled.div`
   flex-direction: column;
 `;
 
-const HashHeading = styled(GradientHeading)`
-  font-weight: 800;
+const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
+  font-weight: ${fontWeight.extraBold};
   display: inline;
   margin: 0;
-  width: 100%;
+  width: ${({ isTruncated }) => (isTruncated ? '30%' : '100%')};
+  min-width: ${pxToRem(360)};
   overflow-wrap: break-word;
 `;
 

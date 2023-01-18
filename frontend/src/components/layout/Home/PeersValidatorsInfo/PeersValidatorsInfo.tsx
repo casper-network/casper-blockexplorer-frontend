@@ -9,7 +9,7 @@ import {
   H3,
   H3Data,
 } from '../HomeComponents.styled';
-import { breakpoints } from '../../../../styled-theme';
+import { pxToRem } from '../../../../styled-theme';
 import { PeersIcon } from '../../../icons';
 
 interface PeersValidatorsInfoProps {
@@ -50,15 +50,8 @@ const PeersInfoDisplay = styled.section`
   background: #ffffff;
   border: 0.063rem solid #e3e3e9;
   box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.15);
-  padding-bottom: 1.5rem;
-
-  @media (min-width: ${breakpoints.md}) {
-    min-width: 44.5%;
-  }
-
-  @media (min-width: ${breakpoints.lg}) {
-    min-width: 35%;
-  }
+  margin-bottom: ${pxToRem(50)};
+  width: 100%;
 `;
 
 const PeersHeader = styled.header`

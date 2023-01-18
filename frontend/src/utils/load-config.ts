@@ -5,6 +5,7 @@
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
+  logoUrl?: string;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -14,15 +15,20 @@ Object.keys(ENV).forEach(key => {
 });
 
 export const loadConfig: () => AppConfig = () => {
-  const { NODE_ENV, REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl } =
-    process.env;
-  const { MIDDLEWARE_URL: middlewareUrl } = ENV;
+  const {
+    NODE_ENV,
+    REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
+    REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
+  } = process.env;
+  const { MIDDLEWARE_URL: middlewareUrl, ORG_LOGO_URL: orgLogoUrl } = ENV;
 
   const isProduction = NODE_ENV === 'production';
 
   const webServerUrl = isProduction
     ? middlewareUrl
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
+
+  const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
@@ -31,5 +37,6 @@ export const loadConfig: () => AppConfig = () => {
   return {
     isProduction,
     webServerUrl,
+    logoUrl,
   };
 };

@@ -106,6 +106,7 @@ const TableWrapper = styled.div`
   border-radius: 0.5rem;
   overflow-x: auto;
   max-width: calc(100vw - 5rem);
+  margin: 0 auto;
   background-color: white;
   box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.2);
 `;
