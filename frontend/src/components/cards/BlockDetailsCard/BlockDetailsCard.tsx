@@ -54,7 +54,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             )}
           </HashHeading>
           <HashButton type="button" onClick={toggleHashView}>
-            {isTruncated ? 'Expand' : 'Collapse'}
+            {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
           </HashButton>
         </HashWrapper>
       </HeadContentWrapper>

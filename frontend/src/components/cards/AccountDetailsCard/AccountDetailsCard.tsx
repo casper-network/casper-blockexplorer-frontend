@@ -57,7 +57,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </AvatarHashContainer>
       </HeadContentContainer>
       <HashButton type="button" onClick={toggleHashView} isMobile={isMobile}>
-        {isTruncated ? 'Expand' : 'Collapse'}
+        {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
       </HashButton>
 
       <DetailDataWrapper>
