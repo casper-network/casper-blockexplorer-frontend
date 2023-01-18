@@ -29,8 +29,8 @@ export const loadConfig: () => AppConfig = () => {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
 
-  // const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
-  const logoUrl = '';
+  const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
+  // const logoUrl = '';
 
   return {
     isProduction,
