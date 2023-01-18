@@ -39,7 +39,7 @@ export const LogoLink = styled(Link)`
 
 export const BlueCasperLogo = styled(BlueLogo)`
   width: 10%;
-  margin-right: 5px;
+  margin-right: ${pxToRem(5)};
 
   @media (min-width: ${breakpoints.lg}) {
     display: none;
