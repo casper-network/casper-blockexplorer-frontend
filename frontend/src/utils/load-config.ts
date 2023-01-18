@@ -15,9 +15,12 @@ Object.keys(ENV).forEach(key => {
 });
 
 export const loadConfig: () => AppConfig = () => {
-  const { NODE_ENV, REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl } =
-    process.env;
-  const { MIDDLEWARE_URL: middlewareUrl } = ENV;
+  const {
+    NODE_ENV,
+    REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
+    REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
+  } = process.env;
+  const { MIDDLEWARE_URL: middlewareUrl, ORG_LOGO_URL: orgLogoUrl } = ENV;
 
   const isProduction = NODE_ENV === 'production';
 
@@ -25,12 +28,11 @@ export const loadConfig: () => AppConfig = () => {
     ? middlewareUrl
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
+  const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
-
-  // const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
-  const logoUrl = '';
 
   return {
     isProduction,

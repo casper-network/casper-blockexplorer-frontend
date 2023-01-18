@@ -23,6 +23,7 @@ export const ConfigurableLogoLink = styled(Link)<{ isMobile: boolean }>`
   align-items: center;
   text-decoration-line: none;
   contain: content;
+  min-width: ${pxToRem(200)};
   max-height: ${({ isMobile }) =>
     isMobile ? `${pxToRem(55)}` : `${pxToRem(45)}`};
   max-width: ${({ isMobile }) =>
