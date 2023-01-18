@@ -1,17 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RectReadOnly } from 'react-use-measure';
-import { REFRESH_TIMER_SECONDS } from '../../constants';
+import { loadConfig } from 'src/utils';
+import { REFRESH_TIMER_SECONDS, DEFAULT_APP_TITLE } from '../../constants';
 
 export interface AppState {
   bounds?: RectReadOnly;
   refreshTimer: number;
   isFirstVisit: boolean;
+  appTitle: string;
 }
+
+const { title } = loadConfig();
 
 const initialState: AppState = {
   bounds: undefined,
   refreshTimer: REFRESH_TIMER_SECONDS,
   isFirstVisit: false,
+  appTitle: title || DEFAULT_APP_TITLE,
 };
 
 export const appSlice = createSlice({
