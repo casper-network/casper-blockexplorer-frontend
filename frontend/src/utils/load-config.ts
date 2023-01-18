@@ -6,6 +6,7 @@ export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
+  title?: string;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -28,7 +29,12 @@ export const loadConfig: () => AppConfig = () => {
     ? middlewareUrl
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
-  const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+  // const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+
+  const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
+
+  // const titleText = isProduction ? orgTitle : reactAppTitle || '';
+  const title = 'Chengdu Explorer';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
@@ -38,5 +44,6 @@ export const loadConfig: () => AppConfig = () => {
     isProduction,
     webServerUrl,
     logoUrl,
+    title,
   };
 };
