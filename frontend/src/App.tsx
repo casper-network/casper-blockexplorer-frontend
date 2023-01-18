@@ -1,6 +1,7 @@
 import React, { StrictMode, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import useMeasure from 'react-use-measure';
 
 import { Footer, Header } from './components';
@@ -19,8 +20,11 @@ import {
   useAppDispatch,
   fetchStatus,
   setIsFirstVisit,
+  appTitle,
+  useAppSelector,
 } from './store';
 import { useAppRefresh } from './hooks';
+import { loadConfig } from './utils';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -46,9 +50,19 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [usersVisitationStatus, dispatch]);
 
+  const { logoUrl } = loadConfig();
+
+  const title = useAppSelector(appTitle);
+
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
+        <Helmet>
+          <html lang="en" />
+          <link rel="icon" href={logoUrl} />
+          <title>{title}</title>
+          <meta name="description" content="Basic example" />
+        </Helmet>
         <AppWrapper ref={ref}>
           <BrowserRouter>
             <Header />

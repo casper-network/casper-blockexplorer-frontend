@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { useAppSelector, appTitle } from 'src/store';
 import { casperApi, Account } from '../api';
 import { AccountDetailsCard, PageError, PageWrapper } from '../components';
 
@@ -44,8 +46,15 @@ export const AccountPage: React.FC = () => {
 
   const isLoading = !account || !balance;
 
+  const title = useAppSelector(appTitle);
+
+  const accountTitle = `${t('account-details')} | ${title}`;
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
+      <Helmet>
+        <title>{accountTitle}</title>
+      </Helmet>
       {!isLoading && accountHash && (
         <AccountDetailsCard account={account} balance={balance} />
       )}

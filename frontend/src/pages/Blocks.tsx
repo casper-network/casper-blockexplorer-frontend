@@ -5,7 +5,8 @@ import { SortingState } from '@tanstack/react-table';
 
 import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
 import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
-import { useAppSelector } from 'src/store';
+import { appTitle, useAppSelector } from 'src/store';
+import { Helmet } from 'react-helmet';
 
 const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
 
@@ -69,8 +70,15 @@ export const Blocks: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldRefetchBlocks]);
 
+  const title = useAppSelector(appTitle);
+
+  const blocksTitle = `${t('blocks')} | ${title}`;
+
   return (
     <PageWrapper isLoading={isLoading}>
+      <Helmet>
+        <title>{blocksTitle}</title>
+      </Helmet>
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       {blocks && (
         <BlockTable

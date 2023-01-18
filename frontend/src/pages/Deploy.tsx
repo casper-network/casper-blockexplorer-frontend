@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { appTitle, useAppSelector } from 'src/store';
 import { casperApi, Deploy } from '../api';
 import {
   DeployDetailsCard,
@@ -42,8 +44,15 @@ export const DeployPage: React.FC = () => {
 
   const isLoading = !deploy;
 
+  const title = useAppSelector(appTitle);
+
+  const deployTitle = `${t('deploy-details')} | ${title}`;
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
+      <Helmet>
+        <title>{deployTitle}</title>
+      </Helmet>
       {!isLoading && deployHash && (
         <Grid gap="2.5rem">
           <DeployDetailsCard deploy={deploy} />

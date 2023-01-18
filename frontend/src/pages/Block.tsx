@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { appTitle, useAppSelector } from 'src/store';
 import { casperApi, Block } from '../api';
 import { useAppWidth } from '../hooks';
 import {
@@ -58,8 +60,15 @@ export const BlockPage: React.FC = () => {
 
   const isLoading = !block;
 
+  const title = useAppSelector(appTitle);
+
+  const blockInfo = `${t('block-details')} | ${title}`;
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
+      <Helmet>
+        <title>{blockInfo}</title>
+      </Helmet>
       {!isMobile && !isLoading && blockIdentifier && (
         <BlockDetailsCard block={block} />
       )}
