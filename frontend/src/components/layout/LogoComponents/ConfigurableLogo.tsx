@@ -27,7 +27,7 @@ export const ConfigurableLogoLink = styled(Link)<{ isMobile: boolean }>`
   max-height: ${({ isMobile }) =>
     isMobile ? `${pxToRem(55)}` : `${pxToRem(45)}`};
   max-width: ${({ isMobile }) =>
-    isMobile ? 'fit-content' : `${pxToRem(200)}`};
+    isMobile ? `${pxToRem(250)}` : `${pxToRem(200)}`};
   padding-top: ${({ isMobile }) => (isMobile ? `${pxToRem(7)}` : '0')};
 
   :hover,
