@@ -6,7 +6,7 @@ export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
-  title?: string;
+  title?: string | undefined;
 }
 
 /* eslint-disable prefer-destructuring */
