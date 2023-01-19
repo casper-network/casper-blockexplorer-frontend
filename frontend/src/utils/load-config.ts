@@ -31,16 +31,17 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   // const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+  // const faviconUrl = isProduction? orgLogoUrl : reactAppLogoUrl || '';
   // const titleText = isProduction ? orgTitle : reactAppTitle || '';
 
-  const logoUrl = '';
-  const faviconUrl = '';
-  const title = '';
+  // const logoUrl = '';
+  // const faviconUrl = '';
+  // const title = '';
 
-  // const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
-  // const faviconUrl =
-  //   'https://chengduchain.com/assets/img/chengdu-chain-icon-white.svg';
-  // const title = 'Chengdu Explorer';
+  const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
+  const faviconUrl =
+    'https://chengduchain.com/assets/img/chengdu-chain-icon-white.svg';
+  const title = 'Chengdu Explorer';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
