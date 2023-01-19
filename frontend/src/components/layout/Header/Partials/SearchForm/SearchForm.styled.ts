@@ -23,8 +23,9 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
     justify-content: start;
     width: 100%;
     min-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(500)}`};
-    max-width: ${pxToRem(860)};
+      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(350)}`};
+    max-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(1000)}`};
     margin: 0 auto;
     padding-right: ${({ isFirstVisit }) =>
       isFirstVisit ? '0' : `${pxToRem(20)}`};
