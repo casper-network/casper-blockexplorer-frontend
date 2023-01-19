@@ -1,10 +1,10 @@
 import { expect } from "chai";
 
-import { SIDE_CAR_REST_URL } from "../config";
+import { SIDECAR_REST_URL } from "../config";
 import { Sidecar } from "./sidecar";
 
 describe("Sidecar", () => {
-  const sidecar = new Sidecar(SIDE_CAR_REST_URL);
+  const sidecar = new Sidecar(SIDECAR_REST_URL);
 
   it("should return the latest block", async () => {
     const latestBlock = await sidecar.getTheLatestBlock();

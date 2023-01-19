@@ -1,7 +1,7 @@
 import express from "express";
 import { param, query } from "express-validator";
 
-import { SIDE_CAR_REST_URL } from "../config";
+import { SIDECAR_REST_URL } from "../config";
 import { validate } from "../middlewares";
 import { ExtendedSidecar } from "../services";
 import { DeployProcessedEnum } from "../services/sidecar";
@@ -9,7 +9,7 @@ import { Sort } from "../types";
 import { catchAsync, isValidHash, isValidPublicKey } from "../utils";
 
 const router = express.Router();
-const sidecar = new ExtendedSidecar(SIDE_CAR_REST_URL);
+const sidecar = new ExtendedSidecar(SIDECAR_REST_URL);
 
 /**
  * @openapi

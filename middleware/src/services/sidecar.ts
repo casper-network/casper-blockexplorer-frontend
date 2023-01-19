@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import NodeCache from "node-cache";
 
+import { BLOCK_GENERATE_INTERVAL } from "../config";
 import { SidecarTypes } from "../types";
 import { DeployAccepted, DeployProcessed, GetDeploy } from "../types/sidecar";
 
@@ -19,10 +20,9 @@ export enum DeployProcessedEnum {
 export class Sidecar {
   public cache: NodeCache;
   private api: AxiosInstance;
-  BLOCK_GENERATE_INTERVAL = 30;
 
   constructor(public url: string) {
-    this.cache = new NodeCache({ stdTTL: this.BLOCK_GENERATE_INTERVAL });
+    this.cache = new NodeCache({ stdTTL: BLOCK_GENERATE_INTERVAL });
     this.api = axios.create({ baseURL: url });
   }
 
