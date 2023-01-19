@@ -72,7 +72,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__indicators {
     display: block;
     position: absolute;
-    top: 0.25rem;
+    top: 0.2rem;
     left: 7.5rem;
     padding: 0;
   }
@@ -86,9 +86,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
-    padding-right: 2.3rem;
-    padding-left: 1.5rem;
-    padding-bottom: 0.05rem;
+    padding: 0 2.3rem 0.1rem 1.5rem;
     margin: 0 auto;
   }
 
@@ -149,6 +147,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     -moz-text-fill-color: transparent;
     background-color: transparent;
   }
+
   .react-select__option {
     background-color: transparent;
   }
