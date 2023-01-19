@@ -13,6 +13,7 @@ import {
   Loading,
   fetchPeers,
   appTitle,
+  appFavicon,
 } from '../store';
 
 export const Peers: React.FC = () => {
@@ -32,12 +33,14 @@ export const Peers: React.FC = () => {
   }, []);
 
   const title = useAppSelector(appTitle);
+  const favicon = useAppSelector(appFavicon);
 
   const peersTitle = `${t('peers')} | ${title}`;
 
   return (
     <PageWrapper isLoading={isLoading}>
       <Helmet>
+        <link rel="icon" href={favicon} />
         <title>{peersTitle}</title>
       </Helmet>
       <GradientHeading type="h2">{t('connected-peers')}</GradientHeading>

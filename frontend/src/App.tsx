@@ -22,9 +22,9 @@ import {
   setIsFirstVisit,
   appTitle,
   useAppSelector,
+  appFavicon,
 } from './store';
 import { useAppRefresh } from './hooks';
-import { loadConfig } from './utils';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -50,18 +50,15 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [usersVisitationStatus, dispatch]);
 
-  const { faviconUrl } = loadConfig();
-
   const title = useAppSelector(appTitle);
+  const favicon = useAppSelector(appFavicon);
 
   return (
     <StrictMode>
       <React.Suspense fallback="loading...">
         <Helmet>
-          <html lang="en" />
-          <link rel="icon" href={faviconUrl} />
+          <link rel="icon" href={favicon} />
           <title>{title}</title>
-          <meta name="description" content="Basic example" />
         </Helmet>
         <AppWrapper ref={ref}>
           <BrowserRouter>

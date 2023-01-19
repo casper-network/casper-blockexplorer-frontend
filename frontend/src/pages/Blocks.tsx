@@ -5,7 +5,7 @@ import { SortingState } from '@tanstack/react-table';
 
 import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
 import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
-import { appTitle, useAppSelector } from 'src/store';
+import { appFavicon, appTitle, useAppSelector } from 'src/store';
 import { Helmet } from 'react-helmet';
 
 const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
@@ -71,12 +71,14 @@ export const Blocks: React.FC = () => {
   }, [shouldRefetchBlocks]);
 
   const title = useAppSelector(appTitle);
+  const favicon = useAppSelector(appFavicon);
 
   const blocksTitle = `${t('blocks')} | ${title}`;
 
   return (
     <PageWrapper isLoading={isLoading}>
       <Helmet>
+        <link rel="icon" href={favicon} />
         <title>{blocksTitle}</title>
       </Helmet>
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>

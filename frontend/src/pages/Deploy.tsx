@@ -3,7 +3,7 @@ import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { appTitle, useAppSelector } from 'src/store';
+import { appFavicon, appTitle, useAppSelector } from 'src/store';
 import { casperApi, Deploy } from '../api';
 import {
   DeployDetailsCard,
@@ -45,12 +45,14 @@ export const DeployPage: React.FC = () => {
   const isLoading = !deploy;
 
   const title = useAppSelector(appTitle);
+  const favicon = useAppSelector(appFavicon);
 
   const deployTitle = `${t('deploy-details')} | ${title}`;
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
       <Helmet>
+        <link rel="icon" href={favicon} />
         <title>{deployTitle}</title>
       </Helmet>
       {!isLoading && deployHash && (
