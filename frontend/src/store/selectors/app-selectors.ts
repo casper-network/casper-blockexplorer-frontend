@@ -15,3 +15,7 @@ export const getIsFirstVisit = (state: RootState) => {
 export const appTitle = (state: RootState) => {
   return state.app.appTitle;
 };
+
+export const appFavicon = (state: RootState) => {
+  return state.app.appFavicon;
+};
