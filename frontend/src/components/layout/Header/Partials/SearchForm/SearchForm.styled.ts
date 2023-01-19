@@ -6,22 +6,28 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   justify-content: center;
   width: 92%;
   max-width: ${pxToRem(592)};
-  padding: ${({ isFirstVisit }) =>
-    isFirstVisit ? '2rem 0 2.7rem 0' : `${pxToRem(42)} 0`};
-  margin: 0 auto;
+  padding: ${({ isFirstVisit }) => (isFirstVisit ? `${pxToRem(25)} 0` : '0')};
+  margin: 0 auto 2rem auto;
   position: relative;
+  padding: 0;
 
   @media (min-width: ${breakpoints.md}) {
-    width: 80%;
-    max-width: ${pxToRem(740)};
+    margin: 0 auto;
+    width: 64%;
+    min-width: ${pxToRem(625)};
+    max-width: ${pxToRem(655)};
+    align-items: center;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: start;
-    width: ${({ isFirstVisit }) => (isFirstVisit ? '64.5%' : '76.5%')};
-    max-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(792)}` : `${pxToRem(975)}`};
-    padding-bottom: ${pxToRem(19)};
+    width: 100%;
+    min-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(500)}`};
+    max-width: ${pxToRem(860)};
+    margin: 0 auto;
+    padding-right: ${({ isFirstVisit }) =>
+      isFirstVisit ? '0' : `${pxToRem(20)}`};
   }
 `;
 
@@ -30,7 +36,7 @@ export const Form = styled.form`
 `;
 
 export const FormComponentsContainer = styled.div`
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     display: flex;
     width: 100%;
   }
@@ -43,7 +49,7 @@ export const InputAndButtonContainer = styled.div`
   margin: 0 auto;
   width: 91%;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     padding-top: 0;
     width: 100%;
   }
@@ -53,7 +59,7 @@ export const SearchInput = styled.input`
   display: block;
   color: black;
   background-color: #fff;
-  height: 2.8125rem;
+  height: 2.7rem;
   width: 100%;
   font-size: clamp(0.9rem, 1.1vw, 1.4rem);
   border-radius: 0.375rem 0 0 0.375rem;
@@ -70,7 +76,7 @@ export const SearchInput = styled.input`
     outline-offset: 2px;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     border-radius: 0;
   }
 `;
@@ -78,8 +84,8 @@ export const SearchInput = styled.input`
 export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #0325d1;
-  height: 2.8125rem;
-  width: 3.4rem;
+  height: 2.7rem;
+  width: 3.2rem;
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;

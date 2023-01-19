@@ -38,7 +38,7 @@ const HeadingOne = styled.h1`
 `;
 
 const HeadingTwo = styled.h2`
-  font-size: 2.75rem;
+  font-size: 2.53rem;
   margin-bottom: 1rem;
 `;
 

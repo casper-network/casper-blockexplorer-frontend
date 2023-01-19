@@ -1,42 +1,62 @@
 import React from 'react';
+import { useAppWidth } from 'src/hooks';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
-
 import { useTranslation } from 'react-i18next';
+import { ConfigurableLogo, DefaultHeaderLogo } from '../LogoComponents';
+import { loadConfig } from '../../../utils/load-config';
+
 import { SearchForm } from './Partials';
 import { Navbar } from '../Navbar/Navbar';
 
 import {
   HeaderComponent,
   HeaderComponentsContainer,
-  LogoLink,
   HeroContainer,
   HeroHeading,
-  BlueBlackCasperLogo,
-  BlueCasperLogo,
-  ExplorerLogo,
 } from './Header.styled';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
+  const { isDropdownMenu, isMobile } = useAppWidth();
+  const { logoUrl } = loadConfig();
+
+  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultHeaderLogo />;
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   return (
-    <HeaderComponent>
-      <HeaderComponentsContainer>
-        <LogoLink to="/">
-          <BlueBlackCasperLogo />
-          <BlueCasperLogo />
-          <ExplorerLogo />
-        </LogoLink>
-        <Navbar />
-      </HeaderComponentsContainer>
-      <HeroContainer isFirstVisit={isFirstVisit}>
-        <HeroHeading type="h1" aria-label="Casper Block Explorer">
-          {t('discover-casper')}
-        </HeroHeading>
-      </HeroContainer>
-      <SearchForm />
-    </HeaderComponent>
+    <div>
+      {isFirstVisit ? (
+        <HeaderComponent>
+          <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+            {logo}
+            <Navbar />
+          </HeaderComponentsContainer>
+          {isDropdownMenu && <SearchForm />}
+          <HeroContainer isFirstVisit={isFirstVisit}>
+            <HeroHeading type="h1" aria-label="Casper Block Explorer">
+              {t('discover-casper')}
+            </HeroHeading>
+          </HeroContainer>
+          {!isDropdownMenu && <SearchForm />}
+        </HeaderComponent>
+      ) : (
+        <HeaderComponent>
+          {!isMobile ? (
+            <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+              <Navbar />
+            </HeaderComponentsContainer>
+          ) : (
+            <div>
+              <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+                {logo}
+                <Navbar />
+              </HeaderComponentsContainer>
+              <SearchForm />
+            </div>
+          )}
+        </HeaderComponent>
+      )}
+    </div>
   );
 };

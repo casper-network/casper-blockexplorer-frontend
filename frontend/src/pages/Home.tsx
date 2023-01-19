@@ -47,11 +47,11 @@ const HomeContentContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: ${pxToRem(60)};
+    padding-top: ${pxToRem(32)};
   }
 
-  @media (min-width: ${breakpoints.lg}) {
-    padding-top: ${pxToRem(32)};
-    min-width: 54.8rem;
-    max-width: 64.8rem;
+  @media (min-width: ${breakpoints.md}) {
+    width: 68.25%;
+    max-width: ${pxToRem(793)};
   }
 `;

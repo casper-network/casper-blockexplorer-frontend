@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAppWidth } from 'src/hooks';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -27,12 +28,13 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
 }) => {
-  const [isHashTruncated, setIsHashTruncated] = useState<boolean>(true);
+  const [isTruncated, setIsTruncated] = useState<boolean>(true);
+  const { isMobile } = useAppWidth();
   const { t } = useTranslation();
   const { trimmedAccountHash, publicKey, rawAccount } = account;
 
   const toggleHashView = () => {
-    setIsHashTruncated(() => !isHashTruncated);
+    setIsTruncated(() => !isTruncated);
   };
 
   return (
@@ -43,10 +45,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           <AvatarIcon
             src={`${AVATAR_URL}${trimmedAccountHash}.svg`}
             alt="avatar"
-            isHashTruncated={isHashTruncated}
+            isTruncated={isTruncated}
           />
-          <HashHeading type="h2">
-            {isHashTruncated ? (
+          <HashHeading type="h2" isTruncated={isTruncated} isMobile={isMobile}>
+            {isTruncated ? (
               <Hash hash={trimmedAccountHash} alwaysTruncate />
             ) : (
               <Hash hash={trimmedAccountHash} />
@@ -54,8 +56,8 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           </HashHeading>
         </AvatarHashContainer>
       </HeadContentContainer>
-      <HashButton type="button" onClick={toggleHashView}>
-        {isHashTruncated ? 'Expand' : 'Collapse'}
+      <HashButton type="button" onClick={toggleHashView} isMobile={isMobile}>
+        {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
       </HashButton>
 
       <DetailDataWrapper>
@@ -107,15 +109,20 @@ const AvatarHashContainer = styled.div`
   flex-direction: row;
 `;
 
-const HashHeading = styled(GradientHeading)`
+const HashHeading = styled(GradientHeading)<{
+  isTruncated: boolean;
+  isMobile: boolean;
+}>`
   font-weight: ${fontWeight.extraBold};
   display: inline;
   margin: 0;
-  width: 95%;
-  overflow-wrap: break-word;
+  min-width: ${pxToRem(360)};
+  width: ${({ isTruncated }) => (isTruncated ? '30%' : '95%')};
+  overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
 `;
 
-const HashButton = styled(Button)`
+const HashButton = styled(Button)<{ isMobile: boolean }>`
+  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
   color: ${colors.greyBlue};
   background-color: transparent;
   border-style: none;

@@ -21,7 +21,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   currentFilterOption,
   setCurrentFilterOption,
 }) => {
-  const { isMobile } = useAppWidth();
+  const { isDropdownMenu } = useAppWidth();
   const { t } = useTranslation();
 
   const selectOptions: SelectOptions[] | null = [
@@ -46,7 +46,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
             setCurrentFilterOption(selectedOption?.value!);
           };
 
-          return !isMobile ? (
+          return isDropdownMenu ? (
             <CustomSelect
               defaultValue={selectOptions[0]}
               currentSelection={currentSelection}

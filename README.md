@@ -18,6 +18,12 @@ NETWORK_NAME=integration-test # network name, you can check it in chainspec
 PEERS_UPDATE_INTERVAL=60 # interval time for update peer list
 ```
 
+And if so desired, change the application brand logo by adding:
+
+```
+ORG_LOGO_URL=https://example.com/your-org-logo
+```
+
 2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes. (HMR and debug modes will be enabled)
 3. Run `make prod-start` if you are using the app for production (optimized builds) or `make dev-start` for development. 
 4. The frontend will be running at port `3000` and middleware at port `4000`.

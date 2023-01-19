@@ -7,7 +7,7 @@ import { FormValues } from '../partials.types';
 jest.mock('../../../../../hooks', () => {
   return {
     useAppWidth: () => {
-      return { windowWidth: 1024, isMobile: false };
+      return { windowWidth: 1024, isDropdownMenu: true };
     },
   };
 });

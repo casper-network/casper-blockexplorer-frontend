@@ -1,10 +1,18 @@
 import styled from '@emotion/styled';
-import { breakpoints } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const InfoCardSection = styled.section`
   margin: 0;
   padding: 0;
   width: 100%;
+
+  @media (min-width: ${breakpoints.md}) {
+    padding-top: ${pxToRem(24)};
+  }
+
+  @media only screen and (min-width: ${breakpoints.lg}) {
+    padding-top: ${pxToRem(15)};
+  }
 `;
 
 export const InfoCardContentWrapper = styled.div`
@@ -16,7 +24,7 @@ export const InfoCardContentWrapper = styled.div`
   padding: 2rem;
   overflow-x: auto;
   max-width: calc(100vw - 4rem);
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
 
   @media only screen and (min-width: ${breakpoints.md}) {
     max-width: calc(100vw - 6rem);
