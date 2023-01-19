@@ -50,7 +50,7 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [usersVisitationStatus, dispatch]);
 
-  const { logoUrl } = loadConfig();
+  const { faviconUrl } = loadConfig();
 
   const title = useAppSelector(appTitle);
 
@@ -59,7 +59,7 @@ const App = () => {
       <React.Suspense fallback="loading...">
         <Helmet>
           <html lang="en" />
-          <link rel="icon" href={logoUrl} />
+          <link rel="icon" href={faviconUrl} />
           <title>{title}</title>
           <meta name="description" content="Basic example" />
         </Helmet>

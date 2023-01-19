@@ -6,6 +6,7 @@ export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
+  faviconUrl?: string;
   title?: string | undefined;
 }
 
@@ -33,6 +34,9 @@ export const loadConfig: () => AppConfig = () => {
 
   const logoUrl = 'https://chengduchain.com/assets/img/chengduchain-logo.svg';
 
+  const faviconUrl =
+    'https://chengduchain.com/assets/img/chengdu-chain-icon-white.svg';
+
   // const titleText = isProduction ? orgTitle : reactAppTitle || '';
   const title = 'Chengdu Explorer';
 
@@ -44,6 +48,7 @@ export const loadConfig: () => AppConfig = () => {
     isProduction,
     webServerUrl,
     logoUrl,
+    faviconUrl,
     title,
   };
 };
