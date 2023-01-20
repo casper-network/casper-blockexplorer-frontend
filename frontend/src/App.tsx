@@ -1,7 +1,7 @@
 import React, { StrictMode, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
 
 import { Footer, Header } from './components';
@@ -53,46 +53,50 @@ const App = () => {
   const title = useAppSelector(appTitle);
   const favicon = useAppSelector(appFavicon);
 
+  const helmetContext = {};
+
   return (
-    <StrictMode>
-      <React.Suspense fallback="loading...">
-        <Helmet>
-          {favicon ? (
-            <link rel="icon" href={favicon} sizes="any" />
-          ) : (
-            <>
+    <HelmetProvider context={helmetContext}>
+      <StrictMode>
+        <React.Suspense fallback="loading...">
+          <Helmet>
+            {favicon ? (
               <link rel="icon" href={favicon} sizes="any" />
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1"
-              />
-              <meta name="theme-color" content="#000000" />
-              <meta
-                name="description"
-                content="Casper Labs CSPR Block Explorer"
-              />
-              <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-            </>
-          )}
-          <title>{title}</title>
-        </Helmet>
-        <AppWrapper ref={ref}>
-          <BrowserRouter>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/peers" element={<Peers />} />
-              <Route path="/account/:id" element={<AccountPage />} />
-              <Route path="/deploy/:id" element={<DeployPage />} />
-              <Route path="/block/:id" element={<BlockPage />} />
-              <Route path="/blocks" element={<Blocks />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-            <Footer />
-          </BrowserRouter>
-        </AppWrapper>
-      </React.Suspense>
-    </StrictMode>
+            ) : (
+              <>
+                <link rel="icon" href={favicon} sizes="any" />
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1"
+                />
+                <meta name="theme-color" content="#000000" />
+                <meta
+                  name="description"
+                  content="Casper Labs CSPR Block Explorer"
+                />
+                <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+              </>
+            )}
+            <title>{title}</title>
+          </Helmet>
+          <AppWrapper ref={ref}>
+            <BrowserRouter>
+              <Header />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/peers" element={<Peers />} />
+                <Route path="/account/:id" element={<AccountPage />} />
+                <Route path="/deploy/:id" element={<DeployPage />} />
+                <Route path="/block/:id" element={<BlockPage />} />
+                <Route path="/blocks" element={<Blocks />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </AppWrapper>
+        </React.Suspense>
+      </StrictMode>
+    </HelmetProvider>
   );
 };
 
