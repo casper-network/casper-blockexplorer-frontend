@@ -53,41 +53,16 @@ const App = () => {
   const title = useAppSelector(appTitle);
   const favicon = useAppSelector(appFavicon);
 
-  const helmetContext = {};
-
   return (
-    <HelmetProvider context={helmetContext}>
+    <HelmetProvider>
       <StrictMode>
         <React.Suspense fallback="loading...">
           <Helmet>
-            <link rel="icon" href={favicon} />
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1"
-            />
-            <meta name="theme-color" content="#000000" />
-            <meta
-              name="description"
-              content="Casper Labs CSPR Block Explorer"
-            />
-            <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-            {/* {favicon ? (
+            {favicon ? (
               <link rel="icon" href={favicon} />
             ) : (
-              <>
-                <link rel="icon" href="%PUBLIC_URL%/favicon" />
-                <meta
-                  name="viewport"
-                  content="width=device-width, initial-scale=1"
-                />
-                <meta name="theme-color" content="#000000" />
-                <meta
-                  name="description"
-                  content="Casper Labs CSPR Block Explorer"
-                />
-                <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-              </>
-            )} */}
+              <link rel="icon" href="%PUBLIC_URL%/favicon" />
+            )}
             <title>{title}</title>
           </Helmet>
           <AppWrapper ref={ref}>
