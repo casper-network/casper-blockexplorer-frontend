@@ -2,8 +2,8 @@ import axios, { AxiosInstance } from "axios";
 import NodeCache from "node-cache";
 
 import { BLOCK_GENERATE_INTERVAL } from "../config";
-import { SidecarTypes } from "../types";
-import { DeployAccepted, DeployProcessed, GetDeploy } from "../types/sidecar";
+import { OnChain } from "../types";
+import { DeployAccepted, DeployProcessed, GetDeploy } from "../types/on-chain";
 
 export enum DeployProcessedEnum {
   Accepted = "accepted",
@@ -29,14 +29,14 @@ export class Sidecar {
   /**
    * Retrieve information about the last block added to the linear chain.
    */
-  public async getTheLatestBlock() {
+  public async getLatestBlock() {
     const cacheKey = "latestBlock";
-    const existLatestBlock = this.cache.get<SidecarTypes.Block>(cacheKey);
+    const existLatestBlock = this.cache.get<OnChain.Block>(cacheKey);
     if (existLatestBlock) return existLatestBlock;
 
     const {
       data: { block },
-    } = await this.api.get<SidecarTypes.GetBlock>("/block");
+    } = await this.api.get<OnChain.GetBlock>("/block");
 
     this.cache.set(cacheKey, block, 0);
 
@@ -49,12 +49,12 @@ export class Sidecar {
    */
   public async getBlock(hashOrHeight: string | number) {
     const cacheKey = `block:${hashOrHeight}`;
-    const existBlock = this.cache.get<SidecarTypes.Block>(cacheKey);
+    const existBlock = this.cache.get<OnChain.Block>(cacheKey);
     if (existBlock) return existBlock;
 
     const {
       data: { block },
-    } = await this.api.get<SidecarTypes.GetBlock>(`/block/${hashOrHeight}`);
+    } = await this.api.get<OnChain.GetBlock>(`/block/${hashOrHeight}`);
 
     this.cache.set(cacheKey, block);
 
@@ -68,7 +68,9 @@ export class Sidecar {
    */
   public async getDeploy(hash: string, type?: DeployProcessedEnum) {
     const cacheKey = `deploy:${hash}-${type}`;
-    const existDeploy = this.cache.get(cacheKey);
+    const existDeploy = this.cache.get<
+      GetDeploy | DeployAccepted | DeployProcessed
+    >(cacheKey);
     if (existDeploy) return existDeploy;
 
     const { data } = await this.api.get<

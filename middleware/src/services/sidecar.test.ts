@@ -3,11 +3,11 @@ import { expect } from "chai";
 import { SIDECAR_REST_URL } from "../config";
 import { Sidecar } from "./sidecar";
 
-describe("Sidecar", () => {
-  const sidecar = new Sidecar(SIDECAR_REST_URL);
+(SIDECAR_REST_URL ? describe : describe.skip)("Sidecar", () => {
+  const sidecar = new Sidecar(SIDECAR_REST_URL || "");
 
   it("should return the latest block", async () => {
-    const latestBlock = await sidecar.getTheLatestBlock();
+    const latestBlock = await sidecar.getLatestBlock();
     expect(latestBlock).to.have.keys(["hash", "header", "body", "proofs"]);
   });
 

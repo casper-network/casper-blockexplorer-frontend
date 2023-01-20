@@ -1,3 +1,3 @@
 export * from "./nodeStatusResponse";
-export * as SidecarTypes from "./sidecar";
+export * as OnChain from "./on-chain";
 export type Sort = "DESC" | "ASC";

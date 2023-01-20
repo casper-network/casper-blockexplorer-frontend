@@ -34,7 +34,7 @@ export interface Header {
 export interface GetDeploy {
   deploy_hash: string;
   deploy_accepted: DeployAccepted;
-  deploy_processed: DeployProcessed | Record<string, never>;
+  deploy_processed: DeployProcessed | null;
   deploy_expired: boolean;
 }
 

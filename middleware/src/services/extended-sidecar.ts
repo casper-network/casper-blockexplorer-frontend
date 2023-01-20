@@ -1,17 +1,18 @@
 import axios from "axios";
 
+import { DEFAULT_PAGINATION_COUNT } from "../config";
 import { Sort } from "../types";
 import { Sidecar } from "./sidecar";
 
 export class ExtendedSidecar extends Sidecar {
   public async getBlocks(
     from?: number,
-    count = 20,
+    count = DEFAULT_PAGINATION_COUNT,
     orderByHeight = "DESC" as Sort
   ) {
     const blocks = [];
 
-    let latestBlockHeight = (await this.getTheLatestBlock()).header.height;
+    let latestBlockHeight = (await this.getLatestBlock()).header.height;
 
     const fromBlock = from !== undefined ? from : latestBlockHeight;
     const targetBlock =
@@ -32,7 +33,7 @@ export class ExtendedSidecar extends Sidecar {
       }
     }
 
-    latestBlockHeight = (await this.getTheLatestBlock()).header.height;
+    latestBlockHeight = (await this.getLatestBlock()).header.height;
 
     const total = latestBlockHeight + 1;
 

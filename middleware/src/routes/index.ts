@@ -9,7 +9,7 @@ import { errorConverter, errorHandler, validate } from "../middlewares";
 import { fetchPeers, nodeManager } from "../services";
 import openapiSpecification, { uiOptions } from "../swagger";
 import { ApiError, catchAsync } from "../utils";
-import sideCarRoutes from "./sidecar";
+import onChainRoutes from "./on-chain";
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ router.get("/health-check", (_, res) => {
  *  post:
  *    description: Act as a rpc middleware
  */
-router.post("/rpc", (req, res) => {
+router.use("/rpc", (req, res) => {
   const rpcCall = () => {
     const node = nodeManager.getActiveNode();
 
@@ -90,7 +90,7 @@ router.get(
   })
 );
 
-router.use(sideCarRoutes);
+router.use(onChainRoutes);
 
 if (NODE_ENV === "development") {
   router.use(

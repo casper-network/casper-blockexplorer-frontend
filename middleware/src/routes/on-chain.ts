@@ -1,15 +1,21 @@
+import { CasperServiceByJsonRPC } from "casper-js-sdk";
 import express from "express";
 import { param, query } from "express-validator";
+import { StatusCodes } from "http-status-codes";
 
-import { SIDECAR_REST_URL } from "../config";
+import { PORT, SIDECAR_IS_RUNNING, SIDECAR_REST_URL } from "../config";
 import { validate } from "../middlewares";
-import { ExtendedSidecar } from "../services";
-import { DeployProcessedEnum } from "../services/sidecar";
+import { ExtendedSidecar, RpcClient } from "../services";
 import { Sort } from "../types";
-import { catchAsync, isValidHash, isValidPublicKey } from "../utils";
+import { GetDeploy } from "../types/on-chain";
+import { ApiError, catchAsync, isValidHash, isValidPublicKey } from "../utils";
 
 const router = express.Router();
-const sidecar = new ExtendedSidecar(SIDECAR_REST_URL);
+const sidecar = new ExtendedSidecar(SIDECAR_REST_URL || "");
+
+// Using our stable node
+const jsonRpc = new CasperServiceByJsonRPC(`http://localhost:${PORT}/rpc`);
+const rpcClient = new RpcClient(jsonRpc);
 
 /**
  * @openapi
@@ -23,8 +29,13 @@ const sidecar = new ExtendedSidecar(SIDECAR_REST_URL);
 router.get(
   "/latest-block",
   catchAsync(async (req, res) => {
-    const latestBlock = await sidecar.getTheLatestBlock();
-    res.json(latestBlock);
+    if (SIDECAR_IS_RUNNING) {
+      const latestBlock = await sidecar.getLatestBlock();
+      res.json(latestBlock);
+    } else {
+      const latestBlock = await rpcClient.getLatestBlock();
+      res.json(latestBlock);
+    }
   })
 );
 
@@ -56,8 +67,18 @@ router.get(
   ]),
   catchAsync(async (req, res) => {
     const { hashOrHeight } = req.params;
-    const block = await sidecar.getBlock(hashOrHeight);
-    res.json(block);
+    if (SIDECAR_IS_RUNNING) {
+      const block = await sidecar.getBlock(hashOrHeight);
+      res.json(block);
+    } else {
+      if (/^\d+$/.test(hashOrHeight)) {
+        const block = await rpcClient.getBlockByHeight(parseInt(hashOrHeight));
+        res.json(block);
+      } else {
+        const block = await rpcClient.getBlock(hashOrHeight);
+        res.json(block);
+      }
+    }
   })
 );
 
@@ -123,10 +144,13 @@ router.get(
 
     const orderByHeight =
       sort_by && sort_by === "height" ? order_by : undefined;
-
-    const result = await sidecar.getBlocks(from, count, orderByHeight);
-
-    res.json(result);
+    if (SIDECAR_IS_RUNNING) {
+      const result = await sidecar.getBlocks(from, count, orderByHeight);
+      res.json(result);
+    } else {
+      const result = await rpcClient.getBlocks(from, count, orderByHeight);
+      res.json(result);
+    }
   })
 );
 
@@ -156,49 +180,62 @@ router.get(
   ]),
   catchAsync(async (req, res) => {
     const { hash } = req.params;
-    const deploy = await sidecar.getDeploy(hash);
-    res.json(deploy);
+    if (SIDECAR_IS_RUNNING) {
+      const deploy = (await sidecar.getDeploy(hash)) as GetDeploy;
+
+      if (!deploy.deploy_accepted)
+        throw new ApiError(StatusCodes.NOT_FOUND, "Not found deploy");
+
+      const execution_results = deploy.deploy_processed
+        ? [
+            {
+              block_hash: deploy.deploy_processed.block_hash,
+              result: deploy.deploy_processed.execution_result,
+            },
+          ]
+        : [];
+
+      res.json({ ...deploy.deploy_accepted, execution_results });
+    } else {
+      const deploy = await rpcClient.getDeploy(hash);
+      res.json(deploy);
+    }
   })
 );
 
 /**
  * @openapi
- * /deploy/{type}/{hash}:
+ * /account/{accountHashOrPublicKey}:
  *  get:
- *    description: Returns deploy by hash
+ *    description: Returns account by account hash or public key
  *    responses:
  *      200:
- *        description: Returns `Deploy` object.
+ *        description: Returns `Account` object.
  *      404:
- *        description: Not found deploy
+ *        description: Not found account
  *  parameters:
- *  - name: type
+ *  - name: accountHashOrPublicKey
  *    in: path
  *    required: true
- *    description: deploy type
- *  - name: hash
- *    in: path
- *    required: true
- *    description: deploy hash
+ *    description: account hash or public key
  */
 router.get(
-  "/deploy/:type/:hash",
+  "/account/:accountHashOrPublicKey",
   validate([
-    param("type")
+    param("accountHashOrPublicKey")
       .exists()
-      .custom((type: string) => type.match(/^(accepted|processed|expired)$/))
-      .withMessage(
-        "Invalid type possible values are accepted, processed, expired"
-      ),
-    param("hash")
-      .exists()
-      .custom((hash: string) => isValidHash(hash))
-      .withMessage("Invalid hash"),
+      .custom(
+        (accountHashOrPublicKey: string) =>
+          isValidPublicKey(accountHashOrPublicKey) ||
+          isValidHash(accountHashOrPublicKey)
+      )
+      .withMessage("Invalid hash/public key"),
   ]),
   catchAsync(async (req, res) => {
-    const { hash, type } = req.params;
-    const deploy = await sidecar.getDeploy(hash, type as DeployProcessedEnum);
-    res.json(deploy);
+    const { accountHashOrPublicKey } = req.params;
+
+    const account = await rpcClient.getAccount(accountHashOrPublicKey);
+    res.json(account);
   })
 );
 
