@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
@@ -42,6 +43,17 @@ export const loadConfig: () => AppConfig = () => {
   const faviconUrl =
     'https://chengduchain.com/assets/img/chengdu-chain-icon-white.svg';
   const title = 'Chengdu Explorer';
+
+  //  This png works for all the major browsers (Safari, Firefox, Chromium browsers)
+
+  // const faviconUrl = 'chengdu-chain-icon-white.png';
+
+  // I wonder if the url solution would work if chengdu-chain-icon-white.png were hosted at https://chengduchain.com/assets/img, ?
+
+  // Unfortunately, I cannot get this to work with all the browsers
+
+  // const faviconUrl =
+  //   'https://files.slack.com/files-pri/TDVFB45LG-F04K9ULT46T/chengduchain-favicon-white.png';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
