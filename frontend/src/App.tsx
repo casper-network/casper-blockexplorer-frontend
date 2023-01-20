@@ -1,7 +1,7 @@
 import React, { StrictMode, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
 
 import { Footer, Header } from './components';
@@ -58,10 +58,10 @@ const App = () => {
       <React.Suspense fallback="loading...">
         <Helmet>
           {favicon ? (
-            <link rel="icon" href={favicon} />
+            <link rel="icon" href={favicon} sizes="any" />
           ) : (
             <>
-              <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+              <link rel="icon" href={favicon} sizes="any" />
               <meta
                 name="viewport"
                 content="width=device-width, initial-scale=1"

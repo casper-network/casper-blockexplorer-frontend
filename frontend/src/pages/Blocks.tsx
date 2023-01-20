@@ -6,7 +6,7 @@ import { SortingState } from '@tanstack/react-table';
 import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
 import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
 import { appFavicon, appTitle, useAppSelector } from 'src/store';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
 

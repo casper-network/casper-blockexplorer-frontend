@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useAppSelector, appTitle, appFavicon } from 'src/store';
 import { casperApi, Account } from '../api';
 import { AccountDetailsCard, PageError, PageWrapper } from '../components';
