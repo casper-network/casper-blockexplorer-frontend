@@ -21,6 +21,7 @@ import {
   setIsFirstVisit,
 } from './store';
 import { useAppRefresh } from './hooks';
+import { colors } from './styled-theme';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -70,7 +71,7 @@ const App = () => {
 };
 
 const AppWrapper = styled.div`
-  background-color: white;
+  background-color: ${colors.white};
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;

@@ -180,7 +180,7 @@ const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
 `;
 
 const HashButton = styled(Button)`
-  color: ${colors.greyBlue};
+  color: ${colors.darkSupporting};
   background-color: transparent;
   border-style: none;
   padding: 0 ${pxToRem(5)};

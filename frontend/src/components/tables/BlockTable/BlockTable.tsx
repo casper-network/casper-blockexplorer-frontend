@@ -167,7 +167,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
 const BlockTableHead = styled.div`
   display: flex;
   justify-content: space-between;
-  color: ${colors.grey};
+  color: ${colors.lightSupporting};
 `;
 
 const BlockTableFooter = styled.div`
@@ -177,8 +177,8 @@ const BlockTableFooter = styled.div`
 `;
 
 const ShowMoreButton = styled.button`
-  background-color: ${colors.lightGrey};
-  color: ${colors.darkRed};
+  background-color: ${colors.lightSupporting};
+  color: ${colors.darkWarning};
   min-width: ${pxToRem(150)};
   padding: 0.5rem 0;
   width: fit-content;
@@ -187,6 +187,6 @@ const ShowMoreButton = styled.button`
   font-weight: ${fontWeight.medium};
 
   :hover {
-    background-color: ${colors.lightRed};
+    background-color: ${colors.lightWarning};
   }
 `;

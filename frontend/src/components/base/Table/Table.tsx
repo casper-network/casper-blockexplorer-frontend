@@ -107,8 +107,8 @@ const TableWrapper = styled.div`
   overflow-x: auto;
   max-width: calc(100vw - 5rem);
   margin: 0 auto;
-  background-color: white;
-  box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.2);
+  background-color: ${colors.white};
+  box-shadow: 0px 2px 7px ${colors.boxShadow};
 `;
 
 const Header = styled.div`
@@ -121,11 +121,11 @@ const StyledTable = styled.table`
   width: 100%;
   border-spacing: 0px 0px;
   min-width: ${pxToRem(800)};
-  background-color: white;
+  background-color: ${colors.white};
 `;
 
 const TableHead = styled.thead`
-  background-color: ${colors.lightGrey};
+  background-color: ${colors.lightSupporting};
 `;
 
 const TableHeader = styled.tr`
@@ -155,12 +155,12 @@ const Th = styled.th<{ sortable?: boolean }>`
 const TableBodyRow = styled.tr`
   height: ${pxToRem(50)};
   :hover {
-    background-color: ${colors.lightGrey};
+    background-color: ${colors.lightSupporting};
   }
 `;
 
 const TableBodyItem = styled.td`
   text-align: start;
   padding: 0 ${pxToRem(32)};
-  border-bottom: ${pxToRem(1)} solid ${colors.lightGrey};
+  border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
 `;

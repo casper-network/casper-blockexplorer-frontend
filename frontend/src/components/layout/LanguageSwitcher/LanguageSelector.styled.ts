@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
+import { colors } from 'src/styled-theme';
 
 export const LanguageSelectorWrapper = styled.div``;
 
 export const LanguageSelectorButton = styled.button`
-  border: black 2px solid;
+  border: ${colors.black} 2px solid;
   text-align: center;
   padding: 0.26rem 1rem;
   cursor: pointer;
-  color: black;
-  background-color: white;
+  color: ${colors.black};
+  background-color: ${colors.white};
 
   :disabled {
-    background-color: blue;
-    color: white;
+    background-color: ${colors.primary};
+    color: ${colors.white};
   }
 `;

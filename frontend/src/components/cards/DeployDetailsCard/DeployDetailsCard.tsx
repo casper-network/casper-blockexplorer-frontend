@@ -117,7 +117,8 @@ const HashHeading = styled(GradientHeading)<{
 
 const HashButton = styled(Button)<{ isMobile: boolean }>`
   display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
-  color: ${colors.greyBlue};
+  color: ${colors.darkSupporting};
+
   background-color: transparent;
   border-style: none;
   padding: 0 ${pxToRem(5)};

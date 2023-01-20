@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { breakpoints, pxToRem } from 'src/styled-theme';
+import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
@@ -57,8 +57,8 @@ export const InputAndButtonContainer = styled.div`
 
 export const SearchInput = styled.input`
   display: block;
-  color: black;
-  background-color: #fff;
+  color: ${colors.black};
+  background-color: ${colors.white};
   height: 2.7rem;
   width: 100%;
   font-size: clamp(0.9rem, 1.1vw, 1.4rem);
@@ -66,7 +66,7 @@ export const SearchInput = styled.input`
   padding: 0 1.25rem;
   margin-top: 0;
   margin-bottom: 0;
-  box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.2);
+  box-shadow: inset 0px 1px 7px ${colors.boxShadow};
   border-style: none;
   appearance: none;
 
@@ -83,7 +83,7 @@ export const SearchInput = styled.input`
 
 export const SubmitButton = styled.button`
   font-weight: 500;
-  background-color: #0325d1;
+  background-color: ${colors.primary};
   height: 2.7rem;
   width: 3.2rem;
   padding-top: 0.5rem;
@@ -113,13 +113,13 @@ export const ErrorMessageContainer = styled.div`
 export const ErrorSvgContainer = styled.div`
   height: 1.55rem;
   width: 1.55rem;
-  stroke: #da2f54;
+  stroke: ${colors.mediumWarning};
   stroke-width: 2;
-  fill: #fff;
+  fill: ${colors.white};
 `;
 
 export const ErrorMessage = styled.p`
-  color: #da2f54;
+  color: ${colors.mediumWarning};
   font-size: 0.9rem;
   padding-top: 0.1rem;
 `;

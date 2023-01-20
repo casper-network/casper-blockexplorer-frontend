@@ -1,23 +1,26 @@
+import { ThemeContext } from '@emotion/react';
+import { loadConfig } from './utils';
+
 /**
  * This is not an actual styled-components theme
  * Emotion recommends that you only use an actual theme if you support multiple
  * https://emotion.sh/docs/best-practices#dont-use-a-theme-unless-your-app-supports-multiple-themes-or-will-eventually-support-multiple-themes
  */
-
+const { theme } = loadConfig();
+console.log(theme);
 export const colors = {
   black: '#000',
   white: '#FFF',
-  offWhite: '#F7F7F7',
-  grey: '#828282',
-  lightGrey: 'rgb(245, 245, 247)',
-  casperBlue: '#03105B',
-  casperRed: '#da2f54',
-  lightRed: 'rgba(255, 0, 19, 0.125)',
-  darkRed: '#BF000E',
-  green: '#09A129',
-  greyBlue: '#64748b',
-  cobaltBlue: '#0325D1',
-  darkBlue: '#02115f',
+  primary: '#0325D1',
+  secondary: '#f2f3f5',
+  lightSupporting: 'rgb(245, 245, 247)',
+  boxShadow: 'rgba(127, 128, 149, 0.2)',
+  mediumSupporting: '#e3e3e9',
+  darkSupporting: '#64748b',
+  mediumWarning: '#da2f54',
+  lightWarning: 'rgba(255, 0, 19, 0.125)',
+  darkWarning: '#BF000E',
+  success: '#09A129',
 };
 
 export const breakpoints = {
@@ -33,8 +36,8 @@ export const breakpoints = {
 };
 
 export const fonts = {
-  inter: 'Inter, sans-serif',
-  jetBrains: 'JetBrains Mono, monospace',
+  primaryFont: 'Inter, sans-serif',
+  secondaryFont: 'JetBrains Mono, monospace',
 };
 
 export const fontWeight = {

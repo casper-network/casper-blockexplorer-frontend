@@ -51,8 +51,8 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
 const RawDataToggleButton = styled(AccordionItemButton)`
   margin-top: 0.5rem;
 
-  background-color: ${colors.lightGrey};
-  color: ${colors.darkRed};
+  background-color: ${colors.lightSupporting};
+  color: ${colors.darkWarning};
   padding: 0.4rem 1.25rem;
   font-size: 0.875rem;
   width: fit-content;
@@ -60,7 +60,7 @@ const RawDataToggleButton = styled(AccordionItemButton)`
   transition: ease-in 0.2s;
 
   &:hover {
-    background-color: ${colors.lightRed};
+    background-color: ${colors.lightWarning};
   }
 `;
 
@@ -68,5 +68,5 @@ const CodeBackground = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
   margin-top: 1.5rem;
-  background-color: ${colors.lightGrey};
+  background-color: ${colors.lightSupporting};
 `;

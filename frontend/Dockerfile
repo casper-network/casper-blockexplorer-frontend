@@ -6,6 +6,9 @@ ENV REACT_APP_MIDDLEWARE_URL "$REACT_APP_MIDDLEWARE_URL"
 ARG REACT_APP_ORG_LOGO_URL
 ENV REACT_APP_ORG_LOGO_URL "$REACT_APP_ORG_LOGO_URL"
 
+ARG REACT_APP_THEME
+ENV REACT_APP_THEME "$REACT_APP_THEME"
+
 WORKDIR /usr/src/app
 
 EXPOSE 3000
@@ -26,8 +29,8 @@ ENV NODE_ENV "production"
 USER root
 
 RUN \
-apk --no-cache --update add dumb-init && \
-rm -rf /var/cache/apk/*
+    apk --no-cache --update add dumb-init && \
+    rm -rf /var/cache/apk/*
 
 RUN npm install -g serve
 

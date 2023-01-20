@@ -143,7 +143,7 @@ const SpanTwoCols = styled(TransactionDetailData)`
 
 const ActionAndDeployTypeWrapper = styled(SpanTwoCols)`
   flex-direction: column;
-  font-family: ${fonts.jetBrains};
+  font-family: ${fonts.secondaryFont};
 
   div {
     font-size: ${pxToRem(24)};

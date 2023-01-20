@@ -61,11 +61,11 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__value-container {
     height: 2.7rem;
-    background-color: #fff;
     padding: 0.65rem 0rem 0.65rem 0rem;
+    background-color: ${colors.white};
     margin: 0;
     border-radius: 0.375rem 0 0 0.375rem;
-    box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.3);
+    box-shadow: inset 0px 1px 7px ${colors.boxShadow};
     position: relative;
   }
 
@@ -82,7 +82,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__single-value {
-    color: black;
+    color: ${colors.black};
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
@@ -106,13 +106,13 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__indicator {
     display: block;
-    color: black;
+    color: ${colors.black};
     width: 5px;
     padding: 0.5rem 0.4rem 0.5rem 0;
   }
 
   .react-select__menu-list {
-    color: black;
+    color: ${colors.black};
     font-size: clamp(1rem, 1.2vw, 1.4rem);
     padding: 0;
     margin: 0;
@@ -120,9 +120,9 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__menu {
-    color: white;
+    color: ${colors.white};
     text-align: center;
-    background-color: #fff;
+    background-color: ${colors.white};
     border-radius: 0.375rem;
     width: 10.2rem;
     margin-left: 0.4rem;
@@ -130,7 +130,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__option:hover,
   .react-select__option:focus {
-    color: black;
+    color: ${colors.black};
     transition: ease-in-out, font-weight, color, 400ms;
     font-weight: 700;
     background: linear-gradient(

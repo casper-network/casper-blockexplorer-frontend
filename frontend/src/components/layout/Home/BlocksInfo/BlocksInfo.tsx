@@ -10,7 +10,7 @@ import {
   H3Data,
   DataContext,
 } from '../HomeComponents.styled';
-import { pxToRem } from '../../../../styled-theme';
+import { colors, pxToRem } from '../../../../styled-theme';
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
@@ -47,10 +47,10 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({
 };
 
 const BlockInfoDisplay = styled.section`
-  background: #ffffff;
-  border: 0.063rem solid #e3e3e9;
+  background: ${colors.white};
+  border: 0.063rem solid ${colors.mediumSupporting};
   border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.438rem rgba(127, 128, 149, 0.15);
+  box-shadow: 0 0.125rem 0.438rem ${colors.boxShadow};
   padding-bottom: 1.5rem;
   margin-bottom: ${pxToRem(50)};
   width: 100%;
@@ -68,7 +68,7 @@ const BlockDetails = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  border-top: 0.094rem solid #f2f3f5;
+  border-top: 0.094rem solid ${colors.secondary};
   padding: 0 0;
   margin: 0 2rem;
 `;

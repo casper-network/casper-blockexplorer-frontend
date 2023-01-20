@@ -19,5 +19,5 @@ export const Coin: React.FC<CoinProps> = ({ children }) => {
 };
 
 const CoinWrapper = styled.p`
-  font-family: ${fonts.jetBrains};
+  font-family: ${fonts.secondaryFont};
 `;

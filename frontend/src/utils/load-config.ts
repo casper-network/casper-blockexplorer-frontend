@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+import { Theme } from './types';
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
+  theme?: string;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -19,8 +23,13 @@ export const loadConfig: () => AppConfig = () => {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
+    REACT_APP_THEME,
   } = process.env;
-  const { MIDDLEWARE_URL: middlewareUrl, ORG_LOGO_URL: orgLogoUrl } = ENV;
+  const {
+    MIDDLEWARE_URL: middlewareUrl,
+    ORG_LOGO_URL: orgLogoUrl,
+    THEME: test,
+  } = ENV;
 
   const isProduction = NODE_ENV === 'production';
 
@@ -29,7 +38,7 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
-
+  const theme = test;
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
@@ -38,5 +47,6 @@ export const loadConfig: () => AppConfig = () => {
     isProduction,
     webServerUrl,
     logoUrl,
+    theme,
   };
 };

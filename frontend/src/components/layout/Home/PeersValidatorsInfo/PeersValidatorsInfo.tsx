@@ -9,7 +9,9 @@ import {
   H3,
   H3Data,
 } from '../HomeComponents.styled';
-import { pxToRem } from '../../../../styled-theme';
+
+import { colors, pxToRem } from '../../../../styled-theme';
+
 import { PeersIcon } from '../../../icons';
 
 interface PeersValidatorsInfoProps {
@@ -45,11 +47,11 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
 };
 
 const PeersInfoDisplay = styled.section`
-  box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);
+  box-shadow: 0px 0.125rem 0.438 ${colors.boxShadow};
   border-radius: 0.5rem;
-  background: #ffffff;
-  border: 0.063rem solid #e3e3e9;
-  box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.15);
+  background: ${colors.white};
+  border: 0.063rem solid ${colors.mediumSupporting};
+  box-shadow: 0px 2px 7px ${colors.boxShadow};
   margin-bottom: ${pxToRem(50)};
   width: 100%;
 `;
@@ -66,7 +68,7 @@ const PeersDetails = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  border-top: 0.094rem solid #f2f3f5;
+  border-top: 0.094rem solid ${colors.secondary};
   padding: 0 0;
   margin: 0 2rem;
 `;

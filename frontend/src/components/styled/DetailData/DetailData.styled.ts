@@ -4,7 +4,7 @@ import { colors, fontWeight } from '../../../styled-theme';
 export const DetailDataLabel = styled.h3`
   font-weight: ${fontWeight.normal};
   font-size: 1.05rem;
-  color: ${colors.greyBlue};
+  color: ${colors.darkSupporting};
 `;
 
 export const DetailDataWrapper = styled.ul`
@@ -27,6 +27,6 @@ export const DetailDataList = styled.ul<DetailDataListProps>`
 
 export const DetailDataValue = styled.div`
   font-size: 1.25rem;
-  color: black;
+  color: ${colors.black};
   font-weight: ${fontWeight.medium};
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { breakpoints, pxToRem } from 'src/styled-theme';
+import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 import { GradientHeading } from '../../styled';
 import { Loader } from '../../utility';
 
@@ -62,7 +62,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
 const BaseContentContainer = styled.main`
   width: 99%;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: ${colors.white};
   padding: ${pxToRem(24)} 0 0 0;
   max-width: ${pxToRem(1800)};
 `;
