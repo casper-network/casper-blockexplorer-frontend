@@ -3,15 +3,11 @@ import { REFRESH_TIMER_SECONDS } from 'src/constants';
 import { middleware } from '../api';
 import { QueryProps } from './types';
 
-type IUseLatestBlockHeight = QueryProps;
+type IUseNetworkStatus = QueryProps;
 
-export default function useLatestBlock(props?: IUseLatestBlockHeight) {
+export default function useNetworkStatus(props?: IUseNetworkStatus) {
   const staleTime = props?.staleTime || REFRESH_TIMER_SECONDS * 1000;
-  return useQuery(
-    ['latest-block'],
-    middleware.getLatestBlock.bind(middleware),
-    {
-      staleTime,
-    },
-  );
+  return useQuery(['status'], middleware.getStatus.bind(middleware), {
+    staleTime,
+  });
 }

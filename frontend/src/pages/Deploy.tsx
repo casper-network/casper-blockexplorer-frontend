@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import useAsyncEffect from 'use-async-effect';
+import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { casperApi, Deploy } from '../api';
+import { useDeploy } from 'src/hooks';
 import {
   DeployDetailsCard,
   Grid,
-  PageError,
   PageWrapper,
   TransactionDetailsCard,
 } from '../components';
@@ -14,40 +11,22 @@ import {
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();
 
-  const { t } = useTranslation();
+  const {
+    data,
+    isLoading,
+    error: deployError,
+  } = useDeploy({ hash: deployHash || '' });
 
-  const [deploy, setDeploy] = useState<Deploy>();
-  const [error, setError] = useState<PageError>();
-
-  useAsyncEffect(async () => {
-    if (deployHash) {
-      try {
-        const deployData = await casperApi.getDeploy(deployHash);
-
-        if (!deployData) {
-          setError({
-            message: `${t('unable-to-locate-deploy')} ${deployHash}`,
-          });
-          return;
-        }
-
-        setDeploy(deployData);
-      } catch (err: any) {
-        setError({
-          message: (err as Error).message,
-        });
-      }
-    }
-  }, [deployHash]);
-
-  const isLoading = !deploy;
+  const error = useMemo(() => {
+    if (deployError) return { message: deployError.response?.statusText || '' };
+  }, [deployError]);
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      {!isLoading && deployHash && (
+      {data && (
         <Grid gap="2.5rem">
-          <DeployDetailsCard deploy={deploy} />
-          <TransactionDetailsCard deploy={deploy} />
+          <DeployDetailsCard deploy={data} />
+          <TransactionDetailsCard deploy={data} />
         </Grid>
       )}
     </PageWrapper>

@@ -21,7 +21,7 @@ import { colors, fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account;
-  balance: string;
+  balance: string | null;
 }
 
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
@@ -72,16 +72,25 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('public-key')}</DetailDataLabel>
             <DetailDataValue>
-              <Hash hash={publicKey} />
-              <CopyToClipboard textToCopy={publicKey} />
+              {publicKey ? (
+                <>
+                  <Hash hash={publicKey} />
+                  <CopyToClipboard textToCopy={publicKey} />
+                </>
+              ) : (
+                'Unknown'
+              )}
             </DetailDataValue>
           </li>
-          <li>
-            <DetailDataLabel>{t('balance')}</DetailDataLabel>
-            <DetailDataValue>
-              <Coin>{balance}</Coin>
-            </DetailDataValue>
-          </li>
+
+          {balance && (
+            <li>
+              <DetailDataLabel>{t('balance')}</DetailDataLabel>
+              <DetailDataValue>
+                <Coin>{balance}</Coin>
+              </DetailDataValue>
+            </li>
+          )}
           <li>
             <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>

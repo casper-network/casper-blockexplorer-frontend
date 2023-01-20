@@ -1,7 +1,6 @@
 export type Account = {
   trimmedAccountHash: string;
-  rawAccountHash: string;
-  publicKey: string;
+  publicKey: string | undefined;
   mainPurse: string;
   rawAccount: string;
 };

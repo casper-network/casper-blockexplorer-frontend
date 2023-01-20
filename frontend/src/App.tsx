@@ -14,12 +14,7 @@ import {
   Home,
   Peers,
 } from './pages';
-import {
-  updateBounds,
-  useAppDispatch,
-  fetchStatus,
-  setIsFirstVisit,
-} from './store';
+import { updateBounds, useAppDispatch, setIsFirstVisit } from './store';
 import { useAppRefresh } from './hooks';
 
 const App = () => {
@@ -32,10 +27,6 @@ const App = () => {
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchStatus());
-  }, [dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 

@@ -1,17 +1,9 @@
-import {
-  CLValueParsers,
-  CasperServiceByJsonRPC,
-  CLPublicKey,
-} from 'casper-js-sdk';
+import { CasperServiceByJsonRPC, CLPublicKey } from 'casper-js-sdk';
 
-import { Deploy, DeployStatus, NetworkStatus } from './types';
-import { formatDate, formatTimeAgo, loadConfig } from '../utils';
+import { NetworkStatus } from './types';
+import { loadConfig } from '../utils';
 import { ApiError } from './api-error';
-import {
-  GetStatusResultExtended,
-  JsonDeploySession,
-} from './missing-sdk-types';
-import { determineDeploySessionData } from './utils';
+import { GetStatusResultExtended } from './missing-sdk-types';
 
 export const DEFAULT_NUM_TO_SHOW = 10;
 
@@ -35,76 +27,6 @@ export class RpcApi {
 
     return currentValidators?.validator_weights;
   }
-
-  getDeploy: (deployHash: string) => Promise<Deploy | undefined> =
-    async deployHash => {
-      try {
-        const { deploy, execution_results: executionResults } =
-          await this.rpcClient.getDeployInfo(deployHash);
-
-        // @ts-ignore
-        const paymentMap = new Map(deploy.payment.ModuleBytes?.args);
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
-          .unwrap()
-          .value()
-          .toString() as string;
-
-        const { timestamp, account: publicKey } = deploy.header;
-
-        const { block_hash: blockHash, result: executionResult } =
-          executionResults[0];
-
-        const status = executionResult.Success
-          ? DeployStatus.Success
-          : DeployStatus.Failed;
-
-        const deploySession = deploy.session as JsonDeploySession;
-
-        const { action, deployType, amount } = determineDeploySessionData(
-          deploySession,
-          status,
-        );
-
-        const cost = executionResult.Success
-          ? executionResult.Success.cost
-          : executionResult.Failure?.cost ?? 0;
-
-        const dateTime = new Date(timestamp);
-
-        const timeSince = formatTimeAgo(dateTime);
-        const readableTimestamp = formatDate(dateTime);
-
-        return {
-          timestamp,
-          timeSince,
-          readableTimestamp,
-          deployHash,
-          blockHash,
-          publicKey,
-          action,
-          deployType,
-          amount,
-          paymentAmount,
-          cost: cost.toString(),
-          status,
-          rawDeploy: JSON.stringify({
-            deploy,
-            execution_results: executionResults,
-          }),
-        };
-      } catch (err) {
-        throw new ApiError({
-          type: RpcApiError.DeployFetchFailed,
-          message: 'An error occurred while fetching deploy with hash',
-          data: {
-            deployHash,
-            err,
-          },
-        });
-      }
-    };
 
   getAccount = async (publicKeyHex: string) => {
     try {

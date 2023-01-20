@@ -1,9 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { networkSlice, appSlice } from './slices';
+import { appSlice } from './slices';
 
 export const store = configureStore({
   reducer: {
-    networkStatus: networkSlice.reducer,
     app: appSlice.reducer,
   },
 });

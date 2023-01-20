@@ -1,38 +1,22 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { casperApi, Account } from '../api';
-import { AccountDetailsCard, PageError, PageWrapper } from '../components';
+import { useAccount } from 'src/hooks';
+import { casperApi } from '../api';
+import { AccountDetailsCard, PageWrapper } from '../components';
 
 export const AccountPage: React.FC = () => {
-  const { id: accountHash } = useParams();
+  const { id } = useParams();
 
-  const { t } = useTranslation();
-  const [account, setAccount] = useState<Account>();
-  const [error, setError] = useState<PageError>();
+  const {
+    data: account,
+    error: accountError,
+    isLoading,
+  } = useAccount({
+    accountHashOrPublicKey: id || '',
+  });
+
   const [balance, setBalance] = useState<string | null>(null);
-
-  useAsyncEffect(async () => {
-    if (accountHash) {
-      try {
-        const accountData = await casperApi.getAccount(accountHash);
-
-        if (!accountData) {
-          setError({
-            message: `${t('unable-to-locate-account')} ${accountHash}`,
-          });
-          return;
-        }
-
-        setAccount(accountData);
-      } catch (err: any) {
-        setError({
-          message: (err as Error).message,
-        });
-      }
-    }
-  }, [accountHash]);
 
   useAsyncEffect(async () => {
     if (account) {
@@ -42,13 +26,14 @@ export const AccountPage: React.FC = () => {
     }
   }, [account]);
 
-  const isLoading = !account || !balance;
+  const error = useMemo(() => {
+    if (accountError)
+      return { message: accountError.response?.statusText || '' };
+  }, [accountError]);
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      {!isLoading && accountHash && (
-        <AccountDetailsCard account={account} balance={balance} />
-      )}
+      {account && <AccountDetailsCard account={account} balance={balance} />}
     </PageWrapper>
   );
 };
