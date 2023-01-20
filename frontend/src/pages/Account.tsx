@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet-async';
-import { useAppSelector, appTitle, appFavicon } from 'src/store';
 import { casperApi, Account } from '../api';
-import { AccountDetailsCard, PageError, PageWrapper } from '../components';
+import {
+  AccountDetailsCard,
+  PageError,
+  PageWrapper,
+  PageHead,
+} from '../components';
 
 export const AccountPage: React.FC = () => {
   const { id: accountHash } = useParams();
@@ -46,17 +49,11 @@ export const AccountPage: React.FC = () => {
 
   const isLoading = !account || !balance;
 
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
-
-  const accountTitle = `${t('account-details')} | ${title}`;
+  const pageTitle = `${t('account-details')}`;
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      <Helmet>
-        <link rel="icon" href={favicon} />
-        <title>{accountTitle}</title>
-      </Helmet>
+      <PageHead pageTitle={pageTitle} />
       {!isLoading && accountHash && (
         <AccountDetailsCard account={account} balance={balance} />
       )}

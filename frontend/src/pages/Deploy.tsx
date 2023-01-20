@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet-async';
-import { appFavicon, appTitle, useAppSelector } from 'src/store';
 import { casperApi, Deploy } from '../api';
 import {
   DeployDetailsCard,
   Grid,
   PageError,
+  PageHead,
   PageWrapper,
   TransactionDetailsCard,
 } from '../components';
@@ -44,17 +43,11 @@ export const DeployPage: React.FC = () => {
 
   const isLoading = !deploy;
 
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
-
-  const deployTitle = `${t('deploy-details')} | ${title}`;
+  const pageTitle = `${t('deploy-details')}`;
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      <Helmet>
-        <link rel="icon" href={favicon} />
-        <title>{deployTitle}</title>
-      </Helmet>
+      <PageHead pageTitle={pageTitle} />
       {!isLoading && deployHash && (
         <Grid gap="2.5rem">
           <DeployDetailsCard deploy={deploy} />

@@ -4,9 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { SortingState } from '@tanstack/react-table';
 
 import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
-import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
-import { appFavicon, appTitle, useAppSelector } from 'src/store';
-import { Helmet } from 'react-helmet-async';
+import {
+  BlockTable,
+  GradientHeading,
+  PageWrapper,
+  PageHead,
+} from 'src/components';
+import { useAppSelector } from 'src/store';
 
 const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
 
@@ -70,17 +74,11 @@ export const Blocks: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldRefetchBlocks]);
 
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
-
-  const blocksTitle = `${t('blocks')} | ${title}`;
+  const pageTitle = `${t('blocks')}`;
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <Helmet>
-        <link rel="icon" href={favicon} />
-        <title>{blocksTitle}</title>
-      </Helmet>
+      <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       {blocks && (
         <BlockTable

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet-async';
-import { appFavicon, appTitle, useAppSelector } from 'src/store';
 import { casperApi, Block } from '../api';
 import { useAppWidth } from '../hooks';
 import {
@@ -11,6 +9,7 @@ import {
   MobileBlockDetailsCard,
   PageError,
   PageWrapper,
+  PageHead,
 } from '../components';
 
 const useQuery = () => {
@@ -60,17 +59,11 @@ export const BlockPage: React.FC = () => {
 
   const isLoading = !block;
 
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
-
-  const blockInfo = `${t('block-details')} | ${title}`;
+  const pageTitle = `${t('block-details')}`;
 
   return (
     <PageWrapper error={error} isLoading={isLoading}>
-      <Helmet>
-        <link rel="icon" href={favicon} />
-        <title>{blockInfo}</title>
-      </Helmet>
+      <PageHead pageTitle={pageTitle} />
       {!isMobile && !isLoading && blockIdentifier && (
         <BlockDetailsCard block={block} />
       )}

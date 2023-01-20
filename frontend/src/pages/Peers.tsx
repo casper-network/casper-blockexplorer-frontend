@@ -1,9 +1,13 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import useAsyncEffect from 'use-async-effect';
 
-import { GradientHeading, PageWrapper, PeerTable } from '../components';
+import {
+  GradientHeading,
+  PageHead,
+  PageWrapper,
+  PeerTable,
+} from '../components';
 
 import {
   getPeers,
@@ -12,8 +16,6 @@ import {
   useAppSelector,
   Loading,
   fetchPeers,
-  appTitle,
-  appFavicon,
 } from '../store';
 
 export const Peers: React.FC = () => {
@@ -32,17 +34,11 @@ export const Peers: React.FC = () => {
     }
   }, []);
 
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
-
-  const peersTitle = `${t('peers')} | ${title}`;
+  const pageTitle = `${t('peers')}`;
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <Helmet>
-        <link rel="icon" href={favicon} />
-        <title>{peersTitle}</title>
-      </Helmet>
+      <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('connected-peers')}</GradientHeading>
       <PeerTable peers={peers} />
     </PageWrapper>
