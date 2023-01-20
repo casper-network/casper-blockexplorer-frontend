@@ -9,13 +9,18 @@ export interface Block {
   hash: string;
   header: Header;
   body: Body;
-  proofs: any[];
+  proofs: Proof[];
+}
+
+export interface Proof {
+  public_key: string;
+  signature: string;
 }
 
 export interface Body {
   proposer: string;
-  deploy_hashes: any[];
-  transfer_hashes: any[];
+  deploy_hashes: string[];
+  transfer_hashes: string[];
 }
 
 export interface Header {
@@ -43,7 +48,7 @@ export interface DeployProcessed {
   account: string;
   timestamp: Date;
   ttl: string;
-  dependencies: any[];
+  dependencies: unknown[];
   block_hash: string;
   execution_result: ExecutionResult;
 }
