@@ -11,13 +11,15 @@ export const ConfigurableLogo: React.FC = () => {
   const { isMobile } = useAppWidth();
 
   return (
-    <ConfigurableLogoLink to="/" isMobile={isMobile}>
-      <ConfigLogo src={logoUrl} alt="configuration logo" />
-    </ConfigurableLogoLink>
+    <Link to="/">
+      <ConfigurableLogoLink isMobile={isMobile}>
+        <ConfigLogo src={logoUrl} alt="configuration logo" />
+      </ConfigurableLogoLink>
+    </Link>
   );
 };
 
-export const ConfigurableLogoLink = styled(Link)<{ isMobile: boolean }>`
+export const ConfigurableLogoLink = styled.div<{ isMobile: boolean }>`
   display: flex;
   justify-content: start;
   align-items: center;
