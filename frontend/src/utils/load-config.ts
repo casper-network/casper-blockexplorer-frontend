@@ -23,12 +23,12 @@ export const loadConfig: () => AppConfig = () => {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
-    REACT_APP_THEME,
+    REACT_APP_THEME: reactAppTheme,
   } = process.env;
   const {
     MIDDLEWARE_URL: middlewareUrl,
     ORG_LOGO_URL: orgLogoUrl,
-    THEME: test,
+    THEME: prodTheme,
   } = ENV;
 
   const isProduction = NODE_ENV === 'production';
@@ -38,7 +38,8 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
-  const theme = test;
+  const theme = isProduction ? prodTheme : reactAppTheme;
+
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
