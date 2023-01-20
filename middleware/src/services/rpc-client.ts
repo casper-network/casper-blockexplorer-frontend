@@ -1,4 +1,8 @@
-import { CasperServiceByJsonRPC, CLPublicKey } from "casper-js-sdk";
+import {
+  CasperServiceByJsonRPC,
+  CLPublicKey,
+  GetStatusResult,
+} from "casper-js-sdk";
 import { StatusCodes } from "http-status-codes";
 import NodeCache from "node-cache";
 
@@ -14,7 +18,7 @@ export class RpcClient {
   }
 
   async getStatus() {
-    const existStatus = this.cache.get("status");
+    const existStatus = this.cache.get<GetStatusResult>("status");
     if (existStatus) return existStatus;
 
     const status = await this.rpcClient.getStatus();

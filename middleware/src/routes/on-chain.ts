@@ -19,6 +19,23 @@ const rpcClient = new RpcClient(jsonRpc);
 
 /**
  * @openapi
+ * /status:
+ *  get:
+ *    description: Returns the node status.
+ *    responses:
+ *      200:
+ *        description: Returns status of node
+ */
+router.get(
+  "/status",
+  catchAsync(async (req, res) => {
+    const { peers: _, ...rest } = await rpcClient.getStatus();
+    res.json(rest);
+  })
+);
+
+/**
+ * @openapi
  * /latest-block:
  *  get:
  *    description: Returns the latest generated block.
