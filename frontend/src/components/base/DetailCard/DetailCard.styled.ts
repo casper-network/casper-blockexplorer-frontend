@@ -7,7 +7,7 @@ export const TableData = styled.td<{ noDividers?: boolean }>`
   padding: 1rem 0;
   border: none;
   border-bottom: ${({ noDividers }) =>
-    noDividers ? 'none' : `1px solid ${colors.lightSupporting}`};
+    noDividers ? 'none' : '1px solid black'};
 `;
 
 export const TableLabel = styled(TableData)`

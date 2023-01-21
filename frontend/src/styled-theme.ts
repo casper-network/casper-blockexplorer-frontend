@@ -7,20 +7,34 @@ import { loadConfig } from './utils';
  * https://emotion.sh/docs/best-practices#dont-use-a-theme-unless-your-app-supports-multiple-themes-or-will-eventually-support-multiple-themes
  */
 const { theme } = loadConfig();
-console.log(theme);
+const {
+  BLACK,
+  WHITE,
+  PRIMARY,
+  SECONDARY,
+  LIGHTSUPPORTING,
+  BOXSHADOW,
+  MEDIUMSUPPORTING,
+  DARKSUPPORTING,
+  MEDIUMWARNING,
+  LIGHTWARNING,
+  DARKWARNING,
+  SUCCESS,
+} = theme;
+
 export const colors = {
-  black: '#000',
-  white: '#FFF',
-  primary: '#0325D1',
-  secondary: '#f2f3f5',
-  lightSupporting: 'rgb(245, 245, 247)',
-  boxShadow: 'rgba(127, 128, 149, 0.2)',
-  mediumSupporting: '#e3e3e9',
-  darkSupporting: '#64748b',
-  mediumWarning: '#da2f54',
-  lightWarning: 'rgba(255, 0, 19, 0.125)',
-  darkWarning: '#BF000E',
-  success: '#09A129',
+  black: BLACK || '#000',
+  white: WHITE || '#FFF',
+  primary: PRIMARY || '#0325D1',
+  secondary: SECONDARY || '#f2f3f5',
+  lightSupporting: LIGHTSUPPORTING || 'rgb(245, 245, 247)',
+  boxShadow: BOXSHADOW || 'rgba(127, 128, 149, 0.2)',
+  mediumSupporting: MEDIUMSUPPORTING || '#e3e3e9',
+  darkSupporting: DARKSUPPORTING || '#64748b',
+  mediumWarning: MEDIUMWARNING || '#da2f54',
+  lightWarning: LIGHTWARNING || 'rgba(255, 0, 19, 0.125)',
+  darkWarning: DARKWARNING || '#BF000E',
+  success: SUCCESS || '#09A129',
 };
 
 export const breakpoints = {

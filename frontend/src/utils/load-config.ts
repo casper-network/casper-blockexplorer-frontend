@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { Theme } from './types';
-
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
-  theme?: string;
+  theme?: any;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -38,7 +36,10 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
-  const theme = isProduction ? prodTheme : reactAppTheme;
+  const theme =
+    isProduction && reactAppLogoUrl !== undefined
+      ? JSON.parse(prodTheme || '{}')
+      : JSON.parse(reactAppTheme || '{}');
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');

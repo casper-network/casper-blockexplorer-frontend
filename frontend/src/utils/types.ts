@@ -1,14 +1,14 @@
 export type Theme = {
-  black?: string;
-  white?: string;
-  primary?: string;
-  secondary?: string;
-  lightSupporting?: string;
-  boxShadow?: string;
-  mediumSupporting?: string;
-  darkSupporting?: string;
-  mediumWarning?: string;
-  lightWarning?: string;
-  darkWarning?: string;
-  success?: string;
+  BLACK?: string;
+  WHITE?: string;
+  PRIMARY?: string;
+  SECONDARY?: string;
+  LIGHTSUPPORTING?: string;
+  BOXSHADOW?: string;
+  MEDIUMSUPPORTING?: string;
+  DARKSUPPORTING?: string;
+  MEDIUMWARNING?: string;
+  LIGHTWARNING?: string;
+  DARKWARNING?: string;
+  SUCCESS?: string;
 };
