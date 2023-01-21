@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
+import { HashButton } from 'src/components/buttons';
 import { Deploy } from '../../../api';
-import { Heading, InfoCard, HeadContentWrapper, Button } from '../../base';
+import { Heading, InfoCard, HeadContentWrapper } from '../../base';
 import {
   GradientHeading,
   Hash,
@@ -15,7 +16,7 @@ import {
 } from '../../styled';
 
 import { CopyToClipboard, RawData } from '../../utility';
-import { colors, fontWeight, pxToRem } from '../../../styled-theme';
+import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy;
@@ -28,10 +29,6 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { isMobile } = useAppWidth();
   const { t } = useTranslation();
-
-  const toggleHashView = () => {
-    setIsTruncated(() => !isTruncated);
-  };
 
   return (
     <InfoCard>
@@ -46,11 +43,11 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
             )}
           </HashHeading>
           <HashButton
-            type="button"
-            onClick={toggleHashView}
-            isMobile={isMobile}>
-            {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
-          </HashButton>
+            isTruncated={isTruncated}
+            setIsTruncated={setIsTruncated}
+            isAvatar={false}
+            heading={'deploy'}
+          />
         </HashWrapper>
       </HeadContentWrapper>
       <DetailDataWrapper>
@@ -113,35 +110,4 @@ const HashHeading = styled(GradientHeading)<{
   min-width: ${pxToRem(360)};
   width: ${({ isTruncated }) => (isTruncated ? '30%' : '95%')};
   overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
-`;
-
-const HashButton = styled(Button)<{ isMobile: boolean }>`
-  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
-  color: ${colors.greyBlue};
-  background-color: transparent;
-  border-style: none;
-  padding: 0 ${pxToRem(5)};
-  width: fit-content;
-  margin-bottom: 2rem;
-
-  :active,
-  :hover {
-    transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
-    background: linear-gradient(
-      95.02deg,
-      #1c1e90 0.62%,
-      #693590 48.99%,
-      #d81d54 70.51%,
-      #d81e54 70.85%,
-      #fd6b52 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
-  }
 `;
