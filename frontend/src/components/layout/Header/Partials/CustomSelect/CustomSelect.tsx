@@ -86,8 +86,17 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
-    padding: 0 2.3rem 0.1rem 1.5rem;
+    padding: 0 2.3rem 0rem 1.5rem;
     margin: 0 auto;
+  }
+
+  /* Safari Version 15.4 (11-15 up to Monterey)*/
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+      .react-select__single-value {
+        padding: 0 2.3rem 0.4rem 1.5rem;
+      }
+    }
   }
 
   .react-select__dropdown-indicator svg {

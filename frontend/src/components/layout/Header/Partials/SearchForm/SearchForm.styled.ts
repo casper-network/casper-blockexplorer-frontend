@@ -94,6 +94,13 @@ export const SubmitButton = styled.button`
   right: 0.0625rem;
   border-style: none;
 
+  /* Safari Version 12.3 11-15 up to Monterey */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+      padding-top: 0.55rem;
+    }
+  }
+
   :hover,
   :focus {
     outline: 2px solid transparent;
