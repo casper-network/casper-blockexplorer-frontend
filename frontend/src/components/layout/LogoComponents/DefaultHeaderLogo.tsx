@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
 import { breakpoints, pxToRem } from 'src/styled-theme';
-import { BlueLogo, BlueBlackLogo, ExpLogo } from '../../logos';
+import { BlueLogo, RedBlackLogo, ExpLogo } from '../../logos';
 
 interface DefaultHeaderProps {
   isMobile: boolean;
@@ -73,7 +73,7 @@ export const RedBlackCasperLogoWrapper = styled.div`
   }
 `;
 
-export const RedBlackCasperLogo = styled(BlueBlackLogo)`
+export const RedBlackCasperLogo = styled(RedBlackLogo)`
   display: none;
 
   @media (min-width: ${breakpoints.lg}) {
