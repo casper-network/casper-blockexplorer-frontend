@@ -22,6 +22,7 @@ import {
   Loading,
   fetchBlocks,
   fetchPeers,
+  getIsFirstVisit,
 } from '../store';
 import { breakpoints, pxToRem } from '../styled-theme';
 import { standardizeNumber } from '../utils';
@@ -34,6 +35,7 @@ export const Home: React.FC = () => {
 
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
   const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
+  const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   const blocksAreLoading = blockLoadingStatus !== Loading.Complete;
   const peersAreLoading = peerLoadingStatus !== Loading.Complete;
@@ -66,7 +68,7 @@ export const Home: React.FC = () => {
 
   return (
     <PageWrapper isLoading={isLoading}>
-      <HomeContentContainer>
+      <HomeContentContainer isFirstVisit={isFirstVisit}>
         <BlocksInfo
           blockHeight={firstListedBlockHeight}
           blockEraTimeStamp={firstListedBlockEraTimeStamp}
@@ -82,11 +84,12 @@ export const Home: React.FC = () => {
   );
 };
 
-const HomeContentContainer = styled.div`
+const HomeContentContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   max-width: 17.2rem;
+  padding-top: 0;
 
   @media (min-width: ${breakpoints.md}) {
     min-width: 39rem;
@@ -99,5 +102,7 @@ const HomeContentContainer = styled.div`
   @media (min-width: ${breakpoints.md}) {
     width: 68.25%;
     max-width: ${pxToRem(793)};
+    padding-top: ${({ isFirstVisit }) =>
+      isFirstVisit ? '0' : `${pxToRem(30)}`};
   }
 `;
