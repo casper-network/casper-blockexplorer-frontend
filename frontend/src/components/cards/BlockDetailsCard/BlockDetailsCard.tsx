@@ -173,7 +173,7 @@ const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
   font-weight: ${fontWeight.extraBold};
   display: inline;
   margin: 0;
-  width: ${({ isTruncated }) => (isTruncated ? '30%' : '100%')};
+  width: ${({ isTruncated }) => (isTruncated ? '10%' : '100%')};
   min-width: ${pxToRem(360)};
   overflow-wrap: break-word;
 `;

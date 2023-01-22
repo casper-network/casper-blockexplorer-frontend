@@ -115,6 +115,7 @@ const HashHeading = styled(GradientHeading)<{
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
-  width: ${({ isTruncated }) => (isTruncated ? '30%' : '95%')};
+  width: ${({ isTruncated, isMobile }) =>
+    isTruncated || isMobile ? '10%' : '95%'};
   overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
 `;
