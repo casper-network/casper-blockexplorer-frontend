@@ -60,7 +60,7 @@ export const SearchInput = styled.input`
   display: block;
   color: black;
   background-color: #fff;
-  height: 2.7rem;
+  height: 2.5rem;
   width: 100%;
   font-size: clamp(0.9rem, 1.1vw, 1.4rem);
   border-radius: 0.375rem 0 0 0.375rem;
@@ -70,6 +70,11 @@ export const SearchInput = styled.input`
   box-shadow: inset 0px 1px 7px rgba(127, 128, 149, 0.2);
   border-style: none;
   appearance: none;
+
+  /* Firefox Version 110.0b3 (Versions 69+) */
+  @supports selector(:-moz-is-html) {
+    height: 2.25rem;
+  }
 
   :hover,
   :focus {
@@ -85,7 +90,7 @@ export const SearchInput = styled.input`
 export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #0325d1;
-  height: 2.7rem;
+  height: 2.5rem;
   width: 3.2rem;
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
@@ -99,6 +104,11 @@ export const SubmitButton = styled.button`
     @supports (-webkit-appearance: none) and (stroke-color: transparent) {
       padding-top: 0.55rem;
     }
+  }
+
+  /* Firefox Version 110.0b3 (Versions 69+) */
+  @supports selector(:-moz-is-html) {
+    height: 2.25rem;
   }
 
   :hover,
