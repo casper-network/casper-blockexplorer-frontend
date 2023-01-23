@@ -17,7 +17,7 @@ import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 
 interface BlockTableProps {
-  readonly latestBlockHeight?: number;
+  readonly total?: number;
   readonly blocks: Block[];
   readonly showValidators?: boolean;
   fetchMore: () => void;
@@ -28,7 +28,7 @@ interface BlockTableProps {
 }
 
 export const BlockTable: React.FC<BlockTableProps> = ({
-  latestBlockHeight,
+  total,
   blocks,
   showValidators,
   fetchMore,
@@ -51,13 +51,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     () => (
       <BlockTableHead>
         <p>
-          {standardizeNumber(latestBlockHeight ? latestBlockHeight + 1 : 0)}{' '}
-          {t('total-rows')}
+          {standardizeNumber(total || 0)} {t('total-rows')}
         </p>
         <RefreshTimer />
       </BlockTableHead>
     ),
-    [latestBlockHeight, t],
+    [total, t],
   );
 
   const footer = useMemo(

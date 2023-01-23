@@ -14,7 +14,7 @@ import { ApiError, isValidPublicKey } from "../utils";
 export class RpcClient {
   private cache: NodeCache;
   constructor(private readonly rpcClient: CasperServiceByJsonRPC) {
-    this.cache = new NodeCache({ stdTTL: BLOCK_GENERATE_INTERVAL });
+    this.cache = new NodeCache();
   }
 
   async getStatus() {
@@ -35,7 +35,7 @@ export class RpcClient {
     const { block } = await this.rpcClient.getLatestBlockInfo();
     if (!block) throw new ApiError(StatusCodes.NOT_FOUND, "Not found block");
 
-    this.cache.set(`latestBlock`, block);
+    this.cache.set(`latestBlock`, block, BLOCK_GENERATE_INTERVAL);
 
     return block as unknown as Block;
   }

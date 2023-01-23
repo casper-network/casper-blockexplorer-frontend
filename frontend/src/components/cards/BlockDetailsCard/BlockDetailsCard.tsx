@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { HashButton } from 'src/components/buttons';
+import { fontWeight, pxToRem } from 'src/styled-theme';
 import { Block } from '../../../api';
-import { Button, HeadContentWrapper, Heading, InfoCard } from '../../base';
+import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
@@ -42,10 +43,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   const [isTruncated, setIsTruncated] = useState(true);
   const { t } = useTranslation();
 
-  const toggleHashView = () => {
-    setIsTruncated(() => !isTruncated);
-  };
-
   return (
     <InfoCard>
       <HeadContentWrapper>
@@ -58,9 +55,11 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
               <Hash hash={blockHash} />
             )}
           </HashHeading>
-          <HashButton type="button" onClick={toggleHashView}>
-            {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
-          </HashButton>
+          <HashButton
+            isTruncated={isTruncated}
+            setIsTruncated={setIsTruncated}
+            isAvatar={false}
+          />
         </HashWrapper>
       </HeadContentWrapper>
       <DetailDataRowWrapper>
@@ -181,40 +180,9 @@ const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
   font-weight: ${fontWeight.extraBold};
   display: inline;
   margin: 0;
-  width: ${({ isTruncated }) => (isTruncated ? '30%' : '100%')};
+  width: ${({ isTruncated }) => (isTruncated ? '10%' : '100%')};
   min-width: ${pxToRem(360)};
   overflow-wrap: break-word;
-`;
-
-const HashButton = styled(Button)`
-  color: ${colors.greyBlue};
-  background-color: transparent;
-  border-style: none;
-  padding: 0 ${pxToRem(5)};
-  width: fit-content;
-  position: relative;
-  right: ${pxToRem(4)};
-
-  :active,
-  :hover {
-    transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
-    background: linear-gradient(
-      95.02deg,
-      #1c1e90 0.62%,
-      #693590 48.99%,
-      #d81d54 70.51%,
-      #d81e54 70.85%,
-      #fd6b52 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
-  }
 `;
 
 const DetailDataRowWrapper = styled(DetailDataWrapper)`

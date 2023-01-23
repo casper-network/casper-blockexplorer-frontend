@@ -7,11 +7,18 @@ export const HeaderComponent = styled.header`
   background-color: #fff;
 `;
 
-export const HeaderComponentsContainer = styled.div<{ isFirstVisit: boolean }>`
+export const HeaderComponentsContainer = styled.div<{
+  isFirstVisit: boolean;
+  isMobile: boolean;
+}>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  max-width: ${pxToRem(1400)};
+  width: ${({ isMobile }) => (isMobile ? '100%' : '98%')};
+  margin: ${({ isMobile }) => (isMobile ? '0' : '0 auto')};
+
   padding: 1.75rem 1.7rem 1.7rem 2.17rem;
 
   @media (min-width: ${breakpoints.lg}) {

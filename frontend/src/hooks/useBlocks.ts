@@ -30,22 +30,22 @@ export default function useBlocks(props?: IUseBlocks) {
           ? pageParam?.fromHeight
           : pageParam?.fromHeight || 0;
 
-      const { blocks } = await middleware.getBlocks(
+      const { blocks, total } = await middleware.getBlocks(
         fromHeight,
         'height',
         orderByHeight,
         numToShow,
       );
 
-      return blocks;
+      return { blocks, total };
     },
     {
-      getNextPageParam: lastPage => {
-        const hasMore = lastPage.length === numToShow;
+      getNextPageParam: ({ blocks }) => {
+        const hasMore = blocks.length === numToShow;
 
         if (!hasMore) return undefined;
 
-        const lastBlockHeight = lastPage[numToShow - 1].header.height;
+        const lastBlockHeight: number = blocks[numToShow - 1].header.height;
 
         if (orderByHeight === 'desc')
           return {
