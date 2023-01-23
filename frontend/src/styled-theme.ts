@@ -1,4 +1,3 @@
-import { ThemeContext } from '@emotion/react';
 import { loadConfig } from './utils';
 
 /**
@@ -20,6 +19,11 @@ const {
   LIGHTWARNING,
   DARKWARNING,
   SUCCESS,
+  GRADIENT1,
+  GRADIENT2,
+  GRADIENT3,
+  GRADIENT4,
+  GRADIENT5,
 } = theme;
 
 export const colors = {
@@ -35,6 +39,11 @@ export const colors = {
   lightWarning: LIGHTWARNING || 'rgba(255, 0, 19, 0.125)',
   darkWarning: DARKWARNING || '#BF000E',
   success: SUCCESS || '#09A129',
+  gradient1: GRADIENT1 || '#1C1E90',
+  gradient2: GRADIENT2 || '#693590',
+  gradient3: GRADIENT3 || '#D81D54',
+  gradient4: GRADIENT4 || '#D81E54',
+  gradient5: GRADIENT5 || '#FD6B52',
 };
 
 export const breakpoints = {

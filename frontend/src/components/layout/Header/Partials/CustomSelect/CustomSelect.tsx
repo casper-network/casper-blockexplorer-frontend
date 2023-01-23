@@ -158,11 +158,11 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-weight: 700;
     background: linear-gradient(
       95.02deg,
-      #1c1e90 0.62%,
-      #693590 48.99%,
-      #d81d54 70.51%,
-      #d81e54 70.85%,
-      #fd6b52 116.85%
+      ${colors.gradient1} 0.62%,
+      ${colors.gradient2} 48.99%,
+      ${colors.gradient3} 70.51%,
+      ${colors.gradient4} 70.85%,
+      ${colors.gradient5} 116.85%
     );
     background-size: 100%;
     background-clip: text;

@@ -32,11 +32,11 @@ export const PageLink = styled(Link)`
     background-color: ${colors.primary};
     background-image: linear-gradient(
       90deg,
-      #1c1e90,
-      #693590,
-      #d81d54,
-      #d81e54,
-      #fd6b52
+      ${colors.gradient1},
+      ${colors.gradient2},
+      ${colors.gradient3},
+      ${colors.gradient4},
+      ${colors.gradient5}
     );
     background-size: 100%;
     background-clip: text;
@@ -63,7 +63,7 @@ export const H3Data = styled.p`
 `;
 
 export const DataContext = styled.p`
-  color: #7f8095;
+  color: ${colors.darkSupporting};
   font-weight: ${fontWeight.medium};
   font-size: clamp(0.9rem, 1.25vw, 1rem);
 `;

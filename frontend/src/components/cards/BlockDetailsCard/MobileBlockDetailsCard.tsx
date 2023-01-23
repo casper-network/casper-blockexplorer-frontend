@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { pxToRem } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 
 import { Block } from '../../../api';
 import { InfoCard } from '../../base';
@@ -157,11 +157,11 @@ const PageHeading = styled.h2`
   padding-left: ${pxToRem(15)};
   background: linear-gradient(
     93.67deg,
-    #1c1e90 1.63%,
-    #693590 64.2%,
-    #d81d54 92.03%,
-    #d81e54 92.49%,
-    #fd6b52 151.99%
+    ${colors.gradient1} 1.63%,
+    ${colors.gradient2} 64.2%,
+    ${colors.gradient3} 92.03%,
+    ${colors.gradient4} 92.49%,
+    ${colors.gradient5} 151.99%
   );
   background-clip: text;
   -webkit-background-clip: text;
