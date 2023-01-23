@@ -6,7 +6,7 @@ import { loadConfig } from './utils';
  * Emotion recommends that you only use an actual theme if you support multiple
  * https://emotion.sh/docs/best-practices#dont-use-a-theme-unless-your-app-supports-multiple-themes-or-will-eventually-support-multiple-themes
  */
-const { theme } = loadConfig();
+const { theme, primaryFontName, secondaryFontName } = loadConfig();
 const {
   BLACK,
   WHITE,
@@ -50,8 +50,8 @@ export const breakpoints = {
 };
 
 export const fonts = {
-  primaryFont: 'Inter, sans-serif',
-  secondaryFont: 'JetBrains Mono, monospace',
+  primaryFont: primaryFontName,
+  secondaryFont: secondaryFontName,
 };
 
 export const fontWeight = {
