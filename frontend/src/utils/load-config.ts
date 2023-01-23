@@ -11,6 +11,9 @@ export interface AppConfig {
   theme?: any;
   faviconUrl?: string | undefined;
   title?: string | undefined;
+  fontUrl?: string | undefined;
+  primaryFontName?: string | undefined;
+  secondaryFontName?: string | undefined;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -27,6 +30,9 @@ export const loadConfig: () => AppConfig = () => {
     REACT_APP_THEME: reactAppTheme,
     REACT_APP_ORG_NAME: reactAppName,
     REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
+    REACT_APP_FONT_URL: reactAppFontUrl,
+    REACT_APP_PRIMARY_FONT_NAME: reactAppPrimaryFontName,
+    REACT_APP_SECONDARY_FONT_NAME: reactAppSecondaryFontName,
   } = process.env;
   const {
     MIDDLEWARE_URL: middlewareUrl,
@@ -34,6 +40,9 @@ export const loadConfig: () => AppConfig = () => {
     THEME: prodTheme,
     ORG_NAME: orgName,
     ORG_FAVICON_URL: orgFaviconUrl,
+    FONT_URL: googleFontUrl,
+    PRIMARY_FONT_NAME: orgPrimaryFontName,
+    SECONDARY_FONT_NAME: orgSecondaryFontName,
   } = ENV;
 
   const isProduction = NODE_ENV === 'production';
@@ -43,12 +52,25 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+
   const theme =
     isProduction && reactAppLogoUrl !== undefined
       ? JSON.parse(prodTheme || '{}')
       : JSON.parse(reactAppTheme || '{}');
+
   const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';
+
   const title = isProduction ? orgName : reactAppName || '';
+
+  const fontUrl = isProduction ? googleFontUrl : reactAppFontUrl || '';
+
+  const primaryFontName = isProduction
+    ? reactAppPrimaryFontName
+    : orgPrimaryFontName || '';
+
+  const secondaryFontName = isProduction
+    ? reactAppSecondaryFontName
+    : orgSecondaryFontName || '';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
@@ -61,5 +83,8 @@ export const loadConfig: () => AppConfig = () => {
     theme,
     faviconUrl,
     title,
+    fontUrl,
+    primaryFontName,
+    secondaryFontName,
   };
 };
