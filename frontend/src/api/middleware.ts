@@ -1,6 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
 import { SortDirection } from '@tanstack/react-table';
-import { CLValueParsers, GetDeployResult, JsonDeploy } from 'casper-js-sdk';
+import {
+  CLValueParsers,
+  GetDeployResult,
+  JsonDeploy,
+  ValidatorWeight,
+} from 'casper-js-sdk';
 import { formatDate, formatTimeAgo, loadConfig } from 'src/utils';
 import { Account, DeployStatus } from './types';
 import { JsonDeploySession } from './missing-sdk-types';
@@ -140,6 +145,13 @@ export class Middleware {
       rawAccount: JSON.stringify(account),
     };
   }
+
+  public async getValidators() {
+    const {
+      data: { validators },
+    } = await this.api.get<GetValidators>('/validators');
+    return validators;
+  }
 }
 
 const { webServerUrl } = loadConfig();
@@ -227,4 +239,8 @@ export interface ActionThresholds {
 export interface AssociatedKey {
   accountHash: string;
   weight: number;
+}
+
+export interface GetValidators {
+  validators: ValidatorWeight[];
 }
