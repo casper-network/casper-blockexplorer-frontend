@@ -18,6 +18,8 @@ NETWORK_NAME=integration-test # network name, you can check it in chainspec
 PEERS_UPDATE_INTERVAL=60 # interval time for update peer list
 ```
 
+* when running locally inside a Docker and pointing to NCTL, 127.0.0.1 equals to `host.docker.internal` so this should be used as `localhost` in `.env`
+
 And if so desired, change the application brand logo by adding:
 
 ```
