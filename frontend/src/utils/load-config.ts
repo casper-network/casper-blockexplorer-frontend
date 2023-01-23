@@ -2,10 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
+  faviconUrl?: string | undefined;
+  title?: string | undefined;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -19,8 +22,15 @@ export const loadConfig: () => AppConfig = () => {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
+    REACT_APP_ORG_NAME: reactAppName,
+    REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
   } = process.env;
-  const { MIDDLEWARE_URL: middlewareUrl, ORG_LOGO_URL: orgLogoUrl } = ENV;
+  const {
+    MIDDLEWARE_URL: middlewareUrl,
+    ORG_LOGO_URL: orgLogoUrl,
+    ORG_NAME: orgName,
+    ORG_FAVICON_URL: orgFaviconUrl,
+  } = ENV;
 
   const isProduction = NODE_ENV === 'production';
 
@@ -29,6 +39,8 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+  const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';
+  const title = isProduction ? orgName : reactAppName || '';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
@@ -38,5 +50,7 @@ export const loadConfig: () => AppConfig = () => {
     isProduction,
     webServerUrl,
     logoUrl,
+    faviconUrl,
+    title,
   };
 };

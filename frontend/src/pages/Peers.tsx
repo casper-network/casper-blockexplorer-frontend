@@ -2,7 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useAsyncEffect from 'use-async-effect';
 
-import { GradientHeading, PageWrapper, PeerTable } from '../components';
+import {
+  GradientHeading,
+  PageHead,
+  PageWrapper,
+  PeerTable,
+} from '../components';
 
 import {
   getPeers,
@@ -29,8 +34,11 @@ export const Peers: React.FC = () => {
     }
   }, []);
 
+  const pageTitle = `${t('peers')}`;
+
   return (
     <PageWrapper isLoading={isLoading}>
+      <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('connected-peers')}</GradientHeading>
       <PeerTable peers={peers} />
     </PageWrapper>

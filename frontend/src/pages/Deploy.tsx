@@ -7,6 +7,7 @@ import {
   DeployDetailsCard,
   Grid,
   PageError,
+  PageHead,
   PageWrapper,
   TransactionDetailsCard,
 } from '../components';
@@ -42,8 +43,11 @@ export const DeployPage: React.FC = () => {
 
   const isLoading = !deploy;
 
+  const pageTitle = `${t('deploy-details')}`;
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
+      <PageHead pageTitle={pageTitle} />
       {!isLoading && deployHash && (
         <Grid gap="2.5rem">
           <DeployDetailsCard deploy={deploy} />

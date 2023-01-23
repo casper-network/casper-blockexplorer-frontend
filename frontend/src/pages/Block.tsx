@@ -9,6 +9,7 @@ import {
   MobileBlockDetailsCard,
   PageError,
   PageWrapper,
+  PageHead,
 } from '../components';
 
 const useQuery = () => {
@@ -58,8 +59,11 @@ export const BlockPage: React.FC = () => {
 
   const isLoading = !block;
 
+  const pageTitle = `${t('block-details')}`;
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
+      <PageHead pageTitle={pageTitle} />
       {!isMobile && !isLoading && blockIdentifier && (
         <BlockDetailsCard block={block} />
       )}

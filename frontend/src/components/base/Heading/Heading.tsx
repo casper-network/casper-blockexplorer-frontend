@@ -38,12 +38,12 @@ const HeadingOne = styled.h1`
 `;
 
 const HeadingTwo = styled.h2`
-  font-size: 2.53rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
 `;
 
 const HeadingThree = styled.h3`
-  font-size: 2.25rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
 `;
 

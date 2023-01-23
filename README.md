@@ -16,10 +16,12 @@ NETWORK_NAME=integration-test # network name, you can check it in chainspec
 PEERS_UPDATE_INTERVAL=60 # interval time for update peer list
 ```
 
-And if so desired, change the application brand logo by adding:
+And if so desired, change the application logo / name / favicon (this is experimental feature) by adding:
 
 ```
 ORG_LOGO_URL=https://example.com/your-org-logo
+ORG_NAME=Jenkins
+ORG_FAVICON_URL=https://example.com/your-favicon
 ```
 
 2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes. (HMR and debug modes will be enabled)

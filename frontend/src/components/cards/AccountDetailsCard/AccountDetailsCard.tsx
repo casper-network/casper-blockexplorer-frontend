@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
+import { HashButton } from 'src/components/buttons';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-import { Button, HeadContentWrapper, Heading, InfoCard } from '../../base';
+import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   GradientHeading,
   Hash,
@@ -17,7 +18,7 @@ import {
 } from '../../styled';
 
 import { Coin, CopyToClipboard, RawData } from '../../utility';
-import { colors, fontWeight, pxToRem } from '../../../styled-theme';
+import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account;
@@ -32,10 +33,6 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   const { isMobile } = useAppWidth();
   const { t } = useTranslation();
   const { trimmedAccountHash, publicKey, rawAccount } = account;
-
-  const toggleHashView = () => {
-    setIsTruncated(() => !isTruncated);
-  };
 
   return (
     <InfoCard>
@@ -56,10 +53,11 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           </HashHeading>
         </AvatarHashContainer>
       </HeadContentContainer>
-      <HashButton type="button" onClick={toggleHashView} isMobile={isMobile}>
-        {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
-      </HashButton>
-
+      <HashButton
+        isTruncated={isTruncated}
+        setIsTruncated={setIsTruncated}
+        isAvatar
+      />
       <DetailDataWrapper>
         <DetailDataList gap="1.75rem">
           <li>
@@ -117,38 +115,7 @@ const HashHeading = styled(GradientHeading)<{
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
-  width: ${({ isTruncated }) => (isTruncated ? '30%' : '95%')};
+  width: ${({ isTruncated, isMobile }) =>
+    isTruncated || isMobile ? '10%' : '95%'};
   overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
-`;
-
-const HashButton = styled(Button)<{ isMobile: boolean }>`
-  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
-  color: ${colors.greyBlue};
-  background-color: transparent;
-  border-style: none;
-  padding: 0 ${pxToRem(5)};
-  margin-left: ${pxToRem(65)};
-  width: fit-content;
-  margin-bottom: 2rem;
-
-  :active,
-  :hover {
-    transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
-    background: linear-gradient(
-      95.02deg,
-      #1c1e90 0.62%,
-      #693590 48.99%,
-      #d81d54 70.51%,
-      #d81e54 70.85%,
-      #fd6b52 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
-  }
 `;
