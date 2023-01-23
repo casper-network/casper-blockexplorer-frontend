@@ -144,7 +144,6 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__menu {
-    /* color: ${colors.white}; */
     text-align: center;
     background-color: ${colors.white};
     border-radius: 0.375rem;
