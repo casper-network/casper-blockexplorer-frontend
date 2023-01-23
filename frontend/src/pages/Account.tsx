@@ -3,7 +3,12 @@ import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { casperApi, Account } from '../api';
-import { AccountDetailsCard, PageError, PageWrapper } from '../components';
+import {
+  AccountDetailsCard,
+  PageError,
+  PageWrapper,
+  PageHead,
+} from '../components';
 
 export const AccountPage: React.FC = () => {
   const { id: accountHash } = useParams();
@@ -44,8 +49,11 @@ export const AccountPage: React.FC = () => {
 
   const isLoading = !account || !balance;
 
+  const pageTitle = `${t('account-details')}`;
+
   return (
     <PageWrapper error={error} isLoading={isLoading}>
+      <PageHead pageTitle={pageTitle} />
       {!isLoading && accountHash && (
         <AccountDetailsCard account={account} balance={balance} />
       )}

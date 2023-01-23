@@ -3,11 +3,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
   theme?: any;
+  faviconUrl?: string | undefined;
+  title?: string | undefined;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -22,11 +25,15 @@ export const loadConfig: () => AppConfig = () => {
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
     REACT_APP_THEME: reactAppTheme,
+    REACT_APP_ORG_NAME: reactAppName,
+    REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
   } = process.env;
   const {
     MIDDLEWARE_URL: middlewareUrl,
     ORG_LOGO_URL: orgLogoUrl,
     THEME: prodTheme,
+    ORG_NAME: orgName,
+    ORG_FAVICON_URL: orgFaviconUrl,
   } = ENV;
 
   const isProduction = NODE_ENV === 'production';
@@ -40,6 +47,8 @@ export const loadConfig: () => AppConfig = () => {
     isProduction && reactAppLogoUrl !== undefined
       ? JSON.parse(prodTheme || '{}')
       : JSON.parse(reactAppTheme || '{}');
+  const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';
+  const title = isProduction ? orgName : reactAppName || '';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
@@ -50,5 +59,7 @@ export const loadConfig: () => AppConfig = () => {
     webServerUrl,
     logoUrl,
     theme,
+    faviconUrl,
+    title,
   };
 };

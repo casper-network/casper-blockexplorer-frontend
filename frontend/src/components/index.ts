@@ -5,3 +5,4 @@ export * from './layout';
 export * from './styled';
 export * from './tables';
 export * from './utility';
+export * from './head';

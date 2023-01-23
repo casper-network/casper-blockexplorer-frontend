@@ -150,7 +150,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
 };
 
 const PageHeading = styled.h2`
-  font-size: 2.75rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
   font-weight: 800;
   display: inline;
