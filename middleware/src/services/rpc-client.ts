@@ -2,6 +2,7 @@ import {
   CasperServiceByJsonRPC,
   CLPublicKey,
   GetStatusResult,
+  ValidatorWeight,
 } from "casper-js-sdk";
 import { StatusCodes } from "http-status-codes";
 import NodeCache from "node-cache";
@@ -122,4 +123,26 @@ export class RpcClient {
       throw new ApiError(StatusCodes.NOT_FOUND, "Not found account");
     return account;
   };
+
+  async getValidators() {
+    const existValidators = this.cache.get<ValidatorWeight[]>("validators");
+    if (existValidators) return existValidators;
+
+    const {
+      header: { era_id: latestEraId },
+    } = await this.getLatestBlock();
+
+    const validtorsInfo = await this.rpcClient.getValidatorsInfo();
+
+    const currentEraValidators =
+      validtorsInfo.auction_state.era_validators.find(
+        ({ era_id }) => era_id === latestEraId
+      );
+
+    const validatorWeights = currentEraValidators?.validator_weights;
+
+    this.cache.set("validators", validatorWeights);
+
+    return validatorWeights;
+  }
 }

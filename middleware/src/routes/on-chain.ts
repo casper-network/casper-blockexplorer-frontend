@@ -345,4 +345,12 @@ router.get(
   })
 );
 
+router.get(
+  "/validators",
+  catchAsync(async (req, res) => {
+    const validators = await rpcClient.getValidators();
+    res.json({ validators });
+  })
+);
+
 export default router;
