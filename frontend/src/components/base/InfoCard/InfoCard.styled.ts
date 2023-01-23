@@ -17,7 +17,7 @@ export const InfoCardSection = styled.section`
 
 export const InfoCardContentWrapper = styled.div`
   width: 100%;
-  background: ${colors.mediumSupporting};
+  background: ${colors.white};
   border: 1px solid ${colors.mediumSupporting};
   box-shadow: 0px 0.125rem 0.5rem ${colors.boxShadow};
   border-radius: 0.35rem;

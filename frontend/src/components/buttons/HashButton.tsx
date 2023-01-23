@@ -50,7 +50,7 @@ const StyledHashButton = styled(Button)<{
     (isMobile && isAvatar) || (isMobile && heading === 'deploy')
       ? 'none'
       : 'block'};
-  color: ${colors.greyBlue};
+  color: ${colors.darkSupporting};
   font-weight: 400;
   background-color: transparent;
   border-style: none;
