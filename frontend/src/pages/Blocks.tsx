@@ -4,7 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { SortingState } from '@tanstack/react-table';
 
 import { useBlocks, IUseBlocks } from 'src/hooks';
-import { BlockTable, GradientHeading, PageWrapper } from 'src/components';
+import {
+  BlockTable,
+  GradientHeading,
+  PageWrapper,
+  PageHead,
+} from 'src/components';
+
 import { useAppSelector } from 'src/store';
 import { Block } from 'src/api';
 
@@ -74,8 +80,11 @@ export const Blocks: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldRefetchBlocks]);
 
+  const pageTitle = `${t('blocks')}`;
+
   return (
     <PageWrapper isLoading={isLoading}>
+      <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       {blocks && (
         <BlockTable

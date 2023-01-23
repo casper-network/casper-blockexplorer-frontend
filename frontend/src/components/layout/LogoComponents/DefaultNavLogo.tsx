@@ -19,6 +19,13 @@ export const NavLogoLink = styled(Link)`
   align-items: center;
   text-decoration-line: none;
   min-width: ${pxToRem(140)};
+  max-width: ${pxToRem(140)};
+
+  /* Firefox Version 110.0b3 (Versions 69+) */
+  @supports selector(:-moz-is-html) {
+    min-width: ${pxToRem(120)};
+    max-width: ${pxToRem(120)};
+  }
 
   :hover,
   :focus {

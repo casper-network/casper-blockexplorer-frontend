@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
 
 const FooterWrapper = styled.footer`
   color: ${colors.cobaltBlue};
-  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-size: clamp(0.9rem, 1vw, 1.3rem);
   font-weight: ${fontWeight.medium};
   line-height: 1.5;
   padding: 3.3rem 0 3.5rem 0;

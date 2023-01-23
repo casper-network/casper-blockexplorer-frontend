@@ -1,1 +1,2 @@
-export {} from './NavButton';
+export { NavButton } from './NavButton';
+export { HashButton } from './HashButton';

@@ -45,7 +45,7 @@ export default function useBlocks(props?: IUseBlocks) {
 
         if (!hasMore) return undefined;
 
-        const lastBlockHeight = blocks[numToShow - 1].header.height;
+        const lastBlockHeight: number = blocks[numToShow - 1].header.height;
 
         if (orderByHeight === 'desc')
           return {
