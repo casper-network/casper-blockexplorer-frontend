@@ -97,12 +97,14 @@ export const BlockTable: React.FC<BlockTableProps> = ({
         header: `${t('era')}`,
         accessorKey: 'header.era_id',
         maxSize: 100,
+        enableSorting: false,
       },
       {
         header: `${t('deploy')}`,
         accessorKey: 'body.deploy_hashes',
         cell: ({ getValue }) => getValue<string[]>().length,
         maxSize: 100,
+        enableSorting: false,
       },
       {
         // @ts-ignore
