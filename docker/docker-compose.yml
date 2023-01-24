@@ -11,6 +11,10 @@ services:
         - REACT_APP_THEME=${THEME}
         - REACT_APP_ORG_NAME=${ORG_NAME}
         - REACT_APP_ORG_FAVICON_URL=${ORG_FAVICON_URL}
+        - REACT_APP_ORG_FONT_URL=${ORG_FONT_URL}
+        - REACT_APP_ORG_PRIMARY_FONT_NAME=${ORG_PRIMARY_FONT_NAME}
+        - REACT_APP_ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
+
     image: blockexplorer-frontend
     environment:
       - NODE_ENV=development
@@ -19,6 +23,9 @@ services:
       - REACT_APP_THEME=${THEME}
       - REACT_APP_ORG_NAME=${ORG_NAME}
       - REACT_APP_ORG_FAVICON_URL=${ORG_FAVICON_URL}
+      - REACT_APP_ORG_FONT_URL=${ORG_FONT_URL}
+      - REACT_APP_ORG_PRIMARY_FONT_NAME=${ORG_PRIMARY_FONT_NAME}
+      - REACT_APP_ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
     restart: on-failure
     volumes:
       - ./../frontend:/usr/src/app
