@@ -2,13 +2,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
+import { Theme } from './types';
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
-  theme?: any;
+  theme: Theme;
   faviconUrl?: string | undefined;
   title?: string | undefined;
   fontUrl?: string | undefined;

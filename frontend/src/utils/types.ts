@@ -11,4 +11,9 @@ export type Theme = {
   LIGHTWARNING?: string;
   DARKWARNING?: string;
   SUCCESS?: string;
+  GRADIENT1?: string;
+  GRADIENT2?: string;
+  GRADIENT3?: string;
+  GRADIENT4?: string;
+  GRADIENT5?: string;
 };
