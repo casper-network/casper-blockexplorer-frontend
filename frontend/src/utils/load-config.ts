@@ -30,9 +30,9 @@ export const loadConfig: () => AppConfig = () => {
     REACT_APP_THEME: reactAppTheme,
     REACT_APP_ORG_NAME: reactAppName,
     REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
-    REACT_APP_FONT_URL: reactAppFontUrl,
-    REACT_APP_PRIMARY_FONT_NAME: reactAppPrimaryFontName,
-    REACT_APP_SECONDARY_FONT_NAME: reactAppSecondaryFontName,
+    REACT_APP_ORG_FONT_URL: reactAppFontUrl,
+    REACT_APP_ORG_PRIMARY_FONT_NAME: reactAppPrimaryFontName,
+    REACT_APP_ORG_SECONDARY_FONT_NAME: reactAppSecondaryFontName,
   } = process.env;
   const {
     MIDDLEWARE_URL: middlewareUrl,
@@ -40,9 +40,9 @@ export const loadConfig: () => AppConfig = () => {
     THEME: prodTheme,
     ORG_NAME: orgName,
     ORG_FAVICON_URL: orgFaviconUrl,
-    FONT_URL: googleFontUrl,
-    PRIMARY_FONT_NAME: orgPrimaryFontName,
-    SECONDARY_FONT_NAME: orgSecondaryFontName,
+    ORG_FONT_URL: orgFontUrl,
+    ORG_PRIMARY_FONT_NAME: orgPrimaryFontName,
+    ORG_SECONDARY_FONT_NAME: orgSecondaryFontName,
   } = ENV;
 
   const isProduction = NODE_ENV === 'production';
@@ -58,11 +58,11 @@ export const loadConfig: () => AppConfig = () => {
       ? JSON.parse(prodTheme || '{}')
       : JSON.parse(reactAppTheme || '{}');
 
-  const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';
-
   const title = isProduction ? orgName : reactAppName || '';
 
-  // const fontUrl = isProduction ? googleFontUrl : reactAppFontUrl || '';
+  const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';
+
+  // const fontUrl = isProduction ? orgFontUrl : reactAppFontUrl || '';
 
   // const primaryFontName = isProduction
   //   ? reactAppPrimaryFontName
@@ -72,12 +72,12 @@ export const loadConfig: () => AppConfig = () => {
   //   ? reactAppSecondaryFontName
   //   : orgSecondaryFontName || '';
 
-  // const fontUrl =
-  //   'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap';
-  // const primaryFontName = 'Montserrat';
+  const fontUrl =
+    'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap';
+  const primaryFontName = 'Montserrat';
 
-  const fontUrl = '';
-  const primaryFontName = '';
+  // const fontUrl = '';
+  // const primaryFontName = '';
   const secondaryFontName = '';
 
   if (!webServerUrl) {
