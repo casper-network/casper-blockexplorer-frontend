@@ -163,9 +163,11 @@ export interface GetPeers {
 }
 
 export interface Peer {
+  nodeId: string;
   address: string;
   uptime: string;
   isAlive: boolean;
+  lastAddedBlockHash: string;
 }
 export interface GetBlocks {
   blocks: Block[];

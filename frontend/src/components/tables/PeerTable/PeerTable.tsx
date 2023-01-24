@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { colors, fontWeight } from 'src/styled-theme';
 import { Peer } from '../../../api';
 import { Table } from '../../base';
+import { truncateHash } from '../../../utils';
 
 interface PeerTableProps {
   readonly peers: Peer[];
@@ -16,7 +18,7 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
     () => [
       {
         header: `${t('node-id')}`,
-        accessorKey: 'id',
+        accessorKey: 'nodeId',
         enableSorting: false,
       },
       {
@@ -30,9 +32,29 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
         enableSorting: false,
       },
       {
+        header: `${t('last-block-hash')}`,
+        accessorKey: 'lastAddedBlockHash',
+        enableSorting: false,
+        cell: ({ getValue }) => (
+          <div className="flex flex-row items-center">
+            <Link
+              to={{
+                pathname: `/block/${getValue<string>()}`,
+              }}>
+              {truncateHash(getValue<string>())}
+            </Link>
+          </div>
+        ),
+      },
+      {
         header: `${t('isAlive')}`,
         accessorKey: 'isAlive',
         enableSorting: false,
+        cell: ({ getValue }) => (
+          <div className="flex flex-row items-center">
+            {getValue<boolean>() ? t('up') : t('down')}
+          </div>
+        ),
       },
     ],
     [t],
