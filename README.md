@@ -16,12 +16,15 @@ NETWORK_NAME=integration-test # network name, you can check it in chainspec
 PEERS_UPDATE_INTERVAL=60 # interval time for update peer list
 ```
 
-And if so desired, change the application logo / name / favicon / theme (this is experimental feature) by adding:
+And if so desired, change the application logo / name / favicon / theme / font (this is experimental feature) by adding:
 
 ```
 ORG_LOGO_URL=https://example.com/your-org-logo
 ORG_NAME=Jenkins
 ORG_FAVICON_URL=https://example.com/your-favicon
+ORG_FONT_URL=https://fonts.googleapis.com/css2?family=your-font-name:wght@your-font-weights-separated-by-semi-colons&display=swap
+ORG_PRIMARY_FONT_NAME=your-font-name
+ORG_SECONDARY_FONT_NAME=your-font-name
 THEME={
   "BLACK":"[Desired color]",
   "WHITE":"[Desired color]",
