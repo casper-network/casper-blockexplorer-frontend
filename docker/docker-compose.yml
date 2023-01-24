@@ -31,6 +31,7 @@ services:
     environment:
       - NODE_URLS
       - PORT
+      - PEERS_UPDATE_INTERVAL
       - SIDECAR_REST_URL
       - SIDECAR_EVENTSTREAM_URL
     restart: on-failure

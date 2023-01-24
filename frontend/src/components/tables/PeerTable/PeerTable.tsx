@@ -47,7 +47,7 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
         ),
       },
       {
-        header: `${t('isAlive')}`,
+        header: `${t('is-alive')}`,
         accessorKey: 'isAlive',
         enableSorting: false,
         cell: ({ getValue }) => (
