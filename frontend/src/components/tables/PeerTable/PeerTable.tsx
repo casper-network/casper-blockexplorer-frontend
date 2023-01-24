@@ -24,6 +24,16 @@ export const PeerTable: React.FC<PeerTableProps> = ({ peers }) => {
         accessorKey: 'address',
         enableSorting: false,
       },
+      {
+        header: `${t('uptime')}`,
+        accessorKey: 'uptime',
+        enableSorting: false,
+      },
+      {
+        header: `${t('isAlive')}`,
+        accessorKey: 'isAlive',
+        enableSorting: false,
+      },
     ],
     [t],
   );
