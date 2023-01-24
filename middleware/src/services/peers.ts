@@ -26,7 +26,7 @@ export const fetchPeerInfo = async (ip: string) => {
     return { uptime, isAlive: true, lastAddedBlockHash: lastAddedBlockInfo.hash };
   } catch (error) {
     console.error(`Peer ${ip}:`, error);
-    return { uptime: null, isAlive: false };
+    return { uptime: null, isAlive: false, lastAddedBlockHash: null };
   }
 };
 
@@ -57,9 +57,9 @@ export const fetchPeers = async (update = false): Promise<Peer[]> => {
 
   const peers: Peer[] = await Promise.all(
     peersToCheck.map(async (peer) => {
-      const { node_id: nodeId } = peer;
+      const { node_id: nodeId, address } = peer;
       const info = await fetchPeerInfo(peer.address.split(":")[0]);
-      return { nodeId, address: peer.address, ...info };
+      return { nodeId, address, ...info };
     })
   );
 

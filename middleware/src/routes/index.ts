@@ -85,7 +85,6 @@ router.get(
   validate([query("update").optional().isBoolean().toBoolean()]),
   catchAsync(async (req, res) => {
     const update = req.query.update as unknown as boolean | undefined;
-    console.log(update);
     const result = await fetchPeers(update);
     res.json({ result });
   })
