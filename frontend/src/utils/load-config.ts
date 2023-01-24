@@ -64,23 +64,23 @@ export const loadConfig: () => AppConfig = () => {
 
   const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';
 
-  // const fontUrl = isProduction ? orgFontUrl : reactAppFontUrl || '';
+  const fontUrl = isProduction ? orgFontUrl : reactAppFontUrl || '';
 
-  // const primaryFontName = isProduction
-  //   ? reactAppPrimaryFontName
-  //   : orgPrimaryFontName || '';
+  const primaryFontName = isProduction
+    ? orgPrimaryFontName
+    : reactAppPrimaryFontName || '';
 
-  // const secondaryFontName = isProduction
-  //   ? reactAppSecondaryFontName
-  //   : orgSecondaryFontName || '';
+  const secondaryFontName = isProduction
+    ? orgSecondaryFontName
+    : reactAppSecondaryFontName || '';
 
-  const fontUrl =
-    'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap';
-  const primaryFontName = 'Montserrat';
+  // const fontUrl =
+  //   'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap';
+  // const primaryFontName = 'Montserrat';
 
   // const fontUrl = '';
   // const primaryFontName = '';
-  const secondaryFontName = '';
+  // const secondaryFontName = '';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
