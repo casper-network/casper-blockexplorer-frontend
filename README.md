@@ -10,7 +10,7 @@ You need to have Docker and Docker Compose set and running.
 
 Example:
 ```
-MIDDLEWARE_URL=http://localhost:4000/rpc # middleware URL, by default its http://localhost:4000/rpc
+MIDDLEWARE_URL=http://localhost:4000 # middleware URL, by default its http://localhost:4000/rpc
 NODE_URLS=http://3.138.177.248:7777/rpc # it can be comma separated list of RPCs
 SIDECAR_REST_URL=http://localhost:18888 # sidecar REST url
 SIDECAR_EVENTSTREAM_URL=http://localhost:19999 # sidecar event stream url
