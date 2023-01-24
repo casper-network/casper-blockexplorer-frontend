@@ -36,7 +36,7 @@ export const loadConfig: () => AppConfig = () => {
 
   const webServerUrl = isProduction
     ? middlewareUrl
-    : reactAppMiddlewareUrl || 'http://localhost:4000/rpc';
+    : reactAppMiddlewareUrl || 'http://localhost:4000';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
   const faviconUrl = isProduction ? orgFaviconUrl : reactAppFaviconUrl || '';

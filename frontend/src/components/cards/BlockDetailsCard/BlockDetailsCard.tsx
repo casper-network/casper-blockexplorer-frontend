@@ -25,17 +25,22 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
 }) => {
   const {
     hash: blockHash,
-    readableTimestamp,
-    height: blockHeight,
-    eraID: era,
-    parentHash,
-    stateRootHash,
-    validatorPublicKey,
-    transferHashes,
-    deployHashes,
-    rawBlock,
+    header: {
+      height: blockHeight,
+      timestamp: readableTimestamp,
+      era_id: era,
+      parent_hash: parentHash,
+      state_root_hash: stateRootHash,
+    },
+    body: {
+      proposer: validatorPublicKey,
+      transfer_hashes: transferHashes,
+      deploy_hashes: deployHashes,
+    },
   } = block;
-  const [isTruncated, setIsTruncated] = useState<boolean>(true);
+
+  const rawBlock = JSON.stringify(block);
+  const [isTruncated, setIsTruncated] = useState(true);
   const { t } = useTranslation();
 
   return (
@@ -68,7 +73,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </li>
         <li>
           <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-          <DetailDataValue>{readableTimestamp}</DetailDataValue>
+          <DetailDataValue>
+            {readableTimestamp.toLocaleString()}
+          </DetailDataValue>
         </li>
       </DetailDataRowWrapper>
       <DetailDataWrapper>

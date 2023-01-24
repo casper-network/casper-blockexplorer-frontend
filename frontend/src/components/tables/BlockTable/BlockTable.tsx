@@ -17,7 +17,7 @@ import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 
 interface BlockTableProps {
-  readonly latestBlockHeight?: number;
+  readonly total?: number;
   readonly blocks: Block[];
   readonly showValidators?: boolean;
   fetchMore: () => void;
@@ -28,7 +28,7 @@ interface BlockTableProps {
 }
 
 export const BlockTable: React.FC<BlockTableProps> = ({
-  latestBlockHeight,
+  total,
   blocks,
   showValidators,
   fetchMore,
@@ -38,6 +38,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   const { t } = useTranslation();
 
   const [currentTime, setCurrentTime] = useState(Date.now());
+  const [showTimestamp, setShowTimestamp] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,13 +52,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     () => (
       <BlockTableHead>
         <p>
-          {standardizeNumber(latestBlockHeight ? latestBlockHeight + 1 : 0)}{' '}
-          {t('total-rows')}
+          {standardizeNumber(total || 0)} {t('total-rows')}
         </p>
         <RefreshTimer />
       </BlockTableHead>
     ),
-    [latestBlockHeight, t],
+    [total, t],
   );
 
   const footer = useMemo(
@@ -89,29 +89,40 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     () => [
       {
         header: `${t('block-height')}`,
-        accessorKey: 'height',
+        id: 'height',
+        accessorKey: 'header.height',
         cell: ({ getValue }) => <>{standardizeNumber(getValue<number>())}</>,
       },
       {
         header: `${t('era')}`,
-        accessorKey: 'eraID',
+        accessorKey: 'header.era_id',
         maxSize: 100,
+        enableSorting: false,
       },
       {
         header: `${t('deploy')}`,
-        accessorKey: 'deployCount',
+        accessorKey: 'body.deploy_hashes',
+        cell: ({ getValue }) => getValue<string[]>().length,
         maxSize: 100,
+        enableSorting: false,
       },
       {
-        header: `${t('age')}`,
-        accessorKey: 'timestamp',
-        cell: ({ getValue, column }) => (
+        // @ts-ignore
+        header: (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+          <SwitchBlocktime onClick={() => setShowTimestamp(prev => !prev)}>
+            {showTimestamp ? t('datetime') : t('age')}
+          </SwitchBlocktime>
+        ),
+        accessorKey: 'header.timestamp',
+        cell: ({ getValue }) => (
           <div>
-            {column.getIsSorted()
+            {showTimestamp
               ? formatDate(new Date(getValue<number>()))
               : formatTimeAgo(new Date(getValue<number>()))}
           </div>
         ),
+        enableSorting: false,
         minSize: 200,
       },
       {
@@ -133,7 +144,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       },
       {
         header: `${t('validator')}`,
-        accessorKey: 'validatorPublicKey',
+        accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
             <Link
@@ -146,12 +157,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({
           </div>
         ),
         enableSorting: false,
-        isVisible: showValidators,
+        // isVisible: showValidators,
         minSize: 230,
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [showValidators, t, currentTime],
+    [showValidators, t, currentTime, showTimestamp],
   );
 
   return (
@@ -189,4 +200,9 @@ const ShowMoreButton = styled.button`
   :hover {
     background-color: ${colors.lightRed};
   }
+`;
+
+const SwitchBlocktime = styled.div`
+  height: 100%;
+  cursor: pointer;
 `;

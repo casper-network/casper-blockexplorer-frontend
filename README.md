@@ -12,11 +12,15 @@ Example:
 ```
 MIDDLEWARE_URL=http://localhost:4000/rpc # middleware URL, by default its http://localhost:4000/rpc
 NODE_URLS=http://3.138.177.248:7777/rpc # it can be comma separated list of RPCs
+SIDECAR_REST_URL=http://localhost:18888 # sidecar REST url
+SIDECAR_EVENTSTREAM_URL=http://localhost:19999 # sidecar event stream url
 NETWORK_NAME=integration-test # network name, you can check it in chainspec
 PEERS_UPDATE_INTERVAL=60 # interval time for update peer list
 ```
 
-And if so desired, change the application logo / name / favicon (this is experimental feature) by adding:
+* when running locally inside a Docker and pointing to NCTL, 127.0.0.1 equals to `host.docker.internal` so this should be used as `localhost` in `.env`
+
+And if desired, change the application logo / name / favicon (this is experimental feature) by adding:
 
 ```
 ORG_LOGO_URL=https://example.com/your-org-logo

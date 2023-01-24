@@ -3,14 +3,16 @@ import { useTranslation } from 'react-i18next';
 
 import { SortingState } from '@tanstack/react-table';
 
-import { useBlocks, useLatestBlockHeight, IUseBlocks } from 'src/hooks';
+import { useBlocks, IUseBlocks } from 'src/hooks';
 import {
   BlockTable,
   GradientHeading,
   PageWrapper,
   PageHead,
 } from 'src/components';
+
 import { useAppSelector } from 'src/store';
+import { Block } from 'src/api';
 
 const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
 
@@ -34,8 +36,6 @@ export const Blocks: React.FC = () => {
   const { refreshTimer } = useAppSelector(state => state.app);
 
   const { t } = useTranslation();
-  const { data: latestBlockHeight, refetch: refetchLatestBlockHeight } =
-    useLatestBlockHeight();
   const {
     data,
     isLoading,
@@ -45,13 +45,19 @@ export const Blocks: React.FC = () => {
   } = useBlocks(params);
 
   const blocks = useMemo(() => {
-    return data?.pages.reduce((accum, page) => [...accum, ...page], []);
+    return data?.pages.reduce(
+      (accum, page) => [...accum, ...page.blocks],
+      [] as Block[],
+    );
+  }, [data]);
+
+  const total = useMemo(() => {
+    return data && data.pages.length > 0 ? data.pages[0].total : undefined;
   }, [data]);
 
   useEffect(() => {
     if (refreshTimer === 0) {
-      refetchLatestBlockHeight();
-      refetchBlocks();
+      refetchBlocks({ cancelRefetch: true });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +88,7 @@ export const Blocks: React.FC = () => {
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       {blocks && (
         <BlockTable
-          latestBlockHeight={latestBlockHeight}
+          total={total}
           blocks={blocks}
           fetchMore={fetchNextPage}
           isLoadingMoreBlocks={isFetchingNextPage}

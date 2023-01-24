@@ -20,12 +20,13 @@ export const fetchPeerInfo = async (ip: string) => {
 
     // TODO: Update SDK type
     // @ts-ignore
-    const { uptime } = await rpc.getStatus();
+    const { uptime, last_added_block_info: lastAddedBlockInfo } = await rpc.getStatus();
 
-    return { uptime, isAlive: true };
+
+    return { uptime, isAlive: true, lastAddedBlockHash: lastAddedBlockInfo.hash };
   } catch (error) {
     console.error(`Peer ${ip}:`, error);
-    return { uptime: null, isAlive: false };
+    return { uptime: null, isAlive: false, lastAddedBlockHash: null };
   }
 };
 
@@ -56,8 +57,9 @@ export const fetchPeers = async (update = false): Promise<Peer[]> => {
 
   const peers: Peer[] = await Promise.all(
     peersToCheck.map(async (peer) => {
+      const { node_id: nodeId, address } = peer;
       const info = await fetchPeerInfo(peer.address.split(":")[0]);
-      return { address: peer.address, ...info };
+      return { nodeId, address, ...info };
     })
   );
 

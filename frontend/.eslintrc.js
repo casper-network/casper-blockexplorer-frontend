@@ -22,7 +22,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', 'unused-imports'],
   rules: {
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
@@ -94,6 +94,21 @@ module.exports = {
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-wrap-multilines': 0,
     'react/jsx-indent': 0,
+    '@typescript-eslint/naming-convention': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
+    'no-nested-ternary': 'off',
+    'no-underscore-dangle': 'off',
   },
   overrides: [
     {

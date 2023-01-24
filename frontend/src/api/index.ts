@@ -1,3 +1,5 @@
 export * from './rpc-client';
 export { ApiError } from './api-error';
-export * from './types';
+export type { Deploy, NetworkStatus, Account } from './types';
+export { DeployStatus } from './types';
+export * from './middleware';

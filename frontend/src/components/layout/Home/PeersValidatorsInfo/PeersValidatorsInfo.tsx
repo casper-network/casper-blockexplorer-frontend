@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { useTranslation } from 'react-i18next';
+import { Peer } from 'src/api';
 import {
   IconH2Container,
   H2,
@@ -13,7 +14,7 @@ import { pxToRem } from '../../../../styled-theme';
 import { PeersIcon } from '../../../icons';
 
 interface PeersValidatorsInfoProps {
-  readonly currentPeers: string;
+  readonly currentPeers: Peer[];
   readonly currentValidators: string;
 }
 
@@ -34,7 +35,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
       </PeersHeader>
       <PeersDetails>
         <H3>{t('peers-currently-online')}:</H3>
-        <H3Data>{currentPeers}</H3Data>
+        <H3Data>{currentPeers.length}</H3Data>
       </PeersDetails>
       <ValidatorsDetails>
         <H3>{t('validators-currently-online')}:</H3>

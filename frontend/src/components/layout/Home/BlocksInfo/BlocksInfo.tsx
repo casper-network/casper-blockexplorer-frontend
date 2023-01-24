@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
 import { useTranslation } from 'react-i18next';
+
+import { Block } from 'src/api';
+import { formatDate } from 'src/utils';
 import {
   IconH2Container,
   H2,
@@ -14,16 +16,10 @@ import { pxToRem } from '../../../../styled-theme';
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
-  readonly blockHeight: string;
-  readonly blockEraTimeStamp: string;
-  readonly blockEraID: string;
+  block: Block;
 }
 
-export const BlocksInfo: React.FC<BlockInfoProps> = ({
-  blockHeight,
-  blockEraTimeStamp,
-  blockEraID,
-}) => {
+export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
   const { t } = useTranslation();
 
   return (
@@ -37,10 +33,12 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({
       </BlocksHeader>
       <BlockDetails>
         <H3>{t('block-height')}:</H3>
-        <H3Data>{blockHeight}</H3Data>
-        <DataContext>{blockEraTimeStamp}</DataContext>
+        <H3Data>{block.header.height}</H3Data>
+        <DataContext>
+          {formatDate(new Date(block.header.timestamp))}
+        </DataContext>
         <H3>{t('current-era')}:</H3>
-        <H3Data>{blockEraID}</H3Data>
+        <H3Data>{block.header.era_id}</H3Data>
       </BlockDetails>
     </BlockInfoDisplay>
   );

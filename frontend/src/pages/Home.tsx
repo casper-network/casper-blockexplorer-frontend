@@ -1,84 +1,38 @@
 import React from 'react';
-import useAsyncEffect from 'use-async-effect';
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
 
-import { casperApi } from '../api';
+import { useLatestBlock, usePeers, useValidators } from 'src/hooks';
+import { useAppSelector } from 'src/store';
 import {
   BlocksInfo,
   DeploysInfo,
   PeersValidatorsInfo,
 } from '../components/layout/Home';
-
 import { PageWrapper } from '../components';
-
-import {
-  getBlocks,
-  getBlockLoadingStatus,
-  getPeers,
-  getPeerLoadingStatus,
-  useAppDispatch,
-  useAppSelector,
-  Loading,
-  fetchBlocks,
-  fetchPeers,
-  getIsFirstVisit,
-} from '../store';
 import { breakpoints, pxToRem } from '../styled-theme';
 import { standardizeNumber } from '../utils';
 
 export const Home: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { data: latestBlock, isLoading: isLoadingLatestBlock } =
+    useLatestBlock();
+  const { data: peers, isLoading: isLoadingPeers } = usePeers();
+  const { data: validators, isLoading: isLoadingValidators } = useValidators();
+  const { isFirstVisit } = useAppSelector(state => state.app);
 
-  const blocks = useAppSelector(getBlocks);
-  const peers = useAppSelector(getPeers);
-
-  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
-  const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
-  const isFirstVisit = useAppSelector(getIsFirstVisit);
-
-  const blocksAreLoading = blockLoadingStatus !== Loading.Complete;
-  const peersAreLoading = peerLoadingStatus !== Loading.Complete;
-  const { data: validators, isLoading: validtorIsLoading } = useQuery(
-    ['validators'],
-    () => casperApi.getValidators(),
-  );
-  const isLoading = blocksAreLoading || peersAreLoading || validtorIsLoading;
-
-  const firstListedBlockHeight = !blocksAreLoading
-    ? blocks[0].height.toLocaleString()
-    : 'n/a';
-  const firstListedBlockEraID = !blocksAreLoading
-    ? blocks[0].eraID.toLocaleString()
-    : 'n/a';
-  const firstListedBlockEraTimeStamp = !blocksAreLoading
-    ? blocks[0].readableTimestamp
-    : 'n/a';
-
-  const currentPeers = !peersAreLoading ? peers.length.toLocaleString() : 'n/a';
-
-  useAsyncEffect(async () => {
-    if (blockLoadingStatus === Loading.Idle) {
-      dispatch(fetchBlocks());
-    }
-    if (peerLoadingStatus === Loading.Idle) {
-      dispatch(fetchPeers());
-    }
-  }, []);
+  const isLoading =
+    isLoadingLatestBlock || isLoadingPeers || isLoadingValidators;
 
   return (
     <PageWrapper isLoading={isLoading}>
       <HomeContentContainer isFirstVisit={isFirstVisit}>
-        <BlocksInfo
-          blockHeight={firstListedBlockHeight}
-          blockEraTimeStamp={firstListedBlockEraTimeStamp}
-          blockEraID={firstListedBlockEraID}
-        />
+        {latestBlock && <BlocksInfo block={latestBlock} />}
         <DeploysInfo />
-        <PeersValidatorsInfo
-          currentPeers={currentPeers}
-          currentValidators={standardizeNumber(validators?.length || 0)}
-        />
+        {peers && (
+          <PeersValidatorsInfo
+            currentPeers={peers}
+            currentValidators={standardizeNumber(validators?.length || 0)}
+          />
+        )}
       </HomeContentContainer>
     </PageWrapper>
   );
