@@ -74,14 +74,6 @@ export const loadConfig: () => AppConfig = () => {
     ? orgSecondaryFontName
     : reactAppSecondaryFontName || '';
 
-  // const fontUrl =
-  //   'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap';
-  // const primaryFontName = 'Montserrat';
-
-  // const fontUrl = '';
-  // const primaryFontName = '';
-  // const secondaryFontName = '';
-
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
