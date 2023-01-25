@@ -55,10 +55,9 @@ export const loadConfig: () => AppConfig = () => {
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
 
-  const theme =
-    isProduction && reactAppLogoUrl !== undefined
-      ? JSON.parse(prodTheme || '{}')
-      : JSON.parse(reactAppTheme || '{}');
+  const theme = isProduction
+    ? JSON.parse(prodTheme || '{}')
+    : JSON.parse(reactAppTheme || '{}');
 
   const title = isProduction ? orgName : reactAppName || '';
 
