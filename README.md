@@ -39,18 +39,18 @@ Other instances of the word `Casper` appearing on the page can be changed throug
 ### Testing
 To run Cypress tests on the frontend:
 ```
-  > cd frontend
-  > npm run cy:run
+  cd frontend
+  npm run cy:run
 ```
 
 To open Cypress
 ```
-  > cd frontend
-  > npm run cy:open
+  cd frontend
+  npm run cy:open
 ```
 
 To run Cypress tests in Docker
 ```
-  > make cy-build
-  > make cy-test
+  make cy-build
+  make cy-test
 ```
