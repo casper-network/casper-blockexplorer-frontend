@@ -2,6 +2,7 @@ import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { useTranslation } from 'react-i18next';
+import { colors } from 'src/styled-theme';
 import { FormValues, SelectOptions } from '../partials.types';
 import { useAppWidth } from '../../../../../hooks';
 import {
@@ -69,15 +70,14 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                       style={{
                         backgroundColor:
                           currentFilterOption === option.value
-                            ? '#0325d1'
-                            : '#F1F1F4',
+                            ? colors.primary
+                            : colors.lightSupporting,
                         color:
                           currentFilterOption === option.value
-                            ? '#fff'
-                            : '#000',
+                            ? colors.white
+                            : colors.black,
                       }}
                       type="button">
-                      {/* TODO: See if colors are affected */}
                       {option.label.includes('Block')
                         ? option.label.replace('Block', 'Blk')
                         : option.label}

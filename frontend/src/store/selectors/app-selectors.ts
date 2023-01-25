@@ -16,6 +16,18 @@ export const appTitle = (state: RootState) => {
   return state.app.appTitle;
 };
 
-export const appFavicon = (state: RootState) => {
-  return state.app.appFavicon;
+export const appFaviconUrl = (state: RootState) => {
+  return state.app.appFaviconUrl;
+};
+
+export const appFontUrl = (state: RootState) => {
+  return state.app.appFontUrl;
+};
+
+export const appPrimaryFontName = (state: RootState) => {
+  return state.app.appPrimaryFontName;
+};
+
+export const appSecondaryFontName = (state: RootState) => {
+  return state.app.appSecondaryFontName;
 };

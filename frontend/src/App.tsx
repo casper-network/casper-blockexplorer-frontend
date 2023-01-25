@@ -21,9 +21,12 @@ import {
   setIsFirstVisit,
   appTitle,
   useAppSelector,
-  appFavicon,
+  appFaviconUrl,
+  appFontUrl,
+  appPrimaryFontName,
 } from './store';
 import { useAppRefresh } from './hooks';
+import { colors } from './styled-theme';
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -45,8 +48,10 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [usersVisitationStatus, dispatch]);
 
+  const font = useAppSelector(appFontUrl);
+  const primaryFontName = useAppSelector(appPrimaryFontName);
   const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
+  const favicon = useAppSelector(appFaviconUrl);
 
   return (
     <HelmetProvider>
@@ -54,13 +59,18 @@ const App = () => {
         <React.Suspense fallback="loading...">
           <Helmet>
             {favicon ? (
-              <link rel="icon" href={favicon} />
+              <>
+                <link rel="icon" href={favicon} />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                <link href={font} rel="stylesheet" />
+              </>
             ) : (
               <link rel="icon" href="%PUBLIC_URL%/favicon" />
             )}
             <title>{title}</title>
           </Helmet>
-          <AppWrapper ref={ref}>
+          <AppWrapper ref={ref} style={{ fontFamily: primaryFontName }}>
             <BrowserRouter>
               <Header />
               <Routes>
@@ -82,7 +92,7 @@ const App = () => {
 };
 
 const AppWrapper = styled.div`
-  background-color: white;
+  background-color: ${colors.white};
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;

@@ -10,7 +10,7 @@ import {
   H3Data,
   DataContext,
 } from '../HomeComponents.styled';
-import { breakpoints } from '../../../../styled-theme';
+import { breakpoints, colors } from '../../../../styled-theme';
 import { DeploysIcon } from '../../../icons';
 
 export const DeploysInfo: React.FC = () => {
@@ -38,11 +38,10 @@ export const DeploysInfo: React.FC = () => {
 
 const DeploysInfoDisplay = styled.section`
   display: none;
-  box-shadow: 0px 0.125rem 0.438 rgba(127, 128, 149, 0.15);
   border-radius: 0.5rem;
-  background: #ffffff;
-  border: 0.063rem solid #e3e3e9;
-  box-shadow: 0px 2px 7px rgba(127, 128, 149, 0.15);
+  background: ${colors.white};
+  border: 0.063rem solid ${colors.mediumSupporting};
+  box-shadow: 0px 2px 7px ${colors.boxShadow};
   padding-bottom: 1.5rem;
 
   @media (min-width: ${breakpoints.md}) {
@@ -66,7 +65,7 @@ const DeployDetails = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  border-top: 0.094rem solid #f2f3f5;
+  border-top: 0.094rem solid ${colors.secondary};
   padding: 0 0;
   margin: 0 2rem;
 `;

@@ -41,24 +41,24 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 };
 
 const CopyIcon = styled(CopySVG)`
-  fill: slategrey;
+  fill: ${colors.darkSupporting};
   transition: all;
   width: 1rem;
   height: 1rem;
   margin-left: ${pxToRem(5)};
 
   :focus {
-    color: green;
+    color: ${colors.success};
   }
   :hover {
-    fill: ${colors.casperRed};
+    fill: ${colors.mediumWarning};
   }
 `;
 
 const CopiedIcon = styled(CopiedSVG)`
   width: 1rem;
   height: 1rem;
-  background-color: ${colors.green};
+  background-color: ${colors.success};
   border-radius: 0.125rem;
   margin-left: ${pxToRem(5)};
 `;
