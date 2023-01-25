@@ -18,7 +18,6 @@ import {
 import {
   updateBounds,
   useAppDispatch,
-  fetchStatus,
   setIsFirstVisit,
   appTitle,
   useAppSelector,
@@ -39,10 +38,6 @@ const App = () => {
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchStatus());
-  }, [dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 

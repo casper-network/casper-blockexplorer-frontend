@@ -1,7 +1,6 @@
 export type Account = {
   trimmedAccountHash: string;
-  rawAccountHash: string;
-  publicKey: string;
+  publicKey: string | undefined;
   mainPurse: string;
   rawAccount: string;
 };
@@ -21,11 +20,6 @@ export type Block = {
   stateRootHash?: string;
   proofs?: any[];
   rawBlock: string;
-};
-
-export type Peer = {
-  id: string;
-  address: string;
 };
 
 export enum DeployStatus {

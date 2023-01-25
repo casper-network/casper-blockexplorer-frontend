@@ -3,8 +3,11 @@ export interface StatusResponse {
   chainspec_name: string;
   peers: Peer[];
 }
+
 export interface Peer {
+  nodeId: string;
   address: string;
-  isAlive: boolean;
-  uptime: string;
+  isAlive: boolean | null;
+  uptime: string | null;
+  lastAddedBlockHash: string | null;
 }

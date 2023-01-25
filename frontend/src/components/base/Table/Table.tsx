@@ -57,9 +57,13 @@ export function Table<T extends unknown>({
                   colSpan={header.colSpan}
                   style={{ width: header.getSize() }}
                   sortable={header.column.getCanSort()}
-                  {...{
-                    onClick: header.column.getToggleSortingHandler(),
-                  }}>
+                  onClick={() =>
+                    header.column.getCanSort()
+                      ? header.column.toggleSorting(
+                          header.column.getIsSorted() === 'asc',
+                        )
+                      : undefined
+                  }>
                   {header.isPlaceholder ? null : (
                     <>
                       {flexRender(
