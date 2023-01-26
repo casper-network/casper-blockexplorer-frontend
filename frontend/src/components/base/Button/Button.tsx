@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { pxToRem } from '../../../styled-theme';
+import { colors, pxToRem } from '../../../styled-theme';
 
 export type ButtonType = 'submit' | 'reset' | 'button';
 
@@ -34,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 const StyledButton = styled.button<{ bgColor: string }>`
-  color: white;
+  color: ${colors.white};
   background-color: ${({ bgColor }) => bgColor};
   text-align: center;
   padding: ${pxToRem(10)};

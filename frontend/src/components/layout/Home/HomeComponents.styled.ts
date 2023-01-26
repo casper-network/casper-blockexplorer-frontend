@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
-import { fontWeight } from '../../../styled-theme';
+import { colors, fontWeight } from '../../../styled-theme';
 
 export const IconH2Container = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const H2 = styled.h2`
 `;
 
 export const PageLink = styled(Link)`
-  color: #0325d1;
+  color: ${colors.primary};
   font-size: clamp(0.67rem, 1.25vw, 0.9rem);
   text-align: right;
   font-weight: ${fontWeight.medium};
@@ -29,14 +29,14 @@ export const PageLink = styled(Link)`
 
   :hover,
   :focus {
-    background-color: #0325d1;
+    background-color: ${colors.primary};
     background-image: linear-gradient(
       90deg,
-      #1c1e90,
-      #693590,
-      #d81d54,
-      #d81e54,
-      #fd6b52
+      ${colors.gradient1},
+      ${colors.gradient2},
+      ${colors.gradient3},
+      ${colors.gradient4},
+      ${colors.gradient5}
     );
     background-size: 100%;
     background-clip: text;
@@ -56,14 +56,14 @@ export const H3 = styled.h3`
 `;
 
 export const H3Data = styled.p`
-  color: #0325d1;
+  color: ${colors.primary};
   font-weight: ${fontWeight.extraBold};
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   padding: 0.55rem 0 0.2rem 0;
 `;
 
 export const DataContext = styled.p`
-  color: #7f8095;
+  color: ${colors.darkSupporting};
   font-weight: ${fontWeight.medium};
   font-size: clamp(0.9rem, 1.25vw, 1rem);
 `;

@@ -14,9 +14,18 @@ import {
   Home,
   Peers,
 } from './pages';
-import { updateBounds, useAppDispatch, setIsFirstVisit } from './store';
+import {
+  updateBounds,
+  useAppDispatch,
+  setIsFirstVisit,
+  useAppSelector,
+  appFontUrl,
+  appPrimaryFontName,
+} from './store';
+
 import { useAppRefresh } from './hooks';
 import { loadConfig } from './utils';
+import { colors } from './styled-theme';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -40,6 +49,9 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [usersVisitationStatus, dispatch]);
 
+  const font = useAppSelector(appFontUrl);
+  const primaryFontName = useAppSelector(appPrimaryFontName);
+
   return (
     <HelmetProvider>
       <StrictMode>
@@ -50,9 +62,13 @@ const App = () => {
             ) : (
               <link rel="icon" href="%PUBLIC_URL%/favicon" />
             )}
+
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href={font} rel="stylesheet" />
             <title>{title}</title>
           </Helmet>
-          <AppWrapper ref={ref}>
+          <AppWrapper ref={ref} style={{ fontFamily: primaryFontName }}>
             <BrowserRouter>
               <Header />
               <Routes>
@@ -74,7 +90,7 @@ const App = () => {
 };
 
 const AppWrapper = styled.div`
-  background-color: white;
+  background-color: ${colors.white};
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;

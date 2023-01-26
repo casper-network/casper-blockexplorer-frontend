@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { breakpoints, pxToRem } from '../../../styled-theme';
+import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
@@ -44,14 +44,14 @@ export const MobileNavItemsContainer = styled.ul`
   align-items: center;
   gap: 1.25rem;
   z-index: 10;
-  background-color: #0325d1;
+  background-color: ${colors.primary};
   position: fixed;
   left: 0;
   top: 0;
 `;
 
 export const MobileNavItemLink = styled(Link)`
-  color: white;
+  color: ${colors.white};
   font-size: 1.375rem;
   padding: 0.3125rem;
   width: 100%;
@@ -60,7 +60,7 @@ export const MobileNavItemLink = styled(Link)`
 
   :hover {
     transition: color ease-in 200ms;
-    color: #d51e4a;
+    color: ${colors.darkWarning};
     transition-property: color;
     text-decoration: none;
   }
@@ -85,7 +85,7 @@ export const DesktopNavItemsContainer = styled.ul`
 
 export const DesktopNavItemLink = styled(Link)`
   transition: all 0.2s ease;
-  color: #0325d1;
+  color: ${colors.primary};
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;
@@ -98,8 +98,8 @@ export const DesktopNavItemLink = styled(Link)`
 
   :active,
   :hover {
-    color: white;
-    background-color: #02115f;
+    color: ${colors.white};
+    background-color: ${colors.primary};
     padding: ${pxToRem(6)} ${pxToRem(20)};
     text-decoration: none;
   }

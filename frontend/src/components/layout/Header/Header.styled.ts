@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { GradientHeading } from '../../styled';
-import { breakpoints, pxToRem } from '../../../styled-theme';
+import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
-  background-color: #fff;
+  background-color: ${colors.white};
 `;
 
 export const HeaderComponentsContainer = styled.div<{

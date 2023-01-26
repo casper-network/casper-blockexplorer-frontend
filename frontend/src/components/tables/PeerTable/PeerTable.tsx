@@ -77,11 +77,11 @@ const PeerTableHead = styled.div`
 `;
 
 const HeadLabel = styled.p`
-  color: black;
+  color: ${colors.black};
   font-weight: ${fontWeight.bold};
   padding-right: 2rem;
 `;
 
 const HeadValue = styled.p`
-  color: ${colors.grey};
+  color: ${colors.lightSupporting};
 `;
