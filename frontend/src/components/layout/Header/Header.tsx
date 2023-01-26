@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppWidth } from 'src/hooks';
-import { useAppSelector, getIsFirstVisit } from 'src/store';
+import { useAppSelector, appTitle, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
 import { ConfigurableLogo, DefaultHeaderLogo } from '../LogoComponents';
 import { loadConfig } from '../../../utils/load-config';
@@ -19,6 +19,7 @@ export const Header: React.FC = () => {
   const { t } = useTranslation();
   const { isDropdownMenu, isMobile } = useAppWidth();
   const { logoUrl } = loadConfig();
+  const title = useAppSelector(appTitle);
 
   const logo = logoUrl ? (
     <ConfigurableLogo />
@@ -41,7 +42,7 @@ export const Header: React.FC = () => {
           {isDropdownMenu && <SearchForm />}
           <HeroContainer isFirstVisit={isFirstVisit}>
             <HeroHeading type="h1" aria-label="Casper Block Explorer">
-              {t('discover-casper')}
+              {t('discover-prompt-one')} {title} {t('discover-prompt-two')}
             </HeroHeading>
           </HeroContainer>
           {!isDropdownMenu && <SearchForm />}

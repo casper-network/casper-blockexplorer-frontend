@@ -3,10 +3,9 @@ import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
-
-import { Footer, Header } from './components';
 import './i18n';
 
+import { Footer, Header } from './components';
 import {
   AccountPage,
   BlockPage,
