@@ -28,10 +28,6 @@ ORG_NAME=Jenkins
 ORG_FAVICON_URL=https://example.com/your-favicon
 ```
 
-**This feature should be considered experimental.**
-
-Other instances of the word `Casper` appearing on the page can be changed through the available [translation feature](https://github.com/casper-network/casper-blockexplorer/blob/dev/frontend/public/locales/en/translation.json). Specifically, you will need to change the reference to [`Casper Node Version`](https://github.com/casper-network/casper-blockexplorer/blob/dev/frontend/public/locales/en/translation.json#L17) and [`Discover the Casper Blockchain`](https://github.com/casper-network/casper-blockexplorer/blob/dev/frontend/public/locales/en/translation.json#L29).
-
 2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes (HMR and debug modes will be enabled).
 3. Run `make prod-start` if you are using the app for production (optimized builds) or `make dev-start` for development. 
 4. The frontend will be running at port `3000` and middleware at port `4000`.
