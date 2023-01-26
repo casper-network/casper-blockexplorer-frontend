@@ -3,10 +3,9 @@ import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
-
-import { Footer, Header } from './components';
 import './i18n';
 
+import { Footer, Header } from './components';
 import {
   AccountPage,
   BlockPage,
@@ -19,14 +18,16 @@ import {
   updateBounds,
   useAppDispatch,
   setIsFirstVisit,
-  appTitle,
   useAppSelector,
-  appFaviconUrl,
   appFontUrl,
   appPrimaryFontName,
 } from './store';
+
 import { useAppRefresh } from './hooks';
+import { loadConfig } from './utils';
 import { colors } from './styled-theme';
+
+const { title, faviconUrl } = loadConfig();
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -50,24 +51,21 @@ const App = () => {
 
   const font = useAppSelector(appFontUrl);
   const primaryFontName = useAppSelector(appPrimaryFontName);
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFaviconUrl);
 
   return (
     <HelmetProvider>
       <StrictMode>
         <React.Suspense fallback="loading...">
           <Helmet>
-            {favicon ? (
-              <>
-                <link rel="icon" href={favicon} />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link href={font} rel="stylesheet" />
-              </>
+            {faviconUrl ? (
+              <link rel="icon" href={faviconUrl} />
             ) : (
               <link rel="icon" href="%PUBLIC_URL%/favicon" />
             )}
+
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href={font} rel="stylesheet" />
             <title>{title}</title>
           </Helmet>
           <AppWrapper ref={ref} style={{ fontFamily: primaryFontName }}>

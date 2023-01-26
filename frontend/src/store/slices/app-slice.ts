@@ -3,8 +3,6 @@ import { RectReadOnly } from 'react-use-measure';
 import { loadConfig } from 'src/utils';
 import {
   REFRESH_TIMER_SECONDS,
-  DEFAULT_APP_TITLE,
-  DEFAULT_APP_FAVICON,
   DEFAULT_FONT_URL,
   DEFAULT_PRIMARY_FONT_FAMILIES,
   DEFAULT_SECONDARY_FONT_FAMILIES,
@@ -14,22 +12,17 @@ export interface AppState {
   bounds?: RectReadOnly;
   refreshTimer: number;
   isFirstVisit: boolean;
-  appTitle: string;
-  appFaviconUrl: string;
   appFontUrl: string;
   appPrimaryFontName: string;
   appSecondaryFontName: string;
 }
 
-const { title, faviconUrl, fontUrl, primaryFontName, secondaryFontName } =
-  loadConfig();
+const { fontUrl, primaryFontName, secondaryFontName } = loadConfig();
 
 const initialState: AppState = {
   bounds: undefined,
   refreshTimer: REFRESH_TIMER_SECONDS,
   isFirstVisit: false,
-  appTitle: title || DEFAULT_APP_TITLE,
-  appFaviconUrl: faviconUrl || DEFAULT_APP_FAVICON,
   appFontUrl: fontUrl || DEFAULT_FONT_URL,
   appPrimaryFontName: primaryFontName || DEFAULT_PRIMARY_FONT_FAMILIES,
   appSecondaryFontName: secondaryFontName || DEFAULT_SECONDARY_FONT_FAMILIES,
