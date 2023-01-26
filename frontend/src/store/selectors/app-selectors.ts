@@ -11,11 +11,3 @@ export const getRefreshTimer = (state: RootState) => {
 export const getIsFirstVisit = (state: RootState) => {
   return state.app.isFirstVisit;
 };
-
-export const appTitle = (state: RootState) => {
-  return state.app.appTitle;
-};
-
-export const appFavicon = (state: RootState) => {
-  return state.app.appFavicon;
-};

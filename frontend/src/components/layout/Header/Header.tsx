@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppWidth } from 'src/hooks';
-import { useAppSelector, appTitle, getIsFirstVisit } from 'src/store';
+import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
 import { ConfigurableLogo, DefaultHeaderLogo } from '../LogoComponents';
 import { loadConfig } from '../../../utils/load-config';
@@ -18,8 +18,7 @@ import {
 export const Header: React.FC = () => {
   const { t } = useTranslation();
   const { isDropdownMenu, isMobile } = useAppWidth();
-  const { logoUrl } = loadConfig();
-  const title = useAppSelector(appTitle);
+  const { logoUrl, title } = loadConfig();
 
   const logo = logoUrl ? (
     <ConfigurableLogo />

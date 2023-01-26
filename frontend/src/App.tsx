@@ -14,15 +14,11 @@ import {
   Home,
   Peers,
 } from './pages';
-import {
-  updateBounds,
-  useAppDispatch,
-  setIsFirstVisit,
-  appTitle,
-  useAppSelector,
-  appFavicon,
-} from './store';
+import { updateBounds, useAppDispatch, setIsFirstVisit } from './store';
 import { useAppRefresh } from './hooks';
+import { loadConfig } from './utils';
+
+const { title, faviconUrl } = loadConfig();
 
 const App = () => {
   const [ref, bounds] = useMeasure();
@@ -44,16 +40,13 @@ const App = () => {
     localStorage.setItem('users-status', JSON.stringify('user-has-visited'));
   }, [usersVisitationStatus, dispatch]);
 
-  const title = useAppSelector(appTitle);
-  const favicon = useAppSelector(appFavicon);
-
   return (
     <HelmetProvider>
       <StrictMode>
         <React.Suspense fallback="loading...">
           <Helmet>
-            {favicon ? (
-              <link rel="icon" href={favicon} />
+            {faviconUrl ? (
+              <link rel="icon" href={faviconUrl} />
             ) : (
               <link rel="icon" href="%PUBLIC_URL%/favicon" />
             )}

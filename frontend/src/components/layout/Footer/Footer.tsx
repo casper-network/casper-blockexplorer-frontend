@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNetworkStatus } from 'src/hooks';
-import { appTitle, useAppSelector } from 'src/store';
+import { loadConfig } from 'src/utils';
 import { colors, fontWeight } from '../../../styled-theme';
 
 export const Footer: React.FC = () => {
   const { data } = useNetworkStatus();
   const { t } = useTranslation();
-  const title = useAppSelector(appTitle);
+  const { title } = loadConfig();
 
   return (
     <FooterWrapper>
