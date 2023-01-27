@@ -77,7 +77,7 @@ export class RpcClient {
     const targetBlock =
       orderByHeight === "DESC" ? fromBlock - count : fromBlock + count;
 
-    const blocks: Block[] = [];
+    const blockPromises: Promise<Block>[] = [];
 
     for (
       let i = fromBlock;
@@ -85,12 +85,15 @@ export class RpcClient {
       orderByHeight === "DESC" ? i-- : i++
     ) {
       try {
-        const block = await this.getBlockByHeight(i);
-        blocks.push(block);
+        const block = this.getBlockByHeight(i);
+        blockPromises.push(block);
       } catch (error) {
+        console.log("ERROR", error);
         break;
       }
     }
+
+    const blocks = await Promise.all(blockPromises);
 
     latestBlockHeight = (await this.getLatestBlock()).header.height;
 
