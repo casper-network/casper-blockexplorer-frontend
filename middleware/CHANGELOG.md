@@ -10,8 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for SSE Sidecar (`SIDECAR_REST_URL` & `SIDECAR_EVENTSTREAM_URL` required to enable it)
-- New `/peers` endpoint providing peers statuses (hash of last added block, uptime, ip)
-- New endpoints: `/latest-block`, `/block/:hashOrHeight`, `/status`, `/blocks`, `/deploy/:hash`, `/account/:accountHashOrPublicKey`
+- New endpoints: `/peers`, `/latest-block`, `/block/:hashOrHeight`, `/status`, `/blocks`, `/deploy/:hash`, `/account/:accountHashOrPublicKey`
 - When it's possible, all of the endpoint support both Sidecar as well as RPC
 - Added cache so number of RPC request is minimized
 

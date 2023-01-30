@@ -40,8 +40,9 @@ router.use("/rpc", (req, res) => {
     axios
       .post(node.url, req.body)
       .then((nodeRes) => res.json(nodeRes.data))
-      .catch(() => {
-        nodeManager.setDeadNode(node.id);
+      .catch((err) => {
+        console.log('>>>>>setDeadNode', err);
+        // nodeManager.setDeadNode(node.id);
         rpcCall();
       });
   };
