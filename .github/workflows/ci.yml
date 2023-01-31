@@ -1,0 +1,63 @@
+---
+name: ci-blockexplorer
+
+on:
+  push:
+    branches:
+      - "dev"
+      - "release-**"
+
+  pull_request:
+    branches:
+      - "dev"
+      - "release-**"
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [16.x]
+        os: [ubuntu-20.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # FE
+      - name: Install Frontend
+        run: make frontend-ci-install
+
+      - name: Audit Frontend
+        run: make frontend-audit
+
+      - name: Lint Frontend
+        run: make frontend-lint
+
+      - name: Test Frontend
+        run: make frontend-test
+
+      # BE
+      - name: Install Middleware
+        run: make middleware-ci-install
+
+      - name: Audit Middleware
+        run: make middleware-audit
+
+      - name: Lint Middleware
+        run: make middleware-lint
+
+      - name: Test Middleware
+        run: make middleware-test
+        env:
+          MIDDLEWARE_URL: http://localhost:4000/rpc # middleware URL
+          NODE_URLS: https://rpc.testnet.casperlabs.io/rpc
+          NETWORK_NAME: casper-test
+          PEERS_UPDATE_INTERVAL: 300
