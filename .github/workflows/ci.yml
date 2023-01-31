@@ -6,11 +6,13 @@ on:
     branches:
       - "dev"
       - "release-**"
+      - "feat-**"
 
   pull_request:
     branches:
       - "dev"
       - "release-**"
+      - "feat-**"
 
 jobs:
   test:
