@@ -1,0 +1,49 @@
+---
+name: nightly-scheduled-test
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # runs every day at midnight
+    - cron: "0 0 * * *"
+
+jobs:
+  nightly-make-test:
+    strategy:
+      matrix:
+        node-version: [16.x]
+        os: [ubuntu-20.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Npm CI Install
+        run: make nightly-npm-install
+
+      - name: Nightly Tests
+        run: make nightly-npm-tests
+        env:
+          MIDDLEWARE_URL: http://localhost:4000/rpc # middleware URL
+          NODE_URLS: https://rpc.testnet.casperlabs.io/rpc
+          NETWORK_NAME: casper-test
+          PEERS_UPDATE_INTERVAL: 300
+
+      - name: Slack Notification
+        uses: ravsamhq/notify-slack-action@4ed28566c2bdcdaee6dca2b46b9666d01b4ed8a4 #v1.10.0
+        if: always()
+        with:
+          status: ${{ job.status }}
+          notification_title: "*{repo}*"
+          message_format: "{emoji} *{workflow}* *{status_message}* in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>"
+          footer: "<{run_url}|View Run>"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Fake Commit after 50 days
+        uses: gautamkrishnar/keepalive-workflow@790c7f09285a59b09bb578c85e271c6ff2af97c4 #v1.1.0

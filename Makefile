@@ -33,6 +33,9 @@ frontend-all: frontend-install frontend-audit frontend-lint frontend-test
 frontend-install:
 	cd frontend && npm install
 
+frontend-ci-install:
+	cd frontend && npm ci
+
 frontend-audit:
 	cd frontend && npm audit
 
@@ -47,6 +50,9 @@ middleware-all: middleware-install middleware-audit middleware-lint middleware-t
 middleware-install:
 	cd middleware && npm install
 
+middleware-ci-install:
+	cd middleware && npm ci
+
 middleware-audit:
 	cd middleware && npm audit
 
@@ -56,6 +62,6 @@ middleware-lint:
 middleware-test:
 	cd middleware && npm run test
 
-nightly-npm-install: frontend-install middleware-install
+nightly-npm-install: frontend-ci-install middleware-ci-install
 
 nightly-npm-tests: frontend-test middleware-test
