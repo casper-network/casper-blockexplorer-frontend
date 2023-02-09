@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import useAsyncEffect from 'use-async-effect';
 import {
   BlockTable,
   GradientHeading,
@@ -16,6 +15,7 @@ import {
   fetchBlocks,
   getTotalBlocks,
   getBlocksPagination,
+  setPagination,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 import { DEFAULT_PAGINATION } from 'src/api';
@@ -28,10 +28,7 @@ const initialSorting: SortingState = [
 ];
 
 export const BlocksNew: React.FC = () => {
-  const [sort, setSort] = useState<SortingState>(initialSorting);
-
   const { refreshTimer } = useAppSelector(state => state.app);
-  // console.log({ refreshTimer });
 
   const { t } = useTranslation();
 
@@ -45,24 +42,30 @@ export const BlocksNew: React.FC = () => {
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
   const blocksPagination = useAppSelector(getBlocksPagination);
 
-  const isLoading = blockLoadingStatus !== Loading.Complete && !blocks.length;
+  const isLoadingPage =
+    blockLoadingStatus !== Loading.Complete && !blocks.length;
+  const isLoadingNext = blockLoadingStatus !== Loading.Complete;
 
-  useAsyncEffect(async () => {
+  useEffect(() => {
     if (blockLoadingStatus === Loading.Idle) {
       dispatch(fetchBlocks(blocksPagination));
     }
   }, []);
 
-  useAsyncEffect(() => {
+  useEffect(() => {
     if (refreshTimer === 0) {
-      console.log('zerooo');
-      // TODO: consider being more optimal and only fetching first new block (and deleting last old)
       dispatch(fetchBlocks(blocksPagination));
     }
   }, [refreshTimer]);
 
+  // TODO: make this more generic -> tie sorting to a store action maybe?
+  // possibly create filter/pagination/sorting (table config??) store?
+  useEffect(() => {
+    dispatch(fetchBlocks(blocksPagination));
+  }, [blocksPagination.sorting]);
+
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={isLoadingPage}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
 
@@ -77,9 +80,25 @@ export const BlocksNew: React.FC = () => {
             }),
           );
         }}
-        isLoadingMoreBlocks={isLoading}
-        sorting={sort}
-        onSortingChange={setSort}
+        isLoadingMoreBlocks={isLoadingNext}
+        sorting={[
+          {
+            id: blocksPagination.sorting.sortBy,
+            desc: blocksPagination.sorting.order === 'desc',
+          },
+        ]}
+        onSortingChange={() =>
+          dispatch(
+            setPagination({
+              ...blocksPagination,
+              sorting: {
+                ...blocksPagination.sorting,
+                order:
+                  blocksPagination.sorting.order === 'desc' ? 'asc' : 'desc',
+              },
+            }),
+          )
+        }
         initialSorting={initialSorting}
       />
     </PageWrapper>

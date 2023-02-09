@@ -38,6 +38,7 @@ export function Table<T extends unknown>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   };
+
   if (onSortingChange) options.onSortingChange = onSortingChange;
   if (sorting) options.state = { sorting };
   if (initialSorting) options.initialState = { sorting: initialSorting };

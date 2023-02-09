@@ -42,12 +42,16 @@ export const fetchBlocks = createAsyncThunk(
 
       const fromHeight = order === 'desc' ? undefined : 0;
 
+      console.log({ fromHeight });
+
       const blocks = await middleware.getBlocks(
         fromHeight,
         sortBy,
         order,
         numToShow,
       );
+
+      console.log({ blocks });
 
       return blocks;
     } catch (error: any) {
@@ -119,6 +123,7 @@ export const blockSlice = createSlice({
       });
     },
     setPagination: (state, action: PayloadAction<BlockState['pagination']>) => {
+      console.log('payload', action.payload);
       state.pagination = action.payload;
     },
   },
