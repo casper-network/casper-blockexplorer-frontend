@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { appSlice } from './slices';
+import { appSlice, blockSlice } from './slices';
 
 export const store = configureStore({
   reducer: {
     app: appSlice.reducer,
+    block: blockSlice.reducer,
   },
 });
 

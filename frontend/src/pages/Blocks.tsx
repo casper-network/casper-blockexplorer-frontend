@@ -51,6 +51,9 @@ export const Blocks: React.FC = () => {
     );
   }, [data]);
 
+  console.log({ data });
+  console.log({ blocks });
+
   const total = useMemo(() => {
     return data && data.pages.length > 0 ? data.pages[0].total : undefined;
   }, [data]);

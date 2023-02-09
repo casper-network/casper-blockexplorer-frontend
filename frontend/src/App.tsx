@@ -9,7 +9,7 @@ import { Footer, Header } from './components';
 import {
   AccountPage,
   BlockPage,
-  Blocks,
+  // Blocks,
   DeployPage,
   Home,
   Peers,
@@ -26,6 +26,7 @@ import {
 import { useAppRefresh } from './hooks';
 import { loadConfig } from './utils';
 import { colors } from './styled-theme';
+import { BlocksNew } from './pages/BlocksNew';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -77,7 +78,7 @@ const App = () => {
                 <Route path="/account/:id" element={<AccountPage />} />
                 <Route path="/deploy/:id" element={<DeployPage />} />
                 <Route path="/block/:id" element={<BlockPage />} />
-                <Route path="/blocks" element={<Blocks />} />
+                <Route path="/blocks" element={<BlocksNew />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
               <Footer />

@@ -7,12 +7,14 @@ export interface BlockState {
   status: Loading;
   blocks: Block[];
   isLoadingMoreBlocks: Loading;
+  totalBlocks: number;
 }
 
 const initialState: BlockState = {
   status: Loading.Idle,
   blocks: [],
   isLoadingMoreBlocks: Loading.Idle,
+  totalBlocks: 0,
 };
 
 export const fetchBlocks = createAsyncThunk(
@@ -96,10 +98,14 @@ export const blockSlice = createSlice({
       .addCase(fetchBlocks.pending, state => {
         state.status = Loading.Pending;
       })
-      .addCase(fetchBlocks.fulfilled, (state, { payload: { blocks } }) => {
-        state.status = Loading.Complete;
-        state.blocks = blocks;
-      })
+      .addCase(
+        fetchBlocks.fulfilled,
+        (state, { payload: { blocks, total } }) => {
+          state.status = Loading.Complete;
+          state.blocks = blocks;
+          state.totalBlocks = total;
+        },
+      )
       .addCase(fetchBlocks.rejected, state => {
         state.status = Loading.Failed;
       })

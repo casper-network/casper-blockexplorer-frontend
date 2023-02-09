@@ -158,6 +158,7 @@ const { webServerUrl } = loadConfig();
 
 export const middleware = new Middleware(webServerUrl);
 
+// TODO: move types to sep file
 export interface GetPeers {
   result: Peer[];
 }
