@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { IUseBlocks } from 'src/hooks';
 import { formatTimeAgo } from '../../utils';
 import { middleware, DEFAULT_NUM_TO_SHOW, Block } from '../../api';
 import { Loading } from '../loading.type';
@@ -9,6 +8,10 @@ export interface BlockState {
   blocks: Block[];
   isLoadingMoreBlocks: Loading;
   totalBlocks: number;
+  pagination: {
+    numToShow: number;
+    orderByHeight: 'desc' | 'asc';
+  };
 }
 
 const initialState: BlockState = {
@@ -16,19 +19,27 @@ const initialState: BlockState = {
   blocks: [],
   isLoadingMoreBlocks: Loading.Idle,
   totalBlocks: 0,
+  pagination: {
+    numToShow: DEFAULT_NUM_TO_SHOW,
+    orderByHeight: 'desc',
+  },
 };
 
 export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
-  async (params: IUseBlocks) => {
+  async (params: BlockState['pagination']) => {
     try {
       const amount = params?.numToShow ?? 10;
       const order = params?.orderByHeight ?? 'desc';
 
+      const fromHeight = order === 'desc' ? undefined : 0;
+
+      console.log({ fromHeight });
+
       const blocks = await middleware.getBlocks(
-        undefined,
-        undefined,
-        undefined,
+        fromHeight,
+        'height',
+        order,
         amount,
       );
 
@@ -63,28 +74,28 @@ export const refreshBlocks = createAsyncThunk(
   },
 );
 
-export const fetchMoreBlocks = createAsyncThunk(
-  'rpcClient/fetchMoreBlocks',
-  async (earliestLoadedBlockHeight: number) => {
-    try {
-      const newlyFetchedBlocks: Block[] = [];
+// export const fetchMoreBlocks = createAsyncThunk(
+//   'rpcClient/fetchMoreBlocks',
+//   async (earliestLoadedBlockHeight: number) => {
+//     try {
+//       const newlyFetchedBlocks: Block[] = [];
 
-      let blockHeightStart = earliestLoadedBlockHeight - 1;
-      const targetHeight = blockHeightStart - DEFAULT_NUM_TO_SHOW;
+//       let blockHeightStart = earliestLoadedBlockHeight - 1;
+//       const targetHeight = blockHeightStart - DEFAULT_NUM_TO_SHOW;
 
-      while (blockHeightStart > targetHeight) {
-        if (blockHeightStart < 0) break;
-        const prevBlock = await middleware.getBlock(blockHeightStart);
-        newlyFetchedBlocks.push(prevBlock);
-        blockHeightStart--;
-      }
+//       while (blockHeightStart > targetHeight) {
+//         if (blockHeightStart < 0) break;
+//         const prevBlock = await middleware.getBlock(blockHeightStart);
+//         newlyFetchedBlocks.push(prevBlock);
+//         blockHeightStart--;
+//       }
 
-      return newlyFetchedBlocks;
-    } catch (error) {
-      throw new Error('An error occurred while fetching more blocks');
-    }
-  },
-);
+//       return newlyFetchedBlocks;
+//     } catch (error) {
+//       throw new Error('An error occurred while fetching more blocks');
+//     }
+//   },
+// );
 
 export const blockSlice = createSlice({
   name: 'block',
@@ -100,6 +111,9 @@ export const blockSlice = createSlice({
 
         return { ...block, timeSince };
       });
+    },
+    setPagination: (state, action: PayloadAction<BlockState['pagination']>) => {
+      state.pagination = action.payload;
     },
   },
   extraReducers(builder) {
@@ -150,18 +164,18 @@ export const blockSlice = createSlice({
       )
       .addCase(refreshBlocks.rejected, state => {
         state.isLoadingMoreBlocks = Loading.Failed;
-      })
-      .addCase(fetchMoreBlocks.pending, state => {
-        state.isLoadingMoreBlocks = Loading.Pending;
-      })
-      .addCase(
-        fetchMoreBlocks.fulfilled,
-        (state, { payload }: PayloadAction<Block[]>) => {
-          state.blocks = [...state.blocks, ...payload];
-          state.isLoadingMoreBlocks = Loading.Complete;
-        },
-      );
+      });
+    // .addCase(fetchMoreBlocks.pending, state => {
+    //   state.isLoadingMoreBlocks = Loading.Pending;
+    // })
+    // .addCase(
+    //   fetchMoreBlocks.fulfilled,
+    //   (state, { payload }: PayloadAction<Block[]>) => {
+    //     state.blocks = [...state.blocks, ...payload];
+    //     state.isLoadingMoreBlocks = Loading.Complete;
+    //   },
+    // );
   },
 });
 
-export const { refreshBlockTimes } = blockSlice.actions;
+export const { refreshBlockTimes, setPagination } = blockSlice.actions;

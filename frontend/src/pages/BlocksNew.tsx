@@ -17,28 +17,23 @@ import {
   getBlockLoadingStatus,
   fetchBlocks,
   getTotalBlocks,
-  fetchMoreBlocks,
+  getBlocksPagination,
+  setPagination,
+  // fetchMoreBlocks,
   // refreshBlocks,
 } from 'src/store';
-import { IUseBlocks } from 'src/hooks';
+import { SortingState } from '@tanstack/react-table';
 // import { Block } from 'src/api';
 
-const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
-
-const initialParam: IUseBlocks = {
-  orderByHeight: 'desc',
-  numToShow: DEFAULT_BLOCKS_COUNT_TO_FETCH,
-};
-
-// const initialSorting: SortingState = [
-//   {
-//     id: 'height',
-//     desc: true,
-//   },
-// ];
+const initialSorting: SortingState = [
+  {
+    id: 'height',
+    desc: true,
+  },
+];
 
 export const BlocksNew: React.FC = () => {
-  const [params, setParams] = useState<IUseBlocks>(initialParam);
+  const [sort, setSort] = useState<SortingState>(initialSorting);
 
   const { refreshTimer } = useAppSelector(state => state.app);
   // console.log({ refreshTimer });
@@ -53,28 +48,27 @@ export const BlocksNew: React.FC = () => {
   const blocks = useAppSelector(getBlocks);
   const totalBlocks = useAppSelector(getTotalBlocks);
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+  const blocksPagination = useAppSelector(getBlocksPagination);
 
   const isLoading = blockLoadingStatus !== Loading.Complete && !blocks.length;
 
   useAsyncEffect(async () => {
     if (blockLoadingStatus === Loading.Idle) {
-      dispatch(fetchBlocks(params));
+      dispatch(fetchBlocks(blocksPagination));
     }
   }, []);
 
   useAsyncEffect(() => {
     if (refreshTimer === 0) {
       console.log('zerooo');
-      dispatch(fetchBlocks(params));
+      // TODO: consider being more optimal and only fetching first new block (and deleting last old)
+      dispatch(fetchBlocks(blocksPagination));
     }
   }, [refreshTimer]);
 
   // TODO: consider creating pagination state on this slice (or maybe create own slice??)
   useEffect(() => {
-    setParams(prev => ({
-      ...prev,
-      numToShow: blocks.length,
-    }));
+    dispatch(setPagination({ ...blocksPagination, numToShow: blocks.length }));
   }, [blocks]);
 
   return (
@@ -86,13 +80,14 @@ export const BlocksNew: React.FC = () => {
         total={totalBlocks}
         blocks={blocks}
         fetchMore={() => {
-          dispatch(fetchMoreBlocks(blocks[blocks.length - 1]?.header.height));
+          // TODO: 1) fetch more blocks should use getBlocks, not getBlock over and over
+          dispatch(fetchBlocks(blocksPagination));
           console.log({ blocks });
         }}
         isLoadingMoreBlocks={isLoading}
-        // sorting={}
-        // onSortingChange={setSort}
-        // initialSorting={initialSorting}
+        sorting={sort}
+        onSortingChange={setSort}
+        initialSorting={initialSorting}
       />
     </PageWrapper>
   );
