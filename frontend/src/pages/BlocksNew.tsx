@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useAsyncEffect from 'use-async-effect';
-// import { SortingState } from '@tanstack/react-table';
-// import { useBlocks, IUseBlocks } from 'src/hooks';
 import {
   BlockTable,
   GradientHeading,
@@ -18,12 +16,9 @@ import {
   fetchBlocks,
   getTotalBlocks,
   getBlocksPagination,
-  setPagination,
-  // fetchMoreBlocks,
-  // refreshBlocks,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
-// import { Block } from 'src/api';
+import { DEFAULT_PAGINATION } from 'src/api';
 
 const initialSorting: SortingState = [
   {
@@ -66,11 +61,6 @@ export const BlocksNew: React.FC = () => {
     }
   }, [refreshTimer]);
 
-  // TODO: consider creating pagination state on this slice (or maybe create own slice??)
-  useEffect(() => {
-    dispatch(setPagination({ ...blocksPagination, numToShow: blocks.length }));
-  }, [blocks]);
-
   return (
     <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
@@ -80,9 +70,12 @@ export const BlocksNew: React.FC = () => {
         total={totalBlocks}
         blocks={blocks}
         fetchMore={() => {
-          // TODO: 1) fetch more blocks should use getBlocks, not getBlock over and over
-          dispatch(fetchBlocks(blocksPagination));
-          console.log({ blocks });
+          dispatch(
+            fetchBlocks({
+              ...blocksPagination,
+              numToShow: blocksPagination.numToShow + DEFAULT_PAGINATION,
+            }),
+          );
         }}
         isLoadingMoreBlocks={isLoading}
         sorting={sort}

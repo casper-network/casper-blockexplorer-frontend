@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { formatTimeAgo } from '../../utils';
-import { middleware, DEFAULT_NUM_TO_SHOW, Block } from '../../api';
+import { middleware, Block, DEFAULT_PAGINATION } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface BlockState {
@@ -10,7 +10,10 @@ export interface BlockState {
   totalBlocks: number;
   pagination: {
     numToShow: number;
-    orderByHeight: 'desc' | 'asc';
+    sorting: {
+      sortBy: string;
+      order: 'desc' | 'asc';
+    };
   };
 }
 
@@ -20,27 +23,30 @@ const initialState: BlockState = {
   isLoadingMoreBlocks: Loading.Idle,
   totalBlocks: 0,
   pagination: {
-    numToShow: DEFAULT_NUM_TO_SHOW,
-    orderByHeight: 'desc',
+    numToShow: DEFAULT_PAGINATION,
+    sorting: {
+      sortBy: 'height',
+      order: 'desc',
+    },
   },
 };
 
 export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
-  async (params: BlockState['pagination']) => {
+  async ({
+    numToShow,
+    sorting: { sortBy, order },
+  }: BlockState['pagination']) => {
     try {
-      const amount = params?.numToShow ?? 10;
-      const order = params?.orderByHeight ?? 'desc';
+      console.log({ numToShow });
 
       const fromHeight = order === 'desc' ? undefined : 0;
 
-      console.log({ fromHeight });
-
       const blocks = await middleware.getBlocks(
         fromHeight,
-        'height',
+        sortBy,
         order,
-        amount,
+        numToShow,
       );
 
       return blocks;
@@ -127,6 +133,7 @@ export const blockSlice = createSlice({
           state.status = Loading.Complete;
           state.blocks = blocks;
           state.totalBlocks = total;
+          state.pagination.numToShow = blocks.length;
         },
       )
       .addCase(fetchBlocks.rejected, state => {
@@ -167,7 +174,7 @@ export const blockSlice = createSlice({
       });
     // .addCase(fetchMoreBlocks.pending, state => {
     //   state.isLoadingMoreBlocks = Loading.Pending;
-    // })
+    // });
     // .addCase(
     //   fetchMoreBlocks.fulfilled,
     //   (state, { payload }: PayloadAction<Block[]>) => {
