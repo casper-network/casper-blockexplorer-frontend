@@ -19,6 +19,7 @@ import {
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 import { DEFAULT_PAGINATION } from 'src/api';
+// import { useAppRefresh } from 'src/hooks';
 
 const initialSorting: SortingState = [
   {
@@ -29,6 +30,8 @@ const initialSorting: SortingState = [
 
 export const BlocksNew: React.FC = () => {
   const { refreshTimer } = useAppSelector(state => state.app);
+
+  // const { setTimer } = useAppRefresh();
 
   const { t } = useTranslation();
 
@@ -45,6 +48,18 @@ export const BlocksNew: React.FC = () => {
   const isLoadingPage =
     blockLoadingStatus !== Loading.Complete && !blocks.length;
   const isLoadingNext = blockLoadingStatus !== Loading.Complete;
+
+  // useEffect(() => {
+  //   if (isInitialTimerSet) return;
+
+  //   if (blocks.length) {
+  //     const timeNowSeconds = new Date().getTime() / 1000;
+  //     const blockCreationSeconds =
+  //       new Date(blocks[0].header.timestamp).getTime() / 1000;
+
+  //     setTimer(30);
+  //   }
+  // }, [blocks]);
 
   useEffect(() => {
     if (blockLoadingStatus === Loading.Idle) {

@@ -38,11 +38,7 @@ export const fetchBlocks = createAsyncThunk(
     sorting: { sortBy, order },
   }: BlockState['pagination']) => {
     try {
-      console.log({ numToShow });
-
       const fromHeight = order === 'desc' ? undefined : 0;
-
-      console.log({ fromHeight });
 
       const blocks = await middleware.getBlocks(
         fromHeight,
@@ -50,8 +46,6 @@ export const fetchBlocks = createAsyncThunk(
         order,
         numToShow,
       );
-
-      console.log({ blocks });
 
       return blocks;
     } catch (error: any) {
