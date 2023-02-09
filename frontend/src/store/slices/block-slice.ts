@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { IUseBlocks } from 'src/hooks';
 import { formatTimeAgo } from '../../utils';
 import { middleware, DEFAULT_NUM_TO_SHOW, Block } from '../../api';
 import { Loading } from '../loading.type';
@@ -19,9 +20,17 @@ const initialState: BlockState = {
 
 export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
-  async () => {
+  async (params: IUseBlocks) => {
     try {
-      const blocks = await middleware.getBlocks();
+      const amount = params?.numToShow ?? 10;
+      const order = params?.orderByHeight ?? 'desc';
+
+      const blocks = await middleware.getBlocks(
+        undefined,
+        undefined,
+        undefined,
+        amount,
+      );
 
       return blocks;
     } catch (error: any) {

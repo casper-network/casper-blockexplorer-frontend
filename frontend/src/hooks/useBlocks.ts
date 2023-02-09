@@ -30,6 +30,9 @@ export default function useBlocks(props?: IUseBlocks) {
           ? pageParam?.fromHeight
           : pageParam?.fromHeight || 0;
 
+      console.log({ numToShow });
+      console.log({ fromHeight });
+
       const { blocks, total } = await middleware.getBlocks(
         fromHeight,
         'height',
