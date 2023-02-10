@@ -16,8 +16,8 @@ export const getLoadingMoreBlocksStatus = (state: RootState) => {
   return state.block.isLoadingMoreBlocks;
 };
 
-export const getBlocksPagination = (state: RootState) => {
-  return state.block.pagination;
+export const getBlocksTableOptions = (state: RootState) => {
+  return state.block.tableOptions;
 };
 
 export const getLatestBlockHeight: (

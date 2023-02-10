@@ -8,8 +8,10 @@ export interface BlockState {
   blocks: Block[];
   isLoadingMoreBlocks: Loading;
   totalBlocks: number;
-  pagination: {
-    numToShow: number;
+  tableOptions: {
+    pagination: {
+      numToShow: number;
+    };
     sorting: {
       sortBy: string;
       order: 'desc' | 'asc';
@@ -22,8 +24,10 @@ const initialState: BlockState = {
   blocks: [],
   isLoadingMoreBlocks: Loading.Idle,
   totalBlocks: 0,
-  pagination: {
-    numToShow: DEFAULT_PAGINATION,
+  tableOptions: {
+    pagination: {
+      numToShow: DEFAULT_PAGINATION,
+    },
     sorting: {
       sortBy: 'height',
       order: 'desc',
@@ -34,9 +38,9 @@ const initialState: BlockState = {
 export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
   async ({
-    numToShow,
+    pagination: { numToShow },
     sorting: { sortBy, order },
-  }: BlockState['pagination']) => {
+  }: BlockState['tableOptions']) => {
     try {
       const fromHeight = order === 'desc' ? undefined : 0;
 
@@ -54,6 +58,7 @@ export const fetchBlocks = createAsyncThunk(
   },
 );
 
+// TODO: probably don't need
 export const refreshBlocks = createAsyncThunk(
   'rpcClient/refreshBlocks',
   async (latestReduxStoredHeight: number) => {
@@ -116,9 +121,12 @@ export const blockSlice = createSlice({
         return { ...block, timeSince };
       });
     },
-    setPagination: (state, action: PayloadAction<BlockState['pagination']>) => {
+    setPagination: (
+      state,
+      action: PayloadAction<BlockState['tableOptions']>,
+    ) => {
       console.log('payload', action.payload);
-      state.pagination = action.payload;
+      state.tableOptions = action.payload;
     },
   },
   extraReducers(builder) {
@@ -132,7 +140,7 @@ export const blockSlice = createSlice({
           state.status = Loading.Complete;
           state.blocks = blocks;
           state.totalBlocks = total;
-          state.pagination.numToShow = blocks.length;
+          state.tableOptions.pagination.numToShow = blocks.length;
         },
       )
       .addCase(fetchBlocks.rejected, state => {
