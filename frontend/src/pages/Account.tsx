@@ -22,6 +22,7 @@ export const AccountPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (account) {
+      // TODO: definitely move this to API layer
       const balanceData = await casperApi.getBalance(account.mainPurse);
 
       setBalance(balanceData);
