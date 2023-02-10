@@ -4,4 +4,3 @@ export { default as useBlocks } from './useBlocks';
 export * from './useBlocks';
 export { default as useBlock } from './useBlock';
 export { default as useDeploy } from './useDeploy';
-export { default as useAccount } from './useAccount';

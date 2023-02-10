@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
+  accountSlice,
   appSlice,
   blockSlice,
   networkSlice,
@@ -14,6 +15,7 @@ export const store = configureStore({
     peer: peerSlice.reducer,
     validator: validatorSlice.reducer,
     network: networkSlice.reducer,
+    account: accountSlice.reducer,
   },
 });
 
