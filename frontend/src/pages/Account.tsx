@@ -45,7 +45,7 @@ export const AccountPage: React.FC = () => {
   const pageTitle = `${t('account-details')}`;
 
   return (
-    // TODO: add error as prop
+    // TODO: add error as prop after created API layer for proper error handling/UI error
     <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       {account && <AccountDetailsCard account={account} balance={balance} />}

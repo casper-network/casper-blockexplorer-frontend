@@ -1,8 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-
-import { useDeploy } from 'src/hooks';
+import {
+  fetchDeploy,
+  getDeploy,
+  getDeployLoadingStatus,
+  Loading,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
 import {
   DeployDetailsCard,
   Grid,
@@ -14,25 +20,27 @@ import {
 export const DeployPage: React.FC = () => {
   const { id: deployHash } = useParams();
   const { t } = useTranslation();
-  const {
-    data,
-    isLoading,
-    error: deployError,
-  } = useDeploy({ hash: deployHash || '' });
 
-  const error = useMemo(() => {
-    if (deployError) return { message: deployError.response?.statusText || '' };
-  }, [deployError]);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDeploy(deployHash ?? ''));
+  }, []);
+
+  const deploy = useAppSelector(getDeploy);
+  const deployLoadingStatus = useAppSelector(getDeployLoadingStatus);
+
+  const isLoading = deployLoadingStatus !== Loading.Complete;
 
   const pageTitle = `${t('deploy-details')}`;
 
   return (
-    <PageWrapper error={error} isLoading={isLoading}>
+    <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
-      {data && (
+      {deploy && (
         <Grid gap="2.5rem">
-          <DeployDetailsCard deploy={data} />
-          <TransactionDetailsCard deploy={data} />
+          <DeployDetailsCard deploy={deploy} />
+          <TransactionDetailsCard deploy={deploy} />
         </Grid>
       )}
     </PageWrapper>

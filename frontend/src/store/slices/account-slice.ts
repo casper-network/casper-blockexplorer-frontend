@@ -20,6 +20,7 @@ export const fetchAccount = createAsyncThunk(
 
       return account;
     } catch (error: any) {
+      console.log('asdfsadfsdfsass', error);
       throw new Error('An error occurred while fetching account.', error);
     }
   },

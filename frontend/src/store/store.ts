@@ -3,6 +3,7 @@ import {
   accountSlice,
   appSlice,
   blockSlice,
+  deploySlice,
   networkSlice,
   peerSlice,
   validatorSlice,
@@ -16,6 +17,7 @@ export const store = configureStore({
     validator: validatorSlice.reducer,
     network: networkSlice.reducer,
     account: accountSlice.reducer,
+    deploy: deploySlice.reducer,
   },
 });
 
