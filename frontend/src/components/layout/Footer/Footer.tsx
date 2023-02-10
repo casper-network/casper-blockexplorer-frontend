@@ -1,22 +1,34 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNetworkStatus } from 'src/hooks';
+import {
+  fetchNetworkStatus,
+  getNetworkStatus,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
 import { loadConfig } from 'src/utils';
 import { colors, fontWeight } from '../../../styled-theme';
 
 export const Footer: React.FC = () => {
-  const { data } = useNetworkStatus();
   const { t } = useTranslation();
   const { title } = loadConfig();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNetworkStatus());
+  }, []);
+
+  const networkStatus = useAppSelector(getNetworkStatus);
 
   return (
     <FooterWrapper>
       <p>
-        {title} {t('node-version')} {data?.build_version.slice(0, 5)}
+        {title} {t('node-version')} {networkStatus?.build_version.slice(0, 5)}
       </p>
       <p>
-        {t('api-version')} {data?.api_version}
+        {t('api-version')} {networkStatus?.api_version}
       </p>
     </FooterWrapper>
   );

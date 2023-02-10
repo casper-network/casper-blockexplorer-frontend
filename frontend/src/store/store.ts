@@ -1,5 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { appSlice, blockSlice, peerSlice, validatorSlice } from './slices';
+import {
+  appSlice,
+  blockSlice,
+  networkSlice,
+  peerSlice,
+  validatorSlice,
+} from './slices';
 
 export const store = configureStore({
   reducer: {
@@ -7,6 +13,7 @@ export const store = configureStore({
     block: blockSlice.reducer,
     peer: peerSlice.reducer,
     validator: validatorSlice.reducer,
+    network: networkSlice.reducer,
   },
 });
 
