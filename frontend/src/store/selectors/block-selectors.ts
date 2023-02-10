@@ -12,8 +12,12 @@ export const getBlockLoadingStatus = (state: RootState) => {
   return state.block.status;
 };
 
-export const getLoadingMoreBlocksStatus = (state: RootState) => {
-  return state.block.isLoadingMoreBlocks;
+export const getLatestBlockLoadingStatus = (state: RootState) => {
+  return state.block.latestBlockLoadingStatus;
+};
+
+export const getLatestBlock = (state: RootState) => {
+  return state.block.latestBlock;
 };
 
 export const getBlocksTableOptions = (state: RootState) => {

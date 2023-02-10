@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 
-import { useLatestBlock, usePeers, useValidators } from 'src/hooks';
-import { useAppSelector } from 'src/store';
+import { usePeers, useValidators } from 'src/hooks';
+import {
+  getLatestBlockLoadingStatus,
+  getLatestBlock,
+  useAppSelector,
+  Loading,
+  useAppDispatch,
+  fetchLatestBlock,
+} from 'src/store';
 import {
   BlocksInfo,
   DeploysInfo,
@@ -13,14 +20,25 @@ import { breakpoints, pxToRem } from '../styled-theme';
 import { standardizeNumber } from '../utils';
 
 export const Home: React.FC = () => {
-  const { data: latestBlock, isLoading: isLoadingLatestBlock } =
-    useLatestBlock();
+  const dispatch = useAppDispatch();
+
+  const latestBlock = useAppSelector(getLatestBlock);
+  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
+
+  useEffect(() => {
+    dispatch(fetchLatestBlock());
+  }, []);
+  console.log({ latestBlock });
+  console.log({ latestBlockLoadingStatus });
+
   const { data: peers, isLoading: isLoadingPeers } = usePeers();
   const { data: validators, isLoading: isLoadingValidators } = useValidators();
   const { isFirstVisit } = useAppSelector(state => state.app);
 
   const isLoading =
-    isLoadingLatestBlock || isLoadingPeers || isLoadingValidators;
+    latestBlockLoadingStatus !== Loading.Complete ||
+    isLoadingPeers ||
+    isLoadingValidators;
 
   return (
     <PageWrapper isLoading={isLoading}>
