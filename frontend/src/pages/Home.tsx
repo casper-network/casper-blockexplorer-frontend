@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-
-import { useValidators } from 'src/hooks';
 import {
   getLatestBlockLoadingStatus,
   getLatestBlock,
@@ -12,6 +10,9 @@ import {
   fetchPeers,
   getPeers,
   getPeerLoadingStatus,
+  fetchValidators,
+  getValidators,
+  getValidatorLoadingStatus,
 } from 'src/store';
 import {
   BlocksInfo,
@@ -28,6 +29,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     dispatch(fetchLatestBlock());
     dispatch(fetchPeers());
+    dispatch(fetchValidators());
   }, []);
 
   const latestBlock = useAppSelector(getLatestBlock);
@@ -36,21 +38,22 @@ export const Home: React.FC = () => {
   const peers = useAppSelector(getPeers);
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
 
-  console.log({ peers });
+  const validators = useAppSelector(getValidators);
+  const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
-  const { data: validators, isLoading: isLoadingValidators } = useValidators();
   const { isFirstVisit } = useAppSelector(state => state.app);
 
   const isLoading =
     latestBlockLoadingStatus !== Loading.Complete ||
     peersLoadingStatus !== Loading.Complete ||
-    isLoadingValidators;
+    validatorsLoadingStatus !== Loading.Complete;
 
   return (
     <PageWrapper isLoading={isLoading}>
       <HomeContentContainer isFirstVisit={isFirstVisit}>
         {latestBlock && <BlocksInfo block={latestBlock} />}
         <DeploysInfo />
+        {/* TODO: shouldn't these components be responsible for the data fetching?? */}
         {peers && (
           <PeersValidatorsInfo
             currentPeers={peers}
