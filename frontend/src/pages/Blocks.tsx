@@ -11,11 +11,11 @@ import {
   useAppSelector,
   Loading,
   getBlocks,
-  getBlockLoadingStatus,
+  getBlocksLoadingStatus,
   fetchBlocks,
   getTotalBlocks,
   getBlocksTableOptions,
-  setPagination,
+  setTableOptions,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 import { DEFAULT_PAGINATION } from 'src/api';
@@ -42,7 +42,7 @@ export const Blocks: React.FC = () => {
 
   const blocks = useAppSelector(getBlocks);
   const totalBlocks = useAppSelector(getTotalBlocks);
-  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+  const blockLoadingStatus = useAppSelector(getBlocksLoadingStatus);
   const blocksTableOptions = useAppSelector(getBlocksTableOptions);
 
   const isLoadingPage =
@@ -113,7 +113,7 @@ export const Blocks: React.FC = () => {
         onSortingChange={() =>
           // TODO: will probably have a setOrdering/setSorting method that's less verbose
           dispatch(
-            setPagination({
+            setTableOptions({
               ...blocksTableOptions,
               sorting: {
                 ...blocksTableOptions.sorting,

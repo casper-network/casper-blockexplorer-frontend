@@ -1,36 +1,44 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import { useAppWidth, useBlock } from '../hooks';
+import {
+  fetchBlock,
+  getBlock,
+  getBlockLoadingStatus,
+  Loading,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
 import {
   BlockDetailsCard,
   MobileBlockDetailsCard,
   PageHead,
   PageWrapper,
 } from '../components';
+import { useAppWidth } from '../hooks';
 
 export const BlockPage: React.FC = () => {
   const { id: blockHashOrHeight } = useParams();
   const { t } = useTranslation();
-  const {
-    data: block,
-    isLoading,
-    error: blockError,
-  } = useBlock({
-    blockHashOrHeight: blockHashOrHeight || '',
-  });
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    // TODO: properly deal with undefined val -> maybe early return in this component?
+    dispatch(fetchBlock(blockHashOrHeight ?? ''));
+  }, []);
+
+  const block = useAppSelector(getBlock);
+  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+
+  const isLoading = blockLoadingStatus !== Loading.Complete;
 
   const { isMobile } = useAppWidth();
-
-  const error = useMemo(() => {
-    if (blockError) return { message: blockError.response?.statusText || '' };
-  }, [blockError]);
 
   const pageTitle = `${t('block-details')}`;
 
   return (
-    <PageWrapper error={error} isLoading={isLoading}>
+    <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       {!isMobile && !isLoading && block && <BlockDetailsCard block={block} />}
       {isMobile && !isLoading && block && (

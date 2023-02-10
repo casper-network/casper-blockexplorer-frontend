@@ -6,6 +6,8 @@ import { Loading } from '../loading.type';
 export interface BlockState {
   status: Loading;
   blocks: Block[];
+  block: Block | null;
+  blockLoadingStatus: Loading;
   latestBlock: Block | null;
   latestBlockLoadingStatus: Loading;
   totalBlocks: number;
@@ -23,6 +25,8 @@ export interface BlockState {
 const initialState: BlockState = {
   status: Loading.Idle,
   blocks: [],
+  block: null,
+  blockLoadingStatus: Loading.Idle,
   latestBlock: null,
   latestBlockLoadingStatus: Loading.Idle,
   totalBlocks: 0,
@@ -73,6 +77,19 @@ export const fetchLatestBlock = createAsyncThunk(
   },
 );
 
+export const fetchBlock = createAsyncThunk(
+  'rpcClient/fetchBlock',
+  async (blockHashOrHeight: string | number) => {
+    try {
+      const block = await middleware.getBlock(blockHashOrHeight);
+
+      return block;
+    } catch (error: any) {
+      throw new Error('An error occurred while fetching block.');
+    }
+  },
+);
+
 export const blockSlice = createSlice({
   name: 'block',
   initialState,
@@ -88,11 +105,10 @@ export const blockSlice = createSlice({
         return { ...block, timeSince };
       });
     },
-    setPagination: (
+    setTableOptions: (
       state,
       action: PayloadAction<BlockState['tableOptions']>,
     ) => {
-      console.log('payload', action.payload);
       state.tableOptions = action.payload;
     },
   },
@@ -125,8 +141,18 @@ export const blockSlice = createSlice({
       )
       .addCase(fetchLatestBlock.rejected, state => {
         state.latestBlockLoadingStatus = Loading.Failed;
+      })
+      .addCase(fetchBlock.pending, state => {
+        state.blockLoadingStatus = Loading.Pending;
+      })
+      .addCase(fetchBlock.fulfilled, (state, { payload: block }) => {
+        state.blockLoadingStatus = Loading.Complete;
+        state.block = block;
+      })
+      .addCase(fetchBlock.rejected, state => {
+        state.blockLoadingStatus = Loading.Failed;
       });
   },
 });
 
-export const { refreshBlockTimes, setPagination } = blockSlice.actions;
+export const { refreshBlockTimes, setTableOptions } = blockSlice.actions;

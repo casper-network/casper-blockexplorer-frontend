@@ -4,12 +4,20 @@ export const getBlocks = (state: RootState) => {
   return state.block.blocks;
 };
 
-export const getTotalBlocks = (state: RootState) => {
-  return state.block.totalBlocks;
+export const getBlocksLoadingStatus = (state: RootState) => {
+  return state.block.status;
+};
+
+export const getBlock = (state: RootState) => {
+  return state.block.block;
 };
 
 export const getBlockLoadingStatus = (state: RootState) => {
-  return state.block.status;
+  return state.block.blockLoadingStatus;
+};
+
+export const getTotalBlocks = (state: RootState) => {
+  return state.block.totalBlocks;
 };
 
 export const getLatestBlockLoadingStatus = (state: RootState) => {
