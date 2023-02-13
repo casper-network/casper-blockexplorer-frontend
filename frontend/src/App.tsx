@@ -21,11 +21,14 @@ import {
   useAppSelector,
   appFontUrl,
   appPrimaryFontName,
+  getLatestBlock,
+  fetchLatestBlock,
 } from './store';
 
 import { useAppRefresh } from './hooks';
 import { loadConfig } from './utils';
 import { colors } from './styled-theme';
+import { BLOCK_TIME_PADDING_SECONDS, REFRESH_TIMER_SECONDS } from './constants';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -34,11 +37,36 @@ const App = () => {
 
   const dispatch = useAppDispatch();
 
-  useAppRefresh();
+  const latestBlock = useAppSelector(getLatestBlock);
+
+  const { setTimer } = useAppRefresh();
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
+
+  useEffect(() => {
+    if (!latestBlock) {
+      dispatch(fetchLatestBlock());
+    } else {
+      // console.log({ latestBlock });
+      const latestBlockTimeInSeconds =
+        new Date(latestBlock.header.timestamp).getTime() / 1000;
+      const timeNowInSeconds = new Date().getTime() / 1000;
+
+      const blockCreatedTimeAgo = timeNowInSeconds - latestBlockTimeInSeconds;
+      const timeUntilBlocksRefetch =
+        REFRESH_TIMER_SECONDS +
+        BLOCK_TIME_PADDING_SECONDS -
+        blockCreatedTimeAgo;
+
+      setTimer(timeUntilBlocksRefetch);
+
+      // console.log({ latestBlockTimeInSeconds });
+      // console.log({ timeNowInSeconds });
+      console.log({ blockCreatedTimeAgo });
+    }
+  }, [latestBlock]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 

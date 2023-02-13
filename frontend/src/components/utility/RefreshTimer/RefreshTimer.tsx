@@ -4,5 +4,9 @@ import { useAppSelector } from 'src/store';
 export const RefreshTimer: React.FC = () => {
   const { refreshTimer } = useAppSelector(state => state.app);
 
-  return <span>Refreshing in {refreshTimer} seconds..</span>;
+  const refreshTimeText = `${
+    refreshTimer > 0 ? `in ${refreshTimer} seconds` : 'now'
+  }...`;
+
+  return <span>Refreshing {refreshTimeText}</span>;
 };

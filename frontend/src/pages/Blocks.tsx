@@ -31,8 +31,6 @@ const initialSorting: SortingState = [
 export const Blocks: React.FC = () => {
   const { refreshTimer } = useAppSelector(state => state.app);
 
-  // const { setTimer } = useAppRefresh();
-
   const { t } = useTranslation();
 
   const pageTitle = `${t('blocks')}`;
@@ -48,22 +46,6 @@ export const Blocks: React.FC = () => {
   const isLoadingPage =
     blockLoadingStatus !== Loading.Complete && !blocks.length;
   const isLoadingNext = blockLoadingStatus !== Loading.Complete;
-
-  // TODO: blocks are created every 32.768 seconds??
-  useEffect(() => {
-    const blockTimes = [];
-    let last: undefined | number;
-    for (const block of blocks) {
-      const blockCreationSeconds =
-        new Date(block.header.timestamp).getTime() / 1000;
-      if (last !== undefined) {
-        blockTimes.push(last - blockCreationSeconds);
-      }
-      last = blockCreationSeconds;
-    }
-
-    // console.log({ blockTimes });
-  }, [blocks]);
 
   useEffect(() => {
     if (blockLoadingStatus === Loading.Idle) {
