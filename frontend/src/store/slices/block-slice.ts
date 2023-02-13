@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { formatTimeAgo } from '../../utils';
-import { middleware, Block, DEFAULT_PAGINATION } from '../../api';
+import { Block, DEFAULT_PAGINATION, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface BlockState {
@@ -50,12 +50,12 @@ export const fetchBlocks = createAsyncThunk(
     try {
       const fromHeight = order === 'desc' ? undefined : 0;
 
-      const blocks = await middleware.getBlocks(
-        fromHeight,
-        sortBy,
-        order,
-        numToShow,
-      );
+      const blocks = await middlewareServiceApi.block.getBlocks({
+        from: fromHeight,
+        sort_by: sortBy,
+        order_by: order,
+        count: numToShow,
+      });
 
       return blocks;
     } catch (error: any) {
@@ -68,7 +68,7 @@ export const fetchLatestBlock = createAsyncThunk(
   'rpcClient/fetchLatestBlock',
   async () => {
     try {
-      const latestBlock = await middleware.getLatestBlock();
+      const latestBlock = await middlewareServiceApi.block.getLatestBlock();
 
       return latestBlock;
     } catch (error: any) {
@@ -81,7 +81,9 @@ export const fetchBlock = createAsyncThunk(
   'rpcClient/fetchBlock',
   async (blockHashOrHeight: string | number) => {
     try {
-      const block = await middleware.getBlock(blockHashOrHeight);
+      const block = await middlewareServiceApi.block.getBlock(
+        blockHashOrHeight,
+      );
 
       return block;
     } catch (error: any) {

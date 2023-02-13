@@ -13,24 +13,19 @@ import { JsonDeploySession } from './missing-sdk-types';
 
 const { webServerUrl } = loadConfig();
 
-interface ApiResponse<T> {
-  readonly ok: true;
-  readonly err: false;
-  readonly val: T;
-}
-
 const createApi = (baseUrl: string) => {
   const middlewareApi = createBaseApi(baseUrl);
 
   return {
     block: {
+      // TODO: update these to camelCase?
       async getBlocks(tableParams: {
         from?: number;
         sort_by?: string;
         order_by?: SortDirection;
         count?: number;
       }) {
-        type Response = AxiosResponse<ApiResponse<ApiData.Blocks>>;
+        type Response = AxiosResponse<ApiData.Blocks>;
 
         const response = await middlewareApi.get<Response>('/blocks', {
           params: { ...tableParams, count: tableParams.count ?? 10 },
@@ -38,12 +33,12 @@ const createApi = (baseUrl: string) => {
 
         if (response.status !== 200) throw new Error(response.statusText);
 
-        const { val } = response.data;
+        const { data } = response;
 
-        return val;
+        return data;
       },
       async getBlock(hashOrHeight: string | number) {
-        type Response = AxiosResponse<ApiResponse<ApiData.Block>>;
+        type Response = AxiosResponse<ApiData.Block>;
 
         const response = await middlewareApi.get<Response>(
           `/block/${hashOrHeight}`,
@@ -51,53 +46,53 @@ const createApi = (baseUrl: string) => {
 
         if (response.status !== 200) throw new Error(response.statusText);
 
-        const { val } = response.data;
+        const { data } = response;
 
-        return val;
+        return data;
       },
       async getLatestBlock() {
-        type Response = AxiosResponse<ApiResponse<ApiData.Block>>;
+        type Response = AxiosResponse<ApiData.Block>;
 
         const response = await middlewareApi.get<Response>('/latest-block');
 
         if (response.status !== 200) throw new Error(response.statusText);
 
-        const { val } = response.data;
+        const { data } = response;
 
-        return val;
+        return data;
       },
     },
     status: {
       async getStatus() {
-        type Response = AxiosResponse<ApiResponse<ApiData.Status>>;
+        type Response = AxiosResponse<ApiData.Status>;
 
         const response = await middlewareApi.get<Response>('/status');
 
         if (response.status !== 200) throw new Error(response.statusText);
 
-        const { val } = response.data;
+        const { data } = response;
 
-        return val;
+        return data;
       },
     },
     peer: {
       async getPeers() {
-        type Response = AxiosResponse<ApiResponse<ApiData.Peers>>;
+        type Response = AxiosResponse<ApiData.Peers>;
 
         const response = await middlewareApi.get<Response>('/peers');
 
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
-          val: { result },
-        } = response.data;
+          data: { result },
+        } = response;
 
         return result;
       },
     },
     account: {
       async getAccount(hashOrPublicKey: string) {
-        type Response = AxiosResponse<ApiResponse<ApiData.Account>>;
+        type Response = AxiosResponse<ApiData.Account>;
 
         const response = await middlewareApi.get<Response>(
           `/account/${hashOrPublicKey}`,
@@ -105,7 +100,7 @@ const createApi = (baseUrl: string) => {
 
         if (response.status !== 200) throw new Error(response.statusText);
 
-        const { val: account } = response.data;
+        const { data: account } = response;
 
         return {
           trimmedAccountHash: account._accountHash.slice(13),
@@ -119,15 +114,15 @@ const createApi = (baseUrl: string) => {
     },
     validator: {
       async getValidators() {
-        type Response = AxiosResponse<ApiResponse<ApiData.Validators>>;
+        type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>('/validators');
 
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
-          val: { validators },
-        } = response.data;
+          data: { validators },
+        } = response;
 
         return validators;
       },
@@ -139,15 +134,15 @@ const createApi = (baseUrl: string) => {
     // TODO: do we want to perform all the business logic in the redux action??
     deploy: {
       async getDeploy(hash: string) {
-        type Response = AxiosResponse<ApiResponse<ApiData.Deploy>>;
+        type Response = AxiosResponse<ApiData.Deploy>;
 
         const response = await middlewareApi.get<Response>(`/deploy/${hash}`);
 
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
-          val: { execution_results: executionResults, ...deploy },
-        } = response.data;
+          data: { execution_results: executionResults, ...deploy },
+        } = response;
 
         // @ts-ignore
         const paymentMap = new Map(deploy.payment.ModuleBytes?.args);
@@ -206,4 +201,4 @@ const createApi = (baseUrl: string) => {
   };
 };
 
-export const coreServiceApi = createApi(webServerUrl);
+export const middlewareServiceApi = createApi(webServerUrl);

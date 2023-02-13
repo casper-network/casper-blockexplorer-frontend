@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Deploy, middleware } from '../../api';
+import { Deploy, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface DeployState {
@@ -16,7 +16,7 @@ export const fetchDeploy = createAsyncThunk(
   'rpcClient/fetchDeploy',
   async (hash: string) => {
     try {
-      const deploy = await middleware.getDeploy(hash);
+      const deploy = await middlewareServiceApi.deploy.getDeploy(hash);
 
       return deploy;
     } catch (error: any) {

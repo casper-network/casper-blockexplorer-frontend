@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { GetStatus, middleware } from '../../api';
+import { GetStatus, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface NetworkState {
@@ -16,7 +16,7 @@ export const fetchNetworkStatus = createAsyncThunk(
   'rpcClient/fetchNetworkStatus',
   async () => {
     try {
-      const status = await middleware.getStatus();
+      const status = await middlewareServiceApi.status.getStatus();
 
       return status;
     } catch (error: any) {

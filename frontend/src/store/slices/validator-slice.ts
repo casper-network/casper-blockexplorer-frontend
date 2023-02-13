@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { ValidatorWeight } from 'casper-js-sdk';
-import { middleware } from '../../api';
+import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface ValidatorState {
@@ -17,7 +17,7 @@ export const fetchValidators = createAsyncThunk(
   'rpcClient/fetchValidators',
   async () => {
     try {
-      const validators = await middleware.getValidators();
+      const validators = await middlewareServiceApi.validator.getValidators();
 
       return validators;
     } catch (error: any) {

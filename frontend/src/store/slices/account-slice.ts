@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Account, middleware } from '../../api';
+import { Account, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface AccountState {
@@ -16,11 +16,14 @@ export const fetchAccount = createAsyncThunk(
   'rpcClient/fetchAccount',
   async (hashOrPublicKey: string) => {
     try {
-      const account = await middleware.getAccount(hashOrPublicKey);
+      const account = await middlewareServiceApi.account.getAccount(
+        hashOrPublicKey,
+      );
+
+      console.log({ account });
 
       return account;
     } catch (error: any) {
-      console.log('asdfsadfsdfsass', error);
       throw new Error('An error occurred while fetching account.', error);
     }
   },

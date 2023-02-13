@@ -62,7 +62,7 @@ export const Blocks: React.FC = () => {
       last = blockCreationSeconds;
     }
 
-    console.log({ blockTimes });
+    // console.log({ blockTimes });
   }, [blocks]);
 
   useEffect(() => {

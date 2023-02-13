@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { middleware, Peer } from '../../api';
+import { middlewareServiceApi, Peer } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface PeerState {
@@ -14,7 +14,7 @@ const initialState: PeerState = {
 
 export const fetchPeers = createAsyncThunk('rpcClient/fetchPeers', async () => {
   try {
-    const peers = await middleware.getPeers();
+    const peers = await middlewareServiceApi.peer.getPeers();
 
     return peers;
   } catch (error: any) {
