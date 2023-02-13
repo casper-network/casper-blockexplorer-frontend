@@ -49,7 +49,6 @@ const App = () => {
     if (!latestBlock) {
       dispatch(fetchLatestBlock());
     } else {
-      // console.log({ latestBlock });
       const latestBlockTimeInSeconds =
         new Date(latestBlock.header.timestamp).getTime() / 1000;
       const timeNowInSeconds = new Date().getTime() / 1000;
@@ -61,10 +60,6 @@ const App = () => {
         blockCreatedTimeAgo;
 
       setTimer(timeUntilBlocksRefetch);
-
-      // console.log({ latestBlockTimeInSeconds });
-      // console.log({ timeNowInSeconds });
-      console.log({ blockCreatedTimeAgo });
     }
   }, [latestBlock]);
 

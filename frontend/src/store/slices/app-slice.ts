@@ -37,7 +37,6 @@ export const appSlice = createSlice({
     },
     updateRefreshTimer: (state, action: PayloadAction<{ value?: number }>) => {
       const { value } = action.payload;
-      console.log({ value });
 
       if (value !== undefined) {
         state.refreshTimer = value;

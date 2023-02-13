@@ -20,8 +20,6 @@ export const fetchAccount = createAsyncThunk(
         hashOrPublicKey,
       );
 
-      console.log({ account });
-
       return account;
     } catch (error: any) {
       throw new Error('An error occurred while fetching account.', error);
