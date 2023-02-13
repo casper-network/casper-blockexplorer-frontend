@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { middlewareServiceApi, Peer } from '../../api';
+import { ApiData } from 'src/api/types';
+import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface PeerState {
   status: Loading;
-  peers: Peer[];
+  peers: ApiData.Peer[];
 }
 
 const initialState: PeerState = {
@@ -33,7 +34,7 @@ export const peerSlice = createSlice({
       })
       .addCase(
         fetchPeers.fulfilled,
-        (state, { payload }: PayloadAction<Peer[]>) => {
+        (state, { payload }: PayloadAction<ApiData.Peer[]>) => {
           state.status = Loading.Complete;
           state.peers = payload;
         },

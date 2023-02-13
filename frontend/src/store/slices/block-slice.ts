@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { ApiData } from 'src/api/types';
 import { formatTimeAgo } from '../../utils';
-import { Block, DEFAULT_PAGINATION, middlewareServiceApi } from '../../api';
+import { DEFAULT_PAGINATION, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface BlockState {
   status: Loading;
-  blocks: Block[];
-  block: Block | null;
+  blocks: ApiData.Block[];
+  block: ApiData.Block | null;
   blockLoadingStatus: Loading;
-  latestBlock: Block | null;
+  latestBlock: ApiData.Block | null;
   latestBlockLoadingStatus: Loading;
   totalBlocks: number;
   tableOptions: {

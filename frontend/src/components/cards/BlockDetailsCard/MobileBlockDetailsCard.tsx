@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { ApiData } from 'src/api/types';
 import { colors, pxToRem } from 'src/styled-theme';
-
-import { Block } from '../../../api';
 import { InfoCard } from '../../base';
 import {
   DetailDataLabel,
@@ -15,7 +14,7 @@ import {
 import { CopyToClipboard, RawData } from '../../utility';
 
 export interface MobileBlockDetailsCardProps {
-  block: Block;
+  block: ApiData.Block;
 }
 
 export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({

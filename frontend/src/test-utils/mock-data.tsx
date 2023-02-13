@@ -1,6 +1,6 @@
-import { Block } from '../api';
+import { ApiData } from 'src/api/types';
 
-export const mockBlock: Block = {
+export const mockBlock: ApiData.Block = {
   hash: '2f95f1fe0c8d64daee3a7c4aa02e12ac0e2a2d0baf02da602e4e119ccb7fde3e',
   header: {
     parent_hash:
@@ -28,7 +28,7 @@ export const mockBlock: Block = {
 };
 
 export const createMockBlocks = (numberOfBlocks: number = 10) => {
-  const blocks = new Array(numberOfBlocks).fill(mockBlock) as Block[];
+  const blocks = new Array(numberOfBlocks).fill(mockBlock) as ApiData.Block[];
 
   return blocks.map((block, index) => {
     return { ...block, hash: `${block.hash}-${index}` };

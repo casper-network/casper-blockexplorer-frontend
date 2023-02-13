@@ -2,16 +2,14 @@ import React from 'react';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from '@emotion/styled';
-
+import { ApiData } from 'src/api/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 import { BlockCarouselCard } from '../../cards/BlockCarouselCard';
-import { Block } from '../../../api';
 
 interface MobileBlocksProps {
-  readonly blocks: Block[];
+  readonly blocks: ApiData.Block[];
 }
 
 export const MobileBlocksCarousel: React.FC<MobileBlocksProps> = ({

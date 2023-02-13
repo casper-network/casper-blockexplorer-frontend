@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { GetStatus, middlewareServiceApi } from '../../api';
+import { ApiData } from 'src/api/types';
+import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface NetworkState {
   status: Loading;
-  networkStatus: GetStatus | null;
+  networkStatus: ApiData.Status | null;
 }
 
 const initialState: NetworkState = {
@@ -36,7 +37,7 @@ export const networkSlice = createSlice({
       })
       .addCase(
         fetchNetworkStatus.fulfilled,
-        (state, { payload }: PayloadAction<GetStatus>) => {
+        (state, { payload }: PayloadAction<ApiData.Status>) => {
           state.status = Loading.Complete;
           state.networkStatus = payload;
         },

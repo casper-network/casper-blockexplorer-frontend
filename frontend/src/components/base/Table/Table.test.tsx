@@ -1,9 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 
-import { Block } from 'src/api';
 import { createMockBlocks, render } from '../../../test-utils';
 import { Table } from './Table';
+import { ApiData } from 'src/api/types';
 
 const header = <div>This is the head content</div>;
 
@@ -42,7 +42,7 @@ const columns = [
 
 const Template = () => {
   return (
-    <Table<Block>
+    <Table<ApiData.Block>
       header={header}
       columns={columns}
       data={data}

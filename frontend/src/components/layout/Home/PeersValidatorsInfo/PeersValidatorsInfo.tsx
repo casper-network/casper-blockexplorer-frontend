@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
+import { ApiData } from 'src/api/types';
 import { useTranslation } from 'react-i18next';
-import { Peer } from 'src/api';
 import {
   IconH2Container,
   H2,
@@ -10,13 +9,11 @@ import {
   H3,
   H3Data,
 } from '../HomeComponents.styled';
-
 import { colors, pxToRem } from '../../../../styled-theme';
-
 import { PeersIcon } from '../../../icons';
 
 interface PeersValidatorsInfoProps {
-  readonly currentPeers: Peer[];
+  readonly currentPeers: ApiData.Peer[];
   readonly currentValidators: string;
 }
 
