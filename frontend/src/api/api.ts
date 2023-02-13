@@ -3,11 +3,13 @@
 // Response return is read as any by our linter for some reason
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { AxiosResponse } from 'axios';
-import { createBaseApi } from './base-api';
-import { loadConfig } from 'src/utils';
-import { ApiData } from './types';
 import { SortDirection } from '@tanstack/react-table';
-import { isValidPublicKey } from './utils';
+import { CLValueParsers } from 'casper-js-sdk';
+import { formatDate, formatTimeAgo, loadConfig } from 'src/utils';
+import { createBaseApi } from './base-api';
+import { ApiData, DeployStatus } from './types';
+import { determineDeploySessionData, isValidPublicKey } from './utils';
+import { JsonDeploySession } from './missing-sdk-types';
 
 const { webServerUrl } = loadConfig();
 
@@ -26,12 +28,12 @@ const createApi = (baseUrl: string) => {
         from?: number;
         sort_by?: string;
         order_by?: SortDirection;
-        count: number;
+        count?: number;
       }) {
         type Response = AxiosResponse<ApiResponse<ApiData.Blocks>>;
 
         const response = await middlewareApi.get<Response>('/blocks', {
-          params: tableParams,
+          params: { ...tableParams, count: tableParams.count ?? 10 },
         });
 
         if (response.status !== 200) throw new Error(response.statusText);
@@ -115,61 +117,92 @@ const createApi = (baseUrl: string) => {
         };
       },
     },
+    validator: {
+      async getValidators() {
+        type Response = AxiosResponse<ApiResponse<ApiData.Validators>>;
 
-    // assets: {
-    //   async getAssets(assetType?: any, search?: string) {
-    //     type Response = AxiosResponse<ApiResponse<ApiData.Asset[]>>;
+        const response = await middlewareApi.get<Response>('/validators');
 
-    //     const response = await middlewareApi.get<Response>('/assets', {
-    //       params: { type: assetType, search },
-    //     });
+        if (response.status !== 200) throw new Error(response.statusText);
 
-    //     if (response.status !== 200) throw new Error(response.statusText);
+        const {
+          val: { validators },
+        } = response.data;
 
-    //     const { val } = response.data;
+        return validators;
+      },
+    },
+    /**
+     * Retrieve an aggregate of the various states a deploy goes through, given its deploy hash. The node does not emit this event, but the Sidecar computes it and returns it for the given deploy. This endpoint behaves differently than other endpoints, which return the raw event received from the node.
+     * @param hash deploy hash to get deploy
+     */
+    // TODO: do we want to perform all the business logic in the redux action??
+    deploy: {
+      async getDeploy(hash: string) {
+        type Response = AxiosResponse<ApiResponse<ApiData.Deploy>>;
 
-    //     return val;
-    //   },
-    //   async getAsset(assetId: string) {
-    //     type Response = AxiosResponse<ApiResponse<ApiData.Asset>>;
+        const response = await middlewareApi.get<Response>(`/deploy/${hash}`);
 
-    //     const response = await middlewareApi.get<Response>(
-    //       `/assets/${assetId}`,
-    //     );
+        if (response.status !== 200) throw new Error(response.statusText);
 
-    //     if (response.status !== 200) throw new Error(response.statusText);
+        const {
+          val: { execution_results: executionResults, ...deploy },
+        } = response.data;
 
-    //     const { val } = response.data;
+        // @ts-ignore
+        const paymentMap = new Map(deploy.payment.ModuleBytes?.args);
 
-    //     return val;
-    //   },
-    // },
-    // sfc: {
-    //   async getSFCs(fetchTokenized: boolean) {
-    //     type Response = AxiosResponse<ApiResponse<ApiData.SFC[]>>;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
+          .unwrap()
+          .value()
+          .toString() as string;
 
-    //     const response = await middlewareApi.get<Response>('/sfc', {
-    //       params: { tokenized: fetchTokenized },
-    //     });
+        const { timestamp, account: publicKey } = deploy.header;
 
-    //     if (response.status !== 200) throw new Error(response.statusText);
+        const { block_hash: blockHash, result: executionResult } =
+          executionResults[0];
 
-    //     const { val } = response.data;
+        const status = executionResult.Success
+          ? DeployStatus.Success
+          : DeployStatus.Failed;
 
-    //     return val;
-    //   },
-    //   async getSFC(sfcId: string) {
-    //     type Response = AxiosResponse<ApiResponse<ApiData.SFC>>;
+        const deploySession = deploy.session as JsonDeploySession;
 
-    //     const response = await middlewareApi.get<Response>(`/sfc/${sfcId}`);
+        const { action, deployType, amount } = determineDeploySessionData(
+          deploySession,
+          status,
+        );
 
-    //     if (response.status !== 200) throw new Error(response.statusText);
+        const cost = executionResult.Success
+          ? executionResult.Success.cost
+          : executionResult.Failure?.cost ?? 0;
 
-    //     const { val } = response.data;
+        const dateTime = new Date(timestamp);
 
-    //     return val;
-    //   },
-    // },
+        const timeSince = formatTimeAgo(dateTime);
+        const readableTimestamp = formatDate(dateTime);
+
+        return {
+          timestamp,
+          timeSince,
+          readableTimestamp,
+          deployHash: deploy.hash,
+          blockHash,
+          publicKey,
+          action,
+          deployType,
+          amount,
+          paymentAmount,
+          cost: cost.toString(),
+          status,
+          rawDeploy: JSON.stringify({
+            deploy,
+            execution_results: executionResults,
+          }),
+        };
+      },
+    },
   };
 };
 
