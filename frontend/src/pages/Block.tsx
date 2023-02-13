@@ -19,12 +19,12 @@ import { useAppWidth } from '../hooks';
 
 export const BlockPage: React.FC = () => {
   const { id: blockHashOrHeight } = useParams();
+
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // TODO: properly deal with undefined val -> maybe early return in this component?
     dispatch(fetchBlock(blockHashOrHeight ?? ''));
   }, []);
 

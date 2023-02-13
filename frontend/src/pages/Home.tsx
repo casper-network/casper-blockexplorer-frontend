@@ -53,7 +53,6 @@ export const Home: React.FC = () => {
       <HomeContentContainer isFirstVisit={isFirstVisit}>
         {latestBlock && <BlocksInfo block={latestBlock} />}
         <DeploysInfo />
-        {/* TODO: shouldn't these components be responsible for the data fetching?? */}
         {peers && (
           <PeersValidatorsInfo
             currentPeers={peers}

@@ -19,7 +19,6 @@ import {
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 import { DEFAULT_PAGINATION } from 'src/api';
-// import { useAppRefresh } from 'src/hooks';
 
 const initialSorting: SortingState = [
   {
@@ -35,7 +34,6 @@ export const Blocks: React.FC = () => {
 
   const pageTitle = `${t('blocks')}`;
 
-  // TODO: potentially create useActions hook?
   const dispatch = useAppDispatch();
 
   const blocks = useAppSelector(getBlocks);
@@ -48,21 +46,12 @@ export const Blocks: React.FC = () => {
   const isLoadingNext = blockLoadingStatus !== Loading.Complete;
 
   useEffect(() => {
-    if (blockLoadingStatus === Loading.Idle) {
-      dispatch(fetchBlocks(blocksTableOptions));
-    }
-  }, []);
-
-  useEffect(() => {
     if (refreshTimer === 0) {
       dispatch(fetchBlocks(blocksTableOptions));
     }
   }, [refreshTimer]);
 
-  // TODO: make this more generic -> tie sorting to a store action maybe?
-  // possibly create filter/pagination/sorting (table config??) store?
   useEffect(() => {
-    // TODO: should I add an if check here?
     dispatch(fetchBlocks(blocksTableOptions));
   }, [blocksTableOptions.sorting]);
 
