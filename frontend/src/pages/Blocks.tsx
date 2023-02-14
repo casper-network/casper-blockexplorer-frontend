@@ -51,16 +51,17 @@ export const Blocks: React.FC = () => {
     if (refreshTimer === 0) {
       dispatch(fetchBlocks(blocksTableOptions));
     }
-  }, [refreshTimer]);
+  }, [refreshTimer, dispatch, blocksTableOptions]);
 
   useEffect(() => {
     dispatch(fetchBlocks(blocksTableOptions));
-  }, [blocksTableOptions.sorting]);
+  }, [blocksTableOptions.sorting, dispatch, blocksTableOptions]);
 
   useEffect(() => {
     if (isSorting) {
       setIsSorting(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocks]);
 
   return (

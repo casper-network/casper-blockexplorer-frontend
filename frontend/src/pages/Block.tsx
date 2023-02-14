@@ -27,7 +27,7 @@ export const BlockPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchBlock(blockHashOrHeight ?? ''));
-  }, []);
+  }, [dispatch, blockHashOrHeight]);
 
   const block = useAppSelector(getBlock);
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);

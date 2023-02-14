@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
     dispatch(fetchLatestBlock());
     dispatch(fetchPeers());
     dispatch(fetchValidators());
-  }, []);
+  }, [dispatch]);
 
   const latestBlock = useAppSelector(getLatestBlock);
   const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);

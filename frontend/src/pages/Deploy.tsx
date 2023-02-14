@@ -26,7 +26,7 @@ export const DeployPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchDeploy(deployHash ?? ''));
-  }, []);
+  }, [dispatch, deployHash]);
 
   const deploy = useAppSelector(getDeploy);
   const deployLoadingStatus = useAppSelector(getDeployLoadingStatus);

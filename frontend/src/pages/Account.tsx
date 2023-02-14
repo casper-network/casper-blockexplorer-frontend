@@ -24,7 +24,7 @@ export const AccountPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchAccount(id ?? ''));
-  }, []);
+  }, [dispatch, id]);
 
   const account = useAppSelector(getAccount);
   const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);

@@ -61,7 +61,7 @@ const App = () => {
 
       setTimer(timeUntilBlocksRefetch);
     }
-  }, [latestBlock]);
+  }, [latestBlock, setTimer, dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 

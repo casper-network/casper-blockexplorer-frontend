@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchNetworkStatus());
-  }, []);
+  }, [dispatch]);
 
   const networkStatus = useAppSelector(getNetworkStatus);
 

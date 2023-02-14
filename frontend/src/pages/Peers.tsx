@@ -22,7 +22,7 @@ export const Peers: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchPeers());
-  }, []);
+  }, [dispatch]);
 
   const peers = useAppSelector(getPeers);
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
