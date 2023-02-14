@@ -95,12 +95,11 @@ export const fetchBlock = createAsyncThunk<
 
       return block;
     } catch (err: any) {
-      const error: AxiosError = err;
-      if (!error.response) {
-        throw new Error('An error occurred while fetching block.');
+      if (err instanceof AxiosError) {
+        return rejectWithValue({ error: err.message });
       }
 
-      return rejectWithValue({ error: error.message });
+      throw new Error('An error occurred while fetching block.');
     }
   },
 );

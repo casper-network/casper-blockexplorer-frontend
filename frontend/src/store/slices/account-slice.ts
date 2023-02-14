@@ -29,12 +29,11 @@ export const fetchAccount = createAsyncThunk<
 
       return account;
     } catch (err: any) {
-      const error: AxiosError = err;
-      if (!error.response) {
-        throw new Error('An error occurred while fetching account.');
+      if (err instanceof AxiosError) {
+        return rejectWithValue({ error: err.message });
       }
 
-      return rejectWithValue({ error: error.message });
+      throw new Error('An error occurred while fetching account.');
     }
   },
 );
