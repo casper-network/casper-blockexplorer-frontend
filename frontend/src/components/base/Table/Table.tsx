@@ -13,6 +13,7 @@ import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
 import { Loader } from 'src/components/utility';
+import { DEFAULT_PAGINATION } from 'src/api';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -88,7 +89,7 @@ export function Table<T extends unknown>({
           ))}
         </TableHead>
         {tableBodyLoading ? (
-          <TableBodyLoadingWrapper>
+          <TableBodyLoadingWrapper pageSize={DEFAULT_PAGINATION}>
             <LoadingPositionWrapper>
               <Loader size="lg" />
             </LoadingPositionWrapper>
@@ -185,8 +186,8 @@ const TableBodyItem = styled.td`
   border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
 `;
 
-const TableBodyLoadingWrapper = styled.div`
-  height: calc(10 * ${pxToRem(50)});
+const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
+  height: calc(${({ pageSize }) => pageSize} * ${pxToRem(50)});
 `;
 
 const LoadingPositionWrapper = styled.div`
