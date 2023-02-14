@@ -36,8 +36,7 @@ export const AccountPage: React.FC = () => {
 
   useAsyncEffect(async () => {
     if (account) {
-      // TODO: definitely move this to API layer
-      // TODO: also the balance takes a second to show up on account details -> think about proper loading
+      // TODO: move to middleware once repo has been ejected
       const balanceData = await casperApi.getBalance(account.mainPurse);
 
       setBalance(balanceData);

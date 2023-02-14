@@ -18,7 +18,6 @@ const createApi = (baseUrl: string) => {
 
   return {
     block: {
-      // TODO: update these to camelCase?
       async getBlocks(tableParams: {
         from?: number;
         sort_by?: string;
@@ -131,7 +130,7 @@ const createApi = (baseUrl: string) => {
      * Retrieve an aggregate of the various states a deploy goes through, given its deploy hash. The node does not emit this event, but the Sidecar computes it and returns it for the given deploy. This endpoint behaves differently than other endpoints, which return the raw event received from the node.
      * @param hash deploy hash to get deploy
      */
-    // TODO: do we want to perform all the business logic in the redux action??
+    // TODO: should we perform the business logic in the redux action?
     deploy: {
       async getDeploy(hash: string) {
         type Response = AxiosResponse<ApiData.Deploy>;

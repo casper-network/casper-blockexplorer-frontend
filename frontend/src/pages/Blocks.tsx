@@ -92,7 +92,6 @@ export const Blocks: React.FC = () => {
         ]}
         onSortingChange={() => {
           setIsSorting(true);
-          // TODO: will probably have a setOrdering/setSorting method that's less verbose
           dispatch(
             setTableOptions({
               ...blocksTableOptions,
