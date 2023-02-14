@@ -10,6 +10,7 @@ import { createBaseApi } from './base-api';
 import { ApiData, DeployStatus } from './types';
 import { determineDeploySessionData, isValidPublicKey } from './utils';
 import { JsonDeploySession } from './missing-sdk-types';
+import { DEFAULT_PAGINATION } from './rpc-client';
 
 const { webServerUrl } = loadConfig();
 
@@ -18,16 +19,21 @@ const createApi = (baseUrl: string) => {
 
   return {
     block: {
-      async getBlocks(tableParams: {
-        from?: number;
-        sort_by?: string;
-        order_by?: SortDirection;
-        count?: number;
-      }) {
+      async getBlocks(
+        tableParams: {
+          from?: number;
+          sort_by?: string;
+          order_by?: SortDirection;
+          count?: number;
+        } = {},
+      ) {
         type Response = AxiosResponse<ApiData.Blocks>;
 
         const response = await middlewareApi.get<Response>('/blocks', {
-          params: { ...tableParams, count: tableParams.count ?? 10 },
+          params: {
+            ...tableParams,
+            count: tableParams?.count ?? DEFAULT_PAGINATION,
+          },
         });
 
         if (response.status !== 200) throw new Error(response.statusText);
