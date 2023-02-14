@@ -1,28 +1,40 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { Account, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface AccountState {
   status: Loading;
   account: Account | null;
+  errorMessage: string | null;
 }
 
 const initialState: AccountState = {
   status: Loading.Idle,
   account: null,
+  errorMessage: null,
 };
 
-export const fetchAccount = createAsyncThunk(
+export const fetchAccount = createAsyncThunk<
+  Account,
+  string,
+  { rejectValue: { error: string } }
+>(
   'rpcClient/fetchAccount',
-  async (hashOrPublicKey: string) => {
+  async (hashOrPublicKey: string, { rejectWithValue }) => {
     try {
       const account = await middlewareServiceApi.account.getAccount(
         hashOrPublicKey,
       );
 
       return account;
-    } catch (error: any) {
-      throw new Error('An error occurred while fetching account.', error);
+    } catch (err: any) {
+      const error: AxiosError = err;
+      if (!error.response) {
+        throw new Error('An error occurred while fetching account.');
+      }
+
+      return rejectWithValue({ error: error.message });
     }
   },
 );
@@ -43,7 +55,9 @@ export const accountSlice = createSlice({
           state.account = payload;
         },
       )
-      .addCase(fetchAccount.rejected, state => {
+      .addCase(fetchAccount.rejected, (state, { payload }) => {
+        state.errorMessage = payload?.error || null;
+
         state.status = Loading.Failed;
       });
   },

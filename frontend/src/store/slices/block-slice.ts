@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { ApiData } from 'src/api/types';
+import { AxiosError } from 'axios';
 import { formatTimeAgo } from '../../utils';
 import { DEFAULT_PAGINATION, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
@@ -9,6 +10,7 @@ export interface BlockState {
   blocks: ApiData.Block[];
   block: ApiData.Block | null;
   blockLoadingStatus: Loading;
+  blockErrorMessage: string | null;
   latestBlock: ApiData.Block | null;
   latestBlockLoadingStatus: Loading;
   totalBlocks: number;
@@ -28,6 +30,7 @@ const initialState: BlockState = {
   blocks: [],
   block: null,
   blockLoadingStatus: Loading.Idle,
+  blockErrorMessage: null,
   latestBlock: null,
   latestBlockLoadingStatus: Loading.Idle,
   totalBlocks: 0,
@@ -78,17 +81,26 @@ export const fetchLatestBlock = createAsyncThunk(
   },
 );
 
-export const fetchBlock = createAsyncThunk(
+export const fetchBlock = createAsyncThunk<
+  ApiData.Block,
+  string,
+  { rejectValue: { error: string } }
+>(
   'rpcClient/fetchBlock',
-  async (blockHashOrHeight: string | number) => {
+  async (blockHashOrHeight: string | number, { rejectWithValue }) => {
     try {
       const block = await middlewareServiceApi.block.getBlock(
         blockHashOrHeight,
       );
 
       return block;
-    } catch (error: any) {
-      throw new Error('An error occurred while fetching block.');
+    } catch (err: any) {
+      const error: AxiosError = err;
+      if (!error.response) {
+        throw new Error('An error occurred while fetching block.');
+      }
+
+      return rejectWithValue({ error: error.message });
     }
   },
 );
@@ -152,7 +164,9 @@ export const blockSlice = createSlice({
         state.blockLoadingStatus = Loading.Complete;
         state.block = block;
       })
-      .addCase(fetchBlock.rejected, state => {
+      .addCase(fetchBlock.rejected, (state, { payload }) => {
+        state.blockErrorMessage = payload?.error || null;
+
         state.blockLoadingStatus = Loading.Failed;
       });
   },

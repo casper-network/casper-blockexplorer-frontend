@@ -7,3 +7,7 @@ export const getAccount = (state: RootState) => {
 export const getAccountLoadingStatus = (state: RootState) => {
   return state.account.status;
 };
+
+export const getAccountErrorMessage = (state: RootState) => {
+  return state.account.errorMessage;
+};

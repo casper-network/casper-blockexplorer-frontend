@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   fetchBlock,
   getBlock,
+  getBlockErrorMessage,
   getBlockLoadingStatus,
   Loading,
   useAppDispatch,
@@ -30,15 +31,20 @@ export const BlockPage: React.FC = () => {
 
   const block = useAppSelector(getBlock);
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+  const blockErrorMessage = useAppSelector(getBlockErrorMessage);
 
   const isLoading = blockLoadingStatus !== Loading.Complete;
 
   const { isMobile } = useAppWidth();
 
+  const error = useMemo(() => {
+    if (blockErrorMessage) return { message: blockErrorMessage };
+  }, [blockErrorMessage]);
+
   const pageTitle = `${t('block-details')}`;
 
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper error={error} isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       {!isMobile && !isLoading && block && <BlockDetailsCard block={block} />}
       {isMobile && !isLoading && block && (

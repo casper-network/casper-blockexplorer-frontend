@@ -7,3 +7,7 @@ export const getDeploy = (state: RootState) => {
 export const getDeployLoadingStatus = (state: RootState) => {
   return state.deploy.status;
 };
+
+export const getDeployErrorMessage = (state: RootState) => {
+  return state.deploy.errorMessage;
+};

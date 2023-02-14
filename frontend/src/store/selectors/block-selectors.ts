@@ -16,6 +16,10 @@ export const getBlockLoadingStatus = (state: RootState) => {
   return state.block.blockLoadingStatus;
 };
 
+export const getBlockErrorMessage = (state: RootState) => {
+  return state.block.blockErrorMessage;
+};
+
 export const getTotalBlocks = (state: RootState) => {
   return state.block.totalBlocks;
 };

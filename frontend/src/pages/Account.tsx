@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import {
 } from 'src/store';
 import {
   getAccount,
+  getAccountErrorMessage,
   getAccountLoadingStatus,
 } from 'src/store/selectors/account-selectors';
 import { casperApi } from '../api';
@@ -27,6 +28,7 @@ export const AccountPage: React.FC = () => {
 
   const account = useAppSelector(getAccount);
   const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
+  const accountErrorMessage = useAppSelector(getAccountErrorMessage);
 
   const isLoading = accountLoadingStatus !== Loading.Complete;
 
@@ -42,11 +44,14 @@ export const AccountPage: React.FC = () => {
     }
   }, [account]);
 
+  const error = useMemo(() => {
+    if (accountErrorMessage) return { message: accountErrorMessage };
+  }, [accountErrorMessage]);
+
   const pageTitle = `${t('account-details')}`;
 
   return (
-    // TODO: add error as prop after created API layer for proper error handling/UI error -> other detail components as well
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper error={error} isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       {account && <AccountDetailsCard account={account} balance={balance} />}
     </PageWrapper>
