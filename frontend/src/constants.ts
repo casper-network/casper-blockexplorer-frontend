@@ -1,3 +1,4 @@
+// blocks are created exactly every 32.768 s
 export const REFRESH_TIMER_SECONDS = 33;
 export const BLOCK_TIME_PADDING_SECONDS = 40;
 export const MOBILE_BREAKPOINT = 1024;
