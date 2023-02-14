@@ -7,12 +7,10 @@ import {
   Loading,
   useAppDispatch,
   useAppSelector,
-} from 'src/store';
-import {
   getAccount,
   getAccountErrorMessage,
   getAccountLoadingStatus,
-} from 'src/store/selectors/account-selectors';
+} from 'src/store';
 import { casperApi } from '../api';
 import { AccountDetailsCard, PageHead, PageWrapper } from '../components';
 
