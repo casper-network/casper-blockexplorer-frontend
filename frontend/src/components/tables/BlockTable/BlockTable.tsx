@@ -20,6 +20,7 @@ interface BlockTableProps {
   readonly showValidators?: boolean;
   fetchMore: () => void;
   isLoadingMoreBlocks: boolean;
+  isSorting: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
   initialSorting?: SortingState;
@@ -31,6 +32,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   showValidators,
   fetchMore,
   isLoadingMoreBlocks,
+  isSorting,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -169,6 +171,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       columns={columns}
       data={blocks}
       footer={footer}
+      tableBodyLoading={isSorting}
       {...props}
     />
   );

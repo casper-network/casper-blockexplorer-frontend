@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   BlockTable,
@@ -28,6 +28,8 @@ const initialSorting: SortingState = [
 ];
 
 export const Blocks: React.FC = () => {
+  const [isSorting, setIsSorting] = useState(false);
+
   const { refreshTimer } = useAppSelector(state => state.app);
 
   const { t } = useTranslation();
@@ -55,6 +57,12 @@ export const Blocks: React.FC = () => {
     dispatch(fetchBlocks(blocksTableOptions));
   }, [blocksTableOptions.sorting]);
 
+  useEffect(() => {
+    if (isSorting) {
+      setIsSorting(false);
+    }
+  }, [blocks]);
+
   return (
     <PageWrapper isLoading={isLoadingPage}>
       <PageHead pageTitle={pageTitle} />
@@ -75,13 +83,15 @@ export const Blocks: React.FC = () => {
           );
         }}
         isLoadingMoreBlocks={isLoadingNext}
+        isSorting={isSorting}
         sorting={[
           {
             id: blocksTableOptions.sorting.sortBy,
             desc: blocksTableOptions.sorting.order === 'desc',
           },
         ]}
-        onSortingChange={() =>
+        onSortingChange={() => {
+          setIsSorting(true);
           // TODO: will probably have a setOrdering/setSorting method that's less verbose
           dispatch(
             setTableOptions({
@@ -92,8 +102,8 @@ export const Blocks: React.FC = () => {
                   blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
               },
             }),
-          )
-        }
+          );
+        }}
         initialSorting={initialSorting}
       />
     </PageWrapper>
