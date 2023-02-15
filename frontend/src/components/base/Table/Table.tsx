@@ -91,7 +91,7 @@ export function Table<T extends unknown>({
           ))}
         </TableHead>
         {tableBodyLoading ? (
-          <TableBodyLoadingWrapper pageSize={defaultPagination ?? 10}>
+          <TableBodyLoadingWrapper pageSize={defaultPagination}>
             <LoadingPositionWrapper>
               <Loader size="lg" />
             </LoadingPositionWrapper>

@@ -16,7 +16,7 @@ export interface AppConfig {
   fontUrl?: string | undefined;
   primaryFontName?: string | undefined;
   secondaryFontName?: string | undefined;
-  defaultPagination?: number;
+  defaultPagination: number;
 }
 
 /* eslint-disable prefer-destructuring */

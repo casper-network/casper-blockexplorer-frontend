@@ -38,7 +38,7 @@ const initialState: BlockState = {
   totalBlocks: 0,
   tableOptions: {
     pagination: {
-      numToShow: defaultPagination ?? 10,
+      numToShow: defaultPagination,
     },
     sorting: {
       sortBy: 'height',

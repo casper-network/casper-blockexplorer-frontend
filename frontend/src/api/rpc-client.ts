@@ -10,7 +10,7 @@ const { webServerUrl, defaultPagination: appDefaultPagination } = loadConfig();
 export class RpcApi {
   constructor(
     private readonly rpcClient: CasperServiceByJsonRPC,
-    private readonly defaultPagination: number = appDefaultPagination ?? 10,
+    private readonly defaultPagination: number = appDefaultPagination,
   ) {}
 
   getAccount = async (publicKeyHex: string) => {

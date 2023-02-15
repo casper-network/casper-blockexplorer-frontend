@@ -80,8 +80,7 @@ export const Blocks: React.FC = () => {
               ...blocksTableOptions,
               pagination: {
                 numToShow:
-                  blocksTableOptions.pagination.numToShow +
-                  (defaultPagination ?? 10),
+                  blocksTableOptions.pagination.numToShow + defaultPagination,
               },
             }),
           );
