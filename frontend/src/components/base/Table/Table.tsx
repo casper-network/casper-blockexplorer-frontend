@@ -13,7 +13,9 @@ import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
 import { Loader } from 'src/components/utility';
-import { DEFAULT_PAGINATION } from 'src/api';
+import { loadConfig } from 'src/utils';
+
+const { defaultPagination } = loadConfig();
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -89,7 +91,7 @@ export function Table<T extends unknown>({
           ))}
         </TableHead>
         {tableBodyLoading ? (
-          <TableBodyLoadingWrapper pageSize={DEFAULT_PAGINATION}>
+          <TableBodyLoadingWrapper pageSize={defaultPagination ?? 10}>
             <LoadingPositionWrapper>
               <Loader size="lg" />
             </LoadingPositionWrapper>

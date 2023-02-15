@@ -10,9 +10,8 @@ import { createBaseApi } from './base-api';
 import { ApiData, DeployStatus } from './types';
 import { determineDeploySessionData, isValidPublicKey } from './utils';
 import { JsonDeploySession } from './missing-sdk-types';
-import { DEFAULT_PAGINATION } from './rpc-client';
 
-const { webServerUrl } = loadConfig();
+const { webServerUrl, defaultPagination } = loadConfig();
 
 const createApi = (baseUrl: string) => {
   const middlewareApi = createBaseApi(baseUrl);
@@ -34,7 +33,7 @@ const createApi = (baseUrl: string) => {
             ...tableParams,
             sort_by: tableParams?.sortBy,
             order_by: tableParams?.orderBy,
-            count: tableParams?.count ?? DEFAULT_PAGINATION,
+            count: tableParams?.count ?? defaultPagination,
           },
         });
 

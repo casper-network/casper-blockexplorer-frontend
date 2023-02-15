@@ -18,7 +18,9 @@ import {
   setTableOptions,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
-import { DEFAULT_PAGINATION } from 'src/api';
+import { loadConfig } from 'src/utils';
+
+const { defaultPagination } = loadConfig();
 
 const initialSorting: SortingState = [
   {
@@ -78,7 +80,8 @@ export const Blocks: React.FC = () => {
               ...blocksTableOptions,
               pagination: {
                 numToShow:
-                  blocksTableOptions.pagination.numToShow + DEFAULT_PAGINATION,
+                  blocksTableOptions.pagination.numToShow +
+                  (defaultPagination ?? 10),
               },
             }),
           );
