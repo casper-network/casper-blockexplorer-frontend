@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { fontWeight, pxToRem } from 'src/styled-theme';
-import { Block } from '../../../api';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   DetailDataLabel,
@@ -17,7 +17,7 @@ import {
 import { CopyToClipboard, RawData } from '../../utility';
 
 export interface BlockDetailsCardProps {
-  block: Block;
+  block: ApiData.Block;
 }
 
 export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({

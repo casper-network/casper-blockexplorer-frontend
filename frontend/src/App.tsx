@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
 import './i18n';
-
 import { Footer, Header } from './components';
 import {
   AccountPage,
@@ -21,10 +20,12 @@ import {
   useAppSelector,
   appFontUrl,
   appPrimaryFontName,
+  getLatestBlock,
+  fetchLatestBlock,
 } from './store';
 
 import { useAppRefresh } from './hooks';
-import { loadConfig } from './utils';
+import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { colors } from './styled-theme';
 
 const { title, faviconUrl } = loadConfig();
@@ -34,11 +35,25 @@ const App = () => {
 
   const dispatch = useAppDispatch();
 
-  useAppRefresh();
+  const latestBlock = useAppSelector(getLatestBlock);
+
+  const { setTimer } = useAppRefresh();
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
+
+  useEffect(() => {
+    if (!latestBlock) {
+      dispatch(fetchLatestBlock());
+    } else {
+      const timeUntilBlocksRefetch = getTimeUntilRefetchBlocks(
+        latestBlock.header.timestamp,
+      );
+
+      setTimer(timeUntilBlocksRefetch);
+    }
+  }, [latestBlock, setTimer, dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 

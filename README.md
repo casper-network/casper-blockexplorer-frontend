@@ -16,6 +16,7 @@ SIDECAR_REST_URL=http://localhost:18888 # The sidecar's REST URL
 SIDECAR_EVENTSTREAM_URL=http://localhost:19999 # The sidecar event stream URL
 NETWORK_NAME=integration-test # The network name. You can check the network's name in `chainspec`
 PEERS_UPDATE_INTERVAL=60 # The interval time for updating the peer list
+DEFAULT_PAGINATION=10 # The page size used to paginate tables
 ```
 
 * When running locally inside a Docker and pointing to an NCTL network, 127.0.0.1 equals `host.docker.internal`. This should be used as `localhost` in `.env`.

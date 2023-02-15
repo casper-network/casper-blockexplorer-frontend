@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Block } from '../../../api';
+import { ApiData } from 'src/api/types';
 import { formatTimeAgo, truncateHash } from '../../../utils';
 import { DetailCard } from '../../base';
 import { CopyToClipboard } from '../../utility';
 
 export interface BlockCarouselCardProps {
-  block: Block;
+  block: ApiData.Block;
 }
 
 export const BlockCarouselCard: React.FC<BlockCarouselCardProps> = ({

@@ -16,6 +16,7 @@ export interface AppConfig {
   fontUrl?: string | undefined;
   primaryFontName?: string | undefined;
   secondaryFontName?: string | undefined;
+  defaultPagination: number;
 }
 
 /* eslint-disable prefer-destructuring */
@@ -35,6 +36,7 @@ export const loadConfig: () => AppConfig = () => {
     REACT_APP_ORG_FONT_URL: reactAppFontUrl,
     REACT_APP_ORG_PRIMARY_FONT_NAME: reactAppPrimaryFontName,
     REACT_APP_ORG_SECONDARY_FONT_NAME: reactAppSecondaryFontName,
+    REACT_APP_DEFAULT_PAGINATION: reactAppDefaultPagination,
   } = process.env;
   const {
     MIDDLEWARE_URL: middlewareUrl,
@@ -45,6 +47,7 @@ export const loadConfig: () => AppConfig = () => {
     ORG_FONT_URL: orgFontUrl,
     ORG_PRIMARY_FONT_NAME: orgPrimaryFontName,
     ORG_SECONDARY_FONT_NAME: orgSecondaryFontName,
+    DEFAULT_PAGINATION: prodDefaultPagination,
   } = ENV;
 
   const isProduction = NODE_ENV === 'production';
@@ -73,6 +76,10 @@ export const loadConfig: () => AppConfig = () => {
     ? orgSecondaryFontName
     : reactAppSecondaryFontName || '';
 
+  const defaultPagination = isProduction
+    ? prodDefaultPagination
+    : reactAppDefaultPagination || 10;
+
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
@@ -87,5 +94,6 @@ export const loadConfig: () => AppConfig = () => {
     fontUrl,
     primaryFontName,
     secondaryFontName,
+    defaultPagination,
   };
 };

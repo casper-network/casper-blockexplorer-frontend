@@ -35,7 +35,14 @@ export const appSlice = createSlice({
     updateBounds: (state, action: PayloadAction<RectReadOnly>) => {
       state.bounds = action.payload;
     },
-    updateRefreshTimer: state => {
+    updateRefreshTimer: (state, action: PayloadAction<{ value?: number }>) => {
+      const { value } = action.payload;
+
+      if (value !== undefined) {
+        state.refreshTimer = value;
+        return;
+      }
+
       const updatedTime = state.refreshTimer - 1;
 
       if (updatedTime < 0) {

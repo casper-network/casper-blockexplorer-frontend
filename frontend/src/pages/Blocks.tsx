@@ -1,25 +1,26 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { SortingState } from '@tanstack/react-table';
-
-import { useBlocks, IUseBlocks } from 'src/hooks';
 import {
   BlockTable,
   GradientHeading,
   PageWrapper,
   PageHead,
 } from 'src/components';
+import {
+  useAppDispatch,
+  useAppSelector,
+  Loading,
+  getBlocks,
+  getBlocksLoadingStatus,
+  fetchBlocks,
+  getTotalBlocks,
+  getBlocksTableOptions,
+  setTableOptions,
+} from 'src/store';
+import { SortingState } from '@tanstack/react-table';
+import { loadConfig } from 'src/utils';
 
-import { useAppSelector } from 'src/store';
-import { Block } from 'src/api';
-
-const DEFAULT_BLOCKS_COUNT_TO_FETCH = 10;
-
-const initialParam: IUseBlocks = {
-  orderByHeight: 'desc',
-  numToShow: DEFAULT_BLOCKS_COUNT_TO_FETCH,
-};
+const { defaultPagination } = loadConfig();
 
 const initialSorting: SortingState = [
   {
@@ -29,74 +30,84 @@ const initialSorting: SortingState = [
 ];
 
 export const Blocks: React.FC = () => {
-  const [sort, setSort] = useState<SortingState>(initialSorting);
-  const [params, setParams] = useState<IUseBlocks>(initialParam);
-  const [shouldRefetchBlocks, setShouldRefetchBlocks] = useState(false);
+  const [isSorting, setIsSorting] = useState(false);
 
   const { refreshTimer } = useAppSelector(state => state.app);
 
   const { t } = useTranslation();
-  const {
-    data,
-    isLoading,
-    isFetchingNextPage,
-    fetchNextPage,
-    refetch: refetchBlocks,
-  } = useBlocks(params);
-
-  const blocks = useMemo(() => {
-    return data?.pages.reduce(
-      (accum, page) => [...accum, ...page.blocks],
-      [] as Block[],
-    );
-  }, [data]);
-
-  const total = useMemo(() => {
-    return data && data.pages.length > 0 ? data.pages[0].total : undefined;
-  }, [data]);
-
-  useEffect(() => {
-    if (refreshTimer === 0) {
-      refetchBlocks({ cancelRefetch: true });
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refreshTimer]);
-
-  useEffect(() => {
-    if (sort.length === 0) return;
-    const { id, desc } = sort[0];
-    if (id === 'height') {
-      setParams(prev => ({
-        ...prev,
-        orderByHeight: desc ? 'desc' : 'asc',
-      }));
-      setShouldRefetchBlocks(prev => !prev);
-    }
-  }, [sort]);
-
-  useEffect(() => {
-    refetchBlocks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldRefetchBlocks]);
 
   const pageTitle = `${t('blocks')}`;
 
+  const dispatch = useAppDispatch();
+
+  const blocks = useAppSelector(getBlocks);
+  const totalBlocks = useAppSelector(getTotalBlocks);
+  const blockLoadingStatus = useAppSelector(getBlocksLoadingStatus);
+  const blocksTableOptions = useAppSelector(getBlocksTableOptions);
+
+  const isLoadingPage =
+    blockLoadingStatus !== Loading.Complete && !blocks.length;
+  const isLoadingNext = blockLoadingStatus !== Loading.Complete;
+
+  useEffect(() => {
+    if (refreshTimer === 0) {
+      dispatch(fetchBlocks(blocksTableOptions));
+    }
+  }, [refreshTimer, dispatch, blocksTableOptions]);
+
+  useEffect(() => {
+    dispatch(fetchBlocks(blocksTableOptions));
+  }, [blocksTableOptions.sorting, dispatch, blocksTableOptions]);
+
+  useEffect(() => {
+    if (isSorting) {
+      setIsSorting(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blocks]);
+
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={isLoadingPage}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
-      {blocks && (
-        <BlockTable
-          total={total}
-          blocks={blocks}
-          fetchMore={fetchNextPage}
-          isLoadingMoreBlocks={isFetchingNextPage}
-          sorting={sort}
-          onSortingChange={setSort}
-          initialSorting={initialSorting}
-        />
-      )}
+
+      <BlockTable
+        total={totalBlocks}
+        blocks={blocks}
+        fetchMore={() => {
+          dispatch(
+            fetchBlocks({
+              ...blocksTableOptions,
+              pagination: {
+                numToShow:
+                  blocksTableOptions.pagination.numToShow + defaultPagination,
+              },
+            }),
+          );
+        }}
+        isLoadingMoreBlocks={isLoadingNext}
+        isSorting={isSorting}
+        sorting={[
+          {
+            id: blocksTableOptions.sorting.sortBy,
+            desc: blocksTableOptions.sorting.order === 'desc',
+          },
+        ]}
+        onSortingChange={() => {
+          setIsSorting(true);
+          dispatch(
+            setTableOptions({
+              ...blocksTableOptions,
+              sorting: {
+                ...blocksTableOptions.sorting,
+                order:
+                  blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
+              },
+            }),
+          );
+        }}
+        initialSorting={initialSorting}
+      />
     </PageWrapper>
   );
 };

@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { usePeers } from 'src/hooks';
+import {
+  fetchPeers,
+  getPeerLoadingStatus,
+  getPeers,
+  Loading,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
 import {
   GradientHeading,
   PageHead,
@@ -11,7 +18,16 @@ import {
 export const Peers: React.FC = () => {
   const { t } = useTranslation();
 
-  const { data: peers, isLoading } = usePeers();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPeers());
+  }, [dispatch]);
+
+  const peers = useAppSelector(getPeers);
+  const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
+
+  const isLoading = peersLoadingStatus !== Loading.Complete;
 
   const pageTitle = `${t('peers')}`;
 

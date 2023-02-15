@@ -12,6 +12,10 @@ import {
 import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
+import { Loader } from 'src/components/utility';
+import { loadConfig } from 'src/utils';
+
+const { defaultPagination } = loadConfig();
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -21,6 +25,7 @@ export interface TableProps<T> {
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
   initialSorting?: SortingState;
+  tableBodyLoading?: boolean;
 }
 
 export function Table<T extends unknown>({
@@ -31,6 +36,7 @@ export function Table<T extends unknown>({
   onSortingChange,
   sorting,
   initialSorting,
+  tableBodyLoading,
 }: TableProps<T>) {
   const options: TableOptions<T> = {
     data,
@@ -38,6 +44,7 @@ export function Table<T extends unknown>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   };
+
   if (onSortingChange) options.onSortingChange = onSortingChange;
   if (sorting) options.state = { sorting };
   if (initialSorting) options.initialState = { sorting: initialSorting };
@@ -83,21 +90,32 @@ export function Table<T extends unknown>({
             </TableHeader>
           ))}
         </TableHead>
-        <tbody>
-          {getRowModel().rows.map(row => (
-            <TableBodyRow key={row.id}>
-              {row.getVisibleCells().map(cell => {
-                return (
-                  <TableBodyItem
-                    key={cell.id}
-                    style={{ width: cell.column.getSize() }}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableBodyItem>
-                );
-              })}
-            </TableBodyRow>
-          ))}
-        </tbody>
+        {tableBodyLoading ? (
+          <TableBodyLoadingWrapper pageSize={defaultPagination}>
+            <LoadingPositionWrapper>
+              <Loader size="lg" />
+            </LoadingPositionWrapper>
+          </TableBodyLoadingWrapper>
+        ) : (
+          <tbody>
+            {getRowModel().rows.map(row => (
+              <TableBodyRow key={row.id}>
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <TableBodyItem
+                      key={cell.id}
+                      style={{ width: cell.column.getSize() }}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableBodyItem>
+                  );
+                })}
+              </TableBodyRow>
+            ))}
+          </tbody>
+        )}
       </StyledTable>
       {footer}
     </TableWrapper>
@@ -126,6 +144,7 @@ const StyledTable = styled.table`
   border-spacing: 0px 0px;
   min-width: ${pxToRem(800)};
   background-color: ${colors.white};
+  position: relative;
 `;
 
 const TableHead = styled.thead`
@@ -167,4 +186,14 @@ const TableBodyItem = styled.td`
   text-align: start;
   padding: 0 ${pxToRem(32)};
   border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
+`;
+
+const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
+  height: calc(${({ pageSize }) => pageSize} * ${pxToRem(50)});
+`;
+
+const LoadingPositionWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 90%;
 `;

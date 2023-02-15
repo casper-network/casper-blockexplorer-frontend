@@ -1,27 +1,40 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import { useAccount } from 'src/hooks';
+import {
+  fetchAccount,
+  Loading,
+  useAppDispatch,
+  useAppSelector,
+  getAccount,
+  getAccountErrorMessage,
+  getAccountLoadingStatus,
+} from 'src/store';
 import { casperApi } from '../api';
 import { AccountDetailsCard, PageHead, PageWrapper } from '../components';
 
 export const AccountPage: React.FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
-  const {
-    data: account,
-    error: accountError,
-    isLoading,
-  } = useAccount({
-    accountHashOrPublicKey: id || '',
-  });
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAccount(id ?? ''));
+  }, [dispatch, id]);
+
+  const account = useAppSelector(getAccount);
+  const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
+  const accountErrorMessage = useAppSelector(getAccountErrorMessage);
+
+  const isLoading = accountLoadingStatus !== Loading.Complete;
 
   const [balance, setBalance] = useState<string | null>(null);
 
   useAsyncEffect(async () => {
     if (account) {
+      // TODO: move to middleware once repo has been ejected
       const balanceData = await casperApi.getBalance(account.mainPurse);
 
       setBalance(balanceData);
@@ -29,9 +42,8 @@ export const AccountPage: React.FC = () => {
   }, [account]);
 
   const error = useMemo(() => {
-    if (accountError)
-      return { message: accountError.response?.statusText || '' };
-  }, [accountError]);
+    if (accountErrorMessage) return { message: accountErrorMessage };
+  }, [accountErrorMessage]);
 
   const pageTitle = `${t('account-details')}`;
 

@@ -1,31 +1,45 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import { useAppWidth, useBlock } from '../hooks';
+import {
+  fetchBlock,
+  getBlock,
+  getBlockErrorMessage,
+  getBlockLoadingStatus,
+  Loading,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
 import {
   BlockDetailsCard,
   MobileBlockDetailsCard,
   PageHead,
   PageWrapper,
 } from '../components';
+import { useAppWidth } from '../hooks';
 
 export const BlockPage: React.FC = () => {
   const { id: blockHashOrHeight } = useParams();
+
   const { t } = useTranslation();
-  const {
-    data: block,
-    isLoading,
-    error: blockError,
-  } = useBlock({
-    blockHashOrHeight: blockHashOrHeight || '',
-  });
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBlock(blockHashOrHeight ?? ''));
+  }, [dispatch, blockHashOrHeight]);
+
+  const block = useAppSelector(getBlock);
+  const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
+  const blockErrorMessage = useAppSelector(getBlockErrorMessage);
+
+  const isLoading = blockLoadingStatus !== Loading.Complete;
 
   const { isMobile } = useAppWidth();
 
   const error = useMemo(() => {
-    if (blockError) return { message: blockError.response?.statusText || '' };
-  }, [blockError]);
+    if (blockErrorMessage) return { message: blockErrorMessage };
+  }, [blockErrorMessage]);
 
   const pageTitle = `${t('block-details')}`;
 

@@ -2,10 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
-import { Block } from '../../../api';
 import {
   formatDate,
   formatTimeAgo,
@@ -13,15 +12,15 @@ import {
   truncateHash,
 } from '../../../utils';
 import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
-
 import { Table } from '../../base';
 
 interface BlockTableProps {
   readonly total?: number;
-  readonly blocks: Block[];
+  readonly blocks: ApiData.Block[];
   readonly showValidators?: boolean;
   fetchMore: () => void;
   isLoadingMoreBlocks: boolean;
+  isSorting: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
   initialSorting?: SortingState;
@@ -33,6 +32,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   showValidators,
   fetchMore,
   isLoadingMoreBlocks,
+  isSorting,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -85,7 +85,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     blockTableTitles.push('validator');
   }
 
-  const columns = useMemo<ColumnDef<Block>[]>(
+  const columns = useMemo<ColumnDef<ApiData.Block>[]>(
     () => [
       {
         header: `${t('block-height')}`,
@@ -166,11 +166,12 @@ export const BlockTable: React.FC<BlockTableProps> = ({
   );
 
   return (
-    <Table<Block>
+    <Table<ApiData.Block>
       header={header}
       columns={columns}
       data={blocks}
       footer={footer}
+      tableBodyLoading={isSorting}
       {...props}
     />
   );

@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-
-import { Block } from 'src/api';
 import { formatDate } from 'src/utils';
+import { ApiData } from 'src/api/types';
 import {
   IconH2Container,
   H2,
@@ -16,7 +15,7 @@ import { colors, pxToRem } from '../../../../styled-theme';
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
-  block: Block;
+  block: ApiData.Block;
 }
 
 export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {

@@ -1,9 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { appSlice } from './slices';
+import {
+  accountSlice,
+  appSlice,
+  blockSlice,
+  deploySlice,
+  networkSlice,
+  peerSlice,
+  validatorSlice,
+} from './slices';
 
 export const store = configureStore({
   reducer: {
     app: appSlice.reducer,
+    block: blockSlice.reducer,
+    peer: peerSlice.reducer,
+    validator: validatorSlice.reducer,
+    network: networkSlice.reducer,
+    account: accountSlice.reducer,
+    deploy: deploySlice.reducer,
   },
 });
 
