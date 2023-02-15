@@ -5,12 +5,12 @@ import { loadConfig } from '../utils';
 import { ApiError } from './api-error';
 import { GetStatusResultExtended } from './missing-sdk-types';
 
-const { webServerUrl } = loadConfig();
+const { webServerUrl, defaultPagination: appDefaultPagination } = loadConfig();
 
 export class RpcApi {
   constructor(
     private readonly rpcClient: CasperServiceByJsonRPC,
-    private readonly defaultPagination: number = defaultPagination,
+    private readonly defaultPagination: number = appDefaultPagination ?? 10,
   ) {}
 
   getAccount = async (publicKeyHex: string) => {
