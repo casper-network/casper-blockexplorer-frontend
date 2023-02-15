@@ -5,7 +5,7 @@ import { loadConfig } from '../utils';
 import { ApiError } from './api-error';
 import { GetStatusResultExtended } from './missing-sdk-types';
 
-const { webServerUrl, defaultPagination } = loadConfig();
+const { webServerUrl } = loadConfig();
 
 export class RpcApi {
   constructor(
