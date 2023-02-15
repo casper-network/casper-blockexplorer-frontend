@@ -22,8 +22,8 @@ const createApi = (baseUrl: string) => {
       async getBlocks(
         tableParams: {
           from?: number;
-          sort_by?: string;
-          order_by?: SortDirection;
+          sortBy?: string;
+          orderBy?: SortDirection;
           count?: number;
         } = {},
       ) {
@@ -32,6 +32,8 @@ const createApi = (baseUrl: string) => {
         const response = await middlewareApi.get<Response>('/blocks', {
           params: {
             ...tableParams,
+            sort_by: tableParams?.sortBy,
+            order_by: tableParams?.orderBy,
             count: tableParams?.count ?? DEFAULT_PAGINATION,
           },
         });

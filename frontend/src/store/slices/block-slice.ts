@@ -56,8 +56,8 @@ export const fetchBlocks = createAsyncThunk(
 
       const blocks = await middlewareServiceApi.block.getBlocks({
         from: fromHeight,
-        sort_by: sortBy,
-        order_by: order,
+        sortBy,
+        orderBy: order,
         count: numToShow,
       });
 
