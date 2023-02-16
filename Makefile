@@ -31,19 +31,19 @@ clean:
 frontend-all: frontend-install frontend-audit frontend-lint frontend-test
 
 frontend-install:
-	cd frontend && npm install
+	cd app && npm install
 
 frontend-ci-install:
-	cd frontend && npm ci
+	cd app && npm ci
 
 frontend-audit:
-	cd frontend && npm audit
+	cd app && npm audit
 
 frontend-lint:
-	cd frontend && npm run lint
+	cd app && npm run lint
 
 frontend-test:
-	cd frontend && npm run test
+	cd app && npm run test
 
 nightly-npm-install: frontend-ci-install 
 
