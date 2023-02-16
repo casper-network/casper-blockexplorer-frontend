@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+  frontend:
+    image: casper-blockexplorer-frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_MIDDLEWARE_URL=${MIDDLEWARE_URL}
+      - REACT_APP_ORG_LOGO_URL=${ORG_LOGO_URL}
+      - REACT_APP_THEME=${THEME}
+      - REACT_APP_ORG_NAME=${ORG_NAME}
+      - REACT_APP_ORG_FAVICON_URL=${ORG_FAVICON_URL}
+      - REACT_APP_ORG_FONT_URL=${ORG_FONT_URL}
+      - REACT_APP_ORG_PRIMARY_FONT_NAME=${ORG_PRIMARY_FONT_NAME}
+      - REACT_APP_ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
+    restart: on-failure
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+

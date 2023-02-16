@@ -2,7 +2,7 @@ export
 
 .PHONY: dev-build dev-start clean
 
-DEV_DC = docker-compose -p casperexplorer -f docker/docker-compose.yml -f docker/docker-compose.dev.yml --env-file ./.env
+DEV_DC = docker-compose -p casperexplorer -f docker-compose.dev.yml --env-file ./.env
 TEST_DC = docker-compose -p cypress-blockexplorer -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -f docker/docker-compose.cy-test.yml --env-file ./.env
 PROD_DC = docker-compose -f docker/docker-compose.yml --env-file ./.env
 

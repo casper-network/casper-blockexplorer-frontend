@@ -1,16 +1,22 @@
 server {
+
     listen 80;
-    listen [::]:80;
-    server_name localhost;
+    server_name _;
     root /var/www/html;
     index index.html index.htm;
 
     location / {
-        try_files $uri $uri/ =404;
+        try_files $uri $uri/ /index.html;
         autoindex on;
         ssi on;
-        set $middleware_url "${MIDDLEWARE_URL}";
+        set $middleware_url "/rpc";
+        set $org_logo_url "${ORG_LOGO_URL}";
+        set $org_name "${ORG_NAME}";
+        set $org_favicon_url "${ORG_FAVICON_URL}";
     }
+
+    location /rpc/ {
+        proxy_pass "${MIDDLEWARE_URL}/";
+    }
+
 }
-
-
