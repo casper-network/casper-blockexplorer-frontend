@@ -1,0 +1,10 @@
+# Deployment
+replicaCount: 3
+
+# Pod
+resourceCpuRequest: 300m
+resourceCpuLimit: 1
+
+resourceMemoryRequest: 300Mi
+resourceMemoryLimit: 1Gi
+
