@@ -6,6 +6,13 @@ services:
       context: ../
       dockerfile: ./docker/Dockerfile.cicd
     environment:
-      - REACT_APP_MIDDLEWARE_URL=http://localhost:4000
+      - MIDDLEWARE_URL
+      - ORG_LOGO_URL
+      - THEME
+      - ORG_NAME
+      - ORG_FAVICON_URL
+      - ORG_FONT_URL
+      - ORG_PRIMARY_FONT_NAME
+      - ORG_SECONDARY_FONT_NAME
     ports:
       - "8080:80"

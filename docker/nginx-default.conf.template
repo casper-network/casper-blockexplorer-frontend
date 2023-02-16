@@ -9,7 +9,7 @@ server {
         try_files $uri $uri/ /index.html;
         autoindex on;
         ssi on;
-        set $middleware_url "/rpc";
+        set $middleware_url "${MIDDLEWARE_URL}";
         set $org_logo_url "${ORG_LOGO_URL}";
         set $org_name "${ORG_NAME}";
         set $org_favicon_url "${ORG_FAVICON_URL}";

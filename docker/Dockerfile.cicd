@@ -7,8 +7,19 @@ ENV NODE_ENV "production"
 COPY app /app
 WORKDIR /app
 
-RUN npm install
+RUN npm -v
+
+RUN npm install --only=dev
+
+RUN npm ls
+
 RUN npm run build
+
+# hack to restore angled brackets after compile
+
+WORKDIR /app/build
+RUN sed -i 's/\\x3e/>/g' index.html
+RUN sed -i 's/\\x3c/</g' index.html
 
 
 # serve: https://hub.docker.com/_/nginx
