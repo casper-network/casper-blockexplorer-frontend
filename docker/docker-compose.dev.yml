@@ -4,8 +4,8 @@ services:
   frontend:
     image: casper-blockexplorer-frontend
     build:
-      context: ../frontend
-      dockerfile: ./Dockerfile.dev
+      context: ../
+      dockerfile: ./docker/Dockerfile.dev
     volumes:
       - /usr/src/app/node_modules
     environment:
@@ -20,7 +20,7 @@ services:
       - REACT_APP_ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
     restart: on-failure
     volumes:
-      - ../frontend:/usr/src/app
+      - ../:/usr/src/app
     ports:
       - "3000:3000"
 
