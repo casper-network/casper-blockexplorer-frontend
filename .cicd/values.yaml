@@ -13,4 +13,7 @@ middlewareUrl: <+serviceVariables.middlewareUrl> #from Harness Service Variables
 orgLogoUrl: <+serviceVariables.orgLogoUrl> 
 orgName: <+serviceVariables.orgName> 
 orgFaviconUrl: <+serviceVariables.orgFaviconUrl> 
-
+orgFontUrl: <+serviceVariables.orgFontUrl> 
+orgPrimaryFontName: <+serviceVariables.orgPrimaryFontName> 
+orgSecondaryFontName: <+serviceVariables.orgSecondaryFontName> 
+orgTheme: <+serviceVariables.orgTheme> 
