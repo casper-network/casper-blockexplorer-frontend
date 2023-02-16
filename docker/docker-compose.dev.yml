@@ -20,7 +20,7 @@ services:
       - REACT_APP_ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
     restart: on-failure
     volumes:
-      - ../:/usr/src/app
+      - ../app:/usr/src/app
     ports:
       - "3000:3000"
 
