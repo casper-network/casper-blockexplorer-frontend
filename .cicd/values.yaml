@@ -16,4 +16,4 @@ orgFaviconUrl: <+serviceVariables.orgFaviconUrl>
 orgFontUrl: <+serviceVariables.orgFontUrl> 
 orgPrimaryFontName: <+serviceVariables.orgPrimaryFontName> 
 orgSecondaryFontName: <+serviceVariables.orgSecondaryFontName> 
-orgTheme: <+serviceVariables.orgTheme> 
+theme: <+serviceVariables.theme> 
