@@ -39,6 +39,11 @@ const navItems = [
     path: '/peers',
     key: 'peers',
   },
+  {
+    title: 'validators',
+    path: '/validators',
+    key: 'validators',
+  },
 ];
 
 export const Navbar: React.FC = () => {

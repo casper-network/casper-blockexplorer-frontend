@@ -31,12 +31,12 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
         <PageLink to="/blocks">{t('view-all')}</PageLink>
       </BlocksHeader>
       <BlockDetails>
-        <H3>{t('block-height')}:</H3>
+        <H3>{t('block-height')}</H3>
         <H3Data>{block.header.height}</H3Data>
         <DataContext>
           {formatDate(new Date(block.header.timestamp))}
         </DataContext>
-        <H3>{t('current-era')}:</H3>
+        <H3>{t('current-era')}</H3>
         <H3Data>{block.header.era_id}</H3Data>
       </BlockDetails>
     </BlockInfoDisplay>

@@ -121,6 +121,7 @@ const createApi = (baseUrl: string) => {
     },
     validator: {
       async getValidators() {
+        // TODO: need to fix typing here
         type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>('/validators');
@@ -132,6 +133,19 @@ const createApi = (baseUrl: string) => {
         } = response;
 
         return validators;
+      },
+      async getCurrentEraValidatorStatus() {
+        type Response = AxiosResponse<ApiData.CurrentEraValidatorStatus>;
+
+        const response = await middlewareApi.get<Response>(
+          '/current-era-validators-status',
+        );
+
+        if (response.status !== 200) throw new Error(response.statusText);
+
+        const { data } = response;
+
+        return data;
       },
     },
     /**

@@ -90,6 +90,11 @@ export namespace ApiData {
   export interface Deploy extends JsonDeploy {
     execution_results: GetDeployResult['execution_results'];
   }
+
+  export interface CurrentEraValidatorStatus {
+    validatorsCount: number;
+    bidsCount: number;
+  }
 }
 
 export type Account = {

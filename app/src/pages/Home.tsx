@@ -13,6 +13,8 @@ import {
   fetchValidators,
   getValidators,
   getValidatorLoadingStatus,
+  fetchCurrentEraValidatorStatus,
+  getCurrentEraValidatorStatus,
 } from 'src/store';
 import {
   BlocksInfo,
@@ -21,7 +23,6 @@ import {
 } from '../components/layout/Home';
 import { PageWrapper } from '../components';
 import { breakpoints, pxToRem } from '../styled-theme';
-import { standardizeNumber } from '../utils';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ export const Home: React.FC = () => {
     dispatch(fetchLatestBlock());
     dispatch(fetchPeers());
     dispatch(fetchValidators());
+    dispatch(fetchCurrentEraValidatorStatus());
   }, [dispatch]);
 
   const latestBlock = useAppSelector(getLatestBlock);
@@ -41,6 +43,10 @@ export const Home: React.FC = () => {
   const validators = useAppSelector(getValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
+  const currentEraValidatorStatus = useAppSelector(
+    getCurrentEraValidatorStatus,
+  );
+
   const { isFirstVisit } = useAppSelector(state => state.app);
 
   const isLoading =
@@ -48,6 +54,7 @@ export const Home: React.FC = () => {
     peersLoadingStatus !== Loading.Complete ||
     validatorsLoadingStatus !== Loading.Complete;
 
+  // TODO: match styles for all cards -> blocks + validators card have different margin/padding, etc.
   return (
     <PageWrapper isLoading={isLoading}>
       <HomeContentContainer isFirstVisit={isFirstVisit}>
@@ -56,7 +63,8 @@ export const Home: React.FC = () => {
         {peers && (
           <PeersValidatorsInfo
             currentPeers={peers}
-            currentValidators={standardizeNumber(validators?.length || 0)}
+            currentValidators={validators}
+            currentEraValidatorStatus={currentEraValidatorStatus}
           />
         )}
       </HomeContentContainer>
