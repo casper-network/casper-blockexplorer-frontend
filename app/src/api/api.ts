@@ -20,10 +20,10 @@ const createApi = (baseUrl: string) => {
     block: {
       async getBlocks(
         tableParams: {
-          from?: number;
           sortBy?: string;
           orderBy?: SortDirection;
           count?: number;
+          pageNum?: number;
         } = {},
       ) {
         type Response = AxiosResponse<ApiData.Blocks>;
@@ -34,6 +34,7 @@ const createApi = (baseUrl: string) => {
             sort_by: tableParams?.sortBy,
             order_by: tableParams?.orderBy,
             count: tableParams?.count ?? defaultPagination,
+            pageNum: tableParams.pageNum,
           },
         });
 

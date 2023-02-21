@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import { Theme } from '@emotion/react';
+import styled, { StyledComponent } from '@emotion/styled';
 import React, { useState } from 'react';
 import Select, { PropsValue } from 'react-select';
 import { pxToRem, colors } from '../../../../../styled-theme';
@@ -10,6 +11,19 @@ export interface CustomSelectProps {
   readonly defaultValue: PropsValue<SelectOptions>;
   readonly options: SelectOptions[];
   readonly onChange: (selectedOption: SelectOptions | null) => void;
+  readonly customSelectWrapper?: StyledComponent<
+    {
+      theme?: Theme | undefined;
+      as?: React.ElementType<any> | undefined;
+    } & {
+      isMenuOpen: boolean;
+    },
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    >,
+    {}
+  >;
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -18,11 +32,14 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   defaultValue,
   options,
   onChange,
+  customSelectWrapper,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const Wrapper = customSelectWrapper ?? SelectWrapper;
+
   return (
-    <SelectWrapper isMenuOpen={isMenuOpen} data-testid="select-wrapper">
+    <Wrapper isMenuOpen={isMenuOpen} data-testid="select-wrapper">
       <SelectLabel htmlFor="select">Select</SelectLabel>
       <Select
         aria-label="select-button"
@@ -38,7 +55,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         noOptionsMessage={() => null}
         classNamePrefix="react-select"
       />
-    </SelectWrapper>
+    </Wrapper>
   );
 };
 const SelectLabel = styled.label`

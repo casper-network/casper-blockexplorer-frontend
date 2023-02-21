@@ -2,43 +2,64 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
+import {
+  getBlocksTableOptions,
+  getTotalBlocks,
+  setTableOptions,
+  updatePageNum,
+  useAppSelector,
+} from 'src/store';
+import { SelectOptions } from 'src/components/layout/Header/Partials';
 import {
   formatDate,
   formatTimeAgo,
   standardizeNumber,
   truncateHash,
 } from '../../../utils';
-import { CopyToClipboard, Loader, RefreshTimer } from '../../utility';
+import { CopyToClipboard, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
+import { NumberedPagination } from '../Pagination/NumberedPagination';
 
-interface BlockTableProps {
+const rowCountSelectOptions: SelectOptions[] | null = [
+  { value: '5', label: '5 rows' },
+  { value: '10', label: '10 rows' },
+  { value: '20', label: '20 rows' },
+];
+
+interface BlocksTableProps {
   readonly total?: number;
   readonly blocks: ApiData.Block[];
   readonly showValidators?: boolean;
-  fetchMore: () => void;
   isLoadingMoreBlocks: boolean;
-  isSorting: boolean;
+  isTableLoading: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
   initialSorting?: SortingState;
+  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const BlockTable: React.FC<BlockTableProps> = ({
+export const BlocksTable: React.FC<BlocksTableProps> = ({
   total,
   blocks,
   showValidators,
-  fetchMore,
-  isLoadingMoreBlocks,
-  isSorting,
+  isTableLoading,
+  setIsTableLoading,
   ...props
 }) => {
   const { t } = useTranslation();
 
   const [currentTime, setCurrentTime] = useState(Date.now());
   const [showTimestamp, setShowTimestamp] = useState(false);
+
+  const blocksTableOptions = useAppSelector(getBlocksTableOptions);
+  const totalBlocks = useAppSelector(getTotalBlocks);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(totalBlocks / blocksTableOptions.pagination.pageSize);
+  }, [blocksTableOptions, totalBlocks]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,31 +71,34 @@ export const BlockTable: React.FC<BlockTableProps> = ({
 
   const header = useMemo(
     () => (
-      <BlockTableHead>
+      <BlocksTableHead>
         <p>
           {standardizeNumber(total || 0)} {t('total-rows')}
         </p>
-        <RefreshTimer />
-      </BlockTableHead>
+
+        <NumberedPagination
+          tableOptions={blocksTableOptions}
+          setTableOptions={setTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updatePageNum}
+        />
+      </BlocksTableHead>
     ),
-    [total, t],
+    [total, t, blocksTableOptions, totalPages, setIsTableLoading],
   );
 
   const footer = useMemo(
     () => (
-      <BlockTableFooter>
-        <ShowMoreButton
-          type="button"
-          disabled={isLoadingMoreBlocks}
-          onClick={fetchMore}>
-          {isLoadingMoreBlocks ? <Loader size="sm" /> : t('show-more')}
-        </ShowMoreButton>
-      </BlockTableFooter>
+      <BlocksTableFooter>
+        <RefreshTimer />
+      </BlocksTableFooter>
     ),
-    [fetchMore, isLoadingMoreBlocks, t],
+    [],
   );
 
-  const blockTableTitles = [
+  const blocksTableTitles = [
     'block-height',
     'era',
     'deploy',
@@ -82,7 +106,7 @@ export const BlockTable: React.FC<BlockTableProps> = ({
     'block-hash',
   ];
   if (showValidators) {
-    blockTableTitles.push('validator');
+    blocksTableTitles.push('validator');
   }
 
   const columns = useMemo<ColumnDef<ApiData.Block>[]>(
@@ -171,36 +195,24 @@ export const BlockTable: React.FC<BlockTableProps> = ({
       columns={columns}
       data={blocks}
       footer={footer}
-      tableBodyLoading={isSorting}
+      tableBodyLoading={isTableLoading}
+      currentPageSize={blocksTableOptions.pagination.pageSize}
       {...props}
     />
   );
 };
-const BlockTableHead = styled.div`
+const BlocksTableHead = styled.div`
   display: flex;
+  min-width: ${pxToRem(900)};
   justify-content: space-between;
-  color: ${colors.lightSupporting};
+  align-items: center;
+  color: ${colors.darkSupporting};
 `;
 
-const BlockTableFooter = styled.div`
+const BlocksTableFooter = styled.div`
   display: flex;
-  justify-content: space-around;
   padding: ${pxToRem(20)} 2rem;
-`;
-
-const ShowMoreButton = styled.button`
-  background-color: ${colors.lightSupporting};
-  color: ${colors.darkWarning};
-  min-width: ${pxToRem(150)};
-  padding: 0.5rem 0;
-  width: fit-content;
-  border-radius: 0.375rem;
-  border: none;
-  font-weight: ${fontWeight.medium};
-
-  :hover {
-    background-color: ${colors.lightWarning};
-  }
+  color: ${colors.darkSupporting};
 `;
 
 const SwitchBlocktime = styled.div`
