@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  BlockTable,
   GradientHeading,
   PageWrapper,
   PageHead,
+  BlocksTable,
 } from 'src/components';
 import {
   useAppDispatch,
@@ -15,12 +15,9 @@ import {
   fetchBlocks,
   getTotalBlocks,
   getBlocksTableOptions,
-  setTableOptions,
+  updateSorting,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
-import { loadConfig } from 'src/utils';
-
-const { defaultPagination } = loadConfig();
 
 const initialSorting: SortingState = [
   {
@@ -30,7 +27,7 @@ const initialSorting: SortingState = [
 ];
 
 export const Blocks: React.FC = () => {
-  const [isSorting, setIsSorting] = useState(false);
+  const [isTableBodyLoading, setIsTableBodyLoading] = useState(false);
 
   const { refreshTimer } = useAppSelector(state => state.app);
 
@@ -57,11 +54,16 @@ export const Blocks: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchBlocks(blocksTableOptions));
-  }, [blocksTableOptions.sorting, dispatch, blocksTableOptions]);
+  }, [
+    blocksTableOptions.sorting,
+    blocksTableOptions.pagination,
+    dispatch,
+    blocksTableOptions,
+  ]);
 
   useEffect(() => {
-    if (isSorting) {
-      setIsSorting(false);
+    if (isTableBodyLoading) {
+      setIsTableBodyLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocks]);
@@ -70,23 +72,11 @@ export const Blocks: React.FC = () => {
     <PageWrapper isLoading={isLoadingPage}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
-
-      <BlockTable
+      <BlocksTable
         total={totalBlocks}
         blocks={blocks}
-        fetchMore={() => {
-          dispatch(
-            fetchBlocks({
-              ...blocksTableOptions,
-              pagination: {
-                numToShow:
-                  blocksTableOptions.pagination.numToShow + defaultPagination,
-              },
-            }),
-          );
-        }}
         isLoadingMoreBlocks={isLoadingNext}
-        isSorting={isSorting}
+        isTableBodyLoading={isTableBodyLoading}
         sorting={[
           {
             id: blocksTableOptions.sorting.sortBy,
@@ -94,18 +84,16 @@ export const Blocks: React.FC = () => {
           },
         ]}
         onSortingChange={() => {
-          setIsSorting(true);
+          setIsTableBodyLoading(true);
           dispatch(
-            setTableOptions({
-              ...blocksTableOptions,
-              sorting: {
-                ...blocksTableOptions.sorting,
-                order:
-                  blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
-              },
+            updateSorting({
+              sortBy: 'height',
+              order:
+                blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
             }),
           );
         }}
+        setIsTableBodyLoading={setIsTableBodyLoading}
         initialSorting={initialSorting}
       />
     </PageWrapper>

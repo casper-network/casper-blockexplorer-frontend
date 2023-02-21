@@ -14,6 +14,8 @@ import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
 import { Loader } from 'src/components/utility';
 import { loadConfig } from 'src/utils';
+import upIcon from '../../../assets/images/up-icon.png';
+import downIcon from '../../../assets/images/down-icon.png';
 
 const { defaultPagination } = loadConfig();
 
@@ -26,6 +28,7 @@ export interface TableProps<T> {
   sorting?: SortingState;
   initialSorting?: SortingState;
   tableBodyLoading?: boolean;
+  currentPageSize?: number;
 }
 
 export function Table<T extends unknown>({
@@ -37,6 +40,7 @@ export function Table<T extends unknown>({
   sorting,
   initialSorting,
   tableBodyLoading,
+  currentPageSize,
 }: TableProps<T>) {
   const options: TableOptions<T> = {
     data,
@@ -79,8 +83,16 @@ export function Table<T extends unknown>({
                       )}
                       <span>
                         {{
-                          asc: '🔼',
-                          desc: '🔽',
+                          asc: (
+                            <SortIconWrapper>
+                              <SortIcon src={upIcon} alt="sort-asc" />
+                            </SortIconWrapper>
+                          ),
+                          desc: (
+                            <SortIconWrapper>
+                              <SortIcon src={downIcon} alt="sort-desc" />
+                            </SortIconWrapper>
+                          ),
                         }[header.column.getIsSorted() as string] ?? null}
                       </span>
                     </>
@@ -91,7 +103,8 @@ export function Table<T extends unknown>({
           ))}
         </TableHead>
         {tableBodyLoading ? (
-          <TableBodyLoadingWrapper pageSize={defaultPagination}>
+          <TableBodyLoadingWrapper
+            pageSize={currentPageSize ?? defaultPagination}>
             <LoadingPositionWrapper>
               <Loader size="lg" />
             </LoadingPositionWrapper>
@@ -189,11 +202,37 @@ const TableBodyItem = styled.td`
 `;
 
 const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
-  height: calc(${({ pageSize }) => pageSize} * ${pxToRem(50)});
+  /* (pageSize + 1) is to account for footer */
+  height: calc(${({ pageSize }) => pageSize + 1} * ${pxToRem(50)});
 `;
 
 const LoadingPositionWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 90%;
+`;
+
+const SortIconWrapper = styled.div<{ disabled?: boolean }>`
+  height: ${pxToRem(27)};
+  width: ${pxToRem(27)};
+  background-color: #02115f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${pxToRem(5)};
+
+  * {
+    color: white;
+    z-index: 1;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const SortIcon = styled.img`
+  width: ${pxToRem(12)};
+  height: ${pxToRem(12)};
+  margin: 0;
 `;

@@ -1,9 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ApiData } from 'src/api/types';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { formatTimeAgo, loadConfig } from '../../utils';
+import { ApiData } from 'src/api/types';
 import { middlewareServiceApi } from '../../api';
+import { formatTimeAgo, loadConfig } from '../../utils';
 import { Loading } from '../loading.type';
+import { TableOptions } from '../types';
 
 const { defaultPagination } = loadConfig();
 
@@ -16,15 +17,7 @@ export interface BlockState {
   latestBlock: ApiData.Block | null;
   latestBlockLoadingStatus: Loading;
   totalBlocks: number;
-  tableOptions: {
-    pagination: {
-      numToShow: number;
-    };
-    sorting: {
-      sortBy: string;
-      order: 'desc' | 'asc';
-    };
-  };
+  tableOptions: TableOptions;
 }
 
 const initialState: BlockState = {
@@ -38,7 +31,8 @@ const initialState: BlockState = {
   totalBlocks: 0,
   tableOptions: {
     pagination: {
-      numToShow: defaultPagination,
+      pageSize: defaultPagination,
+      pageNum: 1,
     },
     sorting: {
       sortBy: 'height',
@@ -50,17 +44,15 @@ const initialState: BlockState = {
 export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
   async ({
-    pagination: { numToShow },
+    pagination: { pageSize, pageNum },
     sorting: { sortBy, order },
   }: BlockState['tableOptions']) => {
     try {
-      const fromHeight = order === 'desc' ? undefined : 0;
-
       const blocks = await middlewareServiceApi.block.getBlocks({
-        from: fromHeight,
         sortBy,
         orderBy: order,
-        count: numToShow,
+        count: pageSize,
+        pageNum,
       });
 
       return blocks;
@@ -127,6 +119,15 @@ export const blockSlice = createSlice({
     ) => {
       state.tableOptions = action.payload;
     },
+    updatePageNum: (state, action: PayloadAction<number>) => {
+      state.tableOptions.pagination.pageNum += action.payload;
+    },
+    updateSorting: (
+      state,
+      action: PayloadAction<BlockState['tableOptions']['sorting']>,
+    ) => {
+      state.tableOptions.sorting = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -139,7 +140,6 @@ export const blockSlice = createSlice({
           state.status = Loading.Complete;
           state.blocks = blocks;
           state.totalBlocks = total;
-          state.tableOptions.pagination.numToShow = blocks.length;
         },
       )
       .addCase(fetchBlocks.rejected, state => {
@@ -173,4 +173,9 @@ export const blockSlice = createSlice({
   },
 });
 
-export const { refreshBlockTimes, setTableOptions } = blockSlice.actions;
+export const {
+  refreshBlockTimes,
+  setTableOptions,
+  updatePageNum,
+  updateSorting,
+} = blockSlice.actions;
