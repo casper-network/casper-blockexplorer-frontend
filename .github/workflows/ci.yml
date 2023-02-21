@@ -45,21 +45,3 @@ jobs:
 
       - name: Test Frontend
         run: make frontend-test
-
-      # BE
-      - name: Install Middleware
-        run: make middleware-ci-install
-
-      - name: Audit Middleware
-        run: make middleware-audit
-
-      - name: Lint Middleware
-        run: make middleware-lint
-
-      - name: Test Middleware
-        run: make middleware-test
-        env:
-          MIDDLEWARE_URL: http://localhost:4000/rpc # middleware URL
-          NODE_URLS: https://rpc.testnet.casperlabs.io/rpc
-          NETWORK_NAME: casper-test
-          PEERS_UPDATE_INTERVAL: 300

@@ -2,9 +2,9 @@ export
 
 .PHONY: dev-build dev-start clean
 
-DEV_DC = docker-compose -p casperexplorer -f docker/docker-compose.yml -f docker/docker-compose.dev.yml --env-file ./.env
+DEV_DC = docker-compose -p casperexplorer -f docker/docker-compose.dev.yml --env-file ./.env
 TEST_DC = docker-compose -p cypress-blockexplorer -f docker/docker-compose.yml -f docker/docker-compose.dev.yml -f docker/docker-compose.cy-test.yml --env-file ./.env
-PROD_DC = docker-compose -f docker/docker-compose.yml --env-file ./.env
+PROD_DC = docker-compose -f docker/docker-compose.prod.yml --env-file ./.env
 
 dev-build:
 	$(DEV_DC) build
@@ -31,37 +31,20 @@ clean:
 frontend-all: frontend-install frontend-audit frontend-lint frontend-test
 
 frontend-install:
-	cd frontend && npm install
+	cd app && npm install
 
 frontend-ci-install:
-	cd frontend && npm ci
+	cd app && npm ci
 
 frontend-audit:
-	cd frontend && npm audit
+	cd app && npm audit
 
 frontend-lint:
-	cd frontend && npm run lint
+	cd app && npm run lint
 
 frontend-test:
-	cd frontend && npm run test
+	cd app && npm run test
 
-middleware-all: middleware-install middleware-audit middleware-lint middleware-test
+nightly-npm-install: frontend-ci-install 
 
-middleware-install:
-	cd middleware && npm install
-
-middleware-ci-install:
-	cd middleware && npm ci
-
-middleware-audit:
-	cd middleware && npm audit
-
-middleware-lint:
-	cd middleware && npm run lint
-
-middleware-test:
-	cd middleware && npm run test
-
-nightly-npm-install: frontend-ci-install middleware-ci-install
-
-nightly-npm-tests: frontend-test middleware-test
+nightly-npm-tests: frontend-test 

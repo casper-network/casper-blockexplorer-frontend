@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Values.appName}}-{{.Values.envName}}-config
+  namespace: {{.Values.namespace}}
+data:
+  MIDDLEWARE_URL: {{.Values.middlewareUrl}}
+  ORG_LOGO_URL: {{or .Values.orgLogoUrl "" | quote}}
+  ORG_NAME: {{or .Values.orgName "" | quote}}
+  ORG_FAVICON_URL: {{or .Values.orgFaviconUrl  "" | quote}}
+  ORG_FONT_URL: {{or .Values.orgFontUrl "" | quote}}
+  ORG_PRIMARY_FONT_NAME: {{or .Values.orgPrimaryFontName "" | quote}}
+  ORG_SECONDARY_FONT_NAME: {{or .Values.orgSecondaryFontName "" | quote}}
+  THEME: {{or .Values.theme "" | quote}}

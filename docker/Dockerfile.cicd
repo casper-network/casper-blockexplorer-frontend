@@ -1,0 +1,34 @@
+# build
+
+FROM node:16.14.0-alpine AS build
+
+ENV NODE_ENV "production"
+
+COPY app /app
+WORKDIR /app
+
+RUN npm -v
+
+#RUN npm install 
+RUN npm install --dev
+
+RUN npm ls
+
+RUN npm run build
+
+# hack to restore angled brackets after compile
+
+WORKDIR /app/build
+RUN sed -i 's/\\x3e/>/g' index.html
+RUN sed -i 's/\\x3c/</g' index.html
+
+
+# serve: https://hub.docker.com/_/nginx
+
+FROM nginx:latest as serve
+
+#COPY ./docker/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/nginx-default.conf.template /etc/nginx/templates/default.conf.template
+COPY --from=build /app/build /var/www/html
+
+EXPOSE 80

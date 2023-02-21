@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  frontend-cicd:
+    image: casper-blockexplorer-frontend
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.cicd
+    environment:
+      - MIDDLEWARE_URL
+      - ORG_LOGO_URL
+      - THEME
+      - ORG_NAME
+      - ORG_FAVICON_URL
+      - ORG_FONT_URL
+      - ORG_PRIMARY_FONT_NAME
+      - ORG_SECONDARY_FONT_NAME
+    ports:
+      - "8080:80"
