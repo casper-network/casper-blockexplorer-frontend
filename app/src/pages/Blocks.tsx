@@ -27,7 +27,7 @@ const initialSorting: SortingState = [
 ];
 
 export const Blocks: React.FC = () => {
-  const [isTableBodyLoading, setIsTableBodyLoading] = useState(false);
+  const [isTableLoading, setIsTableLoading] = useState(false);
 
   const { refreshTimer } = useAppSelector(state => state.app);
 
@@ -62,8 +62,8 @@ export const Blocks: React.FC = () => {
   ]);
 
   useEffect(() => {
-    if (isTableBodyLoading) {
-      setIsTableBodyLoading(false);
+    if (isTableLoading) {
+      setIsTableLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocks]);
@@ -76,7 +76,7 @@ export const Blocks: React.FC = () => {
         total={totalBlocks}
         blocks={blocks}
         isLoadingMoreBlocks={isLoadingNext}
-        isTableBodyLoading={isTableBodyLoading}
+        isTableLoading={isTableLoading}
         sorting={[
           {
             id: blocksTableOptions.sorting.sortBy,
@@ -84,7 +84,7 @@ export const Blocks: React.FC = () => {
           },
         ]}
         onSortingChange={() => {
-          setIsTableBodyLoading(true);
+          setIsTableLoading(true);
           dispatch(
             updateSorting({
               sortBy: 'height',
@@ -93,7 +93,7 @@ export const Blocks: React.FC = () => {
             }),
           );
         }}
-        setIsTableBodyLoading={setIsTableBodyLoading}
+        setIsTableLoading={setIsTableLoading}
         initialSorting={initialSorting}
       />
     </PageWrapper>

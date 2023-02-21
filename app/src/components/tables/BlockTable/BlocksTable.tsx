@@ -34,19 +34,19 @@ interface BlocksTableProps {
   readonly blocks: ApiData.Block[];
   readonly showValidators?: boolean;
   isLoadingMoreBlocks: boolean;
-  isTableBodyLoading: boolean;
+  isTableLoading: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
   initialSorting?: SortingState;
-  setIsTableBodyLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BlocksTable: React.FC<BlocksTableProps> = ({
   total,
   blocks,
   showValidators,
-  isTableBodyLoading,
-  setIsTableBodyLoading,
+  isTableLoading,
+  setIsTableLoading,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -80,13 +80,13 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
           tableOptions={blocksTableOptions}
           setTableOptions={setTableOptions}
           rowCountSelectOptions={rowCountSelectOptions}
-          setIsTableBodyLoading={setIsTableBodyLoading}
+          setIsTableLoading={setIsTableLoading}
           totalPages={totalPages}
           updatePageNum={updatePageNum}
         />
       </BlocksTableHead>
     ),
-    [total, t, blocksTableOptions, totalPages, setIsTableBodyLoading],
+    [total, t, blocksTableOptions, totalPages, setIsTableLoading],
   );
 
   const footer = useMemo(
@@ -195,7 +195,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       columns={columns}
       data={blocks}
       footer={footer}
-      tableBodyLoading={isTableBodyLoading}
+      tableBodyLoading={isTableLoading}
       currentPageSize={blocksTableOptions.pagination.pageSize}
       {...props}
     />

@@ -17,7 +17,7 @@ interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
   tableOptions: TableOptions;
   setTableOptions: ActionCreatorWithPayload<TableOptions, string>;
-  setIsTableBodyLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
   totalPages: number;
   updatePageNum: ActionCreatorWithPayload<number, string>;
 }
@@ -26,7 +26,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   rowCountSelectOptions,
   tableOptions,
   setTableOptions,
-  setIsTableBodyLoading,
+  setIsTableLoading,
   totalPages,
   updatePageNum,
 }) => {
@@ -54,7 +54,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   }, [currentRowCountOption]);
 
   const jumpToPage = (pageNum: number) => {
-    setIsTableBodyLoading(true);
+    setIsTableLoading(true);
     dispatch(
       setTableOptions({
         ...tableOptions,
@@ -68,18 +68,9 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
 
   const handleSelectChange = (selectedOption: SelectOptions | null) => {
     if (selectedOption) {
-      setIsTableBodyLoading(true);
-      setCurrentRowCountOption(selectedOption);
       // reset to first page - avoids messy XXXX out of XXX when switching from 20 to 10
-      dispatch(
-        setTableOptions({
-          ...tableOptions,
-          pagination: {
-            ...tableOptions.pagination,
-            pageNum: 1,
-          },
-        }),
-      );
+      setIsTableLoading(true);
+      setCurrentRowCountOption(selectedOption);
     }
   };
 
@@ -103,7 +94,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         <NextPreviousPageIconWrapper
           onClick={() => {
             if (tableOptions.pagination.pageNum === 1) return;
-            setIsTableBodyLoading(true);
+            setIsTableLoading(true);
             dispatch(updatePageNum(-1));
           }}>
           <JumpPageIcon src={lessThanWhite} alt="page-down" />
@@ -117,7 +108,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         <NextPreviousPageIconWrapper
           onClick={() => {
             if (tableOptions.pagination.pageNum === totalPages) return;
-            setIsTableBodyLoading(true);
+            setIsTableLoading(true);
             dispatch(updatePageNum(1));
           }}>
           <JumpPageIcon src={moreThanWhite} alt="page-up" />
