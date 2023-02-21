@@ -51,7 +51,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       }),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentRowCountOption]);
+  }, [currentRowCountOption, dispatch]);
 
   const jumpToPage = (pageNum: number) => {
     setIsTableLoading(true);
