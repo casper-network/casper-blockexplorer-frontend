@@ -13,6 +13,10 @@ server {
         set $org_logo_url "${ORG_LOGO_URL}";
         set $org_name "${ORG_NAME}";
         set $org_favicon_url "${ORG_FAVICON_URL}";
+        set $org_font_url: "${ORG_FONT_URL}";
+        set $org_primary_font_name: "${ORG_PRIMARY_FONT_NAME}";
+        set $org_secondary_font_name: "${ORG_SECONDARY_FONT_NAME}";
+        set $theme: "${THEME}";
     }
 
     location /rpc/ {
