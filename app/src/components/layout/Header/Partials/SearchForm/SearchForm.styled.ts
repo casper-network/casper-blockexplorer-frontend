@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
+  border: solid 5px blue;
   display: flex;
   justify-content: center;
   width: 92%;
@@ -33,11 +34,13 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
 `;
 
 export const Form = styled.form`
+  border: solid 5px orange;
   width: 100%;
 `;
 
 export const FormComponentsContainer = styled.div`
   @media (min-width: ${breakpoints.md}) {
+    border: solid 5px black;
     display: flex;
     width: 100%;
   }

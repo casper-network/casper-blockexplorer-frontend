@@ -20,17 +20,30 @@ export const ConfigurableLogo: React.FC = () => {
 };
 
 export const ConfigurableLogoLink = styled.div<{ isMobile: boolean }>`
+  border: solid 5px hotpink;
   display: flex;
   justify-content: start;
   align-items: center;
   text-decoration-line: none;
   contain: content;
-  min-width: ${pxToRem(200)};
+
+  /* EXPERIMENTS  */
+
+  width: 100%;
+  min-width: ${({ isMobile }) =>
+    // these pix values are the target
+    isMobile ? `${pxToRem(320)}` : `${pxToRem(320)}`};
+  max-width: ${({ isMobile }) =>
+    isMobile ? `${pxToRem(100)}` : `${pxToRem(100)}`};
+
+  /* ORIGINAL  */
+
+  /* min-width: ${pxToRem(200)};
   max-height: ${({ isMobile }) =>
     isMobile ? `${pxToRem(55)}` : `${pxToRem(45)}`};
   max-width: ${({ isMobile }) =>
     isMobile ? `${pxToRem(250)}` : `${pxToRem(200)}`};
-  padding-top: ${({ isMobile }) => (isMobile ? `${pxToRem(7)}` : '0')};
+  padding-top: ${({ isMobile }) => (isMobile ? `${pxToRem(7)}` : '0')}; */
 
   :hover,
   :focus {

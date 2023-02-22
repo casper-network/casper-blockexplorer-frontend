@@ -28,6 +28,7 @@ export const DefaultHeaderLogo: React.FC<DefaultHeaderProps> = ({
 );
 
 export const LogoLink = styled(Link)`
+  border: solid 5px hotpink;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -38,6 +39,7 @@ export const LogoLink = styled(Link)`
 `;
 
 export const LogoContainer = styled.div`
+  border: solid 5px black;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
