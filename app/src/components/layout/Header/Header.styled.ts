@@ -3,7 +3,7 @@ import { GradientHeading } from '../../styled';
 import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
-  border: solid 5px pink;
+  /* border: solid 5px pink; */
   width: 100%;
   background-color: ${colors.white};
 `;
@@ -29,7 +29,7 @@ export const HeaderComponentsContainer = styled.div<{
 `;
 
 export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
-  border: solid 5px orange;
+  /* border: solid 5px orange; */
   display: ${({ isFirstVisit }) => (isFirstVisit ? 'flex' : 'none')};
   justify-content: center;
   padding: 0;

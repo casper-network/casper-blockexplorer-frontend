@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
-  border: solid 10px purple;
+  /* border: solid 10px purple; */
   display: flex;
   justify-content: flex-end;
   width: fit-content;
@@ -13,28 +13,30 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
 `;
 
 export const LogoSearchFormWrapper = styled.div`
-  border: solid 10px black;
+  /* border: solid 10px green; */
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: ${pxToRem(20)};
   width: 100%;
 
   /* EXPERIMENT */
-  padding: 100px 0;
+  /* REFACTOR */
+  /* flex-wrap: wrap; */
+  /* padding: 100px 0; */
 
   /* ORIGINAL */
-  /* padding-left: ${pxToRem(20)}; */
+  justify-content: space-between;
+  padding-left: ${pxToRem(20)};
 `;
 
 export const NavComponentsContainer = styled.div`
-  border: solid 5px yellow;
+  /* border: solid 5px yellow; */
   display: flex;
 `;
 
 export const NavItemsContainer = styled.div`
-  border: solid 5px pink;
+  /* border: solid 5px pink; */
   display: flex;
   width: 100%;
 `;
@@ -97,7 +99,7 @@ export const DesktopNavItemsContainer = styled.ul`
 `;
 
 export const DesktopNavItemLink = styled(Link)`
-  border: solid 5px green;
+  /* border: solid 5px green; */
   transition: all 0.2s ease;
   color: ${colors.primary};
   padding: ${pxToRem(6)} ${pxToRem(20)};

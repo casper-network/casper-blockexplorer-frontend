@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
-  border: solid 5px blue;
+  /* border: solid 5px red; */
   display: flex;
   justify-content: center;
   width: 92%;
@@ -21,6 +21,18 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   }
 
   @media (min-width: ${breakpoints.lg}) {
+    /* REFACTOR */
+    /* justify-content: space-between;
+    width: 100%;
+    min-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(600)}`};
+    max-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(10)}`};
+    margin: ${({ isFirstVisit }) => (isFirstVisit ? '0 auto' : '0 auto')};
+    padding-right: ${({ isFirstVisit }) =>
+      isFirstVisit ? '0' : `${pxToRem(20)}`}; */
+
+    /* ORIGINAL */
     justify-content: start;
     width: 100%;
     min-width: ${({ isFirstVisit }) =>
@@ -34,13 +46,13 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
 `;
 
 export const Form = styled.form`
-  border: solid 5px orange;
+  /* border: solid 5px orange; */
   width: 100%;
 `;
 
 export const FormComponentsContainer = styled.div`
   @media (min-width: ${breakpoints.md}) {
-    border: solid 5px black;
+    /* border: solid 5px black; */
     display: flex;
     width: 100%;
   }

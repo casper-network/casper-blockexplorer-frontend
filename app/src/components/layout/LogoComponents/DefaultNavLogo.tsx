@@ -13,6 +13,7 @@ export const DefaultNavLogo: React.FC = () => (
 );
 
 export const NavLogoLink = styled(Link)`
+  /* border: solid 5px hotpink; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
