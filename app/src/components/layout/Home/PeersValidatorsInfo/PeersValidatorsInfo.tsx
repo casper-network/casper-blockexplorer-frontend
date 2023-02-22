@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
-import { ValidatorWeight } from 'casper-js-sdk';
 import {
   H2,
   PageLink,
@@ -19,13 +18,11 @@ import { PeersIcon } from '../../../icons';
 
 interface PeersValidatorsInfoProps {
   readonly currentPeers: ApiData.Peer[];
-  readonly currentValidators: ValidatorWeight[];
   readonly currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
 }
 
 export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   currentPeers,
-  currentValidators,
   currentEraValidatorStatus,
 }) => {
   const { t } = useTranslation();
@@ -43,7 +40,6 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
             <PageLink to="/validators">{t('view-all')}</PageLink>
           </TextWrapper>
           <H3Data>
-            {/* TODO: is this right - or should be from currentValidators? */}
             {standardizeNumber(currentEraValidatorStatus?.validatorsCount ?? 0)}
           </H3Data>
           <DataContext>

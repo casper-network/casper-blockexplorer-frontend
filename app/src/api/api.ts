@@ -121,7 +121,6 @@ const createApi = (baseUrl: string) => {
     },
     validator: {
       async getValidators() {
-        // TODO: need to fix typing here
         type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>(

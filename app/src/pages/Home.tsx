@@ -10,8 +10,6 @@ import {
   fetchPeers,
   getPeers,
   getPeerLoadingStatus,
-  fetchValidators,
-  getValidators,
   getValidatorLoadingStatus,
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
@@ -30,7 +28,6 @@ export const Home: React.FC = () => {
   useEffect(() => {
     dispatch(fetchLatestBlock());
     dispatch(fetchPeers());
-    dispatch(fetchValidators());
     dispatch(fetchCurrentEraValidatorStatus());
   }, [dispatch]);
 
@@ -40,7 +37,6 @@ export const Home: React.FC = () => {
   const peers = useAppSelector(getPeers);
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
 
-  const validators = useAppSelector(getValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
   const currentEraValidatorStatus = useAppSelector(
@@ -54,16 +50,14 @@ export const Home: React.FC = () => {
     peersLoadingStatus !== Loading.Complete ||
     validatorsLoadingStatus !== Loading.Complete;
 
-  // TODO: match styles for all cards -> blocks + validators card have different margin/padding, etc.
   return (
     <PageWrapper isLoading={isLoading}>
       <HomeContentContainer isFirstVisit={isFirstVisit}>
         {latestBlock && <BlocksInfo block={latestBlock} />}
         <DeploysInfo />
-        {peers && (
+        {peers && currentEraValidatorStatus && (
           <PeersValidatorsInfo
             currentPeers={peers}
-            currentValidators={validators}
             currentEraValidatorStatus={currentEraValidatorStatus}
           />
         )}
