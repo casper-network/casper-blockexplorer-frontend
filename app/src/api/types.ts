@@ -1,4 +1,9 @@
-import { GetDeployResult, JsonDeploy, ValidatorWeight } from 'casper-js-sdk';
+import {
+  GetDeployResult,
+  JsonDeploy,
+  ValidatorBid,
+  ValidatorWeight,
+} from 'casper-js-sdk';
 
 export namespace ApiData {
   export interface Blocks {
@@ -84,7 +89,10 @@ export namespace ApiData {
   }
 
   export interface Validators {
-    validators: ValidatorWeight[];
+    validators: {
+      activeValidators: ValidatorWeight[];
+      activeBids: ValidatorBid[];
+    };
   }
 
   export interface Deploy extends JsonDeploy {
