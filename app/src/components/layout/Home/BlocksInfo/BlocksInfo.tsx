@@ -16,13 +16,16 @@ import {
   TextWrapper,
 } from '../HomeComponents.styled';
 import { BlocksIcon } from '../../../icons';
+import { getLatestBlockLoadingStatus, useAppSelector } from 'src/store';
 
 interface BlockInfoProps {
-  block: ApiData.Block;
+  block: ApiData.Block | null;
 }
 
 export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
   const { t } = useTranslation();
+
+  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
 
   return (
     <Card>
@@ -38,16 +41,18 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
           <TextWrapper>
             <H3>{t('block-height')}</H3>
           </TextWrapper>
-          <H3Data>{block.header.height}</H3Data>
+          <H3Data>{block?.header.height ?? 0}</H3Data>
           <DataContext>
-            {formatDate(new Date(block.header.timestamp))}
+            {block?.header.timestamp
+              ? formatDate(new Date(block.header.timestamp))
+              : ''}
           </DataContext>
         </Info>
         <Info>
           <TextWrapper>
             <H3>{t('current-era')}</H3>
           </TextWrapper>
-          <H3Data>{block.header.era_id}</H3Data>
+          <H3Data>{block?.header.era_id ?? 0}</H3Data>
         </Info>
       </Details>
     </Card>
