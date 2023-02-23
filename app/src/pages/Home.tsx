@@ -10,9 +10,9 @@ import {
   fetchPeers,
   getPeers,
   getPeerLoadingStatus,
-  fetchValidators,
-  getValidators,
   getValidatorLoadingStatus,
+  fetchCurrentEraValidatorStatus,
+  getCurrentEraValidatorStatus,
 } from 'src/store';
 import {
   BlocksInfo,
@@ -21,7 +21,6 @@ import {
 } from '../components/layout/Home';
 import { PageWrapper } from '../components';
 import { breakpoints, pxToRem } from '../styled-theme';
-import { standardizeNumber } from '../utils';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +28,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     dispatch(fetchLatestBlock());
     dispatch(fetchPeers());
-    dispatch(fetchValidators());
+    dispatch(fetchCurrentEraValidatorStatus());
   }, [dispatch]);
 
   const latestBlock = useAppSelector(getLatestBlock);
@@ -38,8 +37,11 @@ export const Home: React.FC = () => {
   const peers = useAppSelector(getPeers);
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
 
-  const validators = useAppSelector(getValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
+
+  const currentEraValidatorStatus = useAppSelector(
+    getCurrentEraValidatorStatus,
+  );
 
   const { isFirstVisit } = useAppSelector(state => state.app);
 
@@ -53,10 +55,10 @@ export const Home: React.FC = () => {
       <HomeContentContainer isFirstVisit={isFirstVisit}>
         {latestBlock && <BlocksInfo block={latestBlock} />}
         <DeploysInfo />
-        {peers && (
+        {peers && currentEraValidatorStatus && (
           <PeersValidatorsInfo
             currentPeers={peers}
-            currentValidators={standardizeNumber(validators?.length || 0)}
+            currentEraValidatorStatus={currentEraValidatorStatus}
           />
         )}
       </HomeContentContainer>
