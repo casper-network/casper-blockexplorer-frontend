@@ -4,3 +4,4 @@ export { Blocks } from './Blocks';
 export { DeployPage } from './Deploy';
 export { Home } from './Home';
 export { Peers } from './Peers';
+export { Validators } from './Validators';

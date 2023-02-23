@@ -123,15 +123,32 @@ const createApi = (baseUrl: string) => {
       async getValidators() {
         type Response = AxiosResponse<ApiData.Validators>;
 
-        const response = await middlewareApi.get<Response>('/validators');
+        const response = await middlewareApi.get<Response>(
+          '/current-era-validators',
+        );
 
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
-          data: { validators },
+          data: {
+            validators: { activeValidators },
+          },
         } = response;
 
-        return validators;
+        return activeValidators;
+      },
+      async getCurrentEraValidatorStatus() {
+        type Response = AxiosResponse<ApiData.CurrentEraValidatorStatus>;
+
+        const response = await middlewareApi.get<Response>(
+          '/current-era-validators-status',
+        );
+
+        if (response.status !== 200) throw new Error(response.statusText);
+
+        const { data } = response;
+
+        return data;
       },
     },
     /**

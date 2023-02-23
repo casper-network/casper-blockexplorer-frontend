@@ -12,6 +12,7 @@ import {
   DeployPage,
   Home,
   Peers,
+  Validators,
 } from './pages';
 import {
   updateBounds,
@@ -89,6 +90,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/peers" element={<Peers />} />
+                <Route path="/validators" element={<Validators />} />
                 <Route path="/account/:id" element={<AccountPage />} />
                 <Route path="/deploy/:id" element={<DeployPage />} />
                 <Route path="/block/:id" element={<BlockPage />} />
