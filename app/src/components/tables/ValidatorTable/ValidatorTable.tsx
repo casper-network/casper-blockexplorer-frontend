@@ -83,8 +83,7 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       header={header}
       columns={columns}
       data={validators}
-      // TODO: figure out a blank footer
-      footer={<>hello</>}
+      footer={<ValidatorFooter />}
       tableBodyLoading={isTableLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
     />
@@ -97,6 +96,10 @@ const ValidatorTableHead = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${colors.darkSupporting};
+`;
+
+const ValidatorFooter = styled.div`
+  height: ${pxToRem(50)};
 `;
 
 const HeadValue = styled.p`
