@@ -52,11 +52,13 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
         header: `${t('public-key')}`,
         accessorKey: 'public_key',
         enableSorting: false,
+        minSize: 750,
       },
       {
         header: `${t('weight')}`,
         accessorKey: 'weight',
         enableSorting: false,
+        minSize: 400,
       },
     ],
     [t],
