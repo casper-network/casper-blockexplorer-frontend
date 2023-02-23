@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   fetchValidators,
@@ -16,6 +16,8 @@ import {
 } from '../components';
 
 export const Validators: React.FC = () => {
+  const [isTableLoading, setIsTableLoading] = useState(false);
+
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -35,7 +37,13 @@ export const Validators: React.FC = () => {
     <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('active-validators')}</GradientHeading>
-      {validators && <ValidatorTable validators={validators} />}
+      {validators && (
+        <ValidatorTable
+          validators={validators}
+          isTableLoading={isTableLoading}
+          setIsTableLoading={setIsTableLoading}
+        />
+      )}
     </PageWrapper>
   );
 };

@@ -2,18 +2,47 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
-import { colors, fontWeight } from 'src/styled-theme';
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { ValidatorWeight } from 'casper-js-sdk';
+import {
+  getTotalEraValidators,
+  getValidatorsTableOptions,
+  setValidatorTableOptions,
+  updateValidatorPageNum,
+  useAppSelector,
+} from 'src/store';
+import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
+import { NumberedPagination } from '../Pagination';
+
+const rowCountSelectOptions: SelectOptions[] | null = [
+  { value: '5', label: '5 rows' },
+  { value: '10', label: '10 rows' },
+  { value: '20', label: '20 rows' },
+];
 
 interface ValidatorTableProps {
   readonly validators: ValidatorWeight[];
+  isTableLoading: boolean;
+  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   validators,
+  isTableLoading,
+  setIsTableLoading,
 }) => {
   const { t } = useTranslation();
+
+  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
+  const totalEraValidators = useAppSelector(getTotalEraValidators);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(
+      totalEraValidators / validatorsTableOptions.pagination.pageSize,
+    );
+  }, [validatorsTableOptions, totalEraValidators]);
+
   const columns = useMemo<ColumnDef<ValidatorWeight>[]>(
     () => [
       {
@@ -36,6 +65,14 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       <HeadValue>
         {validators.length} {t('total-rows')}
       </HeadValue>
+      <NumberedPagination
+        tableOptions={validatorsTableOptions}
+        setTableOptions={setValidatorTableOptions}
+        rowCountSelectOptions={rowCountSelectOptions}
+        setIsTableLoading={setIsTableLoading}
+        totalPages={totalPages}
+        updatePageNum={updateValidatorPageNum}
+      />
     </ValidatorTableHead>
   );
 
@@ -44,12 +81,17 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       header={header}
       columns={columns}
       data={validators}
+      tableBodyLoading={isTableLoading}
     />
   );
 };
 
 const ValidatorTableHead = styled.div`
   display: flex;
+  min-width: ${pxToRem(900)};
+  justify-content: space-between;
+  align-items: center;
+  color: ${colors.darkSupporting};
 `;
 
 const HeadLabel = styled.p`
