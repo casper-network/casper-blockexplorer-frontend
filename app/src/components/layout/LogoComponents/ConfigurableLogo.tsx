@@ -7,38 +7,42 @@ import { pxToRem } from 'src/styled-theme';
 import { useAppWidth } from 'src/hooks';
 
 export const ConfigurableLogo: React.FC = () => {
-  const { logoUrl } = loadConfig();
+  const { logoUrl, logoSize } = loadConfig();
   const { isMobile } = useAppWidth();
 
+  console.log(logoSize);
+
+  const envWidth = logoSize > 100 ? 100 : logoSize;
+
   return (
-    <Link to="/">
-      <ConfigurableLogoLink isMobile={isMobile}>
+    <ConfigurableLogoWrapper envWidth={envWidth} isMobile={isMobile}>
+      <Link to="/">
         <ConfigLogo src={logoUrl} alt="configuration logo" />
-      </ConfigurableLogoLink>
-    </Link>
+      </Link>
+    </ConfigurableLogoWrapper>
   );
 };
 
-export const ConfigurableLogoLink = styled.div<{ isMobile: boolean }>`
-  border: solid 5px hotpink;
+export const ConfigurableLogoWrapper = styled.div<{
+  isMobile: boolean;
+  envWidth: number;
+}>`
+  /* border: solid 1px hotpink; */
+
+  /* EXPERIMENTS  */
+
+  width: ${({ envWidth }) => envWidth}%;
+  max-width: ${({ isMobile }) =>
+    isMobile ? `${pxToRem(350)}` : `${pxToRem(500)}`};
+
+  /* ORIGINAL  */
+  /*
   display: flex;
   justify-content: start;
   align-items: center;
   text-decoration-line: none;
-  contain: content;
-
-  /* EXPERIMENTS  */
-
-  width: 100%;
-  min-width: ${({ isMobile }) =>
-    // these pix values are the target
-    isMobile ? `${pxToRem(320)}` : `${pxToRem(320)}`};
-  max-width: ${({ isMobile }) =>
-    isMobile ? `${pxToRem(100)}` : `${pxToRem(100)}`};
-
-  /* ORIGINAL  */
-
-  /* min-width: ${pxToRem(200)};
+   contain: content;
+   min-width: ${pxToRem(200)};
   max-height: ${({ isMobile }) =>
     isMobile ? `${pxToRem(55)}` : `${pxToRem(45)}`};
   max-width: ${({ isMobile }) =>
