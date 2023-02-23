@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
-import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 import { ValidatorWeight } from 'casper-js-sdk';
 import {
   getTotalEraValidators,
@@ -37,6 +37,9 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
 
+  console.log({ validatorsTableOptions });
+  console.log({ totalEraValidators });
+
   const totalPages = useMemo(() => {
     return Math.ceil(
       totalEraValidators / validatorsTableOptions.pagination.pageSize,
@@ -61,9 +64,8 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
 
   const header = (
     <ValidatorTableHead>
-      <HeadLabel>{t('currently-online')}</HeadLabel>
       <HeadValue>
-        {validators.length} {t('total-rows')}
+        {totalEraValidators} {t('total-rows')}
       </HeadValue>
       <NumberedPagination
         tableOptions={validatorsTableOptions}
@@ -81,7 +83,10 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       header={header}
       columns={columns}
       data={validators}
+      // TODO: figure out a blank footer
+      footer={<>hello</>}
       tableBodyLoading={isTableLoading}
+      currentPageSize={validatorsTableOptions.pagination.pageSize}
     />
   );
 };
@@ -94,12 +99,6 @@ const ValidatorTableHead = styled.div`
   color: ${colors.darkSupporting};
 `;
 
-const HeadLabel = styled.p`
-  color: ${colors.black};
-  font-weight: ${fontWeight.bold};
-  padding-right: 2rem;
-`;
-
 const HeadValue = styled.p`
-  color: ${colors.lightSupporting};
+  color: ${colors.darkSupporting};
 `;

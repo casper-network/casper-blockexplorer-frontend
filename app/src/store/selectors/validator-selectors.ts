@@ -21,5 +21,5 @@ export const getValidatorsTableOptions = (state: RootState) => {
 };
 
 export const getTotalEraValidators = (state: RootState) => {
-  return state.validator.validators.length;
+  return state.validator.currentEraValidatorStatus?.validatorsCount ?? 0;
 };

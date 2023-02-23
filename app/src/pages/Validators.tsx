@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  fetchCurrentEraValidatorStatus,
   fetchValidators,
   getValidatorLoadingStatus,
   getValidators,
+  getValidatorsTableOptions,
   Loading,
   useAppDispatch,
   useAppSelector,
@@ -22,14 +24,27 @@ export const Validators: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchValidators());
-  }, [dispatch]);
-
   const validators = useAppSelector(getValidators);
+  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
-  const isLoading = validatorsLoadingStatus !== Loading.Complete;
+  useEffect(() => {
+    dispatch(fetchCurrentEraValidatorStatus());
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchValidators(validatorsTableOptions));
+  }, [dispatch, validatorsTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validators]);
+
+  const isLoading =
+    validatorsLoadingStatus !== Loading.Complete && !validators.length;
 
   const pageTitle = `${t('validators')}`;
 

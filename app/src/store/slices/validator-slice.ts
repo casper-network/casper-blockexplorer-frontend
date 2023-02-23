@@ -33,9 +33,17 @@ const initialState: ValidatorState = {
 
 export const fetchValidators = createAsyncThunk(
   'rpcClient/fetchValidators',
-  async () => {
+  async ({
+    pagination: { pageSize, pageNum },
+    sorting: { sortBy, order },
+  }: ValidatorState['tableOptions']) => {
     try {
-      const validators = await middlewareServiceApi.validator.getValidators();
+      const validators = await middlewareServiceApi.validator.getValidators({
+        sortBy,
+        orderBy: order,
+        count: pageSize,
+        pageNum,
+      });
 
       return validators;
     } catch (error: any) {
