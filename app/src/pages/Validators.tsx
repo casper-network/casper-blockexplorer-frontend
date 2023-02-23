@@ -30,7 +30,7 @@ export const Validators: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchValidators(validatorsTableOptions));
