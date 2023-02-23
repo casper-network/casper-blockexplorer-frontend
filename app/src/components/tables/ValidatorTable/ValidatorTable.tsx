@@ -37,9 +37,6 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
 
-  console.log({ validatorsTableOptions });
-  console.log({ totalEraValidators });
-
   const totalPages = useMemo(() => {
     return Math.ceil(
       totalEraValidators / validatorsTableOptions.pagination.pageSize,
