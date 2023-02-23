@@ -2,9 +2,14 @@ import styled from '@emotion/styled';
 import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
-  /* border: solid 5px red; */
+  /* border: solid 1px red; */
   display: flex;
   justify-content: center;
+
+  /* REFACTOR */
+  /* width: 100%; */
+  /* ORIGINAL */
+
   width: 92%;
   max-width: ${pxToRem(592)};
   padding: ${({ isFirstVisit }) => (isFirstVisit ? `${pxToRem(25)} 0` : '0')};
@@ -15,6 +20,11 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   @media (min-width: ${breakpoints.md}) {
     margin: 0 auto;
     width: 64%;
+
+    /* REFACTOR */
+    /* min-width: ${pxToRem(0)}; */
+
+    /* ORIGINAL */
     min-width: ${pxToRem(625)};
     max-width: ${pxToRem(655)};
     align-items: center;
