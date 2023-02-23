@@ -12,7 +12,7 @@ export const HeaderComponentsContainer = styled.div<{
   isFirstVisit: boolean;
   isMobile: boolean;
 }>`
-  border: solid 10px blue;
+  border: solid 1px blue;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -21,9 +21,16 @@ export const HeaderComponentsContainer = styled.div<{
   width: ${({ isMobile }) => (isMobile ? '100%' : '98%')};
   margin: ${({ isMobile }) => (isMobile ? '0' : '0 auto')};
 
+  /* REFACTOR */
+  padding: 0.8rem 0;
+
+  /* ORIGINAL */
   /* padding: 1.75rem 1.7rem 1.7rem 2.17rem; */
 
   @media (min-width: ${breakpoints.lg}) {
+    /* REFACTOR */
+
+    /* ORIGINAL */
     /* padding: 3.5rem 2rem 1.75rem 2rem; */
   }
 `;
