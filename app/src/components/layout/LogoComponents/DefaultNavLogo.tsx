@@ -13,25 +13,21 @@ export const DefaultNavLogo: React.FC = () => {
         <ExplorerLogo />
       </NavLogoLink>
     </DefaultNavLogoContainer>
-    // <NavLogoWrapper to="/">
-    //   <BlueLogo />
-    //   <ExplorerLogo />
-    // </NavLogoWrapper>
   );
 };
 
 const NavLogoLink = styled(Link)`
-  /* border: solid 5px hotpink; */
+  /* TODO:Remove these styles once new logo is added */
+  border: solid 5px hotpink;
   display: flex;
   min-width: ${pxToRem(140)};
   max-width: ${pxToRem(140)};
 `;
 
-// ORIGINAL
 export const DefaultNavLogoContainer = styled.div`
-  /* border: solid 5px hotpink; */
+  /* TODO:Remove these styles once new logo is added */
+  border: solid 5px hotpink;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   text-decoration-line: none;
