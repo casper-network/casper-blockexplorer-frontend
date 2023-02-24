@@ -5,14 +5,16 @@ import { Link } from 'react-router-dom';
 import { pxToRem } from 'src/styled-theme';
 import { BlueLogo, ExpLogo } from '../../logos';
 
-export const DefaultNavLogo: React.FC = () => (
-  <NavLogoLink to="/">
-    <BlueLogo />
-    <ExplorerLogo />
-  </NavLogoLink>
-);
+export const DefaultNavLogo: React.FC = () => {
+  return (
+    <NavLogoWrapper to="/">
+      <BlueLogo />
+      <ExplorerLogo />
+    </NavLogoWrapper>
+  );
+};
 
-export const NavLogoLink = styled(Link)`
+export const NavLogoWrapper = styled(Link)`
   /* border: solid 5px hotpink; */
   display: flex;
   flex-direction: row;
@@ -21,11 +23,13 @@ export const NavLogoLink = styled(Link)`
   text-decoration-line: none;
   min-width: ${pxToRem(140)};
   max-width: ${pxToRem(140)};
+  padding: ${pxToRem(40)} 0;
+  margin-left: ${pxToRem(20)};
 
   /* Firefox Version 110.0b3 (Versions 69+) */
   @supports selector(:-moz-is-html) {
-    min-width: ${pxToRem(120)};
-    max-width: ${pxToRem(120)};
+    min-width: ${pxToRem(137)};
+    max-width: ${pxToRem(137)};
   }
 
   :hover,

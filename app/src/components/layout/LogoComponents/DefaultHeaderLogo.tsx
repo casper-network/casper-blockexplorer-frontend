@@ -35,7 +35,7 @@ export const LogoLink = styled(Link)`
   align-items: center;
   text-decoration-line: none;
   margin: 0;
-  padding: 0;
+  padding: ${pxToRem(30)} ${pxToRem(20)};
 `;
 
 export const LogoContainer = styled.div`
@@ -47,7 +47,7 @@ export const LogoContainer = styled.div`
   text-decoration-line: none;
   min-width: ${pxToRem(140)};
   max-width: ${pxToRem(140)};
-  padding-top: ${pxToRem(4)};
+  /* padding-top: ${pxToRem(4)}; */
 
   :hover,
   :focus {
@@ -69,8 +69,8 @@ export const RedBlackCasperLogoWrapper = styled.div`
 
     /* Firefox Version 110.0b3 (Versions 69+) */
     @supports selector(:-moz-is-html) {
-      min-width: ${pxToRem(112)};
-      max-width: ${pxToRem(112)};
+      min-width: ${pxToRem(137)};
+      max-width: ${pxToRem(137)};
     }
   }
 `;

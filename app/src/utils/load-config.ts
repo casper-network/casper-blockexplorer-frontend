@@ -78,7 +78,7 @@ export const loadConfig: () => AppConfig = () => {
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
 
   // REFACTOR
-  const logoSize = isProduction ? orgLogoSize : reactAppLogoSize || 50;
+  const logoSize = isProduction ? orgLogoSize : reactAppLogoSize || 55;
   // ORG_LOGO_SIZE=100
 
   // CONTINUE ORIGINAL

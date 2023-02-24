@@ -27,7 +27,7 @@ export const LogoSearchFormWrapper = styled.div`
 
   /* ORIGINAL */
   justify-content: space-between;
-  padding-left: ${pxToRem(20)};
+  /* padding-left: ${pxToRem(20)}; */
 `;
 
 export const NavComponentsContainer = styled.div`
@@ -48,7 +48,7 @@ export const MobileNav = styled.nav`
 `;
 
 export const MobileNavItemsContainer = styled.ul`
-  border: solid 5px red;
+  /* border: solid 5px red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,7 +64,7 @@ export const MobileNavItemsContainer = styled.ul`
 `;
 
 export const MobileNavItemLink = styled(Link)`
-  border: solid 5px yellow;
+  /* border: solid 5px yellow; */
   color: ${colors.white};
   font-size: 1.375rem;
   padding: 0.3125rem;
@@ -89,7 +89,7 @@ export const DesktopNav = styled.nav`
 `;
 
 export const DesktopNavItemsContainer = styled.ul`
-  border: solid 5px red;
+  /* border: solid 5px red; */
   display: flex;
   justify-content: space-between;
   align-items: center;
