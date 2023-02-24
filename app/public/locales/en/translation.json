@@ -58,6 +58,7 @@
   "peers-currently-online": "Peers currently online",
   "public-key": "Public Key",
   "raw-data": "Raw Data",
+  "rows": "{{count}} rows",
   "search": "Search",
   "select-an-option": "Please select an option and enter a value",
   "select-search-criteria": "Select search criteria",

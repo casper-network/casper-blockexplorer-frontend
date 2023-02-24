@@ -113,16 +113,16 @@ export const blockSlice = createSlice({
         return { ...block, timeSince };
       });
     },
-    setTableOptions: (
+    setBlocksTableOptions: (
       state,
       action: PayloadAction<BlockState['tableOptions']>,
     ) => {
       state.tableOptions = action.payload;
     },
-    updatePageNum: (state, action: PayloadAction<number>) => {
+    updateBlocksPageNum: (state, action: PayloadAction<number>) => {
       state.tableOptions.pagination.pageNum += action.payload;
     },
-    updateSorting: (
+    updateBlocksSorting: (
       state,
       action: PayloadAction<BlockState['tableOptions']['sorting']>,
     ) => {
@@ -175,7 +175,7 @@ export const blockSlice = createSlice({
 
 export const {
   refreshBlockTimes,
-  setTableOptions,
-  updatePageNum,
-  updateSorting,
+  setBlocksTableOptions,
+  updateBlocksPageNum,
+  updateBlocksSorting,
 } = blockSlice.actions;

@@ -2,29 +2,78 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
-import { colors, fontWeight } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 import { ValidatorWeight } from 'casper-js-sdk';
+import {
+  getTotalEraValidators,
+  getValidatorsTableOptions,
+  setValidatorTableOptions,
+  updateValidatorPageNum,
+  useAppSelector,
+} from 'src/store';
+import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
+import { NumberedPagination } from '../Pagination';
 
 interface ValidatorTableProps {
   readonly validators: ValidatorWeight[];
+  isTableLoading: boolean;
+  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   validators,
+  isTableLoading,
+  setIsTableLoading,
 }) => {
   const { t } = useTranslation();
+
+  const rowCountSelectOptions: SelectOptions[] | null = useMemo(
+    () => [
+      {
+        value: '5',
+        label: t('rows', {
+          count: 5,
+        }),
+      },
+      {
+        value: '10',
+        label: t('rows', {
+          count: 10,
+        }),
+      },
+      {
+        value: '20',
+        label: t('rows', {
+          count: 20,
+        }),
+      },
+    ],
+    [t],
+  );
+
+  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
+  const totalEraValidators = useAppSelector(getTotalEraValidators);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(
+      totalEraValidators / validatorsTableOptions.pagination.pageSize,
+    );
+  }, [validatorsTableOptions, totalEraValidators]);
+
   const columns = useMemo<ColumnDef<ValidatorWeight>[]>(
     () => [
       {
         header: `${t('public-key')}`,
         accessorKey: 'public_key',
         enableSorting: false,
+        minSize: 750,
       },
       {
         header: `${t('weight')}`,
         accessorKey: 'weight',
         enableSorting: false,
+        minSize: 400,
       },
     ],
     [t],
@@ -32,10 +81,17 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
 
   const header = (
     <ValidatorTableHead>
-      <HeadLabel>{t('currently-online')}</HeadLabel>
       <HeadValue>
-        {validators.length} {t('total-rows')}
+        {totalEraValidators} {t('total-rows')}
       </HeadValue>
+      <NumberedPagination
+        tableOptions={validatorsTableOptions}
+        setTableOptions={setValidatorTableOptions}
+        rowCountSelectOptions={rowCountSelectOptions}
+        setIsTableLoading={setIsTableLoading}
+        totalPages={totalPages}
+        updatePageNum={updateValidatorPageNum}
+      />
     </ValidatorTableHead>
   );
 
@@ -44,20 +100,25 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       header={header}
       columns={columns}
       data={validators}
+      footer={<ValidatorFooter />}
+      tableBodyLoading={isTableLoading}
+      currentPageSize={validatorsTableOptions.pagination.pageSize}
     />
   );
 };
 
 const ValidatorTableHead = styled.div`
   display: flex;
+  min-width: ${pxToRem(900)};
+  justify-content: space-between;
+  align-items: center;
+  color: ${colors.darkSupporting};
 `;
 
-const HeadLabel = styled.p`
-  color: ${colors.black};
-  font-weight: ${fontWeight.bold};
-  padding-right: 2rem;
+const ValidatorFooter = styled.div`
+  height: ${pxToRem(50)};
 `;
 
 const HeadValue = styled.p`
-  color: ${colors.lightSupporting};
+  color: ${colors.darkSupporting};
 `;

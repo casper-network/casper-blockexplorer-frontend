@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  fetchCurrentEraValidatorStatus,
   fetchValidators,
   getValidatorLoadingStatus,
   getValidators,
+  getValidatorsTableOptions,
   Loading,
   useAppDispatch,
   useAppSelector,
@@ -16,18 +18,33 @@ import {
 } from '../components';
 
 export const Validators: React.FC = () => {
+  const [isTableLoading, setIsTableLoading] = useState(false);
+
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchValidators());
-  }, [dispatch]);
-
   const validators = useAppSelector(getValidators);
+  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
-  const isLoading = validatorsLoadingStatus !== Loading.Complete;
+  useEffect(() => {
+    dispatch(fetchCurrentEraValidatorStatus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchValidators(validatorsTableOptions));
+  }, [dispatch, validatorsTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validators]);
+
+  const isLoading =
+    validatorsLoadingStatus !== Loading.Complete && !validators.length;
 
   const pageTitle = `${t('validators')}`;
 
@@ -35,7 +52,13 @@ export const Validators: React.FC = () => {
     <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('active-validators')}</GradientHeading>
-      {validators && <ValidatorTable validators={validators} />}
+      {validators && (
+        <ValidatorTable
+          validators={validators}
+          isTableLoading={isTableLoading}
+          setIsTableLoading={setIsTableLoading}
+        />
+      )}
     </PageWrapper>
   );
 };

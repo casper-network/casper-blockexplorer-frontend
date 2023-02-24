@@ -15,7 +15,7 @@ import {
   fetchBlocks,
   getTotalBlocks,
   getBlocksTableOptions,
-  updateSorting,
+  updateBlocksSorting,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 
@@ -86,7 +86,7 @@ export const Blocks: React.FC = () => {
         onSortingChange={() => {
           setIsTableLoading(true);
           dispatch(
-            updateSorting({
+            updateBlocksSorting({
               sortBy: 'height',
               order:
                 blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',

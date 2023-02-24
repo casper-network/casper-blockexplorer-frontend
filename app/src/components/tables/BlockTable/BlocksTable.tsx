@@ -8,8 +8,8 @@ import styled from '@emotion/styled';
 import {
   getBlocksTableOptions,
   getTotalBlocks,
-  setTableOptions,
-  updatePageNum,
+  setBlocksTableOptions,
+  updateBlocksPageNum,
   useAppSelector,
 } from 'src/store';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
@@ -78,11 +78,11 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
 
         <NumberedPagination
           tableOptions={blocksTableOptions}
-          setTableOptions={setTableOptions}
+          setTableOptions={setBlocksTableOptions}
           rowCountSelectOptions={rowCountSelectOptions}
           setIsTableLoading={setIsTableLoading}
           totalPages={totalPages}
-          updatePageNum={updatePageNum}
+          updatePageNum={updateBlocksPageNum}
         />
       </BlocksTableHead>
     ),
