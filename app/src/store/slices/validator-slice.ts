@@ -61,8 +61,6 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
       const currentEraValidatorStatus =
         await middlewareServiceApi.validator.getCurrentEraValidatorStatus();
 
-      console.log({ currentEraValidatorStatus });
-
       return currentEraValidatorStatus;
     } catch (error: any) {
       throw new Error('An error occurred while fetching validator status.');
