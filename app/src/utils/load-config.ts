@@ -62,7 +62,7 @@ export const loadConfig: () => AppConfig = () => {
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
 
   // chengduchain.com icon target size = 55
-  const logoSize = isProduction ? orgLogoSize : reactAppLogoSize || 55;
+  const logoSize = isProduction ? orgLogoSize : reactAppLogoSize || 0;
 
   const theme = isProduction
     ? JSON.parse(prodTheme || '{}')

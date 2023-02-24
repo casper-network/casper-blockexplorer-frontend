@@ -8,6 +8,7 @@ services:
     environment:
       - MIDDLEWARE_URL
       - ORG_LOGO_URL
+      - ORG_LOGO_SIZE
       - THEME
       - ORG_NAME
       - ORG_FAVICON_URL

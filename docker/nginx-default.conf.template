@@ -11,6 +11,7 @@ server {
         ssi on;
         set $middleware_url "${MIDDLEWARE_URL}";
         set $org_logo_url "${ORG_LOGO_URL}";
+         set $org_logo_size "${ORG_LOGO_SIZE}";
         set $org_name "${ORG_NAME}";
         set $org_favicon_url "${ORG_FAVICON_URL}";
         set $org_font_url "${ORG_FONT_URL}";
