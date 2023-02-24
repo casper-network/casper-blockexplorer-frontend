@@ -18,21 +18,17 @@ export const DefaultNavLogo: React.FC = () => {
 
 const NavLogoLink = styled(Link)`
   /* TODO:Remove these styles once new logo is added */
-  border: solid 5px hotpink;
   display: flex;
-  min-width: ${pxToRem(140)};
-  max-width: ${pxToRem(140)};
+  width: ${pxToRem(140)};
 `;
 
 export const DefaultNavLogoContainer = styled.div`
   /* TODO:Remove these styles once new logo is added */
-  border: solid 5px hotpink;
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-decoration-line: none;
-  min-width: ${pxToRem(140)};
-  max-width: ${pxToRem(140)};
+  width: ${pxToRem(140)};
   padding: ${pxToRem(40)} 0;
   margin-left: ${pxToRem(20)};
 
