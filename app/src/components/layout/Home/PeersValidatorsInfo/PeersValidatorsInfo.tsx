@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
+  getCurrentEraValidatorStatusStatus,
   getPeerLoadingStatus,
-  getValidatorLoadingStatus,
   Loading,
   useAppSelector,
 } from 'src/store';
@@ -36,7 +36,9 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   const { t } = useTranslation();
 
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
-  const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
+  const validatorsLoadingStatus = useAppSelector(
+    getCurrentEraValidatorStatusStatus,
+  );
 
   const isLoadingPeers = peersLoadingStatus !== Loading.Complete;
   const isLoadingValidators = validatorsLoadingStatus !== Loading.Complete;

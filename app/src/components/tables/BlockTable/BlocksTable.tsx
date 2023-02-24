@@ -33,7 +33,6 @@ interface BlocksTableProps {
   readonly total?: number;
   readonly blocks: ApiData.Block[];
   readonly showValidators?: boolean;
-  isLoadingMoreBlocks: boolean;
   isTableLoading: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;

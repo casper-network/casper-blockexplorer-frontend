@@ -12,6 +12,7 @@ export interface ValidatorState {
   status: Loading;
   validators: ValidatorWeight[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
+  currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
 }
 
@@ -19,6 +20,7 @@ const initialState: ValidatorState = {
   status: Loading.Idle,
   validators: [],
   currentEraValidatorStatus: null,
+  currentEraValidatorStatusLoadingStatus: Loading.Idle,
   tableOptions: {
     pagination: {
       pageSize: defaultPagination,
@@ -58,6 +60,8 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
     try {
       const currentEraValidatorStatus =
         await middlewareServiceApi.validator.getCurrentEraValidatorStatus();
+
+      console.log({ currentEraValidatorStatus });
 
       return currentEraValidatorStatus;
     } catch (error: any) {
@@ -102,7 +106,7 @@ export const validatorSlice = createSlice({
         state.status = Loading.Failed;
       })
       .addCase(fetchCurrentEraValidatorStatus.pending, state => {
-        state.status = Loading.Pending;
+        state.currentEraValidatorStatusLoadingStatus = Loading.Pending;
       })
       .addCase(
         fetchCurrentEraValidatorStatus.fulfilled,
@@ -110,12 +114,12 @@ export const validatorSlice = createSlice({
           state,
           { payload }: PayloadAction<ApiData.CurrentEraValidatorStatus>,
         ) => {
-          state.status = Loading.Complete;
+          state.currentEraValidatorStatusLoadingStatus = Loading.Complete;
           state.currentEraValidatorStatus = payload;
         },
       )
       .addCase(fetchCurrentEraValidatorStatus.rejected, state => {
-        state.status = Loading.Failed;
+        state.currentEraValidatorStatusLoadingStatus = Loading.Failed;
       });
   },
 });
