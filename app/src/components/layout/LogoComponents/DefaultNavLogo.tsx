@@ -34,8 +34,7 @@ export const DefaultNavLogoContainer = styled.div`
 
   /* Firefox Version 110.0b3 (Versions 69+) */
   @supports selector(:-moz-is-html) {
-    min-width: ${pxToRem(137)};
-    max-width: ${pxToRem(137)};
+    width: ${pxToRem(137)};
   }
 
   :hover,
