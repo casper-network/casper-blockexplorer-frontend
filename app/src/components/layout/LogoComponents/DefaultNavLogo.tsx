@@ -7,14 +7,28 @@ import { BlueLogo, ExpLogo } from '../../logos';
 
 export const DefaultNavLogo: React.FC = () => {
   return (
-    <NavLogoWrapper to="/">
-      <BlueLogo />
-      <ExplorerLogo />
-    </NavLogoWrapper>
+    <DefaultNavLogoContainer>
+      <NavLogoLink to="/">
+        <BlueLogo />
+        <ExplorerLogo />
+      </NavLogoLink>
+    </DefaultNavLogoContainer>
+    // <NavLogoWrapper to="/">
+    //   <BlueLogo />
+    //   <ExplorerLogo />
+    // </NavLogoWrapper>
   );
 };
 
-export const NavLogoWrapper = styled(Link)`
+const NavLogoLink = styled(Link)`
+  /* border: solid 5px hotpink; */
+  display: flex;
+  min-width: ${pxToRem(140)};
+  max-width: ${pxToRem(140)};
+`;
+
+// ORIGINAL
+export const DefaultNavLogoContainer = styled.div`
   /* border: solid 5px hotpink; */
   display: flex;
   flex-direction: row;
