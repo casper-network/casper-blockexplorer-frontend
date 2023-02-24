@@ -55,7 +55,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
           </TextWrapper>
           <H3Data>
             {isLoadingValidators ? (
-              <Skeleton width={75} duration={1} />
+              <Skeleton width={60} duration={1} />
             ) : (
               standardizeNumber(currentEraValidatorStatus?.validatorsCount ?? 0)
             )}
@@ -79,7 +79,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
           </TextWrapper>
           <H3Data>
             {isLoadingPeers ? (
-              <Skeleton width={75} duration={1} />
+              <Skeleton width={60} duration={1} />
             ) : (
               currentPeers.length
             )}

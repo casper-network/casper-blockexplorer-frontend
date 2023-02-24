@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatDate } from 'src/utils';
 import { ApiData } from 'src/api/types';
+import { getLatestBlockLoadingStatus, useAppSelector } from 'src/store';
 import {
   IconH2Container,
   H2,
@@ -16,7 +17,6 @@ import {
   TextWrapper,
 } from '../HomeComponents.styled';
 import { BlocksIcon } from '../../../icons';
-import { getLatestBlockLoadingStatus, useAppSelector } from 'src/store';
 
 interface BlockInfoProps {
   block: ApiData.Block | null;
