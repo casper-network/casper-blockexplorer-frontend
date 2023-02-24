@@ -12,7 +12,7 @@ export const ConfigurableLogo: React.FC = () => {
   const { isMobile } = useAppWidth();
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
-  const envWidth = logoSize > 100 ? 100 : logoSize;
+  const envWidth = logoSize > 100 ? 100 : Math.abs(logoSize);
 
   return (
     <ConfigurableLogoContainer
