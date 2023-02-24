@@ -17,13 +17,11 @@ export const DefaultNavLogo: React.FC = () => {
 };
 
 const NavLogoLink = styled(Link)`
-  /* TODO:Remove these styles once new logo is added */
   display: flex;
   width: ${pxToRem(140)};
 `;
 
 export const DefaultNavLogoContainer = styled.div`
-  /* TODO:Remove these styles once new logo is added */
   display: flex;
   justify-content: space-between;
   align-items: center;

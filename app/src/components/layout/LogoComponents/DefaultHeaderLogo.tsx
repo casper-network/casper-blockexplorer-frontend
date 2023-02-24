@@ -54,7 +54,6 @@ export const LogoLink = styled(Link)`
 `;
 
 export const RedBlackCasperLogoWrapper = styled.div`
-  /* TODO: remove these styles once new BE icon is added */
   display: none;
   @media (min-width: ${breakpoints.lg}) {
     display: block;
@@ -64,7 +63,6 @@ export const RedBlackCasperLogoWrapper = styled.div`
 `;
 
 export const RedBlackCasperLogo = styled(RedBlackLogo)`
-  /* TODO: remove these styles once new BE icon is added */
   display: none;
 
   @media (min-width: ${breakpoints.lg}) {
@@ -74,14 +72,12 @@ export const RedBlackCasperLogo = styled(RedBlackLogo)`
 `;
 
 export const BlueCasperLogoWrapper = styled.div`
-  /* TODO: remove these styles once new BE icon is added */
   display: flex;
   align-items: center;
   padding-right: ${pxToRem(2)};
 `;
 
 export const BlueCasperLogo = styled(BlueLogo)`
-  /* TODO: remove these styles once new BE icon is added */
   width: 100%;
   margin: 0 auto;
 
@@ -91,7 +87,6 @@ export const BlueCasperLogo = styled(BlueLogo)`
 `;
 
 export const ExplorerLogoWrapper = styled.div<{ isMobile: boolean }>`
-  /* TODO: remove these styles once new BE icon is added */
   padding-top: ${({ isMobile }) => (isMobile ? `${pxToRem(1.75)}` : 0)};
   min-width: ${({ isMobile }) =>
     isMobile ? `${pxToRem(112)}` : `${pxToRem(108)}`};
@@ -100,7 +95,6 @@ export const ExplorerLogoWrapper = styled.div<{ isMobile: boolean }>`
 `;
 
 export const ExplorerLogo = styled(ExpLogo)`
-  /* TODO: remove these styles once new BE icon is added */
   display: block;
   width: 100%;
 `;
