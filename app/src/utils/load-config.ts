@@ -12,12 +12,7 @@ export interface AppConfig {
   logoUrl?: string;
   theme: Theme;
   faviconUrl?: string | undefined;
-
-  // REFACTOR
   logoSize: number;
-  // logoSize?: number | undefined;
-
-  // CONTINUE ORIGINAL
   title?: string | undefined;
   fontUrl?: string | undefined;
   primaryFontName?: string | undefined;
@@ -36,12 +31,7 @@ export const loadConfig: () => AppConfig = () => {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
-
-    // REFACTOR
     REACT_APP_ORG_LOGO_SIZE: reactAppLogoSize,
-    // ORG_LOGO_SIZE=100
-    // CONTINUE ORIGINAL
-
     REACT_APP_THEME: reactAppTheme,
     REACT_APP_ORG_NAME: reactAppName,
     REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
@@ -53,13 +43,7 @@ export const loadConfig: () => AppConfig = () => {
   const {
     MIDDLEWARE_URL: middlewareUrl,
     ORG_LOGO_URL: orgLogoUrl,
-
-    // REFACTOR
     ORG_LOGO_SIZE: orgLogoSize,
-    // ORG_LOGO_SIZE=100
-
-    // CONTINUE ORIGINAL
-
     THEME: prodTheme,
     ORG_NAME: orgName,
     ORG_FAVICON_URL: orgFaviconUrl,
@@ -77,11 +61,9 @@ export const loadConfig: () => AppConfig = () => {
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
 
-  // REFACTOR
+  // chengduchain.com icon target size = 55
   const logoSize = isProduction ? orgLogoSize : reactAppLogoSize || 55;
-  // ORG_LOGO_SIZE=100
 
-  // CONTINUE ORIGINAL
   const theme = isProduction
     ? JSON.parse(prodTheme || '{}')
     : JSON.parse(reactAppTheme || '{}');
@@ -112,11 +94,7 @@ export const loadConfig: () => AppConfig = () => {
     isProduction,
     webServerUrl,
     logoUrl,
-
-    // REFACTOR
     logoSize,
-
-    // CONTINUE ORIGINAL
     theme,
     faviconUrl,
     title,
