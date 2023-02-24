@@ -23,12 +23,6 @@ import { CopyToClipboard, RefreshTimer } from '../../utility';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
-const rowCountSelectOptions: SelectOptions[] | null = [
-  { value: '5', label: '5 rows' },
-  { value: '10', label: '10 rows' },
-  { value: '20', label: '20 rows' },
-];
-
 interface BlocksTableProps {
   readonly total?: number;
   readonly blocks: ApiData.Block[];
@@ -60,6 +54,30 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
   const totalPages = useMemo(() => {
     return Math.ceil(totalBlocks / blocksTableOptions.pagination.pageSize);
   }, [blocksTableOptions, totalBlocks]);
+
+  const rowCountSelectOptions: SelectOptions[] | null = useMemo(
+    () => [
+      {
+        value: '5',
+        label: t('rows', {
+          count: 5,
+        }),
+      },
+      {
+        value: '10',
+        label: t('rows', {
+          count: 10,
+        }),
+      },
+      {
+        value: '20',
+        label: t('rows', {
+          count: 20,
+        }),
+      },
+    ],
+    [],
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {

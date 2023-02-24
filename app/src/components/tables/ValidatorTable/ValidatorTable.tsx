@@ -15,12 +15,6 @@ import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
-const rowCountSelectOptions: SelectOptions[] | null = [
-  { value: '5', label: '5 rows' },
-  { value: '10', label: '10 rows' },
-  { value: '20', label: '20 rows' },
-];
-
 interface ValidatorTableProps {
   readonly validators: ValidatorWeight[];
   isTableLoading: boolean;
@@ -33,6 +27,30 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   setIsTableLoading,
 }) => {
   const { t } = useTranslation();
+
+  const rowCountSelectOptions: SelectOptions[] | null = useMemo(
+    () => [
+      {
+        value: '5',
+        label: t('rows', {
+          count: 5,
+        }),
+      },
+      {
+        value: '10',
+        label: t('rows', {
+          count: 10,
+        }),
+      },
+      {
+        value: '20',
+        label: t('rows', {
+          count: 20,
+        }),
+      },
+    ],
+    [],
+  );
 
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
