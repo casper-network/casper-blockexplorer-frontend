@@ -76,7 +76,8 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         }),
       },
     ],
-    [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t],
   );
 
   useEffect(() => {

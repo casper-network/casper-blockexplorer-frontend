@@ -49,7 +49,7 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
         }),
       },
     ],
-    [],
+    [t],
   );
 
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
