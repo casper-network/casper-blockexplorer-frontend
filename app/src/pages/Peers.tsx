@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   fetchPeers,
   getPeerLoadingStatus,
   getPeers,
+  getPeersTableOptions,
   Loading,
   useAppDispatch,
   useAppSelector,
@@ -12,22 +13,32 @@ import {
   GradientHeading,
   PageHead,
   PageWrapper,
-  PeerTable,
+  PeersTable,
 } from '../components';
 
 export const Peers: React.FC = () => {
+  const [isTableLoading, setIsTableLoading] = useState(false);
+
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPeers());
-  }, [dispatch]);
-
   const peers = useAppSelector(getPeers);
+  const peersTableOptions = useAppSelector(getPeersTableOptions);
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
 
-  const isLoading = peersLoadingStatus !== Loading.Complete;
+  useEffect(() => {
+    dispatch(fetchPeers(peersTableOptions));
+  }, [dispatch, peersTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peers]);
+
+  const isLoading = peersLoadingStatus !== Loading.Complete && !peers.length;
 
   const pageTitle = `${t('peers')}`;
 
@@ -35,7 +46,13 @@ export const Peers: React.FC = () => {
     <PageWrapper isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('connected-peers')}</GradientHeading>
-      {peers && <PeerTable peers={peers} />}
+      {peers && (
+        <PeersTable
+          peers={peers}
+          isTableLoading={isTableLoading}
+          setIsTableLoading={setIsTableLoading}
+        />
+      )}
     </PageWrapper>
   );
 };

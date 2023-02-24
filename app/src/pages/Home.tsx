@@ -13,6 +13,7 @@ import {
   getValidatorLoadingStatus,
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
+  getPeersTableOptions,
 } from 'src/store';
 import {
   BlocksInfo,
@@ -24,10 +25,11 @@ import { breakpoints, pxToRem } from '../styled-theme';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
+  const peersTableOptions = useAppSelector(getPeersTableOptions);
 
   useEffect(() => {
     dispatch(fetchLatestBlock());
-    dispatch(fetchPeers());
+    dispatch(fetchPeers(peersTableOptions));
     dispatch(fetchCurrentEraValidatorStatus());
   }, [dispatch]);
 

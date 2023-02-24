@@ -83,10 +83,22 @@ const createApi = (baseUrl: string) => {
       },
     },
     peer: {
-      async getPeers() {
+      async getPeers(
+        tableParams: {
+          sortBy?: string;
+          orderBy?: SortDirection;
+          count?: number;
+          pageNum?: number;
+        } = {},
+      ) {
         type Response = AxiosResponse<ApiData.Peers>;
 
-        const response = await middlewareApi.get<Response>('/peers');
+        const response = await middlewareApi.get<Response>('/peers', {
+          params: {
+            ...tableParams,
+            count: tableParams?.count ?? defaultPagination,
+          },
+        });
 
         if (response.status !== 200) throw new Error(response.statusText);
 
