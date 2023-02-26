@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { colors, pxToRem } from 'src/styled-theme';
-import { ValidatorWeight } from 'casper-js-sdk';
 import {
   getTotalEraValidators,
   getValidatorsTableOptions,
@@ -11,12 +10,13 @@ import {
   updateValidatorPageNum,
   useAppSelector,
 } from 'src/store';
+import { ApiData } from 'src/api/types';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
 interface ValidatorTableProps {
-  readonly validators: ValidatorWeight[];
+  readonly validators: ApiData.ValidatorsInfo[];
   isTableLoading: boolean;
   setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -26,6 +26,8 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   isTableLoading,
   setIsTableLoading,
 }) => {
+  console.log({ validators });
+
   const { t } = useTranslation();
 
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
@@ -61,7 +63,7 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
     );
   }, [validatorsTableOptions, totalEraValidators]);
 
-  const columns = useMemo<ColumnDef<ValidatorWeight>[]>(
+  const columns = useMemo<ColumnDef<ApiData.ValidatorsInfo>[]>(
     () => [
       {
         header: `${t('public-key')}`,
@@ -96,7 +98,7 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   );
 
   return (
-    <Table<ValidatorWeight>
+    <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
       data={validators}

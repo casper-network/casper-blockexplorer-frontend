@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ValidatorWeight } from 'casper-js-sdk';
 import { ApiData } from 'src/api/types';
 import { loadConfig } from 'src/utils';
 import { middlewareServiceApi } from '../../api';
@@ -10,7 +9,7 @@ const { defaultPagination } = loadConfig();
 
 export interface ValidatorState {
   status: Loading;
-  validators: ValidatorWeight[];
+  validators: ApiData.Validators['validators']['validators'];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
   currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
@@ -47,6 +46,8 @@ export const fetchValidators = createAsyncThunk(
         pageNum,
       });
 
+      console.log({ validators });
+
       return validators;
     } catch (error: any) {
       throw new Error('An error occurred while fetching validators.');
@@ -60,6 +61,8 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
     try {
       const currentEraValidatorStatus =
         await middlewareServiceApi.validator.getCurrentEraValidatorStatus();
+
+      console.log({ currentEraValidatorStatus });
 
       return currentEraValidatorStatus;
     } catch (error: any) {
@@ -95,7 +98,12 @@ export const validatorSlice = createSlice({
       })
       .addCase(
         fetchValidators.fulfilled,
-        (state, { payload }: PayloadAction<ValidatorWeight[]>) => {
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<ApiData.Validators['validators']['validators']>,
+        ) => {
           state.status = Loading.Complete;
           state.validators = payload;
         },
