@@ -10,6 +10,7 @@ import {
   updateValidatorPageNum,
   useAppSelector,
 } from 'src/store';
+import { truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
@@ -26,8 +27,6 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   isTableLoading,
   setIsTableLoading,
 }) => {
-  console.log({ validators });
-
   const { t } = useTranslation();
 
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
@@ -66,16 +65,39 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   const columns = useMemo<ColumnDef<ApiData.ValidatorsInfo>[]>(
     () => [
       {
-        header: `${t('public-key')}`,
-        accessorKey: 'public_key',
+        header: `${t('rank')}`,
+        accessorKey: 'rank',
         enableSorting: false,
-        minSize: 750,
       },
       {
-        header: `${t('weight')}`,
-        accessorKey: 'weight',
+        header: `${t('public-key')}`,
+        accessorKey: 'publicKey',
+        cell: ({ getValue }) => truncateHash(getValue<string>()),
+      },
+      {
+        header: `${t('fee-percentage')}`,
+        accessorKey: 'feePercentage',
         enableSorting: false,
-        minSize: 400,
+      },
+      {
+        header: `${t('delegators')}`,
+        accessorKey: 'delegatorsCount',
+        enableSorting: false,
+      },
+      {
+        header: `${t('total-stake')}`,
+        accessorKey: 'totalStakeCspr',
+        enableSorting: false,
+      },
+      {
+        header: `${t('self-percentage')}`,
+        accessorKey: 'selfPercentage',
+        enableSorting: false,
+      },
+      {
+        header: `${t('network-percentage')}`,
+        accessorKey: 'percentageOfNetwork',
+        enableSorting: false,
       },
     ],
     [t],

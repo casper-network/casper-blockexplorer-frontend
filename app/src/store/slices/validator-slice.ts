@@ -46,8 +46,6 @@ export const fetchValidators = createAsyncThunk(
         pageNum,
       });
 
-      console.log({ validators });
-
       return validators;
     } catch (error: any) {
       throw new Error('An error occurred while fetching validators.');
@@ -61,8 +59,6 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
     try {
       const currentEraValidatorStatus =
         await middlewareServiceApi.validator.getCurrentEraValidatorStatus();
-
-      console.log({ currentEraValidatorStatus });
 
       return currentEraValidatorStatus;
     } catch (error: any) {
