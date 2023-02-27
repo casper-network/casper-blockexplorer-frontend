@@ -102,7 +102,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         <PageNumberWrapper>
           {t('page-out-of', {
             pageNum: standardizeNumber(tableOptions.pagination.pageNum),
-            totalPages: standardizeNumber(totalPages),
+            totalPages: standardizeNumber(totalPages || 1),
           })}
         </PageNumberWrapper>
         <NextPreviousPageIconWrapper

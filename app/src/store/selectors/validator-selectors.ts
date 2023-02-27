@@ -13,7 +13,7 @@ export const getCurrentEraValidatorStatus = (state: RootState) => {
 };
 
 export const getCurrentEraValidatorStatusStatus = (state: RootState) => {
-  return state.validator.status;
+  return state.validator.currentEraValidatorStatusLoadingStatus;
 };
 
 export const getValidatorsTableOptions = (state: RootState) => {
