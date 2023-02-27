@@ -12,11 +12,9 @@ export const ConfigurableLogo: React.FC = () => {
   const { isMobile } = useAppWidth();
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
-  const envWidth = logoSize > 100 ? 100 : Math.abs(logoSize);
-
   return (
     <ConfigurableLogoContainer
-      envWidth={envWidth}
+      logoSize={logoSize}
       isMobile={isMobile}
       isFirstVisit={isFirstVisit}>
       <Link to="/">
@@ -29,9 +27,9 @@ export const ConfigurableLogo: React.FC = () => {
 export const ConfigurableLogoContainer = styled.div<{
   isMobile: boolean;
   isFirstVisit: boolean;
-  envWidth: number;
+  logoSize: number;
 }>`
-  width: ${({ envWidth }) => envWidth}%;
+  width: ${({ logoSize }) => logoSize}%;
   min-width: ${({ isFirstVisit, isMobile }) =>
     isFirstVisit || isMobile ? `${pxToRem(0)}` : `${pxToRem(0)}`};
   max-width: ${({ isFirstVisit, isMobile }) =>
