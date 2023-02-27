@@ -12,12 +12,19 @@ export const HeaderComponentsContainer = styled.div<{
   isMobile: boolean;
 }>`
   display: flex;
+
+  border: solid 2px pink;
+
   justify-content: space-between;
   width: 100%;
   max-width: ${pxToRem(1400)};
   width: ${({ isMobile }) => (isMobile ? '100%' : '98%')};
   margin: ${({ isMobile }) => (isMobile ? '0' : '0 auto')};
-  padding-right: ${({ isMobile }) => (isMobile ? '0.8rem' : '0')};
+  padding-right: 0.8rem;
+
+  @media (min-width: ${breakpoints.lg}) {
+    padding-right: 0;
+  }
 `;
 
 export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
