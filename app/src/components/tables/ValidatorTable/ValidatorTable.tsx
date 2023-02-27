@@ -86,7 +86,7 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       },
       {
         header: `${t('total-stake')}`,
-        accessorKey: 'totalStakeCspr',
+        accessorKey: 'totalStakeMotes',
         enableSorting: false,
       },
       {

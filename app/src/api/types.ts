@@ -88,7 +88,7 @@ export namespace ApiData {
     publicKey: string;
     feePercentage: number;
     delegatorsCount: number;
-    totalStakeCspr: number;
+    totalStakeMotes: number;
     selfPercentage: number;
     percentageOfNetwork: number;
   }
