@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { colors, pxToRem } from 'src/styled-theme';
-import { ValidatorWeight } from 'casper-js-sdk';
 import {
   getTotalEraValidators,
   getValidatorsTableOptions,
@@ -11,12 +10,14 @@ import {
   updateValidatorPageNum,
   useAppSelector,
 } from 'src/store';
+import { truncateHash } from 'src/utils';
+import { ApiData } from 'src/api/types';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
 interface ValidatorTableProps {
-  readonly validators: ValidatorWeight[];
+  readonly validators: ApiData.ValidatorsInfo[];
   isTableLoading: boolean;
   setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -61,19 +62,42 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
     );
   }, [validatorsTableOptions, totalEraValidators]);
 
-  const columns = useMemo<ColumnDef<ValidatorWeight>[]>(
+  const columns = useMemo<ColumnDef<ApiData.ValidatorsInfo>[]>(
     () => [
       {
-        header: `${t('public-key')}`,
-        accessorKey: 'public_key',
+        header: `${t('rank')}`,
+        accessorKey: 'rank',
         enableSorting: false,
-        minSize: 750,
       },
       {
-        header: `${t('weight')}`,
-        accessorKey: 'weight',
+        header: `${t('public-key')}`,
+        accessorKey: 'publicKey',
+        cell: ({ getValue }) => truncateHash(getValue<string>()),
+      },
+      {
+        header: `${t('fee-percentage')}`,
+        accessorKey: 'feePercentage',
         enableSorting: false,
-        minSize: 400,
+      },
+      {
+        header: `${t('delegators')}`,
+        accessorKey: 'delegatorsCount',
+        enableSorting: false,
+      },
+      {
+        header: `${t('total-stake')}`,
+        accessorKey: 'totalStakeMotes',
+        enableSorting: false,
+      },
+      {
+        header: `${t('self-percentage')}`,
+        accessorKey: 'selfPercentage',
+        enableSorting: false,
+      },
+      {
+        header: `${t('network-percentage')}`,
+        accessorKey: 'percentageOfNetwork',
+        enableSorting: false,
       },
     ],
     [t],
@@ -96,7 +120,7 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
   );
 
   return (
-    <Table<ValidatorWeight>
+    <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
       data={validators}
