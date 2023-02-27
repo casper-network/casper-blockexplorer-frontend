@@ -48,7 +48,8 @@ const navItems = [
 
 export const Navbar: React.FC = () => {
   const isFirstVisit = useAppSelector(getIsFirstVisit);
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
 
@@ -70,6 +71,11 @@ export const Navbar: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
+
+  const navItemLinkHandler = (event: KeyboardEvent) => {
+    event.preventDefault();
+    setIsSelected(!isSelected);
+  };
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
@@ -113,7 +119,7 @@ export const Navbar: React.FC = () => {
               {navItems.map(({ path, title, key }) => {
                 return (
                   <li key={key}>
-                    <DesktopNavItemLink to={path}>
+                    <DesktopNavItemLink to={path} isSelected={isSelected}>
                       {t(title)}
                     </DesktopNavItemLink>
                   </li>
