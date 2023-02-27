@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { loadConfig } from 'src/utils';
 import { Link } from 'react-router-dom';
-import { pxToRem } from 'src/styled-theme';
+import { breakpoints, pxToRem } from 'src/styled-theme';
 import { useAppWidth } from 'src/hooks';
 import { getIsFirstVisit, useAppSelector } from 'src/store';
 
@@ -30,18 +30,18 @@ export const ConfigurableLogoContainer = styled.div<{
   logoSize: number;
 }>`
   width: ${({ logoSize }) => logoSize}%;
-  min-width: ${({ isFirstVisit, isMobile }) =>
-    isFirstVisit || isMobile ? `${pxToRem(0)}` : `${pxToRem(0)}`};
+  min-width: 0;
   max-width: ${({ isFirstVisit, isMobile }) =>
     isFirstVisit || isMobile ? `${pxToRem(345)}` : `${pxToRem(500)}`};
-  padding: ${({ isMobile }) =>
-    isMobile
-      ? `${pxToRem(20)} 0 ${pxToRem(20)} ${pxToRem(10)}`
-      : `${pxToRem(15)} 0`};
+  padding: ${pxToRem(20)} 0 ${pxToRem(20)} ${pxToRem(10)};
 
   :hover,
   :focus {
     text-decoration-line: none;
+  }
+
+  @media (min-width: ${breakpoints.lg}) {
+    padding: ${pxToRem(15)} 0;
   }
 `;
 
