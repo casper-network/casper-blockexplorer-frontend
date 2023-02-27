@@ -12,7 +12,7 @@ interface DefaultHeaderProps {
 export const DefaultHeaderLogo: React.FC<DefaultHeaderProps> = ({
   isMobile,
 }) => (
-  <LogoContainer isMobile={isMobile}>
+  <LogoContainer>
     <LogoLink to="/">
       <RedBlackCasperLogoWrapper>
         <RedBlackCasperLogo />
@@ -27,21 +27,21 @@ export const DefaultHeaderLogo: React.FC<DefaultHeaderProps> = ({
   </LogoContainer>
 );
 
-export const LogoContainer = styled.div<{ isMobile: boolean }>`
+export const LogoContainer = styled.div`
   width: ${pxToRem(188)};
   display: flex;
   justify-content: flex-start;
   align-items: center;
   text-decoration-line: none;
-
-  padding: ${({ isMobile }) =>
-    isMobile
-      ? `${pxToRem(30)} ${pxToRem(23)}`
-      : `${pxToRem(30)} ${pxToRem(0)}`};
+  padding: ${pxToRem(30)} ${pxToRem(23)};
 
   :hover,
   :focus {
     text-decoration-line: none;
+  }
+
+  @media (min-width: ${breakpoints.lg}) {
+    padding: ${pxToRem(30)} ${pxToRem(0)};
   }
 `;
 
