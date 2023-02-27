@@ -45,8 +45,8 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       setTableOptions({
         ...tableOptions,
         pagination: {
-          ...tableOptions.pagination,
           pageSize: Number(currentRowCountOption.value) ?? defaultPagination,
+          pageNum: 1,
         },
       }),
     );

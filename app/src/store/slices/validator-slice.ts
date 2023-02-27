@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ValidatorWeight } from 'casper-js-sdk';
 import { ApiData } from 'src/api/types';
 import { loadConfig } from 'src/utils';
 import { middlewareServiceApi } from '../../api';
@@ -10,7 +9,7 @@ const { defaultPagination } = loadConfig();
 
 export interface ValidatorState {
   status: Loading;
-  validators: ValidatorWeight[];
+  validators: ApiData.ValidatorsInfo[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
   currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
@@ -95,7 +94,7 @@ export const validatorSlice = createSlice({
       })
       .addCase(
         fetchValidators.fulfilled,
-        (state, { payload }: PayloadAction<ValidatorWeight[]>) => {
+        (state, { payload }: PayloadAction<ApiData.ValidatorsInfo[]>) => {
           state.status = Loading.Complete;
           state.validators = payload;
         },
