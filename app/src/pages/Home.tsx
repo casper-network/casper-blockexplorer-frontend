@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
-  getLatestBlockLoadingStatus,
   getLatestBlock,
   useAppSelector,
-  Loading,
   useAppDispatch,
   fetchLatestBlock,
   fetchPeers,
   getPeers,
-  getPeerLoadingStatus,
-  getValidatorLoadingStatus,
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
@@ -34,12 +30,8 @@ export const Home: React.FC = () => {
   }, [dispatch]);
 
   const latestBlock = useAppSelector(getLatestBlock);
-  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
 
   const peers = useAppSelector(getPeers);
-  const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
-
-  const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
   const currentEraValidatorStatus = useAppSelector(
     getCurrentEraValidatorStatus,
@@ -47,22 +39,15 @@ export const Home: React.FC = () => {
 
   const { isFirstVisit } = useAppSelector(state => state.app);
 
-  const isLoading =
-    latestBlockLoadingStatus !== Loading.Complete ||
-    peersLoadingStatus !== Loading.Complete ||
-    validatorsLoadingStatus !== Loading.Complete;
-
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={false}>
       <HomeContentContainer isFirstVisit={isFirstVisit}>
-        {latestBlock && <BlocksInfo block={latestBlock} />}
+        <BlocksInfo block={latestBlock} />
         <DeploysInfo />
-        {peers && currentEraValidatorStatus && (
-          <PeersValidatorsInfo
-            currentPeers={peers}
-            currentEraValidatorStatus={currentEraValidatorStatus}
-          />
-        )}
+        <PeersValidatorsInfo
+          currentPeers={peers}
+          currentEraValidatorStatus={currentEraValidatorStatus}
+        />
       </HomeContentContainer>
     </PageWrapper>
   );

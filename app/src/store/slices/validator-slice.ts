@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ValidatorWeight } from 'casper-js-sdk';
 import { ApiData } from 'src/api/types';
 import { loadConfig } from 'src/utils';
 import { middlewareServiceApi } from '../../api';
@@ -10,8 +9,9 @@ const { defaultPagination } = loadConfig();
 
 export interface ValidatorState {
   status: Loading;
-  validators: ValidatorWeight[];
+  validators: ApiData.ValidatorsInfo[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
+  currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
 }
 
@@ -19,6 +19,7 @@ const initialState: ValidatorState = {
   status: Loading.Idle,
   validators: [],
   currentEraValidatorStatus: null,
+  currentEraValidatorStatusLoadingStatus: Loading.Idle,
   tableOptions: {
     pagination: {
       pageSize: defaultPagination,
@@ -93,7 +94,7 @@ export const validatorSlice = createSlice({
       })
       .addCase(
         fetchValidators.fulfilled,
-        (state, { payload }: PayloadAction<ValidatorWeight[]>) => {
+        (state, { payload }: PayloadAction<ApiData.ValidatorsInfo[]>) => {
           state.status = Loading.Complete;
           state.validators = payload;
         },
@@ -102,7 +103,7 @@ export const validatorSlice = createSlice({
         state.status = Loading.Failed;
       })
       .addCase(fetchCurrentEraValidatorStatus.pending, state => {
-        state.status = Loading.Pending;
+        state.currentEraValidatorStatusLoadingStatus = Loading.Pending;
       })
       .addCase(
         fetchCurrentEraValidatorStatus.fulfilled,
@@ -110,12 +111,12 @@ export const validatorSlice = createSlice({
           state,
           { payload }: PayloadAction<ApiData.CurrentEraValidatorStatus>,
         ) => {
-          state.status = Loading.Complete;
+          state.currentEraValidatorStatusLoadingStatus = Loading.Complete;
           state.currentEraValidatorStatus = payload;
         },
       )
       .addCase(fetchCurrentEraValidatorStatus.rejected, state => {
-        state.status = Loading.Failed;
+        state.currentEraValidatorStatusLoadingStatus = Loading.Failed;
       });
   },
 });

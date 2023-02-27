@@ -45,8 +45,8 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       setTableOptions({
         ...tableOptions,
         pagination: {
-          ...tableOptions.pagination,
           pageSize: Number(currentRowCountOption.value) ?? defaultPagination,
+          pageNum: 1,
         },
       }),
     );
@@ -102,7 +102,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         <PageNumberWrapper>
           {t('page-out-of', {
             pageNum: standardizeNumber(tableOptions.pagination.pageNum),
-            totalPages: standardizeNumber(totalPages),
+            totalPages: standardizeNumber(totalPages || 1),
           })}
         </PageNumberWrapper>
         <NextPreviousPageIconWrapper

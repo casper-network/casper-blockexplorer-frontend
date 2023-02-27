@@ -44,7 +44,6 @@ export const Blocks: React.FC = () => {
 
   const isLoadingPage =
     blockLoadingStatus !== Loading.Complete && !blocks.length;
-  const isLoadingNext = blockLoadingStatus !== Loading.Complete;
 
   useEffect(() => {
     if (refreshTimer === 0) {
@@ -69,14 +68,13 @@ export const Blocks: React.FC = () => {
   }, [blocks]);
 
   return (
-    <PageWrapper isLoading={isLoadingPage}>
+    <PageWrapper isLoading={false}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('blocks')}</GradientHeading>
       <BlocksTable
         total={totalBlocks}
         blocks={blocks}
-        isLoadingMoreBlocks={isLoadingNext}
-        isTableLoading={isTableLoading}
+        isTableLoading={isTableLoading || isLoadingPage}
         sorting={[
           {
             id: blocksTableOptions.sorting.sortBy,
