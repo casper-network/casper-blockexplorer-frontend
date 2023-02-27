@@ -5,13 +5,7 @@ import { Link } from 'react-router-dom';
 import { breakpoints, pxToRem } from 'src/styled-theme';
 import { BlueLogo, RedBlackLogo, ExpLogo } from '../../logos';
 
-interface DefaultHeaderProps {
-  isMobile: boolean;
-}
-
-export const DefaultHeaderLogo: React.FC<DefaultHeaderProps> = ({
-  isMobile,
-}) => (
+export const DefaultHeaderLogo: React.FC = () => (
   <LogoContainer>
     <LogoLink to="/">
       <RedBlackCasperLogoWrapper>
@@ -20,7 +14,7 @@ export const DefaultHeaderLogo: React.FC<DefaultHeaderProps> = ({
       <BlueCasperLogoWrapper>
         <BlueCasperLogo />
       </BlueCasperLogoWrapper>
-      <ExplorerLogoWrapper isMobile={isMobile}>
+      <ExplorerLogoWrapper>
         <ExplorerLogo />
       </ExplorerLogoWrapper>
     </LogoLink>
@@ -58,7 +52,6 @@ export const RedBlackCasperLogoWrapper = styled.div`
   @media (min-width: ${breakpoints.lg}) {
     display: block;
     min-width: ${pxToRem(124)};
-    max-width: ${pxToRem(124)};
   }
 `;
 
@@ -86,12 +79,14 @@ export const BlueCasperLogo = styled(BlueLogo)`
   }
 `;
 
-export const ExplorerLogoWrapper = styled.div<{ isMobile: boolean }>`
-  padding-top: ${({ isMobile }) => (isMobile ? `${pxToRem(1.75)}` : 0)};
-  min-width: ${({ isMobile }) =>
-    isMobile ? `${pxToRem(112)}` : `${pxToRem(108)}`};
-  max-width: ${({ isMobile }) =>
-    isMobile ? `${pxToRem(112)}` : `${pxToRem(108)}`};
+export const ExplorerLogoWrapper = styled.div`
+  padding-top: ${pxToRem(1.75)};
+  min-width: ${pxToRem(112)};
+
+  @media (min-width: ${breakpoints.lg}) {
+    padding-top: 0;
+    width: ${pxToRem(108)};
+  }
 `;
 
 export const ExplorerLogo = styled(ExpLogo)`

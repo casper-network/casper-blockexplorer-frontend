@@ -15,11 +15,13 @@ export const HeaderComponentsContainer = styled.div<{
   justify-content: space-between;
   width: 100%;
   max-width: ${pxToRem(1400)};
-  width: ${({ isMobile }) => (isMobile ? '100%' : '98%')};
-  margin: ${({ isMobile }) => (isMobile ? '0' : '0 auto')};
+  width: 100%;
+  margin: 0;
   padding-right: 0.8rem;
 
   @media (min-width: ${breakpoints.lg}) {
+    width: 98%;
+    margin: 0 auto;
     padding-right: 0;
   }
 `;

@@ -4,19 +4,14 @@ import styled from '@emotion/styled';
 import { loadConfig } from 'src/utils';
 import { Link } from 'react-router-dom';
 import { breakpoints, pxToRem } from 'src/styled-theme';
-import { useAppWidth } from 'src/hooks';
 import { getIsFirstVisit, useAppSelector } from 'src/store';
 
 export const ConfigurableLogo: React.FC = () => {
   const { logoUrl, logoSize } = loadConfig();
-  const { isMobile } = useAppWidth();
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   return (
-    <ConfigurableLogoContainer
-      logoSize={logoSize}
-      isMobile={isMobile}
-      isFirstVisit={isFirstVisit}>
+    <ConfigurableLogoContainer logoSize={logoSize} isFirstVisit={isFirstVisit}>
       <Link to="/">
         <ConfigLogo src={logoUrl} alt="configuration logo" />
       </Link>
@@ -25,14 +20,12 @@ export const ConfigurableLogo: React.FC = () => {
 };
 
 export const ConfigurableLogoContainer = styled.div<{
-  isMobile: boolean;
   isFirstVisit: boolean;
   logoSize: number;
 }>`
   width: ${({ logoSize }) => logoSize}%;
   min-width: 0;
-  max-width: ${({ isFirstVisit, isMobile }) =>
-    isFirstVisit || isMobile ? `${pxToRem(345)}` : `${pxToRem(500)}`};
+  max-width: ${pxToRem(345)};
   padding: ${pxToRem(20)} 0 ${pxToRem(20)} ${pxToRem(10)};
 
   :hover,
@@ -42,6 +35,8 @@ export const ConfigurableLogoContainer = styled.div<{
 
   @media (min-width: ${breakpoints.lg}) {
     padding: ${pxToRem(15)} 0;
+    max-width: ${({ isFirstVisit }) =>
+      isFirstVisit ? `${pxToRem(345)}` : `${pxToRem(500)}`};
   }
 `;
 
