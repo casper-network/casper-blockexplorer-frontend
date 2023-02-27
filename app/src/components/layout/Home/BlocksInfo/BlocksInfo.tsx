@@ -3,6 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { formatDate } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
+  getLatestBlockLoadingStatus,
+  Loading,
+  useAppSelector,
+} from 'src/store';
+import Skeleton from 'react-loading-skeleton';
+import {
   IconH2Container,
   H2,
   PageLink,
@@ -18,11 +24,15 @@ import {
 import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
-  block: ApiData.Block;
+  block: ApiData.Block | null;
 }
 
 export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
   const { t } = useTranslation();
+
+  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
+
+  const isLoadingBlocks = latestBlockLoadingStatus !== Loading.Complete;
 
   return (
     <Card>
@@ -38,16 +48,32 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
           <TextWrapper>
             <H3>{t('block-height')}</H3>
           </TextWrapper>
-          <H3Data>{block.header.height}</H3Data>
+          <H3Data>
+            {isLoadingBlocks ? (
+              <Skeleton width={120} duration={1} />
+            ) : (
+              block?.header.height ?? 0
+            )}
+          </H3Data>
           <DataContext>
-            {formatDate(new Date(block.header.timestamp))}
+            {isLoadingBlocks ? (
+              <Skeleton width="80%" duration={1} />
+            ) : (
+              formatDate(new Date(block?.header.timestamp ?? ''))
+            )}
           </DataContext>
         </Info>
         <Info>
           <TextWrapper>
             <H3>{t('current-era')}</H3>
           </TextWrapper>
-          <H3Data>{block.header.era_id}</H3Data>
+          <H3Data>
+            {isLoadingBlocks ? (
+              <Skeleton width={90} duration={1} />
+            ) : (
+              block?.header.era_id ?? 0
+            )}
+          </H3Data>
         </Info>
       </Details>
     </Card>

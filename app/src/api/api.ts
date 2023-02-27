@@ -120,11 +120,24 @@ const createApi = (baseUrl: string) => {
       },
     },
     validator: {
-      async getValidators() {
+      async getValidators(
+        tableParams: {
+          sortBy?: string;
+          orderBy?: SortDirection;
+          count?: number;
+          pageNum?: number;
+        } = {},
+      ) {
         type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>(
           '/current-era-validators',
+          {
+            params: {
+              ...tableParams,
+              count: tableParams?.count ?? defaultPagination,
+            },
+          },
         );
 
         if (response.status !== 200) throw new Error(response.statusText);

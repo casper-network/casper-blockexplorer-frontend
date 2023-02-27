@@ -71,7 +71,7 @@ const App = () => {
   return (
     <HelmetProvider>
       <StrictMode>
-        <React.Suspense fallback="loading...">
+        <React.Suspense>
           <Helmet>
             {faviconUrl ? (
               <link rel="icon" href={faviconUrl} />

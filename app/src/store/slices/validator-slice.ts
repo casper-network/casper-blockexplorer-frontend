@@ -1,26 +1,51 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { ValidatorWeight } from 'casper-js-sdk';
 import { ApiData } from 'src/api/types';
+import { loadConfig } from 'src/utils';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
+import { TableOptions } from '../types';
+
+const { defaultPagination } = loadConfig();
 
 export interface ValidatorState {
   status: Loading;
   validators: ValidatorWeight[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
+  currentEraValidatorStatusLoadingStatus: Loading;
+  tableOptions: TableOptions;
 }
 
 const initialState: ValidatorState = {
   status: Loading.Idle,
   validators: [],
   currentEraValidatorStatus: null,
+  currentEraValidatorStatusLoadingStatus: Loading.Idle,
+  tableOptions: {
+    pagination: {
+      pageSize: defaultPagination,
+      pageNum: 1,
+    },
+    sorting: {
+      sortBy: '',
+      order: 'desc',
+    },
+  },
 };
 
 export const fetchValidators = createAsyncThunk(
   'rpcClient/fetchValidators',
-  async () => {
+  async ({
+    pagination: { pageSize, pageNum },
+    sorting: { sortBy, order },
+  }: ValidatorState['tableOptions']) => {
     try {
-      const validators = await middlewareServiceApi.validator.getValidators();
+      const validators = await middlewareServiceApi.validator.getValidators({
+        sortBy,
+        orderBy: order,
+        count: pageSize,
+        pageNum,
+      });
 
       return validators;
     } catch (error: any) {
@@ -46,7 +71,23 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
 export const validatorSlice = createSlice({
   name: 'validator',
   initialState,
-  reducers: {},
+  reducers: {
+    setValidatorTableOptions: (
+      state,
+      action: PayloadAction<ValidatorState['tableOptions']>,
+    ) => {
+      state.tableOptions = action.payload;
+    },
+    updateValidatorPageNum: (state, action: PayloadAction<number>) => {
+      state.tableOptions.pagination.pageNum += action.payload;
+    },
+    updateValidatorSorting: (
+      state,
+      action: PayloadAction<ValidatorState['tableOptions']['sorting']>,
+    ) => {
+      state.tableOptions.sorting = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchValidators.pending, state => {
@@ -63,7 +104,7 @@ export const validatorSlice = createSlice({
         state.status = Loading.Failed;
       })
       .addCase(fetchCurrentEraValidatorStatus.pending, state => {
-        state.status = Loading.Pending;
+        state.currentEraValidatorStatusLoadingStatus = Loading.Pending;
       })
       .addCase(
         fetchCurrentEraValidatorStatus.fulfilled,
@@ -71,12 +112,18 @@ export const validatorSlice = createSlice({
           state,
           { payload }: PayloadAction<ApiData.CurrentEraValidatorStatus>,
         ) => {
-          state.status = Loading.Complete;
+          state.currentEraValidatorStatusLoadingStatus = Loading.Complete;
           state.currentEraValidatorStatus = payload;
         },
       )
       .addCase(fetchCurrentEraValidatorStatus.rejected, state => {
-        state.status = Loading.Failed;
+        state.currentEraValidatorStatusLoadingStatus = Loading.Failed;
       });
   },
 });
+
+export const {
+  setValidatorTableOptions,
+  updateValidatorPageNum,
+  updateValidatorSorting,
+} = validatorSlice.actions;

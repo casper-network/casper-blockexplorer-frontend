@@ -202,8 +202,7 @@ const TableBodyItem = styled.td`
 `;
 
 const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
-  /* (pageSize + 1) is to account for footer */
-  height: calc(${({ pageSize }) => pageSize + 1} * ${pxToRem(50)});
+  height: calc(${({ pageSize }) => pageSize} * ${pxToRem(50)});
 `;
 
 const LoadingPositionWrapper = styled.div`
