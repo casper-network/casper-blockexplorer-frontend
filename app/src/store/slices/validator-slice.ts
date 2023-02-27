@@ -9,7 +9,7 @@ const { defaultPagination } = loadConfig();
 
 export interface ValidatorState {
   status: Loading;
-  validators: ApiData.Validators['validators']['validators'];
+  validators: ApiData.ValidatorsInfo[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
   currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
@@ -94,12 +94,7 @@ export const validatorSlice = createSlice({
       })
       .addCase(
         fetchValidators.fulfilled,
-        (
-          state,
-          {
-            payload,
-          }: PayloadAction<ApiData.Validators['validators']['validators']>,
-        ) => {
+        (state, { payload }: PayloadAction<ApiData.ValidatorsInfo[]>) => {
           state.status = Loading.Complete;
           state.validators = payload;
         },
