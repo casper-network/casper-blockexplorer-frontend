@@ -61,16 +61,11 @@ export function Table<T extends unknown>({
       <StyledTable>
         <TableHead>
           {getHeaderGroups().map(headerGroup => {
-            // console.log({ headerGroup });
-
             return (
               <TableHeader key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
-                  // console.log({ header });
                   const isSorted = header.column.getIsSorted();
                   const canSort = header.column.getCanSort();
-                  const content = header.getContext().column.id;
-                  // console.log({ isSorted, canSort, content });
 
                   return (
                     <Th
@@ -104,6 +99,7 @@ export function Table<T extends unknown>({
                                 </SortIconWrapper>
                               ),
                             }[header.column.getIsSorted() as string] ?? null}
+                            {canSort && !isSorted && <CanSortWrapper />}
                           </span>
                         </>
                       )}
@@ -247,4 +243,15 @@ const SortIcon = styled.img`
   width: ${pxToRem(12)};
   height: ${pxToRem(12)};
   margin: 0;
+`;
+
+const CanSortWrapper = styled.div`
+  height: ${pxToRem(27)};
+  width: ${pxToRem(27)};
+  background-color: #02115f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${pxToRem(5)};
+  margin-right: 0.5rem;
 `;
