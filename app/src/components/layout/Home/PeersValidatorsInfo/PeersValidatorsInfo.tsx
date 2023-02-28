@@ -26,12 +26,10 @@ import { PeersIcon } from '../../../icons';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 interface PeersValidatorsInfoProps {
-  readonly currentPeers: ApiData.Peer[];
   readonly currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
 }
 
 export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
-  currentPeers,
   currentEraValidatorStatus,
 }) => {
   const { t } = useTranslation();

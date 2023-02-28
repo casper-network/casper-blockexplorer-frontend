@@ -6,7 +6,6 @@ import {
   useAppDispatch,
   fetchLatestBlock,
   fetchPeers,
-  getPeers,
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
@@ -31,8 +30,6 @@ export const Home: React.FC = () => {
 
   const latestBlock = useAppSelector(getLatestBlock);
 
-  const peers = useAppSelector(getPeers);
-
   const currentEraValidatorStatus = useAppSelector(
     getCurrentEraValidatorStatus,
   );
@@ -45,7 +42,6 @@ export const Home: React.FC = () => {
         <BlocksInfo block={latestBlock} />
         <DeploysInfo />
         <PeersValidatorsInfo
-          currentPeers={peers}
           currentEraValidatorStatus={currentEraValidatorStatus}
         />
       </HomeContentContainer>
