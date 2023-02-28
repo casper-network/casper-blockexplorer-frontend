@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
+import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
@@ -14,7 +15,6 @@ import {
   NavItemsContainer,
   DesktopNav,
   DesktopNavItemsContainer,
-  DesktopNavItemLink,
   MobileNav,
   MobileNavItemsContainer,
   MobileNavItemLink,
@@ -22,6 +22,7 @@ import {
 
 import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
 import { ConfigurableLogo, DefaultNavLogo } from '../LogoComponents';
+import { NavbarLinkButton } from './NavbarLinkButton';
 
 const navItems = [
   {
@@ -47,9 +48,19 @@ const navItems = [
 ];
 
 export const Navbar: React.FC = () => {
+  const [activeRoute, setActiveRoute] = useState<string>('home');
+
+  const navItemLinkHandler = (event: any, title: string) => {
+    event.preventDefault();
+    console.log(event.target.id, title);
+    if (event.target.id === title) {
+      setActiveRoute(event.target.id);
+    }
+  };
+
+  // Below original
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [isSelected, setIsSelected] = useState<boolean>(false);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
 
@@ -71,11 +82,6 @@ export const Navbar: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
-
-  const navItemLinkHandler = (event: KeyboardEvent) => {
-    event.preventDefault();
-    setIsSelected(!isSelected);
-  };
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
@@ -118,11 +124,21 @@ export const Navbar: React.FC = () => {
             <DesktopNavItemsContainer>
               {navItems.map(({ path, title, key }) => {
                 return (
-                  <li key={key}>
-                    <DesktopNavItemLink to={path} isSelected={isSelected}>
+                  <Link key={key} to={path}>
+                    <NavbarLinkButton
+                      title={title}
+                      activeRoute={activeRoute}
+                      setActiveRoute={setActiveRoute}
+                      navItemLinkHandler={navItemLinkHandler}
+                    />
+                    {/* <DesktopNavItemLink
+                      type="button"
+                      onClick={() => {
+                        console.log(title);
+                      }}>
                       {t(title)}
-                    </DesktopNavItemLink>
-                  </li>
+                    </DesktopNavItemLink> */}
+                  </Link>
                 );
               })}
             </DesktopNavItemsContainer>
