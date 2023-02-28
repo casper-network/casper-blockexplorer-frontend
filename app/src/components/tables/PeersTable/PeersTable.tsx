@@ -1,10 +1,15 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  fetchPeers,
+  getPeerLoadingStatus,
+  getPeers,
   getPeersTableOptions,
   getTotalPeers,
+  Loading,
   setPeerTableOptions,
   updatePeerPageNum,
+  useAppDispatch,
   useAppSelector,
 } from 'src/store';
 import styled from '@emotion/styled';
@@ -15,19 +20,30 @@ import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
-interface PeersTableProps {
-  readonly peers: ApiData.Peer[];
-  isTableLoading: boolean;
-  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export const PeersTable: React.FC = () => {
+  const [isTableLoading, setIsTableLoading] = useState(false);
+  const peersTableOptions = useAppSelector(getPeersTableOptions);
 
-export const PeersTable: React.FC<PeersTableProps> = ({
-  peers,
-  isTableLoading,
-  setIsTableLoading,
-}) => {
   const { t } = useTranslation();
 
+  const dispatch = useAppDispatch();
+  const peers = useAppSelector(getPeers);
+  const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
+
+  useEffect(() => {
+    dispatch(fetchPeers(peersTableOptions));
+  }, [dispatch, peersTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peers]);
+
+  const isLoading = peerLoadingStatus !== Loading.Complete || !peers.length;
+
+  const totalPeers = useAppSelector(getTotalPeers);
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
     () => [
       {
@@ -52,9 +68,6 @@ export const PeersTable: React.FC<PeersTableProps> = ({
     [t],
   );
 
-  const peersTableOptions = useAppSelector(getPeersTableOptions);
-  const totalPeers = useAppSelector(getTotalPeers);
-
   const totalPages = useMemo(() => {
     return Math.ceil(totalPeers / peersTableOptions.pagination.pageSize);
   }, [peersTableOptions, totalPeers]);
@@ -65,11 +78,13 @@ export const PeersTable: React.FC<PeersTableProps> = ({
         header: `${t('node-id')}`,
         accessorKey: 'nodeId',
         enableSorting: false,
+        size: 250,
       },
       {
         header: `${t('address')}`,
         accessorKey: 'address',
         enableSorting: false,
+        size: 250,
       },
     ],
     [t],
