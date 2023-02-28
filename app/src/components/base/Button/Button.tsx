@@ -6,11 +6,17 @@ export type ButtonType = 'submit' | 'reset' | 'button';
 
 export interface ButtonProps {
   readonly children: React.ReactNode;
-  readonly onClick?: () => void;
+  // readonly onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  // readonly onClick?: React.MouseEvent<HTMLElement>;
+  // readonly onClick?: (event: MouseEvent) => React.MouseEvent<HTMLElement>;
+  // readonly onClick?: (e: React.MouseEvent) => void;
+  // readonly onClick?: () => void;
+  readonly onClick?: any;
   readonly color?: string;
   readonly type: ButtonType;
   readonly className?: string;
   readonly isDisabled?: boolean;
+  readonly id?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -20,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   className,
   isDisabled = false,
+  id,
 }) => {
   return (
     <StyledButton
@@ -27,7 +34,8 @@ export const Button: React.FC<ButtonProps> = ({
       className={className}
       bgColor={color}
       onClick={onClick}
-      disabled={isDisabled}>
+      disabled={isDisabled}
+      id={id}>
       {children}
     </StyledButton>
   );
