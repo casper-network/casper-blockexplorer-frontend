@@ -132,7 +132,8 @@ export const ValidatorTable: React.FC = () => {
         cell: ({ getValue }) => (
           <CSPRText>
             {/* TODO: use BigNumber.js library here? */}
-            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))} CSPR
+            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
+            {t('cspr')}
           </CSPRText>
         ),
       },
@@ -168,6 +169,7 @@ export const ValidatorTable: React.FC = () => {
 
   const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {
     setIsTableLoading(true);
+
     if (updaterOrValue instanceof Function) {
       const [updatedVal] = updaterOrValue([
         {
@@ -176,6 +178,7 @@ export const ValidatorTable: React.FC = () => {
         },
       ]);
 
+      // TODO: if going from one id to the next -> shouldn't flip the asc/desc (default desc?)
       dispatch(
         updateValidatorSorting({
           sortBy: updatedVal.id,
