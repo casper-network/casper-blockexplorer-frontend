@@ -41,7 +41,7 @@ export const PeersTable: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [peers]);
 
-  const isLoading = peerLoadingStatus !== Loading.Complete || !peers.length;
+  const isPageLoading = peerLoadingStatus !== Loading.Complete || !peers.length;
 
   const totalPeers = useAppSelector(getTotalPeers);
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
@@ -109,7 +109,7 @@ export const PeersTable: React.FC = () => {
       header={header}
       columns={columns}
       data={peers}
-      tableBodyLoading={isTableLoading}
+      tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={peersTableOptions.pagination.pageSize}
     />
   );
