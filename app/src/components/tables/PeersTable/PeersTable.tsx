@@ -110,7 +110,3 @@ const HeadLabel = styled.p`
   font-weight: ${fontWeight.bold};
   padding-right: 2rem;
 `;
-
-const HeadValue = styled.p`
-  color: ${colors.lightSupporting};
-`;
