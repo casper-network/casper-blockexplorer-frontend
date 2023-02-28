@@ -12,6 +12,7 @@ import {
   getValidators,
   getValidatorsTableOptions,
   Loading,
+  resetValidatorTableOptions,
   setValidatorTableOptions,
   updateValidatorPageNum,
   updateValidatorSorting,
@@ -45,6 +46,10 @@ export const ValidatorTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
+
+    return () => {
+      dispatch(resetValidatorTableOptions());
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -99,11 +104,13 @@ export const ValidatorTable: React.FC = () => {
         header: `${t('rank')}`,
         accessorKey: 'rank',
         enableSorting: false,
+        maxSize: 100,
       },
       {
         header: `${t('public-key')}`,
         accessorKey: 'publicKey',
         enableSorting: false,
+        minSize: 200,
         cell: ({ getValue }) => (
           <div>
             <Link
@@ -119,16 +126,19 @@ export const ValidatorTable: React.FC = () => {
       {
         header: `${t('fee-percentage')}`,
         accessorKey: 'feePercentage',
+        maxSize: 125,
         cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
       {
         header: `${t('delegators')}`,
         accessorKey: 'delegatorsCount',
+        maxSize: 125,
         cell: ({ getValue }) => standardizeNumber(getValue<number>()),
       },
       {
         header: `${t('total-stake')}`,
         accessorKey: 'totalStakeMotes',
+        minSize: 200,
         cell: ({ getValue }) => (
           <CSPRText>
             {/* TODO: use BigNumber.js library here? */}
@@ -140,11 +150,13 @@ export const ValidatorTable: React.FC = () => {
       {
         header: `${t('self-percentage')}`,
         accessorKey: 'selfPercentage',
+        maxSize: 150,
         cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
       {
         header: `${t('network-percentage')}`,
         accessorKey: 'percentageOfNetwork',
+        maxSize: 150,
         cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
     ],

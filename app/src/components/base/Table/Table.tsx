@@ -61,16 +61,16 @@ export function Table<T extends unknown>({
       <StyledTable>
         <TableHead>
           {getHeaderGroups().map(headerGroup => {
-            console.log({ headerGroup });
+            // console.log({ headerGroup });
 
             return (
               <TableHeader key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
-                  console.log({ header });
+                  // console.log({ header });
                   const isSorted = header.column.getIsSorted();
                   const canSort = header.column.getCanSort();
                   const content = header.getContext().column.id;
-                  console.log({ isSorted, canSort, content });
+                  // console.log({ isSorted, canSort, content });
 
                   return (
                     <Th
@@ -231,6 +231,7 @@ const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   justify-content: center;
   align-items: center;
   border-radius: ${pxToRem(5)};
+  margin-right: 0.5rem;
 
   * {
     color: white;
