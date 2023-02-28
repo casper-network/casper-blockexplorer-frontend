@@ -12,6 +12,7 @@ export interface AppConfig {
   logoUrl?: string;
   theme: Theme;
   faviconUrl?: string | undefined;
+  logoSize: number;
   title?: string | undefined;
   fontUrl?: string | undefined;
   primaryFontName?: string | undefined;
@@ -30,6 +31,7 @@ export const loadConfig: () => AppConfig = () => {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
+    REACT_APP_ORG_LOGO_SIZE: reactAppLogoSize,
     REACT_APP_THEME: reactAppTheme,
     REACT_APP_ORG_NAME: reactAppName,
     REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
@@ -41,6 +43,7 @@ export const loadConfig: () => AppConfig = () => {
   const {
     MIDDLEWARE_URL: middlewareUrl,
     ORG_LOGO_URL: orgLogoUrl,
+    ORG_LOGO_SIZE: orgLogoSize,
     THEME: prodTheme,
     ORG_NAME: orgName,
     ORG_FAVICON_URL: orgFaviconUrl,
@@ -57,6 +60,12 @@ export const loadConfig: () => AppConfig = () => {
     : reactAppMiddlewareUrl || 'http://localhost:4000';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
+
+  const logoSize = isProduction
+    ? orgLogoSize > 100
+      ? 100
+      : Math.abs(orgLogoSize)
+    : +reactAppLogoSize! || 0;
 
   const theme = isProduction
     ? JSON.parse(prodTheme || '{}')
@@ -88,6 +97,7 @@ export const loadConfig: () => AppConfig = () => {
     isProduction,
     webServerUrl,
     logoUrl,
+    logoSize,
     theme,
     faviconUrl,
     title,
