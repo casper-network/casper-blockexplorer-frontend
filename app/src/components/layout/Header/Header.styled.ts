@@ -9,7 +9,6 @@ export const HeaderComponent = styled.header`
 
 export const HeaderComponentsContainer = styled.div<{
   isFirstVisit: boolean;
-  isMobile: boolean;
 }>`
   display: flex;
   justify-content: space-between;

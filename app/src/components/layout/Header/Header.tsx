@@ -28,9 +28,7 @@ export const Header: React.FC = () => {
     <div>
       {isFirstVisit ? (
         <HeaderComponent>
-          <HeaderComponentsContainer
-            isFirstVisit={isFirstVisit}
-            isMobile={isMobile}>
+          <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
             {logo}
             <Navbar />
           </HeaderComponentsContainer>
