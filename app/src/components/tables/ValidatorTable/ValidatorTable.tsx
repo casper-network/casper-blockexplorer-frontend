@@ -178,11 +178,15 @@ export const ValidatorTable: React.FC = () => {
         },
       ]);
 
-      // TODO: if going from one id to the next -> shouldn't flip the asc/desc (default desc?)
+      let order: 'desc' | 'asc' = 'desc';
+      if (validatorsTableOptions.sorting.sortBy === updatedVal.id) {
+        order = updatedVal.desc ? 'desc' : 'asc';
+      }
+
       dispatch(
         updateValidatorSorting({
           sortBy: updatedVal.id,
-          order: updatedVal.desc ? 'desc' : 'asc',
+          order,
         }),
       );
     }
