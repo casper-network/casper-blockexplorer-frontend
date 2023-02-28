@@ -24,6 +24,7 @@ import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'src/components/utility';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
+import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
@@ -118,11 +119,7 @@ export const ValidatorTable: React.FC = () => {
       {
         header: `${t('fee-percentage')}`,
         accessorKey: 'feePercentage',
-        cell: ({ getValue }) =>
-          `${getValue<number>().toLocaleString('en', {
-            useGrouping: false,
-            minimumFractionDigits: 2,
-          })}%`,
+        cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
       {
         header: `${t('delegators')}`,
@@ -142,20 +139,12 @@ export const ValidatorTable: React.FC = () => {
       {
         header: `${t('self-percentage')}`,
         accessorKey: 'selfPercentage',
-        cell: ({ getValue }) =>
-          `${getValue<number>().toLocaleString('en', {
-            useGrouping: false,
-            minimumFractionDigits: 2,
-          })}%`,
+        cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
       {
         header: `${t('network-percentage')}`,
         accessorKey: 'percentageOfNetwork',
-        cell: ({ getValue }) =>
-          `${getValue<number>().toLocaleString('en', {
-            useGrouping: false,
-            minimumFractionDigits: 2,
-          })}%`,
+        cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
     ],
     [t],
