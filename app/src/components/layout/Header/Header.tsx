@@ -43,16 +43,12 @@ export const Header: React.FC = () => {
       ) : (
         <HeaderComponent>
           {!isMobile ? (
-            <HeaderComponentsContainer
-              isFirstVisit={isFirstVisit}
-              isMobile={isMobile}>
+            <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
               <Navbar />
             </HeaderComponentsContainer>
           ) : (
             <div>
-              <HeaderComponentsContainer
-                isFirstVisit={isFirstVisit}
-                isMobile={isMobile}>
+              <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
                 {logo}
                 <Navbar />
               </HeaderComponentsContainer>
