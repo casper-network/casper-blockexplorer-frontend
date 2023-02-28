@@ -78,10 +78,18 @@ export const peerSlice = createSlice({
       })
       .addCase(
         fetchPeers.fulfilled,
-        (state, { payload }: PayloadAction<ApiData.Peer[]>) => {
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<{
+            paginatedResult: ApiData.Peer[];
+            totalPeers: number;
+          }>,
+        ) => {
           state.status = Loading.Complete;
-          state.peers = payload;
-          state.totalPeers = state.peers.length;
+          state.peers = payload.paginatedResult;
+          state.totalPeers = payload.totalPeers;
         },
       )
       .addCase(fetchPeers.rejected, state => {

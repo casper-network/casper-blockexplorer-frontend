@@ -103,10 +103,10 @@ const createApi = (baseUrl: string) => {
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
-          data: { result },
+          data: { paginatedResult, totalPeers },
         } = response;
 
-        return result;
+        return { paginatedResult, totalPeers };
       },
     },
     account: {
