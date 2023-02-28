@@ -16,11 +16,7 @@ export const Validators: React.FC = () => {
     <PageWrapper isLoading={false}>
       <PageHead pageTitle={pageTitle} />
       <GradientHeading type="h2">{t('active-validators')}</GradientHeading>
-      <ValidatorTable
-      // validators={validators}
-      // isTableLoading={isTableLoading || isPageLoading}
-      // setIsTableLoading={setIsTableLoading}
-      />
+      <ValidatorTable />
     </PageWrapper>
   );
 };

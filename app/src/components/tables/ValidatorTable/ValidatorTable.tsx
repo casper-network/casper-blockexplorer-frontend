@@ -18,11 +18,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'src/store';
-import { truncateHash } from 'src/utils';
+import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'src/components/utility';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
+import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
@@ -117,28 +118,44 @@ export const ValidatorTable: React.FC = () => {
       {
         header: `${t('fee-percentage')}`,
         accessorKey: 'feePercentage',
-        // cell: () => (
-
-        // )
+        cell: ({ getValue }) =>
+          `${getValue<number>().toLocaleString('en', {
+            useGrouping: false,
+            minimumFractionDigits: 2,
+          })}%`,
       },
       {
         header: `${t('delegators')}`,
         accessorKey: 'delegatorsCount',
-        enableSorting: false,
+        cell: ({ getValue }) => standardizeNumber(getValue<number>()),
       },
       {
         header: `${t('total-stake')}`,
         accessorKey: 'totalStakeMotes',
+        cell: ({ getValue }) => (
+          <CSPRText>
+            {/* TODO: use BigNumber.js library here? */}
+            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))} CSPR
+          </CSPRText>
+        ),
       },
       {
         header: `${t('self-percentage')}`,
         accessorKey: 'selfPercentage',
-        enableSorting: false,
+        cell: ({ getValue }) =>
+          `${getValue<number>().toLocaleString('en', {
+            useGrouping: false,
+            minimumFractionDigits: 2,
+          })}%`,
       },
       {
         header: `${t('network-percentage')}`,
         accessorKey: 'percentageOfNetwork',
-        enableSorting: false,
+        cell: ({ getValue }) =>
+          `${getValue<number>().toLocaleString('en', {
+            useGrouping: false,
+            minimumFractionDigits: 2,
+          })}%`,
       },
     ],
     [t],
@@ -212,4 +229,8 @@ const ValidatorFooter = styled.div`
 
 const HeadValue = styled.p`
   color: ${colors.darkSupporting};
+`;
+
+const CSPRText = styled.span`
+  font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;
