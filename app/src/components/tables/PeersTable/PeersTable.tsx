@@ -78,9 +78,6 @@ export const PeersTable: React.FC<PeersTableProps> = ({
   const header = (
     <PeerTableHead>
       <HeadLabel>{t('currently-online')}</HeadLabel>
-      <HeadValue>
-        {peers.length} {t('total-rows')}
-      </HeadValue>
       <NumberedPagination
         tableOptions={peersTableOptions}
         setTableOptions={setPeerTableOptions}
@@ -105,6 +102,7 @@ export const PeersTable: React.FC<PeersTableProps> = ({
 
 const PeerTableHead = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
 const HeadLabel = styled.p`
