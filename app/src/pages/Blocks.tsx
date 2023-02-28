@@ -16,6 +16,7 @@ import {
   getTotalBlocks,
   getBlocksTableOptions,
   updateBlocksSorting,
+  restetBlocksTableOptions,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 
@@ -66,6 +67,12 @@ export const Blocks: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocks]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(restetBlocksTableOptions());
+    };
+  }, [dispatch]);
 
   return (
     <PageWrapper isLoading={false}>

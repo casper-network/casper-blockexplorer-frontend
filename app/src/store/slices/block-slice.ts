@@ -20,6 +20,17 @@ export interface BlockState {
   tableOptions: TableOptions;
 }
 
+const defaultTableOptions: TableOptions = {
+  pagination: {
+    pageSize: defaultPagination,
+    pageNum: 1,
+  },
+  sorting: {
+    sortBy: 'height',
+    order: 'desc',
+  },
+};
+
 const initialState: BlockState = {
   status: Loading.Idle,
   blocks: [],
@@ -29,16 +40,7 @@ const initialState: BlockState = {
   latestBlock: null,
   latestBlockLoadingStatus: Loading.Idle,
   totalBlocks: 0,
-  tableOptions: {
-    pagination: {
-      pageSize: defaultPagination,
-      pageNum: 1,
-    },
-    sorting: {
-      sortBy: 'height',
-      order: 'desc',
-    },
-  },
+  tableOptions: defaultTableOptions,
 };
 
 export const fetchBlocks = createAsyncThunk(
@@ -128,6 +130,9 @@ export const blockSlice = createSlice({
     ) => {
       state.tableOptions.sorting = action.payload;
     },
+    restetBlocksTableOptions: state => {
+      state.tableOptions = defaultTableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -178,4 +183,5 @@ export const {
   setBlocksTableOptions,
   updateBlocksPageNum,
   updateBlocksSorting,
+  restetBlocksTableOptions,
 } = blockSlice.actions;

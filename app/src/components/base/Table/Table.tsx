@@ -60,47 +60,55 @@ export function Table<T extends unknown>({
       <Header>{header}</Header>
       <StyledTable>
         <TableHead>
-          {getHeaderGroups().map(headerGroup => (
-            <TableHeader key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <Th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  style={{ width: header.getSize() }}
-                  sortable={header.column.getCanSort()}
-                  onClick={() =>
-                    header.column.getCanSort()
-                      ? header.column.toggleSorting(
-                          header.column.getIsSorted() === 'asc',
-                        )
-                      : undefined
-                  }>
-                  {header.isPlaceholder ? null : (
-                    <>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
+          {getHeaderGroups().map(headerGroup => {
+            return (
+              <TableHeader key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  const isSorted = header.column.getIsSorted();
+                  const canSort = header.column.getCanSort();
+
+                  return (
+                    <Th
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      style={{ width: header.getSize() }}
+                      sortable={header.column.getCanSort()}
+                      onClick={() =>
+                        header.column.getCanSort()
+                          ? header.column.toggleSorting(
+                              header.column.getIsSorted() === 'asc',
+                            )
+                          : undefined
+                      }>
+                      {header.isPlaceholder ? null : (
+                        <>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                          <span>
+                            {{
+                              asc: (
+                                <SortIconWrapper>
+                                  <SortIcon src={upIcon} alt="sort-asc" />
+                                </SortIconWrapper>
+                              ),
+                              desc: (
+                                <SortIconWrapper>
+                                  <SortIcon src={downIcon} alt="sort-desc" />
+                                </SortIconWrapper>
+                              ),
+                            }[header.column.getIsSorted() as string] ?? null}
+                            {canSort && !isSorted && <CanSortWrapper />}
+                          </span>
+                        </>
                       )}
-                      <span>
-                        {{
-                          asc: (
-                            <SortIconWrapper>
-                              <SortIcon src={upIcon} alt="sort-asc" />
-                            </SortIconWrapper>
-                          ),
-                          desc: (
-                            <SortIconWrapper>
-                              <SortIcon src={downIcon} alt="sort-desc" />
-                            </SortIconWrapper>
-                          ),
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </span>
-                    </>
-                  )}
-                </Th>
-              ))}
-            </TableHeader>
-          ))}
+                    </Th>
+                  );
+                })}
+              </TableHeader>
+            );
+          })}
         </TableHead>
         {tableBodyLoading ? (
           <TableBodyLoadingWrapper
@@ -219,6 +227,7 @@ const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   justify-content: center;
   align-items: center;
   border-radius: ${pxToRem(5)};
+  margin-right: 0.5rem;
 
   * {
     color: white;
@@ -234,4 +243,15 @@ const SortIcon = styled.img`
   width: ${pxToRem(12)};
   height: ${pxToRem(12)};
   margin: 0;
+`;
+
+const CanSortWrapper = styled.div`
+  height: ${pxToRem(27)};
+  width: ${pxToRem(27)};
+  background-color: #02115f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${pxToRem(5)};
+  margin-right: 0.5rem;
 `;

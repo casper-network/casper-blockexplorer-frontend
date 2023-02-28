@@ -15,21 +15,23 @@ export interface ValidatorState {
   tableOptions: TableOptions;
 }
 
+const defaultTableOptions: TableOptions = {
+  pagination: {
+    pageSize: defaultPagination,
+    pageNum: 1,
+  },
+  sorting: {
+    sortBy: 'totalStakeMotes',
+    order: 'desc',
+  },
+};
+
 const initialState: ValidatorState = {
   status: Loading.Idle,
   validators: [],
   currentEraValidatorStatus: null,
   currentEraValidatorStatusLoadingStatus: Loading.Idle,
-  tableOptions: {
-    pagination: {
-      pageSize: defaultPagination,
-      pageNum: 1,
-    },
-    sorting: {
-      sortBy: '',
-      order: 'desc',
-    },
-  },
+  tableOptions: defaultTableOptions,
 };
 
 export const fetchValidators = createAsyncThunk(
@@ -86,6 +88,9 @@ export const validatorSlice = createSlice({
     ) => {
       state.tableOptions.sorting = action.payload;
     },
+    resetValidatorTableOptions: state => {
+      state.tableOptions = defaultTableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -125,4 +130,5 @@ export const {
   setValidatorTableOptions,
   updateValidatorPageNum,
   updateValidatorSorting,
+  resetValidatorTableOptions,
 } = validatorSlice.actions;
