@@ -27,7 +27,7 @@ export const Home: React.FC = () => {
     dispatch(fetchLatestBlock());
     dispatch(fetchPeers(peersTableOptions));
     dispatch(fetchCurrentEraValidatorStatus());
-  }, [dispatch]);
+  }, [dispatch, peersTableOptions]);
 
   const latestBlock = useAppSelector(getLatestBlock);
 
