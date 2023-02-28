@@ -141,7 +141,7 @@ export const ValidatorTable: React.FC = () => {
         minSize: 200,
         cell: ({ getValue }) => (
           <CSPRText>
-            {/* TODO: use BigNumber.js library here? */}
+            {/* TODO: see https://github.com/casper-network/casper-blockexplorer-middleware/issues/23 */}
             {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
             {t('cspr')}
           </CSPRText>
