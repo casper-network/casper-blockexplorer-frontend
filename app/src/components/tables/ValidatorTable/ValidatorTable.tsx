@@ -1,33 +1,65 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
 import { colors, pxToRem } from 'src/styled-theme';
 import {
+  fetchCurrentEraValidatorStatus,
+  fetchValidators,
+  getCurrentEraValidatorStatusStatus,
   getTotalEraValidators,
+  getValidatorLoadingStatus,
+  getValidators,
   getValidatorsTableOptions,
+  Loading,
   setValidatorTableOptions,
   updateValidatorPageNum,
+  updateValidatorSorting,
+  useAppDispatch,
   useAppSelector,
 } from 'src/store';
 import { truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
+import { Link } from 'react-router-dom';
+import { CopyToClipboard } from 'src/components/utility';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
-interface ValidatorTableProps {
-  readonly validators: ApiData.ValidatorsInfo[];
-  isTableLoading: boolean;
-  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export const ValidatorTable: React.FC = () => {
+  const [isTableLoading, setIsTableLoading] = useState(false);
 
-export const ValidatorTable: React.FC<ValidatorTableProps> = ({
-  validators,
-  isTableLoading,
-  setIsTableLoading,
-}) => {
   const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
+
+  const validators = useAppSelector(getValidators);
+  const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
+  const validatorsStatusLoadingStatus = useAppSelector(
+    getCurrentEraValidatorStatusStatus,
+  );
+  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
+  const totalEraValidators = useAppSelector(getTotalEraValidators);
+
+  useEffect(() => {
+    dispatch(fetchCurrentEraValidatorStatus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchValidators(validatorsTableOptions));
+  }, [dispatch, validatorsTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validators]);
+
+  const isPageLoading =
+    validatorsLoadingStatus !== Loading.Complete ||
+    validatorsStatusLoadingStatus !== Loading.Complete ||
+    !validators.length;
 
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
     () => [
@@ -53,9 +85,6 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
     [t],
   );
 
-  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
-  const totalEraValidators = useAppSelector(getTotalEraValidators);
-
   const totalPages = useMemo(() => {
     return Math.ceil(
       totalEraValidators / validatorsTableOptions.pagination.pageSize,
@@ -72,12 +101,25 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       {
         header: `${t('public-key')}`,
         accessorKey: 'publicKey',
-        cell: ({ getValue }) => truncateHash(getValue<string>()),
+        enableSorting: false,
+        cell: ({ getValue }) => (
+          <div>
+            <Link
+              to={{
+                pathname: `/account/${getValue<string>()}`,
+              }}>
+              {truncateHash(getValue<string>())}
+            </Link>
+            <CopyToClipboard textToCopy={getValue<string>()} />
+          </div>
+        ),
       },
       {
         header: `${t('fee-percentage')}`,
         accessorKey: 'feePercentage',
-        enableSorting: false,
+        // cell: () => (
+
+        // )
       },
       {
         header: `${t('delegators')}`,
@@ -87,7 +129,6 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
       {
         header: `${t('total-stake')}`,
         accessorKey: 'totalStakeMotes',
-        enableSorting: false,
       },
       {
         header: `${t('self-percentage')}`,
@@ -119,14 +160,40 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
     </ValidatorTableHead>
   );
 
+  const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {
+    setIsTableLoading(true);
+    if (updaterOrValue instanceof Function) {
+      const [updatedVal] = updaterOrValue([
+        {
+          id: validatorsTableOptions.sorting.sortBy,
+          desc: validatorsTableOptions.sorting.order === 'desc',
+        },
+      ]);
+
+      dispatch(
+        updateValidatorSorting({
+          sortBy: updatedVal.id,
+          order: updatedVal.desc ? 'desc' : 'asc',
+        }),
+      );
+    }
+  };
+
   return (
     <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
       data={validators}
       footer={<ValidatorFooter />}
-      tableBodyLoading={isTableLoading}
+      tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
+      sorting={[
+        {
+          id: validatorsTableOptions.sorting.sortBy,
+          desc: validatorsTableOptions.sorting.order === 'desc',
+        },
+      ]}
+      onSortingChange={onSortingChange}
     />
   );
 };

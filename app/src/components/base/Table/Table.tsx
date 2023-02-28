@@ -60,47 +60,59 @@ export function Table<T extends unknown>({
       <Header>{header}</Header>
       <StyledTable>
         <TableHead>
-          {getHeaderGroups().map(headerGroup => (
-            <TableHeader key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <Th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  style={{ width: header.getSize() }}
-                  sortable={header.column.getCanSort()}
-                  onClick={() =>
-                    header.column.getCanSort()
-                      ? header.column.toggleSorting(
-                          header.column.getIsSorted() === 'asc',
-                        )
-                      : undefined
-                  }>
-                  {header.isPlaceholder ? null : (
-                    <>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
+          {getHeaderGroups().map(headerGroup => {
+            console.log({ headerGroup });
+
+            return (
+              <TableHeader key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  console.log({ header });
+                  const isSorted = header.column.getIsSorted();
+                  const canSort = header.column.getCanSort();
+                  const content = header.getContext().column.id;
+                  console.log({ isSorted, canSort, content });
+
+                  return (
+                    <Th
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      style={{ width: header.getSize() }}
+                      sortable={header.column.getCanSort()}
+                      onClick={() =>
+                        header.column.getCanSort()
+                          ? header.column.toggleSorting(
+                              header.column.getIsSorted() === 'asc',
+                            )
+                          : undefined
+                      }>
+                      {header.isPlaceholder ? null : (
+                        <>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                          <span>
+                            {{
+                              asc: (
+                                <SortIconWrapper>
+                                  <SortIcon src={upIcon} alt="sort-asc" />
+                                </SortIconWrapper>
+                              ),
+                              desc: (
+                                <SortIconWrapper>
+                                  <SortIcon src={downIcon} alt="sort-desc" />
+                                </SortIconWrapper>
+                              ),
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </span>
+                        </>
                       )}
-                      <span>
-                        {{
-                          asc: (
-                            <SortIconWrapper>
-                              <SortIcon src={upIcon} alt="sort-asc" />
-                            </SortIconWrapper>
-                          ),
-                          desc: (
-                            <SortIconWrapper>
-                              <SortIcon src={downIcon} alt="sort-desc" />
-                            </SortIconWrapper>
-                          ),
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </span>
-                    </>
-                  )}
-                </Th>
-              ))}
-            </TableHeader>
-          ))}
+                    </Th>
+                  );
+                })}
+              </TableHeader>
+            );
+          })}
         </TableHead>
         {tableBodyLoading ? (
           <TableBodyLoadingWrapper

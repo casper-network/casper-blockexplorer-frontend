@@ -26,7 +26,7 @@ const initialState: ValidatorState = {
       pageNum: 1,
     },
     sorting: {
-      sortBy: '',
+      sortBy: 'totalStakeMotes',
       order: 'desc',
     },
   },
