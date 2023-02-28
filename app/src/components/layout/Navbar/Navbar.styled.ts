@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Button } from 'src/components/base';
 import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
@@ -83,9 +84,8 @@ export const DesktopNavItemsContainer = styled.ul`
   min-height: 3.3rem;
 `;
 
-export const DesktopNavItemLink = styled(Link)`
+export const DesktopNavItemLink = styled(Button)`
   transition: all 0.2s ease;
-  color: ${colors.primary};
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;
@@ -103,4 +103,66 @@ export const DesktopNavItemLink = styled(Link)`
     padding: ${pxToRem(6)} ${pxToRem(20)};
     text-decoration: none;
   }
+`;
+
+export const TestDesktopNavItemLink = styled(Button)<{ isSelected: boolean }>`
+  transition: all 0.2s ease;
+  color: ${({ isSelected }) =>
+    isSelected ? `${colors.white}` : `${colors.primary}`};
+  background-color: ${({ isSelected }) =>
+    isSelected ? `${colors.primary}` : 'RED'};
+  /* ORIGINAL */
+  /* color: ${({ isSelected }) =>
+    isSelected ? `${colors.white}` : `${colors.primary}`};
+  background-color: ${({ isSelected }) =>
+    isSelected ? `${colors.primary}` : 'transparent'}; */
+  padding: ${pxToRem(6)} ${pxToRem(20)};
+  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: ${pxToRem(8)};
+
+  :focus {
+    text-decoration: none;
+  }
+
+  :active,
+  :hover {
+    color: ${colors.white};
+    background-color: ${colors.primary};
+    padding: ${pxToRem(6)} ${pxToRem(20)};
+    text-decoration: none;
+  }
+`;
+
+// ORIGINAL
+// export const DesktopNavItemLink = styled(Link)`
+//   transition: all 0.2s ease;
+//   color: ${colors.primary};
+//   padding: ${pxToRem(6)} ${pxToRem(20)};
+//   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+//   font-weight: 500;
+//   text-decoration: none;
+//   border-radius: ${pxToRem(8)};
+
+//   :focus {
+//     text-decoration: none;
+//   }
+
+//   :active,
+//   :hover {
+//     color: ${colors.white};
+//     background-color: ${colors.primary};
+//     padding: ${pxToRem(6)} ${pxToRem(20)};
+//     text-decoration: none;
+//   }
+// `;
+
+export const DefaultNavItemLinkWrapper = styled(Button)<{
+  isSelected: boolean;
+}>`
+  background-color: ${({ isSelected }) =>
+    isSelected ? `${colors.primary}` : 'transparent'};
+  color: ${({ isSelected }) =>
+    isSelected ? `${colors.white}` : `${colors.primary}`}; ;
 `;
