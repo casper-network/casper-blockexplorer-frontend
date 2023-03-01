@@ -16,6 +16,7 @@ import { Loader } from 'src/components/utility';
 import { loadConfig } from 'src/utils';
 import upIcon from '../../../assets/images/up-icon.png';
 import downIcon from '../../../assets/images/down-icon.png';
+import downIconSupporting from '../../../assets/images/down-icon-supporting.png';
 
 const { defaultPagination } = loadConfig();
 
@@ -99,7 +100,14 @@ export function Table<T extends unknown>({
                                 </SortIconWrapper>
                               ),
                             }[header.column.getIsSorted() as string] ?? null}
-                            {canSort && !isSorted && <CanSortWrapper />}
+                            {canSort && !isSorted && (
+                              <SortIconNeutralWrapper>
+                                <SortIconNeutral
+                                  src={downIconSupporting}
+                                  alt="sort"
+                                />
+                              </SortIconNeutralWrapper>
+                            )}
                           </span>
                         </>
                       )}
@@ -169,7 +177,7 @@ const StyledTable = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${colors.lightSupporting};
+  background-color: ${colors.mediumSupporting};
 `;
 
 const TableHeader = styled.tr`
@@ -245,13 +253,28 @@ const SortIcon = styled.img`
   margin: 0;
 `;
 
-const CanSortWrapper = styled.div`
+const SortIconNeutral = styled.img`
+  width: ${pxToRem(18)};
+  height: ${pxToRem(18)};
+  margin: 0;
+`;
+
+const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
-  background-color: #02115f;
+  background-color: ${colors.lightSupporting};
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: ${pxToRem(5)};
   margin-right: 0.5rem;
+
+  * {
+    color: white;
+    z-index: 1;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
