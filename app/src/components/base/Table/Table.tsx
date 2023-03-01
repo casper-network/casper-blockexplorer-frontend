@@ -142,14 +142,6 @@ export function Table<T extends unknown>({
             );
           })}
         </TableHead>
-        {/* {tableBodyLoading ? (
-          <TableBodyLoadingWrapper
-            pageSize={currentPageSize ?? defaultPagination}>
-            <LoadingPositionWrapper>
-              <Loader size="lg" />
-            </LoadingPositionWrapper>
-          </TableBodyLoadingWrapper>
-        ) : ( */}
         <tbody>
           {getRowModel().rows.map(row => (
             <TableBodyRow key={row.id}>
@@ -165,7 +157,6 @@ export function Table<T extends unknown>({
             </TableBodyRow>
           ))}
         </tbody>
-        {/* )} */}
       </StyledTable>
       {footer}
     </TableWrapper>
