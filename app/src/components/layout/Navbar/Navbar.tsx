@@ -77,7 +77,6 @@ export const Navbar: React.FC = () => {
   const handleNavItemSelection = (event: {
     target: { innerText: React.SetStateAction<string> };
   }) => {
-    console.log(event.target);
     setSelectedRoute(event.target.innerText);
   };
 
