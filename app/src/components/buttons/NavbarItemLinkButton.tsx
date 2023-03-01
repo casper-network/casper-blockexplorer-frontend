@@ -7,11 +7,11 @@ export interface NavbarItemLinkButtonProps {
   readonly title: string;
   readonly children: React.ReactNode;
 
-  readonly selectedRoute: any;
+  readonly selectedRoute: string;
 
   readonly handleNavItemSelection: (event: {
     target: {
-      innerText: React.SetStateAction<null>;
+      innerText: React.SetStateAction<string>;
     };
   }) => void;
 }

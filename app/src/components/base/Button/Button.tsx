@@ -6,9 +6,7 @@ export type ButtonType = 'submit' | 'reset' | 'button';
 
 export interface ButtonProps {
   readonly children: React.ReactNode;
-
-  readonly onClick?: any;
-
+  readonly onClick?: (params?: any) => void;
   readonly color?: string;
   readonly type: ButtonType;
   readonly className?: string;

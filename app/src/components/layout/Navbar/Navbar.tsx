@@ -49,14 +49,7 @@ const navItems = [
 
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>();
-
-  const [selectedRoute, setSelectedRoute] = useState(null);
-
-  const handleNavItemSelection = (event: {
-    target: { innerText: React.SetStateAction<null> };
-  }) => {
-    setSelectedRoute(event.target.innerText);
-  };
+  const [selectedRoute, setSelectedRoute] = useState('');
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
@@ -80,6 +73,13 @@ export const Navbar: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
+
+  const handleNavItemSelection = (event: {
+    target: { innerText: React.SetStateAction<string> };
+  }) => {
+    console.log(event.target);
+    setSelectedRoute(event.target.innerText);
+  };
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
