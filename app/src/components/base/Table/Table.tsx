@@ -13,12 +13,9 @@ import Skeleton from 'react-loading-skeleton';
 import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
-import { loadConfig } from 'src/utils';
 import upIcon from '../../../assets/images/up-icon.png';
 import downIcon from '../../../assets/images/down-icon.png';
 import downIconSupporting from '../../../assets/images/down-icon-supporting.png';
-
-const { defaultPagination } = loadConfig();
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -52,11 +49,11 @@ export function Table<T extends unknown>({
 }: TableProps<T>) {
   const tableData = useMemo(() => {
     if (!data.length || data.length !== currentPageSize) {
-      return Array(currentPageSize).fill(placeholderData ?? {});
+      return Array(currentPageSize).fill(placeholderData ?? {}) as T[];
     }
 
     return data;
-  }, [data, currentPageSize]);
+  }, [data, currentPageSize, placeholderData]);
 
   const tableColumns = useMemo(() => {
     return tableBodyLoading
@@ -227,16 +224,6 @@ const TableBodyItem = styled.td`
   text-align: start;
   padding: 0 ${pxToRem(32)};
   border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
-`;
-
-const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
-  height: calc(${({ pageSize }) => pageSize} * ${pxToRem(50)});
-`;
-
-const LoadingPositionWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 90%;
 `;
 
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
