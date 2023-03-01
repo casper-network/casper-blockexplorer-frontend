@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { Link } from 'react-router-dom';
-
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
 import { loadConfig } from 'src/utils';
+
+import { NavbarItemLinkButton } from 'src/components/buttons';
 import { NavButton } from '../../buttons/NavButton';
 import { SearchForm } from '../Header/Partials';
 
@@ -22,45 +23,44 @@ import {
 
 import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
 import { ConfigurableLogo, DefaultNavLogo } from '../LogoComponents';
-import { NavbarLinkButton } from './NavbarLinkButton';
 
 const navItems = [
   {
-    title: 'home',
+    title: 'Home',
     path: '/',
     key: 'home',
   },
   {
-    title: 'blocks',
+    title: 'Blocks',
     path: '/blocks',
     key: 'blocks',
   },
   {
-    title: 'peers',
+    title: 'Peers',
     path: '/peers',
     key: 'peers',
   },
   {
-    title: 'validators',
+    title: 'Validators',
     path: '/validators',
     key: 'validators',
   },
 ];
 
 export const Navbar: React.FC = () => {
-  const [activeRoute, setActiveRoute] = useState<string>('home');
+  const [isOpened, setIsOpened] = useState<boolean>();
 
-  const navItemLinkHandler = (event: any, title: string) => {
-    event.preventDefault();
-    console.log(event.target.id, title);
-    if (event.target.id === title) {
-      setActiveRoute(event.target.id);
-    }
+  // TODO:
+  const [selectedRoute, setSelectedRoute] = useState(null);
+
+  // TODO:
+  const handleNavItemSelection = (event: {
+    target: { innerText: React.SetStateAction<null> };
+  }) => {
+    setSelectedRoute(event.target.innerText);
   };
 
-  // Below original
   const isFirstVisit = useAppSelector(getIsFirstVisit);
-  const [isOpened, setIsOpened] = useState<boolean>(false);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
 
@@ -71,7 +71,7 @@ export const Navbar: React.FC = () => {
       if (event.key === 'Escape') {
         event.preventDefault();
         if (isOpened) {
-          setIsOpened(false);
+          setIsOpened(!isOpened);
         }
       }
     };
@@ -125,19 +125,12 @@ export const Navbar: React.FC = () => {
               {navItems.map(({ path, title, key }) => {
                 return (
                   <Link key={key} to={path}>
-                    <NavbarLinkButton
+                    <NavbarItemLinkButton
                       title={title}
-                      activeRoute={activeRoute}
-                      setActiveRoute={setActiveRoute}
-                      navItemLinkHandler={navItemLinkHandler}
-                    />
-                    {/* <DesktopNavItemLink
-                      type="button"
-                      onClick={() => {
-                        console.log(title);
-                      }}>
+                      handleNavItemSelection={handleNavItemSelection}
+                      selectedRoute={selectedRoute}>
                       {t(title)}
-                    </DesktopNavItemLink> */}
+                    </NavbarItemLinkButton>
                   </Link>
                 );
               })}
