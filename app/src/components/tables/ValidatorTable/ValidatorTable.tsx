@@ -105,6 +105,7 @@ export const ValidatorTable: React.FC = () => {
         accessorKey: 'rank',
         enableSorting: false,
         maxSize: 100,
+        cell: ({ getValue }) => getValue<number>(),
       },
       {
         header: `${t('public-key')}`,
