@@ -15,7 +15,7 @@ import {
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
-import { colors, fontWeight } from 'src/styled-theme';
+import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
@@ -109,6 +109,7 @@ export const PeersTable: React.FC = () => {
       header={header}
       columns={columns}
       data={peers}
+      footer={<PeersFooter />}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={peersTableOptions.pagination.pageSize}
     />
@@ -118,10 +119,15 @@ export const PeersTable: React.FC = () => {
 const PeerTableHead = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const HeadLabel = styled.p`
   color: ${colors.black};
   font-weight: ${fontWeight.bold};
   padding-right: 2rem;
+`;
+
+const PeersFooter = styled.div`
+  height: ${pxToRem(50)};
 `;
