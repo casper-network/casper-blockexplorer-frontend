@@ -55,7 +55,7 @@ export function Table<T extends unknown>({
     }
 
     return data;
-  }, [data, currentPageSize, placeholderData]);
+  }, [data, currentPageSize, placeholderData, isLastPage]);
 
   const tableColumns = useMemo(() => {
     return tableBodyLoading
