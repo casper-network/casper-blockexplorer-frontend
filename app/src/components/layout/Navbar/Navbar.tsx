@@ -48,7 +48,7 @@ const navItems = [
 ];
 
 export const Navbar: React.FC = () => {
-  const [isOpened, setIsOpened] = useState<boolean>();
+  const [isOpened, setIsOpened] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState('');
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
       if (event.key === 'Escape') {
         event.preventDefault();
         if (isOpened) {
-          setIsOpened(!isOpened);
+          setIsOpened(false);
         }
       }
     };
@@ -124,6 +124,7 @@ export const Navbar: React.FC = () => {
                   <Link key={key} to={path}>
                     <NavbarItemLinkButton
                       title={title}
+                      key={key}
                       handleNavItemSelection={handleNavItemSelection}
                       selectedRoute={selectedRoute}>
                       {t(title)}
