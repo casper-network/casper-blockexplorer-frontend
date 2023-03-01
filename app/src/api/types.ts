@@ -54,7 +54,8 @@ export namespace ApiData {
   }
 
   export interface Peers {
-    result: Peer[];
+    paginatedResult: Peer[];
+    totalPeers: number;
   }
 
   export interface Peer {

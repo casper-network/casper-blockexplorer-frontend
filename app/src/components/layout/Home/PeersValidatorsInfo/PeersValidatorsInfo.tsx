@@ -5,6 +5,7 @@ import { ApiData } from 'src/api/types';
 import {
   getCurrentEraValidatorStatusStatus,
   getPeerLoadingStatus,
+  getTotalPeers,
   Loading,
   useAppSelector,
 } from 'src/store';
@@ -25,12 +26,10 @@ import { PeersIcon } from '../../../icons';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 interface PeersValidatorsInfoProps {
-  readonly currentPeers: ApiData.Peer[];
   readonly currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
 }
 
 export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
-  currentPeers,
   currentEraValidatorStatus,
 }) => {
   const { t } = useTranslation();
@@ -39,6 +38,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   const validatorsLoadingStatus = useAppSelector(
     getCurrentEraValidatorStatusStatus,
   );
+  const currentTotalPeers = useAppSelector(getTotalPeers);
 
   const isLoadingPeers = peersLoadingStatus !== Loading.Complete;
   const isLoadingValidators = validatorsLoadingStatus !== Loading.Complete;
@@ -83,7 +83,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
             {isLoadingPeers ? (
               <Skeleton width={60} duration={1} />
             ) : (
-              currentPeers.length
+              currentTotalPeers
             )}
           </H3Data>
         </Info>

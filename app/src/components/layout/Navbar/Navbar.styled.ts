@@ -14,12 +14,10 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
 
 export const LogoSearchFormWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: ${pxToRem(20)};
   width: 100%;
-  padding-left: ${pxToRem(20)};
 `;
 
 export const NavComponentsContainer = styled.div`
@@ -27,6 +25,7 @@ export const NavComponentsContainer = styled.div`
 `;
 
 export const NavItemsContainer = styled.div`
+  display: flex;
   width: 100%;
 `;
 
@@ -81,7 +80,7 @@ export const DesktopNavItemsContainer = styled.ul`
   align-items: center;
   gap: ${pxToRem(4)};
   width: 100%;
-  min-height: 3.3rem;
+  min-height: ${pxToRem(75)};
 `;
 
 export const DesktopNavItemLink = styled(Button)`

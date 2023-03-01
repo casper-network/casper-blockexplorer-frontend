@@ -9,20 +9,19 @@ export const HeaderComponent = styled.header`
 
 export const HeaderComponentsContainer = styled.div<{
   isFirstVisit: boolean;
-  isMobile: boolean;
 }>`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   width: 100%;
   max-width: ${pxToRem(1400)};
-  width: ${({ isMobile }) => (isMobile ? '100%' : '98%')};
-  margin: ${({ isMobile }) => (isMobile ? '0' : '0 auto')};
-
-  padding: 1.75rem 1.7rem 1.7rem 2.17rem;
+  width: 100%;
+  margin: 0;
+  padding-right: 0.8rem;
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: 3.5rem 2rem 1.75rem 2rem;
+    width: 98%;
+    margin: 0 auto;
+    padding-right: 0;
   }
 `;
 
