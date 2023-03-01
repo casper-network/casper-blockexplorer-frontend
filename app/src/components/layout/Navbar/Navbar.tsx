@@ -50,10 +50,8 @@ const navItems = [
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>();
 
-  // TODO:
   const [selectedRoute, setSelectedRoute] = useState(null);
 
-  // TODO:
   const handleNavItemSelection = (event: {
     target: { innerText: React.SetStateAction<null> };
   }) => {

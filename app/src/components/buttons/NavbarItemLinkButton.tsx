@@ -7,9 +7,8 @@ export interface NavbarItemLinkButtonProps {
   readonly title: string;
   readonly children: React.ReactNode;
 
-  // TODO:
   readonly selectedRoute: any;
-  // TODO:
+
   readonly handleNavItemSelection: (event: {
     target: {
       innerText: React.SetStateAction<null>;
