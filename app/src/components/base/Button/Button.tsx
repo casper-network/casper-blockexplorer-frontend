@@ -1,17 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colors, pxToRem } from '../../../styled-theme';
+import { pxToRem } from '../../../styled-theme';
 
 export type ButtonType = 'submit' | 'reset' | 'button';
 
 export interface ButtonProps {
   readonly children: React.ReactNode;
-  // readonly onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  // readonly onClick?: React.MouseEvent<HTMLElement>;
-  // readonly onClick?: (event: MouseEvent) => React.MouseEvent<HTMLElement>;
-  // readonly onClick?: (e: React.MouseEvent) => void;
-  // readonly onClick?: () => void;
+
+  // TODO:
   readonly onClick?: any;
+
   readonly color?: string;
   readonly type: ButtonType;
   readonly className?: string;
@@ -20,10 +18,10 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({
+  type,
   children,
   onClick,
   color = 'blue',
-  type,
   className,
   isDisabled = false,
   id,
@@ -32,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
     <StyledButton
       type={type}
       className={className}
-      bgColor={color}
+      color={color}
       onClick={onClick}
       disabled={isDisabled}
       id={id}>
@@ -41,9 +39,9 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const StyledButton = styled.button<{ bgColor: string }>`
-  color: ${colors.white};
-  background-color: ${({ bgColor }) => bgColor};
+const StyledButton = styled.button<{ color: string }>`
+  color: white;
+  background-color: ${({ color }) => color};
   text-align: center;
   padding: ${pxToRem(10)};
   border-radius: ${pxToRem(10)};
