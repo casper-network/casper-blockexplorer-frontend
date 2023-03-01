@@ -44,6 +44,7 @@ export const PeersTable: React.FC = () => {
   const isPageLoading = peerLoadingStatus !== Loading.Complete || !peers.length;
 
   const totalPeers = useAppSelector(getTotalPeers);
+
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
     () => [
       {
@@ -112,6 +113,7 @@ export const PeersTable: React.FC = () => {
       footer={<PeersFooter />}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={peersTableOptions.pagination.pageSize}
+      isLastPage={totalPages === peersTableOptions.pagination.pageNum}
     />
   );
 };

@@ -46,6 +46,7 @@ const Template = () => {
       columns={columns}
       data={data}
       footer={footer}
+      isLastPage={false}
     />
   );
 };

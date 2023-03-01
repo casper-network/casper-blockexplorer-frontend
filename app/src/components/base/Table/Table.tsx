@@ -33,6 +33,7 @@ export interface TableProps<T> {
   - placeholderData can be anything, it just has to match nested data type
   */
   placeholderData?: { [key: string]: any };
+  isLastPage: boolean;
 }
 
 export function Table<T extends unknown>({
@@ -46,9 +47,10 @@ export function Table<T extends unknown>({
   tableBodyLoading,
   currentPageSize,
   placeholderData,
+  isLastPage,
 }: TableProps<T>) {
   const tableData = useMemo(() => {
-    if (!data.length || data.length !== currentPageSize) {
+    if (!data.length || (data.length !== currentPageSize && !isLastPage)) {
       return Array(currentPageSize).fill(placeholderData ?? {}) as T[];
     }
 
