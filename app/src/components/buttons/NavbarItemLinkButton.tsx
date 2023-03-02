@@ -7,11 +7,9 @@ export interface NavbarItemLinkButtonProps {
   readonly title: string;
   readonly children: React.ReactNode;
   readonly selectedRoute: string;
-  readonly handleNavItemSelection: (event: {
-    target: {
-      innerText: React.SetStateAction<string>;
-    };
-  }) => void;
+  readonly handleNavItemSelection: (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => void;
 }
 
 export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
@@ -24,10 +22,12 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
     type="button"
     onClick={handleNavItemSelection}
     selectedRoute={selectedRoute}
+    id={title}
     title={title}>
     {children}
   </DesktopNavItemLink>
 );
+
 const DesktopNavItemLink = styled(Button)<{
   selectedRoute: string;
   title: string;

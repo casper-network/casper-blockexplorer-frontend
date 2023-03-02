@@ -74,10 +74,10 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpened]);
 
-  const handleNavItemSelection = (event: {
-    target: { innerText: React.SetStateAction<string> };
-  }) => {
-    setSelectedRoute(event.target.innerText);
+  const handleNavItemSelection = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): void => {
+    setSelectedRoute(event.currentTarget.id);
   };
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
