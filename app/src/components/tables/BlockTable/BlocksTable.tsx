@@ -196,6 +196,10 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       footer={footer}
       tableBodyLoading={isTableLoading}
       currentPageSize={blocksTableOptions.pagination.pageSize}
+      placeholderData={{
+        header: { height: 0 },
+      }}
+      isLastPage={totalPages === blocksTableOptions.pagination.pageNum}
       {...props}
     />
   );

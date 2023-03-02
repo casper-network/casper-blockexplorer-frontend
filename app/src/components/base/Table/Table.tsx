@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   ColumnDef,
   flexRender,
@@ -9,16 +9,13 @@ import {
   TableOptions,
   useReactTable,
 } from '@tanstack/react-table';
+import Skeleton from 'react-loading-skeleton';
 import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
-import { Loader } from 'src/components/utility';
-import { loadConfig } from 'src/utils';
 import upIcon from '../../../assets/images/up-icon.png';
 import downIcon from '../../../assets/images/down-icon.png';
 import downIconSupporting from '../../../assets/images/down-icon-supporting.png';
-
-const { defaultPagination } = loadConfig();
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -30,6 +27,13 @@ export interface TableProps<T> {
   initialSorting?: SortingState;
   tableBodyLoading?: boolean;
   currentPageSize?: number;
+  /*
+  - used for deeply nested accessor values to allow for skeleton loaders to work
+  - parsing tableData will throw error without
+  - placeholderData can be anything, it just has to match nested data type
+  */
+  placeholderData?: { [key: string]: any };
+  isLastPage: boolean;
 }
 
 export function Table<T extends unknown>({
@@ -42,10 +46,29 @@ export function Table<T extends unknown>({
   initialSorting,
   tableBodyLoading,
   currentPageSize,
+  placeholderData,
+  isLastPage,
 }: TableProps<T>) {
+  const tableData = useMemo(() => {
+    if (!data.length || (data.length !== currentPageSize && !isLastPage)) {
+      return Array(currentPageSize).fill(placeholderData ?? {}) as T[];
+    }
+
+    return data;
+  }, [data, currentPageSize, placeholderData, isLastPage]);
+
+  const tableColumns = useMemo(() => {
+    return tableBodyLoading
+      ? columns.map(column => ({
+          ...column,
+          cell: () => <Skeleton />,
+        }))
+      : columns;
+  }, [tableBodyLoading, columns]);
+
   const options: TableOptions<T> = {
-    data,
-    columns,
+    data: tableData,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   };
@@ -118,33 +141,21 @@ export function Table<T extends unknown>({
             );
           })}
         </TableHead>
-        {tableBodyLoading ? (
-          <TableBodyLoadingWrapper
-            pageSize={currentPageSize ?? defaultPagination}>
-            <LoadingPositionWrapper>
-              <Loader size="lg" />
-            </LoadingPositionWrapper>
-          </TableBodyLoadingWrapper>
-        ) : (
-          <tbody>
-            {getRowModel().rows.map(row => (
-              <TableBodyRow key={row.id}>
-                {row.getVisibleCells().map(cell => {
-                  return (
-                    <TableBodyItem
-                      key={cell.id}
-                      style={{ width: cell.column.getSize() }}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableBodyItem>
-                  );
-                })}
-              </TableBodyRow>
-            ))}
-          </tbody>
-        )}
+        <tbody>
+          {getRowModel().rows.map(row => (
+            <TableBodyRow key={row.id}>
+              {row.getVisibleCells().map(cell => {
+                return (
+                  <TableBodyItem
+                    key={cell.id}
+                    style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableBodyItem>
+                );
+              })}
+            </TableBodyRow>
+          ))}
+        </tbody>
       </StyledTable>
       {footer}
     </TableWrapper>
@@ -215,16 +226,6 @@ const TableBodyItem = styled.td`
   text-align: start;
   padding: 0 ${pxToRem(32)};
   border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
-`;
-
-const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
-  height: calc(${({ pageSize }) => pageSize} * ${pxToRem(50)});
-`;
-
-const LoadingPositionWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 90%;
 `;
 
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
