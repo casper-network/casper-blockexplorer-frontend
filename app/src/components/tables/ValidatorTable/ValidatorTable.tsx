@@ -220,6 +220,7 @@ export const ValidatorTable: React.FC = () => {
         },
       ]}
       onSortingChange={onSortingChange}
+      placeholderData={{}}
       isLastPage={totalPages === validatorsTableOptions.pagination.pageNum}
     />
   );
