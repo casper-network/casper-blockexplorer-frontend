@@ -49,7 +49,7 @@ const navItems = [
 
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
-  const [selectedRoute, setSelectedRoute] = useState('');
+  const [selectedRoute, setSelectedRoute] = useState('home');
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
