@@ -7,9 +7,7 @@ export interface NavbarItemLinkButtonProps {
   readonly title: string;
   readonly children: React.ReactNode;
   readonly selectedRoute: string;
-  readonly handleNavItemSelection: (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => void;
+  readonly handleNavItemSelection: () => void;
 }
 
 export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({

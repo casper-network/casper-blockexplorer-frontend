@@ -22,19 +22,17 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   isDisabled = false,
   id,
-}) => {
-  return (
-    <StyledButton
-      type={type}
-      className={className}
-      color={color}
-      onClick={onClick}
-      disabled={isDisabled}
-      id={id}>
-      {children}
-    </StyledButton>
-  );
-};
+}) => (
+  <StyledButton
+    type={type}
+    className={className}
+    color={color}
+    onClick={onClick}
+    disabled={isDisabled}
+    id={id}>
+    {children}
+  </StyledButton>
+);
 
 const StyledButton = styled.button<{ color: string }>`
   color: white;
