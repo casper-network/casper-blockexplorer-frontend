@@ -26,22 +26,22 @@ import { ConfigurableLogo, DefaultNavLogo } from '../LogoComponents';
 
 const navItems = [
   {
-    title: 'Home',
+    title: 'home',
     path: '/',
     key: 'home',
   },
   {
-    title: 'Blocks',
+    title: 'blocks',
     path: '/blocks',
     key: 'blocks',
   },
   {
-    title: 'Peers',
+    title: 'peers',
     path: '/peers',
     key: 'peers',
   },
   {
-    title: 'Validators',
+    title: 'validators',
     path: '/validators',
     key: 'validators',
   },
