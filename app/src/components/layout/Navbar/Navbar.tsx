@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
 import { loadConfig } from 'src/utils';
@@ -50,7 +50,6 @@ const navItems = [
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState('');
-
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
@@ -74,11 +73,19 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpened]);
 
-  const handleNavItemSelection = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    setSelectedRoute(event.currentTarget.id);
+  const handleNavItemSelection = (key: string) => {
+    setSelectedRoute(key);
   };
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === '/') {
+      setSelectedRoute('home');
+    } else {
+      setSelectedRoute(pathname.slice(1));
+    }
+  }, [pathname]);
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
@@ -124,8 +131,7 @@ export const Navbar: React.FC = () => {
                   <Link key={key} to={path}>
                     <NavbarItemLinkButton
                       title={title}
-                      key={key}
-                      handleNavItemSelection={handleNavItemSelection}
+                      handleNavItemSelection={() => handleNavItemSelection(key)}
                       selectedRoute={selectedRoute}>
                       {t(title)}
                     </NavbarItemLinkButton>
