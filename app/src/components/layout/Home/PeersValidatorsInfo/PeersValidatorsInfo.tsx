@@ -3,6 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
+  getCurrentEraValidatorStatusStatus,
+  getPeerLoadingStatus,
+  getTotalPeers,
+  Loading,
+  useAppSelector,
+} from 'src/store';
+import Skeleton from 'react-loading-skeleton';
+import {
   H2,
   PageLink,
   H3,
@@ -15,17 +23,25 @@ import {
   TextWrapper,
 } from '../HomeComponents.styled';
 import { PeersIcon } from '../../../icons';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 interface PeersValidatorsInfoProps {
-  readonly currentPeers: ApiData.Peer[];
   readonly currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
 }
 
 export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
-  currentPeers,
   currentEraValidatorStatus,
 }) => {
   const { t } = useTranslation();
+
+  const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
+  const validatorsLoadingStatus = useAppSelector(
+    getCurrentEraValidatorStatusStatus,
+  );
+  const currentTotalPeers = useAppSelector(getTotalPeers);
+
+  const isLoadingPeers = peersLoadingStatus !== Loading.Complete;
+  const isLoadingValidators = validatorsLoadingStatus !== Loading.Complete;
 
   return (
     <Card>
@@ -40,14 +56,22 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
             <PageLink to="/validators">{t('view-all')}</PageLink>
           </TextWrapper>
           <H3Data>
-            {standardizeNumber(currentEraValidatorStatus?.validatorsCount ?? 0)}
+            {isLoadingValidators ? (
+              <Skeleton width={60} duration={1} />
+            ) : (
+              standardizeNumber(currentEraValidatorStatus?.validatorsCount ?? 0)
+            )}
           </H3Data>
           <DataContext>
-            {t('active-bids', {
-              activeBids: standardizeNumber(
-                currentEraValidatorStatus?.bidsCount ?? 0,
-              ),
-            })}
+            {isLoadingValidators ? (
+              <Skeleton width="70%" duration={1} />
+            ) : (
+              t('active-bids', {
+                activeBids: standardizeNumber(
+                  currentEraValidatorStatus?.bidsCount ?? 0,
+                ),
+              })
+            )}
           </DataContext>
         </Info>
         <Info>
@@ -55,7 +79,13 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
             <H3>{t('Connected Peers online')}</H3>
             <PageLink to="/peers">{t('view-all')}</PageLink>
           </TextWrapper>
-          <H3Data>{currentPeers.length}</H3Data>
+          <H3Data>
+            {isLoadingPeers ? (
+              <Skeleton width={60} duration={1} />
+            ) : (
+              currentTotalPeers
+            )}
+          </H3Data>
         </Info>
       </Details>
     </Card>

@@ -45,8 +45,8 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       setTableOptions({
         ...tableOptions,
         pagination: {
-          ...tableOptions.pagination,
           pageSize: Number(currentRowCountOption.value) ?? defaultPagination,
+          pageNum: 1,
         },
       }),
     );
@@ -102,7 +102,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         <PageNumberWrapper>
           {t('page-out-of', {
             pageNum: standardizeNumber(tableOptions.pagination.pageNum),
-            totalPages: standardizeNumber(totalPages),
+            totalPages: standardizeNumber(totalPages || 1),
           })}
         </PageNumberWrapper>
         <NextPreviousPageIconWrapper
@@ -256,7 +256,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__menu-list {
     color: ${colors.black};
-    font-size: clamp(1rem, 1.2vw, 1.4rem);
+    font-size: 1rem;
     padding: 0;
     margin: 0;
     border-radius: 0.375rem;

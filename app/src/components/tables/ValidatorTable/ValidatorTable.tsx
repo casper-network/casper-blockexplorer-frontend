@@ -1,30 +1,164 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { ColumnDef } from '@tanstack/react-table';
-import { colors, fontWeight } from 'src/styled-theme';
-import { ValidatorWeight } from 'casper-js-sdk';
+import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
+import { colors, pxToRem } from 'src/styled-theme';
+import {
+  fetchCurrentEraValidatorStatus,
+  fetchValidators,
+  getCurrentEraValidatorStatusStatus,
+  getTotalEraValidators,
+  getValidatorLoadingStatus,
+  getValidators,
+  getValidatorsTableOptions,
+  Loading,
+  resetValidatorTableOptions,
+  setValidatorTableOptions,
+  updateValidatorPageNum,
+  updateValidatorSorting,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/store';
+import { standardizeNumber, truncateHash } from 'src/utils';
+import { ApiData } from 'src/api/types';
+import { Link } from 'react-router-dom';
+import { CopyToClipboard } from 'src/components/utility';
+import { SelectOptions } from 'src/components/layout/Header/Partials';
+import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
+import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
+import { NumberedPagination } from '../Pagination';
 
-interface ValidatorTableProps {
-  readonly validators: ValidatorWeight[];
-}
+export const ValidatorTable: React.FC = () => {
+  const [isTableLoading, setIsTableLoading] = useState(false);
 
-export const ValidatorTable: React.FC<ValidatorTableProps> = ({
-  validators,
-}) => {
   const { t } = useTranslation();
-  const columns = useMemo<ColumnDef<ValidatorWeight>[]>(
+
+  const dispatch = useAppDispatch();
+
+  const validators = useAppSelector(getValidators);
+  const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
+  const validatorsStatusLoadingStatus = useAppSelector(
+    getCurrentEraValidatorStatusStatus,
+  );
+  const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
+  const totalEraValidators = useAppSelector(getTotalEraValidators);
+
+  useEffect(() => {
+    dispatch(fetchCurrentEraValidatorStatus());
+
+    return () => {
+      dispatch(resetValidatorTableOptions());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchValidators(validatorsTableOptions));
+  }, [dispatch, validatorsTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validators]);
+
+  const isPageLoading =
+    validatorsLoadingStatus !== Loading.Complete ||
+    validatorsStatusLoadingStatus !== Loading.Complete ||
+    !validators.length;
+
+  const rowCountSelectOptions: SelectOptions[] | null = useMemo(
     () => [
       {
-        header: `${t('public-key')}`,
-        accessorKey: 'public_key',
-        enableSorting: false,
+        value: '5',
+        label: t('rows', {
+          count: 5,
+        }),
       },
       {
-        header: `${t('weight')}`,
-        accessorKey: 'weight',
+        value: '10',
+        label: t('rows', {
+          count: 10,
+        }),
+      },
+      {
+        value: '20',
+        label: t('rows', {
+          count: 20,
+        }),
+      },
+    ],
+    [t],
+  );
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(
+      totalEraValidators / validatorsTableOptions.pagination.pageSize,
+    );
+  }, [validatorsTableOptions, totalEraValidators]);
+
+  const columns = useMemo<ColumnDef<ApiData.ValidatorsInfo>[]>(
+    () => [
+      {
+        header: `${t('rank')}`,
+        accessorKey: 'rank',
         enableSorting: false,
+        maxSize: 100,
+        cell: ({ getValue }) => getValue<number>(),
+      },
+      {
+        header: `${t('public-key')}`,
+        accessorKey: 'publicKey',
+        enableSorting: false,
+        minSize: 200,
+        cell: ({ getValue }) => (
+          <div>
+            <Link
+              to={{
+                pathname: `/account/${getValue<string>()}`,
+              }}>
+              {truncateHash(getValue<string>())}
+            </Link>
+            <CopyToClipboard textToCopy={getValue<string>()} />
+          </div>
+        ),
+      },
+      {
+        header: `${t('fee-percentage')}`,
+        accessorKey: 'feePercentage',
+        maxSize: 125,
+        cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
+      },
+      {
+        header: `${t('delegators')}`,
+        accessorKey: 'delegatorsCount',
+        maxSize: 125,
+        cell: ({ getValue }) => standardizeNumber(getValue<number>()),
+      },
+      {
+        header: `${t('total-stake')}`,
+        accessorKey: 'totalStakeMotes',
+        minSize: 200,
+        cell: ({ getValue }) => (
+          <CSPRText>
+            {/* TODO: see https://github.com/casper-network/casper-blockexplorer-middleware/issues/23 */}
+            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
+            {t('cspr')}
+          </CSPRText>
+        ),
+      },
+      {
+        header: `${t('self-percentage')}`,
+        accessorKey: 'selfPercentage',
+        maxSize: 150,
+        cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
+      },
+      {
+        header: `${t('network-percentage')}`,
+        accessorKey: 'percentageOfNetwork',
+        maxSize: 150,
+        cell: ({ getValue }) => standardizePercentage(getValue<number>(), 2),
       },
     ],
     [t],
@@ -32,32 +166,82 @@ export const ValidatorTable: React.FC<ValidatorTableProps> = ({
 
   const header = (
     <ValidatorTableHead>
-      <HeadLabel>{t('currently-online')}</HeadLabel>
       <HeadValue>
-        {validators.length} {t('total-rows')}
+        {totalEraValidators} {t('total-rows')}
       </HeadValue>
+      <NumberedPagination
+        tableOptions={validatorsTableOptions}
+        setTableOptions={setValidatorTableOptions}
+        rowCountSelectOptions={rowCountSelectOptions}
+        setIsTableLoading={setIsTableLoading}
+        totalPages={totalPages}
+        updatePageNum={updateValidatorPageNum}
+      />
     </ValidatorTableHead>
   );
 
+  const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {
+    setIsTableLoading(true);
+
+    if (updaterOrValue instanceof Function) {
+      const [updatedVal] = updaterOrValue([
+        {
+          id: validatorsTableOptions.sorting.sortBy,
+          desc: validatorsTableOptions.sorting.order === 'desc',
+        },
+      ]);
+
+      let order: 'desc' | 'asc' = 'desc';
+      if (validatorsTableOptions.sorting.sortBy === updatedVal.id) {
+        order = updatedVal.desc ? 'desc' : 'asc';
+      }
+
+      dispatch(
+        updateValidatorSorting({
+          sortBy: updatedVal.id,
+          order,
+        }),
+      );
+    }
+  };
+
   return (
-    <Table<ValidatorWeight>
+    <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
       data={validators}
+      footer={<ValidatorFooter />}
+      tableBodyLoading={isTableLoading || isPageLoading}
+      currentPageSize={validatorsTableOptions.pagination.pageSize}
+      sorting={[
+        {
+          id: validatorsTableOptions.sorting.sortBy,
+          desc: validatorsTableOptions.sorting.order === 'desc',
+        },
+      ]}
+      onSortingChange={onSortingChange}
+      placeholderData={{}}
+      isLastPage={totalPages === validatorsTableOptions.pagination.pageNum}
     />
   );
 };
 
 const ValidatorTableHead = styled.div`
   display: flex;
+  min-width: ${pxToRem(900)};
+  justify-content: space-between;
+  align-items: center;
+  color: ${colors.darkSupporting};
 `;
 
-const HeadLabel = styled.p`
-  color: ${colors.black};
-  font-weight: ${fontWeight.bold};
-  padding-right: 2rem;
+const ValidatorFooter = styled.div`
+  height: ${pxToRem(50)};
 `;
 
 const HeadValue = styled.p`
-  color: ${colors.lightSupporting};
+  color: ${colors.darkSupporting};
+`;
+
+const CSPRText = styled.span`
+  font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;

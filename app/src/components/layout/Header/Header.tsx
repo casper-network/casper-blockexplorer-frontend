@@ -20,11 +20,7 @@ export const Header: React.FC = () => {
   const { isDropdownMenu, isMobile } = useAppWidth();
   const { logoUrl, title } = loadConfig();
 
-  const logo = logoUrl ? (
-    <ConfigurableLogo />
-  ) : (
-    <DefaultHeaderLogo isMobile={isMobile} />
-  );
+  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultHeaderLogo />;
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
@@ -32,9 +28,7 @@ export const Header: React.FC = () => {
     <div>
       {isFirstVisit ? (
         <HeaderComponent>
-          <HeaderComponentsContainer
-            isFirstVisit={isFirstVisit}
-            isMobile={isMobile}>
+          <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
             {logo}
             <Navbar />
           </HeaderComponentsContainer>
@@ -49,16 +43,12 @@ export const Header: React.FC = () => {
       ) : (
         <HeaderComponent>
           {!isMobile ? (
-            <HeaderComponentsContainer
-              isFirstVisit={isFirstVisit}
-              isMobile={isMobile}>
+            <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
               <Navbar />
             </HeaderComponentsContainer>
           ) : (
             <div>
-              <HeaderComponentsContainer
-                isFirstVisit={isFirstVisit}
-                isMobile={isMobile}>
+              <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
                 {logo}
                 <Navbar />
               </HeaderComponentsContainer>

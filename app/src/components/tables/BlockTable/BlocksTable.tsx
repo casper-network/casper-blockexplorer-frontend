@@ -8,8 +8,8 @@ import styled from '@emotion/styled';
 import {
   getBlocksTableOptions,
   getTotalBlocks,
-  setTableOptions,
-  updatePageNum,
+  setBlocksTableOptions,
+  updateBlocksPageNum,
   useAppSelector,
 } from 'src/store';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
@@ -33,7 +33,6 @@ interface BlocksTableProps {
   readonly total?: number;
   readonly blocks: ApiData.Block[];
   readonly showValidators?: boolean;
-  isLoadingMoreBlocks: boolean;
   isTableLoading: boolean;
   onSortingChange?: OnChangeFn<SortingState>;
   sorting?: SortingState;
@@ -78,11 +77,11 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
 
         <NumberedPagination
           tableOptions={blocksTableOptions}
-          setTableOptions={setTableOptions}
+          setTableOptions={setBlocksTableOptions}
           rowCountSelectOptions={rowCountSelectOptions}
           setIsTableLoading={setIsTableLoading}
           totalPages={totalPages}
-          updatePageNum={updatePageNum}
+          updatePageNum={updateBlocksPageNum}
         />
       </BlocksTableHead>
     ),
@@ -197,6 +196,10 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       footer={footer}
       tableBodyLoading={isTableLoading}
       currentPageSize={blocksTableOptions.pagination.pageSize}
+      placeholderData={{
+        header: { height: 0 },
+      }}
+      isLastPage={totalPages === blocksTableOptions.pagination.pageNum}
       {...props}
     />
   );

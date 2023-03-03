@@ -14,6 +14,7 @@ If desired, you can change the application logo / name / favicon by adding:
 
 ```
 ORG_LOGO_URL=https://example.com/your-org-logo
+ORG_LOGO_SIZE=0-100
 ORG_NAME=Jenkins
 ORG_FAVICON_URL=https://example.com/your-favicon
 ORG_FONT_URL=https://fonts.googleapis.com/css2?family=your-font-name:wght@your-font-weights-separated-by-semi-colons&display=swap

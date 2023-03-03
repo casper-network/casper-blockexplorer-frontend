@@ -1,9 +1,4 @@
-import {
-  GetDeployResult,
-  JsonDeploy,
-  ValidatorBid,
-  ValidatorWeight,
-} from 'casper-js-sdk';
+import { GetDeployResult, JsonDeploy } from 'casper-js-sdk';
 
 export namespace ApiData {
   export interface Blocks {
@@ -59,7 +54,8 @@ export namespace ApiData {
   }
 
   export interface Peers {
-    result: Peer[];
+    paginatedResult: Peer[];
+    totalPeers: number;
   }
 
   export interface Peer {
@@ -88,10 +84,20 @@ export namespace ApiData {
     weight: number;
   }
 
+  export interface ValidatorsInfo {
+    rank: number;
+    publicKey: string;
+    feePercentage: number;
+    delegatorsCount: number;
+    totalStakeMotes: number;
+    selfPercentage: number;
+    percentageOfNetwork: number;
+  }
+
   export interface Validators {
     validators: {
-      activeValidators: ValidatorWeight[];
-      activeBids: ValidatorBid[];
+      status: CurrentEraValidatorStatus;
+      validators: ValidatorsInfo[];
     };
   }
 

@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
-  getLatestBlockLoadingStatus,
   getLatestBlock,
   useAppSelector,
-  Loading,
   useAppDispatch,
   fetchLatestBlock,
   fetchPeers,
-  getPeers,
-  getPeerLoadingStatus,
-  getValidatorLoadingStatus,
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
+  getPeersTableOptions,
 } from 'src/store';
 import {
   BlocksInfo,
@@ -24,20 +20,15 @@ import { breakpoints, pxToRem } from '../styled-theme';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
+  const peersTableOptions = useAppSelector(getPeersTableOptions);
 
   useEffect(() => {
     dispatch(fetchLatestBlock());
-    dispatch(fetchPeers());
+    dispatch(fetchPeers(peersTableOptions));
     dispatch(fetchCurrentEraValidatorStatus());
-  }, [dispatch]);
+  }, [dispatch, peersTableOptions]);
 
   const latestBlock = useAppSelector(getLatestBlock);
-  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
-
-  const peers = useAppSelector(getPeers);
-  const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
-
-  const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
 
   const currentEraValidatorStatus = useAppSelector(
     getCurrentEraValidatorStatus,
@@ -45,22 +36,14 @@ export const Home: React.FC = () => {
 
   const { isFirstVisit } = useAppSelector(state => state.app);
 
-  const isLoading =
-    latestBlockLoadingStatus !== Loading.Complete ||
-    peersLoadingStatus !== Loading.Complete ||
-    validatorsLoadingStatus !== Loading.Complete;
-
   return (
-    <PageWrapper isLoading={isLoading}>
+    <PageWrapper isLoading={false}>
       <HomeContentContainer isFirstVisit={isFirstVisit}>
-        {latestBlock && <BlocksInfo block={latestBlock} />}
+        <BlocksInfo block={latestBlock} />
         <DeploysInfo />
-        {peers && currentEraValidatorStatus && (
-          <PeersValidatorsInfo
-            currentPeers={peers}
-            currentEraValidatorStatus={currentEraValidatorStatus}
-          />
-        )}
+        <PeersValidatorsInfo
+          currentEraValidatorStatus={currentEraValidatorStatus}
+        />
       </HomeContentContainer>
     </PageWrapper>
   );

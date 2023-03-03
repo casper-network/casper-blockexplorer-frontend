@@ -83,18 +83,30 @@ const createApi = (baseUrl: string) => {
       },
     },
     peer: {
-      async getPeers() {
+      async getPeers(
+        tableParams: {
+          sortBy?: string;
+          orderBy?: SortDirection;
+          count?: number;
+          pageNum?: number;
+        } = {},
+      ) {
         type Response = AxiosResponse<ApiData.Peers>;
 
-        const response = await middlewareApi.get<Response>('/peers');
+        const response = await middlewareApi.get<Response>('/peers', {
+          params: {
+            ...tableParams,
+            count: tableParams?.count ?? defaultPagination,
+          },
+        });
 
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
-          data: { result },
+          data: { paginatedResult, totalPeers },
         } = response;
 
-        return result;
+        return { paginatedResult, totalPeers };
       },
     },
     account: {
@@ -120,22 +132,35 @@ const createApi = (baseUrl: string) => {
       },
     },
     validator: {
-      async getValidators() {
+      async getValidators(
+        tableParams: {
+          sortBy?: string;
+          orderBy?: SortDirection;
+          count?: number;
+          pageNum?: number;
+        } = {},
+      ) {
         type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>(
           '/current-era-validators',
+          {
+            params: {
+              ...tableParams,
+              count: tableParams?.count ?? defaultPagination,
+            },
+          },
         );
 
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
           data: {
-            validators: { activeValidators },
+            validators: { validators },
           },
         } = response;
 
-        return activeValidators;
+        return validators;
       },
       async getCurrentEraValidatorStatus() {
         type Response = AxiosResponse<ApiData.CurrentEraValidatorStatus>;

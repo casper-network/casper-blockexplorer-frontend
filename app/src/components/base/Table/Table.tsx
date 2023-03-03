@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   ColumnDef,
   flexRender,
@@ -9,15 +9,13 @@ import {
   TableOptions,
   useReactTable,
 } from '@tanstack/react-table';
+import Skeleton from 'react-loading-skeleton';
 import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css } from '@emotion/react';
-import { Loader } from 'src/components/utility';
-import { loadConfig } from 'src/utils';
 import upIcon from '../../../assets/images/up-icon.png';
 import downIcon from '../../../assets/images/down-icon.png';
-
-const { defaultPagination } = loadConfig();
+import downIconSupporting from '../../../assets/images/down-icon-supporting.png';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -29,6 +27,13 @@ export interface TableProps<T> {
   initialSorting?: SortingState;
   tableBodyLoading?: boolean;
   currentPageSize?: number;
+  /*
+  - used for deeply nested accessor values to allow for skeleton loaders to work
+  - parsing tableData will throw error without
+  - placeholderData can be anything, it just has to match nested data type
+  */
+  placeholderData?: { [key: string]: any };
+  isLastPage: boolean;
 }
 
 export function Table<T extends unknown>({
@@ -41,10 +46,29 @@ export function Table<T extends unknown>({
   initialSorting,
   tableBodyLoading,
   currentPageSize,
+  placeholderData,
+  isLastPage,
 }: TableProps<T>) {
+  const tableData = useMemo(() => {
+    if (!data.length || (data.length !== currentPageSize && !isLastPage)) {
+      return Array(currentPageSize).fill(placeholderData ?? {}) as T[];
+    }
+
+    return data;
+  }, [data, currentPageSize, placeholderData, isLastPage]);
+
+  const tableColumns = useMemo(() => {
+    return tableBodyLoading
+      ? columns.map(column => ({
+          ...column,
+          cell: () => <Skeleton />,
+        }))
+      : columns;
+  }, [tableBodyLoading, columns]);
+
   const options: TableOptions<T> = {
-    data,
-    columns,
+    data: tableData,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   };
@@ -60,75 +84,78 @@ export function Table<T extends unknown>({
       <Header>{header}</Header>
       <StyledTable>
         <TableHead>
-          {getHeaderGroups().map(headerGroup => (
-            <TableHeader key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <Th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  style={{ width: header.getSize() }}
-                  sortable={header.column.getCanSort()}
-                  onClick={() =>
-                    header.column.getCanSort()
-                      ? header.column.toggleSorting(
-                          header.column.getIsSorted() === 'asc',
-                        )
-                      : undefined
-                  }>
-                  {header.isPlaceholder ? null : (
-                    <>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                      <span>
-                        {{
-                          asc: (
-                            <SortIconWrapper>
-                              <SortIcon src={upIcon} alt="sort-asc" />
-                            </SortIconWrapper>
-                          ),
-                          desc: (
-                            <SortIconWrapper>
-                              <SortIcon src={downIcon} alt="sort-desc" />
-                            </SortIconWrapper>
-                          ),
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </span>
-                    </>
-                  )}
-                </Th>
-              ))}
-            </TableHeader>
-          ))}
-        </TableHead>
-        {tableBodyLoading ? (
-          <TableBodyLoadingWrapper
-            pageSize={currentPageSize ?? defaultPagination}>
-            <LoadingPositionWrapper>
-              <Loader size="lg" />
-            </LoadingPositionWrapper>
-          </TableBodyLoadingWrapper>
-        ) : (
-          <tbody>
-            {getRowModel().rows.map(row => (
-              <TableBodyRow key={row.id}>
-                {row.getVisibleCells().map(cell => {
+          {getHeaderGroups().map(headerGroup => {
+            return (
+              <TableHeader key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  const isSorted = header.column.getIsSorted();
+                  const canSort = header.column.getCanSort();
+
                   return (
-                    <TableBodyItem
-                      key={cell.id}
-                      style={{ width: cell.column.getSize() }}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
+                    <Th
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      style={{ width: header.getSize() }}
+                      sortable={header.column.getCanSort()}
+                      onClick={() =>
+                        header.column.getCanSort()
+                          ? header.column.toggleSorting(
+                              header.column.getIsSorted() === 'asc',
+                            )
+                          : undefined
+                      }>
+                      {header.isPlaceholder ? null : (
+                        <>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                          <span>
+                            {{
+                              asc: (
+                                <SortIconWrapper>
+                                  <SortIcon src={upIcon} alt="sort-asc" />
+                                </SortIconWrapper>
+                              ),
+                              desc: (
+                                <SortIconWrapper>
+                                  <SortIcon src={downIcon} alt="sort-desc" />
+                                </SortIconWrapper>
+                              ),
+                            }[header.column.getIsSorted() as string] ?? null}
+                            {canSort && !isSorted && (
+                              <SortIconNeutralWrapper>
+                                <SortIconNeutral
+                                  src={downIconSupporting}
+                                  alt="sort"
+                                />
+                              </SortIconNeutralWrapper>
+                            )}
+                          </span>
+                        </>
                       )}
-                    </TableBodyItem>
+                    </Th>
                   );
                 })}
-              </TableBodyRow>
-            ))}
-          </tbody>
-        )}
+              </TableHeader>
+            );
+          })}
+        </TableHead>
+        <tbody>
+          {getRowModel().rows.map(row => (
+            <TableBodyRow key={row.id}>
+              {row.getVisibleCells().map(cell => {
+                return (
+                  <TableBodyItem
+                    key={cell.id}
+                    style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableBodyItem>
+                );
+              })}
+            </TableBodyRow>
+          ))}
+        </tbody>
       </StyledTable>
       {footer}
     </TableWrapper>
@@ -161,7 +188,7 @@ const StyledTable = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${colors.lightSupporting};
+  background-color: ${colors.mediumSupporting};
 `;
 
 const TableHeader = styled.tr`
@@ -201,17 +228,6 @@ const TableBodyItem = styled.td`
   border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
 `;
 
-const TableBodyLoadingWrapper = styled.div<{ pageSize: number }>`
-  /* (pageSize + 1) is to account for footer */
-  height: calc(${({ pageSize }) => pageSize + 1} * ${pxToRem(50)});
-`;
-
-const LoadingPositionWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 90%;
-`;
-
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
@@ -220,6 +236,7 @@ const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   justify-content: center;
   align-items: center;
   border-radius: ${pxToRem(5)};
+  margin-right: 0.5rem;
 
   * {
     color: white;
@@ -235,4 +252,30 @@ const SortIcon = styled.img`
   width: ${pxToRem(12)};
   height: ${pxToRem(12)};
   margin: 0;
+`;
+
+const SortIconNeutral = styled.img`
+  width: ${pxToRem(18)};
+  height: ${pxToRem(18)};
+  margin: 0;
+`;
+
+const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
+  height: ${pxToRem(27)};
+  width: ${pxToRem(27)};
+  background-color: ${colors.lightSupporting};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${pxToRem(5)};
+  margin-right: 0.5rem;
+
+  * {
+    color: white;
+    z-index: 1;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
 `;

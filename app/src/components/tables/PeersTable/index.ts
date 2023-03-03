@@ -1,0 +1,1 @@
+export { PeersTable } from './PeersTable';
