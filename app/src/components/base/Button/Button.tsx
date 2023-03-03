@@ -11,7 +11,6 @@ export interface ButtonProps {
   readonly type: ButtonType;
   readonly className?: string;
   readonly isDisabled?: boolean;
-  readonly id?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -21,15 +20,13 @@ export const Button: React.FC<ButtonProps> = ({
   color = 'blue',
   className,
   isDisabled = false,
-  id,
 }) => (
   <StyledButton
     type={type}
     className={className}
     color={color}
     onClick={onClick}
-    disabled={isDisabled}
-    id={id}>
+    disabled={isDisabled}>
     {children}
   </StyledButton>
 );

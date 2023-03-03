@@ -14,11 +14,7 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
   title,
   children,
 }) => (
-  <DesktopNavItemLink
-    type="button"
-    selectedRoute={selectedRoute}
-    id={title}
-    title={title}>
+  <DesktopNavItemLink type="button" selectedRoute={selectedRoute} title={title}>
     {children}
   </DesktopNavItemLink>
 );
