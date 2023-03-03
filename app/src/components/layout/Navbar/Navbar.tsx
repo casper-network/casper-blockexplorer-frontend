@@ -49,7 +49,7 @@ const navItems = [
 
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
-  const [selectedRoute, setSelectedRoute] = useState('home');
+
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
@@ -73,19 +73,9 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpened]);
 
-  const handleNavItemSelection = (key: string) => {
-    setSelectedRoute(key);
-  };
-
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (pathname === '/') {
-      setSelectedRoute('home');
-    } else {
-      setSelectedRoute(pathname.slice(1));
-    }
-  }, [pathname]);
+  const selectedRoute = pathname === '/' ? 'home' : pathname.slice(1);
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
@@ -131,7 +121,6 @@ export const Navbar: React.FC = () => {
                   <Link key={key} to={path}>
                     <NavbarItemLinkButton
                       title={title}
-                      handleNavItemSelection={() => handleNavItemSelection(key)}
                       selectedRoute={selectedRoute}>
                       {t(title)}
                     </NavbarItemLinkButton>

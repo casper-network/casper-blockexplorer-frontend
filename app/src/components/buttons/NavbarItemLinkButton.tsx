@@ -7,18 +7,15 @@ export interface NavbarItemLinkButtonProps {
   readonly title: string;
   readonly children: React.ReactNode;
   readonly selectedRoute: string;
-  readonly handleNavItemSelection: () => void;
 }
 
 export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
-  handleNavItemSelection,
   selectedRoute,
   title,
   children,
 }) => (
   <DesktopNavItemLink
     type="button"
-    onClick={handleNavItemSelection}
     selectedRoute={selectedRoute}
     id={title}
     title={title}>
