@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Button } from 'src/components/base';
 import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
@@ -82,9 +83,8 @@ export const DesktopNavItemsContainer = styled.ul`
   min-height: ${pxToRem(75)};
 `;
 
-export const DesktopNavItemLink = styled(Link)`
+export const DesktopNavItemLink = styled(Button)`
   transition: all 0.2s ease;
-  color: ${colors.primary};
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
   font-weight: 500;

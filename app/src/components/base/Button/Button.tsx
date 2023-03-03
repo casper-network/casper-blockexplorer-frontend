@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colors, pxToRem } from '../../../styled-theme';
+import { pxToRem } from '../../../styled-theme';
 
 export type ButtonType = 'submit' | 'reset' | 'button';
 
 export interface ButtonProps {
   readonly children: React.ReactNode;
-  readonly onClick?: () => void;
+  readonly onClick?: React.MouseEventHandler<HTMLButtonElement>;
   readonly color?: string;
   readonly type: ButtonType;
   readonly className?: string;
@@ -14,28 +14,26 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({
+  type,
   children,
   onClick,
   color = 'blue',
-  type,
   className,
   isDisabled = false,
-}) => {
-  return (
-    <StyledButton
-      type={type}
-      className={className}
-      bgColor={color}
-      onClick={onClick}
-      disabled={isDisabled}>
-      {children}
-    </StyledButton>
-  );
-};
+}) => (
+  <StyledButton
+    type={type}
+    className={className}
+    color={color}
+    onClick={onClick}
+    disabled={isDisabled}>
+    {children}
+  </StyledButton>
+);
 
-const StyledButton = styled.button<{ bgColor: string }>`
-  color: ${colors.white};
-  background-color: ${({ bgColor }) => bgColor};
+const StyledButton = styled.button<{ color: string }>`
+  color: white;
+  background-color: ${({ color }) => color};
   text-align: center;
   padding: ${pxToRem(10)};
   border-radius: ${pxToRem(10)};

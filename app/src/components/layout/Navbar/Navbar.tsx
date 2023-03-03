@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
-
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
 import { loadConfig } from 'src/utils';
+
+import { NavbarItemLinkButton } from 'src/components/buttons';
 import { NavButton } from '../../buttons/NavButton';
 import { SearchForm } from '../Header/Partials';
 
@@ -14,7 +16,6 @@ import {
   NavItemsContainer,
   DesktopNav,
   DesktopNavItemsContainer,
-  DesktopNavItemLink,
   MobileNav,
   MobileNavItemsContainer,
   MobileNavItemLink,
@@ -47,8 +48,9 @@ const navItems = [
 ];
 
 export const Navbar: React.FC = () => {
-  const isFirstVisit = useAppSelector(getIsFirstVisit);
   const [isOpened, setIsOpened] = useState(false);
+
+  const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
   const { logoUrl } = loadConfig();
 
@@ -70,6 +72,10 @@ export const Navbar: React.FC = () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
   }, [isOpened]);
+
+  const { pathname } = useLocation();
+
+  const selectedRoute = pathname === '/' ? 'home' : pathname.slice(1);
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
@@ -112,11 +118,13 @@ export const Navbar: React.FC = () => {
             <DesktopNavItemsContainer>
               {navItems.map(({ path, title, key }) => {
                 return (
-                  <li key={key}>
-                    <DesktopNavItemLink to={path}>
+                  <Link key={key} to={path}>
+                    <NavbarItemLinkButton
+                      title={title}
+                      selectedRoute={selectedRoute}>
                       {t(title)}
-                    </DesktopNavItemLink>
-                  </li>
+                    </NavbarItemLinkButton>
+                  </Link>
                 );
               })}
             </DesktopNavItemsContainer>
