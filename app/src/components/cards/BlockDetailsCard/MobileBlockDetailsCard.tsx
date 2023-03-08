@@ -14,12 +14,16 @@ import {
 import { CopyToClipboard, RawData } from '../../utility';
 
 export interface MobileBlockDetailsCardProps {
-  block: ApiData.Block;
+  block: ApiData.Block | null;
+  // isLoading: boolean;
 }
 
 export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
   block,
 }) => {
+  const { t } = useTranslation();
+  if (!block) return null;
+
   const {
     hash: blockHash,
     header: {
@@ -37,8 +41,6 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
   } = block;
 
   const rawBlock = JSON.stringify(block);
-
-  const { t } = useTranslation();
 
   return (
     <>
