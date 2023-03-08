@@ -130,6 +130,23 @@ const createApi = (baseUrl: string) => {
           rawAccount: JSON.stringify(account),
         };
       },
+      async getBalance(uref: string) {
+        type Response = AxiosResponse<{ balance: string }>;
+
+        const response = await middlewareApi.get<Response>(
+          `/account/balance/${uref}`,
+        );
+
+        if (response.status !== 200) throw new Error(response.statusText);
+
+        const {
+          data: { balance },
+        } = response;
+
+        return {
+          balance,
+        };
+      },
     },
     validator: {
       async getValidators(

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import useAsyncEffect from 'use-async-effect';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -10,8 +10,9 @@ import {
   getAccount,
   getAccountErrorMessage,
   getAccountLoadingStatus,
+  fetchBalance,
+  getBalance,
 } from 'src/store';
-import { casperApi } from '../api';
 import { AccountDetailsCard, PageHead, PageWrapper } from '../components';
 
 export const AccountPage: React.FC = () => {
@@ -25,19 +26,15 @@ export const AccountPage: React.FC = () => {
   }, [dispatch, id]);
 
   const account = useAppSelector(getAccount);
+  const accountBalance = useAppSelector(getBalance);
   const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
   const accountErrorMessage = useAppSelector(getAccountErrorMessage);
 
   const isLoading = accountLoadingStatus !== Loading.Complete;
 
-  const [balance, setBalance] = useState<string | null>(null);
-
   useAsyncEffect(async () => {
     if (account) {
-      // TODO: move to middleware once repo has been ejected
-      const balanceData = await casperApi.getBalance(account.mainPurse);
-
-      setBalance(balanceData);
+      await dispatch(fetchBalance(account.mainPurse));
     }
   }, [account]);
 
@@ -50,7 +47,9 @@ export const AccountPage: React.FC = () => {
   return (
     <PageWrapper error={error} isLoading={isLoading}>
       <PageHead pageTitle={pageTitle} />
-      {account && <AccountDetailsCard account={account} balance={balance} />}
+      {account && (
+        <AccountDetailsCard account={account} balance={accountBalance} />
+      )}
     </PageWrapper>
   );
 };
