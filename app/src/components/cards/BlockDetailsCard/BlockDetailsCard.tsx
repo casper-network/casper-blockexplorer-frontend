@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Skeleton, { SkeletonStyleProps } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { fontWeight, pxToRem } from 'src/styled-theme';
+import { hashPlaceholder } from 'src/utils';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   DetailDataLabel,
@@ -15,15 +15,12 @@ import {
   GradientHeading,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData } from '../../utility';
+import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
 
 export interface BlockDetailsCardProps {
   block: ApiData.Block | null;
   isLoading: boolean;
 }
-
-// needed so hash length error isn't thrown when block doesn't exist
-const hashPlaceholder = '*'.repeat(64);
 
 export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   block,
@@ -33,18 +30,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   const { t } = useTranslation();
 
   const rawBlock = JSON.stringify(block);
-
-  const withSkeletonLoading = (
-    child: React.ReactNode,
-    isLoading: boolean,
-    skeletonStyleOverride?: SkeletonStyleProps,
-  ) => {
-    if (isLoading) {
-      return <Skeleton {...skeletonStyleOverride} />;
-    }
-
-    return child;
-  };
 
   return (
     <InfoCard>
@@ -61,11 +46,15 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
               { width: 275 },
             )}
           </HashHeading>
-          <HashButton
-            isTruncated={isTruncated}
-            setIsTruncated={setIsTruncated}
-            isAvatar={false}
-          />
+          {withSkeletonLoading(
+            <HashButton
+              isTruncated={isTruncated}
+              setIsTruncated={setIsTruncated}
+              isAvatar={false}
+            />,
+            isLoading,
+            { width: 75 },
+          )}
         </HashWrapper>
       </HeadContentWrapper>
       <DetailDataRowWrapper>
