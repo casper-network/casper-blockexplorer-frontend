@@ -25,22 +25,6 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // const {
-  //   hash: blockHash,
-  //   header: {
-  //     height: blockHeight,
-  //     timestamp: readableTimestamp,
-  //     era_id: era,
-  //     parent_hash: parentHash,
-  //     state_root_hash: stateRootHash,
-  //   },
-  //   body: {
-  //     proposer: validatorPublicKey,
-  //     transfer_hashes: transferHashes,
-  //     deploy_hashes: deployHashes,
-  //   },
-  // } = block;
-
   const rawBlock = JSON.stringify(block);
 
   return (
@@ -49,7 +33,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
         {withSkeletonLoading(
           <Hash hash={block?.hash ?? hashPlaceholder} alwaysTruncate />,
           isLoading,
-          {},
+          { width: 275 },
         )}
       </PageHeading>
 
@@ -58,13 +42,17 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('block-height')}</DetailDataLabel>
             <DetailDataValue>
-              {withSkeletonLoading(block?.header.height, isLoading, {})}
+              {withSkeletonLoading(block?.header.height, isLoading, {
+                width: 100,
+              })}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('current-era')}</DetailDataLabel>
             <DetailDataValue>
-              {withSkeletonLoading(block?.header.era_id, isLoading, {})}
+              {withSkeletonLoading(block?.header.era_id, isLoading, {
+                width: 100,
+              })}
             </DetailDataValue>
           </li>
           <li>
@@ -73,7 +61,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
               {withSkeletonLoading(
                 block?.header.timestamp.toLocaleString(),
                 isLoading,
-                {},
+                {
+                  width: 275,
+                },
               )}
             </DetailDataValue>
           </li>
@@ -91,7 +81,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                 {withSkeletonLoading(
                   <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
                   isLoading,
-                  {},
+                  {
+                    width: 175,
+                  },
                 )}
               </Link>
               {!isLoading && (
@@ -107,7 +99,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
               {withSkeletonLoading(
                 <Hash hash={block?.hash ?? hashPlaceholder} />,
                 isLoading,
-                {},
+                {
+                  width: 175,
+                },
               )}
               {!isLoading && <CopyToClipboard textToCopy={block?.hash ?? ''} />}
             </DetailDataValue>
@@ -120,7 +114,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   hash={block?.header.state_root_hash ?? hashPlaceholder}
                 />,
                 isLoading,
-                {},
+                {
+                  width: 175,
+                },
               )}
             </DetailDataValue>
           </li>
@@ -134,7 +130,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                 {withSkeletonLoading(
                   <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                   isLoading,
-                  {},
+                  {
+                    width: 175,
+                  },
                 )}
               </Link>
               {!isLoading && (
@@ -164,7 +162,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   'No deploys'
                 ),
                 isLoading,
-                {},
+                { width: 150 },
               )}
             </DetailDataValue>
           </li>
@@ -186,7 +184,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   t('no-transfers')
                 ),
                 isLoading,
-                {},
+                { width: 150 },
               )}
             </DetailDataValue>
           </li>
