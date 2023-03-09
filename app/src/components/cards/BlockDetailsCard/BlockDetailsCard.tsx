@@ -55,6 +55,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             {isTruncated
               ? withSkeletonLoading(
                   // TODO: need to figure out how to deal with the values when block = undefined
+                  // some kind of default placeholder
                   <Hash hash={block?.hash ?? '*'.repeat(64)} alwaysTruncate />,
                   isLoading,
                 )
@@ -74,13 +75,17 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <li>
           <DetailDataLabel>{t('block-height')}</DetailDataLabel>
           <DetailDataValue>
-            {withSkeletonLoading(block?.header.height, isLoading)}
+            {withSkeletonLoading(block?.header.height, isLoading, {
+              width: '10%',
+            })}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('current-era')}</DetailDataLabel>
           <DetailDataValue>
-            {withSkeletonLoading(block?.header.era_id, isLoading)}
+            {withSkeletonLoading(block?.header.era_id, isLoading, {
+              width: '10%',
+            })}
           </DetailDataValue>
         </li>
         <li>
@@ -89,6 +94,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             {withSkeletonLoading(
               block?.header.timestamp.toLocaleString(),
               isLoading,
+              {
+                width: '25%',
+              },
             )}
           </DetailDataValue>
         </li>
@@ -96,7 +104,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
       <DetailDataWrapper>
         <li>
           <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-          <DetailDataValue>
+          <DetailDataValue height="2rem">
             <Link
               to={{
                 pathname: `/block/${block?.header.parent_hash ?? ''}`,
@@ -113,7 +121,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </li>
         <li>
           <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-          <DetailDataValue>
+          <DetailDataValue height="2rem">
             {withSkeletonLoading(
               <Hash hash={block?.hash ?? '*'.repeat(64)} />,
               isLoading,
@@ -132,7 +140,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </li>
         <li>
           <DetailDataLabel>{t('validator')}</DetailDataLabel>
-          <DetailDataValue>
+          <DetailDataValue height="2rem">
             <Link
               to={{
                 pathname: `/account/${block?.body.proposer ?? ''}`,

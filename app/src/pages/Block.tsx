@@ -30,7 +30,6 @@ export const BlockPage: React.FC = () => {
   }, [dispatch, blockHashOrHeight]);
 
   const block = useAppSelector(getBlock);
-  console.log({ block });
 
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
   const blockErrorMessage = useAppSelector(getBlockErrorMessage);

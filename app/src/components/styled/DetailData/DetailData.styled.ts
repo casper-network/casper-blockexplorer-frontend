@@ -25,7 +25,9 @@ export const DetailDataList = styled.ul<DetailDataListProps>`
   height: fit-content;
 `;
 
-export const DetailDataValue = styled.div`
+export const DetailDataValue = styled.div<{ height?: number | string }>`
+  height: ${({ height }) =>
+    typeof height === 'number' ? `${height}px` : height};
   font-size: 1.25rem;
   color: ${colors.black};
   font-weight: ${fontWeight.medium};
