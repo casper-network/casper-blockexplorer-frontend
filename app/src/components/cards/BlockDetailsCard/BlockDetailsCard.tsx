@@ -22,6 +22,9 @@ export interface BlockDetailsCardProps {
   isLoading: boolean;
 }
 
+// needed so hash length error isn't thrown when block doesn't exist
+const hashPlaceholder = '*'.repeat(64);
+
 export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   block,
   isLoading,
@@ -43,26 +46,20 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     return child;
   };
 
-  // TODO: add widths
-  // TODO: maybe add fixed heights?
-
   return (
     <InfoCard>
       <HeadContentWrapper>
         <AccountHeading type="h1">{t('block-details')}</AccountHeading>
         <HashWrapper>
           <HashHeading type="h2" isTruncated={isTruncated}>
-            {isTruncated
-              ? withSkeletonLoading(
-                  // TODO: need to figure out how to deal with the values when block = undefined
-                  // some kind of default placeholder
-                  <Hash hash={block?.hash ?? '*'.repeat(64)} alwaysTruncate />,
-                  isLoading,
-                )
-              : withSkeletonLoading(
-                  <Hash hash={block?.hash ?? '*'.repeat(64)} />,
-                  isLoading,
-                )}
+            {withSkeletonLoading(
+              <Hash
+                hash={block?.hash ?? hashPlaceholder}
+                alwaysTruncate={isTruncated}
+              />,
+              isLoading,
+              { width: 275 },
+            )}
           </HashHeading>
           <HashButton
             isTruncated={isTruncated}
@@ -76,7 +73,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataLabel>{t('block-height')}</DetailDataLabel>
           <DetailDataValue>
             {withSkeletonLoading(block?.header.height, isLoading, {
-              width: '10%',
+              width: 100,
             })}
           </DetailDataValue>
         </li>
@@ -84,7 +81,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataLabel>{t('current-era')}</DetailDataLabel>
           <DetailDataValue>
             {withSkeletonLoading(block?.header.era_id, isLoading, {
-              width: '10%',
+              width: 100,
             })}
           </DetailDataValue>
         </li>
@@ -95,7 +92,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
               block?.header.timestamp.toLocaleString(),
               isLoading,
               {
-                width: '25%',
+                width: 275,
               },
             )}
           </DetailDataValue>
@@ -110,8 +107,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 pathname: `/block/${block?.header.parent_hash ?? ''}`,
               }}>
               {withSkeletonLoading(
-                <Hash hash={block?.header.parent_hash ?? '*'.repeat(64)} />,
+                <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
                 isLoading,
+                { width: 850 },
               )}
             </Link>
             {!isLoading && (
@@ -123,8 +121,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
           <DetailDataValue height="2rem">
             {withSkeletonLoading(
-              <Hash hash={block?.hash ?? '*'.repeat(64)} />,
+              <Hash hash={block?.hash ?? hashPlaceholder} />,
               isLoading,
+              { width: 850 },
             )}
             {!isLoading && <CopyToClipboard textToCopy={block?.hash ?? ''} />}
           </DetailDataValue>
@@ -133,8 +132,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
           <DetailDataValue>
             {withSkeletonLoading(
-              <Hash hash={block?.header.state_root_hash ?? '*'.repeat(64)} />,
+              <Hash hash={block?.header.state_root_hash ?? hashPlaceholder} />,
               isLoading,
+              { width: 850 },
             )}
           </DetailDataValue>
         </li>
@@ -146,8 +146,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 pathname: `/account/${block?.body.proposer ?? ''}`,
               }}>
               {withSkeletonLoading(
-                <Hash hash={block?.body.proposer ?? '*'.repeat(64)} />,
+                <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                 isLoading,
+                { width: 850 },
               )}
             </Link>
             {!isLoading && (
@@ -174,7 +175,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                       <a href={`/deploy/${deployHash}`}>
                         <Hash
                           alwaysTruncate
-                          hash={deployHash ?? '*'.repeat(64)}
+                          hash={deployHash ?? hashPlaceholder}
                         />
                       </a>
                     </li>
@@ -184,6 +185,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 t('no-deploys')
               ),
               isLoading,
+              { width: 150 },
             )}
           </DetailDataValue>
         </li>
@@ -198,7 +200,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                       <a href={`/deploy/${transferHash}`}>
                         <Hash
                           alwaysTruncate
-                          hash={transferHash ?? '*'.repeat(64)}
+                          hash={transferHash ?? hashPlaceholder}
                         />
                       </a>
                     </li>
@@ -208,6 +210,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 t('no-transfers')
               ),
               isLoading,
+              { width: 150 },
             )}
           </DetailDataValue>
         </li>
