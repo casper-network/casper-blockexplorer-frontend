@@ -26,28 +26,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   block,
   isLoading,
 }) => {
-  console.log({ isLoading });
-
   const [isTruncated, setIsTruncated] = useState(true);
   const { t } = useTranslation();
-
-  // if (!block) return null;
-
-  // const {
-  //   hash: blockHash,
-  //   header: {
-  //     height: blockHeight,
-  //     timestamp: readableTimestamp,
-  //     era_id: era,
-  //     parent_hash: parentHash,
-  //     state_root_hash: stateRootHash,
-  //   },
-  //   body: {
-  //     proposer: validatorPublicKey,
-  //     transfer_hashes: transferHashes,
-  //     deploy_hashes: deployHashes,
-  //   },
-  // } = block;
 
   const rawBlock = JSON.stringify(block);
 
@@ -63,17 +43,25 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     return child;
   };
 
+  // TODO: add widths
+  // TODO: maybe add fixed heights?
+
   return (
     <InfoCard>
       <HeadContentWrapper>
         <AccountHeading type="h1">{t('block-details')}</AccountHeading>
         <HashWrapper>
           <HashHeading type="h2" isTruncated={isTruncated}>
-            {isTruncated ? (
-              <Hash hash={block?.hash ?? '*'.repeat(64)} alwaysTruncate />
-            ) : (
-              <Hash hash={block?.hash ?? '*'.repeat(64)} />
-            )}
+            {isTruncated
+              ? withSkeletonLoading(
+                  // TODO: need to figure out how to deal with the values when block = undefined
+                  <Hash hash={block?.hash ?? '*'.repeat(64)} alwaysTruncate />,
+                  isLoading,
+                )
+              : withSkeletonLoading(
+                  <Hash hash={block?.hash ?? '*'.repeat(64)} />,
+                  isLoading,
+                )}
           </HashHeading>
           <HashButton
             isTruncated={isTruncated}
@@ -91,12 +79,17 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </li>
         <li>
           <DetailDataLabel>{t('current-era')}</DetailDataLabel>
-          <DetailDataValue>{block?.header.era_id}</DetailDataValue>
+          <DetailDataValue>
+            {withSkeletonLoading(block?.header.era_id, isLoading)}
+          </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
           <DetailDataValue>
-            {block?.header.timestamp.toLocaleString()}
+            {withSkeletonLoading(
+              block?.header.timestamp.toLocaleString(),
+              isLoading,
+            )}
           </DetailDataValue>
         </li>
       </DetailDataRowWrapper>
@@ -106,31 +99,34 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataValue>
             <Link
               to={{
-                pathname: `/block/${
-                  block?.header.parent_hash ?? '*'.repeat(64)
-                }`,
+                pathname: `/block/${block?.header.parent_hash ?? ''}`,
               }}>
-              <Hash hash={block?.header.parent_hash ?? '*'.repeat(64)} />
+              {withSkeletonLoading(
+                <Hash hash={block?.header.parent_hash ?? '*'.repeat(64)} />,
+                isLoading,
+              )}
             </Link>
-            <CopyToClipboard
-              textToCopy={block?.header.parent_hash ?? '*'.repeat(64)}
-            />
+            {!isLoading && (
+              <CopyToClipboard textToCopy={block?.header.parent_hash ?? ''} />
+            )}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
           <DetailDataValue>
-            <Hash hash={block?.hash ?? '*'.repeat(64)} />
-            <CopyToClipboard textToCopy={block?.hash ?? '*'.repeat(64)} />
+            {withSkeletonLoading(
+              <Hash hash={block?.hash ?? '*'.repeat(64)} />,
+              isLoading,
+            )}
+            {!isLoading && <CopyToClipboard textToCopy={block?.hash ?? ''} />}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
           <DetailDataValue>
-            {block?.header.state_root_hash ? (
-              <Hash hash={block.header.state_root_hash} />
-            ) : (
-              ''
+            {withSkeletonLoading(
+              <Hash hash={block?.header.state_root_hash ?? '*'.repeat(64)} />,
+              isLoading,
             )}
           </DetailDataValue>
         </li>
@@ -139,13 +135,16 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataValue>
             <Link
               to={{
-                pathname: `/account/${block?.body.proposer ?? '*'.repeat(64)}`,
+                pathname: `/account/${block?.body.proposer ?? ''}`,
               }}>
-              <Hash hash={block?.body.proposer ?? '*'.repeat(64)} />
+              {withSkeletonLoading(
+                <Hash hash={block?.body.proposer ?? '*'.repeat(64)} />,
+                isLoading,
+              )}
             </Link>
-            <CopyToClipboard
-              textToCopy={block?.body.proposer ?? '*'.repeat(64)}
-            />
+            {!isLoading && (
+              <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+            )}
           </DetailDataValue>
         </li>
       </DetailDataWrapper>
@@ -159,42 +158,48 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <li>
           <DetailDataLabel>{t('deploys')}</DetailDataLabel>
           <DetailDataValue>
-            {block?.body.deploy_hashes?.length ? (
-              <ul>
-                {block?.body.deploy_hashes?.map(deployHash => (
-                  <li key={deployHash}>
-                    <a href={`/deploy/${deployHash}`}>
-                      <Hash
-                        alwaysTruncate
-                        hash={deployHash ?? '*'.repeat(64)}
-                      />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              t('no-deploys')
+            {withSkeletonLoading(
+              block?.body.deploy_hashes?.length ? (
+                <ul>
+                  {block?.body.deploy_hashes?.map(deployHash => (
+                    <li key={deployHash}>
+                      <a href={`/deploy/${deployHash}`}>
+                        <Hash
+                          alwaysTruncate
+                          hash={deployHash ?? '*'.repeat(64)}
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                t('no-deploys')
+              ),
+              isLoading,
             )}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('transfers')}</DetailDataLabel>
           <DetailDataValue>
-            {block?.body.transfer_hashes?.length ? (
-              <ul>
-                {block?.body.transfer_hashes?.map(transferHash => (
-                  <li key={transferHash}>
-                    <a href={`/deploy/${transferHash}`}>
-                      <Hash
-                        alwaysTruncate
-                        hash={transferHash ?? '*'.repeat(64)}
-                      />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              t('no-transfers')
+            {withSkeletonLoading(
+              block?.body.transfer_hashes?.length ? (
+                <ul>
+                  {block?.body.transfer_hashes?.map(transferHash => (
+                    <li key={transferHash}>
+                      <a href={`/deploy/${transferHash}`}>
+                        <Hash
+                          alwaysTruncate
+                          hash={transferHash ?? '*'.repeat(64)}
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                t('no-transfers')
+              ),
+              isLoading,
             )}
           </DetailDataValue>
         </li>
