@@ -6,12 +6,13 @@ import { AxiosResponse } from 'axios';
 import { SortDirection } from '@tanstack/react-table';
 import { CLValueParsers } from 'casper-js-sdk';
 import { formatDate, formatTimeAgo, loadConfig } from 'src/utils';
+import { DEFAULT_PAGESIZE } from 'src/constants';
 import { createBaseApi } from './base-api';
 import { ApiData, DeployStatus } from './types';
 import { determineDeploySessionData, isValidPublicKey } from './utils';
 import { JsonDeploySession } from './missing-sdk-types';
 
-const { webServerUrl, defaultPagination } = loadConfig();
+const { webServerUrl } = loadConfig();
 
 const createApi = (baseUrl: string) => {
   const middlewareApi = createBaseApi(baseUrl);
@@ -33,7 +34,7 @@ const createApi = (baseUrl: string) => {
             ...tableParams,
             sort_by: tableParams?.sortBy,
             order_by: tableParams?.orderBy,
-            count: tableParams?.count ?? defaultPagination,
+            count: tableParams?.count ?? DEFAULT_PAGESIZE,
             pageNum: tableParams.pageNum,
           },
         });
@@ -96,7 +97,7 @@ const createApi = (baseUrl: string) => {
         const response = await middlewareApi.get<Response>('/peers', {
           params: {
             ...tableParams,
-            count: tableParams?.count ?? defaultPagination,
+            count: tableParams?.count ?? DEFAULT_PAGESIZE,
           },
         });
 
@@ -164,7 +165,7 @@ const createApi = (baseUrl: string) => {
           {
             params: {
               ...tableParams,
-              count: tableParams?.count ?? defaultPagination,
+              count: tableParams?.count ?? DEFAULT_PAGESIZE,
             },
           },
         );

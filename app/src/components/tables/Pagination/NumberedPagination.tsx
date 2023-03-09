@@ -4,14 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { CustomSelect } from 'src/components/layout/Header/Partials/CustomSelect';
+import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
-import { loadConfig, standardizeNumber } from 'src/utils';
+import { standardizeNumber } from 'src/utils';
 import lessThanWhite from '../../../assets/images/less-than-white.png';
 import moreThanWhite from '../../../assets/images/more-than-white.png';
-
-const { defaultPagination } = loadConfig();
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -45,7 +44,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       setTableOptions({
         ...tableOptions,
         pagination: {
-          pageSize: Number(currentRowCountOption.value) ?? defaultPagination,
+          pageSize: Number(currentRowCountOption.value) ?? DEFAULT_PAGESIZE,
           pageNum: 1,
         },
       }),
