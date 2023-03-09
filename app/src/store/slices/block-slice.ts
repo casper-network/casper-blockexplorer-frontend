@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { ApiData } from 'src/api/types';
+import { DEFAULT_PAGESIZE } from 'src/constants';
 import { middlewareServiceApi } from '../../api';
-import { formatTimeAgo, loadConfig } from '../../utils';
+import { formatTimeAgo } from '../../utils';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
-
-const { defaultPagination } = loadConfig();
 
 export interface BlockState {
   status: Loading;
@@ -22,7 +21,7 @@ export interface BlockState {
 
 const defaultTableOptions: TableOptions = {
   pagination: {
-    pageSize: defaultPagination,
+    pageSize: DEFAULT_PAGESIZE,
     pageNum: 1,
   },
   sorting: {

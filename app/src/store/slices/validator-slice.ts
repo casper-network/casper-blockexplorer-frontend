@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { ApiData } from 'src/api/types';
-import { loadConfig } from 'src/utils';
+import { DEFAULT_PAGESIZE } from 'src/constants';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
-
-const { defaultPagination } = loadConfig();
 
 export interface ValidatorState {
   status: Loading;
@@ -17,7 +15,7 @@ export interface ValidatorState {
 
 const defaultTableOptions: TableOptions = {
   pagination: {
-    pageSize: defaultPagination,
+    pageSize: DEFAULT_PAGESIZE,
     pageNum: 1,
   },
   sorting: {
