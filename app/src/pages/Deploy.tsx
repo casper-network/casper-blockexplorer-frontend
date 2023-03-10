@@ -15,7 +15,7 @@ import {
   Grid,
   PageHead,
   PageWrapper,
-  // TransactionDetailsCard,
+  TransactionDetailsCard,
 } from '../components';
 
 export const DeployPage: React.FC = () => {
@@ -45,7 +45,7 @@ export const DeployPage: React.FC = () => {
       <PageHead pageTitle={pageTitle} />
       <Grid gap="2.5rem">
         <DeployDetailsCard deploy={deploy} isLoading={isLoading} />
-        {/* <TransactionDetailsCard deploy={deploy} /> */}
+        <TransactionDetailsCard deploy={deploy} isLoading={isLoading} />
       </Grid>
     </PageWrapper>
   );
