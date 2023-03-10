@@ -37,7 +37,6 @@ export interface AccountDetailsCardProps {
   balance: string | null;
 }
 
-// TODO: do we want to clear the account when the component is unmounted?
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,

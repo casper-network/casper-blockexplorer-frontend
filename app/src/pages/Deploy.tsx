@@ -15,7 +15,7 @@ import {
   Grid,
   PageHead,
   PageWrapper,
-  TransactionDetailsCard,
+  // TransactionDetailsCard,
 } from '../components';
 
 export const DeployPage: React.FC = () => {
@@ -41,14 +41,12 @@ export const DeployPage: React.FC = () => {
   }, [deployErrorMessage]);
 
   return (
-    <PageWrapper error={error} isLoading={isLoading}>
+    <PageWrapper error={error} isLoading={false}>
       <PageHead pageTitle={pageTitle} />
-      {deploy && (
-        <Grid gap="2.5rem">
-          <DeployDetailsCard deploy={deploy} />
-          <TransactionDetailsCard deploy={deploy} />
-        </Grid>
-      )}
+      <Grid gap="2.5rem">
+        <DeployDetailsCard deploy={deploy} isLoading={isLoading} />
+        {/* <TransactionDetailsCard deploy={deploy} /> */}
+      </Grid>
     </PageWrapper>
   );
 };
