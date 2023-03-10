@@ -85,42 +85,61 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           )}
         </AvatarHashContainer>
       </HeadContentContainer>
-
       <DetailDataWrapper>
         <DetailDataList gap="1.75rem">
           <li>
             <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
-            <DetailDataValue>
-              <Hash hash={account?.trimmedAccountHash ?? hashPlaceholder} />
-              <CopyToClipboard textToCopy={account?.trimmedAccountHash ?? ''} />
+            <DetailDataValue height="2rem">
+              {withSkeletonLoading(
+                <>
+                  <Hash hash={account?.trimmedAccountHash ?? hashPlaceholder} />
+                  <CopyToClipboard
+                    textToCopy={account?.trimmedAccountHash ?? ''}
+                  />
+                </>,
+                isAccountLoading,
+                { width: '60%' },
+              )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('public-key')}</DetailDataLabel>
             <DetailDataValue>
-              {account?.publicKey ? (
-                <>
-                  <Hash hash={account?.publicKey} />
-                  <CopyToClipboard textToCopy={account?.publicKey} />
-                </>
-              ) : (
-                'Unknown'
+              {withSkeletonLoading(
+                account?.publicKey ? (
+                  <>
+                    <Hash hash={account?.publicKey} />
+                    <CopyToClipboard textToCopy={account?.publicKey} />
+                  </>
+                ) : (
+                  'Unknown'
+                ),
+                isAccountLoading,
+                { width: '60%' },
               )}
             </DetailDataValue>
           </li>
 
-          {balance && (
-            <li>
-              <DetailDataLabel>{t('balance')}</DetailDataLabel>
-              <DetailDataValue>
-                <Coin>{balance}</Coin>
-              </DetailDataValue>
-            </li>
-          )}
+          <li>
+            <DetailDataLabel>{t('balance')}</DetailDataLabel>
+            <DetailDataValue>
+              {withSkeletonLoading(
+                <Coin>{balance ?? ''}</Coin>,
+                isBalanceLoading,
+                { width: 250 },
+              )}
+            </DetailDataValue>
+          </li>
           <li>
             <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>
-              {account?.rawAccount && <RawData rawData={account?.rawAccount} />}
+              {withSkeletonLoading(
+                account?.rawAccount && (
+                  <RawData rawData={account?.rawAccount} />
+                ),
+                isAccountLoading,
+                { width: 200, height: '2.25rem' },
+              )}
             </DetailDataValue>
           </li>
         </DetailDataList>
