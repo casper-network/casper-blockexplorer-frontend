@@ -7,6 +7,7 @@ export interface AccountState {
   status: Loading;
   account: Account | null;
   balance: string | null;
+  balanceLoadingStatus: Loading;
   errorMessage: string | null;
 }
 
@@ -14,6 +15,7 @@ const initialState: AccountState = {
   status: Loading.Idle,
   account: null,
   balance: null,
+  balanceLoadingStatus: Loading.Idle,
   errorMessage: null,
 };
 
@@ -80,19 +82,19 @@ export const accountSlice = createSlice({
         state.status = Loading.Failed;
       })
       .addCase(fetchBalance.pending, state => {
-        state.status = Loading.Pending;
+        state.balanceLoadingStatus = Loading.Pending;
       })
       .addCase(
         fetchBalance.fulfilled,
         (state, { payload }: PayloadAction<{ balance: string }>) => {
-          state.status = Loading.Complete;
+          state.balanceLoadingStatus = Loading.Complete;
           state.balance = payload.balance;
         },
       )
       .addCase(fetchBalance.rejected, (state, { payload }) => {
         state.errorMessage = payload?.error || null;
 
-        state.status = Loading.Failed;
+        state.balanceLoadingStatus = Loading.Failed;
       });
   },
 });

@@ -3,6 +3,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
 import { HashButton } from 'src/components/buttons';
+import { hashPlaceholder } from 'src/utils';
+import {
+  getAccountLoadingStatus,
+  getBalanceLoadingStatus,
+  Loading,
+  useAppSelector,
+} from 'src/store';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -17,14 +24,20 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import { Coin, CopyToClipboard, RawData } from '../../utility';
+import {
+  Coin,
+  CopyToClipboard,
+  RawData,
+  withSkeletonLoading,
+} from '../../utility';
 import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
-  account: Account;
+  account: Account | null;
   balance: string | null;
 }
 
+// TODO: do we want to clear the account when the component is unmounted?
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
@@ -32,48 +45,63 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { isMobile } = useAppWidth();
   const { t } = useTranslation();
-  const { trimmedAccountHash, publicKey, rawAccount } = account;
+
+  const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
+  const balanceLoadingStatus = useAppSelector(getBalanceLoadingStatus);
+
+  const isAccountLoading = accountLoadingStatus !== Loading.Complete;
+  const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
 
   return (
     <InfoCard>
       <HeadContentContainer>
         <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarHashContainer>
-          <AvatarIcon
-            src={`${AVATAR_URL}${trimmedAccountHash}.svg`}
-            alt="avatar"
-            isTruncated={isTruncated}
-          />
-          <HashHeading type="h2" isTruncated={isTruncated} isMobile={isMobile}>
-            {isTruncated ? (
-              <Hash hash={trimmedAccountHash} alwaysTruncate />
-            ) : (
-              <Hash hash={trimmedAccountHash} />
-            )}
-          </HashHeading>
+          {withSkeletonLoading(
+            <>
+              <AvatarIcon
+                src={`${AVATAR_URL}${account?.trimmedAccountHash ?? ''}.svg`}
+                alt="avatar"
+                isTruncated={isTruncated}
+              />
+              <HashExpandWrapper>
+                <HashHeading
+                  type="h2"
+                  isTruncated={isTruncated}
+                  isMobile={isMobile}>
+                  <Hash
+                    hash={account?.trimmedAccountHash ?? hashPlaceholder}
+                    alwaysTruncate={isTruncated}
+                  />
+                </HashHeading>
+                <HashButton
+                  isTruncated={isTruncated}
+                  setIsTruncated={setIsTruncated}
+                />
+              </HashExpandWrapper>
+            </>,
+            isAccountLoading,
+            { width: 350, height: 60 },
+          )}
         </AvatarHashContainer>
       </HeadContentContainer>
-      <HashButton
-        isTruncated={isTruncated}
-        setIsTruncated={setIsTruncated}
-        isAvatar
-      />
+
       <DetailDataWrapper>
         <DetailDataList gap="1.75rem">
           <li>
             <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
             <DetailDataValue>
-              <Hash hash={trimmedAccountHash} />
-              <CopyToClipboard textToCopy={trimmedAccountHash} />
+              <Hash hash={account?.trimmedAccountHash ?? hashPlaceholder} />
+              <CopyToClipboard textToCopy={account?.trimmedAccountHash ?? ''} />
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('public-key')}</DetailDataLabel>
             <DetailDataValue>
-              {publicKey ? (
+              {account?.publicKey ? (
                 <>
-                  <Hash hash={publicKey} />
-                  <CopyToClipboard textToCopy={publicKey} />
+                  <Hash hash={account?.publicKey} />
+                  <CopyToClipboard textToCopy={account?.publicKey} />
                 </>
               ) : (
                 'Unknown'
@@ -92,7 +120,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>
-              <RawData rawData={rawAccount} />
+              {account?.rawAccount && <RawData rawData={account?.rawAccount} />}
             </DetailDataValue>
           </li>
         </DetailDataList>
@@ -113,8 +141,11 @@ const HeadContentContainer = styled(HeadContentWrapper)`
 
 const AvatarHashContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: flex-start;
+  height: ${pxToRem(130)};
 `;
+
+const HashExpandWrapper = styled.div``;
 
 const HashHeading = styled(GradientHeading)<{
   isTruncated: boolean;

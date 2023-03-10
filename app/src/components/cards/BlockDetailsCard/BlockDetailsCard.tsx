@@ -50,7 +50,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             <HashButton
               isTruncated={isTruncated}
               setIsTruncated={setIsTruncated}
-              isAvatar={false}
             />,
             isLoading,
             { width: 75 },

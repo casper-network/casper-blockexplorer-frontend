@@ -45,7 +45,6 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
           <HashButton
             isTruncated={isTruncated}
             setIsTruncated={setIsTruncated}
-            isAvatar={false}
             heading={'deploy'}
           />
         </HashWrapper>

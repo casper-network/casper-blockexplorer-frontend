@@ -4,12 +4,10 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   fetchAccount,
-  Loading,
   useAppDispatch,
   useAppSelector,
   getAccount,
   getAccountErrorMessage,
-  getAccountLoadingStatus,
   fetchBalance,
   getBalance,
 } from 'src/store';
@@ -27,10 +25,7 @@ export const AccountPage: React.FC = () => {
 
   const account = useAppSelector(getAccount);
   const accountBalance = useAppSelector(getBalance);
-  const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
   const accountErrorMessage = useAppSelector(getAccountErrorMessage);
-
-  const isLoading = accountLoadingStatus !== Loading.Complete;
 
   useAsyncEffect(async () => {
     if (account) {
@@ -45,11 +40,9 @@ export const AccountPage: React.FC = () => {
   const pageTitle = `${t('account-details')}`;
 
   return (
-    <PageWrapper error={error} isLoading={isLoading}>
+    <PageWrapper error={error} isLoading={false}>
       <PageHead pageTitle={pageTitle} />
-      {account && (
-        <AccountDetailsCard account={account} balance={accountBalance} />
-      )}
+      <AccountDetailsCard account={account} balance={accountBalance} />
     </PageWrapper>
   );
 };
