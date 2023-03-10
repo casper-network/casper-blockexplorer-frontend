@@ -63,7 +63,12 @@ export const fetchBalance = createAsyncThunk<
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {},
+  reducers: {
+    clearAccount: state => {
+      state.account = null;
+      state.balance = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchAccount.pending, state => {
@@ -98,3 +103,5 @@ export const accountSlice = createSlice({
       });
   },
 });
+
+export const { clearAccount } = accountSlice.actions;

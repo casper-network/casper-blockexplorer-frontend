@@ -125,7 +125,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
             <DetailDataValue>
               {withSkeletonLoading(
                 <Coin>{balance ?? ''}</Coin>,
-                isBalanceLoading,
+                isBalanceLoading || balance === null,
                 { width: 250 },
               )}
             </DetailDataValue>

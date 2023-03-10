@@ -10,6 +10,7 @@ import {
   getAccountErrorMessage,
   fetchBalance,
   getBalance,
+  clearAccount,
 } from 'src/store';
 import { AccountDetailsCard, PageHead, PageWrapper } from '../components';
 
@@ -21,6 +22,10 @@ export const AccountPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchAccount(id ?? ''));
+
+    return () => {
+      dispatch(clearAccount());
+    };
   }, [dispatch, id]);
 
   const account = useAppSelector(getAccount);
