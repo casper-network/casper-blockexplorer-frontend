@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
 import { HashButton } from 'src/components/buttons';
+import { hashPlaceholder } from 'src/utils';
 import { Deploy } from '../../../api';
 import { Heading, InfoCard, HeadContentWrapper } from '../../base';
 import {
@@ -15,17 +16,18 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import { CopyToClipboard, RawData } from '../../utility';
+import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
 import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface DeployDetailsCardProps {
-  deploy: Deploy;
+  deploy: Deploy | null;
+  isLoading: boolean;
 }
 
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   deploy,
+  isLoading,
 }) => {
-  const { deployHash, blockHash, publicKey, rawDeploy } = deploy;
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { isMobile } = useAppWidth();
   const { t } = useTranslation();
@@ -35,52 +37,81 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
       <HeadContentWrapper>
         <DeployHeading type="h1">{t('deploy-details')}</DeployHeading>
         <HashWrapper>
-          <HashHeading type="h2" isTruncated={isTruncated} isMobile={isMobile}>
-            {isTruncated ? (
-              <Hash hash={blockHash} alwaysTruncate />
-            ) : (
-              <Hash hash={blockHash} />
-            )}
-          </HashHeading>
-          <HashButton
-            isTruncated={isTruncated}
-            setIsTruncated={setIsTruncated}
-            isAvatar={false}
-            heading={'deploy'}
-          />
+          {withSkeletonLoading(
+            <>
+              <HashHeading
+                type="h2"
+                isTruncated={isTruncated}
+                isMobile={isMobile}>
+                <Hash
+                  hash={deploy?.blockHash ?? hashPlaceholder}
+                  alwaysTruncate={isTruncated}
+                />
+              </HashHeading>
+              <HashButton
+                isTruncated={isTruncated}
+                setIsTruncated={setIsTruncated}
+                heading={'deploy'}
+              />
+            </>,
+            isLoading,
+            { width: 350, height: 60 },
+          )}
         </HashWrapper>
       </HeadContentWrapper>
       <DetailDataWrapper>
         <DetailDataList>
           <li>
             <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-            <DetailDataValue>
-              <Link to={`/block/${blockHash}`}>
-                <Hash hash={blockHash} />
-              </Link>
-              <CopyToClipboard textToCopy={blockHash} />
+            <DetailDataValue height="2rem">
+              {withSkeletonLoading(
+                <>
+                  <Link to={`/block/${deploy?.blockHash ?? ''}`}>
+                    <Hash hash={deploy?.blockHash ?? hashPlaceholder} />
+                  </Link>
+                  <CopyToClipboard textToCopy={deploy?.blockHash ?? ''} />
+                </>,
+                isLoading,
+                { width: '60%' },
+              )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-            <DetailDataValue>
-              <Link to={`/account/${publicKey}`}>
-                <Hash hash={publicKey} />
-              </Link>
-              <CopyToClipboard textToCopy={publicKey} />
+            <DetailDataValue height="2rem">
+              {withSkeletonLoading(
+                <>
+                  <Link to={`/account/${deploy?.publicKey ?? ''}`}>
+                    <Hash hash={deploy?.publicKey ?? hashPlaceholder} />
+                  </Link>
+                  <CopyToClipboard textToCopy={deploy?.publicKey ?? ''} />
+                </>,
+                isLoading,
+                { width: '60%' },
+              )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('deploy-hash')}</DetailDataLabel>
-            <DetailDataValue>
-              <Hash hash={deployHash} />
-              <CopyToClipboard textToCopy={deployHash} />
+            <DetailDataValue height="2rem">
+              {withSkeletonLoading(
+                <>
+                  <Hash hash={deploy?.deployHash ?? hashPlaceholder} />
+                  <CopyToClipboard textToCopy={deploy?.deployHash ?? ''} />
+                </>,
+                isLoading,
+                { width: '60%' },
+              )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
             <DetailDataValue>
-              <RawData rawData={rawDeploy} />
+              {withSkeletonLoading(
+                deploy?.rawDeploy && <RawData rawData={deploy.rawDeploy} />,
+                isLoading,
+                { width: 200, height: '2.25rem' },
+              )}
             </DetailDataValue>
           </li>
         </DetailDataList>
@@ -98,6 +129,7 @@ const DeployHeading = styled(Heading)`
 const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: ${pxToRem(75)};
 `;
 
 const HashHeading = styled(GradientHeading)<{

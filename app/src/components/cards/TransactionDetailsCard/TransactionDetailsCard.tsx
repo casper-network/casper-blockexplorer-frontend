@@ -12,31 +12,23 @@ import {
 } from '../../styled';
 import { breakpoints, fonts, fontWeight, pxToRem } from '../../../styled-theme';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
-import { Coin } from '../../utility';
+import { Coin, withSkeletonLoading } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
 import { FailureIcon, SuccessIcon } from '../../icons';
 
 interface TransactionDetailsCardProps {
-  deploy: Deploy;
+  deploy: Deploy | null;
+  isLoading: boolean;
 }
 
 export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
   deploy,
+  isLoading,
 }) => {
-  const {
-    paymentAmount,
-    cost,
-    amount,
-    readableTimestamp,
-    action,
-    status,
-    deployType,
-  } = deploy;
-
   const { t } = useTranslation();
 
   const statusIcon =
-    status === DeployStatus.Success ? <SuccessIcon /> : <FailureIcon />;
+    deploy?.status === DeployStatus.Success ? <SuccessIcon /> : <FailureIcon />;
 
   return (
     <InfoCard>
@@ -48,12 +40,12 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
       <DetailDataWrapper>
         <TransactionGrid gap="2rem">
           <DetailDataList gap="2rem">
-            {!!amount && (
+            {!!deploy?.amount && (
               <li>
                 <Grid gap="1rem" templateColumns="9rem auto">
                   <DetailDataLabel>{t('amount')}</DetailDataLabel>
                   <DetailDataValue>
-                    <Coin>{amount}</Coin>
+                    <Coin>{deploy?.amount}</Coin>,
                   </DetailDataValue>
                 </Grid>
               </li>
@@ -62,7 +54,11 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               <Grid gap="1rem" templateColumns="9rem 1fr">
                 <DetailDataLabel>{t('cost')}</DetailDataLabel>
                 <DetailDataValue>
-                  <Coin>{cost}</Coin>
+                  {withSkeletonLoading(
+                    <Coin>{deploy?.cost ?? ''}</Coin>,
+                    isLoading,
+                    {},
+                  )}
                 </DetailDataValue>
               </Grid>
             </li>
@@ -70,7 +66,11 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               <Grid gap="1rem" templateColumns="9rem 1fr">
                 <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
                 <DetailDataValue>
-                  <Coin>{paymentAmount}</Coin>
+                  {withSkeletonLoading(
+                    <Coin>{deploy?.paymentAmount ?? ''}</Coin>,
+                    isLoading,
+                    {},
+                  )}
                 </DetailDataValue>
               </Grid>
             </li>
@@ -78,14 +78,22 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
           <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
             <div>
               <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-              <TransactionDetailData>{readableTimestamp}</TransactionDetailData>
+              <TransactionDetailData>
+                {withSkeletonLoading(deploy?.readableTimestamp, isLoading, {})}
+              </TransactionDetailData>
             </div>
             <HideOnMobile>
               <div>
                 <DetailDataLabel>{t('status')}</DetailDataLabel>
                 <DeployStatusData>
-                  {status}
-                  <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                  {withSkeletonLoading(
+                    <>
+                      {deploy?.status}
+                      <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                    </>,
+                    isLoading,
+                    {},
+                  )}
                 </DeployStatusData>
               </div>
             </HideOnMobile>
@@ -93,19 +101,29 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               <SpanTwoCols>
                 <DetailDataLabel>{t('status')}</DetailDataLabel>
                 <DeployStatusData>
-                  {status}
-                  <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                  {withSkeletonLoading(
+                    <>
+                      {deploy?.status}
+                      <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                    </>,
+                    isLoading,
+                    { width: 100 },
+                  )}
                 </DeployStatusData>
               </SpanTwoCols>
             </HideOnDesktop>
             <ActionAndDeployTypeWrapper>
               <DetailDataLabel>{t('action')}</DetailDataLabel>
-              <TransactionDetailData>{action}</TransactionDetailData>
+              <TransactionDetailData>
+                {withSkeletonLoading(deploy?.action, isLoading, {})}
+              </TransactionDetailData>
             </ActionAndDeployTypeWrapper>
-            {!!deployType && (
+            {!!deploy?.deployType && (
               <ActionAndDeployTypeWrapper>
-                <DetailDataLabel>{t('deploy-time')}</DetailDataLabel>
-                <TransactionDetailData>{deployType}</TransactionDetailData>
+                <DetailDataLabel>{t('deploy-type')}</DetailDataLabel>
+                <TransactionDetailData>
+                  {deploy?.deployType}
+                </TransactionDetailData>
               </ActionAndDeployTypeWrapper>
             )}
           </Grid>

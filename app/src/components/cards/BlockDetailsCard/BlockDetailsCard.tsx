@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { fontWeight, pxToRem } from 'src/styled-theme';
+import { hashPlaceholder } from 'src/utils';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   DetailDataLabel,
@@ -14,34 +15,21 @@ import {
   GradientHeading,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData } from '../../utility';
+import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
 
 export interface BlockDetailsCardProps {
-  block: ApiData.Block;
+  block: ApiData.Block | null;
+  isLoading: boolean;
 }
 
 export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   block,
+  isLoading,
 }) => {
-  const {
-    hash: blockHash,
-    header: {
-      height: blockHeight,
-      timestamp: readableTimestamp,
-      era_id: era,
-      parent_hash: parentHash,
-      state_root_hash: stateRootHash,
-    },
-    body: {
-      proposer: validatorPublicKey,
-      transfer_hashes: transferHashes,
-      deploy_hashes: deployHashes,
-    },
-  } = block;
-
-  const rawBlock = JSON.stringify(block);
   const [isTruncated, setIsTruncated] = useState(true);
   const { t } = useTranslation();
+
+  const rawBlock = JSON.stringify(block);
 
   return (
     <InfoCard>
@@ -49,71 +37,111 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <AccountHeading type="h1">{t('block-details')}</AccountHeading>
         <HashWrapper>
           <HashHeading type="h2" isTruncated={isTruncated}>
-            {isTruncated ? (
-              <Hash hash={blockHash} alwaysTruncate />
-            ) : (
-              <Hash hash={blockHash} />
+            {withSkeletonLoading(
+              <Hash
+                hash={block?.hash ?? hashPlaceholder}
+                alwaysTruncate={isTruncated}
+              />,
+              isLoading,
+              { width: 275 },
             )}
           </HashHeading>
-          <HashButton
-            isTruncated={isTruncated}
-            setIsTruncated={setIsTruncated}
-            isAvatar={false}
-          />
+          {withSkeletonLoading(
+            <HashButton
+              isTruncated={isTruncated}
+              setIsTruncated={setIsTruncated}
+            />,
+            isLoading,
+            { width: 75 },
+          )}
         </HashWrapper>
       </HeadContentWrapper>
       <DetailDataRowWrapper>
         <li>
           <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-          <DetailDataValue>{blockHeight}</DetailDataValue>
+          <DetailDataValue>
+            {withSkeletonLoading(block?.header.height, isLoading, {
+              width: 100,
+            })}
+          </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('current-era')}</DetailDataLabel>
-          <DetailDataValue>{era}</DetailDataValue>
+          <DetailDataValue>
+            {withSkeletonLoading(block?.header.era_id, isLoading, {
+              width: 100,
+            })}
+          </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
           <DetailDataValue>
-            {readableTimestamp.toLocaleString()}
+            {withSkeletonLoading(
+              block?.header.timestamp.toLocaleString(),
+              isLoading,
+              {
+                width: 275,
+              },
+            )}
           </DetailDataValue>
         </li>
       </DetailDataRowWrapper>
       <DetailDataWrapper>
         <li>
           <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-          <DetailDataValue>
+          <DetailDataValue height="2rem">
             <Link
               to={{
-                pathname: `/block/${parentHash}`,
+                pathname: `/block/${block?.header.parent_hash ?? ''}`,
               }}>
-              <Hash hash={parentHash} />
+              {withSkeletonLoading(
+                <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
+                isLoading,
+                { width: 850 },
+              )}
             </Link>
-            <CopyToClipboard textToCopy={parentHash} />
+            {!isLoading && (
+              <CopyToClipboard textToCopy={block?.header.parent_hash ?? ''} />
+            )}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-          <DetailDataValue>
-            <Hash hash={blockHash} />
-            <CopyToClipboard textToCopy={blockHash} />
+          <DetailDataValue height="2rem">
+            {withSkeletonLoading(
+              <Hash hash={block?.hash ?? hashPlaceholder} />,
+              isLoading,
+              { width: 850 },
+            )}
+            {!isLoading && <CopyToClipboard textToCopy={block?.hash ?? ''} />}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
           <DetailDataValue>
-            {stateRootHash ? <Hash hash={stateRootHash} /> : ''}
+            {withSkeletonLoading(
+              <Hash hash={block?.header.state_root_hash ?? hashPlaceholder} />,
+              isLoading,
+              { width: 850 },
+            )}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('validator')}</DetailDataLabel>
-          <DetailDataValue>
+          <DetailDataValue height="2rem">
             <Link
               to={{
-                pathname: `/account/${validatorPublicKey}`,
+                pathname: `/account/${block?.body.proposer ?? ''}`,
               }}>
-              <Hash hash={validatorPublicKey} />
+              {withSkeletonLoading(
+                <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
+                isLoading,
+                { width: 850 },
+              )}
             </Link>
-            <CopyToClipboard textToCopy={validatorPublicKey} />
+            {!isLoading && (
+              <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+            )}
           </DetailDataValue>
         </li>
       </DetailDataWrapper>
@@ -127,36 +155,50 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <li>
           <DetailDataLabel>{t('deploys')}</DetailDataLabel>
           <DetailDataValue>
-            {deployHashes?.length ? (
-              <ul>
-                {deployHashes?.map(deployHash => (
-                  <li key={deployHash}>
-                    <a href={`/deploy/${deployHash}`}>
-                      <Hash alwaysTruncate hash={deployHash} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              t('no-deploys')
+            {withSkeletonLoading(
+              block?.body.deploy_hashes?.length ? (
+                <ul>
+                  {block?.body.deploy_hashes?.map(deployHash => (
+                    <li key={deployHash}>
+                      <a href={`/deploy/${deployHash}`}>
+                        <Hash
+                          alwaysTruncate
+                          hash={deployHash ?? hashPlaceholder}
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                t('no-deploys')
+              ),
+              isLoading,
+              { width: 150 },
             )}
           </DetailDataValue>
         </li>
         <li>
           <DetailDataLabel>{t('transfers')}</DetailDataLabel>
           <DetailDataValue>
-            {transferHashes?.length ? (
-              <ul>
-                {transferHashes?.map(transferHash => (
-                  <li key={transferHash}>
-                    <a href={`/deploy/${transferHash}`}>
-                      <Hash alwaysTruncate hash={transferHash} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              t('no-transfers')
+            {withSkeletonLoading(
+              block?.body.transfer_hashes?.length ? (
+                <ul>
+                  {block?.body.transfer_hashes?.map(transferHash => (
+                    <li key={transferHash}>
+                      <a href={`/deploy/${transferHash}`}>
+                        <Hash
+                          alwaysTruncate
+                          hash={transferHash ?? hashPlaceholder}
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                t('no-transfers')
+              ),
+              isLoading,
+              { width: 150 },
             )}
           </DetailDataValue>
         </li>

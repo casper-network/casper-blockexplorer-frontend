@@ -46,10 +46,7 @@ const StyledHashButton = styled(Button)<{
   buttonPosition: string;
   heading: string | undefined;
 }>`
-  display: ${({ isMobile, isAvatar, heading }) =>
-    (isMobile && isAvatar) || (isMobile && heading === 'deploy')
-      ? 'none'
-      : 'block'};
+  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
   color: ${colors.darkSupporting};
   font-weight: 400;
   background-color: transparent;

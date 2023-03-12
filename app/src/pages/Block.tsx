@@ -30,6 +30,7 @@ export const BlockPage: React.FC = () => {
   }, [dispatch, blockHashOrHeight]);
 
   const block = useAppSelector(getBlock);
+
   const blockLoadingStatus = useAppSelector(getBlockLoadingStatus);
   const blockErrorMessage = useAppSelector(getBlockErrorMessage);
 
@@ -44,11 +45,12 @@ export const BlockPage: React.FC = () => {
   const pageTitle = `${t('block-details')}`;
 
   return (
-    <PageWrapper error={error} isLoading={isLoading}>
+    <PageWrapper error={error} isLoading={false}>
       <PageHead pageTitle={pageTitle} />
-      {!isMobile && !isLoading && block && <BlockDetailsCard block={block} />}
-      {isMobile && !isLoading && block && (
-        <MobileBlockDetailsCard block={block} />
+      {isMobile ? (
+        <MobileBlockDetailsCard block={block} isLoading={isLoading} />
+      ) : (
+        <BlockDetailsCard block={block} isLoading={isLoading} />
       )}
     </PageWrapper>
   );

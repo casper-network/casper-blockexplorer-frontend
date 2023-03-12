@@ -12,6 +12,10 @@ export const getAccountLoadingStatus = (state: RootState) => {
   return state.account.status;
 };
 
+export const getBalanceLoadingStatus = (state: RootState) => {
+  return state.account.balanceLoadingStatus;
+};
+
 export const getAccountErrorMessage = (state: RootState) => {
   return state.account.errorMessage;
 };

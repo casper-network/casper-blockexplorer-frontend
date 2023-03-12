@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { colors, pxToRem } from 'src/styled-theme';
+import { hashPlaceholder } from 'src/utils';
 import { InfoCard } from '../../base';
 import {
   DetailDataLabel,
@@ -11,55 +12,59 @@ import {
   DetailDataWrapper,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData } from '../../utility';
+import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
 
 export interface MobileBlockDetailsCardProps {
-  block: ApiData.Block;
+  block: ApiData.Block | null;
+  isLoading: boolean;
 }
 
 export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
   block,
+  isLoading,
 }) => {
-  const {
-    hash: blockHash,
-    header: {
-      height: blockHeight,
-      timestamp: readableTimestamp,
-      era_id: era,
-      parent_hash: parentHash,
-      state_root_hash: stateRootHash,
-    },
-    body: {
-      proposer: validatorPublicKey,
-      transfer_hashes: transferHashes,
-      deploy_hashes: deployHashes,
-    },
-  } = block;
+  const { t } = useTranslation();
 
   const rawBlock = JSON.stringify(block);
-
-  const { t } = useTranslation();
 
   return (
     <>
       <PageHeading>
-        <Hash hash={blockHash} alwaysTruncate />
+        {withSkeletonLoading(
+          <Hash hash={block?.hash ?? hashPlaceholder} alwaysTruncate />,
+          isLoading,
+          { width: 275 },
+        )}
       </PageHeading>
 
       <InfoCard>
         <DetailDataRowWrapper>
           <li>
             <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-            <DetailDataValue>{blockHeight}</DetailDataValue>
+            <DetailDataValue>
+              {withSkeletonLoading(block?.header.height, isLoading, {
+                width: 100,
+              })}
+            </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('current-era')}</DetailDataLabel>
-            <DetailDataValue>{era}</DetailDataValue>
+            <DetailDataValue>
+              {withSkeletonLoading(block?.header.era_id, isLoading, {
+                width: 100,
+              })}
+            </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
             <DetailDataValue>
-              {readableTimestamp.toLocaleString()}
+              {withSkeletonLoading(
+                block?.header.timestamp.toLocaleString(),
+                isLoading,
+                {
+                  width: 275,
+                },
+              )}
             </DetailDataValue>
           </li>
         </DetailDataRowWrapper>
@@ -68,39 +73,71 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
         <DetailDataWrapper>
           <li>
             <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue height="2rem">
               <Link
                 to={{
-                  pathname: `/block/${parentHash}`,
+                  pathname: `/block/${block?.header.parent_hash ?? ''}`,
                 }}>
-                <Hash hash={parentHash} />
+                {withSkeletonLoading(
+                  <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
+                  isLoading,
+                  {
+                    width: 175,
+                  },
+                )}
               </Link>
-              <CopyToClipboard textToCopy={parentHash} />
+              {!isLoading && (
+                <CopyToClipboard
+                  textToCopy={block?.header.parent_hash ?? hashPlaceholder}
+                />
+              )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-            <DetailDataValue>
-              <Hash hash={blockHash} />
-              <CopyToClipboard textToCopy={blockHash} />
+            <DetailDataValue height="2rem">
+              {withSkeletonLoading(
+                <Hash hash={block?.hash ?? hashPlaceholder} />,
+                isLoading,
+                {
+                  width: 175,
+                },
+              )}
+              {!isLoading && <CopyToClipboard textToCopy={block?.hash ?? ''} />}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
             <DetailDataValue>
-              {stateRootHash ? <Hash hash={stateRootHash} /> : ''}
+              {withSkeletonLoading(
+                <Hash
+                  hash={block?.header.state_root_hash ?? hashPlaceholder}
+                />,
+                isLoading,
+                {
+                  width: 175,
+                },
+              )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('validator')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue height="2rem">
               <Link
                 to={{
-                  pathname: `/account/${validatorPublicKey}`,
+                  pathname: `/account/${block?.body.proposer ?? ''}`,
                 }}>
-                <Hash hash={validatorPublicKey} />
+                {withSkeletonLoading(
+                  <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
+                  isLoading,
+                  {
+                    width: 175,
+                  },
+                )}
               </Link>
-              <CopyToClipboard textToCopy={validatorPublicKey} />
+              {!isLoading && (
+                <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+              )}
             </DetailDataValue>
           </li>
         </DetailDataWrapper>
@@ -110,36 +147,44 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('deploys')}</DetailDataLabel>
             <DetailDataValue>
-              {deployHashes?.length ? (
-                <ul>
-                  {deployHashes?.map(deployHash => (
-                    <li key={deployHash}>
-                      <a href={`/deploy/${deployHash}`}>
-                        <Hash hash={deployHash} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                'No deploys'
+              {withSkeletonLoading(
+                block?.body.deploy_hashes?.length ? (
+                  <ul>
+                    {block?.body.deploy_hashes?.map(deployHash => (
+                      <li key={deployHash}>
+                        <a href={`/deploy/${deployHash}`}>
+                          <Hash hash={deployHash} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  'No deploys'
+                ),
+                isLoading,
+                { width: 150 },
               )}
             </DetailDataValue>
           </li>
           <li>
             <DetailDataLabel>{t('transfers')}</DetailDataLabel>
             <DetailDataValue>
-              {transferHashes?.length ? (
-                <ul>
-                  {transferHashes?.map(transferHash => (
-                    <li key={transferHash}>
-                      <a href={`/deploy/${transferHash}`}>
-                        <Hash hash={transferHash} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                t('no-transfers')
+              {withSkeletonLoading(
+                block?.body.transfer_hashes?.length ? (
+                  <ul>
+                    {block?.body.transfer_hashes?.map(transferHash => (
+                      <li key={transferHash}>
+                        <a href={`/deploy/${transferHash}`}>
+                          <Hash hash={transferHash} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  t('no-transfers')
+                ),
+                isLoading,
+                { width: 150 },
               )}
             </DetailDataValue>
           </li>
