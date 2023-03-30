@@ -160,7 +160,6 @@ const createApi = (baseUrl: string) => {
         type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>(
-          // TODO: should we be setting the baseApi for each of the entities?
           '/validators/current-era-validators',
           {
             params: {
