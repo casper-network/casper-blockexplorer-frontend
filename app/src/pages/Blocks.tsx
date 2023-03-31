@@ -16,7 +16,7 @@ import {
   getTotalBlocks,
   getBlocksTableOptions,
   updateBlocksSorting,
-  restetBlocksTableOptions,
+  resetToInitialBlockState,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 
@@ -70,7 +70,7 @@ export const Blocks: React.FC = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(restetBlocksTableOptions());
+      dispatch(resetToInitialBlockState());
     };
   }, [dispatch]);
 

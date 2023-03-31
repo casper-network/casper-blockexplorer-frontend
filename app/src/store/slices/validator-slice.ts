@@ -98,6 +98,7 @@ export const validatorSlice = createSlice({
     resetValidatorTableOptions: state => {
       state.tableOptions = defaultTableOptions;
     },
+    resetToInitialValidatorState: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -138,6 +139,7 @@ export const {
   updateValidatorPageNum,
   updateValidatorSorting,
   resetValidatorTableOptions,
+  resetToInitialValidatorState,
 } = validatorSlice.actions;
 
 // all

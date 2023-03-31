@@ -132,6 +132,7 @@ export const blockSlice = createSlice({
     restetBlocksTableOptions: state => {
       state.tableOptions = defaultTableOptions;
     },
+    resetToInitialBlockState: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -183,4 +184,5 @@ export const {
   updateBlocksPageNum,
   updateBlocksSorting,
   restetBlocksTableOptions,
+  resetToInitialBlockState,
 } = blockSlice.actions;

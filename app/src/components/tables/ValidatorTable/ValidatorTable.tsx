@@ -12,7 +12,7 @@ import {
   getValidators,
   getValidatorsTableOptions,
   Loading,
-  resetValidatorTableOptions,
+  resetToInitialValidatorState,
   setValidatorTableOptions,
   updateValidatorPageNum,
   updateValidatorSorting,
@@ -48,7 +48,7 @@ export const ValidatorTable: React.FC = () => {
     dispatch(fetchCurrentEraValidatorStatus());
 
     return () => {
-      dispatch(resetValidatorTableOptions());
+      dispatch(resetToInitialValidatorState());
     };
   }, [dispatch]);
 
