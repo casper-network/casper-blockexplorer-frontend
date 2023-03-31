@@ -150,21 +150,16 @@ listenerMiddleware.startListening({
   effect: async (action, listenerApi) => {
     // console.log({ action });
     // console.log({ listenerApi });
-
     // TODO: how to get access to RootState type without dep cycle error?
-    const rootStateAll = listenerApi.getState() as any;
-
-    // console.log({ rootStateAll });
-
-    const validatorTableOptions = rootStateAll.validator.tableOptions;
-
-    console.log({ validatorTableOptions });
-
-    // TODO: add this to local storage
-    localStorage.setItem(
-      'validatorTableOptions',
-      JSON.stringify(validatorTableOptions),
-    );
+    // const rootStateAll = listenerApi.getState() as any;
+    // // console.log({ rootStateAll });
+    // const validatorTableOptions = rootStateAll.validator.tableOptions;
+    // console.log({ validatorTableOptions });
+    // // TODO: add this to local storage
+    // localStorage.setItem(
+    //   'validatorTableOptions',
+    //   JSON.stringify(validatorTableOptions),
+    // );
   },
 });
 
