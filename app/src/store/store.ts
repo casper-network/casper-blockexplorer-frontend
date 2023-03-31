@@ -4,6 +4,7 @@ import {
   appSlice,
   blockSlice,
   deploySlice,
+  listenerMiddleware,
   networkSlice,
   peerSlice,
   validatorSlice,
@@ -19,6 +20,8 @@ export const store = configureStore({
     account: accountSlice.reducer,
     deploy: deploySlice.reducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
