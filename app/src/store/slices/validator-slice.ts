@@ -78,7 +78,17 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
 
 export const validatorSlice = createSlice({
   name: 'validator',
-  initialState,
+  initialState: () => {
+    const validatorPageOptions = JSON.parse(
+      localStorage.getItem('validatorTableOptions') ?? '',
+    );
+
+    console.log('fetching from LS', validatorPageOptions);
+
+    // TODO: how to make sure the type is exactly equal before returning?
+
+    return initialState;
+  },
   reducers: {
     setValidatorTableOptions: (
       state,
@@ -153,15 +163,16 @@ listenerMiddleware.startListening({
     // console.log({ action });
     // console.log({ listenerApi });
     // TODO: how to get access to RootState type without dep cycle error?
-    // const rootStateAll = listenerApi.getState() as any;
-    // // console.log({ rootStateAll });
-    // const validatorTableOptions = rootStateAll.validator.tableOptions;
-    // console.log({ validatorTableOptions });
-    // // TODO: add this to local storage
-    // localStorage.setItem(
-    //   'validatorTableOptions',
-    //   JSON.stringify(validatorTableOptions),
-    // );
+    const rootStateAll = listenerApi.getState() as any;
+
+    const validatorTableOptions = rootStateAll.validator.tableOptions;
+    console.log({ validatorTableOptions });
+
+    // TODO: add this to local storage
+    localStorage.setItem(
+      'validatorTableOptions',
+      JSON.stringify(validatorTableOptions),
+    );
   },
 });
 

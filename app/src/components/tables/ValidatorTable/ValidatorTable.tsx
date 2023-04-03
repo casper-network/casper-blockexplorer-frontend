@@ -53,6 +53,8 @@ export const ValidatorTable: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log('updating table options...');
+
     dispatch(fetchValidators(validatorsTableOptions));
   }, [dispatch, validatorsTableOptions]);
 
@@ -62,6 +64,15 @@ export const ValidatorTable: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validators]);
+
+  useEffect(() => {
+    // TODO: I think we actually only want to check local storage for
+    // tableOptions on component mount (i.e. refresh, navigate to here from other page)
+    console.log('simply just running on page load');
+
+    // Therefore, we want to check the LS values here and be able to pass in to
+    // the validators fetch action to override the default ones
+  }, []);
 
   const isPageLoading =
     validatorsLoadingStatus !== Loading.Complete ||
