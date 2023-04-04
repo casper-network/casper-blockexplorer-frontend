@@ -32,10 +32,7 @@ const createApi = (baseUrl: string) => {
         const response = await middlewareApi.get<Response>('/blocks', {
           params: {
             ...tableParams,
-            sort_by: tableParams?.sortBy,
-            order_by: tableParams?.orderBy,
             count: tableParams?.count ?? DEFAULT_PAGESIZE,
-            pageNum: tableParams.pageNum,
           },
         });
 
@@ -49,7 +46,7 @@ const createApi = (baseUrl: string) => {
         type Response = AxiosResponse<ApiData.Block>;
 
         const response = await middlewareApi.get<Response>(
-          `/block/${hashOrHeight}`,
+          `/blocks/${hashOrHeight}`,
         );
 
         if (response.status !== 200) throw new Error(response.statusText);
@@ -61,7 +58,9 @@ const createApi = (baseUrl: string) => {
       async getLatestBlock() {
         type Response = AxiosResponse<ApiData.Block>;
 
-        const response = await middlewareApi.get<Response>('/latest-block');
+        const response = await middlewareApi.get<Response>(
+          '/blocks/latest-block',
+        );
 
         if (response.status !== 200) throw new Error(response.statusText);
 
@@ -96,7 +95,7 @@ const createApi = (baseUrl: string) => {
 
         const response = await middlewareApi.get<Response>('/peers', {
           params: {
-            ...tableParams,
+            pageNum: tableParams.pageNum,
             count: tableParams?.count ?? DEFAULT_PAGESIZE,
           },
         });
@@ -161,7 +160,7 @@ const createApi = (baseUrl: string) => {
         type Response = AxiosResponse<ApiData.Validators>;
 
         const response = await middlewareApi.get<Response>(
-          '/current-era-validators',
+          '/validators/current-era-validators',
           {
             params: {
               ...tableParams,
@@ -184,7 +183,7 @@ const createApi = (baseUrl: string) => {
         type Response = AxiosResponse<ApiData.CurrentEraValidatorStatus>;
 
         const response = await middlewareApi.get<Response>(
-          '/current-era-validators-status',
+          '/validators/current-era-validators-status',
         );
 
         if (response.status !== 200) throw new Error(response.statusText);
@@ -203,7 +202,7 @@ const createApi = (baseUrl: string) => {
       async getDeploy(hash: string) {
         type Response = AxiosResponse<ApiData.Deploy>;
 
-        const response = await middlewareApi.get<Response>(`/deploy/${hash}`);
+        const response = await middlewareApi.get<Response>(`/deploys/${hash}`);
 
         if (response.status !== 200) throw new Error(response.statusText);
 
