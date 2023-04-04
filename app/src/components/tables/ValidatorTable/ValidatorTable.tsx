@@ -12,7 +12,7 @@ import {
   getValidators,
   getValidatorsTableOptions,
   Loading,
-  resetToInitialValidatorState,
+  // resetToInitialValidatorState,
   setValidatorTableOptions,
   updateValidatorPageNum,
   updateValidatorSorting,
@@ -44,12 +44,15 @@ export const ValidatorTable: React.FC = () => {
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
 
+  console.log({ inComponent: validatorsTableOptions });
+
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
 
-    return () => {
-      dispatch(resetToInitialValidatorState());
-    };
+    // TODO: do we really need this?
+    // return () => {
+    //   dispatch(resetToInitialValidatorState());
+    // };
   }, [dispatch]);
 
   useEffect(() => {

@@ -79,15 +79,27 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
 export const validatorSlice = createSlice({
   name: 'validator',
   initialState: () => {
-    const validatorPageOptions = JSON.parse(
-      localStorage.getItem('validatorTableOptions') ?? '',
+    // TODO: could probably put logic like this into a LS class method for reusability
+    const rawValidatorTableOptions = localStorage.getItem(
+      'validatorTableOptions',
     );
 
-    console.log('fetching from LS', validatorPageOptions);
+    if (rawValidatorTableOptions === null) {
+      return initialState;
+    }
+
+    const validatorTableOptions = JSON.parse(
+      rawValidatorTableOptions,
+    ) as TableOptions;
+
+    console.log('fetching from LS', validatorTableOptions);
 
     // TODO: how to make sure the type is exactly equal before returning?
 
-    return initialState;
+    return {
+      ...initialState,
+      tableOptions: validatorTableOptions,
+    };
   },
   reducers: {
     setValidatorTableOptions: (
@@ -160,7 +172,7 @@ listenerMiddleware.startListening({
     updateValidatorSorting,
   ),
   effect: async (action, listenerApi) => {
-    // console.log({ action });
+    console.log({ action });
     // console.log({ listenerApi });
     // TODO: how to get access to RootState type without dep cycle error?
     const rootStateAll = listenerApi.getState() as any;
@@ -168,7 +180,7 @@ listenerMiddleware.startListening({
     const validatorTableOptions = rootStateAll.validator.tableOptions;
     console.log({ validatorTableOptions });
 
-    // TODO: add this to local storage
+    // TODO: should we be using a class structure for LS?
     localStorage.setItem(
       'validatorTableOptions',
       JSON.stringify(validatorTableOptions),
