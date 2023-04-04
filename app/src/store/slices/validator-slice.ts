@@ -171,51 +171,16 @@ listenerMiddleware.startListening({
     updateValidatorPageNum,
     updateValidatorSorting,
   ),
-  effect: async (action, listenerApi) => {
-    console.log({ action });
-    // console.log({ listenerApi });
+  effect: async (_, listenerApi) => {
     // TODO: how to get access to RootState type without dep cycle error?
     const rootStateAll = listenerApi.getState() as any;
 
     const validatorTableOptions = rootStateAll.validator.tableOptions;
     console.log({ validatorTableOptions });
 
-    // TODO: should we be using a class structure for LS?
     localStorage.setItem(
       'validatorTableOptions',
       JSON.stringify(validatorTableOptions),
     );
   },
 });
-
-// // pagination
-// listenerMiddleware.startListening({
-//   actionCreator: updateValidatorPageNum,
-//   effect: async (action, listenerApi) => {
-//     console.log({ action });
-//     console.log({ listenerApi });
-
-//     const rootStatePagination = listenerApi.getState();
-
-//     console.log({ rootStatePagination });
-
-//     // TODO: add this to local storage
-//   },
-// });
-
-// // sorting
-// listenerMiddleware.startListening({
-//   actionCreator: updateValidatorSorting,
-//   effect: async (action, listenerApi) => {
-//     console.log({ action });
-//     console.log({ listenerApi });
-
-//     const rootStateSorting = listenerApi.getState();
-
-//     console.log({ rootStateSorting });
-
-//     // TODO: add this to local storage
-//   },
-// });
-
-// TODO: on redux load, need to check for values in LS and set store that way... what method though?

@@ -33,29 +33,13 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const rowCountOption = useMemo(() => {
-    return rowCountSelectOptions.find(
-      option => Number(option.value) === tableOptions.pagination.pageSize,
-    );
-  }, [tableOptions.pagination.pageSize]);
-
-  // const [currentRowCountOption, setCurrentRowCountOption] = useState(
-  //   rowCountOption,
-  // );
-
-  // TODO: maybe we don't need this?
-  // useEffect(() => {
-  //   dispatch(
-  //     setTableOptions({
-  //       ...tableOptions,
-  //       pagination: {
-  //         pageSize: Number(currentRowCountOption.value) ?? DEFAULT_PAGESIZE,
-  //         pageNum: 1,
-  //       },
-  //     }),
-  //   );
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentRowCountOption, dispatch]);
+  const rowCountOption = useMemo(
+    () =>
+      rowCountSelectOptions.find(
+        option => Number(option.value) === tableOptions.pagination.pageSize,
+      ),
+    [tableOptions.pagination.pageSize],
+  );
 
   const jumpToPage = (pageNum: number) => {
     setIsTableLoading(true);
@@ -84,8 +68,6 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
           },
         }),
       );
-
-      // setCurrentRowCountOption(selectedOption);
     }
   };
 
