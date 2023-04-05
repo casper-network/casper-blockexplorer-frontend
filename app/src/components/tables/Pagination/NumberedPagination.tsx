@@ -38,7 +38,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       rowCountSelectOptions.find(
         option => Number(option.value) === tableOptions.pagination.pageSize,
       ),
-    [tableOptions.pagination.pageSize],
+    [tableOptions.pagination.pageSize, rowCountSelectOptions],
   );
 
   const jumpToPage = (pageNum: number) => {
