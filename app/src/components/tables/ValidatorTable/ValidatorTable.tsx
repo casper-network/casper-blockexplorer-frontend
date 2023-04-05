@@ -29,6 +29,7 @@ import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
+// TODO: do we want a button in table header to reset tableOptions?
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
 

@@ -2,12 +2,13 @@ import {
   createSlice,
   createAsyncThunk,
   PayloadAction,
-  createListenerMiddleware,
   isAnyOf,
+  createListenerMiddleware,
 } from '@reduxjs/toolkit';
 import { ApiData } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 
+import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
@@ -39,7 +40,7 @@ const initialState: ValidatorState = {
   tableOptions: defaultTableOptions,
 };
 
-export const listenerMiddleware = createListenerMiddleware();
+export const validatorListener = createListenerMiddleware();
 
 export const fetchValidators = createAsyncThunk(
   'rpcClient/fetchValidators',
@@ -164,16 +165,14 @@ export const {
   resetToInitialValidatorState,
 } = validatorSlice.actions;
 
-// all
-listenerMiddleware.startListening({
+validatorListener.startListening({
   matcher: isAnyOf(
     setValidatorTableOptions,
     updateValidatorPageNum,
     updateValidatorSorting,
   ),
   effect: async (_, listenerApi) => {
-    // TODO: how to get access to RootState type without dep cycle error?
-    const rootStateAll = listenerApi.getState() as any;
+    const rootStateAll = listenerApi.getState() as RootState;
 
     const validatorTableOptions = rootStateAll.validator.tableOptions;
     console.log({ validatorTableOptions });
