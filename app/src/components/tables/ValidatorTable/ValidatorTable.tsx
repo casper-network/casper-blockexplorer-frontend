@@ -12,7 +12,6 @@ import {
   getValidators,
   getValidatorsTableOptions,
   Loading,
-  // resetToInitialValidatorState,
   setValidatorTableOptions,
   updateValidatorPageNum,
   updateValidatorSorting,
@@ -47,11 +46,6 @@ export const ValidatorTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
-
-    // TODO: do we really need this?
-    // return () => {
-    //   dispatch(resetToInitialValidatorState());
-    // };
   }, [dispatch]);
 
   useEffect(() => {
