@@ -7,7 +7,7 @@ import { SortDirection } from '@tanstack/react-table';
 import { loadConfig } from 'src/utils';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { createBaseApi } from './base-api';
-import { ApiData, DeployStatus } from './types';
+import { ApiData } from './types';
 import { isValidPublicKey } from './utils';
 
 const { webServerUrl } = loadConfig();
@@ -197,7 +197,7 @@ const createApi = (baseUrl: string) => {
      */
     deploy: {
       async getDeploy(hash: string) {
-        type Response = AxiosResponse<ApiData.Deploy>;
+        type Response = AxiosResponse<ApiData.ProcessedDeploy>;
 
         const response = await middlewareApi.get<Response>(`/deploys/${hash}`);
 

@@ -110,7 +110,7 @@ export namespace ApiData {
     bidsCount: number;
   }
 
-  export interface Deploy {
+  export interface ProcessedDeploy {
     timestamp: number;
     dateTime: Date;
     deployHash: string;
