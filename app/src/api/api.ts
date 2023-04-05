@@ -4,13 +4,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { AxiosResponse } from 'axios';
 import { SortDirection } from '@tanstack/react-table';
-import { CLValueParsers } from 'casper-js-sdk';
-import { formatDate, formatTimeAgo, loadConfig } from 'src/utils';
+import { loadConfig } from 'src/utils';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { createBaseApi } from './base-api';
 import { ApiData, DeployStatus } from './types';
-import { determineDeploySessionData, isValidPublicKey } from './utils';
-import { JsonDeploySession } from './missing-sdk-types';
+import { isValidPublicKey } from './utils';
 
 const { webServerUrl } = loadConfig();
 
@@ -197,71 +195,30 @@ const createApi = (baseUrl: string) => {
      * Retrieve an aggregate of the various states a deploy goes through, given its deploy hash. The node does not emit this event, but the Sidecar computes it and returns it for the given deploy. This endpoint behaves differently than other endpoints, which return the raw event received from the node.
      * @param hash deploy hash to get deploy
      */
-    // TODO: should we perform the business logic in the redux action?
     deploy: {
       async getDeploy(hash: string) {
-        type Response = AxiosResponse<ApiData.Deploy>;
+        type Response = AxiosResponse<{
+          timestamp: number;
+          dateTime: Date;
+          deployHash: string;
+          blockHash: string;
+          publicKey: string;
+          action: string;
+          deployType: string | undefined;
+          amount: string | undefined;
+          paymentAmount: string;
+          cost: string;
+          status: DeployStatus;
+          rawDeploy: string;
+        }>;
 
         const response = await middlewareApi.get<Response>(`/deploys/${hash}`);
 
         if (response.status !== 200) throw new Error(response.statusText);
 
-        const {
-          data: { execution_results: executionResults, ...deploy },
-        } = response;
+        const { data } = response;
 
-        // @ts-ignore
-        const paymentMap = new Map(deploy.payment.ModuleBytes?.args);
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        const paymentAmount = CLValueParsers.fromJSON(paymentMap.get('amount'))
-          .unwrap()
-          .value()
-          .toString() as string;
-
-        const { timestamp, account: publicKey } = deploy.header;
-
-        const { block_hash: blockHash, result: executionResult } =
-          executionResults[0];
-
-        const status = executionResult.Success
-          ? DeployStatus.Success
-          : DeployStatus.Failed;
-
-        const deploySession = deploy.session as JsonDeploySession;
-
-        const { action, deployType, amount } = determineDeploySessionData(
-          deploySession,
-          status,
-        );
-
-        const cost = executionResult.Success
-          ? executionResult.Success.cost
-          : executionResult.Failure?.cost ?? 0;
-
-        const dateTime = new Date(timestamp);
-
-        const timeSince = formatTimeAgo(dateTime);
-        const readableTimestamp = formatDate(dateTime);
-
-        return {
-          timestamp,
-          timeSince,
-          readableTimestamp,
-          deployHash: deploy.hash,
-          blockHash,
-          publicKey,
-          action,
-          deployType,
-          amount,
-          paymentAmount,
-          cost: cost.toString(),
-          status,
-          rawDeploy: JSON.stringify({
-            deploy,
-            execution_results: executionResults,
-          }),
-        };
+        return data;
       },
     },
   };
