@@ -2,10 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import {
   accountSlice,
   appSlice,
+  blockListener,
   blockSlice,
   deploySlice,
   networkSlice,
+  peerListener,
   peerSlice,
+  validatorListener,
   validatorSlice,
 } from './slices';
 
@@ -19,6 +22,12 @@ export const store = configureStore({
     account: accountSlice.reducer,
     deploy: deploySlice.reducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().prepend(
+      validatorListener.middleware,
+      peerListener.middleware,
+      blockListener.middleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

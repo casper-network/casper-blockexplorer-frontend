@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { CustomSelect } from 'src/components/layout/Header/Partials/CustomSelect';
@@ -33,24 +33,13 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const defaultRowCountOption = rowCountSelectOptions[1];
-
-  const [currentRowCountOption, setCurrentRowCountOption] = useState(
-    defaultRowCountOption,
+  const rowCountOption = useMemo(
+    () =>
+      rowCountSelectOptions.find(
+        option => Number(option.value) === tableOptions.pagination.pageSize,
+      ),
+    [tableOptions.pagination.pageSize, rowCountSelectOptions],
   );
-
-  useEffect(() => {
-    dispatch(
-      setTableOptions({
-        ...tableOptions,
-        pagination: {
-          pageSize: Number(currentRowCountOption.value) ?? DEFAULT_PAGESIZE,
-          pageNum: 1,
-        },
-      }),
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentRowCountOption, dispatch]);
 
   const jumpToPage = (pageNum: number) => {
     setIsTableLoading(true);
@@ -69,7 +58,16 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
     if (selectedOption) {
       // reset to first page - avoids messy XXXX out of XXX when switching from 20 to 10
       setIsTableLoading(true);
-      setCurrentRowCountOption(selectedOption);
+
+      dispatch(
+        setTableOptions({
+          ...tableOptions,
+          pagination: {
+            pageSize: Number(selectedOption.value) ?? DEFAULT_PAGESIZE,
+            pageNum: 1,
+          },
+        }),
+      );
     }
   };
 
@@ -78,10 +76,10 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
       <RowsSelectWrapper>
         <RowsSelectLabel>{t('show')}</RowsSelectLabel>
         <CustomSelect
-          defaultValue={defaultRowCountOption}
+          defaultValue={rowCountSelectOptions[1]}
           name="row-count"
           options={rowCountSelectOptions}
-          currentSelection={currentRowCountOption}
+          currentSelection={rowCountOption}
           onChange={handleSelectChange}
           customSelectWrapper={SelectWrapper}
         />

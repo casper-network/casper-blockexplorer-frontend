@@ -1,9 +1,18 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  isAnyOf,
+  createListenerMiddleware,
+} from '@reduxjs/toolkit';
 import { ApiData } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { middlewareServiceApi } from '../../api';
+import { PEER_TABLE_OPTIONS } from '../constants';
 import { Loading } from '../loading.type';
+import type { RootState } from '../store';
 import { TableOptions } from '../types';
+import { setInitialStateWithLSTableOptions } from '../utils';
 
 export interface PeerState {
   status: Loading;
@@ -28,6 +37,8 @@ const initialState: PeerState = {
   },
 };
 
+export const peerListener = createListenerMiddleware();
+
 export const fetchPeers = createAsyncThunk(
   'rpcClient/fetchPeers',
   async ({
@@ -51,7 +62,10 @@ export const fetchPeers = createAsyncThunk(
 
 export const peerSlice = createSlice({
   name: 'peer',
-  initialState,
+  initialState: setInitialStateWithLSTableOptions<PeerState>(
+    PEER_TABLE_OPTIONS,
+    initialState,
+  ),
   reducers: {
     setPeerTableOptions: (
       state,
@@ -98,3 +112,14 @@ export const peerSlice = createSlice({
 
 export const { setPeerTableOptions, updatePeerPageNum, updatePeerSorting } =
   peerSlice.actions;
+
+peerListener.startListening({
+  matcher: isAnyOf(setPeerTableOptions, updatePeerPageNum, updatePeerSorting),
+  effect: async (_, listenerApi) => {
+    const rootStateAll = listenerApi.getState() as RootState;
+
+    const peerTableOptions = rootStateAll.peer.tableOptions;
+
+    localStorage.setItem(PEER_TABLE_OPTIONS, JSON.stringify(peerTableOptions));
+  },
+});
