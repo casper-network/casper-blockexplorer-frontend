@@ -197,20 +197,7 @@ const createApi = (baseUrl: string) => {
      */
     deploy: {
       async getDeploy(hash: string) {
-        type Response = AxiosResponse<{
-          timestamp: number;
-          dateTime: Date;
-          deployHash: string;
-          blockHash: string;
-          publicKey: string;
-          action: string;
-          deployType: string | undefined;
-          amount: string | undefined;
-          paymentAmount: string;
-          cost: string;
-          status: DeployStatus;
-          rawDeploy: string;
-        }>;
+        type Response = AxiosResponse<ApiData.Deploy>;
 
         const response = await middlewareApi.get<Response>(`/deploys/${hash}`);
 
