@@ -1,11 +1,20 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createListenerMiddleware,
+  createSlice,
+  isAnyOf,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { ApiData } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
+import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
 import { formatTimeAgo } from '../../utils';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
+import { BLOCK_TABLE_OPTIONS } from '../constants';
+import { setInitialStateWithLSTableOptions } from '../utils';
 
 export interface BlockState {
   status: Loading;
@@ -41,6 +50,8 @@ const initialState: BlockState = {
   totalBlocks: 0,
   tableOptions: defaultTableOptions,
 };
+
+export const blockListener = createListenerMiddleware();
 
 export const fetchBlocks = createAsyncThunk(
   'rpcClient/fetchBlocks',
@@ -101,7 +112,10 @@ export const fetchBlock = createAsyncThunk<
 
 export const blockSlice = createSlice({
   name: 'block',
-  initialState,
+  initialState: setInitialStateWithLSTableOptions<BlockState>(
+    BLOCK_TABLE_OPTIONS,
+    initialState,
+  ),
   reducers: {
     refreshBlockTimes: state => {
       state.blocks = state.blocks.map(block => {
@@ -186,3 +200,22 @@ export const {
   restetBlocksTableOptions,
   resetToInitialBlockState,
 } = blockSlice.actions;
+
+blockListener.startListening({
+  matcher: isAnyOf(
+    setBlocksTableOptions,
+    updateBlocksPageNum,
+    updateBlocksSorting,
+  ),
+  effect: async (_, listenerApi) => {
+    const rootStateAll = listenerApi.getState() as RootState;
+
+    const blockTableOptions = rootStateAll.block.tableOptions;
+    console.log({ blockTableOptions });
+
+    localStorage.setItem(
+      BLOCK_TABLE_OPTIONS,
+      JSON.stringify(blockTableOptions),
+    );
+  },
+});

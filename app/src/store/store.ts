@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import {
   accountSlice,
   appSlice,
+  blockListener,
   blockSlice,
   deploySlice,
   networkSlice,
@@ -25,6 +26,7 @@ export const store = configureStore({
     getDefaultMiddleware().prepend(
       validatorListener.middleware,
       peerListener.middleware,
+      blockListener.middleware,
     ),
 });
 
