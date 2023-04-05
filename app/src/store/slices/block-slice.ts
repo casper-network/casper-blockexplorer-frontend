@@ -211,7 +211,6 @@ blockListener.startListening({
     const rootStateAll = listenerApi.getState() as RootState;
 
     const blockTableOptions = rootStateAll.block.tableOptions;
-    console.log({ blockTableOptions });
 
     localStorage.setItem(
       BLOCK_TABLE_OPTIONS,

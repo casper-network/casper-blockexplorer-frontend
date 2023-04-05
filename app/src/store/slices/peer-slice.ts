@@ -119,7 +119,6 @@ peerListener.startListening({
     const rootStateAll = listenerApi.getState() as RootState;
 
     const peerTableOptions = rootStateAll.peer.tableOptions;
-    console.log({ peerTableOptions });
 
     localStorage.setItem(PEER_TABLE_OPTIONS, JSON.stringify(peerTableOptions));
   },

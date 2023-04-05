@@ -148,7 +148,6 @@ export const {
   resetToInitialValidatorState,
 } = validatorSlice.actions;
 
-// TODO: should we make this generic for other slices??
 validatorListener.startListening({
   matcher: isAnyOf(
     setValidatorTableOptions,
@@ -159,7 +158,6 @@ validatorListener.startListening({
     const rootStateAll = listenerApi.getState() as RootState;
 
     const validatorTableOptions = rootStateAll.validator.tableOptions;
-    console.log({ validatorTableOptions });
 
     localStorage.setItem(
       VALIDATOR_TABLE_OPTIONS,
