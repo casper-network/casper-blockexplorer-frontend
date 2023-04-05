@@ -12,6 +12,8 @@ import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
+import { setInitialStateWithLSTableOptions } from '../utils';
+import { VALIDATOR_TABLE_OPTIONS } from '../constants';
 
 export interface ValidatorState {
   status: Loading;
@@ -79,29 +81,10 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
 
 export const validatorSlice = createSlice({
   name: 'validator',
-  initialState: () => {
-    // TODO: could probably put logic like this into a LS class method for reusability
-    const rawValidatorTableOptions = localStorage.getItem(
-      'validatorTableOptions',
-    );
-
-    if (rawValidatorTableOptions === null) {
-      return initialState;
-    }
-
-    const validatorTableOptions = JSON.parse(
-      rawValidatorTableOptions,
-    ) as TableOptions;
-
-    console.log('fetching from LS', validatorTableOptions);
-
-    // TODO: how to make sure the type is exactly equal before returning?
-
-    return {
-      ...initialState,
-      tableOptions: validatorTableOptions,
-    };
-  },
+  initialState: setInitialStateWithLSTableOptions<ValidatorState>(
+    VALIDATOR_TABLE_OPTIONS,
+    initialState,
+  ),
   reducers: {
     setValidatorTableOptions: (
       state,
@@ -165,6 +148,7 @@ export const {
   resetToInitialValidatorState,
 } = validatorSlice.actions;
 
+// TODO: should we make this generic for other slices??
 validatorListener.startListening({
   matcher: isAnyOf(
     setValidatorTableOptions,
@@ -178,7 +162,7 @@ validatorListener.startListening({
     console.log({ validatorTableOptions });
 
     localStorage.setItem(
-      'validatorTableOptions',
+      VALIDATOR_TABLE_OPTIONS,
       JSON.stringify(validatorTableOptions),
     );
   },
