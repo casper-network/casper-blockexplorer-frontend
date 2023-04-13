@@ -45,7 +45,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
                 <Grid gap="1rem" templateColumns="9rem auto">
                   <DetailDataLabel>{t('amount')}</DetailDataLabel>
                   <DetailDataValue>
-                    <Coin>{deploy?.amount}</Coin>,
+                    <Coin>{deploy?.amount}</Coin>
                   </DetailDataValue>
                 </Grid>
               </li>

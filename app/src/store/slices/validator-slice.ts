@@ -1,9 +1,19 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  isAnyOf,
+  createListenerMiddleware,
+} from '@reduxjs/toolkit';
 import { ApiData } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
+
+import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
+import { setInitialStateWithLSTableOptions } from '../utils';
+import { VALIDATOR_TABLE_OPTIONS } from '../constants';
 
 export interface ValidatorState {
   status: Loading;
@@ -31,6 +41,8 @@ const initialState: ValidatorState = {
   currentEraValidatorStatusLoadingStatus: Loading.Idle,
   tableOptions: defaultTableOptions,
 };
+
+export const validatorListener = createListenerMiddleware();
 
 export const fetchValidators = createAsyncThunk(
   'rpcClient/fetchValidators',
@@ -69,7 +81,10 @@ export const fetchCurrentEraValidatorStatus = createAsyncThunk(
 
 export const validatorSlice = createSlice({
   name: 'validator',
-  initialState,
+  initialState: setInitialStateWithLSTableOptions<ValidatorState>(
+    VALIDATOR_TABLE_OPTIONS,
+    initialState,
+  ),
   reducers: {
     setValidatorTableOptions: (
       state,
@@ -89,6 +104,7 @@ export const validatorSlice = createSlice({
     resetValidatorTableOptions: state => {
       state.tableOptions = defaultTableOptions;
     },
+    resetToInitialValidatorState: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -129,4 +145,23 @@ export const {
   updateValidatorPageNum,
   updateValidatorSorting,
   resetValidatorTableOptions,
+  resetToInitialValidatorState,
 } = validatorSlice.actions;
+
+validatorListener.startListening({
+  matcher: isAnyOf(
+    setValidatorTableOptions,
+    updateValidatorPageNum,
+    updateValidatorSorting,
+  ),
+  effect: async (_, listenerApi) => {
+    const rootStateAll = listenerApi.getState() as RootState;
+
+    const validatorTableOptions = rootStateAll.validator.tableOptions;
+
+    localStorage.setItem(
+      VALIDATOR_TABLE_OPTIONS,
+      JSON.stringify(validatorTableOptions),
+    );
+  },
+});

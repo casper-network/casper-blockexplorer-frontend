@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+import { formatDate, formatTimeAgo } from 'src/utils';
 import { Deploy, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
@@ -23,7 +24,10 @@ export const fetchDeploy = createAsyncThunk<
   try {
     const deploy = await middlewareServiceApi.deploy.getDeploy(hash);
 
-    return deploy;
+    const timeSince = formatTimeAgo(deploy.dateTime);
+    const readableTimestamp = formatDate(deploy.dateTime);
+
+    return { ...deploy, timeSince, readableTimestamp };
   } catch (err: any) {
     if (err instanceof AxiosError) {
       return rejectWithValue({ error: err.message });

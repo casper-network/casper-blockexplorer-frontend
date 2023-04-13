@@ -109,6 +109,21 @@ export namespace ApiData {
     validatorsCount: number;
     bidsCount: number;
   }
+
+  export interface ProcessedDeploy {
+    timestamp: number;
+    dateTime: Date;
+    deployHash: string;
+    blockHash: string;
+    publicKey: string;
+    action: string;
+    deployType: string | undefined;
+    amount: string | undefined;
+    paymentAmount: string;
+    cost: string;
+    status: DeployStatus;
+    rawDeploy: string;
+  }
 }
 
 export type Account = {
