@@ -3,14 +3,17 @@ import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
 import { pxToRem } from 'src/styled-theme';
-import { BlueLogo, ExpLogo } from '../../logos';
+import { Logo } from 'casper-ui-kit';
 
 export const DefaultNavLogo: React.FC = () => {
   return (
     <DefaultNavLogoContainer>
       <NavLogoLink to="/">
-        <BlueLogo />
-        <ExplorerLogo />
+        <Logo title="Blue Casper Logo" logo="BlueCasperLogo" />
+        <ExplorerLogo
+          logo="BlockExplorerGradientLogo"
+          title="Block Explorer Gradient Logo"
+        />
       </NavLogoLink>
     </DefaultNavLogoContainer>
   );
@@ -41,7 +44,7 @@ export const DefaultNavLogoContainer = styled.div`
   }
 `;
 
-export const ExplorerLogo = styled(ExpLogo)`
+export const ExplorerLogo = styled(Logo)`
   display: block;
   width: 100%;
 `;

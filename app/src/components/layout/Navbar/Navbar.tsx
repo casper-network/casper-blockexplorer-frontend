@@ -6,6 +6,7 @@ import { useAppWidth } from 'src/hooks';
 import { loadConfig } from 'src/utils';
 
 import { NavbarItemLinkButton } from 'src/components/buttons';
+import { OpenMenuIcon, CloseMenuIcon } from 'casper-ui-kit';
 import { NavButton } from '../../buttons/NavButton';
 import { SearchForm } from '../Header/Partials';
 
@@ -21,7 +22,6 @@ import {
   MobileNavItemLink,
 } from './Navbar.styled';
 
-import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
 import { ConfigurableLogo, DefaultNavLogo } from '../LogoComponents';
 
 const navItems = [
@@ -94,7 +94,11 @@ export const Navbar: React.FC = () => {
           type="button"
           onClick={() => setIsOpened(!isOpened)}
           color="transparent">
-          {isOpened ? <CloseMenuIcon /> : <OpenMenuIcon />}
+          {isOpened ? (
+            <CloseMenuIcon height={30} width={35} />
+          ) : (
+            <OpenMenuIcon height={30} width={35} />
+          )}
         </NavButton>
         <NavItemsContainer>
           {isOpened && (

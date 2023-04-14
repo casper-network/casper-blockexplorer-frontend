@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
+import { Logo } from 'casper-ui-kit';
 import { Link } from 'react-router-dom';
 import { breakpoints, pxToRem } from 'src/styled-theme';
-import { BlueLogo, RedBlackLogo, ExpLogo } from '../../logos';
+import { RedBlackLogo } from '../../logos';
 
 export const DefaultHeaderLogo: React.FC = () => (
   <LogoContainer>
@@ -12,10 +12,13 @@ export const DefaultHeaderLogo: React.FC = () => (
         <RedBlackCasperLogo />
       </RedBlackCasperLogoWrapper>
       <BlueCasperLogoWrapper>
-        <BlueCasperLogo />
+        <BlueCasperLogo title="Blue Casper Logo" logo="BlueCasperLogo" />
       </BlueCasperLogoWrapper>
       <ExplorerLogoWrapper>
-        <ExplorerLogo />
+        <ExplorerLogo
+          title="Block Explorer Gradient Logo"
+          logo="BlockExplorerGradientLogo"
+        />
       </ExplorerLogoWrapper>
     </LogoLink>
   </LogoContainer>
@@ -70,7 +73,7 @@ export const BlueCasperLogoWrapper = styled.div`
   padding-right: ${pxToRem(2)};
 `;
 
-export const BlueCasperLogo = styled(BlueLogo)`
+export const BlueCasperLogo = styled(Logo)`
   width: 100%;
   margin: 0 auto;
 
@@ -89,7 +92,7 @@ export const ExplorerLogoWrapper = styled.div`
   }
 `;
 
-export const ExplorerLogo = styled(ExpLogo)`
+export const ExplorerLogo = styled(Logo)`
   display: block;
   width: 100%;
 `;

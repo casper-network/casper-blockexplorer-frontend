@@ -8,6 +8,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import Skeleton from 'react-loading-skeleton';
+import { BlocksIcon } from 'casper-ui-kit';
 import {
   IconH2Container,
   H2,
@@ -21,7 +22,6 @@ import {
   Info,
   TextWrapper,
 } from '../HomeComponents.styled';
-import { BlocksIcon } from '../../../icons';
 
 interface BlockInfoProps {
   block: ApiData.Block | null;
@@ -38,7 +38,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
     <Card>
       <Header>
         <IconH2Container>
-          <BlocksIcon />
+          <BlocksIcon height={16} />
           <H2>{t('blocks')}</H2>
         </IconH2Container>
         <PageLink to="/blocks">{t('view-all')}</PageLink>
