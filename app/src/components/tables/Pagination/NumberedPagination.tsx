@@ -128,7 +128,6 @@ const PaginationWrapper = styled.div`
   * {
     user-select: none;
     margin: 0 0.25rem;
-    border-radius: ${pxToRem(5)};
   }
 `;
 
@@ -198,6 +197,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     width: ${pxToRem(145)};
     box-shadow: none;
     border: none;
+    border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,7 +211,6 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__value-container {
     margin: 0;
-    border-radius: ${pxToRem(5)};
     max-width: fit-content;
     padding: 0;
   }
@@ -261,14 +260,13 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-size: 1rem;
     padding: 0;
     margin: 0;
-    border-radius: 0.375rem;
   }
 
   .react-select__menu {
     text-align: center;
     background-color: ${colors.lightSupporting};
     width: ${pxToRem(145)};
-    border-radius: ${pxToRem(5)};
+    border-radius: 0;
 
     * {
       color: ${colors.black};

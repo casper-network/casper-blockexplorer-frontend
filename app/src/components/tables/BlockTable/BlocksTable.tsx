@@ -234,4 +234,5 @@ const SwitchBlocktime = styled.div`
 const LatestBlocks = styled.div`
   font-size: ${pxToRem(28)};
   margin-right: 1.5rem;
+  color: ${colors.black};
 `;

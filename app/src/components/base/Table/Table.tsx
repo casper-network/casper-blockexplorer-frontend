@@ -189,7 +189,7 @@ const StyledTable = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${colors.mediumSupporting};
+  background-color: ${colors.lightSupporting};
 `;
 
 const TableHeader = styled.tr`
