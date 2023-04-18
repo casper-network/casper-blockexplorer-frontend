@@ -84,6 +84,7 @@ export const Header = styled.header`
   align-items: center;
   padding: 1.15rem 0;
   border-bottom: 0.094rem solid #f4f4f4;
+  min-height: ${pxToRem(80)};
 `;
 
 export const Details = styled.section`
