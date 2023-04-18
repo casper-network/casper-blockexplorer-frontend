@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { GradientHeading } from '../../styled';
+import { Heading } from 'src/components/base';
 import { breakpoints, colors, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
@@ -44,9 +44,9 @@ export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
   }
 `;
 
-export const HeroHeading = styled(GradientHeading)`
+export const HeroHeading = styled(Heading)`
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
   padding-right: 1rem;
   max-width: 18rem;
