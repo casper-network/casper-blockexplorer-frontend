@@ -72,7 +72,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   };
 
   return (
-    <>
+    <PageWrapper>
       <RowsSelectWrapper>
         <RowsSelectLabel>{t('show')}</RowsSelectLabel>
         <CustomSelect
@@ -114,9 +114,13 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
           {t('last')}
         </JumpToPageButton>
       </PaginationWrapper>
-    </>
+    </PageWrapper>
   );
 };
+
+const PageWrapper = styled.div`
+  display: flex;
+`;
 
 const PaginationWrapper = styled.div`
   display: flex;
@@ -146,7 +150,7 @@ const JumpToPageButton = styled.button`
 const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(38)};
   width: ${pxToRem(38)};
-  background-color: #02115f;
+  background-color: #4589f6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,6 +184,7 @@ const JumpPageIcon = styled.img`
 const RowsSelectWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-right: 3rem;
 `;
 
 const RowsSelectLabel = styled.div`
@@ -196,7 +201,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #02115f;
+    background-color: ${colors.lightSupporting};
     height: ${pxToRem(38)};
 
     :hover {
@@ -213,7 +218,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__indicators {
     display: block;
-    color: transparent;
+    color: ${colors.black};
     padding: 0;
     margin: 0;
     width: fit-content;
@@ -225,14 +230,14 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__single-value {
-    color: ${colors.white};
+    color: ${colors.black};
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
   }
 
   .react-select__dropdown-indicator svg {
-    color: ${colors.white};
+    color: ${colors.black};
     transition: all 200ms ease-in;
     transform: ${({ isMenuOpen }) => (isMenuOpen ? 'rotate(180deg)' : null)};
 
@@ -261,12 +266,12 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__menu {
     text-align: center;
-    background-color: #02115f;
+    background-color: ${colors.lightSupporting};
     width: ${pxToRem(145)};
     border-radius: ${pxToRem(5)};
 
     * {
-      color: ${colors.white};
+      color: ${colors.black};
       padding: 0.35rem 0;
     }
   }

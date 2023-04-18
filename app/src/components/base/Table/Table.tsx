@@ -170,6 +170,7 @@ const TableWrapper = styled.div`
   max-width: calc(100vw - 5rem);
   margin: 0 auto;
   background-color: ${colors.white};
+  border: 3px solid #4589f6;
   box-shadow: 0px 2px 7px ${colors.boxShadow};
 `;
 
@@ -231,7 +232,7 @@ const TableBodyItem = styled.td`
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
-  background-color: #02115f;
+  background-color: #4589f6;
   display: flex;
   justify-content: center;
   align-items: center;
