@@ -15,8 +15,9 @@ import {
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
-import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
+import { standardizeNumber } from 'src/utils';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
@@ -93,7 +94,12 @@ export const PeersTable: React.FC = () => {
 
   const header = (
     <PeerTableHead>
-      <HeadLabel>{t('currently-online')}</HeadLabel>
+      <PeertableTitleWrapper>
+        <HeadLabel>{t('currently-online')}</HeadLabel>
+        <p>
+          {standardizeNumber(totalPeers || 0)} {t('total-rows')}
+        </p>
+      </PeertableTitleWrapper>
       <NumberedPagination
         tableOptions={peersTableOptions}
         setTableOptions={setPeerTableOptions}
@@ -139,12 +145,13 @@ const PeerTableHead = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: ${colors.darkSupporting};
 `;
 
 const HeadLabel = styled.p`
   color: ${colors.black};
-  font-weight: ${fontWeight.bold};
   padding-right: 2rem;
+  font-size: ${pxToRem(28)};
 `;
 
 const PeersTableFooter = styled.div`
@@ -152,4 +159,9 @@ const PeersTableFooter = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: ${pxToRem(20)} 2rem;
+`;
+
+const PeertableTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;

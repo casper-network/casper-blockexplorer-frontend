@@ -264,10 +264,11 @@ const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
   background-color: ${colors.lightSupporting};
+  border: 1px solid ${colors.mediumSupporting};
+  border-radius: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: ${pxToRem(5)};
   margin-right: 0.5rem;
 
   * {

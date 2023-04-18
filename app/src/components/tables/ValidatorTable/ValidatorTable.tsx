@@ -244,10 +244,7 @@ const ValidatorTableHead = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${colors.darkSupporting};
-`;
-
-const ValidatorFooter = styled.div`
-  height: ${pxToRem(50)};
+  height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
