@@ -236,7 +236,6 @@ const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: ${pxToRem(5)};
   margin-right: 0.5rem;
 
   * {

@@ -95,9 +95,18 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
     () => (
       <BlocksTableFooter>
         <RefreshTimer />
+        <NumberedPagination
+          tableOptions={blocksTableOptions}
+          setTableOptions={setBlocksTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateBlocksPageNum}
+          removeRowsSelect
+        />
       </BlocksTableFooter>
     ),
-    [],
+    [blocksTableOptions, totalPages, setIsTableLoading],
   );
 
   const blocksTableTitles = [
@@ -222,6 +231,8 @@ const BlockTableTitleWrapper = styled.div`
 
 const BlocksTableFooter = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: ${pxToRem(20)} 2rem;
   color: ${colors.darkSupporting};
 `;

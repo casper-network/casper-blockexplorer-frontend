@@ -19,6 +19,7 @@ interface NumberedPaginationProps {
   setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
   totalPages: number;
   updatePageNum: ActionCreatorWithPayload<number, string>;
+  removeRowsSelect?: boolean;
 }
 
 export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
@@ -28,6 +29,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   setIsTableLoading,
   totalPages,
   updatePageNum,
+  removeRowsSelect,
 }) => {
   const { t } = useTranslation();
 
@@ -73,17 +75,19 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
 
   return (
     <PageWrapper>
-      <RowsSelectWrapper>
-        <RowsSelectLabel>{t('show')}</RowsSelectLabel>
-        <CustomSelect
-          defaultValue={rowCountSelectOptions[1]}
-          name="row-count"
-          options={rowCountSelectOptions}
-          currentSelection={rowCountOption}
-          onChange={handleSelectChange}
-          customSelectWrapper={SelectWrapper}
-        />
-      </RowsSelectWrapper>
+      {!removeRowsSelect && (
+        <RowsSelectWrapper>
+          <RowsSelectLabel>{t('show')}</RowsSelectLabel>
+          <CustomSelect
+            defaultValue={rowCountSelectOptions[1]}
+            name="row-count"
+            options={rowCountSelectOptions}
+            currentSelection={rowCountOption}
+            onChange={handleSelectChange}
+            customSelectWrapper={SelectWrapper}
+          />
+        </RowsSelectWrapper>
+      )}
       <PaginationWrapper>
         <JumpToPageButton onClick={() => jumpToPage(1)}>
           {t('first')}

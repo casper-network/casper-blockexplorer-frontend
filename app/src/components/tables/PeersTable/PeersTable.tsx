@@ -105,12 +105,29 @@ export const PeersTable: React.FC = () => {
     </PeerTableHead>
   );
 
+  const footer = useMemo(
+    () => (
+      <PeersTableFooter>
+        <NumberedPagination
+          tableOptions={peersTableOptions}
+          setTableOptions={setPeerTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updatePeerPageNum}
+          removeRowsSelect
+        />
+      </PeersTableFooter>
+    ),
+    [peersTableOptions, totalPages, setIsTableLoading],
+  );
+
   return (
     <Table<ApiData.Peer>
       header={header}
       columns={columns}
       data={peers}
-      footer={<PeersFooter />}
+      footer={footer}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={peersTableOptions.pagination.pageSize}
       isLastPage={totalPages === peersTableOptions.pagination.pageNum}
@@ -130,6 +147,9 @@ const HeadLabel = styled.p`
   padding-right: 2rem;
 `;
 
-const PeersFooter = styled.div`
-  height: ${pxToRem(50)};
+const PeersTableFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: ${pxToRem(20)} 2rem;
 `;
