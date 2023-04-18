@@ -175,6 +175,28 @@ export const ValidatorTable: React.FC = () => {
     </ValidatorTableHead>
   );
 
+  const footer = useMemo(
+    () => (
+      <ValidatorsTableFooter>
+        <NumberedPagination
+          tableOptions={validatorsTableOptions}
+          setTableOptions={setValidatorTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateValidatorPageNum}
+          removeRowsSelect
+        />
+      </ValidatorsTableFooter>
+    ),
+    [
+      validatorsTableOptions,
+      totalPages,
+      setIsTableLoading,
+      rowCountSelectOptions,
+    ],
+  );
+
   const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {
     setIsTableLoading(true);
 
@@ -205,7 +227,7 @@ export const ValidatorTable: React.FC = () => {
       header={header}
       columns={columns}
       data={validators}
-      footer={<ValidatorFooter />}
+      footer={footer}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
       sorting={[
@@ -227,10 +249,7 @@ const ValidatorTableHead = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${colors.darkSupporting};
-`;
-
-const ValidatorFooter = styled.div`
-  height: ${pxToRem(50)};
+  height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
@@ -239,4 +258,11 @@ const HeadValue = styled.p`
 
 const CSPRText = styled.span`
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
+`;
+
+const ValidatorsTableFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: ${pxToRem(20)} 2rem;
 `;

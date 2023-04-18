@@ -19,6 +19,7 @@ interface NumberedPaginationProps {
   setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
   totalPages: number;
   updatePageNum: ActionCreatorWithPayload<number, string>;
+  removeRowsSelect?: boolean;
 }
 
 export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
@@ -28,6 +29,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   setIsTableLoading,
   totalPages,
   updatePageNum,
+  removeRowsSelect,
 }) => {
   const { t } = useTranslation();
 
@@ -72,18 +74,20 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   };
 
   return (
-    <>
-      <RowsSelectWrapper>
-        <RowsSelectLabel>{t('show')}</RowsSelectLabel>
-        <CustomSelect
-          defaultValue={rowCountSelectOptions[1]}
-          name="row-count"
-          options={rowCountSelectOptions}
-          currentSelection={rowCountOption}
-          onChange={handleSelectChange}
-          customSelectWrapper={SelectWrapper}
-        />
-      </RowsSelectWrapper>
+    <PageWrapper>
+      {!removeRowsSelect && (
+        <RowsSelectWrapper>
+          <RowsSelectLabel>{t('show')}</RowsSelectLabel>
+          <CustomSelect
+            defaultValue={rowCountSelectOptions[1]}
+            name="row-count"
+            options={rowCountSelectOptions}
+            currentSelection={rowCountOption}
+            onChange={handleSelectChange}
+            customSelectWrapper={SelectWrapper}
+          />
+        </RowsSelectWrapper>
+      )}
       <PaginationWrapper>
         <JumpToPageButton onClick={() => jumpToPage(1)}>
           {t('first')}
@@ -114,9 +118,13 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
           {t('last')}
         </JumpToPageButton>
       </PaginationWrapper>
-    </>
+    </PageWrapper>
   );
 };
+
+const PageWrapper = styled.div`
+  display: flex;
+`;
 
 const PaginationWrapper = styled.div`
   display: flex;
@@ -124,7 +132,6 @@ const PaginationWrapper = styled.div`
   * {
     user-select: none;
     margin: 0 0.25rem;
-    border-radius: ${pxToRem(5)};
   }
 `;
 
@@ -146,7 +153,7 @@ const JumpToPageButton = styled.button`
 const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(38)};
   width: ${pxToRem(38)};
-  background-color: #02115f;
+  background-color: #4589f6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,6 +187,7 @@ const JumpPageIcon = styled.img`
 const RowsSelectWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-right: 3rem;
 `;
 
 const RowsSelectLabel = styled.div`
@@ -193,10 +201,11 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     width: ${pxToRem(145)};
     box-shadow: none;
     border: none;
+    border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #02115f;
+    background-color: ${colors.lightSupporting};
     height: ${pxToRem(38)};
 
     :hover {
@@ -206,14 +215,13 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__value-container {
     margin: 0;
-    border-radius: ${pxToRem(5)};
     max-width: fit-content;
     padding: 0;
   }
 
   .react-select__indicators {
     display: block;
-    color: transparent;
+    color: ${colors.black};
     padding: 0;
     margin: 0;
     width: fit-content;
@@ -225,14 +233,14 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__single-value {
-    color: ${colors.white};
+    color: ${colors.black};
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
   }
 
   .react-select__dropdown-indicator svg {
-    color: ${colors.white};
+    color: ${colors.black};
     transition: all 200ms ease-in;
     transform: ${({ isMenuOpen }) => (isMenuOpen ? 'rotate(180deg)' : null)};
 
@@ -256,17 +264,16 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-size: 1rem;
     padding: 0;
     margin: 0;
-    border-radius: 0.375rem;
   }
 
   .react-select__menu {
     text-align: center;
-    background-color: #02115f;
+    background-color: ${colors.lightSupporting};
     width: ${pxToRem(145)};
-    border-radius: ${pxToRem(5)};
+    border-radius: 0;
 
     * {
-      color: ${colors.white};
+      color: ${colors.black};
       padding: 0.35rem 0;
     }
   }

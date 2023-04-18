@@ -59,3 +59,8 @@ export const HeroHeading = styled(GradientHeading)`
     background-size: 100%;
   }
 `;
+
+export const PageTableHeader = styled.p`
+  font-size: ${pxToRem(60)};
+  margin-bottom: 2.5rem;
+`;

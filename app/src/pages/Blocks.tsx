@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  GradientHeading,
-  PageWrapper,
-  PageHead,
-  BlocksTable,
-} from 'src/components';
+import { PageWrapper, PageHead, BlocksTable } from 'src/components';
 import {
   useAppDispatch,
   useAppSelector,
@@ -18,6 +13,7 @@ import {
   updateBlocksSorting,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
+import { PageTableHeader } from '../components/layout/Header/Header.styled';
 
 const initialSorting: SortingState = [
   {
@@ -70,7 +66,7 @@ export const Blocks: React.FC = () => {
   return (
     <PageWrapper isLoading={false}>
       <PageHead pageTitle={pageTitle} />
-      <GradientHeading type="h2">{t('blocks')}</GradientHeading>
+      <PageTableHeader>{t('blocks')}</PageTableHeader>
       <BlocksTable
         total={totalBlocks}
         blocks={blocks}

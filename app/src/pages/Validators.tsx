@@ -1,11 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  GradientHeading,
-  PageHead,
-  PageWrapper,
-  ValidatorTable,
-} from '../components';
+import { PageTableHeader } from '../components/layout/Header/Header.styled';
+import { PageHead, PageWrapper, ValidatorTable } from '../components';
 
 export const Validators: React.FC = () => {
   const { t } = useTranslation();
@@ -15,7 +11,7 @@ export const Validators: React.FC = () => {
   return (
     <PageWrapper isLoading={false}>
       <PageHead pageTitle={pageTitle} />
-      <GradientHeading type="h2">{t('active-validators')}</GradientHeading>
+      <PageTableHeader>{t('validators')}</PageTableHeader>
       <ValidatorTable />
     </PageWrapper>
   );

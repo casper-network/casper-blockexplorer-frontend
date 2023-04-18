@@ -71,9 +71,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
   const header = useMemo(
     () => (
       <BlocksTableHead>
-        <p>
-          {standardizeNumber(total || 0)} {t('total-rows')}
-        </p>
+        <BlockTableTitleWrapper>
+          <LatestBlocks>Latest Blocks</LatestBlocks>
+          <p>
+            {standardizeNumber(total || 0)} {t('total-rows')}
+          </p>
+        </BlockTableTitleWrapper>
 
         <NumberedPagination
           tableOptions={blocksTableOptions}
@@ -92,9 +95,18 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
     () => (
       <BlocksTableFooter>
         <RefreshTimer />
+        <NumberedPagination
+          tableOptions={blocksTableOptions}
+          setTableOptions={setBlocksTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateBlocksPageNum}
+          removeRowsSelect
+        />
       </BlocksTableFooter>
     ),
-    [],
+    [blocksTableOptions, totalPages, setIsTableLoading],
   );
 
   const blocksTableTitles = [
@@ -212,8 +224,15 @@ const BlocksTableHead = styled.div`
   color: ${colors.darkSupporting};
 `;
 
+const BlockTableTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const BlocksTableFooter = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: ${pxToRem(20)} 2rem;
   color: ${colors.darkSupporting};
 `;
@@ -221,4 +240,10 @@ const BlocksTableFooter = styled.div`
 const SwitchBlocktime = styled.div`
   height: 100%;
   cursor: pointer;
+`;
+
+const LatestBlocks = styled.div`
+  font-size: ${pxToRem(28)};
+  margin-right: 1.5rem;
+  color: ${colors.black};
 `;
