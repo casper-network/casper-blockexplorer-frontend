@@ -189,7 +189,12 @@ export const ValidatorTable: React.FC = () => {
         />
       </ValidatorsTableFooter>
     ),
-    [validatorsTableOptions, totalPages, setIsTableLoading],
+    [
+      validatorsTableOptions,
+      totalPages,
+      setIsTableLoading,
+      rowCountSelectOptions,
+    ],
   );
 
   const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {

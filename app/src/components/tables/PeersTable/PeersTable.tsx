@@ -125,7 +125,7 @@ export const PeersTable: React.FC = () => {
         />
       </PeersTableFooter>
     ),
-    [peersTableOptions, totalPages, setIsTableLoading],
+    [peersTableOptions, totalPages, setIsTableLoading, rowCountSelectOptions],
   );
 
   return (
