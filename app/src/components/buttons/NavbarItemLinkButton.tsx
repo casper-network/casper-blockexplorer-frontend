@@ -24,7 +24,7 @@ const DesktopNavItemLink = styled(Button)<{
   background-color: transparent;
   transition: all 0.2s ease;
   padding: ${pxToRem(6)} ${pxToRem(20)};
-  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-size: 1.25rem;
   font-weight: ${({ isRouteSelected }) =>
     isRouteSelected ? fontWeight.medium : fontWeight.normal};
   text-decoration: none;

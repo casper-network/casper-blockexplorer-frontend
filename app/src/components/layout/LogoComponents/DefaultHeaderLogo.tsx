@@ -3,20 +3,17 @@ import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
 import { breakpoints, pxToRem } from 'src/styled-theme';
-import { BlueLogo, RedBlackLogo, ExpLogo } from '../../logos';
+import {
+  BlueLogo,
+  RedBlackLogo,
+  ExpLogo,
+  CasperExplorerLogo,
+} from '../../logos';
 
 export const DefaultHeaderLogo: React.FC = () => (
   <LogoContainer>
     <LogoLink to="/">
-      <RedBlackCasperLogoWrapper>
-        <RedBlackCasperLogo />
-      </RedBlackCasperLogoWrapper>
-      <BlueCasperLogoWrapper>
-        <BlueCasperLogo />
-      </BlueCasperLogoWrapper>
-      <ExplorerLogoWrapper>
-        <ExplorerLogo />
-      </ExplorerLogoWrapper>
+      <CasperExplorerLogo />
     </LogoLink>
   </LogoContainer>
 );

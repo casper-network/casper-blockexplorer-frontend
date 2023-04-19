@@ -153,7 +153,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__menu-list {
     color: ${colors.black};
-    font-size: clamp(1rem, 1.2vw, 1.4rem);
+    font-size: 1rem;
     padding: 0;
     margin: 0;
     border-radius: 0.375rem;

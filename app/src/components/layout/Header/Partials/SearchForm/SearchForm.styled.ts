@@ -54,7 +54,7 @@ export const SearchInput = styled.input`
   background-color: ${colors.white};
   height: ${pxToRem(72)};
   width: 100%;
-  font-size: clamp(0.9rem, 1.1vw, 1.4rem);
+  font-size: 1.125rem;
   border-radius: 0.375rem 0 0 0.375rem;
   padding: 0 2rem;
   margin-top: 0;
