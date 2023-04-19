@@ -52,11 +52,11 @@ export const SearchInput = styled.input`
   display: block;
   color: ${colors.black};
   background-color: ${colors.white};
-  height: 2.5rem;
+  height: ${pxToRem(72)};
   width: 100%;
   font-size: clamp(0.9rem, 1.1vw, 1.4rem);
   border-radius: 0.375rem 0 0 0.375rem;
-  padding: 0 1.25rem;
+  padding: 0 2rem;
   margin-top: 0;
   margin-bottom: 0;
   box-shadow: inset 0px 1px 7px ${colors.boxShadow};
@@ -81,9 +81,9 @@ export const SearchInput = styled.input`
 
 export const SubmitButton = styled.button`
   font-weight: 500;
-  background-color: ${colors.primary};
-  height: 2.5rem;
-  width: 3.2rem;
+  background-color: #4589f6;
+  height: ${pxToRem(72)};
+  width: ${pxToRem(72)};
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;
