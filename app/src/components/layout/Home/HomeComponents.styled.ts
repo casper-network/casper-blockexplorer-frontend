@@ -11,14 +11,15 @@ export const IconH2Container = styled.div`
 
 export const H2 = styled.h2`
   font-size: clamp(1.5rem, 2vw, 1.7rem);
-  font-weight: ${fontWeight.semiBold};
+  font-weight: ${fontWeight.normal};
+  color: ${colors.black};
   line-height: 1;
   max-width: 10.5rem;
   padding-left: 0.7rem;
 `;
 
 export const PageLink = styled(Link)`
-  color: ${colors.primary};
+  color: ${colors.black};
   font-size: clamp(0.67rem, 1.25vw, 0.9rem);
   text-align: right;
   font-weight: ${fontWeight.medium};
@@ -48,29 +49,28 @@ export const PageLink = styled(Link)`
 `;
 
 export const H3 = styled.h3`
-  font-weight: ${fontWeight.medium};
+  font-weight: ${fontWeight.normal};
   font-size: clamp(0.9rem, 1.35vw, 1rem);
   line-height: 1;
   padding-top: 1.45rem;
 `;
 
 export const H3Data = styled.p`
-  color: ${colors.primary};
-  font-weight: ${fontWeight.extraBold};
+  color: ${colors.black};
+  font-weight: ${fontWeight.medium};
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   padding: 0.55rem 0 0.2rem 0;
 `;
 
 export const DataContext = styled.p`
-  color: ${colors.darkSupporting};
-  font-weight: ${fontWeight.medium};
+  color: ${colors.black};
   font-size: clamp(0.9rem, 1.25vw, 1rem);
 `;
 
 export const Card = styled.section`
   background: ${colors.white};
   padding: 0 2rem;
-  border: 0.063rem solid ${colors.mediumSupporting};
+  border: ${pxToRem(4)} solid #4589f6;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.438rem ${colors.boxShadow};
   padding-bottom: 1.5rem;
@@ -83,7 +83,8 @@ export const Header = styled.header`
   flex-direction: row;
   align-items: center;
   padding: 1.15rem 0;
-  border-bottom: 0.094rem solid #f2f3f5;
+  border-bottom: 0.094rem solid #f4f4f4;
+  min-height: ${pxToRem(80)};
 `;
 
 export const Details = styled.section`
@@ -104,6 +105,7 @@ export const TextWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 1rem;
+  font-size: ${pxToRem(24)};
 
   h3 {
     padding: unset;

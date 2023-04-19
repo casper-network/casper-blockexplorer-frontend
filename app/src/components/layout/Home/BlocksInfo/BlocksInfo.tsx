@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatDate } from 'src/utils';
+import { formatDate, standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
   getLatestBlockLoadingStatus,
@@ -38,7 +38,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
     <Card>
       <Header>
         <IconH2Container>
-          <BlocksIcon />
+          <BlocksIcon color="black" />
           <H2>{t('blocks')}</H2>
         </IconH2Container>
         <PageLink to="/blocks">{t('view-all')}</PageLink>
@@ -52,7 +52,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
             {isLoadingBlocks ? (
               <Skeleton width={120} duration={1} />
             ) : (
-              block?.header.height ?? 0
+              standardizeNumber(block?.header.height ?? 0)
             )}
           </H3Data>
           <DataContext>
@@ -71,7 +71,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
             {isLoadingBlocks ? (
               <Skeleton width={90} duration={1} />
             ) : (
-              block?.header.era_id ?? 0
+              standardizeNumber(block?.header.era_id ?? 0)
             )}
           </H3Data>
         </Info>
