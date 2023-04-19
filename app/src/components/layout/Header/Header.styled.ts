@@ -12,7 +12,6 @@ export const HeaderComponentsContainer = styled.div<{
 }>`
   display: flex;
   justify-content: space-between;
-  max-width: ${pxToRem(1400)};
   width: auto;
   margin: 0 2.25rem;
   padding: 0;

@@ -7,6 +7,8 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: flex-end;
   width: fit-content;
+  height: ${pxToRem(124)};
+
   @media (min-width: ${breakpoints.lg}) {
     width: 100%;
   }
@@ -78,7 +80,7 @@ export const DesktopNavItemsContainer = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: ${pxToRem(4)};
+  gap: ${pxToRem(40)};
   width: 100%;
   min-height: ${pxToRem(75)};
 `;

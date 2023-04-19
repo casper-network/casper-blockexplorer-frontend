@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
@@ -42,6 +42,7 @@ const navItems = [
   },
 ];
 
+// TODO: we might want to assign a max width for the header/nav
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
 
@@ -67,7 +68,10 @@ export const Navbar: React.FC = () => {
 
   const { pathname } = useLocation();
 
-  const selectedRoute = pathname === '/' ? 'home' : pathname.slice(1);
+  const selectedRoute = useMemo(
+    () => (pathname === '/' ? 'home' : pathname.slice(1)),
+    [pathname],
+  );
 
   return (
     <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
@@ -102,8 +106,7 @@ export const Navbar: React.FC = () => {
                 return (
                   <Link key={key} to={path}>
                     <NavbarItemLinkButton
-                      title={title}
-                      selectedRoute={selectedRoute}>
+                      isRouteSelected={title === selectedRoute}>
                       {t(title)}
                     </NavbarItemLinkButton>
                   </Link>
