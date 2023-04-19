@@ -4,31 +4,23 @@ import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: center;
-  width: 92%;
-  max-width: ${pxToRem(592)};
-  padding: ${({ isFirstVisit }) => (isFirstVisit ? `${pxToRem(25)} 0` : '0')};
-  margin: 0 auto 2rem auto;
+  width: auto;
+  margin: 0 2.25rem;
   position: relative;
   padding: 0;
 
   @media (min-width: ${breakpoints.md}) {
-    margin: 0 auto;
-    width: 64%;
+    margin: 0 2.25rem;
+    width: auto;
     min-width: ${pxToRem(625)};
-    max-width: ${pxToRem(655)};
     align-items: center;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: start;
-    width: 100%;
-    min-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(300)}`};
-    max-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(1000)}`};
-    margin: 0 auto;
-    padding-right: ${({ isFirstVisit }) =>
-      isFirstVisit ? '0' : `${pxToRem(20)}`};
+    width: auto;
+    min-width: ${pxToRem(300)};
+    margin: 0 2.25rem;
   }
 `;
 

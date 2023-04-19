@@ -7,7 +7,6 @@ import { loadConfig } from 'src/utils';
 
 import { NavbarItemLinkButton } from 'src/components/buttons';
 import { NavButton } from '../../buttons/NavButton';
-import { SearchForm } from '../Header/Partials';
 
 import {
   LogoSearchFormWrapper,
@@ -80,15 +79,12 @@ export const Navbar: React.FC = () => {
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
 
   const returnVisitDesktopNavDisplay = (
-    <LogoSearchFormWrapper>
-      {logo}
-      <SearchForm />
-    </LogoSearchFormWrapper>
+    <LogoSearchFormWrapper>{logo}</LogoSearchFormWrapper>
   );
 
   return (
     <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
-      {!isFirstVisit && !isMobile && returnVisitDesktopNavDisplay}
+      {/* {!isFirstVisit && !isMobile && returnVisitDesktopNavDisplay} */}
       <NavComponentsContainer>
         <NavButton
           type="button"

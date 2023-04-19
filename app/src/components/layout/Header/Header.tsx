@@ -25,38 +25,54 @@ export const Header: React.FC = () => {
   const isFirstVisit = useAppSelector(getIsFirstVisit);
 
   return (
-    <div>
-      {isFirstVisit ? (
-        <HeaderComponent>
-          <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
-            {logo}
-            <Navbar />
-          </HeaderComponentsContainer>
-          {isDropdownMenu && <SearchForm />}
-          <HeroContainer isFirstVisit={isFirstVisit}>
-            <HeroHeading type="h1" aria-label="Casper Block Explorer">
-              {t('discover-prompt-one')} {title} {t('discover-prompt-two')}
-            </HeroHeading>
-          </HeroContainer>
-          {!isDropdownMenu && <SearchForm />}
-        </HeaderComponent>
-      ) : (
-        <HeaderComponent>
-          {!isMobile ? (
-            <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
-              <Navbar />
-            </HeaderComponentsContainer>
-          ) : (
-            <div>
-              <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
-                {logo}
-                <Navbar />
-              </HeaderComponentsContainer>
-              <SearchForm />
-            </div>
-          )}
-        </HeaderComponent>
-      )}
-    </div>
+    <HeaderComponent>
+      <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+        {logo}
+        <Navbar />
+      </HeaderComponentsContainer>
+      <SearchForm />
+      <HeroContainer isFirstVisit={isFirstVisit}>
+        <HeroHeading type="h1" aria-label="Casper Block Explorer">
+          {t('discover-prompt-one')} {title} {t('discover-prompt-two')}
+        </HeroHeading>
+      </HeroContainer>
+      {/* {!isDropdownMenu && <SearchForm />} */}
+    </HeaderComponent>
   );
+
+  // return (
+  //   <div>
+  //     {isFirstVisit ? (
+  //       <HeaderComponent>
+  //         <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+  //           {logo}
+  //           <Navbar />
+  //         </HeaderComponentsContainer>
+  //         {isDropdownMenu && <SearchForm />}
+  //         <HeroContainer isFirstVisit={isFirstVisit}>
+  //           <HeroHeading type="h1" aria-label="Casper Block Explorer">
+  //             {t('discover-prompt-one')} {title} {t('discover-prompt-two')}
+  //           </HeroHeading>
+  //         </HeroContainer>
+  //         {!isDropdownMenu && <SearchForm />}
+  //       </HeaderComponent>
+  //     ) : (
+  //       <HeaderComponent>
+  //         {!isMobile ? (
+  //           <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+  //             <Navbar />
+  //           </HeaderComponentsContainer>
+  //         ) : (
+  //           <div>
+  //             <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
+  //               {logo}
+  //               <Navbar />
+  //             </HeaderComponentsContainer>
+  //             <SearchForm />
+  //           </div>
+  //         )}
+  //       </HeaderComponent>
+  //     )}
+  //   </div>
+  // );
 };
