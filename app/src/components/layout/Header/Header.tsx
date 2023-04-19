@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAppWidth } from 'src/hooks';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
 import { ConfigurableLogo, DefaultHeaderLogo } from '../LogoComponents';
@@ -17,7 +16,6 @@ import {
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
-  const { isDropdownMenu, isMobile } = useAppWidth();
   const { logoUrl, title } = loadConfig();
 
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultHeaderLogo />;
@@ -36,43 +34,6 @@ export const Header: React.FC = () => {
           {t('discover-prompt-one')} {title} {t('discover-prompt-two')}
         </HeroHeading>
       </HeroContainer>
-      {/* {!isDropdownMenu && <SearchForm />} */}
     </HeaderComponent>
   );
-
-  // return (
-  //   <div>
-  //     {isFirstVisit ? (
-  //       <HeaderComponent>
-  //         <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
-  //           {logo}
-  //           <Navbar />
-  //         </HeaderComponentsContainer>
-  //         {isDropdownMenu && <SearchForm />}
-  //         <HeroContainer isFirstVisit={isFirstVisit}>
-  //           <HeroHeading type="h1" aria-label="Casper Block Explorer">
-  //             {t('discover-prompt-one')} {title} {t('discover-prompt-two')}
-  //           </HeroHeading>
-  //         </HeroContainer>
-  //         {!isDropdownMenu && <SearchForm />}
-  //       </HeaderComponent>
-  //     ) : (
-  //       <HeaderComponent>
-  //         {!isMobile ? (
-  //           <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
-  //             <Navbar />
-  //           </HeaderComponentsContainer>
-  //         ) : (
-  //           <div>
-  //             <HeaderComponentsContainer isFirstVisit={isFirstVisit}>
-  //               {logo}
-  //               <Navbar />
-  //             </HeaderComponentsContainer>
-  //             <SearchForm />
-  //           </div>
-  //         )}
-  //       </HeaderComponent>
-  //     )}
-  //   </div>
-  // );
 };

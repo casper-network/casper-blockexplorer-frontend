@@ -12,16 +12,15 @@ export const HeaderComponentsContainer = styled.div<{
 }>`
   display: flex;
   justify-content: space-between;
-  width: 100%;
   max-width: ${pxToRem(1400)};
-  width: 100%;
-  margin: 0;
-  padding-right: 0.8rem;
+  width: auto;
+  margin: 0 2.25rem;
+  padding: 0;
 
   @media (min-width: ${breakpoints.lg}) {
-    width: 98%;
-    margin: 0 auto;
-    padding-right: 0;
+    width: auto;
+    margin: 0 2.25rem;
+    padding: 0;
   }
 `;
 

@@ -27,7 +27,6 @@ export const LogoContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-decoration-line: none;
-  padding: ${pxToRem(30)} ${pxToRem(23)};
 
   :hover,
   :focus {
@@ -35,7 +34,6 @@ export const LogoContainer = styled.div`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: ${pxToRem(30)} ${pxToRem(0)};
   }
 `;
 
