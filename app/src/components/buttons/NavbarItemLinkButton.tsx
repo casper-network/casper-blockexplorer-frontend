@@ -12,9 +12,11 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
   children,
   isRouteSelected,
 }) => (
-  <DesktopNavItemLink type="button" isRouteSelected={isRouteSelected}>
-    {children}
-  </DesktopNavItemLink>
+  <NavItemWrapper>
+    <DesktopNavItemLink type="button" isRouteSelected={isRouteSelected}>
+      {children}
+    </DesktopNavItemLink>
+  </NavItemWrapper>
 );
 
 const DesktopNavItemLink = styled(Button)<{
@@ -33,4 +35,9 @@ const DesktopNavItemLink = styled(Button)<{
   border-radius: 0;
   padding: 0;
   padding-bottom: 0.25rem;
+`;
+
+const NavItemWrapper = styled.div`
+  min-width: 90px;
+  text-align: center;
 `;

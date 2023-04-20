@@ -84,7 +84,7 @@ const App = () => {
             <link href={font} rel="stylesheet" />
             <title>{title}</title>
           </Helmet>
-          <AppWrapper ref={ref} style={{ fontFamily: primaryFontName }}>
+          <AppWrapper ref={ref}>
             <BrowserRouter>
               <Header />
               <Routes>

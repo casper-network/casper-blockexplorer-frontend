@@ -20,5 +20,5 @@ export const Hash: React.FC<HashProps> = ({ hash, alwaysTruncate }) => {
 };
 
 export const StyledHash = styled.span`
-  font-family: ${fonts.secondaryFont};
+  /* font-family: ${fonts.secondaryFont}; */
 `;

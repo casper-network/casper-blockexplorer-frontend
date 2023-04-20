@@ -1,11 +1,23 @@
-
 /* adds Inter & JetBrains Mono */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@100;200;300;400;500;600;700&display=swap'); */
+
+@font-face {
+  font-family: 'Casper Sans';
+  src: url('../src/assets/fonts/CasperSans-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Casper Sans';
+  src: url('../src/assets/fonts/CasperSans-Medium.otf');
+  font-weight: 500;
+}
+
+/* CasperSans-Regular.otf */
 
 body {
   margin: 0;
   height: 100%;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Casper Sans';
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
