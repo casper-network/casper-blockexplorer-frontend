@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
-import { useAppWidth } from 'src/hooks';
-import { loadConfig } from 'src/utils';
 
 import { NavbarItemLinkButton } from 'src/components/buttons';
 import { NavButton } from '../../buttons/NavButton';
-import { SearchForm } from '../Header/Partials';
 
 import {
-  LogoSearchFormWrapper,
   NavComponentsContainer,
   Nav,
   NavItemsContainer,
@@ -22,7 +18,6 @@ import {
 } from './Navbar.styled';
 
 import { OpenMenuIcon, CloseMenuIcon } from '../../icons';
-import { ConfigurableLogo, DefaultNavLogo } from '../LogoComponents';
 
 const navItems = [
   {
@@ -47,14 +42,12 @@ const navItems = [
   },
 ];
 
+// TODO: we might want to assign a max width for the header/nav
 export const Navbar: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
-  const { logoUrl } = loadConfig();
-
-  const { isMobile } = useAppWidth();
 
   useEffect(() => {
     const escKeyHandler = (event: KeyboardEvent) => {
@@ -75,20 +68,13 @@ export const Navbar: React.FC = () => {
 
   const { pathname } = useLocation();
 
-  const selectedRoute = pathname === '/' ? 'home' : pathname.slice(1);
-
-  const logo = logoUrl ? <ConfigurableLogo /> : <DefaultNavLogo />;
-
-  const returnVisitDesktopNavDisplay = (
-    <LogoSearchFormWrapper>
-      {logo}
-      <SearchForm />
-    </LogoSearchFormWrapper>
+  const selectedRoute = useMemo(
+    () => (pathname === '/' ? 'home' : pathname.slice(1)),
+    [pathname],
   );
 
   return (
     <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
-      {!isFirstVisit && !isMobile && returnVisitDesktopNavDisplay}
       <NavComponentsContainer>
         <NavButton
           type="button"
@@ -120,8 +106,7 @@ export const Navbar: React.FC = () => {
                 return (
                   <Link key={key} to={path}>
                     <NavbarItemLinkButton
-                      title={title}
-                      selectedRoute={selectedRoute}>
+                      isRouteSelected={title === selectedRoute}>
                       {t(title)}
                     </NavbarItemLinkButton>
                   </Link>

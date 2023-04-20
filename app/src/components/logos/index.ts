@@ -3,3 +3,4 @@ export { ReactComponent as WhiteLogo } from '../../assets/images/white-casper-lo
 export { ReactComponent as RedBlackLogo } from '../../assets/images/red-black-casper-logo.svg';
 export { ReactComponent as BlkExpLogo } from '../../assets/images/block-explorer-gradient-logo.svg';
 export { ReactComponent as ExpLogo } from '../../assets/images/explorer-gradient-logo.svg';
+export { ReactComponent as CasperExplorerLogo } from '../../assets/images/casper-explorer-logo.svg';

@@ -72,13 +72,13 @@ const SelectLabel = styled.label`
 
 const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__control {
-    width: 9.9rem;
+    width: ${pxToRem(182)};
     box-shadow: none;
     border: none;
   }
 
   .react-select__value-container {
-    height: 2.5rem;
+    height: ${pxToRem(72)};
     background-color: #fff;
     padding: 0.65rem 0rem 0.65rem 0rem;
     background-color: ${colors.white};
@@ -96,8 +96,8 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__indicators {
     display: block;
     position: absolute;
-    top: 0.1rem;
-    left: 7.5rem;
+    top: 1.1rem;
+    left: 8.5rem;
     padding: 0;
 
     /* Firefox Version 110.0b3 (Versions 69+) */
@@ -115,8 +115,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
-    padding: 0 2.3rem 0.35rem 1.5rem;
-    margin: 0 auto;
+    margin: 0 2rem;
 
     /* Firefox Version 110.0b3 (Versions 69+) */
     @supports selector(:-moz-is-html) {
@@ -154,7 +153,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__menu-list {
     color: ${colors.black};
-    font-size: clamp(1rem, 1.2vw, 1.4rem);
+    font-size: 1rem;
     padding: 0;
     margin: 0;
     border-radius: 0.375rem;

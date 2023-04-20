@@ -3,20 +3,17 @@ import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
 import { breakpoints, pxToRem } from 'src/styled-theme';
-import { BlueLogo, RedBlackLogo, ExpLogo } from '../../logos';
+import {
+  BlueLogo,
+  RedBlackLogo,
+  ExpLogo,
+  CasperExplorerLogo,
+} from '../../logos';
 
 export const DefaultHeaderLogo: React.FC = () => (
   <LogoContainer>
     <LogoLink to="/">
-      <RedBlackCasperLogoWrapper>
-        <RedBlackCasperLogo />
-      </RedBlackCasperLogoWrapper>
-      <BlueCasperLogoWrapper>
-        <BlueCasperLogo />
-      </BlueCasperLogoWrapper>
-      <ExplorerLogoWrapper>
-        <ExplorerLogo />
-      </ExplorerLogoWrapper>
+      <CasperExplorerLogo />
     </LogoLink>
   </LogoContainer>
 );
@@ -27,7 +24,6 @@ export const LogoContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-decoration-line: none;
-  padding: ${pxToRem(30)} ${pxToRem(23)};
 
   :hover,
   :focus {
@@ -35,7 +31,6 @@ export const LogoContainer = styled.div`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: ${pxToRem(30)} ${pxToRem(0)};
   }
 `;
 
