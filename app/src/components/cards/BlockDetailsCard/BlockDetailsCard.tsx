@@ -7,12 +7,11 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
-import { HeadContentWrapper, Heading, InfoCard } from '../../base';
+import { Heading, InfoCard } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
   DetailDataWrapper,
-  GradientHeading,
   Hash,
 } from '../../styled';
 import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
@@ -34,51 +33,29 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   return (
     <>
       <PageHeading>
-        {' '}
-        <HashHeading type="h2" isTruncated={isTruncated}>
+        <HashWrapper>
+          <HashHeading type="h2" isTruncated={isTruncated}>
+            {withSkeletonLoading(
+              <Hash
+                hash={block?.hash ?? hashPlaceholder}
+                alwaysTruncate={isTruncated}
+              />,
+              isLoading,
+              { width: 275 },
+            )}
+          </HashHeading>
           {withSkeletonLoading(
-            <Hash
-              hash={block?.hash ?? hashPlaceholder}
-              alwaysTruncate={isTruncated}
+            <HashButton
+              isTruncated={isTruncated}
+              setIsTruncated={setIsTruncated}
             />,
             isLoading,
-            { width: 275 },
+            { width: 75 },
           )}
-        </HashHeading>
-        {withSkeletonLoading(
-          <HashButton
-            isTruncated={isTruncated}
-            setIsTruncated={setIsTruncated}
-          />,
-          isLoading,
-          { width: 75 },
-        )}
+        </HashWrapper>
       </PageHeading>
 
       <InfoCard>
-        <HeadContentWrapper>
-          <AccountHeading type="h1">{t('block-details')}</AccountHeading>
-          <HashWrapper>
-            <HashHeading type="h2" isTruncated={isTruncated}>
-              {withSkeletonLoading(
-                <Hash
-                  hash={block?.hash ?? hashPlaceholder}
-                  alwaysTruncate={isTruncated}
-                />,
-                isLoading,
-                { width: 275 },
-              )}
-            </HashHeading>
-            {withSkeletonLoading(
-              <HashButton
-                isTruncated={isTruncated}
-                setIsTruncated={setIsTruncated}
-              />,
-              isLoading,
-              { width: 75 },
-            )}
-          </HashWrapper>
-        </HeadContentWrapper>
         <DetailDataRowWrapper>
           <li>
             <DetailDataLabel>{t('block-height')}</DetailDataLabel>
@@ -244,13 +221,15 @@ const HashWrapper = styled.div`
   flex-direction: column;
 `;
 
-const HashHeading = styled(GradientHeading)<{ isTruncated: boolean }>`
-  font-weight: ${fontWeight.extraBold};
+const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
+  font-weight: ${fontWeight.medium};
   display: inline;
   margin: 0;
-  width: ${({ isTruncated }) => (isTruncated ? '10%' : '100%')};
+  width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
   min-width: ${pxToRem(360)};
   overflow-wrap: break-word;
+  font-size: ${pxToRem(60)};
+  color: #2230f0;
 `;
 
 const DetailDataRowWrapper = styled(DetailDataWrapper)`
