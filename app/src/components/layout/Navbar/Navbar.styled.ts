@@ -7,7 +7,7 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: flex-end;
   width: fit-content;
-  height: ${pxToRem(124)};
+  height: ${pxToRem(136)};
 
   @media (min-width: ${breakpoints.lg}) {
     width: 100%;
