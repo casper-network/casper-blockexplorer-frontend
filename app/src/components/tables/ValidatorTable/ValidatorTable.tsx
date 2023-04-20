@@ -257,7 +257,7 @@ const HeadValue = styled.p`
 `;
 
 const CSPRText = styled.span`
-  /* font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES}; */
+  font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;
 
 const ValidatorsTableFooter = styled.div`

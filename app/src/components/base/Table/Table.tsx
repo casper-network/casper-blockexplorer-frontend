@@ -198,8 +198,8 @@ const TableHeader = styled.tr`
 
 const Th = styled.th<{ sortable?: boolean }>`
   text-align: start;
-  font-weight: ${fontWeight.bold};
   padding: 0 2rem;
+  font-weight: ${fontWeight.normal};
   ${({ sortable }) => {
     if (sortable)
       return css`

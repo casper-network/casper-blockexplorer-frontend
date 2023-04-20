@@ -161,7 +161,7 @@ const SpanTwoCols = styled(TransactionDetailData)`
 
 const ActionAndDeployTypeWrapper = styled(SpanTwoCols)`
   flex-direction: column;
-  /* font-family: ${fonts.secondaryFont}; */
+  font-family: ${fonts.secondaryFont};
 
   div {
     font-size: ${pxToRem(24)};
