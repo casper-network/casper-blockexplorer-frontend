@@ -18,16 +18,15 @@ export const InfoCardSection = styled.section`
 export const InfoCardContentWrapper = styled.div`
   width: 100%;
   background: ${colors.white};
-  border: 1px solid ${colors.mediumSupporting};
+  border: 3px solid #4589f6;
   box-shadow: 0px 0.125rem 0.5rem ${colors.boxShadow};
   border-radius: 0.35rem;
   padding: 2rem;
   overflow-x: auto;
-  max-width: calc(100vw - 4rem);
-  margin: 0 auto 2rem auto;
+  margin-bottom: 2rem;
 
   @media only screen and (min-width: ${breakpoints.md}) {
-    max-width: calc(100vw - 6rem);
+    max-width: calc(100vw);
   }
 `;
 
