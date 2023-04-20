@@ -33,15 +33,4 @@ const DesktopNavItemLink = styled(Button)<{
   border-radius: 0;
   padding: 0;
   padding-bottom: 0.25rem;
-
-  /* 
-  :focus {
-    text-decoration: none;
-  } */
-
-  /* :active,
-  :hover {
-    padding: ${pxToRem(6)} ${pxToRem(20)};
-    text-decoration: none;
-  } */
 `;

@@ -70,7 +70,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                       style={{
                         backgroundColor:
                           currentFilterOption === option.value
-                            ? colors.primary
+                            ? '#4589F6'
                             : colors.lightSupporting,
                         color:
                           currentFilterOption === option.value
