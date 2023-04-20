@@ -52,7 +52,7 @@ export const SearchInput = styled.input`
   display: block;
   color: ${colors.black};
   background-color: ${colors.white};
-  height: ${pxToRem(72)};
+  height: ${pxToRem(54)};
   width: 100%;
   font-size: 1.125rem;
   border-radius: 0.375rem 0 0 0.375rem;
@@ -62,6 +62,10 @@ export const SearchInput = styled.input`
   box-shadow: inset 0px 1px 7px ${colors.boxShadow};
   border-style: none;
   appearance: none;
+
+  @media (min-width: ${breakpoints.md}) {
+    height: ${pxToRem(72)};
+  }
 
   /* Firefox Version 110.0b3 (Versions 69+) */
   @supports selector(:-moz-is-html) {
@@ -82,7 +86,7 @@ export const SearchInput = styled.input`
 export const SubmitButton = styled.button`
   font-weight: 500;
   background-color: #4589f6;
-  height: ${pxToRem(72)};
+  height: ${pxToRem(54)};
   width: ${pxToRem(72)};
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
@@ -90,6 +94,10 @@ export const SubmitButton = styled.button`
   position: relative;
   right: 0.0625rem;
   border-style: none;
+
+  @media (min-width: ${breakpoints.md}) {
+    height: ${pxToRem(72)};
+  }
 
   /* Safari Version 12.3 11-15 up to Monterey */
   @media not all and (min-resolution: 0.001dpcm) {
