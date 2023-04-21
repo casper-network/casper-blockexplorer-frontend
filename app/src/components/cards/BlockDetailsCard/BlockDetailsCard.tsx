@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
-import { fontWeight, pxToRem } from 'src/styled-theme';
+import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
 import { Heading, InfoCard } from '../../base';
 import {
@@ -30,6 +30,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
 
   const rawBlock = JSON.stringify(block);
 
+  // TODO: need BACK button to /blocks
   return (
     <>
       <PageHeading>
@@ -232,9 +233,14 @@ const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
   color: #2230f0;
 `;
 
-const DetailDataRowWrapper = styled(DetailDataWrapper)`
-  grid-template-columns: 0.75fr 0.75fr 3fr;
-  margin: 2.5rem 0;
+const DetailDataRowWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: ${breakpoints.lg}) {
+    flex-direction: row;
+    gap: ${pxToRem(96)};
+  }
 `;
 
 const PageHeading = styled.div``;
