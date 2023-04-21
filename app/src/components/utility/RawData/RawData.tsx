@@ -10,7 +10,7 @@ import {
   AccordionItemState,
 } from 'react-accessible-accordion';
 import styled from '@emotion/styled';
-import { colors, pxToRem } from '../../../styled-theme';
+import { colors, fontWeight, pxToRem } from '../../../styled-theme';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -56,7 +56,8 @@ const RawDataToggleButton = styled(AccordionItemButton)`
   background-color: ${colors.lightSupporting};
   color: ${colors.black};
   padding: 0.4rem 1.25rem;
-  font-size: 0.875rem;
+  font-size: 1.25rem;
+  font-weight: ${fontWeight.medium};
   border-radius: 0.35rem;
   transition: ease-in 0.2s;
   width: ${pxToRem(188)};
