@@ -15,7 +15,6 @@ import { AVATAR_URL } from '../../../constants';
 import { Account } from '../../../api';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
-  GradientHeading,
   Hash,
   AvatarIcon,
   DetailDataWrapper,
@@ -52,12 +51,12 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
 
   return (
-    <InfoCard>
-      <HeadContentContainer>
+    <>
+      <HeadContentContainer isTruncated={isTruncated}>
         <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarHashContainer>
           {withSkeletonLoading(
-            <>
+            <AccountDetailsWrapper>
               <AvatarIcon
                 src={`${AVATAR_URL}${account?.trimmedAccountHash ?? ''}.svg`}
                 alt="avatar"
@@ -78,83 +77,95 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                   setIsTruncated={setIsTruncated}
                 />
               </HashExpandWrapper>
-            </>,
+            </AccountDetailsWrapper>,
             isAccountLoading,
             { width: 350, height: 60 },
           )}
         </AvatarHashContainer>
       </HeadContentContainer>
-      <DetailDataWrapper>
-        <DetailDataList gap="1.75rem">
-          <li>
-            <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
-            <DetailDataValue height="2rem">
-              {withSkeletonLoading(
-                <>
-                  <Hash hash={account?.trimmedAccountHash ?? hashPlaceholder} />
-                  <CopyToClipboard
-                    textToCopy={account?.trimmedAccountHash ?? ''}
-                  />
-                </>,
-                isAccountLoading,
-                { width: '60%' },
-              )}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-            <DetailDataValue>
-              {withSkeletonLoading(
-                account?.publicKey ? (
-                  <>
-                    <Hash hash={account?.publicKey} />
-                    <CopyToClipboard textToCopy={account?.publicKey} />
-                  </>
-                ) : (
-                  'Unknown'
-                ),
-                isAccountLoading,
-                { width: '60%' },
-              )}
-            </DetailDataValue>
-          </li>
 
-          <li>
-            <DetailDataLabel>{t('balance')}</DetailDataLabel>
-            <DetailDataValue>
-              {withSkeletonLoading(
-                <Coin>{balance ?? ''}</Coin>,
-                isBalanceLoading || balance === null,
-                { width: 250 },
-              )}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
-            <DetailDataValue>
-              {withSkeletonLoading(
-                account?.rawAccount && (
-                  <RawData rawData={account?.rawAccount} />
-                ),
-                isAccountLoading,
-                { width: 200, height: '2.25rem' },
-              )}
-            </DetailDataValue>
-          </li>
-        </DetailDataList>
-      </DetailDataWrapper>
-    </InfoCard>
+      <InfoCard>
+        <DetailDataWrapper>
+          <DetailDataList gap="1.75rem">
+            <li>
+              <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
+              <DetailDataValue height="2rem">
+                {withSkeletonLoading(
+                  <>
+                    <Hash
+                      hash={account?.trimmedAccountHash ?? hashPlaceholder}
+                    />
+                    <CopyToClipboard
+                      textToCopy={account?.trimmedAccountHash ?? ''}
+                    />
+                  </>,
+                  isAccountLoading,
+                  { width: '60%' },
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('public-key')}</DetailDataLabel>
+              <DetailDataValue>
+                {withSkeletonLoading(
+                  account?.publicKey ? (
+                    <>
+                      <Hash hash={account?.publicKey} />
+                      <CopyToClipboard textToCopy={account?.publicKey} />
+                    </>
+                  ) : (
+                    'Unknown'
+                  ),
+                  isAccountLoading,
+                  { width: '60%' },
+                )}
+              </DetailDataValue>
+            </li>
+
+            <li>
+              <DetailDataLabel>{t('balance')}</DetailDataLabel>
+              <DetailDataValue>
+                {withSkeletonLoading(
+                  <Coin>{balance ?? ''}</Coin>,
+                  isBalanceLoading || balance === null,
+                  { width: 250 },
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
+              <DetailDataValue>
+                {withSkeletonLoading(
+                  account?.rawAccount && (
+                    <RawData rawData={account?.rawAccount} />
+                  ),
+                  isAccountLoading,
+                  { width: 200, height: '2.25rem' },
+                )}
+              </DetailDataValue>
+            </li>
+          </DetailDataList>
+        </DetailDataWrapper>
+      </InfoCard>
+    </>
   );
 };
 
 const AccountHeading = styled(Heading)`
-  font-size: 1.125rem;
-  font-weight: ${fontWeight.medium};
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: ${fontWeight.normal};
+  margin-bottom: 2rem;
 `;
 
-const HeadContentContainer = styled(HeadContentWrapper)`
+const AccountDetailsWrapper = styled.div`
+  display: flex;
+`;
+
+const HeadContentContainer = styled(HeadContentWrapper)<{
+  isTruncated?: boolean;
+}>`
   margin: 0;
+  margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
 `;
 
 const AvatarHashContainer = styled.div`
@@ -163,17 +174,24 @@ const AvatarHashContainer = styled.div`
   height: ${pxToRem(130)};
 `;
 
-const HashExpandWrapper = styled.div``;
+const HashExpandWrapper = styled.div`
+  overflow-wrap: break-word;
+  height: ${pxToRem(92)};
+`;
 
-const HashHeading = styled(GradientHeading)<{
+const HashHeading = styled(Heading)<{
   isTruncated: boolean;
   isMobile: boolean;
 }>`
-  font-weight: ${fontWeight.extraBold};
+  font-weight: ${fontWeight.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
   width: ${({ isTruncated, isMobile }) =>
-    isTruncated || isMobile ? '10%' : '95%'};
-  overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
+    isTruncated || isMobile ? '10%' : '50vw'};
+  overflow-wrap: break-word;
+  word-break: break-word;
+  font-size: ${pxToRem(60)};
+  color: #2230f0;
+  line-height: 65px;
 `;

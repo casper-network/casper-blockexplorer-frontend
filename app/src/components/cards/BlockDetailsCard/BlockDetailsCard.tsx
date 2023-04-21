@@ -223,12 +223,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   );
 };
 
-const AccountHeading = styled(Heading)`
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-`;
-
 const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -257,6 +251,6 @@ const DetailDataRowWrapper = styled.ul`
 
 const PageHeading = styled.div`
   @media only screen and (min-width: ${breakpoints.lg}) {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 `;

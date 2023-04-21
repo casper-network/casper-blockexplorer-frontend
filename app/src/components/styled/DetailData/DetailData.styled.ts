@@ -33,5 +33,5 @@ export const DetailDataValue = styled.div<{
     typeof height === 'number' ? `${height}px` : height};
   font-size: ${({ isLargeText }) => (isLargeText ? pxToRem(40) : '1.25rem')};
   color: ${colors.black};
-  font-weight: ${fontWeight.medium};
+  font-weight: ${fontWeight.normal};
 `;
