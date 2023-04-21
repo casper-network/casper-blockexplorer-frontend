@@ -7,7 +7,7 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
-import { Heading, InfoCard } from '../../base';
+import { Heading, InfoCard, Spacer } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
@@ -60,7 +60,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         <DetailDataRowWrapper>
           <li>
             <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue isLargeText>
               {withSkeletonLoading(block?.header.height, isLoading, {
                 width: 100,
               })}
@@ -68,7 +68,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </li>
           <li>
             <DetailDataLabel>{t('current-era')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue isLargeText>
               {withSkeletonLoading(block?.header.era_id, isLoading, {
                 width: 100,
               })}
@@ -76,7 +76,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </li>
           <li>
             <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue isLargeText>
               {withSkeletonLoading(
                 block?.header.timestamp.toLocaleString(),
                 isLoading,
@@ -87,6 +87,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </DetailDataValue>
           </li>
         </DetailDataRowWrapper>
+
+        <Spacer height="2.5rem" />
         <DetailDataWrapper>
           <li>
             <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
@@ -94,7 +96,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
               <Link
                 to={{
                   pathname: `/block/${block?.header.parent_hash ?? ''}`,
-                }}>
+                }}
+                style={{ color: '#2230f0' }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
                   isLoading,
@@ -135,7 +138,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
               <Link
                 to={{
                   pathname: `/account/${block?.body.proposer ?? ''}`,
-                }}>
+                }}
+                style={{ color: '#2230f0' }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                   isLoading,
@@ -243,4 +247,8 @@ const DetailDataRowWrapper = styled.ul`
   }
 `;
 
-const PageHeading = styled.div``;
+const PageHeading = styled.div`
+  @media only screen and (min-width: ${breakpoints.lg}) {
+    margin-bottom: 2.5rem;
+  }
+`;
