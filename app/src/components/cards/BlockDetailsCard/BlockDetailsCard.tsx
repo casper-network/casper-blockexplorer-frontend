@@ -89,6 +89,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </DetailDataRowWrapper>
 
         <Spacer height="2.5rem" />
+
         <DetailDataWrapper>
           <li>
             <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
@@ -152,6 +153,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </DetailDataValue>
           </li>
         </DetailDataWrapper>
+
+        <Spacer height="2.5rem" />
+
         <DetailDataRowWrapper>
           <li>
             <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
@@ -161,13 +165,15 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </li>
           <li>
             <DetailDataLabel>{t('deploys')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue isLargeText>
               {withSkeletonLoading(
                 block?.body.deploy_hashes?.length ? (
                   <ul>
                     {block?.body.deploy_hashes?.map(deployHash => (
                       <li key={deployHash}>
-                        <a href={`/deploy/${deployHash}`}>
+                        <a
+                          href={`/deploy/${deployHash}`}
+                          style={{ color: '#2230f0' }}>
                           <Hash
                             alwaysTruncate
                             hash={deployHash ?? hashPlaceholder}
@@ -186,13 +192,15 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </li>
           <li>
             <DetailDataLabel>{t('transfers')}</DetailDataLabel>
-            <DetailDataValue>
+            <DetailDataValue isLargeText>
               {withSkeletonLoading(
                 block?.body.transfer_hashes?.length ? (
                   <ul>
                     {block?.body.transfer_hashes?.map(transferHash => (
                       <li key={transferHash}>
-                        <a href={`/deploy/${transferHash}`}>
+                        <a
+                          href={`/deploy/${transferHash}`}
+                          style={{ color: '#2230f0' }}>
                           <Hash
                             alwaysTruncate
                             hash={transferHash ?? hashPlaceholder}
