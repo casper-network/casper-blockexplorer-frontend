@@ -1,10 +1,11 @@
 import React, { StrictMode, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
-// import { ThemeProvider } from '@emotion/react';
-import { createGlobalStyle } from 'styled-components';
+import { css, Global, ThemeProvider } from '@emotion/react';
+
 import './i18n';
 import { Footer, Header } from './components';
 import {
@@ -30,8 +31,6 @@ import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { colors } from './styled-theme';
 
-// export { myTheme };
-
 export const lightTheme = {
   body: 'yellow',
   text: 'red',
@@ -40,17 +39,6 @@ export const darkTheme = {
   body: 'black',
   text: '#FAFAFA',
 };
-
-// const myTheme: DefaultTheme = {
-//   ...lightTheme,
-// };
-
-export const GlobalStyles = createGlobalStyle`
-  body {
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
-  }
-  `;
 
 const { title, faviconUrl } = loadConfig();
 
@@ -96,44 +84,55 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
-      <GlobalStyles theme={theme === 'light' ? lightTheme : darkTheme} />
-      <StrictMode>
-        <React.Suspense>
-          <Helmet>
-            {faviconUrl ? (
-              <link rel="icon" href={faviconUrl} />
-            ) : (
-              <link rel="icon" href="%PUBLIC_URL%/favicon" />
-            )}
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <Global
+          styles={css`
+            body, html: {
+              color: red;
+              background-color: red;
+            }
 
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link href={font} rel="stylesheet" />
-            <title>{title}</title>
-          </Helmet>
-          <AppWrapper ref={ref}>
-            <BrowserRouter>
-              <Header />
-              <button onClick={themeToggler} type="button">
-                toggle theme!!!
-              </button>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/peers" element={<Peers />} />
-                <Route path="/validators" element={<Validators />} />
-                <Route path="/account/:id" element={<AccountPage />} />
-                <Route path="/deploy/:id" element={<DeployPage />} />
-                <Route path="/block/:id" element={<BlockPage />} />
-                <Route path="/blocks" element={<Blocks />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-              <Footer />
-            </BrowserRouter>
-          </AppWrapper>
-        </React.Suspense>
-      </StrictMode>
-      {/* </ThemeProvider> */}
+            button {
+              color: red !important;
+            }
+          `}
+        />
+        <StrictMode>
+          <React.Suspense>
+            <Helmet>
+              {faviconUrl ? (
+                <link rel="icon" href={faviconUrl} />
+              ) : (
+                <link rel="icon" href="%PUBLIC_URL%/favicon" />
+              )}
+
+              <link rel="preconnect" href="https://fonts.googleapis.com" />
+              <link rel="preconnect" href="https://fonts.gstatic.com" />
+              <link href={font} rel="stylesheet" />
+              <title>{title}</title>
+            </Helmet>
+            <AppWrapper ref={ref}>
+              <BrowserRouter>
+                <Header />
+                <button onClick={themeToggler} type="button">
+                  toggle theme!!!
+                </button>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/peers" element={<Peers />} />
+                  <Route path="/validators" element={<Validators />} />
+                  <Route path="/account/:id" element={<AccountPage />} />
+                  <Route path="/deploy/:id" element={<DeployPage />} />
+                  <Route path="/block/:id" element={<BlockPage />} />
+                  <Route path="/blocks" element={<Blocks />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+                <Footer />
+              </BrowserRouter>
+            </AppWrapper>
+          </React.Suspense>
+        </StrictMode>
+      </ThemeProvider>
     </HelmetProvider>
   );
 };
