@@ -145,5 +145,4 @@ const HashHeading = styled(Heading)<{
   overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
   font-size: ${pxToRem(60)};
   color: #2230f0;
-  line-height: 65px;
 `;
