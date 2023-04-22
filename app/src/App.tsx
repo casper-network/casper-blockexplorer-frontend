@@ -1,8 +1,10 @@
-import React, { StrictMode, useEffect } from 'react';
+import React, { StrictMode, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
+// import { ThemeProvider } from '@emotion/react';
+import { createGlobalStyle } from 'styled-components';
 import './i18n';
 import { Footer, Header } from './components';
 import {
@@ -28,10 +30,36 @@ import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { colors } from './styled-theme';
 
+// export { myTheme };
+
+export const lightTheme = {
+  body: 'yellow',
+  text: 'red',
+};
+export const darkTheme = {
+  body: 'black',
+  text: '#FAFAFA',
+};
+
+// const myTheme: DefaultTheme = {
+//   ...lightTheme,
+// };
+
+export const GlobalStyles = createGlobalStyle`
+  body {
+    background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+  }
+  `;
+
 const { title, faviconUrl } = loadConfig();
 
 const App = () => {
   const [ref, bounds] = useMeasure();
+  const [theme, setTheme] = useState('light');
+
+  const themeToggler = () =>
+    theme === 'light' ? setTheme('dark') : setTheme('light');
 
   const dispatch = useAppDispatch();
 
@@ -68,6 +96,8 @@ const App = () => {
 
   return (
     <HelmetProvider>
+      {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
+      <GlobalStyles theme={theme === 'light' ? lightTheme : darkTheme} />
       <StrictMode>
         <React.Suspense>
           <Helmet>
@@ -85,6 +115,9 @@ const App = () => {
           <AppWrapper ref={ref}>
             <BrowserRouter>
               <Header />
+              <button onClick={themeToggler} type="button">
+                toggle theme!!!
+              </button>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/peers" element={<Peers />} />
@@ -100,6 +133,7 @@ const App = () => {
           </AppWrapper>
         </React.Suspense>
       </StrictMode>
+      {/* </ThemeProvider> */}
     </HelmetProvider>
   );
 };
