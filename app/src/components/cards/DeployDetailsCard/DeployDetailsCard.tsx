@@ -34,7 +34,6 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   return (
     <>
       <HeaderContent>
-        {/* TODO: should add a "back to" here (and in all other details pages) */}
         <HashWrapper>
           {withSkeletonLoading(
             <>

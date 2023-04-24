@@ -30,7 +30,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
 
   const rawBlock = JSON.stringify(block);
 
-  // TODO: need BACK button to /blocks
   return (
     <>
       <PageHeading>

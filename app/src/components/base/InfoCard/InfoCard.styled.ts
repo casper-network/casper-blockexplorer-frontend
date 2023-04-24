@@ -26,7 +26,7 @@ export const InfoCardContentWrapper = styled.div`
   margin-bottom: 2rem;
 
   @media only screen and (min-width: ${breakpoints.md}) {
-    max-width: calc(100vw);
+    max-width: 100vw;
   }
 `;
 

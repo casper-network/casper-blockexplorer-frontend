@@ -37,6 +37,6 @@ const DesktopNavItemLink = styled(Button)<{
 `;
 
 const NavItemWrapper = styled.div`
-  min-width: 90px;
+  min-width: ${pxToRem(90)};
   text-align: center;
 `;
