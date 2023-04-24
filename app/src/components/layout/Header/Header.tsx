@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '@emotion/react';
 import { ConfigurableLogo, DefaultHeaderLogo } from '../LogoComponents';
 import { loadConfig } from '../../../utils/load-config';
 
@@ -22,10 +21,6 @@ export const Header: React.FC = () => {
   const logo = logoUrl ? <ConfigurableLogo /> : <DefaultHeaderLogo />;
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
-
-  const theme = useTheme();
-
-  console.log({ theme });
 
   return (
     <HeaderComponent>
