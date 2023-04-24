@@ -4,10 +4,10 @@ import styled from '@emotion/styled';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
-import { css, Global, ThemeProvider } from '@emotion/react';
+import { ThemeProvider } from '@emotion/react';
 
 import './i18n';
-import { Footer, Header } from './components';
+import { Footer, Header, ThemeToggler } from './components';
 import {
   AccountPage,
   BlockPage,
@@ -30,24 +30,13 @@ import {
 import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { colors } from './styled-theme';
-
-export const lightTheme = {
-  body: 'yellow',
-  text: 'red',
-};
-export const darkTheme = {
-  body: 'black',
-  text: '#FAFAFA',
-};
+import { darkTheme, lightTheme } from './theme';
 
 const { title, faviconUrl } = loadConfig();
 
 const App = () => {
   const [ref, bounds] = useMeasure();
-  const [theme, setTheme] = useState('light');
-
-  const themeToggler = () =>
-    theme === 'light' ? setTheme('dark') : setTheme('light');
+  const [isLightTheme, setIsLightTheme] = useState(true);
 
   const dispatch = useAppDispatch();
 
@@ -84,19 +73,7 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <Global
-          styles={css`
-            body, html: {
-              color: red;
-              background-color: red;
-            }
-
-            button {
-              color: red !important;
-            }
-          `}
-        />
+      <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
         <StrictMode>
           <React.Suspense>
             <Helmet>
@@ -114,7 +91,9 @@ const App = () => {
             <AppWrapper ref={ref}>
               <BrowserRouter>
                 <Header />
-                <button onClick={themeToggler} type="button">
+                <button
+                  onClick={() => setIsLightTheme(prev => !prev)}
+                  type="button">
                   toggle theme!!!
                 </button>
                 <Routes>
@@ -128,6 +107,7 @@ const App = () => {
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
                 <Footer />
+                <ThemeToggler isLightTheme={isLightTheme} />
               </BrowserRouter>
             </AppWrapper>
           </React.Suspense>
