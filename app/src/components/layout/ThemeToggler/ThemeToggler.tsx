@@ -32,7 +32,7 @@ const ThemeTogglerWrapper = styled.div`
   right: 0;
   padding: 2rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.25rem;
 `;
 
 const IconWrapper = styled.div<{ isSelected: boolean }>`
