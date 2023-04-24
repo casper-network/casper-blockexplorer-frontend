@@ -107,7 +107,10 @@ const App = () => {
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
                 <Footer />
-                <ThemeToggler isLightTheme={isLightTheme} />
+                <ThemeToggler
+                  isLightTheme={isLightTheme}
+                  setIsLightTheme={setIsLightTheme}
+                />
               </BrowserRouter>
             </AppWrapper>
           </React.Suspense>

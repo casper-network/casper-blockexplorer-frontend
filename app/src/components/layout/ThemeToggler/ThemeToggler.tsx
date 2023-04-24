@@ -1,16 +1,29 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { DarkModeIcon, LightModeIcon } from 'src/components/icons';
+import { pxToRem } from 'src/styled-theme';
 
 interface ThemeTogglerProps {
   isLightTheme: boolean;
+  setIsLightTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ThemeToggler: React.FC<ThemeTogglerProps> = ({ isLightTheme }) => {
+export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
+  isLightTheme,
+  setIsLightTheme,
+}) => {
   return (
     <ThemeTogglerWrapper>
-      <StyledLightModeIcon isSelected={isLightTheme} />
-      <StyledDarkModeIcon isSelected={isLightTheme} />
+      <IconWrapper
+        isSelected={isLightTheme}
+        onClick={() => setIsLightTheme(true)}>
+        <StyledLightModeIcon />
+      </IconWrapper>
+      <IconWrapper
+        isSelected={!isLightTheme}
+        onClick={() => setIsLightTheme(false)}>
+        <StyledDarkModeIcon />
+      </IconWrapper>
     </ThemeTogglerWrapper>
   );
 };
@@ -19,8 +32,22 @@ const ThemeTogglerWrapper = styled.div`
   position: fixed;
   bottom: 0;
   right: 0;
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
 `;
 
-const StyledLightModeIcon = styled(LightModeIcon)<{ isSelected: boolean }>``;
+const IconWrapper = styled.div<{ isSelected: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${({ isSelected }) => (isSelected ? '#f4f4f4' : 'transparent')};
+  border-radius: ${pxToRem(5)};
+  width: ${pxToRem(51)};
+  height: ${pxToRem(38)};
+  cursor: pointer;
+`;
 
-const StyledDarkModeIcon = styled(DarkModeIcon)<{ isSelected: boolean }>``;
+const StyledLightModeIcon = styled(LightModeIcon)``;
+
+const StyledDarkModeIcon = styled(DarkModeIcon)``;
