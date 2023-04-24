@@ -4,7 +4,7 @@ import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
-  background-color: ${props => props.theme.background};
+  background-color: ${props => props.theme.background.primary};
 `;
 
 export const HeaderComponentsContainer = styled.div<{

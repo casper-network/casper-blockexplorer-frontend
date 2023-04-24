@@ -51,7 +51,7 @@ export const InputAndButtonContainer = styled.div`
 export const SearchInput = styled.input`
   display: block;
   color: ${colors.black};
-  background-color: ${colors.white};
+  background-color: ${props => props.theme.background.secondary};
   height: ${pxToRem(54)};
   width: 100%;
   font-size: 1.125rem;
@@ -59,7 +59,7 @@ export const SearchInput = styled.input`
   padding: 0 2rem;
   margin-top: 0;
   margin-bottom: 0;
-  box-shadow: inset 0px 1px 7px ${colors.boxShadow};
+  box-shadow: inset 0px 1px 7px ${props => props.theme.boxShadow};
   border-style: none;
   appearance: none;
 
