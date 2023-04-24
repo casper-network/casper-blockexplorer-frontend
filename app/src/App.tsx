@@ -91,11 +91,6 @@ const App = () => {
             <AppWrapper ref={ref}>
               <BrowserRouter>
                 <Header />
-                <button
-                  onClick={() => setIsLightTheme(prev => !prev)}
-                  type="button">
-                  toggle theme!!!
-                </button>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/peers" element={<Peers />} />

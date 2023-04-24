@@ -11,22 +11,20 @@ interface ThemeTogglerProps {
 export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
   isLightTheme,
   setIsLightTheme,
-}) => {
-  return (
-    <ThemeTogglerWrapper>
-      <IconWrapper
-        isSelected={isLightTheme}
-        onClick={() => setIsLightTheme(true)}>
-        <StyledLightModeIcon />
-      </IconWrapper>
-      <IconWrapper
-        isSelected={!isLightTheme}
-        onClick={() => setIsLightTheme(false)}>
-        <StyledDarkModeIcon />
-      </IconWrapper>
-    </ThemeTogglerWrapper>
-  );
-};
+}) => (
+  <ThemeTogglerWrapper>
+    <IconWrapper
+      isSelected={isLightTheme}
+      onClick={() => setIsLightTheme(true)}>
+      <LightModeIcon />
+    </IconWrapper>
+    <IconWrapper
+      isSelected={!isLightTheme}
+      onClick={() => setIsLightTheme(false)}>
+      <DarkModeIcon />
+    </IconWrapper>
+  </ThemeTogglerWrapper>
+);
 
 const ThemeTogglerWrapper = styled.div`
   position: fixed;
@@ -47,7 +45,3 @@ const IconWrapper = styled.div<{ isSelected: boolean }>`
   height: ${pxToRem(38)};
   cursor: pointer;
 `;
-
-const StyledLightModeIcon = styled(LightModeIcon)``;
-
-const StyledDarkModeIcon = styled(DarkModeIcon)``;
