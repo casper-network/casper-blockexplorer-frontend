@@ -8,7 +8,6 @@ interface ThemeTogglerProps {
   setIsLightTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// TODO: need to save to local storage
 export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
   isLightTheme,
   setIsLightTheme,
