@@ -37,7 +37,7 @@ frontend-ci-install:
 	cd app && npm ci
 
 frontend-audit:
-	cd app && npm audit
+	cd app && npm run audit
 
 frontend-lint:
 	cd app && npm run lint
