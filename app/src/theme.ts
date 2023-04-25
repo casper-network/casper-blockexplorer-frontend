@@ -4,7 +4,7 @@ export const lightTheme = {
   type: 'light' as ThemeType,
   background: {
     primary: '#fff',
-    secondary: '',
+    secondary: '#f4f4f4',
   },
   boxShadow: 'rgba(127, 128, 149, 0.2)',
   border: '#4589f6',
@@ -13,6 +13,7 @@ export const lightTheme = {
     primary: '#000',
     secondary: '',
     muted: '',
+    contrast: '#fff',
   },
   selected: {
     primary: '#BCFC07',
@@ -32,6 +33,7 @@ export const darkTheme = {
     primary: '#fff',
     secondary: '',
     muted: '#F4F4F4',
+    contrast: '#000',
   },
   selected: {
     primary: '#F9AACA',

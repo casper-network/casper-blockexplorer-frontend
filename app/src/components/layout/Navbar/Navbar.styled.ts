@@ -53,7 +53,7 @@ export const MobileNavItemsContainer = styled.ul`
 `;
 
 export const MobileNavItemLink = styled(Link)`
-  color: ${colors.white};
+  color: ${props => props.theme.text.contrast};
   font-size: 1.375rem;
   padding: 0.3125rem;
   width: 100%;

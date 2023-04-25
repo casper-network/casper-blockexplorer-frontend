@@ -8,7 +8,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import { loadConfig } from 'src/utils';
-import { colors, fontWeight } from '../../../styled-theme';
+import { fontWeight } from '../../../styled-theme';
 
 export const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
 };
 
 const FooterWrapper = styled.footer`
-  color: ${colors.primary};
+  color: ${props => props.theme.border};
   background-color: ${props => props.theme.background.primary};
   font-size: clamp(0.9rem, 1vw, 1.3rem);
   font-weight: ${fontWeight.medium};

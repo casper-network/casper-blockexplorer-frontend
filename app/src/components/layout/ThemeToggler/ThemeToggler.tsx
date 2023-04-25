@@ -8,6 +8,7 @@ interface ThemeTogglerProps {
   setIsLightTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// TODO: need to save to local storage
 export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
   isLightTheme,
   setIsLightTheme,
@@ -39,7 +40,11 @@ const IconWrapper = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ isSelected }) => (isSelected ? '#f4f4f4' : 'transparent')};
+  background: ${({ isSelected, theme }) => {
+    const selectedBackground = theme.background.secondary;
+
+    return isSelected ? selectedBackground : 'transparent';
+  }};
   border-radius: ${pxToRem(5)};
   width: ${pxToRem(51)};
   height: ${pxToRem(38)};
