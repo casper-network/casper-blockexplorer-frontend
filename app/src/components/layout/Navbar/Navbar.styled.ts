@@ -46,7 +46,7 @@ export const MobileNavItemsContainer = styled.ul`
   align-items: center;
   gap: 1.25rem;
   z-index: 10;
-  background-color: #4589f6;
+  background-color: ${props => props.theme.border};
   position: fixed;
   left: 0;
   top: 0;

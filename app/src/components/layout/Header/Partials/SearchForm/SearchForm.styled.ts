@@ -51,6 +51,7 @@ export const InputAndButtonContainer = styled.div`
 export const SearchInput = styled.input`
   display: block;
   background-color: ${props => props.theme.background.secondary};
+  color: ${props => props.theme.text.primary};
   height: ${pxToRem(54)};
   width: 100%;
   font-size: 1.125rem;

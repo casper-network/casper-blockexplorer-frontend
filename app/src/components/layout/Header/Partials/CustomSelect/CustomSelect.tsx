@@ -76,6 +76,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     width: ${pxToRem(182)};
     box-shadow: none;
     border: none;
+    transition: none;
   }
 
   .react-select__value-container {
