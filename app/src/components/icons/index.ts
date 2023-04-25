@@ -1,4 +1,5 @@
-export { ReactComponent as ButtonIcon } from '../../assets/icons/button-icon.svg';
+export { ReactComponent as ButtonIconLight } from '../../assets/icons/button-icon-light.svg';
+export { ReactComponent as ButtonIconDark } from '../../assets/icons/button-icon-dark.svg';
 export { ReactComponent as CloseMenuIcon } from '../../assets/icons/close-menu-icon.svg';
 export { ReactComponent as FailureIcon } from '../../assets/icons/failure.svg';
 export { ReactComponent as OpenMenuIcon } from '../../assets/icons/open-menu-icon.svg';

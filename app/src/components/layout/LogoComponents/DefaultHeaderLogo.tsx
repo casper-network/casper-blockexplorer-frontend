@@ -2,21 +2,31 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
+import { useTheme } from '@emotion/react';
 import { breakpoints, pxToRem } from 'src/styled-theme';
 import {
   BlueLogo,
   RedBlackLogo,
   ExpLogo,
-  CasperExplorerLogo,
+  CasperExplorerLogoLight,
+  CasperExplorerLogoDark,
 } from '../../logos';
 
-export const DefaultHeaderLogo: React.FC = () => (
-  <LogoContainer>
-    <LogoLink to="/">
-      <CasperExplorerLogo />
-    </LogoLink>
-  </LogoContainer>
-);
+export const DefaultHeaderLogo: React.FC = () => {
+  const { type: themeType } = useTheme();
+
+  return (
+    <LogoContainer>
+      <LogoLink to="/">
+        {themeType === 'light' ? (
+          <CasperExplorerLogoLight />
+        ) : (
+          <CasperExplorerLogoDark />
+        )}
+      </LogoLink>
+    </LogoContainer>
+  );
+};
 
 export const LogoContainer = styled.div`
   width: ${pxToRem(188)};

@@ -1,4 +1,7 @@
+import { ThemeType } from './types/theme';
+
 export const lightTheme = {
+  type: 'light' as ThemeType,
   background: {
     primary: '#fff',
     secondary: '',
@@ -14,6 +17,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+  type: 'dark' as ThemeType,
   background: {
     primary: '#000',
     secondary: '#202020',

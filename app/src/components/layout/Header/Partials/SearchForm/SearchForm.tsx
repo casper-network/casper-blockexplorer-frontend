@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@emotion/react';
 import { getIsFirstVisit, useAppSelector } from 'src/store';
 
 import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
@@ -18,7 +19,7 @@ import {
   SearchLabel,
 } from './SearchForm.styled';
 
-import { ButtonIcon, ErrorIcon } from '../../../../icons';
+import { ButtonIconDark, ButtonIconLight, ErrorIcon } from '../../../../icons';
 
 import { SearchSelect } from '../SearchSelect/SearchSelect';
 import { FormValues } from '../partials.types';
@@ -92,6 +93,7 @@ export const resolver: Resolver<FormValues> = async values => {
 
 export const SearchForm: React.FC<SearchFormProps> = () => {
   const navigate = useNavigate();
+  const { type: themeType } = useTheme();
   const [currentFilterOption, setCurrentFilterOption] = useState('account');
 
   const {
@@ -137,7 +139,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               required
             />
             <SubmitButton type="submit">
-              <ButtonIcon />
+              {themeType === 'light' ? <ButtonIconLight /> : <ButtonIconDark />}
             </SubmitButton>
           </InputAndButtonContainer>
         </FormComponentsContainer>
