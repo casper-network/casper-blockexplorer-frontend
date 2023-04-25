@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import { Heading } from 'src/components/base';
-import { breakpoints, colors, pxToRem } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
-  background-color: ${colors.white};
+  /* TODO: just an example for adding theme toggle 
+    will add dark/light styles in 264, 265, 266 and 277
+  */
+  background-color: ${props => props.theme.background};
 `;
 
 export const HeaderComponentsContainer = styled.div<{

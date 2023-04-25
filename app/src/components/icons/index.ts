@@ -8,3 +8,5 @@ export { ReactComponent as DeploysIcon } from '../../assets/icons/deploys-icon.s
 export { ReactComponent as PeersIcon } from '../../assets/icons/peers-icon.svg';
 export { ReactComponent as ValidatorsIcon } from '../../assets/icons/validators-icon.svg';
 export { ReactComponent as ErrorIcon } from '../../assets/icons/error-icon.svg';
+export { ReactComponent as LightModeIcon } from '../../assets/icons/light-mode-icon.svg';
+export { ReactComponent as DarkModeIcon } from '../../assets/icons/dark-mode-icon.svg';

@@ -1,10 +1,13 @@
-import React, { StrictMode, useEffect } from 'react';
+import React, { StrictMode, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useMeasure from 'react-use-measure';
+import { ThemeProvider } from '@emotion/react';
+
 import './i18n';
-import { Footer, Header } from './components';
+import { Footer, Header, ThemeToggler } from './components';
 import {
   AccountPage,
   BlockPage,
@@ -27,11 +30,13 @@ import {
 import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { colors } from './styled-theme';
+import { darkTheme, lightTheme } from './theme';
 
 const { title, faviconUrl } = loadConfig();
 
 const App = () => {
   const [ref, bounds] = useMeasure();
+  const [isLightTheme, setIsLightTheme] = useState(true);
 
   const dispatch = useAppDispatch();
 
@@ -68,38 +73,44 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      <StrictMode>
-        <React.Suspense>
-          <Helmet>
-            {faviconUrl ? (
-              <link rel="icon" href={faviconUrl} />
-            ) : (
-              <link rel="icon" href="%PUBLIC_URL%/favicon" />
-            )}
+      <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
+        <StrictMode>
+          <React.Suspense>
+            <Helmet>
+              {faviconUrl ? (
+                <link rel="icon" href={faviconUrl} />
+              ) : (
+                <link rel="icon" href="%PUBLIC_URL%/favicon" />
+              )}
 
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link href={font} rel="stylesheet" />
-            <title>{title}</title>
-          </Helmet>
-          <AppWrapper ref={ref}>
-            <BrowserRouter>
-              <Header />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/peers" element={<Peers />} />
-                <Route path="/validators" element={<Validators />} />
-                <Route path="/account/:id" element={<AccountPage />} />
-                <Route path="/deploy/:id" element={<DeployPage />} />
-                <Route path="/block/:id" element={<BlockPage />} />
-                <Route path="/blocks" element={<Blocks />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-              <Footer />
-            </BrowserRouter>
-          </AppWrapper>
-        </React.Suspense>
-      </StrictMode>
+              <link rel="preconnect" href="https://fonts.googleapis.com" />
+              <link rel="preconnect" href="https://fonts.gstatic.com" />
+              <link href={font} rel="stylesheet" />
+              <title>{title}</title>
+            </Helmet>
+            <AppWrapper ref={ref}>
+              <BrowserRouter>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/peers" element={<Peers />} />
+                  <Route path="/validators" element={<Validators />} />
+                  <Route path="/account/:id" element={<AccountPage />} />
+                  <Route path="/deploy/:id" element={<DeployPage />} />
+                  <Route path="/block/:id" element={<BlockPage />} />
+                  <Route path="/blocks" element={<Blocks />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+                <Footer />
+                <ThemeToggler
+                  isLightTheme={isLightTheme}
+                  setIsLightTheme={setIsLightTheme}
+                />
+              </BrowserRouter>
+            </AppWrapper>
+          </React.Suspense>
+        </StrictMode>
+      </ThemeProvider>
     </HelmetProvider>
   );
 };

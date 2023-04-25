@@ -1,0 +1,23 @@
+import '@emotion/react';
+
+declare module '@emotion/react' {
+  export interface Theme {
+    background: string;
+    // TODO: add these below as part of #264, 265, 266 and 277
+    // just for testing purposes for now
+    // background: {
+    //   primary: string;
+    //   secondary: string;
+    // };
+    // border: string;
+    // button: string;
+    // text: {
+    //   primary: string;
+    //   secondary: string;
+    // };
+    // selected: {
+    //   primary: string;
+    //   secondary: string;
+    // };
+  }
+}
