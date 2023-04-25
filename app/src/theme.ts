@@ -11,7 +11,6 @@ export const lightTheme = {
   button: '#4589f6',
   text: {
     primary: '#000',
-    secondary: '',
     muted: '',
     contrast: '#fff',
   },
@@ -31,7 +30,6 @@ export const darkTheme = {
   button: '#BCFC07',
   text: {
     primary: '#fff',
-    secondary: '',
     muted: '#F4F4F4',
     contrast: '#000',
   },

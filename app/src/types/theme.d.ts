@@ -14,7 +14,6 @@ declare module '@emotion/react' {
     button: string;
     text: {
       primary: string;
-      secondary: string;
       muted: string;
       contrast: string;
     };
