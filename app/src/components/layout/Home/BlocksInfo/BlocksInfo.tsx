@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@emotion/react';
 import { formatDate, standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
@@ -21,7 +22,7 @@ import {
   Info,
   TextWrapper,
 } from '../HomeComponents.styled';
-import { BlocksIcon } from '../../../icons';
+import { BlocksIconLight, BlocksIconDark } from '../../../icons';
 
 interface BlockInfoProps {
   block: ApiData.Block | null;
@@ -29,6 +30,7 @@ interface BlockInfoProps {
 
 export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
   const { t } = useTranslation();
+  const { type: themeType } = useTheme();
 
   const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
 
@@ -38,7 +40,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
     <Card>
       <Header>
         <IconH2Container>
-          <BlocksIcon color="black" />
+          {themeType === 'light' ? <BlocksIconLight /> : <BlocksIconDark />}
           <H2>{t('blocks')}</H2>
         </IconH2Container>
         <PageLink to="/blocks">{t('view-all')}</PageLink>

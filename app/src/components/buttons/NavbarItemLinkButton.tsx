@@ -29,8 +29,11 @@ const DesktopNavItemLink = styled(Button)<{
   font-weight: ${({ isRouteSelected }) =>
     isRouteSelected ? fontWeight.medium : fontWeight.normal};
   text-decoration: none;
-  border-bottom: ${({ isRouteSelected }) =>
-    `2px solid ${isRouteSelected ? '#BCFC07' : 'transparent'}`};
+  border-bottom: ${({ isRouteSelected, theme }) => {
+    const selectedColor = theme.selected.primary ?? '';
+
+    return `2px solid ${isRouteSelected ? selectedColor : 'transparent'}`;
+  }};
   border-radius: 0;
   padding: 0;
   padding-bottom: 0.25rem;

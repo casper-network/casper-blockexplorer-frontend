@@ -19,9 +19,9 @@ declare module '@emotion/react' {
       secondary: string;
       muted: string;
     };
-    // selected: {
-    //   primary: string;
-    //   secondary: string;
-    // };
+    selected: {
+      primary: string;
+      // secondary: string;
+    };
   }
 }

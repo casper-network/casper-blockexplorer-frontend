@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@emotion/react';
 import { standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
@@ -22,7 +23,7 @@ import {
   Info,
   TextWrapper,
 } from '../HomeComponents.styled';
-import { PeersIcon } from '../../../icons';
+import { PeersIconLight, PeersIconDark } from '../../../icons';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 interface PeersValidatorsInfoProps {
@@ -33,6 +34,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   currentEraValidatorStatus,
 }) => {
   const { t } = useTranslation();
+  const { type: themeType } = useTheme();
 
   const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
   const validatorsLoadingStatus = useAppSelector(
@@ -46,7 +48,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   return (
     <Card>
       <Header>
-        <PeersIcon />
+        {themeType === 'light' ? <PeersIconLight /> : <PeersIconDark />}
         <H2>{t('validators')}</H2>
       </Header>
       <Details>

@@ -14,6 +14,9 @@ export const lightTheme = {
     secondary: '',
     muted: '',
   },
+  selected: {
+    primary: '#BCFC07',
+  },
 };
 
 export const darkTheme = {
@@ -29,5 +32,8 @@ export const darkTheme = {
     primary: '#fff',
     secondary: '',
     muted: '#F4F4F4',
+  },
+  selected: {
+    primary: '#F9AACA',
   },
 };
