@@ -1,0 +1,7 @@
+{
+  "1091814": {
+    "active": true,
+    "notes": "Ignored until @emotion/react adds a release with the upgrade. See: https://github.com/emotion-js/emotion/issues/3024",
+    "expiry": "1 May 2023 9:00 am"
+  }
+}
