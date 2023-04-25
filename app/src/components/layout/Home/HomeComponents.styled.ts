@@ -12,14 +12,14 @@ export const IconH2Container = styled.div`
 export const H2 = styled.h2`
   font-size: clamp(1.5rem, 2vw, 1.7rem);
   font-weight: ${fontWeight.normal};
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
   line-height: 1;
   max-width: 10.5rem;
   padding-left: 0.7rem;
 `;
 
 export const PageLink = styled(Link)`
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
   font-size: clamp(0.67rem, 1.25vw, 0.9rem);
   text-align: right;
   font-weight: ${fontWeight.medium};
@@ -56,21 +56,22 @@ export const H3 = styled.h3`
 `;
 
 export const H3Data = styled.p`
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
   font-weight: ${fontWeight.medium};
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   padding: 0.55rem 0 0.2rem 0;
 `;
 
 export const DataContext = styled.p`
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
   font-size: clamp(0.9rem, 1.25vw, 1rem);
 `;
 
 export const Card = styled.section`
-  background: ${colors.white};
+  background-color: ${props => props.theme.background.primary};
+  color: ${props => props.theme.text.primary};
   padding: 0 2rem;
-  border: ${pxToRem(4)} solid #4589f6;
+  border: ${pxToRem(4)} solid ${props => props.theme.border};
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.438rem ${colors.boxShadow};
   padding-bottom: 1.5rem;

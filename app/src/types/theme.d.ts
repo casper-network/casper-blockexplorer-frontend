@@ -9,12 +9,13 @@ declare module '@emotion/react' {
       secondary: string;
     };
     boxShadow: string;
-    // border: string;
-    // button: string;
-    // text: {
-    //   primary: string;
-    //   secondary: string;
-    // };
+    border: string;
+    button: string;
+    text: {
+      primary: string;
+      secondary: string;
+      muted: string;
+    };
     // selected: {
     //   primary: string;
     //   secondary: string;

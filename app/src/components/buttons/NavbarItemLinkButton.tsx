@@ -22,7 +22,7 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
 const DesktopNavItemLink = styled(Button)<{
   isRouteSelected: boolean;
 }>`
-  color: #000;
+  color: ${props => props.theme.text.primary};
   background-color: transparent;
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: 1.25rem;

@@ -110,7 +110,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__single-value {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     font-weight: 500;
     font-size: 1rem;
     text-align: left;
@@ -132,7 +132,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__dropdown-indicator svg {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     width: ${pxToRem(25)};
     transition: all 200ms ease-in;
     transform: ${({ isMenuOpen }) => (isMenuOpen ? 'rotate(180deg)' : null)};
@@ -145,13 +145,13 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__indicator {
     display: block;
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     width: 5px;
     padding: 0.5rem 0.4rem 0.5rem 0;
   }
 
   .react-select__menu-list {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     font-size: 1rem;
     padding: 0;
     margin: 0;
@@ -168,7 +168,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__option:hover,
   .react-select__option:focus {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     transition: ease-in-out, font-weight, color, 400ms;
     font-weight: 700;
     background: linear-gradient(
