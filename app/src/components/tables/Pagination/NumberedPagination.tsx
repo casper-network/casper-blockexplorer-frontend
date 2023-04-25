@@ -7,7 +7,7 @@ import { CustomSelect } from 'src/components/layout/Header/Partials/CustomSelect
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
-import { colors, fontWeight, pxToRem } from 'src/styled-theme';
+import { colors, pxToRem } from 'src/styled-theme';
 import { standardizeNumber } from 'src/utils';
 import lessThanWhite from '../../../assets/images/less-than-white.png';
 import moreThanWhite from '../../../assets/images/more-than-white.png';
@@ -142,7 +142,6 @@ const JumpToPageButton = styled.button`
   height: ${pxToRem(38)};
   width: fit-content;
   border: none;
-  font-weight: ${fontWeight.medium};
 
   :hover {
     cursor: pointer;
@@ -175,7 +174,6 @@ const PageNumberWrapper = styled.div`
   padding: 0 1.5rem;
   color: ${colors.black};
   background-color: ${colors.lightSupporting};
-  font-weight: ${fontWeight.medium};
 `;
 
 const JumpPageIcon = styled.img`
@@ -193,7 +191,6 @@ const RowsSelectWrapper = styled.div`
 const RowsSelectLabel = styled.div`
   margin-right: 1rem;
   color: ${colors.black};
-  font-weight: ${fontWeight.medium};
 `;
 
 const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
@@ -234,7 +231,6 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__single-value {
     color: ${colors.black};
-    font-weight: 500;
     font-size: 1rem;
     text-align: left;
   }
@@ -281,7 +277,6 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__option:hover,
   .react-select__option:focus {
     transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
     background: linear-gradient(
       95.02deg,
       ${colors.gradient1} 0.62%,

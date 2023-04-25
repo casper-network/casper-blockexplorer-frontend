@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
 import { InfoCard } from '../../base';
 import {
@@ -77,7 +77,8 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
               <Link
                 to={{
                   pathname: `/block/${block?.header.parent_hash ?? ''}`,
-                }}>
+                }}
+                style={{ color: '#2230f0' }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
                   isLoading,
@@ -126,7 +127,8 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
               <Link
                 to={{
                   pathname: `/account/${block?.body.proposer ?? ''}`,
-                }}>
+                }}
+                style={{ color: '#2230f0' }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                   isLoading,
@@ -152,7 +154,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.deploy_hashes?.map(deployHash => (
                       <li key={deployHash}>
-                        <a href={`/deploy/${deployHash}`}>
+                        <a
+                          href={`/deploy/${deployHash}`}
+                          style={{ color: '#2230f0' }}>
                           <Hash hash={deployHash} />
                         </a>
                       </li>
@@ -174,7 +178,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.transfer_hashes?.map(transferHash => (
                       <li key={transferHash}>
-                        <a href={`/deploy/${transferHash}`}>
+                        <a
+                          href={`/deploy/${transferHash}`}
+                          style={{ color: '#2230f0' }}>
                           <Hash hash={transferHash} />
                         </a>
                       </li>
@@ -206,14 +212,7 @@ const PageHeading = styled.h2`
   font-weight: 800;
   display: inline;
   padding-left: ${pxToRem(15)};
-  background: linear-gradient(
-    93.67deg,
-    ${colors.gradient1} 1.63%,
-    ${colors.gradient2} 64.2%,
-    ${colors.gradient3} 92.03%,
-    ${colors.gradient4} 92.49%,
-    ${colors.gradient5} 151.99%
-  );
+  background: #2230f0;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

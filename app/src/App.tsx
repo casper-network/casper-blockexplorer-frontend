@@ -20,7 +20,6 @@ import {
   setIsFirstVisit,
   useAppSelector,
   appFontUrl,
-  appPrimaryFontName,
   getLatestBlock,
   fetchLatestBlock,
 } from './store';
@@ -66,7 +65,6 @@ const App = () => {
   }, [usersVisitationStatus, dispatch]);
 
   const font = useAppSelector(appFontUrl);
-  const primaryFontName = useAppSelector(appPrimaryFontName);
 
   return (
     <HelmetProvider>
@@ -84,7 +82,7 @@ const App = () => {
             <link href={font} rel="stylesheet" />
             <title>{title}</title>
           </Helmet>
-          <AppWrapper ref={ref} style={{ fontFamily: primaryFontName }}>
+          <AppWrapper ref={ref}>
             <BrowserRouter>
               <Header />
               <Routes>
