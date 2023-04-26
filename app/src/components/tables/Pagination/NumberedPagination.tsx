@@ -16,8 +16,6 @@ import {
   GreaterThanDark,
 } from 'src/components/icons';
 import { useTheme } from '@emotion/react';
-// import lessThanWhite from '../../../assets/images/less-than-white.png';
-// import moreThanWhite from '../../../assets/images/more-than-white.png';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -182,12 +180,6 @@ const PageNumberWrapper = styled.div`
   padding: 0 1.5rem;
   color: ${props => props.theme.text.primary};
   background-color: ${props => props.theme.background.secondary};
-`;
-
-const JumpPageIcon = styled.img`
-  width: ${pxToRem(18)};
-  height: ${pxToRem(18)};
-  margin: 0;
 `;
 
 const RowsSelectWrapper = styled.div`
