@@ -22,15 +22,18 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
 const DesktopNavItemLink = styled(Button)<{
   isRouteSelected: boolean;
 }>`
-  color: #000;
+  color: ${props => props.theme.text.primary};
   background-color: transparent;
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: 1.25rem;
   font-weight: ${({ isRouteSelected }) =>
     isRouteSelected ? fontWeight.medium : fontWeight.normal};
   text-decoration: none;
-  border-bottom: ${({ isRouteSelected }) =>
-    `2px solid ${isRouteSelected ? '#BCFC07' : 'transparent'}`};
+  border-bottom: ${({ isRouteSelected, theme }) => {
+    const selectedColor = theme.selected.primary ?? '';
+
+    return `2px solid ${isRouteSelected ? selectedColor : 'transparent'}`;
+  }};
   border-radius: 0;
   padding: 0;
   padding-bottom: 0.25rem;

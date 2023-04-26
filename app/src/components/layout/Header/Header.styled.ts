@@ -4,10 +4,7 @@ import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
-  /* TODO: just an example for adding theme toggle 
-    will add dark/light styles in 264, 265, 266 and 277
-  */
-  background-color: ${props => props.theme.background};
+  background-color: ${props => props.theme.background.primary};
 `;
 
 export const HeaderComponentsContainer = styled.div<{

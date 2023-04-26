@@ -1,5 +1,6 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
+import { useTheme } from '@emotion/react';
 
 import { useTranslation } from 'react-i18next';
 import { colors } from 'src/styled-theme';
@@ -24,6 +25,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 }) => {
   const { isDropdownMenu } = useAppWidth();
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const selectOptions: SelectOptions[] | null = [
     { value: 'account', label: t('account') },
@@ -70,11 +72,11 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                       style={{
                         backgroundColor:
                           currentFilterOption === option.value
-                            ? '#4589F6'
+                            ? theme.border
                             : colors.lightSupporting,
                         color:
                           currentFilterOption === option.value
-                            ? colors.white
+                            ? theme.text.contrast
                             : colors.black,
                       }}
                       type="button">
