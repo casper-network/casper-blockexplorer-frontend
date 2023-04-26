@@ -1,10 +1,10 @@
 import React, { FC, ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
+import { ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from '../store';
-import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from 'src/theme';
+import { store } from '../store';
 
 const ProviderWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (

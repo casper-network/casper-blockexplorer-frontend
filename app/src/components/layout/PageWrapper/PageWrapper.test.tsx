@@ -1,6 +1,4 @@
-import { ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { lightTheme } from 'src/theme';
 import { render } from '../../../test-utils';
 import { PageWrapper } from './PageWrapper';
 
