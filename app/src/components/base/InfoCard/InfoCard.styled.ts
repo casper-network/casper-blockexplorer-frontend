@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { breakpoints, colors, pxToRem } from '../../../styled-theme';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const InfoCardSection = styled.section`
   margin: 0;
@@ -17,9 +17,9 @@ export const InfoCardSection = styled.section`
 
 export const InfoCardContentWrapper = styled.div`
   width: 100%;
-  background: ${colors.white};
-  border: 3px solid #4589f6;
-  box-shadow: 0px 0.125rem 0.5rem ${colors.boxShadow};
+  background: ${props => props.theme.background.primary};
+  border: 3px solid ${props => props.theme.border};
+  box-shadow: 0px 0.125rem 0.5rem ${props => props.theme.boxShadow};
   border-radius: 0.35rem;
   padding: 2rem;
   overflow-x: auto;

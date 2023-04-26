@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { colors, fontWeight, pxToRem } from '../../../styled-theme';
+import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export const DetailDataLabel = styled.h3`
   font-weight: ${fontWeight.normal};
   font-size: 1.25rem;
-  color: #7a7a7a;
+  color: ${props => props.theme.text.secondary};
 `;
 
 export const DetailDataWrapper = styled.ul`
@@ -32,6 +32,6 @@ export const DetailDataValue = styled.div<{
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   font-size: ${({ isLargeText }) => (isLargeText ? pxToRem(40) : '1.25rem')};
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
   font-weight: ${fontWeight.normal};
 `;

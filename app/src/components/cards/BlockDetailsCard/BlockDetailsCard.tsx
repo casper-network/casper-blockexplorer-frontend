@@ -93,17 +93,16 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
             <DetailDataValue height="2rem">
-              <Link
+              <StyledHashLink
                 to={{
                   pathname: `/block/${block?.header.parent_hash ?? ''}`,
-                }}
-                style={{ color: '#2230f0' }}>
+                }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
                   isLoading,
                   { width: 850 },
                 )}
-              </Link>
+              </StyledHashLink>
               {!isLoading && (
                 <CopyToClipboard textToCopy={block?.header.parent_hash ?? ''} />
               )}
@@ -135,17 +134,16 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('validator')}</DetailDataLabel>
             <DetailDataValue height="2rem">
-              <Link
+              <StyledHashLink
                 to={{
                   pathname: `/account/${block?.body.proposer ?? ''}`,
-                }}
-                style={{ color: '#2230f0' }}>
+                }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                   isLoading,
                   { width: 850 },
                 )}
-              </Link>
+              </StyledHashLink>
               {!isLoading && (
                 <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
               )}
@@ -170,14 +168,12 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.deploy_hashes?.map(deployHash => (
                       <li key={deployHash}>
-                        <a
-                          href={`/deploy/${deployHash}`}
-                          style={{ color: '#2230f0' }}>
+                        <StyledAnchorTag href={`/deploy/${deployHash}`}>
                           <Hash
                             alwaysTruncate
                             hash={deployHash ?? hashPlaceholder}
                           />
-                        </a>
+                        </StyledAnchorTag>
                       </li>
                     ))}
                   </ul>
@@ -197,14 +193,12 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.transfer_hashes?.map(transferHash => (
                       <li key={transferHash}>
-                        <a
-                          href={`/deploy/${transferHash}`}
-                          style={{ color: '#2230f0' }}>
+                        <StyledAnchorTag href={`/deploy/${transferHash}`}>
                           <Hash
                             alwaysTruncate
                             hash={transferHash ?? hashPlaceholder}
                           />
-                        </a>
+                        </StyledAnchorTag>
                       </li>
                     ))}
                   </ul>
@@ -235,7 +229,7 @@ const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
   min-width: ${pxToRem(360)};
   overflow-wrap: break-word;
   font-size: ${pxToRem(60)};
-  color: #2230f0;
+  color: ${props => props.theme.text.hash};
 `;
 
 const DetailDataRowWrapper = styled.ul`
@@ -252,4 +246,12 @@ const PageHeading = styled.div`
   @media only screen and (min-width: ${breakpoints.lg}) {
     margin-bottom: 2rem;
   }
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
+`;
+
+const StyledAnchorTag = styled.a`
+  color: ${props => props.theme.text.hash};
 `;

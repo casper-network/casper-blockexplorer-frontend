@@ -47,7 +47,7 @@ const StyledHashButton = styled(Button)<{
   heading: string | undefined;
 }>`
   display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
   font-weight: 400;
   background-color: transparent;
   border-style: none;
