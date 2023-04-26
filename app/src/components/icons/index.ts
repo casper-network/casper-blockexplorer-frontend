@@ -13,3 +13,9 @@ export { ReactComponent as ValidatorsIcon } from '../../assets/icons/validators-
 export { ReactComponent as ErrorIcon } from '../../assets/icons/error-icon.svg';
 export { ReactComponent as LightModeIcon } from '../../assets/icons/light-mode-icon.svg';
 export { ReactComponent as DarkModeIcon } from '../../assets/icons/dark-mode-icon.svg';
+export { ReactComponent as DownArrowDark } from '../../assets/icons/down-icon-dark.svg';
+export { ReactComponent as DownArrowLight } from '../../assets/icons/down-icon-light.svg';
+export { ReactComponent as LessThanLight } from '../../assets/icons/less-than-light.svg';
+export { ReactComponent as GreaterThanLight } from '../../assets/icons/greater-than-light.svg';
+export { ReactComponent as LessThanDark } from '../../assets/icons/less-than-dark.svg';
+export { ReactComponent as GreaterThanDark } from '../../assets/icons/greater-than-dark.svg';

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
@@ -165,12 +165,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         accessorKey: 'hash',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/block/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -182,12 +182,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -221,7 +221,7 @@ const BlocksTableHead = styled.div`
   min-width: ${pxToRem(900)};
   justify-content: space-between;
   align-items: center;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const BlockTableTitleWrapper = styled.div`
@@ -234,7 +234,7 @@ const BlocksTableFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: ${pxToRem(20)} 2rem;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const SwitchBlocktime = styled.div`
@@ -245,5 +245,9 @@ const SwitchBlocktime = styled.div`
 const LatestBlocks = styled.div`
   font-size: ${pxToRem(28)};
   margin-right: 1.5rem;
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;

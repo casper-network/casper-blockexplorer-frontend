@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -109,12 +109,12 @@ export const ValidatorTable: React.FC = () => {
         minSize: 200,
         cell: ({ getValue }) => (
           <div>
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -248,12 +248,12 @@ const ValidatorTableHead = styled.div`
   min-width: ${pxToRem(900)};
   justify-content: space-between;
   align-items: center;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
   height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const CSPRText = styled.span`
@@ -265,4 +265,8 @@ const ValidatorsTableFooter = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: ${pxToRem(20)} 2rem;
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;

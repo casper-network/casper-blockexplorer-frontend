@@ -8,14 +8,17 @@ declare module '@emotion/react' {
     background: {
       primary: string;
       secondary: string;
+      hover: string;
     };
     boxShadow: string;
     border: string;
     button: string;
     text: {
       primary: string;
+      secondary: string;
       muted: string;
       contrast: string;
+      hash: string;
     };
     selected: {
       primary: string;

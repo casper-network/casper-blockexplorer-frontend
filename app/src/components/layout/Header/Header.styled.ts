@@ -61,4 +61,5 @@ export const HeroHeading = styled(Heading)`
 export const PageTableHeader = styled.p`
   font-size: ${pxToRem(60)};
   margin-bottom: 2.5rem;
+  color: ${props => props.theme.text.primary};
 `;
