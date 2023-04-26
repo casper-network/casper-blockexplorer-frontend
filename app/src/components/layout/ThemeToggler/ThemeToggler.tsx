@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DarkModeIcon, LightModeIcon } from 'src/components/icons';
 import { pxToRem } from 'src/styled-theme';
 
@@ -11,20 +11,40 @@ interface ThemeTogglerProps {
 export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
   isLightTheme,
   setIsLightTheme,
-}) => (
-  <ThemeTogglerWrapper>
-    <IconWrapper
-      isSelected={isLightTheme}
-      onClick={() => setIsLightTheme(true)}>
-      <LightModeIcon />
-    </IconWrapper>
-    <IconWrapper
-      isSelected={!isLightTheme}
-      onClick={() => setIsLightTheme(false)}>
-      <DarkModeIcon />
-    </IconWrapper>
-  </ThemeTogglerWrapper>
-);
+}) => {
+  useEffect(() => {
+    let isLightModeConfig = localStorage.getItem('isLightMode');
+
+    if (isLightModeConfig !== null) {
+      isLightModeConfig = JSON.parse(isLightModeConfig);
+
+      if (typeof isLightModeConfig === 'boolean') {
+        setIsLightTheme(isLightModeConfig);
+      }
+    }
+  }, []);
+
+  const setThemeToLocalStorage = (isLightTheme: boolean) => {
+    localStorage.setItem('isLightMode', JSON.stringify(isLightTheme));
+
+    setIsLightTheme(isLightTheme);
+  };
+
+  return (
+    <ThemeTogglerWrapper>
+      <IconWrapper
+        isSelected={isLightTheme}
+        onClick={() => setThemeToLocalStorage(true)}>
+        <LightModeIcon />
+      </IconWrapper>
+      <IconWrapper
+        isSelected={!isLightTheme}
+        onClick={() => setThemeToLocalStorage(false)}>
+        <DarkModeIcon />
+      </IconWrapper>
+    </ThemeTogglerWrapper>
+  );
+};
 
 const ThemeTogglerWrapper = styled.div`
   position: fixed;
