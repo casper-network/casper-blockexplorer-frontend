@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -248,12 +248,12 @@ const ValidatorTableHead = styled.div`
   min-width: ${pxToRem(900)};
   justify-content: space-between;
   align-items: center;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
   height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const CSPRText = styled.span`

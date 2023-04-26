@@ -9,8 +9,15 @@ import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
 import { colors, pxToRem } from 'src/styled-theme';
 import { standardizeNumber } from 'src/utils';
-import lessThanWhite from '../../../assets/images/less-than-white.png';
-import moreThanWhite from '../../../assets/images/more-than-white.png';
+import {
+  LessThanLight,
+  GreaterThanLight,
+  LessThanDark,
+  GreaterThanDark,
+} from 'src/components/icons';
+import { useTheme } from '@emotion/react';
+// import lessThanWhite from '../../../assets/images/less-than-white.png';
+// import moreThanWhite from '../../../assets/images/more-than-white.png';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -32,6 +39,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   removeRowsSelect,
 }) => {
   const { t } = useTranslation();
+  const { type: themeType } = useTheme();
 
   const dispatch = useAppDispatch();
 
@@ -98,7 +106,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
             setIsTableLoading(true);
             dispatch(updatePageNum(-1));
           }}>
-          <JumpPageIcon src={lessThanWhite} alt="page-down" />
+          {themeType === 'light' ? <LessThanLight /> : <LessThanDark />}
         </NextPreviousPageIconWrapper>
         <PageNumberWrapper>
           {t('page-out-of', {
@@ -112,7 +120,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
             setIsTableLoading(true);
             dispatch(updatePageNum(1));
           }}>
-          <JumpPageIcon src={moreThanWhite} alt="page-up" />
+          {themeType === 'light' ? <GreaterThanLight /> : <GreaterThanDark />}
         </NextPreviousPageIconWrapper>
         <JumpToPageButton onClick={() => jumpToPage(totalPages)}>
           {t('last')}

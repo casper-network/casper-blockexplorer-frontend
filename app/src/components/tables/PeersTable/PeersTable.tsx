@@ -15,7 +15,7 @@ import {
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { standardizeNumber } from 'src/utils';
 import { Table } from '../../base';
@@ -145,11 +145,11 @@ const PeerTableHead = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const HeadLabel = styled.p`
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
   padding-right: 2rem;
   font-size: ${pxToRem(28)};
 `;

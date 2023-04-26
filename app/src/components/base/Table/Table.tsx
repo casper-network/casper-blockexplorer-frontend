@@ -12,10 +12,8 @@ import {
 import Skeleton from 'react-loading-skeleton';
 import styled from '@emotion/styled';
 import { colors, fontWeight, pxToRem } from 'src/styled-theme';
-import { css } from '@emotion/react';
-import upIcon from '../../../assets/images/up-icon.png';
-import downIcon from '../../../assets/images/down-icon.png';
-import downIconSupporting from '../../../assets/images/down-icon-supporting.png';
+import { css, useTheme } from '@emotion/react';
+import { DownArrowDark, DownArrowLight } from 'src/components/icons';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -49,6 +47,8 @@ export function Table<T extends unknown>({
   placeholderData,
   isLastPage,
 }: TableProps<T>) {
+  const { type: themeType } = useTheme();
+
   const tableData = useMemo(() => {
     if (!data.length || (data.length !== currentPageSize && !isLastPage)) {
       return Array(currentPageSize).fill(placeholderData ?? {}) as T[];
@@ -114,21 +114,30 @@ export function Table<T extends unknown>({
                             {{
                               asc: (
                                 <SortIconWrapper>
-                                  <SortIcon src={upIcon} alt="sort-asc" />
+                                  {themeType === 'light' ? (
+                                    <StyledArrowLight orientation="up" />
+                                  ) : (
+                                    <StyledArrowDark orientation="up" />
+                                  )}
                                 </SortIconWrapper>
                               ),
                               desc: (
                                 <SortIconWrapper>
-                                  <SortIcon src={downIcon} alt="sort-desc" />
+                                  {themeType === 'light' ? (
+                                    <StyledArrowLight orientation="down" />
+                                  ) : (
+                                    <StyledArrowDark orientation="down" />
+                                  )}
                                 </SortIconWrapper>
                               ),
                             }[header.column.getIsSorted() as string] ?? null}
                             {canSort && !isSorted && (
                               <SortIconNeutralWrapper>
-                                <SortIconNeutral
-                                  src={downIconSupporting}
-                                  alt="sort"
-                                />
+                                {themeType === 'light' ? (
+                                  <StyledArrowDark orientation="down" />
+                                ) : (
+                                  <StyledArrowLight orientation="down" />
+                                )}
                               </SortIconNeutralWrapper>
                             )}
                           </span>
@@ -250,22 +259,10 @@ const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   }
 `;
 
-const SortIcon = styled.img`
-  width: ${pxToRem(12)};
-  height: ${pxToRem(12)};
-  margin: 0;
-`;
-
-const SortIconNeutral = styled.img`
-  width: ${pxToRem(18)};
-  height: ${pxToRem(18)};
-  margin: 0;
-`;
-
 const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
-  background-color: ${colors.lightSupporting};
+  background-color: ${props => props.theme.background.secondary};
   border: 1px solid ${colors.mediumSupporting};
   border-radius: 0;
   display: flex;
@@ -281,4 +278,14 @@ const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
   :hover {
     cursor: pointer;
   }
+`;
+
+const StyledArrowDark = styled(DownArrowDark)<{ orientation: 'up' | 'down' }>`
+  transform: ${({ orientation }) =>
+    orientation === 'up' ? 'rotate(180deg)' : undefined};
+`;
+
+const StyledArrowLight = styled(DownArrowLight)<{ orientation: 'up' | 'down' }>`
+  transform: ${({ orientation }) =>
+    orientation === 'up' ? 'rotate(180deg)' : undefined};
 `;
