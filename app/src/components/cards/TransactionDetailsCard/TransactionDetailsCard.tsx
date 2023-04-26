@@ -144,10 +144,12 @@ const TransactionGrid = styled(Grid)`
 const TransactionHeading = styled(Heading)`
   font-size: ${pxToRem(18)};
   font-weight: ${fontWeight.medium};
+  color: ${props => props.theme.text.primary};
 `;
 
 const TransactionDetailData = styled.div`
   font-size: ${pxToRem(26)};
+  color: ${props => props.theme.text.primary};
 `;
 
 const DeployStatusData = styled(TransactionDetailData)`

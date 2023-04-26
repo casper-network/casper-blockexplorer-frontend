@@ -65,11 +65,9 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
               <DetailDataValue height="2rem">
                 {withSkeletonLoading(
                   <>
-                    <Link
-                      to={`/block/${deploy?.blockHash ?? ''}`}
-                      style={{ color: '#2230f0' }}>
+                    <StyledHashLink to={`/block/${deploy?.blockHash ?? ''}`}>
                       <Hash hash={deploy?.blockHash ?? hashPlaceholder} />
-                    </Link>
+                    </StyledHashLink>
                     <CopyToClipboard textToCopy={deploy?.blockHash ?? ''} />
                   </>,
                   isLoading,
@@ -82,11 +80,9 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
               <DetailDataValue height="2rem">
                 {withSkeletonLoading(
                   <>
-                    <Link
-                      to={`/account/${deploy?.publicKey ?? ''}`}
-                      style={{ color: '#2230f0' }}>
+                    <StyledHashLink to={`/account/${deploy?.publicKey ?? ''}`}>
                       <Hash hash={deploy?.publicKey ?? hashPlaceholder} />
-                    </Link>
+                    </StyledHashLink>
                     <CopyToClipboard textToCopy={deploy?.publicKey ?? ''} />
                   </>,
                   isLoading,
@@ -143,5 +139,9 @@ const HashHeading = styled(Heading)<{
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
   overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
   font-size: ${pxToRem(60)};
-  color: #2230f0;
+  color: ${props => props.theme.text.hash};
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;
