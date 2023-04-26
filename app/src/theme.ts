@@ -15,6 +15,7 @@ export const lightTheme = {
     secondary: '#64748b',
     muted: '',
     contrast: '#fff',
+    hash: '#2230F0',
   },
   selected: {
     primary: '#BCFC07',
@@ -36,6 +37,7 @@ export const darkTheme = {
     secondary: '#D6D6D6',
     muted: '#F4F4F4',
     contrast: '#000',
+    hash: '#F9AACA',
   },
   selected: {
     primary: '#F9AACA',

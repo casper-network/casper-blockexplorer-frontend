@@ -165,12 +165,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         accessorKey: 'hash',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/block/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -182,12 +182,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -246,4 +246,8 @@ const LatestBlocks = styled.div`
   font-size: ${pxToRem(28)};
   margin-right: 1.5rem;
   color: ${props => props.theme.text.primary};
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;
