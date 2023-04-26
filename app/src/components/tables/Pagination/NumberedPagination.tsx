@@ -136,8 +136,8 @@ const PaginationWrapper = styled.div`
 `;
 
 const JumpToPageButton = styled.button`
-  background-color: ${colors.lightSupporting};
-  color: ${colors.black};
+  background-color: ${props => props.theme.background.secondary};
+  color: ${props => props.theme.text.primary};
   min-width: ${pxToRem(68)};
   height: ${pxToRem(38)};
   width: fit-content;
@@ -145,7 +145,7 @@ const JumpToPageButton = styled.button`
 
   :hover {
     cursor: pointer;
-    background-color: ${colors.mediumSupporting};
+    background-color: ${props => props.theme.background.hover};
   }
 `;
 
@@ -172,8 +172,8 @@ const PageNumberWrapper = styled.div`
   align-items: center;
   height: ${pxToRem(38)};
   padding: 0 1.5rem;
-  color: ${colors.black};
-  background-color: ${colors.lightSupporting};
+  color: ${props => props.theme.text.primary};
+  background-color: ${props => props.theme.background.secondary};
 `;
 
 const JumpPageIcon = styled.img`
@@ -190,7 +190,7 @@ const RowsSelectWrapper = styled.div`
 
 const RowsSelectLabel = styled.div`
   margin-right: 1rem;
-  color: ${colors.black};
+  color: ${props => props.theme.text.primary};
 `;
 
 const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
@@ -202,8 +202,9 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${colors.lightSupporting};
+    background-color: ${props => props.theme.background.secondary};
     height: ${pxToRem(38)};
+    transition: none;
 
     :hover {
       cursor: pointer;
@@ -218,7 +219,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__indicators {
     display: block;
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     padding: 0;
     margin: 0;
     width: fit-content;
@@ -230,13 +231,13 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   }
 
   .react-select__single-value {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     font-size: 1rem;
     text-align: left;
   }
 
   .react-select__dropdown-indicator svg {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     transition: all 200ms ease-in;
     transform: ${({ isMenuOpen }) => (isMenuOpen ? 'rotate(180deg)' : null)};
 
@@ -249,14 +250,14 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__indicator {
     display: flex;
     align-items: center;
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     width: fit-content;
     padding: 0;
     height: ${pxToRem(38)};
   }
 
   .react-select__menu-list {
-    color: ${colors.black};
+    color: ${props => props.theme.text.primary};
     font-size: 1rem;
     padding: 0;
     margin: 0;
@@ -264,12 +265,12 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__menu {
     text-align: center;
-    background-color: ${colors.lightSupporting};
+    background-color: ${props => props.theme.background.secondary};
     width: ${pxToRem(145)};
     border-radius: 0;
 
     * {
-      color: ${colors.black};
+      color: ${props => props.theme.text.primary};
       padding: 0.35rem 0;
     }
   }
