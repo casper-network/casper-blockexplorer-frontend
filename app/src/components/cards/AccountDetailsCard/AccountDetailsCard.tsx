@@ -155,6 +155,7 @@ const AccountHeading = styled(Heading)`
   font-size: 1.25rem;
   font-weight: ${fontWeight.normal};
   margin-bottom: 2rem;
+  color: ${props => props.theme.text.primary};
 `;
 
 const AccountDetailsWrapper = styled.div`
@@ -192,6 +193,6 @@ const HashHeading = styled(Heading)<{
   overflow-wrap: break-word;
   word-break: break-word;
   font-size: ${pxToRem(60)};
-  color: #2230f0;
+  color: ${props => props.theme.text.hash};
   line-height: 65px;
 `;
