@@ -152,7 +152,7 @@ const JumpToPageButton = styled.button`
 const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(38)};
   width: ${pxToRem(38)};
-  background-color: #4589f6;
+  background-color: ${props => props.theme.button};
   display: flex;
   justify-content: center;
   align-items: center;

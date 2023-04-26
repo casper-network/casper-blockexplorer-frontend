@@ -169,9 +169,10 @@ const TableWrapper = styled.div`
   overflow-x: auto;
   max-width: calc(100vw - 5rem);
   margin: 0 auto;
-  background-color: ${colors.white};
-  border: 3px solid #4589f6;
+  background-color: ${props => props.theme.background.primary};
+  border: 3px solid ${props => props.theme.border};
   box-shadow: 0px 2px 7px ${colors.boxShadow};
+  color: ${props => props.theme.text.primary};
 `;
 
 const Header = styled.div`
@@ -184,12 +185,12 @@ const StyledTable = styled.table`
   width: 100%;
   border-spacing: 0px 0px;
   min-width: ${pxToRem(800)};
-  background-color: ${colors.white};
+  background-color: ${props => props.theme.background.primary};
   position: relative;
 `;
 
 const TableHead = styled.thead`
-  background-color: ${colors.lightSupporting};
+  background-color: ${props => props.theme.background.secondary};
 `;
 
 const TableHeader = styled.tr`
@@ -219,20 +220,21 @@ const Th = styled.th<{ sortable?: boolean }>`
 const TableBodyRow = styled.tr`
   height: ${pxToRem(50)};
   :hover {
-    background-color: ${colors.lightSupporting};
+    background-color: ${props => props.theme.background.secondary};
   }
 `;
 
 const TableBodyItem = styled.td`
   text-align: start;
   padding: 0 ${pxToRem(32)};
-  border-bottom: ${pxToRem(1)} solid ${colors.lightSupporting};
+  border-bottom: ${pxToRem(1)} solid
+    ${props => props.theme.background.secondary};
 `;
 
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
-  background-color: #4589f6;
+  background-color: ${props => props.theme.button};
   display: flex;
   justify-content: center;
   align-items: center;
