@@ -16,13 +16,13 @@ export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
     let isLightModeConfig = localStorage.getItem('isLightMode');
 
     if (isLightModeConfig !== null) {
-      isLightModeConfig = JSON.parse(isLightModeConfig);
+      isLightModeConfig = JSON.parse(isLightModeConfig) as string;
 
       if (typeof isLightModeConfig === 'boolean') {
         setIsLightTheme(isLightModeConfig);
       }
     }
-  }, []);
+  }, [setIsLightTheme]);
 
   const setThemeToLocalStorage = (isLightTheme: boolean) => {
     localStorage.setItem('isLightMode', JSON.stringify(isLightTheme));
