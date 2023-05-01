@@ -9,7 +9,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import Skeleton from 'react-loading-skeleton';
-import { BlocksIcon } from 'casper-ui-kit';
+import { Icon } from 'casper-ui-kit';
 import {
   IconH2Container,
   H2,
@@ -42,7 +42,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
       <Header>
         <IconH2Container>
           {themeType === 'light' ? (
-            <BlocksIcon height={16} />
+            <Icon icon="BlocksIcon" height={16} />
           ) : (
             <BlocksIconDark />
           )}

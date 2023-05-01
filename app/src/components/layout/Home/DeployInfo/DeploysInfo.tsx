@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { DeployIcon } from 'casper-ui-kit';
+import { Icon } from 'casper-ui-kit';
 import {
   IconH2Container,
   H2,
@@ -19,7 +19,7 @@ export const DeploysInfo: React.FC = () => {
     <DeploysInfoDisplay>
       <DeploysHeader>
         <IconH2Container>
-          <DeployIcon height={25} />
+          <Icon icon="DeployIcon" height={25} />
           <H2>{t('deploys')}</H2>
         </IconH2Container>
         <PageLink to="/deploys">{t('view-all')}</PageLink>

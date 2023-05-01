@@ -4,7 +4,7 @@ import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
 
 import { NavbarItemLinkButton } from 'src/components/buttons';
-import { OpenMenuIcon, CloseMenuIcon } from 'casper-ui-kit';
+import { Icon } from 'casper-ui-kit';
 import { NavButton } from '../../buttons/NavButton';
 
 import {
@@ -80,9 +80,9 @@ export const Navbar: React.FC = () => {
           onClick={() => setIsOpened(!isOpened)}
           color="transparent">
           {isOpened ? (
-            <CloseMenuIcon height={30} width={35} />
+            <Icon icon="CloseMenuIcon" height={30} width={35} />
           ) : (
-            <OpenMenuIcon height={30} width={35} />
+            <Icon icon="OpenMenuIcon" height={30} width={35} />
           )}
         </NavButton>
         <NavItemsContainer>

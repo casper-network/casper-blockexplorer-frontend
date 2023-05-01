@@ -6,7 +6,7 @@ import { getIsFirstVisit, useAppSelector } from 'src/store';
 import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
 
 import { useTranslation } from 'react-i18next';
-import { ErrorIcon } from 'casper-ui-kit';
+import { Icon } from 'casper-ui-kit';
 import {
   FormContainer,
   Form,
@@ -20,7 +20,7 @@ import {
   SearchLabel,
 } from './SearchForm.styled';
 
-import { ButtonIconDark, ButtonIconLight, ErrorIcon } from '../../../../icons';
+import { ButtonIconDark, ButtonIconLight } from '../../../../icons';
 
 import { SearchSelect } from '../SearchSelect/SearchSelect';
 import { FormValues } from '../partials.types';
@@ -147,7 +147,7 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
         {errors.hash && (
           <ErrorMessageContainer>
             <ErrorSvgContainer>
-              <ErrorIcon color="none" stroke="red" height={25} width={25} />
+              <Icon icon="ErrorIcon" stroke="red" height={25} width={25} />
             </ErrorSvgContainer>
             <ErrorMessage>{t(currentMessage)}</ErrorMessage>
           </ErrorMessageContainer>

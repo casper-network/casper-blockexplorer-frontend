@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { FailureIcon, SuccessIcon } from 'casper-ui-kit';
+import { Icon } from 'casper-ui-kit';
 import {
   DetailDataLabel,
   DetailDataList,
@@ -29,9 +29,9 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
 
   const statusIcon =
     deploy?.status === DeployStatus.Success ? (
-      <SuccessIcon height={30} />
+      <Icon icon="SuccessIcon" height={30} />
     ) : (
-      <FailureIcon height={16} />
+      <Icon icon="FailureIcon" height={16} />
     );
 
   return (
