@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
@@ -71,9 +71,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
   const header = useMemo(
     () => (
       <BlocksTableHead>
-        <p>
-          {standardizeNumber(total || 0)} {t('total-rows')}
-        </p>
+        <BlockTableTitleWrapper>
+          <LatestBlocks>Latest Blocks</LatestBlocks>
+          <p>
+            {standardizeNumber(total || 0)} {t('total-rows')}
+          </p>
+        </BlockTableTitleWrapper>
 
         <NumberedPagination
           tableOptions={blocksTableOptions}
@@ -92,9 +95,18 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
     () => (
       <BlocksTableFooter>
         <RefreshTimer />
+        <NumberedPagination
+          tableOptions={blocksTableOptions}
+          setTableOptions={setBlocksTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateBlocksPageNum}
+          removeRowsSelect
+        />
       </BlocksTableFooter>
     ),
-    [],
+    [blocksTableOptions, totalPages, setIsTableLoading],
   );
 
   const blocksTableTitles = [
@@ -153,12 +165,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         accessorKey: 'hash',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/block/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -170,12 +182,12 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
           <div className="flex flex-row items-center">
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -209,16 +221,33 @@ const BlocksTableHead = styled.div`
   min-width: ${pxToRem(900)};
   justify-content: space-between;
   align-items: center;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
+`;
+
+const BlockTableTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const BlocksTableFooter = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: ${pxToRem(20)} 2rem;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const SwitchBlocktime = styled.div`
   height: 100%;
   cursor: pointer;
+`;
+
+const LatestBlocks = styled.div`
+  font-size: ${pxToRem(28)};
+  margin-right: 1.5rem;
+  color: ${props => props.theme.text.primary};
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;

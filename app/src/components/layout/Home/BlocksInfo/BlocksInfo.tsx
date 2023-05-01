@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatDate } from 'src/utils';
+import { useTheme } from '@emotion/react';
+import { formatDate, standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import {
   getLatestBlockLoadingStatus,
@@ -22,6 +23,7 @@ import {
   Info,
   TextWrapper,
 } from '../HomeComponents.styled';
+import { BlocksIconDark } from '../../../icons';
 
 interface BlockInfoProps {
   block: ApiData.Block | null;
@@ -29,6 +31,7 @@ interface BlockInfoProps {
 
 export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
   const { t } = useTranslation();
+  const { type: themeType } = useTheme();
 
   const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
 
@@ -38,7 +41,12 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
     <Card>
       <Header>
         <IconH2Container>
-          <BlocksIcon height={16} />
+          {themeType === 'light' ? (
+            <BlocksIcon height={16} />
+          ) : (
+            <BlocksIconDark />
+          )}
+
           <H2>{t('blocks')}</H2>
         </IconH2Container>
         <PageLink to="/blocks">{t('view-all')}</PageLink>
@@ -52,7 +60,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
             {isLoadingBlocks ? (
               <Skeleton width={120} duration={1} />
             ) : (
-              block?.header.height ?? 0
+              standardizeNumber(block?.header.height ?? 0)
             )}
           </H3Data>
           <DataContext>
@@ -71,7 +79,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
             {isLoadingBlocks ? (
               <Skeleton width={90} duration={1} />
             ) : (
-              block?.header.era_id ?? 0
+              standardizeNumber(block?.header.era_id ?? 0)
             )}
           </H3Data>
         </Info>

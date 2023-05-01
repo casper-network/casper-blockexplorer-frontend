@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { GradientHeading } from '../../styled';
-import { breakpoints, colors, pxToRem } from '../../../styled-theme';
+import { Heading } from 'src/components/base';
+import { breakpoints, pxToRem } from '../../../styled-theme';
 
 export const HeaderComponent = styled.header`
   width: 100%;
-  background-color: ${colors.white};
+  background-color: ${props => props.theme.background.primary};
 `;
 
 export const HeaderComponentsContainer = styled.div<{
@@ -12,16 +12,14 @@ export const HeaderComponentsContainer = styled.div<{
 }>`
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: ${pxToRem(1400)};
-  width: 100%;
-  margin: 0;
-  padding-right: 0.8rem;
+  width: auto;
+  margin: 0 2.25rem;
+  padding: 0;
 
   @media (min-width: ${breakpoints.lg}) {
-    width: 98%;
-    margin: 0 auto;
-    padding-right: 0;
+    width: auto;
+    margin: 0 2.25rem;
+    padding: 0;
   }
 `;
 
@@ -44,9 +42,9 @@ export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
   }
 `;
 
-export const HeroHeading = styled(GradientHeading)`
+export const HeroHeading = styled(Heading)`
   font-size: 2.8rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
   padding-right: 1rem;
   max-width: 18rem;
@@ -58,4 +56,10 @@ export const HeroHeading = styled(GradientHeading)`
     max-width: 31rem;
     background-size: 100%;
   }
+`;
+
+export const PageTableHeader = styled.p`
+  font-size: ${pxToRem(60)};
+  margin-bottom: 2.5rem;
+  color: ${props => props.theme.text.primary};
 `;

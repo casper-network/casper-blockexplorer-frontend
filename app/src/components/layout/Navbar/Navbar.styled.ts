@@ -7,6 +7,8 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: flex-end;
   width: fit-content;
+  height: ${pxToRem(136)};
+
   @media (min-width: ${breakpoints.lg}) {
     width: 100%;
   }
@@ -44,14 +46,14 @@ export const MobileNavItemsContainer = styled.ul`
   align-items: center;
   gap: 1.25rem;
   z-index: 10;
-  background-color: ${colors.primary};
+  background-color: ${props => props.theme.border};
   position: fixed;
   left: 0;
   top: 0;
 `;
 
 export const MobileNavItemLink = styled(Link)`
-  color: ${colors.white};
+  color: ${props => props.theme.text.contrast};
   font-size: 1.375rem;
   padding: 0.3125rem;
   width: 100%;
@@ -78,7 +80,7 @@ export const DesktopNavItemsContainer = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: ${pxToRem(4)};
+  gap: ${pxToRem(40)};
   width: 100%;
   min-height: ${pxToRem(75)};
 `;

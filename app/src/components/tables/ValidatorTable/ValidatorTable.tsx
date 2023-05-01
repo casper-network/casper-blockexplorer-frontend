@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'src/styled-theme';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -109,12 +109,12 @@ export const ValidatorTable: React.FC = () => {
         minSize: 200,
         cell: ({ getValue }) => (
           <div>
-            <Link
+            <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
               }}>
               {truncateHash(getValue<string>())}
-            </Link>
+            </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
           </div>
         ),
@@ -175,6 +175,28 @@ export const ValidatorTable: React.FC = () => {
     </ValidatorTableHead>
   );
 
+  const footer = useMemo(
+    () => (
+      <ValidatorsTableFooter>
+        <NumberedPagination
+          tableOptions={validatorsTableOptions}
+          setTableOptions={setValidatorTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateValidatorPageNum}
+          removeRowsSelect
+        />
+      </ValidatorsTableFooter>
+    ),
+    [
+      validatorsTableOptions,
+      totalPages,
+      setIsTableLoading,
+      rowCountSelectOptions,
+    ],
+  );
+
   const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {
     setIsTableLoading(true);
 
@@ -205,7 +227,7 @@ export const ValidatorTable: React.FC = () => {
       header={header}
       columns={columns}
       data={validators}
-      footer={<ValidatorFooter />}
+      footer={footer}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
       sorting={[
@@ -226,17 +248,25 @@ const ValidatorTableHead = styled.div`
   min-width: ${pxToRem(900)};
   justify-content: space-between;
   align-items: center;
-  color: ${colors.darkSupporting};
-`;
-
-const ValidatorFooter = styled.div`
-  height: ${pxToRem(50)};
+  color: ${props => props.theme.text.secondary};
+  height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
 `;
 
 const CSPRText = styled.span`
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
+`;
+
+const ValidatorsTableFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: ${pxToRem(20)} 2rem;
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;

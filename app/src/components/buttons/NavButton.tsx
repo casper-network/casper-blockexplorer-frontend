@@ -32,4 +32,8 @@ export const ButtonStyles = styled.div`
   @media (min-width: ${breakpoints.lg}) {
     display: none;
   }
+
+  button {
+    padding: 0;
+  }
 `;

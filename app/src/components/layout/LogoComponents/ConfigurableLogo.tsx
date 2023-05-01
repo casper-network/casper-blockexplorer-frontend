@@ -26,7 +26,6 @@ export const ConfigurableLogoContainer = styled.div<{
   width: ${({ logoSize }) => logoSize}%;
   min-width: 0;
   max-width: ${pxToRem(345)};
-  padding: ${pxToRem(20)} 0 ${pxToRem(20)} ${pxToRem(10)};
 
   :hover,
   :focus {

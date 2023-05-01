@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { colors, fontWeight } from '../../../styled-theme';
+import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export const DetailDataLabel = styled.h3`
   font-weight: ${fontWeight.normal};
-  font-size: 1.05rem;
-  color: ${colors.darkSupporting};
+  font-size: 1.25rem;
+  color: ${props => props.theme.text.secondary};
 `;
 
 export const DetailDataWrapper = styled.ul`
@@ -25,10 +25,13 @@ export const DetailDataList = styled.ul<DetailDataListProps>`
   height: fit-content;
 `;
 
-export const DetailDataValue = styled.div<{ height?: number | string }>`
+export const DetailDataValue = styled.div<{
+  height?: number | string;
+  isLargeText?: boolean;
+}>`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
-  font-size: 1.25rem;
-  color: ${colors.black};
-  font-weight: ${fontWeight.medium};
+  font-size: ${({ isLargeText }) => (isLargeText ? pxToRem(40) : '1.25rem')};
+  color: ${props => props.theme.text.primary};
+  font-weight: ${fontWeight.normal};
 `;

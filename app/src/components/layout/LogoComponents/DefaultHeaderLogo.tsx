@@ -2,27 +2,30 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Logo } from 'casper-ui-kit';
 import { Link } from 'react-router-dom';
+import { useTheme } from '@emotion/react';
 import { breakpoints, pxToRem } from 'src/styled-theme';
-import { RedBlackLogo } from '../../logos';
 
-export const DefaultHeaderLogo: React.FC = () => (
-  <LogoContainer>
-    <LogoLink to="/">
-      <RedBlackCasperLogoWrapper>
-        <RedBlackCasperLogo />
-      </RedBlackCasperLogoWrapper>
-      <BlueCasperLogoWrapper>
-        <BlueCasperLogo title="Blue Casper Logo" logo="BlueCasperLogo" />
-      </BlueCasperLogoWrapper>
-      <ExplorerLogoWrapper>
-        <ExplorerLogo
-          title="Block Explorer Gradient Logo"
-          logo="BlockExplorerGradientLogo"
-        />
-      </ExplorerLogoWrapper>
-    </LogoLink>
-  </LogoContainer>
-);
+import {
+  RedBlackLogo,
+  CasperExplorerLogoLight,
+  CasperExplorerLogoDark,
+} from '../../logos';
+
+export const DefaultHeaderLogo: React.FC = () => {
+  const { type: themeType } = useTheme();
+
+  return (
+    <LogoContainer>
+      <LogoLink to="/">
+        {themeType === 'light' ? (
+          <CasperExplorerLogoLight />
+        ) : (
+          <CasperExplorerLogoDark />
+        )}
+      </LogoLink>
+    </LogoContainer>
+  );
+};
 
 export const LogoContainer = styled.div`
   width: ${pxToRem(188)};
@@ -30,7 +33,6 @@ export const LogoContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-decoration-line: none;
-  padding: ${pxToRem(30)} ${pxToRem(23)};
 
   :hover,
   :focus {
@@ -38,7 +40,6 @@ export const LogoContainer = styled.div`
   }
 
   @media (min-width: ${breakpoints.lg}) {
-    padding: ${pxToRem(30)} ${pxToRem(0)};
   }
 `;
 

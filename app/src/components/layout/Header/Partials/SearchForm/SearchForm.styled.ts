@@ -4,31 +4,23 @@ import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: center;
-  width: 92%;
-  max-width: ${pxToRem(592)};
-  padding: ${({ isFirstVisit }) => (isFirstVisit ? `${pxToRem(25)} 0` : '0')};
-  margin: 0 auto 2rem auto;
+  width: auto;
+  margin: 0 2.25rem;
   position: relative;
   padding: 0;
 
   @media (min-width: ${breakpoints.md}) {
-    margin: 0 auto;
-    width: 64%;
+    margin: 0 2.25rem;
+    width: auto;
     min-width: ${pxToRem(625)};
-    max-width: ${pxToRem(655)};
     align-items: center;
   }
 
   @media (min-width: ${breakpoints.lg}) {
     justify-content: start;
-    width: 100%;
-    min-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(300)}`};
-    max-width: ${({ isFirstVisit }) =>
-      isFirstVisit ? `${pxToRem(860)}` : `${pxToRem(1000)}`};
-    margin: 0 auto;
-    padding-right: ${({ isFirstVisit }) =>
-      isFirstVisit ? '0' : `${pxToRem(20)}`};
+    width: auto;
+    min-width: ${pxToRem(300)};
+    margin: 0 2.25rem;
   }
 `;
 
@@ -58,18 +50,26 @@ export const InputAndButtonContainer = styled.div`
 
 export const SearchInput = styled.input`
   display: block;
-  color: ${colors.black};
-  background-color: ${colors.white};
-  height: 2.5rem;
+  background-color: ${props => props.theme.background.secondary};
+  color: ${props => props.theme.text.primary};
+  height: ${pxToRem(54)};
   width: 100%;
-  font-size: clamp(0.9rem, 1.1vw, 1.4rem);
+  font-size: 1.125rem;
   border-radius: 0.375rem 0 0 0.375rem;
-  padding: 0 1.25rem;
+  padding: 0 2rem;
   margin-top: 0;
   margin-bottom: 0;
-  box-shadow: inset 0px 1px 7px ${colors.boxShadow};
+  box-shadow: inset 0px 1px 7px ${props => props.theme.boxShadow};
   border-style: none;
   appearance: none;
+
+  ::placeholder {
+    color: ${props => props.theme.text.muted};
+  }
+
+  @media (min-width: ${breakpoints.md}) {
+    height: ${pxToRem(72)};
+  }
 
   /* Firefox Version 110.0b3 (Versions 69+) */
   @supports selector(:-moz-is-html) {
@@ -89,15 +89,19 @@ export const SearchInput = styled.input`
 
 export const SubmitButton = styled.button`
   font-weight: 500;
-  background-color: ${colors.primary};
-  height: 2.5rem;
-  width: 3.2rem;
+  background-color: ${props => props.theme.button};
+  height: ${pxToRem(54)};
+  width: ${pxToRem(72)};
   padding-top: 0.5rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;
   position: relative;
   right: 0.0625rem;
   border-style: none;
+
+  @media (min-width: ${breakpoints.md}) {
+    height: ${pxToRem(72)};
+  }
 
   /* Safari Version 12.3 11-15 up to Monterey */
   @media not all and (min-resolution: 0.001dpcm) {
