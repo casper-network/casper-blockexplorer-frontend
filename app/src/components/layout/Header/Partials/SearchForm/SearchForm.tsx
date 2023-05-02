@@ -147,7 +147,13 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
         {errors.hash && (
           <ErrorMessageContainer>
             <ErrorSvgContainer>
-              <Icon icon="ErrorIcon" stroke="red" height={25} width={25} />
+              <Icon
+                icon="ErrorIcon"
+                stroke="red"
+                color="none"
+                height={25}
+                width={25}
+              />
             </ErrorSvgContainer>
             <ErrorMessage>{t(currentMessage)}</ErrorMessage>
           </ErrorMessageContainer>
