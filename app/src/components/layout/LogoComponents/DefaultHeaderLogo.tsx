@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
+import { Logo } from 'casper-ui-kit';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import { breakpoints, pxToRem } from 'src/styled-theme';
+
 import {
-  BlueLogo,
   RedBlackLogo,
-  ExpLogo,
   CasperExplorerLogoLight,
   CasperExplorerLogoDark,
 } from '../../logos';
@@ -75,7 +74,7 @@ export const BlueCasperLogoWrapper = styled.div`
   padding-right: ${pxToRem(2)};
 `;
 
-export const BlueCasperLogo = styled(BlueLogo)`
+export const BlueCasperLogo = styled(Logo)`
   width: 100%;
   margin: 0 auto;
 
@@ -94,7 +93,7 @@ export const ExplorerLogoWrapper = styled.div`
   }
 `;
 
-export const ExplorerLogo = styled(ExpLogo)`
+export const ExplorerLogo = styled(Logo)`
   display: block;
   width: 100%;
 `;

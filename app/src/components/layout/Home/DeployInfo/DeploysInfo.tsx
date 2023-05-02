@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'casper-ui-kit';
 import {
   IconH2Container,
   H2,
@@ -11,7 +11,6 @@ import {
   DataContext,
 } from '../HomeComponents.styled';
 import { breakpoints, colors } from '../../../../styled-theme';
-import { DeploysIcon } from '../../../icons';
 
 export const DeploysInfo: React.FC = () => {
   const { t } = useTranslation();
@@ -20,7 +19,7 @@ export const DeploysInfo: React.FC = () => {
     <DeploysInfoDisplay>
       <DeploysHeader>
         <IconH2Container>
-          <DeploysIcon />
+          <Icon icon="DeployIcon" height={25} />
           <H2>{t('deploys')}</H2>
         </IconH2Container>
         <PageLink to="/deploys">{t('view-all')}</PageLink>

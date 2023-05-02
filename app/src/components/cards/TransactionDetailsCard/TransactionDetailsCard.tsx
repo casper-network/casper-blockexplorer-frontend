@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'casper-ui-kit';
 import {
   DetailDataLabel,
   DetailDataList,
@@ -14,7 +15,6 @@ import { breakpoints, fonts, fontWeight, pxToRem } from '../../../styled-theme';
 import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import { Coin, withSkeletonLoading } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
-import { FailureIcon, SuccessIcon } from '../../icons';
 
 interface TransactionDetailsCardProps {
   deploy: Deploy | null;
@@ -28,7 +28,11 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
   const { t } = useTranslation();
 
   const statusIcon =
-    deploy?.status === DeployStatus.Success ? <SuccessIcon /> : <FailureIcon />;
+    deploy?.status === DeployStatus.Success ? (
+      <Icon icon="SuccessIcon" height={30} />
+    ) : (
+      <Icon icon="FailureIcon" height={16} />
+    );
 
   return (
     <InfoCard>
