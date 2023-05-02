@@ -46,6 +46,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
               icon="BlocksIcon"
               width={49}
               height={16}
+              color="none"
               stroke={colors.black}
             />
           ) : (
@@ -53,6 +54,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
               icon="BlocksIcon"
               width={49}
               height={16}
+              color="none"
               stroke={colors.white}
             />
           )}
