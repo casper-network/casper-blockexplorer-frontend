@@ -41,23 +41,15 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
     <Card>
       <Header>
         <IconH2Container>
-          {themeType === 'light' ? (
+          {
             <Icon
               icon="BlocksIcon"
               width={49}
               height={16}
               color="none"
-              stroke={colors.black}
+              stroke={themeType === 'light' ? colors.black : colors.white}
             />
-          ) : (
-            <Icon
-              icon="BlocksIcon"
-              width={49}
-              height={16}
-              color="none"
-              stroke={colors.white}
-            />
-          )}
+          }
 
           <H2>{t('blocks')}</H2>
         </IconH2Container>

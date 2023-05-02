@@ -79,11 +79,11 @@ export const Navbar: React.FC = () => {
           type="button"
           onClick={() => setIsOpened(!isOpened)}
           color="transparent">
-          {isOpened ? (
-            <Icon icon="CloseMenuIcon" height={30} width={35} />
-          ) : (
-            <Icon icon="OpenMenuIcon" height={30} width={35} />
-          )}
+          <Icon
+            icon={isOpened ? 'OpenMenuIcon' : 'CloseMenuIcon'}
+            height={30}
+            width={35}
+          />
         </NavButton>
         <NavItemsContainer>
           {isOpened && (
