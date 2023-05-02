@@ -1,7 +1,5 @@
 export { ReactComponent as ButtonIconLight } from '../../assets/icons/button-icon-light.svg';
 export { ReactComponent as ButtonIconDark } from '../../assets/icons/button-icon-dark.svg';
-export { ReactComponent as BlocksIconLight } from '../../assets/icons/blocks-icon-light.svg';
-export { ReactComponent as BlocksIconDark } from '../../assets/icons/blocks-icon-dark.svg';
 export { ReactComponent as PeersIconLight } from '../../assets/icons/peers-icon-light.svg';
 export { ReactComponent as PeersIconDark } from '../../assets/icons/peers-icon-dark.svg';
 export { ReactComponent as LightModeIcon } from '../../assets/icons/light-mode-icon.svg';
