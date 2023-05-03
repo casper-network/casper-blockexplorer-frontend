@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -7,7 +6,9 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
-import { Heading, InfoCard, Spacer } from '../../base';
+import { Card } from 'casper-ui-kit';
+import { StyledInfoCard } from 'src/components/base/InfoCard/StyledInfoCard';
+import { Heading, Spacer } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
@@ -54,8 +55,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           )}
         </HashWrapper>
       </PageHeading>
-
-      <InfoCard>
+      {/* <Card>
+        <Card.Header> */}
+      <StyledInfoCard.Body>
         <DetailDataRowWrapper>
           <li>
             <DetailDataLabel>{t('block-height')}</DetailDataLabel>
@@ -211,7 +213,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </DetailDataValue>
           </li>
         </DetailDataRowWrapper>
-      </InfoCard>
+      </StyledInfoCard.Body>
+      {/* </Card.Header>
+      </Card> */}
     </>
   );
 };
@@ -254,4 +258,19 @@ const StyledHashLink = styled(Link)`
 
 const StyledAnchorTag = styled.a`
   color: ${props => props.theme.text.hash};
+`;
+
+const Test = styled(Card.Body)`
+  width: 100%;
+  background: ${props => props.theme.background.primary};
+  border: 3px solid ${props => props.theme.border};
+  box-shadow: 0px 0.125rem 0.5rem ${props => props.theme.boxShadow};
+  border-radius: 0.35rem;
+  padding: 2rem;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+
+  @media only screen and (min-width: ${breakpoints.md}) {
+    max-width: 100vw;
+  }
 `;
