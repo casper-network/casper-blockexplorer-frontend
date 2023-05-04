@@ -6,7 +6,7 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
-import { Card } from 'casper-ui-kit';
+// import { Card } from 'casper-ui-kit';
 import { StyledInfoCard } from 'src/components/base/InfoCard/StyledInfoCard';
 import { Heading, Spacer } from '../../base';
 import {
@@ -56,7 +56,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
         </HashWrapper>
       </PageHeading>
       {/* <Card>
-        <Card.Header> */}
+        <Card.Body> */}
       <StyledInfoCard.Body>
         <DetailDataRowWrapper>
           <li>
@@ -214,7 +214,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </li>
         </DetailDataRowWrapper>
       </StyledInfoCard.Body>
-      {/* </Card.Header>
+      {/* </Card.Body>
       </Card> */}
     </>
   );
@@ -260,17 +260,17 @@ const StyledAnchorTag = styled.a`
   color: ${props => props.theme.text.hash};
 `;
 
-const Test = styled(Card.Body)`
-  width: 100%;
-  background: ${props => props.theme.background.primary};
-  border: 3px solid ${props => props.theme.border};
-  box-shadow: 0px 0.125rem 0.5rem ${props => props.theme.boxShadow};
-  border-radius: 0.35rem;
-  padding: 2rem;
-  overflow-x: auto;
-  margin-bottom: 2rem;
+// const Test = styled(Card.Body)`
+//   width: 100%;
+//   background: ${props => props.theme.background.primary};
+//   border: 3px solid ${props => props.theme.border};
+//   box-shadow: 0px 0.125rem 0.5rem ${props => props.theme.boxShadow};
+//   border-radius: 0.35rem;
+//   padding: 2rem;
+//   overflow-x: auto;
+//   margin-bottom: 2rem;
 
-  @media only screen and (min-width: ${breakpoints.md}) {
-    max-width: 100vw;
-  }
-`;
+//   @media only screen and (min-width: ${breakpoints.md}) {
+//     max-width: 100vw;
+//   }
+// `;
