@@ -170,12 +170,13 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.deploy_hashes?.map(deployHash => (
                       <li key={deployHash}>
-                        <StyledAnchorTag href={`/deploy/${deployHash}`}>
+                        <StyledHashLink
+                          to={{ pathname: `/deploy/${deployHash}` }}>
                           <Hash
                             alwaysTruncate
                             hash={deployHash ?? hashPlaceholder}
                           />
-                        </StyledAnchorTag>
+                        </StyledHashLink>
                       </li>
                     ))}
                   </ul>
@@ -195,12 +196,13 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.transfer_hashes?.map(transferHash => (
                       <li key={transferHash}>
-                        <StyledAnchorTag href={`/deploy/${transferHash}`}>
+                        <StyledHashLink
+                          to={{ pathname: `/deploy/${transferHash}` }}>
                           <Hash
                             alwaysTruncate
                             hash={transferHash ?? hashPlaceholder}
                           />
-                        </StyledAnchorTag>
+                        </StyledHashLink>
                       </li>
                     ))}
                   </ul>

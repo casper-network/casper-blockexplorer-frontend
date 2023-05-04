@@ -74,11 +74,10 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
             <DetailDataValue height="2rem">
-              <Link
+              <StyledHashLink
                 to={{
                   pathname: `/block/${block?.header.parent_hash ?? ''}`,
-                }}
-                style={{ color: '#2230f0' }}>
+                }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
                   isLoading,
@@ -86,7 +85,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                     width: 175,
                   },
                 )}
-              </Link>
+              </StyledHashLink>
               {!isLoading && (
                 <CopyToClipboard
                   textToCopy={block?.header.parent_hash ?? hashPlaceholder}
@@ -124,11 +123,10 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           <li>
             <DetailDataLabel>{t('validator')}</DetailDataLabel>
             <DetailDataValue height="2rem">
-              <Link
+              <StyledHashLink
                 to={{
                   pathname: `/account/${block?.body.proposer ?? ''}`,
-                }}
-                style={{ color: '#2230f0' }}>
+                }}>
                 {withSkeletonLoading(
                   <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                   isLoading,
@@ -136,7 +134,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                     width: 175,
                   },
                 )}
-              </Link>
+              </StyledHashLink>
               {!isLoading && (
                 <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
               )}
@@ -154,11 +152,10 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.deploy_hashes?.map(deployHash => (
                       <li key={deployHash}>
-                        <a
-                          href={`/deploy/${deployHash}`}
-                          style={{ color: '#2230f0' }}>
+                        <StyledHashLink
+                          to={{ pathname: `/deploy/${deployHash}` }}>
                           <Hash hash={deployHash} />
-                        </a>
+                        </StyledHashLink>
                       </li>
                     ))}
                   </ul>
@@ -178,11 +175,10 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   <ul>
                     {block?.body.transfer_hashes?.map(transferHash => (
                       <li key={transferHash}>
-                        <a
-                          href={`/deploy/${transferHash}`}
-                          style={{ color: '#2230f0' }}>
+                        <StyledHashLink
+                          to={{ pathname: `/deploy/${transferHash}` }}>
                           <Hash hash={transferHash} />
-                        </a>
+                        </StyledHashLink>
                       </li>
                     ))}
                   </ul>
@@ -212,7 +208,7 @@ const PageHeading = styled.h2`
   font-weight: 800;
   display: inline;
   padding-left: ${pxToRem(15)};
-  background: #2230f0;
+  background: ${props => props.theme.text.hash};
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -221,4 +217,8 @@ const PageHeading = styled.h2`
 const DetailDataRowWrapper = styled(DetailDataWrapper)`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const StyledHashLink = styled(Link)`
+  color: ${props => props.theme.text.hash};
 `;
