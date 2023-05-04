@@ -29,9 +29,11 @@
         ORG_NAME: '<!--# echo var="org_name" default="" -->',
         ORG_FAVICON_URL: '<!--# echo var="org_favicon_url" default="" -->',
         ORG_FONT_URL: '<!--# echo var="org_font_url" default="" -->',
-        ORG_PRIMARY_FONT_NAME: '<!--# echo var="org_primary_font_name" default="" -->',
-        ORG_SECONDARY_FONT_NAME: '<!--# echo var="org_secondary_font_name" default="" -->',
-        THEME: '<!--# echo var="theme" default="" -->'
+        ORG_PRIMARY_FONT_NAME:
+          '<!--# echo var="org_primary_font_name" default="" -->',
+        ORG_SECONDARY_FONT_NAME:
+          '<!--# echo var="org_secondary_font_name" default="" -->',
+        THEME: '<!--# echo var="theme" default="" -->',
       };
     </script>
     <title>Block Explorer</title>
@@ -39,6 +41,21 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      try {
+        let isLightModeConfig = localStorage.getItem('isLightMode');
+
+        if (isLightModeConfig !== null) {
+          isLightModeConfig = JSON.parse(isLightModeConfig);
+
+          if (isLightModeConfig === false) {
+            document.body.className = 'dark';
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
