@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import { Card } from 'casper-ui-kit';
 import { breakpoints, pxToRem } from '../../../styled-theme';
-import { Card } from './Card';
 
-export const InfoCardSection = styled(Card)`
+export const InfoCardSection = styled.div`
   margin: 0;
   padding: 0;
   width: 100%;
@@ -31,7 +31,7 @@ export const InfoCardContentWrapper = styled(Card)`
   }
 `;
 
-export const HeadContentWrapper = styled(Card.Header)`
+export const HeadContentWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 

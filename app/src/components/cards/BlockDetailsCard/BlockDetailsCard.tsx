@@ -6,7 +6,7 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
-import { Card } from 'src/components/base/InfoCard/Card';
+import { Card } from 'casper-ui-kit';
 import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
 import {
   DetailDataLabel,
@@ -54,6 +54,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           )}
         </HashWrapper>
       </PageHeading>
+
       <InfoCardContentWrapper>
         <Card.Body>
           <DetailDataRowWrapper>

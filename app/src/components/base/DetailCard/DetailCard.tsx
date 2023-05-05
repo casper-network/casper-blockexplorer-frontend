@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { InfoCard, FootContentWrapper, HeadContentWrapper } from '../InfoCard';
+import { Card } from 'casper-ui-kit';
+import { FootContentWrapper, HeadContentWrapper } from '../InfoCard';
 import { TableLabel, TableValue } from './DetailCard.styled';
 import { DetailCardProps } from './DetailCard.types';
 
@@ -10,7 +11,7 @@ export const DetailCard: React.FC<DetailCardProps> = ({
   footContent,
 }) => {
   return (
-    <InfoCard>
+    <Card>
       {!!headContent && <HeadContentWrapper>{headContent}</HeadContentWrapper>}
       <InfoCardTable>
         <tbody>
@@ -25,7 +26,7 @@ export const DetailCard: React.FC<DetailCardProps> = ({
         </tbody>
       </InfoCardTable>
       {!!footContent && <FootContentWrapper>{footContent}</FootContentWrapper>}
-    </InfoCard>
+    </Card>
   );
 };
 
