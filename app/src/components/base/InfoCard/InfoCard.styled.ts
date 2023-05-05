@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Card } from 'casper-ui-kit';
 import { breakpoints, pxToRem } from '../../../styled-theme';
 
-export const InfoCardSection = styled.section`
+export const InfoCardSection = styled(Card)`
   margin: 0;
   padding: 0;
   width: 100%;
