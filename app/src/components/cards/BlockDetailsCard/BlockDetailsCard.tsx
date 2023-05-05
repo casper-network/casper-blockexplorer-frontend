@@ -262,7 +262,3 @@ const PageHeading = styled.div`
 const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
 `;
-
-const StyledAnchorTag = styled.a`
-  color: ${props => props.theme.text.hash};
-`;
