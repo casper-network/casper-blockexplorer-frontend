@@ -6,9 +6,8 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
 import { hashPlaceholder } from 'src/utils';
-// import { Card } from 'casper-ui-kit';
-import { StyledInfoCard } from 'src/components/base/InfoCard/StyledInfoCard';
-import { Heading, Spacer } from '../../base';
+import { Card } from 'src/components/base/InfoCard/Card';
+import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
@@ -55,169 +54,173 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           )}
         </HashWrapper>
       </PageHeading>
-      {/* <Card>
-        <Card.Body> */}
-      <StyledInfoCard.Body>
-        <DetailDataRowWrapper>
-          <li>
-            <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-            <DetailDataValue isLargeText>
-              {withSkeletonLoading(block?.header.height, isLoading, {
-                width: 100,
-              })}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('current-era')}</DetailDataLabel>
-            <DetailDataValue isLargeText>
-              {withSkeletonLoading(block?.header.era_id, isLoading, {
-                width: 100,
-              })}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-            <DetailDataValue isLargeText>
-              {withSkeletonLoading(
-                block?.header.timestamp.toLocaleString(),
-                isLoading,
-                {
-                  width: 275,
-                },
-              )}
-            </DetailDataValue>
-          </li>
-        </DetailDataRowWrapper>
-
-        <Spacer height="2.5rem" />
-
-        <DetailDataWrapper>
-          <li>
-            <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-            <DetailDataValue height="2rem">
-              <StyledHashLink
-                to={{
-                  pathname: `/block/${block?.header.parent_hash ?? ''}`,
-                }}>
+      <InfoCardContentWrapper>
+        <Card.Body>
+          <DetailDataRowWrapper>
+            <li>
+              <DetailDataLabel>{t('block-height')}</DetailDataLabel>
+              <DetailDataValue isLargeText>
+                {withSkeletonLoading(block?.header.height, isLoading, {
+                  width: 100,
+                })}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('current-era')}</DetailDataLabel>
+              <DetailDataValue isLargeText>
+                {withSkeletonLoading(block?.header.era_id, isLoading, {
+                  width: 100,
+                })}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
+              <DetailDataValue isLargeText>
                 {withSkeletonLoading(
-                  <Hash hash={block?.header.parent_hash ?? hashPlaceholder} />,
+                  block?.header.timestamp.toLocaleString(),
+                  isLoading,
+                  {
+                    width: 275,
+                  },
+                )}
+              </DetailDataValue>
+            </li>
+          </DetailDataRowWrapper>
+
+          <Spacer height="2.5rem" />
+
+          <DetailDataWrapper>
+            <li>
+              <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
+              <DetailDataValue height="2rem">
+                <StyledHashLink
+                  to={{
+                    pathname: `/block/${block?.header.parent_hash ?? ''}`,
+                  }}>
+                  {withSkeletonLoading(
+                    <Hash
+                      hash={block?.header.parent_hash ?? hashPlaceholder}
+                    />,
+                    isLoading,
+                    { width: 850 },
+                  )}
+                </StyledHashLink>
+                {!isLoading && (
+                  <CopyToClipboard
+                    textToCopy={block?.header.parent_hash ?? ''}
+                  />
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
+              <DetailDataValue height="2rem">
+                {withSkeletonLoading(
+                  <Hash hash={block?.hash ?? hashPlaceholder} />,
                   isLoading,
                   { width: 850 },
                 )}
-              </StyledHashLink>
-              {!isLoading && (
-                <CopyToClipboard textToCopy={block?.header.parent_hash ?? ''} />
-              )}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-            <DetailDataValue height="2rem">
-              {withSkeletonLoading(
-                <Hash hash={block?.hash ?? hashPlaceholder} />,
-                isLoading,
-                { width: 850 },
-              )}
-              {!isLoading && <CopyToClipboard textToCopy={block?.hash ?? ''} />}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
-            <DetailDataValue>
-              {withSkeletonLoading(
-                <Hash
-                  hash={block?.header.state_root_hash ?? hashPlaceholder}
-                />,
-                isLoading,
-                { width: 850 },
-              )}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('validator')}</DetailDataLabel>
-            <DetailDataValue height="2rem">
-              <StyledHashLink
-                to={{
-                  pathname: `/account/${block?.body.proposer ?? ''}`,
-                }}>
+                {!isLoading && (
+                  <CopyToClipboard textToCopy={block?.hash ?? ''} />
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
+              <DetailDataValue>
                 {withSkeletonLoading(
-                  <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
+                  <Hash
+                    hash={block?.header.state_root_hash ?? hashPlaceholder}
+                  />,
                   isLoading,
                   { width: 850 },
                 )}
-              </StyledHashLink>
-              {!isLoading && (
-                <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
-              )}
-            </DetailDataValue>
-          </li>
-        </DetailDataWrapper>
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('validator')}</DetailDataLabel>
+              <DetailDataValue height="2rem">
+                <StyledHashLink
+                  to={{
+                    pathname: `/account/${block?.body.proposer ?? ''}`,
+                  }}>
+                  {withSkeletonLoading(
+                    <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
+                    isLoading,
+                    { width: 850 },
+                  )}
+                </StyledHashLink>
+                {!isLoading && (
+                  <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+                )}
+              </DetailDataValue>
+            </li>
+          </DetailDataWrapper>
 
-        <Spacer height="2.5rem" />
+          <Spacer height="2.5rem" />
 
-        <DetailDataRowWrapper>
-          <li>
-            <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
-            <DetailDataValue>
-              <RawData rawData={rawBlock} />
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('deploys')}</DetailDataLabel>
-            <DetailDataValue isLargeText>
-              {withSkeletonLoading(
-                block?.body.deploy_hashes?.length ? (
-                  <ul>
-                    {block?.body.deploy_hashes?.map(deployHash => (
-                      <li key={deployHash}>
-                        <StyledHashLink
-                          to={{ pathname: `/deploy/${deployHash}` }}>
-                          <Hash
-                            alwaysTruncate
-                            hash={deployHash ?? hashPlaceholder}
-                          />
-                        </StyledHashLink>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  t('no-deploys')
-                ),
-                isLoading,
-                { width: 150 },
-              )}
-            </DetailDataValue>
-          </li>
-          <li>
-            <DetailDataLabel>{t('transfers')}</DetailDataLabel>
-            <DetailDataValue isLargeText>
-              {withSkeletonLoading(
-                block?.body.transfer_hashes?.length ? (
-                  <ul>
-                    {block?.body.transfer_hashes?.map(transferHash => (
-                      <li key={transferHash}>
-                        <StyledHashLink
-                          to={{ pathname: `/deploy/${transferHash}` }}>
-                          <Hash
-                            alwaysTruncate
-                            hash={transferHash ?? hashPlaceholder}
-                          />
-                        </StyledHashLink>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  t('no-transfers')
-                ),
-                isLoading,
-                { width: 150 },
-              )}
-            </DetailDataValue>
-          </li>
-        </DetailDataRowWrapper>
-      </StyledInfoCard.Body>
-      {/* </Card.Body>
-      </Card> */}
+          <DetailDataRowWrapper>
+            <li>
+              <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
+              <DetailDataValue>
+                <RawData rawData={rawBlock} />
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('deploys')}</DetailDataLabel>
+              <DetailDataValue isLargeText>
+                {withSkeletonLoading(
+                  block?.body.deploy_hashes?.length ? (
+                    <ul>
+                      {block?.body.deploy_hashes?.map(deployHash => (
+                        <li key={deployHash}>
+                          <StyledHashLink
+                            to={{ pathname: `/deploy/${deployHash}` }}>
+                            <Hash
+                              alwaysTruncate
+                              hash={deployHash ?? hashPlaceholder}
+                            />
+                          </StyledHashLink>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    t('no-deploys')
+                  ),
+                  isLoading,
+                  { width: 150 },
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('transfers')}</DetailDataLabel>
+              <DetailDataValue isLargeText>
+                {withSkeletonLoading(
+                  block?.body.transfer_hashes?.length ? (
+                    <ul>
+                      {block?.body.transfer_hashes?.map(transferHash => (
+                        <li key={transferHash}>
+                          <StyledHashLink
+                            to={{ pathname: `/deploy/${transferHash}` }}>
+                            <Hash
+                              alwaysTruncate
+                              hash={transferHash ?? hashPlaceholder}
+                            />
+                          </StyledHashLink>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    t('no-transfers')
+                  ),
+                  isLoading,
+                  { width: 150 },
+                )}
+              </DetailDataValue>
+            </li>
+          </DetailDataRowWrapper>
+        </Card.Body>
+      </InfoCardContentWrapper>
     </>
   );
 };
@@ -261,18 +264,3 @@ const StyledHashLink = styled(Link)`
 const StyledAnchorTag = styled.a`
   color: ${props => props.theme.text.hash};
 `;
-
-// const Test = styled(Card.Body)`
-//   width: 100%;
-//   background: ${props => props.theme.background.primary};
-//   border: 3px solid ${props => props.theme.border};
-//   box-shadow: 0px 0.125rem 0.5rem ${props => props.theme.boxShadow};
-//   border-radius: 0.35rem;
-//   padding: 2rem;
-//   overflow-x: auto;
-//   margin-bottom: 2rem;
-
-//   @media only screen and (min-width: ${breakpoints.md}) {
-//     max-width: 100vw;
-//   }
-// `;
