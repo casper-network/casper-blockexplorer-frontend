@@ -240,6 +240,7 @@ const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
   overflow-wrap: break-word;
   font-size: ${pxToRem(60)};
   color: ${props => props.theme.text.hash};
+  line-height: 1;
 `;
 
 const DetailDataRowWrapper = styled.ul`
