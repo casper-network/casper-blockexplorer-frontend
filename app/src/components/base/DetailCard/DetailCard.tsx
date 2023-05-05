@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Card } from 'casper-ui-kit';
-import {
-  FootContentWrapper,
-  HeadContentWrapper,
-  InfoCardSection,
-} from '../InfoCard';
+import { InfoCardSection } from '../InfoCard';
 import { TableLabel, TableValue } from './DetailCard.styled';
 import { DetailCardProps } from './DetailCard.types';
 
