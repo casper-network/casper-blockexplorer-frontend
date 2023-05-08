@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'casper-ui-kit';
+import { Icon, Card } from 'casper-ui-kit';
+import { InfoCardContentWrapper } from 'src/components/base';
 import {
   DetailDataLabel,
   DetailDataList,
@@ -12,7 +13,7 @@ import {
   HideOnMobile,
 } from '../../styled';
 import { breakpoints, fonts, fontWeight, pxToRem } from '../../../styled-theme';
-import { HeadContentWrapper, Heading, InfoCard } from '../../base';
+import { HeadContentWrapper, Heading } from '../../base';
 import { Coin, withSkeletonLoading } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
 
@@ -35,105 +36,111 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
     );
 
   return (
-    <InfoCard>
-      <HeadContentWrapper>
-        <TransactionHeading type="h2">
-          {t('transaction-details')}
-        </TransactionHeading>
-      </HeadContentWrapper>
-      <DetailDataWrapper>
-        <TransactionGrid gap="2rem">
-          <DetailDataList gap="2rem">
-            {!!deploy?.amount && (
+    <InfoCardContentWrapper>
+      <Card.Body>
+        <HeadContentWrapper>
+          <TransactionHeading type="h2">
+            {t('transaction-details')}
+          </TransactionHeading>
+        </HeadContentWrapper>
+        <DetailDataWrapper>
+          <TransactionGrid gap="2rem">
+            <DetailDataList gap="2rem">
+              {!!deploy?.amount && (
+                <li>
+                  <Grid gap="1rem" templateColumns="9rem auto">
+                    <DetailDataLabel>{t('amount')}</DetailDataLabel>
+                    <DetailDataValue>
+                      <Coin>{deploy?.amount}</Coin>
+                    </DetailDataValue>
+                  </Grid>
+                </li>
+              )}
               <li>
-                <Grid gap="1rem" templateColumns="9rem auto">
-                  <DetailDataLabel>{t('amount')}</DetailDataLabel>
+                <Grid gap="1rem" templateColumns="9rem 1fr">
+                  <DetailDataLabel>{t('cost')}</DetailDataLabel>
                   <DetailDataValue>
-                    <Coin>{deploy?.amount}</Coin>
+                    {withSkeletonLoading(
+                      <Coin>{deploy?.cost ?? ''}</Coin>,
+                      isLoading,
+                      {},
+                    )}
                   </DetailDataValue>
                 </Grid>
               </li>
-            )}
-            <li>
-              <Grid gap="1rem" templateColumns="9rem 1fr">
-                <DetailDataLabel>{t('cost')}</DetailDataLabel>
-                <DetailDataValue>
-                  {withSkeletonLoading(
-                    <Coin>{deploy?.cost ?? ''}</Coin>,
-                    isLoading,
-                    {},
-                  )}
-                </DetailDataValue>
-              </Grid>
-            </li>
-            <li>
-              <Grid gap="1rem" templateColumns="9rem 1fr">
-                <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
-                <DetailDataValue>
-                  {withSkeletonLoading(
-                    <Coin>{deploy?.paymentAmount ?? ''}</Coin>,
-                    isLoading,
-                    {},
-                  )}
-                </DetailDataValue>
-              </Grid>
-            </li>
-          </DetailDataList>
-          <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
-            <div>
-              <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-              <TransactionDetailData>
-                {withSkeletonLoading(deploy?.readableTimestamp, isLoading, {})}
-              </TransactionDetailData>
-            </div>
-            <HideOnMobile>
+              <li>
+                <Grid gap="1rem" templateColumns="9rem 1fr">
+                  <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
+                  <DetailDataValue>
+                    {withSkeletonLoading(
+                      <Coin>{deploy?.paymentAmount ?? ''}</Coin>,
+                      isLoading,
+                      {},
+                    )}
+                  </DetailDataValue>
+                </Grid>
+              </li>
+            </DetailDataList>
+            <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
               <div>
-                <DetailDataLabel>{t('status')}</DetailDataLabel>
-                <DeployStatusData>
+                <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
+                <TransactionDetailData>
                   {withSkeletonLoading(
-                    <>
-                      {deploy?.status}
-                      <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
-                    </>,
+                    deploy?.readableTimestamp,
                     isLoading,
                     {},
                   )}
-                </DeployStatusData>
+                </TransactionDetailData>
               </div>
-            </HideOnMobile>
-            <HideOnDesktop>
-              <SpanTwoCols>
-                <DetailDataLabel>{t('status')}</DetailDataLabel>
-                <DeployStatusData>
-                  {withSkeletonLoading(
-                    <>
-                      {deploy?.status}
-                      <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
-                    </>,
-                    isLoading,
-                    { width: 100 },
-                  )}
-                </DeployStatusData>
-              </SpanTwoCols>
-            </HideOnDesktop>
-            <ActionAndDeployTypeWrapper>
-              <DetailDataLabel>{t('action')}</DetailDataLabel>
-              <TransactionDetailData>
-                {withSkeletonLoading(deploy?.action, isLoading, {})}
-              </TransactionDetailData>
-            </ActionAndDeployTypeWrapper>
-            {!!deploy?.deployType && (
+              <HideOnMobile>
+                <div>
+                  <DetailDataLabel>{t('status')}</DetailDataLabel>
+                  <DeployStatusData>
+                    {withSkeletonLoading(
+                      <>
+                        {deploy?.status}
+                        <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                      </>,
+                      isLoading,
+                      {},
+                    )}
+                  </DeployStatusData>
+                </div>
+              </HideOnMobile>
+              <HideOnDesktop>
+                <SpanTwoCols>
+                  <DetailDataLabel>{t('status')}</DetailDataLabel>
+                  <DeployStatusData>
+                    {withSkeletonLoading(
+                      <>
+                        {deploy?.status}
+                        <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                      </>,
+                      isLoading,
+                      { width: 100 },
+                    )}
+                  </DeployStatusData>
+                </SpanTwoCols>
+              </HideOnDesktop>
               <ActionAndDeployTypeWrapper>
-                <DetailDataLabel>{t('deploy-type')}</DetailDataLabel>
+                <DetailDataLabel>{t('action')}</DetailDataLabel>
                 <TransactionDetailData>
-                  {deploy?.deployType}
+                  {withSkeletonLoading(deploy?.action, isLoading, {})}
                 </TransactionDetailData>
               </ActionAndDeployTypeWrapper>
-            )}
-          </Grid>
-        </TransactionGrid>
-      </DetailDataWrapper>
-    </InfoCard>
+              {!!deploy?.deployType && (
+                <ActionAndDeployTypeWrapper>
+                  <DetailDataLabel>{t('deploy-type')}</DetailDataLabel>
+                  <TransactionDetailData>
+                    {deploy?.deployType}
+                  </TransactionDetailData>
+                </ActionAndDeployTypeWrapper>
+              )}
+            </Grid>
+          </TransactionGrid>
+        </DetailDataWrapper>
+      </Card.Body>
+    </InfoCardContentWrapper>
   );
 };
 
