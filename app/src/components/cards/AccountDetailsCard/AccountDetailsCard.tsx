@@ -57,7 +57,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
   return (
     <>
-      <HeadContentContainer isTruncated={isTruncated}>
+      <HeadContentContainer isTruncated={isTruncated} isMobile={isMobile}>
         <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarHashContainer>
           {withSkeletonLoading(
@@ -171,9 +171,11 @@ const AccountDetailsWrapper = styled.div`
 
 const HeadContentContainer = styled(HeadContentWrapper)<{
   isTruncated?: boolean;
+  isMobile?: boolean;
 }>`
   margin: 0;
-  margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
+  margin-bottom: ${({ isTruncated, isMobile }) =>
+    isTruncated || isMobile ? '0.5rem' : '5rem'};
 `;
 
 const AvatarHashContainer = styled.div`
@@ -199,8 +201,8 @@ const HashHeading = styled(Heading)<{
     isTruncated || isMobile ? '10%' : '50vw'};
   overflow-wrap: break-word;
   word-break: break-word;
-  font-size: ${({ isTruncated }) =>
-    isTruncated ? `${pxToRem(60)} ` : '3.3rem'};
+  font-size: ${({ isTruncated, isMobile }) =>
+    isTruncated || isMobile ? `${pxToRem(60)} ` : '3.3rem'};
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 `;

@@ -33,7 +33,6 @@ export const InfoCardContentWrapper = styled(Card)`
 
 export const HeadContentWrapper = styled.div`
   padding-top: 2rem;
-  border: purple solid 2px;
   margin-bottom: 2rem;
   @media only screen and (min-width: ${breakpoints.md}) {
     padding: 0;
