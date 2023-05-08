@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Card } from 'casper-ui-kit';
-import { InfoCardSection } from '../InfoCard';
+import {
+  FootContentWrapper,
+  HeadContentWrapper,
+  InfoCardSection,
+} from '../InfoCard';
 import { TableLabel, TableValue } from './DetailCard.styled';
 import { DetailCardProps } from './DetailCard.types';
 
@@ -12,7 +16,11 @@ export const DetailCard: React.FC<DetailCardProps> = ({
 }) => {
   return (
     <InfoCardSection>
-      {!!headContent && <Card.Header>{headContent}</Card.Header>}
+      {!!headContent && (
+        <Card.Header>
+          <HeadContentWrapper>{headContent}</HeadContentWrapper>
+        </Card.Header>
+      )}
       <InfoCardTable>
         <tbody>
           {rows.map(({ detailKey, value, key }, index) => {
@@ -25,7 +33,11 @@ export const DetailCard: React.FC<DetailCardProps> = ({
           })}
         </tbody>
       </InfoCardTable>
-      {!!footContent && <Card.Footer>{footContent}</Card.Footer>}
+      {!!footContent && (
+        <Card.Footer>
+          <FootContentWrapper>{footContent}</FootContentWrapper>
+        </Card.Footer>
+      )}
     </InfoCardSection>
   );
 };
