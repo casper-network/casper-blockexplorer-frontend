@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { breakpoints } from '../../styled-theme';
+import { defaultTheme } from 'casper-ui-kit';
 import { Button } from '../base';
 import { ButtonProps } from '../base/Button/Button';
 
@@ -29,7 +29,7 @@ export const ButtonStyles = styled.div`
   border-style: none;
   z-index: 20;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: none;
   }
 

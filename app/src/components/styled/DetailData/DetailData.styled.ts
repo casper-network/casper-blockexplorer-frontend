@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { fontWeight, pxToRem } from '../../../styled-theme';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
 
 export const DetailDataLabel = styled.h3`
-  font-weight: ${fontWeight.normal};
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
   font-size: 1.25rem;
   color: ${props => props.theme.text.secondary};
 `;
@@ -33,5 +33,5 @@ export const DetailDataValue = styled.div<{
     typeof height === 'number' ? `${height}px` : height};
   font-size: ${({ isLargeText }) => (isLargeText ? pxToRem(40) : '1.25rem')};
   color: ${props => props.theme.text.primary};
-  font-weight: ${fontWeight.normal};
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
 `;

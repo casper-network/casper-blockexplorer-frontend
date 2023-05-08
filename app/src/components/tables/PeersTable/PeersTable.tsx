@@ -15,9 +15,9 @@ import {
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
-import { pxToRem } from 'src/styled-theme';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { standardizeNumber } from 'src/utils';
+import { pxToRem } from 'casper-ui-kit';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 

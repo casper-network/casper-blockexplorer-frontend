@@ -7,8 +7,8 @@ import { CustomSelect } from 'src/components/layout/Header/Partials/CustomSelect
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
-import { colors, pxToRem } from 'src/styled-theme';
 import { standardizeNumber } from 'src/utils';
+import { pxToRem } from 'casper-ui-kit';
 import {
   LessThanLight,
   GreaterThanLight,
@@ -16,6 +16,7 @@ import {
   GreaterThanDark,
 } from 'src/components/icons';
 import { useTheme } from '@emotion/react';
+import { lightColors } from 'src/styled-theme';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -280,11 +281,11 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     transition: ease-in-out, font-weight, color, 400ms;
     background: linear-gradient(
       95.02deg,
-      ${colors.gradient1} 0.62%,
-      ${colors.gradient2} 48.99%,
-      ${colors.gradient3} 70.51%,
-      ${colors.gradient4} 70.85%,
-      ${colors.gradient5} 116.85%
+      ${lightColors.gradient1} 0.62%,
+      ${lightColors.gradient2} 48.99%,
+      ${lightColors.gradient3} 70.51%,
+      ${lightColors.gradient4} 70.85%,
+      ${lightColors.gradient5} 116.85%
     );
     background-size: 100%;
     background-clip: text;

@@ -29,7 +29,6 @@ import {
 
 import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
-import { colors } from './styled-theme';
 import { darkTheme, lightTheme } from './theme';
 
 const { title, faviconUrl } = loadConfig();
@@ -116,7 +115,7 @@ const App = () => {
 };
 
 const AppWrapper = styled.div`
-  background-color: ${colors.white};
+  background-color: ${props => props.theme.background.primary};
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;

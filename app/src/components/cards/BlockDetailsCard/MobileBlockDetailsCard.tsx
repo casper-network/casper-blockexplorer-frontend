@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 import { InfoCard } from '../../base';
 import {

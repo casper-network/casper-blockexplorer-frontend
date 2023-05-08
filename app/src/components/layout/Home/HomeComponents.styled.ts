@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { colors, fontWeight, pxToRem } from '../../../styled-theme';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { lightColors } from '../../../styled-theme';
 
 export const IconH2Container = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ export const IconH2Container = styled.div`
 
 export const H2 = styled.h2`
   font-size: clamp(1.5rem, 2vw, 1.7rem);
-  font-weight: ${fontWeight.normal};
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
   color: ${props => props.theme.text.primary};
   line-height: 1;
   max-width: 10.5rem;
@@ -22,21 +23,21 @@ export const PageLink = styled(Link)`
   color: ${props => props.theme.text.primary};
   font-size: clamp(0.67rem, 1.25vw, 0.9rem);
   text-align: right;
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   min-width: 3.5rem;
   text-decoration: none;
   white-space: nowrap;
 
   :hover,
   :focus {
-    background-color: ${colors.primary};
+    background-color: ${props => props.theme.button};
     background-image: linear-gradient(
       90deg,
-      ${colors.gradient1},
-      ${colors.gradient2},
-      ${colors.gradient3},
-      ${colors.gradient4},
-      ${colors.gradient5}
+      ${lightColors.gradient1},
+      ${lightColors.gradient2},
+      ${lightColors.gradient3},
+      ${lightColors.gradient4},
+      ${lightColors.gradient5}
     );
     background-size: 100%;
     background-clip: text;
@@ -49,7 +50,7 @@ export const PageLink = styled(Link)`
 `;
 
 export const H3 = styled.h3`
-  font-weight: ${fontWeight.normal};
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
   font-size: clamp(0.9rem, 1.35vw, 1rem);
   line-height: 1;
   padding-top: 1.45rem;
@@ -57,7 +58,7 @@ export const H3 = styled.h3`
 
 export const H3Data = styled.p`
   color: ${props => props.theme.text.primary};
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   padding: 0.55rem 0 0.2rem 0;
 `;
@@ -73,7 +74,7 @@ export const Card = styled.section`
   padding: 0 2rem;
   border: ${pxToRem(4)} solid ${props => props.theme.border};
   border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.438rem ${colors.boxShadow};
+  box-shadow: 0 0.125rem 0.438rem ${props => props.theme.boxShadow};
   padding-bottom: 1.5rem;
   margin-bottom: ${pxToRem(50)};
   width: 100%;

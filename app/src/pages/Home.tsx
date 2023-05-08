@@ -10,13 +10,13 @@ import {
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
 } from 'src/store';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   BlocksInfo,
   DeploysInfo,
   PeersValidatorsInfo,
 } from '../components/layout/Home';
 import { PageWrapper } from '../components';
-import { breakpoints, pxToRem } from '../styled-theme';
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +56,7 @@ const HomeContentContainer = styled.div<{ isFirstVisit: boolean }>`
   max-width: 17.2rem;
   padding-top: 0;
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     min-width: 39rem;
     flex-direction: row;
     justify-content: center;
@@ -64,7 +64,7 @@ const HomeContentContainer = styled.div<{ isFirstVisit: boolean }>`
     padding-top: ${pxToRem(32)};
   }
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     width: 68.25%;
     max-width: ${pxToRem(793)};
     padding-top: ${({ isFirstVisit }) =>

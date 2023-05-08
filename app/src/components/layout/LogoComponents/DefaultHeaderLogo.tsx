@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Logo } from 'casper-ui-kit';
+import { defaultTheme, Logo, pxToRem } from 'casper-ui-kit';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
-import { breakpoints, pxToRem } from 'src/styled-theme';
-
 import {
   RedBlackLogo,
   CasperExplorerLogoLight,
@@ -39,7 +37,7 @@ export const LogoContainer = styled.div`
     text-decoration-line: none;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
   }
 `;
 
@@ -53,7 +51,7 @@ export const LogoLink = styled(Link)`
 
 export const RedBlackCasperLogoWrapper = styled.div`
   display: none;
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: block;
     min-width: ${pxToRem(124)};
   }
@@ -62,7 +60,7 @@ export const RedBlackCasperLogoWrapper = styled.div`
 export const RedBlackCasperLogo = styled(RedBlackLogo)`
   display: none;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: block;
     width: 100%;
   }
@@ -78,7 +76,7 @@ export const BlueCasperLogo = styled(Logo)`
   width: 100%;
   margin: 0 auto;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: none;
   }
 `;
@@ -87,7 +85,7 @@ export const ExplorerLogoWrapper = styled.div`
   padding-top: ${pxToRem(1.75)};
   min-width: ${pxToRem(112)};
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     padding-top: 0;
     width: ${pxToRem(108)};
   }

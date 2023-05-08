@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
-import { breakpoints, fontWeight, pxToRem } from 'src/styled-theme';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 import { Heading, InfoCard, Spacer } from '../../base';
 import {
@@ -222,7 +222,7 @@ const HashWrapper = styled.div`
 `;
 
 const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   margin: 0;
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
@@ -236,14 +236,16 @@ const DetailDataRowWrapper = styled.ul`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     flex-direction: row;
     gap: ${pxToRem(96)};
   }
 `;
 
 const PageHeading = styled.div`
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     margin-bottom: 2rem;
   }
 `;

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppWidth } from 'src/hooks';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
 import { Deploy } from '../../../api';
 import { Heading, InfoCard } from '../../base';
 import {
@@ -16,7 +17,6 @@ import {
 } from '../../styled';
 
 import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
-import { fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy | null;
@@ -132,7 +132,7 @@ const HashHeading = styled(Heading)<{
   isTruncated: boolean;
   isMobile: boolean;
 }>`
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};

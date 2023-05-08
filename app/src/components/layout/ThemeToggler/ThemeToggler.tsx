@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 import { DarkModeIcon, LightModeIcon } from 'src/components/icons';
-import { pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'casper-ui-kit';
 
 interface ThemeTogglerProps {
   isLightTheme: boolean;

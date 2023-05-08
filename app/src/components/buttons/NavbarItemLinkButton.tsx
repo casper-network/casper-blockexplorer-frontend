@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Button } from 'src/components/base';
-import { fontWeight, pxToRem } from 'src/styled-theme';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
 
 export interface NavbarItemLinkButtonProps {
   readonly isRouteSelected: boolean;
@@ -27,7 +27,9 @@ const DesktopNavItemLink = styled(Button)<{
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: 1.25rem;
   font-weight: ${({ isRouteSelected }) =>
-    isRouteSelected ? fontWeight.medium : fontWeight.normal};
+    isRouteSelected
+      ? defaultTheme.typography.fontWeights.medium
+      : defaultTheme.typography.fontWeights.normal};
   text-decoration: none;
   border-bottom: ${({ isRouteSelected, theme }) => {
     const selectedColor = theme.selected.primary ?? '';

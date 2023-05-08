@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 
 import { loadConfig } from 'src/utils';
 import { Link } from 'react-router-dom';
-import { breakpoints, pxToRem } from 'src/styled-theme';
 import { getIsFirstVisit, useAppSelector } from 'src/store';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 
 export const ConfigurableLogo: React.FC = () => {
   const { logoUrl, logoSize } = loadConfig();
@@ -32,7 +32,7 @@ export const ConfigurableLogoContainer = styled.div<{
     text-decoration-line: none;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     padding: ${pxToRem(15)} 0;
     max-width: ${({ isFirstVisit }) =>
       isFirstVisit ? `${pxToRem(345)}` : `${pxToRem(500)}`};

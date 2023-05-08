@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,

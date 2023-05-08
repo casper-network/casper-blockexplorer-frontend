@@ -11,9 +11,9 @@ import {
 } from '@tanstack/react-table';
 import Skeleton from 'react-loading-skeleton';
 import styled from '@emotion/styled';
-import { colors, fontWeight, pxToRem } from 'src/styled-theme';
 import { css, useTheme } from '@emotion/react';
 import { DownArrowDark, DownArrowLight } from 'src/components/icons';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -180,7 +180,7 @@ const TableWrapper = styled.div`
   margin: 0 auto;
   background-color: ${props => props.theme.background.primary};
   border: 3px solid ${props => props.theme.border};
-  box-shadow: 0px 2px 7px ${colors.boxShadow};
+  box-shadow: 0px 2px 7px ${props => props.theme.boxShadow};
   color: ${props => props.theme.text.primary};
 `;
 
@@ -199,7 +199,8 @@ const StyledTable = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${props => props.theme.background.secondary};
+  background-color: ${props =>
+    props.theme.background.secondary}; // casper light grey
 `;
 
 const TableHeader = styled.tr`
@@ -209,7 +210,7 @@ const TableHeader = styled.tr`
 const Th = styled.th<{ sortable?: boolean }>`
   text-align: start;
   padding: 0 2rem;
-  font-weight: ${fontWeight.normal};
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
   ${({ sortable }) => {
     if (sortable)
       return css`
@@ -230,7 +231,7 @@ const TableBodyRow = styled.tr`
   height: ${pxToRem(50)};
   :hover {
     background-color: ${props => props.theme.background.secondary};
-  }
+  } // casper light grey
 `;
 
 const TableBodyItem = styled.td`
@@ -238,19 +239,19 @@ const TableBodyItem = styled.td`
   padding: 0 ${pxToRem(32)};
   border-bottom: ${pxToRem(1)} solid
     ${props => props.theme.background.secondary};
-`;
+`; // casper light grey
 
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
-  background-color: ${props => props.theme.button};
+  background-color: ${props => props.theme.button}; // casper light blue
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 0.5rem;
 
   * {
-    color: white;
+    color: ${props => props.theme.background.primary};
     z-index: 1;
   }
 
@@ -263,7 +264,7 @@ const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
   background-color: ${props => props.theme.background.secondary};
-  border: 1px solid ${colors.mediumSupporting};
+  border: 1px solid ${props => props.theme.background.hover};
   border-radius: 0;
   display: flex;
   justify-content: center;
@@ -271,7 +272,7 @@ const SortIconNeutralWrapper = styled.div<{ disabled?: boolean }>`
   margin-right: 0.5rem;
 
   * {
-    color: white;
+    color: ${props => props.theme.background.primary};
     z-index: 1;
   }
 

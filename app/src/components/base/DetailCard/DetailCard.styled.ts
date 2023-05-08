@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colors } from '../../../styled-theme';
 
 export const TableData = styled.td<{ noDividers?: boolean }>`
   height: 100%;
@@ -7,12 +6,12 @@ export const TableData = styled.td<{ noDividers?: boolean }>`
   padding: 1rem 0;
   border: none;
   border-bottom: ${({ noDividers }) =>
-    noDividers ? 'none' : '1px solid black'};
+    noDividers ? 'none' : '1px solid black'}; // TODO: styles replace black
 `;
 
 export const TableLabel = styled(TableData)`
   width: 12.5rem;
-  color: ${colors.darkSupporting};
+  color: ${props => props.theme.text.secondary};
   white-space: nowrap;
   padding-right: 2rem;
   vertical-align: top;
