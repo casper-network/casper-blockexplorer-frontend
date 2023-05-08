@@ -199,7 +199,8 @@ const HashHeading = styled(Heading)<{
     isTruncated || isMobile ? '10%' : '50vw'};
   overflow-wrap: break-word;
   word-break: break-word;
-  font-size: ${pxToRem(60)};
+  font-size: ${({ isTruncated }) =>
+    isTruncated ? `${pxToRem(60)} ` : '3.3rem'};
   color: ${props => props.theme.text.hash};
-  line-height: 65px;
+  line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 `;
