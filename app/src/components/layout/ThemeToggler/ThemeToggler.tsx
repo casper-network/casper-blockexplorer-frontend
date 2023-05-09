@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { DarkModeIcon, LightModeIcon } from 'src/components/icons';
 import { pxToRem } from 'casper-ui-kit';
 
@@ -12,18 +12,6 @@ export const ThemeToggler: React.FC<ThemeTogglerProps> = ({
   isLightTheme,
   setIsLightTheme,
 }) => {
-  useEffect(() => {
-    let isLightModeConfig = localStorage.getItem('isLightMode');
-
-    if (isLightModeConfig !== null) {
-      isLightModeConfig = JSON.parse(isLightModeConfig) as string;
-
-      if (typeof isLightModeConfig === 'boolean') {
-        setIsLightTheme(isLightModeConfig);
-      }
-    }
-  }, [setIsLightTheme]);
-
   const setThemeToLocalStorage = (isLightTheme: boolean) => {
     localStorage.setItem('isLightMode', JSON.stringify(isLightTheme));
 

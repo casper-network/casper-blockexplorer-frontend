@@ -2,9 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Loader } from 'casper-ui-kit';
 import { GradientHeading } from '../../styled';
-import { Loader } from '../../utility';
 
 export interface PageError {
   message: string;

@@ -10,11 +10,15 @@ import {
   Loading,
   useAppSelector,
 } from 'src/store';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-import { HeadContentWrapper, Heading, InfoCard } from '../../base';
+import {
+  HeadContentWrapper,
+  Heading,
+  InfoCardContentWrapper,
+} from '../../base';
 import {
   Hash,
   AvatarIcon,
@@ -84,69 +88,71 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </AvatarHashContainer>
       </HeadContentContainer>
 
-      <InfoCard>
-        <DetailDataWrapper>
-          <DetailDataList gap="1.75rem">
-            <li>
-              <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
-              <DetailDataValue height="2rem">
-                {withSkeletonLoading(
-                  <>
-                    <Hash
-                      hash={account?.trimmedAccountHash ?? hashPlaceholder}
-                    />
-                    <CopyToClipboard
-                      textToCopy={account?.trimmedAccountHash ?? ''}
-                    />
-                  </>,
-                  isAccountLoading,
-                  { width: '60%' },
-                )}
-              </DetailDataValue>
-            </li>
-            <li>
-              <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-              <DetailDataValue>
-                {withSkeletonLoading(
-                  account?.publicKey ? (
+      <InfoCardContentWrapper>
+        <Card.Body>
+          <DetailDataWrapper>
+            <DetailDataList gap="1.75rem">
+              <li>
+                <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
+                <DetailDataValue height="2rem">
+                  {withSkeletonLoading(
                     <>
-                      <Hash hash={account?.publicKey} />
-                      <CopyToClipboard textToCopy={account?.publicKey} />
-                    </>
-                  ) : (
-                    'Unknown'
-                  ),
-                  isAccountLoading,
-                  { width: '60%' },
-                )}
-              </DetailDataValue>
-            </li>
+                      <Hash
+                        hash={account?.trimmedAccountHash ?? hashPlaceholder}
+                      />
+                      <CopyToClipboard
+                        textToCopy={account?.trimmedAccountHash ?? ''}
+                      />
+                    </>,
+                    isAccountLoading,
+                    { width: '60%' },
+                  )}
+                </DetailDataValue>
+              </li>
+              <li>
+                <DetailDataLabel>{t('public-key')}</DetailDataLabel>
+                <DetailDataValue>
+                  {withSkeletonLoading(
+                    account?.publicKey ? (
+                      <>
+                        <Hash hash={account?.publicKey} />
+                        <CopyToClipboard textToCopy={account?.publicKey} />
+                      </>
+                    ) : (
+                      'Unknown'
+                    ),
+                    isAccountLoading,
+                    { width: '60%' },
+                  )}
+                </DetailDataValue>
+              </li>
 
-            <li>
-              <DetailDataLabel>{t('balance')}</DetailDataLabel>
-              <DetailDataValue>
-                {withSkeletonLoading(
-                  <Coin>{balance ?? ''}</Coin>,
-                  isBalanceLoading || balance === null,
-                  { width: 250 },
-                )}
-              </DetailDataValue>
-            </li>
-            <li>
-              <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
-              <DetailDataValue>
-                {withSkeletonLoading(
-                  account?.rawAccount && (
-                    <RawData rawData={account?.rawAccount} />
-                  ),
-                  isAccountLoading,
-                  { width: 200, height: '2.25rem' },
-                )}
-              </DetailDataValue>
-            </li>
-          </DetailDataList>
-        </DetailDataWrapper>
-      </InfoCard>
+              <li>
+                <DetailDataLabel>{t('balance')}</DetailDataLabel>
+                <DetailDataValue>
+                  {withSkeletonLoading(
+                    <Coin>{balance ?? ''}</Coin>,
+                    isBalanceLoading || balance === null,
+                    { width: 250 },
+                  )}
+                </DetailDataValue>
+              </li>
+              <li>
+                <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
+                <DetailDataValue>
+                  {withSkeletonLoading(
+                    account?.rawAccount && (
+                      <RawData rawData={account?.rawAccount} />
+                    ),
+                    isAccountLoading,
+                    { width: 200, height: '2.25rem' },
+                  )}
+                </DetailDataValue>
+              </li>
+            </DetailDataList>
+          </DetailDataWrapper>
+        </Card.Body>
+      </InfoCardContentWrapper>
     </>
   );
 };

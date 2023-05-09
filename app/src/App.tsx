@@ -1,4 +1,4 @@
-import React, { StrictMode, useEffect, useState } from 'react';
+import React, { StrictMode, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -35,7 +35,22 @@ const { title, faviconUrl } = loadConfig();
 
 const App = () => {
   const [ref, bounds] = useMeasure();
-  const [isLightTheme, setIsLightTheme] = useState(true);
+
+  const isLightThemeConfig = useMemo(() => {
+    let isLightModeConfig = localStorage.getItem('isLightMode');
+
+    if (isLightModeConfig !== null) {
+      isLightModeConfig = JSON.parse(isLightModeConfig) as string;
+
+      if (typeof isLightModeConfig === 'boolean') {
+        return isLightModeConfig;
+      }
+    }
+
+    return true;
+  }, []);
+
+  const [isLightTheme, setIsLightTheme] = useState(isLightThemeConfig);
 
   const dispatch = useAppDispatch();
 

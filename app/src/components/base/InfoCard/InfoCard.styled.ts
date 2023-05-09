@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 
-export const InfoCardSection = styled.section`
+export const InfoCardSection = styled(Card)`
   margin: 0;
   padding: 0;
   width: 100%;
@@ -16,7 +16,7 @@ export const InfoCardSection = styled.section`
   }
 `;
 
-export const InfoCardContentWrapper = styled.div`
+export const InfoCardContentWrapper = styled(Card)`
   width: 100%;
   background: ${props => props.theme.background.primary};
   border: 3px solid ${props => props.theme.border};
