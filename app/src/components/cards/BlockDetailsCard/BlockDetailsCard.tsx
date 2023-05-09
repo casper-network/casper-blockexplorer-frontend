@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
-import { Card } from 'casper-ui-kit';
 import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
 import {
   DetailDataLabel,

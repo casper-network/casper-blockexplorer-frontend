@@ -42,8 +42,9 @@ export const darkTheme = {
     contrast: darkColors.black,
     hash: darkColors.lightWarning,
     warning: darkColors.mediumWarning,
+    success: darkColors.success,
   },
   selected: {
-    primary: lightColors.lightSupporting,
+    primary: darkColors.lightSupporting,
   },
 };

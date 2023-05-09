@@ -3,7 +3,7 @@ import styled, { StyledComponent } from '@emotion/styled';
 import React, { useState } from 'react';
 import Select, { PropsValue } from 'react-select';
 import { pxToRem } from 'casper-ui-kit';
-import { colors } from '../../../../../styled-theme';
+import { lightColors } from 'src/styled-theme';
 import { SelectOptions } from '../partials.types';
 
 export interface CustomSelectProps {
@@ -175,11 +175,11 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     font-weight: 700;
     background: linear-gradient(
       95.02deg,
-      ${colors.gradient1} 0.62%,
-      ${colors.gradient2} 48.99%,
-      ${colors.gradient3} 70.51%,
-      ${colors.gradient4} 70.85%,
-      ${colors.gradient5} 116.85%
+      ${lightColors.gradient1} 0.62%,
+      ${lightColors.gradient2} 48.99%,
+      ${lightColors.gradient3} 70.51%,
+      ${lightColors.gradient4} 70.85%,
+      ${lightColors.gradient5} 116.85%
     );
     background-size: 100%;
     background-clip: text;

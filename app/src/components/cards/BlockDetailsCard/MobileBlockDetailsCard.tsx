@@ -3,9 +3,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { pxToRem } from 'casper-ui-kit';
+import { pxToRem, Card } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
-import { Card } from 'casper-ui-kit';
+
 import { InfoCardContentWrapper } from 'src/components/base';
 import {
   DetailDataLabel,
