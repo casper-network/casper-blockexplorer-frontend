@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
-  }, [isOpened, windowWidth]);
+  }, [isOpened, windowWidth, unlockScroll]);
 
   const { pathname } = useLocation();
 
