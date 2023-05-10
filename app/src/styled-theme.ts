@@ -19,11 +19,6 @@ const {
   LIGHTWARNING,
   DARKWARNING,
   SUCCESS,
-  GRADIENT1,
-  GRADIENT2,
-  GRADIENT3,
-  GRADIENT4,
-  GRADIENT5,
 } = theme;
 
 export const lightColors = {
@@ -41,11 +36,6 @@ export const lightColors = {
   lightWarning: LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue, // TODO: consider changing name to hash?
   darkWarning: DARKWARNING || '', // TODO: consider changing name to muted?
   success: SUCCESS || defaultTheme.colors.secondary.CasperGreen,
-  gradient1: GRADIENT1 || '#1C1E90',
-  gradient2: GRADIENT2 || '#693590',
-  gradient3: GRADIENT3 || '#D81D54',
-  gradient4: GRADIENT4 || '#D81E54',
-  gradient5: GRADIENT5 || '#FD6B52',
 };
 export const darkColors = {
   black: BLACK || defaultTheme.colors.primary.Black,
@@ -61,14 +51,17 @@ export const darkColors = {
   lightWarning: LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue,
   darkWarning: DARKWARNING || defaultTheme.colors.primary.CasperWhite,
   success: SUCCESS || defaultTheme.colors.secondary.CasperGreen,
-  gradient1: GRADIENT1 || '#1C1E90',
-  gradient2: GRADIENT2 || '#693590',
-  gradient3: GRADIENT3 || '#D81D54',
-  gradient4: GRADIENT4 || '#D81E54',
-  gradient5: GRADIENT5 || '#FD6B52',
 };
 
 export const fonts = {
   primaryFont: primaryFontName,
   secondaryFont: secondaryFontName,
+};
+
+export const gradientColors = {
+  gradient1: '#1C1E90',
+  gradient2: '#693590',
+  gradient3: '#D81D54',
+  gradient4: '#D81E54',
+  gradient5: '#FD6B52',
 };

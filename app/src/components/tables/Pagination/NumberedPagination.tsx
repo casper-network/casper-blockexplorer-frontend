@@ -16,7 +16,7 @@ import {
   GreaterThanDark,
 } from 'src/components/icons';
 import { useTheme } from '@emotion/react';
-import { lightColors } from 'src/styled-theme';
+import { gradientColors } from 'src/styled-theme';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -281,11 +281,11 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
     transition: ease-in-out, font-weight, color, 400ms;
     background: linear-gradient(
       95.02deg,
-      ${lightColors.gradient1} 0.62%,
-      ${lightColors.gradient2} 48.99%,
-      ${lightColors.gradient3} 70.51%,
-      ${lightColors.gradient4} 70.85%,
-      ${lightColors.gradient5} 116.85%
+      ${gradientColors.gradient1} 0.62%,
+      ${gradientColors.gradient2} 48.99%,
+      ${gradientColors.gradient3} 70.51%,
+      ${gradientColors.gradient4} 70.85%,
+      ${gradientColors.gradient5} 116.85%
     );
     background-size: 100%;
     background-clip: text;

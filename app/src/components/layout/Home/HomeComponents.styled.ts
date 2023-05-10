@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
-import { lightColors } from '../../../styled-theme';
+import { gradientColors } from 'src/styled-theme';
 
 export const IconH2Container = styled.div`
   display: flex;
@@ -33,11 +33,11 @@ export const PageLink = styled(Link)`
     background-color: ${props => props.theme.button};
     background-image: linear-gradient(
       90deg,
-      ${lightColors.gradient1},
-      ${lightColors.gradient2},
-      ${lightColors.gradient3},
-      ${lightColors.gradient4},
-      ${lightColors.gradient5}
+      ${gradientColors.gradient1},
+      ${gradientColors.gradient2},
+      ${gradientColors.gradient3},
+      ${gradientColors.gradient4},
+      ${gradientColors.gradient5}
     );
     background-size: 100%;
     background-clip: text;
