@@ -10,7 +10,8 @@ export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
   logoUrl?: string;
-  theme: Theme;
+  darkTheme: Theme;
+  lightTheme: Theme;
   faviconUrl?: string | undefined;
   logoSize: number;
   title?: string | undefined;
@@ -31,7 +32,8 @@ export const loadConfig: () => AppConfig = () => {
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
     REACT_APP_ORG_LOGO_SIZE: reactAppLogoSize,
-    REACT_APP_THEME: reactAppTheme,
+    REACT_APP_LIGHT_THEME: reactAppLightTheme,
+    REACT_APP_DARK_THEME: reactAppDarkTheme,
     REACT_APP_ORG_NAME: reactAppName,
     REACT_APP_ORG_FAVICON_URL: reactAppFaviconUrl,
     REACT_APP_ORG_FONT_URL: reactAppFontUrl,
@@ -42,7 +44,8 @@ export const loadConfig: () => AppConfig = () => {
     MIDDLEWARE_URL: middlewareUrl,
     ORG_LOGO_URL: orgLogoUrl,
     ORG_LOGO_SIZE: orgLogoSize,
-    THEME: prodTheme,
+    DARK_THEME: prodDarkTheme,
+    LIGHT_THEME: prodLightTheme,
     ORG_NAME: orgName,
     ORG_FAVICON_URL: orgFaviconUrl,
     ORG_FONT_URL: orgFontUrl,
@@ -51,7 +54,6 @@ export const loadConfig: () => AppConfig = () => {
   } = ENV;
 
   const isProduction = NODE_ENV === 'production';
-
   const webServerUrl = isProduction
     ? middlewareUrl
     : reactAppMiddlewareUrl || 'http://localhost:4000';
@@ -64,9 +66,12 @@ export const loadConfig: () => AppConfig = () => {
       : Math.abs(orgLogoSize)
     : +reactAppLogoSize! || 0;
 
-  const theme = isProduction
-    ? JSON.parse(prodTheme || '{}')
-    : JSON.parse(reactAppTheme || '{}');
+  const lightTheme = JSON.parse(
+    (isProduction ? prodLightTheme : reactAppLightTheme) || '{}',
+  );
+  const darkTheme = JSON.parse(
+    (isProduction ? prodDarkTheme : reactAppDarkTheme) || '{}',
+  );
 
   const title = isProduction ? orgName : reactAppName || '';
 
@@ -91,7 +96,8 @@ export const loadConfig: () => AppConfig = () => {
     webServerUrl,
     logoUrl,
     logoSize,
-    theme,
+    darkTheme,
+    lightTheme,
     faviconUrl,
     title,
     fontUrl,

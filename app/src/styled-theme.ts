@@ -5,52 +5,50 @@ import { loadConfig } from './utils';
  * Emotion recommends that you only use an actual theme if you support multiple
  * https://emotion.sh/docs/best-practices#dont-use-a-theme-unless-your-app-supports-multiple-themes-or-will-eventually-support-multiple-themes
  */
-const { theme, primaryFontName, secondaryFontName } = loadConfig();
-const {
-  BLACK,
-  WHITE,
-  PRIMARY,
-  SECONDARY,
-  LIGHTSUPPORTING,
-  BOXSHADOW,
-  MEDIUMSUPPORTING,
-  DARKSUPPORTING,
-  MEDIUMWARNING,
-  LIGHTWARNING,
-  DARKWARNING,
-  SUCCESS,
-} = theme;
+const { lightTheme, darkTheme, primaryFontName, secondaryFontName } =
+  loadConfig();
 
 export const lightColors = {
-  black: BLACK || defaultTheme.colors.primary.Black,
-  white: WHITE || defaultTheme.colors.secondary.White,
-  primary: PRIMARY || defaultTheme.colors.lowContrastSecondary.CasperLightBlue,
+  black: lightTheme.BLACK || defaultTheme.colors.primary.Black,
+  white: lightTheme.WHITE || defaultTheme.colors.secondary.White,
+  primary:
+    lightTheme.PRIMARY ||
+    defaultTheme.colors.lowContrastSecondary.CasperLightBlue,
   secondary:
-    SECONDARY || defaultTheme.colors.lowContrastSecondary.CasperLightGrey,
+    lightTheme.SECONDARY ||
+    defaultTheme.colors.lowContrastSecondary.CasperLightGrey,
   lightSupporting:
-    LIGHTSUPPORTING || defaultTheme.colors.secondary.CasperYellow,
-  boxShadow: BOXSHADOW || defaultTheme.colors.secondary.BoxShadow,
-  mediumSupporting: MEDIUMSUPPORTING || defaultTheme.colors.secondary.Whisper,
-  darkSupporting: DARKSUPPORTING || defaultTheme.colors.secondary.SlateGrey,
-  mediumWarning: MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
-  lightWarning: LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue, // TODO: consider changing name to hash?
-  darkWarning: DARKWARNING || '', // TODO: consider changing name to muted?
-  success: SUCCESS || defaultTheme.colors.secondary.CasperGreen,
+    lightTheme.LIGHTSUPPORTING || defaultTheme.colors.secondary.CasperYellow,
+  boxShadow: lightTheme.BOXSHADOW || defaultTheme.colors.secondary.BoxShadow,
+  mediumSupporting:
+    lightTheme.MEDIUMSUPPORTING || defaultTheme.colors.secondary.Whisper,
+  darkSupporting:
+    lightTheme.DARKSUPPORTING || defaultTheme.colors.secondary.SlateGrey,
+  mediumWarning:
+    lightTheme.MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
+  lightWarning:
+    lightTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue, // TODO: consider changing name to hash?
+  darkWarning: lightTheme.DARKWARNING || '', // TODO: consider changing name to muted?
+  success: lightTheme.SUCCESS || defaultTheme.colors.secondary.CasperGreen,
 };
 export const darkColors = {
-  black: BLACK || defaultTheme.colors.primary.Black,
-  white: WHITE || defaultTheme.colors.secondary.White,
-  primary: PRIMARY || defaultTheme.colors.secondary.CasperYellow,
-  secondary: SECONDARY || defaultTheme.colors.secondary.Nero,
+  black: darkTheme.BLACK || defaultTheme.colors.primary.Black,
+  white: darkTheme.WHITE || defaultTheme.colors.secondary.White,
+  primary: darkTheme.PRIMARY || defaultTheme.colors.secondary.CasperYellow,
+  secondary: darkTheme.SECONDARY || defaultTheme.colors.secondary.Nero,
   lightSupporting:
-    LIGHTSUPPORTING || defaultTheme.colors.secondary.CasperPalePink,
-  boxShadow: BOXSHADOW || defaultTheme.colors.secondary.DarkBoxShadow,
-  mediumSupporting: MEDIUMSUPPORTING || defaultTheme.colors.secondary.Eclipse,
-  darkSupporting: DARKSUPPORTING || defaultTheme.colors.secondary.Grey84,
-  mediumWarning: MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
-  lightWarning: LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue,
-  darkWarning: DARKWARNING || defaultTheme.colors.primary.CasperWhite,
-  success: SUCCESS || defaultTheme.colors.secondary.CasperGreen,
+    darkTheme.LIGHTSUPPORTING || defaultTheme.colors.secondary.CasperPalePink,
+  boxShadow: darkTheme.BOXSHADOW || defaultTheme.colors.secondary.DarkBoxShadow,
+  mediumSupporting:
+    darkTheme.MEDIUMSUPPORTING || defaultTheme.colors.secondary.Eclipse,
+  darkSupporting:
+    darkTheme.DARKSUPPORTING || defaultTheme.colors.secondary.Grey84,
+  mediumWarning:
+    darkTheme.MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
+  lightWarning:
+    darkTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue,
+  darkWarning: darkTheme.DARKWARNING || defaultTheme.colors.primary.CasperWhite,
+  success: darkTheme.SUCCESS || defaultTheme.colors.secondary.CasperGreen,
 };
 
 export const fonts = {
