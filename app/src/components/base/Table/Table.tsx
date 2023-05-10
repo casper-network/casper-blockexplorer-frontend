@@ -199,8 +199,7 @@ const StyledTable = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: ${props =>
-    props.theme.background.secondary}; // casper light grey
+  background-color: ${props => props.theme.background.secondary};
 `;
 
 const TableHeader = styled.tr`
@@ -231,7 +230,7 @@ const TableBodyRow = styled.tr`
   height: ${pxToRem(50)};
   :hover {
     background-color: ${props => props.theme.background.secondary};
-  } // casper light grey
+  }
 `;
 
 const TableBodyItem = styled.td`
@@ -239,12 +238,12 @@ const TableBodyItem = styled.td`
   padding: 0 ${pxToRem(32)};
   border-bottom: ${pxToRem(1)} solid
     ${props => props.theme.background.secondary};
-`; // casper light grey
+`;
 
 const SortIconWrapper = styled.div<{ disabled?: boolean }>`
   height: ${pxToRem(27)};
   width: ${pxToRem(27)};
-  background-color: ${props => props.theme.button}; // casper light blue
+  background-color: ${props => props.theme.button};
   display: flex;
   justify-content: center;
   align-items: center;
