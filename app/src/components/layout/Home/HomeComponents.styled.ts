@@ -29,21 +29,8 @@ export const PageLink = styled(Link)`
 
   :hover,
   :focus {
-    background-color: ${colors.primary};
-    background-image: linear-gradient(
-      90deg,
-      ${colors.gradient1},
-      ${colors.gradient2},
-      ${colors.gradient3},
-      ${colors.gradient4},
-      ${colors.gradient5}
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
+    color: ${props => props.theme.border};
+    transition: ease-in-out, color, 400ms;
     text-decoration: none;
   }
 `;
