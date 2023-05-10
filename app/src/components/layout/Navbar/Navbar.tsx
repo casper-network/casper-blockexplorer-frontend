@@ -52,7 +52,7 @@ export const Navbar: React.FC = () => {
 
   const { lockScroll, unlockScroll } = useScrollLock();
 
-  const navButtonHandler = () => {
+  const mobileNavMenuHandler = () => {
     if (!isOpened) {
       setIsOpened(true);
       lockScroll();
@@ -97,10 +97,13 @@ export const Navbar: React.FC = () => {
   return (
     <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
       <NavComponentsContainer>
-        <NavButton type="button" onClick={navButtonHandler} color="transparent">
+        <NavButton
+          type="button"
+          onClick={mobileNavMenuHandler}
+          color="transparent">
           <Icon
             icon={isOpened ? 'CloseMenuIcon' : 'OpenMenuIcon'}
-            height={30}
+            height={35}
             width={35}
             strokeWidth={4}
           />
