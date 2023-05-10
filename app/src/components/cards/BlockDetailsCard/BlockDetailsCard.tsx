@@ -237,9 +237,10 @@ const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
   min-width: ${pxToRem(360)};
   overflow-wrap: break-word;
-  font-size: ${pxToRem(60)};
+  font-size: ${({ isTruncated }) =>
+    isTruncated ? `${pxToRem(60)}` : '3.3rem'};
   color: ${props => props.theme.text.hash};
-  line-height: 1;
+  line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 `;
 
 const DetailDataRowWrapper = styled.ul`

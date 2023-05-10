@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { useAppWidth } from 'src/hooks';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
 import { pxToRem, defaultTheme, Card } from 'casper-ui-kit';
@@ -29,7 +28,6 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   isLoading,
 }) => {
   const [isTruncated, setIsTruncated] = useState(true);
-  const { isMobile } = useAppWidth();
   const { t } = useTranslation();
 
   return (
@@ -38,10 +36,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
         <HashWrapper>
           {withSkeletonLoading(
             <>
-              <HashHeading
-                type="h2"
-                isTruncated={isTruncated}
-                isMobile={isMobile}>
+              <HashHeading type="h2" isTruncated={isTruncated}>
                 <Hash
                   hash={deploy?.blockHash ?? hashPlaceholder}
                   alwaysTruncate={isTruncated}
@@ -134,16 +129,19 @@ const HashWrapper = styled.div`
 
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
-  isMobile: boolean;
 }>`
   font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
-  overflow-wrap: ${({ isMobile }) => (isMobile ? 'none' : 'break-word')};
+  overflow-wrap: none;
   font-size: ${pxToRem(60)};
   color: ${props => props.theme.text.hash};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    overflow-wrap: break-word;
+  }
 `;
 
 const StyledHashLink = styled(Link)`

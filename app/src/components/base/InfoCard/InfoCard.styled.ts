@@ -33,9 +33,11 @@ export const InfoCardContentWrapper = styled(Card)`
 `;
 
 export const HeadContentWrapper = styled.div`
+  padding-top: 2rem;
   margin-bottom: 2rem;
-`;
 
-export const FootContentWrapper = styled.div`
-  margin-top: 1rem;
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .md}) {
+    padding: 0;
+  }
 `;

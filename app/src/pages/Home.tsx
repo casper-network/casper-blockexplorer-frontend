@@ -54,14 +54,14 @@ const HomeContentContainer = styled.div<{ isFirstVisit: boolean }>`
   flex-direction: column;
   margin: 0 auto;
   max-width: 17.2rem;
-  padding-top: 0;
+  padding-top: 2rem;
 
   @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     min-width: 39rem;
     flex-direction: row;
     justify-content: center;
     gap: ${pxToRem(60)};
-    padding-top: ${pxToRem(32)};
+    padding-top: ${pxToRem(36)};
   }
 
   @media (min-width: ${defaultTheme.typography.breakpoints.md}) {

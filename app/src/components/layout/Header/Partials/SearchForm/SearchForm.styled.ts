@@ -125,7 +125,7 @@ export const SubmitButton = styled.button`
 export const ErrorMessageContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
   position: absolute;
   right: 0;
   left: 0;
