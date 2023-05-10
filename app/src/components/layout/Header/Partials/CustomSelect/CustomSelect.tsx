@@ -171,6 +171,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__option:focus {
     color: ${props => props.theme.border};
     transition: ease-in-out, color, 400ms;
+    cursor: pointer;
   }
 
   .react-select__option {
