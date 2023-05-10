@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppWidth } from 'src/hooks';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
 import {
@@ -34,7 +33,7 @@ import {
   RawData,
   withSkeletonLoading,
 } from '../../utility';
-import { fontWeight, pxToRem } from '../../../styled-theme';
+import { breakpoints, fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
@@ -46,7 +45,6 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   balance,
 }) => {
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
-  const { isMobile } = useAppWidth();
   const { t } = useTranslation();
 
   const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
@@ -68,10 +66,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 isTruncated={isTruncated}
               />
               <HashExpandWrapper>
-                <HashHeading
-                  type="h2"
-                  isTruncated={isTruncated}
-                  isMobile={isMobile}>
+                <HashHeading type="h2" isTruncated={isTruncated}>
                   <Hash
                     hash={account?.trimmedAccountHash ?? hashPlaceholder}
                     alwaysTruncate={isTruncated}
@@ -172,8 +167,11 @@ const AccountDetailsWrapper = styled.div`
 const HeadContentContainer = styled(HeadContentWrapper)<{
   isTruncated?: boolean;
 }>`
-  margin: 0;
-  margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
+  margin-bottom: 0.5rem;
+
+  @media (min-width: ${breakpoints.lg}) {
+    margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
+  }
 `;
 
 const AvatarHashContainer = styled.div`
@@ -189,17 +187,21 @@ const HashExpandWrapper = styled.div`
 
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
-  isMobile: boolean;
 }>`
   font-weight: ${fontWeight.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
-  width: ${({ isTruncated, isMobile }) =>
-    isTruncated || isMobile ? '10%' : '50vw'};
+  width: 10%;
   overflow-wrap: break-word;
   word-break: break-word;
   font-size: ${pxToRem(60)};
   color: ${props => props.theme.text.hash};
-  line-height: 65px;
+  line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
+
+  @media (min-width: ${breakpoints.lg}) {
+    font-size: ${({ isTruncated }) =>
+      isTruncated ? `${pxToRem(60)} ` : '3.3rem'};
+    width: ${({ isTruncated }) => (isTruncated ? '10%' : '50vw')};
+  }
 `;
