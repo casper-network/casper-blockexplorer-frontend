@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { breakpoints, colors, pxToRem } from 'src/styled-theme';
+import { breakpoints, pxToRem } from 'src/styled-theme';
 import { t } from 'i18next';
 import { Button } from '../base';
 
@@ -43,7 +43,7 @@ const StyledHashButton = styled(Button)<{
 }>`
   display: none;
   color: ${props => props.theme.text.secondary};
-  font-weight: 400;
+  font-weight: 500;
   background-color: transparent;
   border-style: none;
   padding: 0 ${pxToRem(5)};
@@ -70,23 +70,9 @@ const StyledHashButton = styled(Button)<{
 
   :active,
   :hover {
-    transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
-    background: linear-gradient(
-      95.02deg,
-      ${colors.gradient1} 0.62%,
-      ${colors.gradient2} 48.99%,
-      ${colors.gradient3} 70.51%,
-      ${colors.gradient4} 70.85%,
-      ${colors.gradient5} 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
+    transition: ease-in-out, color, 400ms;
+    color: ${props => props.theme.border};
+    transition: ease-in-out, color, 400ms;
 
     /* Safari Version 15.4 (11-15 up to Monterey)*/
     @media not all and (min-resolution: 0.001dpcm) {
