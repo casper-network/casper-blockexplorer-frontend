@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { useAppWidth } from 'src/hooks';
-import { colors, pxToRem } from 'src/styled-theme';
+import { breakpoints, colors, pxToRem } from 'src/styled-theme';
 import { t } from 'i18next';
 import { Button } from '../base';
 
@@ -19,8 +18,6 @@ export const HashButton: React.FC<HashButtonProps> = ({
   isAvatar,
   heading,
 }) => {
-  const { isMobile } = useAppWidth();
-
   const toggleHashView = () => {
     setIsTruncated(() => !isTruncated);
   };
@@ -32,7 +29,6 @@ export const HashButton: React.FC<HashButtonProps> = ({
       isAvatar={isAvatar}
       type="button"
       onClick={toggleHashView}
-      isMobile={isMobile}
       buttonPosition={buttonPosition}
       heading={heading}>
       {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
@@ -41,12 +37,11 @@ export const HashButton: React.FC<HashButtonProps> = ({
 };
 
 const StyledHashButton = styled(Button)<{
-  isMobile: boolean;
   isAvatar: boolean | undefined;
   buttonPosition: string;
   heading: string | undefined;
 }>`
-  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
+  display: none;
   color: ${props => props.theme.text.secondary};
   font-weight: 400;
   background-color: transparent;
@@ -59,6 +54,10 @@ const StyledHashButton = styled(Button)<{
   margin-left: ${({ isAvatar }) =>
     isAvatar ? `${pxToRem(65)}` : `${pxToRem(-5)}`};
   margin-bottom: ${({ isAvatar }) => (isAvatar ? '2rem' : '0')};
+
+  @media (min-width: ${breakpoints.lg}) {
+    display: block;
+  }
 
   /* Safari Version 15.4 (11-15 up to Monterey)*/
   @media not all and (min-resolution: 0.001dpcm) {
