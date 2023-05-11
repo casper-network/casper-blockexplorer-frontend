@@ -10,7 +10,7 @@ import {
 } from 'src/store';
 import Skeleton from 'react-loading-skeleton';
 import { Icon } from 'casper-ui-kit';
-import { colors } from 'src/styled-theme';
+import { darkTheme, lightTheme } from 'src/theme';
 import {
   IconH2Container,
   H2,
@@ -47,7 +47,11 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
               width={49}
               height={16}
               color="none"
-              stroke={themeType === 'light' ? colors.black : colors.white}
+              stroke={
+                themeType === 'light'
+                  ? lightTheme.text.primary
+                  : darkTheme.text.primary
+              }
             />
           }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem } from 'casper-ui-kit';
 import { ReactComponent as CopiedSVG } from '../../icons/copied-icon.svg';
 import { ReactComponent as CopySVG } from '../../icons/copy-icon.svg';
 import { copyToClipboard } from '../../../utils';
@@ -41,24 +41,24 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 };
 
 const CopyIcon = styled(CopySVG)`
-  fill: ${colors.darkSupporting};
+  fill: ${props => props.theme.text.secondary};
   transition: all;
   width: 1rem;
   height: 1rem;
   margin-left: ${pxToRem(5)};
 
   :focus {
-    color: ${colors.success};
+    color: ${props => props.theme.text.success};
   }
   :hover {
-    fill: ${colors.mediumWarning};
+    fill: ${props => props.theme.text.warning};
   }
 `;
 
 const CopiedIcon = styled(CopiedSVG)`
   width: 1rem;
   height: 1rem;
-  background-color: ${colors.success};
+  background-color: ${props => props.theme.text.success};
   border-radius: 0.125rem;
   margin-left: ${pxToRem(5)};
 `;

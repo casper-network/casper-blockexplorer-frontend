@@ -2,8 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
-import { pxToRem } from 'src/styled-theme';
-import { Logo } from 'casper-ui-kit';
+
+import { Logo, pxToRem } from 'casper-ui-kit';
 
 export const DefaultNavLogo: React.FC = () => {
   return (

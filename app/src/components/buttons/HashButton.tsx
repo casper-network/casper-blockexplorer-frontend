@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { breakpoints, pxToRem } from 'src/styled-theme';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
+
 import { t } from 'i18next';
+import { gradientColors } from 'src/styled-theme';
 import { Button } from '../base';
 
 export interface HashButtonProps {
@@ -55,7 +57,7 @@ const StyledHashButton = styled(Button)<{
     isAvatar ? `${pxToRem(65)}` : `${pxToRem(-5)}`};
   margin-bottom: ${({ isAvatar }) => (isAvatar ? '2rem' : '0')};
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: block;
   }
 

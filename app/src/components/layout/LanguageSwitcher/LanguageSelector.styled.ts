@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
-import { colors } from 'src/styled-theme';
+import { lightTheme } from 'src/theme';
 
 export const LanguageSelectorWrapper = styled.div``;
 
 export const LanguageSelectorButton = styled.button`
-  border: ${colors.black} 2px solid;
+  border: ${props => props.theme.text.primary} 2px solid;
   text-align: center;
   padding: 0.26rem 1rem;
   cursor: pointer;
-  color: ${colors.black};
-  background-color: ${colors.white};
+  color: ${props => props.theme.text.primary};
+  background-color: ${lightTheme.text.contrast};
 
   :disabled {
-    background-color: ${colors.primary};
-    color: ${colors.white};
+    background-color: ${props => props.theme.text.primary};
+    color: ${lightTheme.text.contrast};
   }
 `;

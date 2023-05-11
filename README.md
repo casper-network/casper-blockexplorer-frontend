@@ -25,25 +25,28 @@ ORG_FAVICON_URL=https://example.com/your-favicon
 ORG_FONT_URL=https://fonts.googleapis.com/css2?family=your-font-name:wght@your-font-weights-separated-by-semi-colons&display=swap
 ORG_PRIMARY_FONT_NAME=your-font-name
 ORG_SECONDARY_FONT_NAME=your-font-name
-THEME={
-  "BLACK":"[Desired color]",
-  "WHITE":"[Desired color]",
-  "PRIMARY":"[Desired color]",
-  "SECONDARY":"[Desired color]",
-  "LIGHTSUPPORTING":"[Desired color]",
-  "BOXSHADOW":"[Desired color]",
-  "MEDIUMSUPPORTING":"[Desired color]",
-  "DARKSUPPORTING":"[Desired color]",
-  "MEDIUMWARNING":"[Desired color]",
-  "LIGHTWARNING":"[Desired color]",
-  "DARKWARNING":"[Desired color]",
-  "SUCCESS":"[Desired color]",
-  "GRADIENT1":"[Desired color]",
-  "GRADIENT2":"[Desired color]",
-  "GRADIENT3":"[Desired color]",
-  "GRADIENT4":"[Desired color]",
-  "GRADIENT5":"[Desired color]",
-  }
+```
+
+You can provide some, none, or all of the colors. Similarly, you can provide light and/or dark mode.
+
+```
+LIGHT_THEME={
+  "PRIMARY":"pink",
+  "SECONDARY":"",
+  "LIGHTSUPPORTING":"",
+  "BOXSHADOW":"",
+  "MEDIUMSUPPORTING":"",
+  "DARKSUPPORTING":"",
+  "MEDIUMWARNING":"",
+  "LIGHTWARNING":"",
+  "DARKWARNING":"",
+  "SUCCESS":""
+}
+
+DARK_THEME={
+  "PRIMARY":"blue"
+}
+
 ```
 
 2. Run `make prod-build` or `make dev-build` if you are using the app for development purposes (HMR and debug modes will be enabled).

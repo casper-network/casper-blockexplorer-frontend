@@ -9,7 +9,7 @@ import {
   Loading,
   useAppSelector,
 } from 'src/store';
-import { Card } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -33,7 +33,6 @@ import {
   RawData,
   withSkeletonLoading,
 } from '../../utility';
-import { breakpoints, fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
@@ -155,7 +154,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
 const AccountHeading = styled(Heading)`
   font-size: 1.25rem;
-  font-weight: ${fontWeight.normal};
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
   margin-bottom: 2rem;
   color: ${props => props.theme.text.primary};
 `;
@@ -169,7 +168,7 @@ const HeadContentContainer = styled(HeadContentWrapper)<{
 }>`
   margin-bottom: 0.5rem;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
   }
 `;
@@ -188,7 +187,7 @@ const HashExpandWrapper = styled.div`
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
 }>`
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
@@ -199,7 +198,7 @@ const HashHeading = styled(Heading)<{
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     font-size: ${({ isTruncated }) =>
       isTruncated ? `${pxToRem(60)} ` : '3.3rem'};
     width: ${({ isTruncated }) => (isTruncated ? '10%' : '50vw')};

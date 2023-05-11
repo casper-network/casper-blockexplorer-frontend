@@ -2,8 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { breakpoints, pxToRem } from 'src/styled-theme';
-import { Loader } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Loader } from 'casper-ui-kit';
 import { GradientHeading } from '../../styled';
 
 export interface PageError {
@@ -72,7 +71,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   padding: 0 ${pxToRem(24)};
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     padding: 0 ${pxToRem(32)};
   }
 `;

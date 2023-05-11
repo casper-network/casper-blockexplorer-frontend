@@ -2,7 +2,7 @@ import { Theme } from '@emotion/react';
 import styled, { StyledComponent } from '@emotion/styled';
 import React, { useState } from 'react';
 import Select, { PropsValue } from 'react-select';
-import { pxToRem } from '../../../../../styled-theme';
+import { pxToRem } from 'casper-ui-kit';
 import { SelectOptions } from '../partials.types';
 
 export interface CustomSelectProps {

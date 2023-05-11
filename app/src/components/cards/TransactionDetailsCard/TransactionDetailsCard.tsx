@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { Icon, Card } from 'casper-ui-kit';
+import { Icon, Card, pxToRem, defaultTheme } from 'casper-ui-kit';
 import { InfoCardContentWrapper } from 'src/components/base';
 import {
   DetailDataLabel,
@@ -12,7 +12,7 @@ import {
   HideOnDesktop,
   HideOnMobile,
 } from '../../styled';
-import { breakpoints, fonts, fontWeight, pxToRem } from '../../../styled-theme';
+import { fonts } from '../../../styled-theme';
 import { HeadContentWrapper, Heading } from '../../base';
 import { Coin, withSkeletonLoading } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
@@ -147,14 +147,15 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
 const TransactionGrid = styled(Grid)`
   grid-template-columns: 1fr;
 
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     grid-template-columns: 1fr 1fr;
   }
 `;
 
 const TransactionHeading = styled(Heading)`
   font-size: ${pxToRem(18)};
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   color: ${props => props.theme.text.primary};
 `;
 

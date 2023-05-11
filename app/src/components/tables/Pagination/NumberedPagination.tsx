@@ -7,8 +7,8 @@ import { CustomSelect } from 'src/components/layout/Header/Partials/CustomSelect
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
-import { pxToRem } from 'src/styled-theme';
 import { standardizeNumber } from 'src/utils';
+import { pxToRem } from 'casper-ui-kit';
 import {
   LessThanLight,
   GreaterThanLight,
@@ -16,6 +16,7 @@ import {
   GreaterThanDark,
 } from 'src/components/icons';
 import { useTheme } from '@emotion/react';
+import { gradientColors } from 'src/styled-theme';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];

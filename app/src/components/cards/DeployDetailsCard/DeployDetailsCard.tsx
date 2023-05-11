@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
-import { Card } from 'casper-ui-kit';
+import { pxToRem, defaultTheme, Card } from 'casper-ui-kit';
 import { InfoCardContentWrapper } from 'src/components/base';
 import { Heading } from '../../base';
 import { Deploy } from '../../../api';
@@ -17,7 +17,6 @@ import {
 } from '../../styled';
 
 import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
-import { breakpoints, fontWeight, pxToRem } from '../../../styled-theme';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy | null;
@@ -131,7 +130,7 @@ const HashWrapper = styled.div`
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
 }>`
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
@@ -140,7 +139,7 @@ const HashHeading = styled(Heading)<{
   font-size: ${pxToRem(60)};
   color: ${props => props.theme.text.hash};
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     overflow-wrap: break-word;
   }
 `;

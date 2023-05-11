@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'casper-ui-kit';
+import { defaultTheme, Icon } from 'casper-ui-kit';
 import {
   IconH2Container,
   H2,
@@ -10,7 +10,6 @@ import {
   H3Data,
   DataContext,
 } from '../HomeComponents.styled';
-import { breakpoints, colors } from '../../../../styled-theme';
 
 export const DeploysInfo: React.FC = () => {
   const { t } = useTranslation();
@@ -38,16 +37,16 @@ export const DeploysInfo: React.FC = () => {
 const DeploysInfoDisplay = styled.section`
   display: none;
   border-radius: 0.5rem;
-  background: ${colors.white};
-  border: 0.063rem solid ${colors.mediumSupporting};
-  box-shadow: 0px 2px 7px ${colors.boxShadow};
+  background: ${props => props.theme.background.primary};
+  border: 0.063rem solid ${props => props.theme.background.hover};
+  box-shadow: 0px 2px 7px ${props => props.theme.boxShadow};
   padding-bottom: 1.5rem;
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     min-width: 44.5%;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     min-width: 40%;
   }
 `;
@@ -64,7 +63,7 @@ const DeployDetails = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  border-top: 0.094rem solid ${colors.secondary};
+  border-top: 0.094rem solid ${props => props.theme.background.secondary};
   padding: 0 0;
   margin: 0 2rem;
 `;
