@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { NavbarItemLinkButton } from 'src/components/buttons';
 import { Icon } from 'casper-ui-kit';
+import { useScrollLock } from 'src/hooks/use-scroll-lock';
+import { MOBILE_BREAKPOINT } from 'src/constants';
 import { NavButton } from '../../buttons/NavButton';
 
 import {
@@ -48,12 +50,32 @@ export const Navbar: React.FC = () => {
   const isFirstVisit = useAppSelector(getIsFirstVisit);
   const { t } = useTranslation();
 
+  const { lockScroll, unlockScroll } = useScrollLock();
+
+  const mobileNavMenuHandler = () => {
+    if (!isOpened) {
+      setIsOpened(true);
+      lockScroll();
+    } else {
+      setIsOpened(false);
+      unlockScroll();
+    }
+  };
+
+  const windowWidth = window.innerWidth || 0;
+
   useEffect(() => {
+    if (windowWidth > MOBILE_BREAKPOINT) {
+      setIsOpened(false);
+      unlockScroll();
+    }
+
     const escKeyHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
         if (isOpened) {
           setIsOpened(false);
+          unlockScroll();
         }
       }
     };
@@ -63,7 +85,7 @@ export const Navbar: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
-  }, [isOpened]);
+  }, [isOpened, windowWidth, unlockScroll]);
 
   const { pathname } = useLocation();
 
@@ -77,12 +99,13 @@ export const Navbar: React.FC = () => {
       <NavComponentsContainer>
         <NavButton
           type="button"
-          onClick={() => setIsOpened(!isOpened)}
+          onClick={mobileNavMenuHandler}
           color="transparent">
           <Icon
-            icon={isOpened ? 'OpenMenuIcon' : 'CloseMenuIcon'}
-            height={30}
+            icon={isOpened ? 'CloseMenuIcon' : 'OpenMenuIcon'}
+            height={35}
             width={35}
+            strokeWidth={4}
           />
         </NavButton>
         <NavItemsContainer>
@@ -94,7 +117,10 @@ export const Navbar: React.FC = () => {
                     <li key={key}>
                       <MobileNavItemLink
                         to={path}
-                        onClick={() => setIsOpened(false)}>
+                        onClick={() => {
+                          setIsOpened(false);
+                          unlockScroll();
+                        }}>
                         {t(title)}
                       </MobileNavItemLink>
                     </li>
