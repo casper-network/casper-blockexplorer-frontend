@@ -9,8 +9,8 @@ import {
   AccordionItemPanel,
   AccordionItemState,
 } from 'react-accessible-accordion';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
 import styled from '@emotion/styled';
-import { fontWeight, pxToRem } from '../../../styled-theme';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -57,7 +57,7 @@ const RawDataToggleButton = styled(AccordionItemButton)`
   color: ${props => props.theme.text.primary};
   padding: 0.4rem 1.25rem;
   font-size: 1.25rem;
-  font-weight: ${fontWeight.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   border-radius: 0.35rem;
   transition: ease-in 0.2s;
   width: ${pxToRem(188)};

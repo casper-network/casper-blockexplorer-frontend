@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { breakpoints } from '../../../styled-theme';
+import { defaultTheme } from 'casper-ui-kit';
 
 export const HideOnMobile = styled.div`
   display: none;
 
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     display: block;
   }
 `;
@@ -12,7 +13,8 @@ export const HideOnMobile = styled.div`
 export const HideOnDesktop = styled.div`
   display: block;
 
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     display: none;
   }
 `;

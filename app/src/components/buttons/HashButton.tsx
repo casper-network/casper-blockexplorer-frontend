@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { breakpoints, colors, pxToRem } from 'src/styled-theme';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
+
 import { t } from 'i18next';
+import { gradientColors } from 'src/styled-theme';
 import { Button } from '../base';
 
 export interface HashButtonProps {
@@ -55,7 +57,7 @@ const StyledHashButton = styled(Button)<{
     isAvatar ? `${pxToRem(65)}` : `${pxToRem(-5)}`};
   margin-bottom: ${({ isAvatar }) => (isAvatar ? '2rem' : '0')};
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: block;
   }
 
@@ -74,11 +76,11 @@ const StyledHashButton = styled(Button)<{
     font-weight: 700;
     background: linear-gradient(
       95.02deg,
-      ${colors.gradient1} 0.62%,
-      ${colors.gradient2} 48.99%,
-      ${colors.gradient3} 70.51%,
-      ${colors.gradient4} 70.85%,
-      ${colors.gradient5} 116.85%
+      ${gradientColors.gradient1} 0.62%,
+      ${gradientColors.gradient2} 48.99%,
+      ${gradientColors.gradient3} 70.51%,
+      ${gradientColors.gradient4} 70.85%,
+      ${gradientColors.gradient5} 116.85%
     );
     background-size: 100%;
     background-clip: text;

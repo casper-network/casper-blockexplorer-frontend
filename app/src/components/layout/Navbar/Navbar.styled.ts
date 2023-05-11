@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Button } from 'src/components/base';
-import { breakpoints, colors, pxToRem } from '../../../styled-theme';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
@@ -9,7 +9,7 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   width: fit-content;
   height: ${pxToRem(136)};
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     width: 100%;
   }
 `;
@@ -32,7 +32,7 @@ export const NavItemsContainer = styled.div`
 `;
 
 export const MobileNav = styled.nav`
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: none;
   }
 `;
@@ -62,7 +62,7 @@ export const MobileNavItemLink = styled(Link)`
 
   :hover {
     transition: color ease-in 200ms;
-    color: ${colors.darkWarning};
+    color: ${props => props.theme.text.warning};
     transition-property: color;
     text-decoration: none;
   }
@@ -71,7 +71,7 @@ export const MobileNavItemLink = styled(Link)`
 export const DesktopNav = styled.nav`
   display: none;
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     display: flex;
   }
 `;
@@ -99,8 +99,8 @@ export const DesktopNavItemLink = styled(Button)`
 
   :active,
   :hover {
-    color: ${colors.white};
-    background-color: ${colors.primary};
+    color: ${props => props.theme.background.primary};
+    background-color: ${props => props.theme.border};
     padding: ${pxToRem(6)} ${pxToRem(20)};
     text-decoration: none;
   }

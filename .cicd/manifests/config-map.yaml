@@ -12,4 +12,5 @@ data:
   ORG_FONT_URL: {{or .Values.orgFontUrl "" | quote}}
   ORG_PRIMARY_FONT_NAME: {{or .Values.orgPrimaryFontName "" | quote}}
   ORG_SECONDARY_FONT_NAME: {{or .Values.orgSecondaryFontName "" | quote}}
-  THEME: {{or .Values.theme "" | quote}}
+  LIGHT_THEME: {{or .Values.prodLightTheme "" | quote}}
+  DARK_THEME: {{or .Values.prodDarkTheme "" | quote}}
