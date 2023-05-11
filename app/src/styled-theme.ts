@@ -27,8 +27,8 @@ export const lightColors = {
   mediumWarning:
     lightTheme.MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
   lightWarning:
-    lightTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue, // TODO: consider changing name to hash?
-  darkWarning: lightTheme.DARKWARNING || '', // TODO: consider changing name to muted?
+    lightTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue,
+  darkWarning: lightTheme.DARKWARNING || '',
   success: lightTheme.SUCCESS || defaultTheme.colors.secondary.CasperGreen,
 };
 export const darkColors = {
