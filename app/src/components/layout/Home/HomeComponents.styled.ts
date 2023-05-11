@@ -29,7 +29,7 @@ export const PageLink = styled(Link)`
 
   :hover,
   :focus {
-    color: ${props => props.theme.border};
+    color: ${props => props.theme.text.hover};
     transition: ease-in-out, color, 400ms;
     text-decoration: none;
   }

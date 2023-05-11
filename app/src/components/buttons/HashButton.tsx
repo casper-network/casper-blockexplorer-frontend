@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
 
 import { t } from 'i18next';
-import { gradientColors } from 'src/styled-theme';
 import { Button } from '../base';
 
 export interface HashButtonProps {
@@ -45,7 +44,7 @@ const StyledHashButton = styled(Button)<{
 }>`
   display: none;
   color: ${props => props.theme.text.secondary};
-  font-weight: 500;
+  font-weight: 400;
   background-color: transparent;
   border-style: none;
   padding: 0 ${pxToRem(5)};
@@ -73,7 +72,7 @@ const StyledHashButton = styled(Button)<{
   :active,
   :hover {
     transition: ease-in-out, color, 400ms;
-    color: ${props => props.theme.border};
+    color: ${props => props.theme.text.hover};
     transition: ease-in-out, color, 400ms;
 
     /* Safari Version 15.4 (11-15 up to Monterey)*/

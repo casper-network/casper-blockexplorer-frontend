@@ -16,7 +16,6 @@ import {
   GreaterThanDark,
 } from 'src/components/icons';
 import { useTheme } from '@emotion/react';
-import { gradientColors } from 'src/styled-theme';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -278,7 +277,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__option:hover,
   .react-select__option:focus {
-    color: ${props => props.theme.border};
+    color: ${props => props.theme.text.hover};
     transition: ease-in-out, color, 400ms;
     cursor: pointer;
   }

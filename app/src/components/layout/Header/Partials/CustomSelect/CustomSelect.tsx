@@ -154,7 +154,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__menu-list {
     color: ${props => props.theme.text.primary};
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 400;
     padding: 0;
     margin: 0;
     border-radius: 0.375rem;
@@ -169,7 +169,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__option:hover,
   .react-select__option:focus {
-    color: ${props => props.theme.border};
+    color: ${props => props.theme.text.hover};
     transition: ease-in-out, color, 400ms;
     cursor: pointer;
   }

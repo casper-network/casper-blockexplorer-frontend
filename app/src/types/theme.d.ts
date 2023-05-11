@@ -21,6 +21,7 @@ declare module '@emotion/react' {
       hash: string;
       warning: string;
       success: string;
+      hover: string;
     };
     selected: {
       primary: string;
