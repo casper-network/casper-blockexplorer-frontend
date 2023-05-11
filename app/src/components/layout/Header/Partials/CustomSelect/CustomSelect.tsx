@@ -3,7 +3,6 @@ import styled, { StyledComponent } from '@emotion/styled';
 import React, { useState } from 'react';
 import Select, { PropsValue } from 'react-select';
 import { pxToRem } from 'casper-ui-kit';
-import { gradientColors } from 'src/styled-theme';
 import { SelectOptions } from '../partials.types';
 
 export interface CustomSelectProps {
@@ -155,6 +154,7 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__menu-list {
     color: ${props => props.theme.text.primary};
     font-size: 1rem;
+    font-weight: 400;
     padding: 0;
     margin: 0;
     border-radius: 0.375rem;
@@ -163,31 +163,15 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
   .react-select__menu {
     text-align: center;
     background-color: ${props => props.theme.background.secondary};
-
     border-radius: 0.375rem;
     width: 9.9rem;
   }
 
   .react-select__option:hover,
   .react-select__option:focus {
-    color: ${props => props.theme.text.primary};
-    transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
-    background: linear-gradient(
-      95.02deg,
-      ${gradientColors.gradient1} 0.62%,
-      ${gradientColors.gradient2} 48.99%,
-      ${gradientColors.gradient3} 70.51%,
-      ${gradientColors.gradient4} 70.85%,
-      ${gradientColors.gradient5} 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
+    color: ${props => props.theme.text.hover};
+    transition: ease-in-out, color, 400ms;
+    cursor: pointer;
   }
 
   .react-select__option {

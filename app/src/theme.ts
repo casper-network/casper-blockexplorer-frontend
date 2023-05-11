@@ -19,6 +19,7 @@ export const lightTheme = {
     hash: lightColors.lightWarning,
     success: lightColors.success,
     warning: lightColors.mediumWarning,
+    hover: lightColors.primary,
   },
   selected: {
     primary: lightColors.lightSupporting,
@@ -43,6 +44,7 @@ export const darkTheme = {
     hash: darkColors.lightWarning,
     warning: darkColors.mediumWarning,
     success: darkColors.success,
+    hover: darkColors.primary,
   },
   selected: {
     primary: darkColors.lightSupporting,
