@@ -94,7 +94,7 @@ const App = () => {
               {faviconUrl ? (
                 <link rel="icon" href={faviconUrl} />
               ) : (
-                <link rel="icon" href="%PUBLIC_URL%/favicon" />
+                <link rel="icon" href="./favicon.ico" />
               )}
 
               <link rel="preconnect" href="https://fonts.googleapis.com" />
