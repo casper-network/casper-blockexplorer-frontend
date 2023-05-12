@@ -10,15 +10,10 @@ import {
   Loading,
   useAppSelector,
 } from 'src/store';
-import { Card } from 'casper-ui-kit';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-import {
-  HeadContentWrapper,
-  Heading,
-  InfoCardContentWrapper,
-} from '../../base';
+import { HeadContentWrapper, Heading, InfoCard } from '../../base';
 import {
   Hash,
   AvatarIcon,
@@ -27,7 +22,6 @@ import {
   DetailDataValue,
   DetailDataList,
 } from '../../styled';
-
 import {
   Coin,
   CopyToClipboard,
@@ -40,7 +34,6 @@ export interface AccountDetailsCardProps {
   account: Account | null;
   balance: string | null;
 }
-
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
@@ -48,13 +41,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { isMobile } = useAppWidth();
   const { t } = useTranslation();
-
   const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
   const balanceLoadingStatus = useAppSelector(getBalanceLoadingStatus);
-
   const isAccountLoading = accountLoadingStatus !== Loading.Complete;
   const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
-
   return (
     <>
       <HeadContentContainer isTruncated={isTruncated}>
@@ -89,104 +79,96 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         </AvatarHashContainer>
       </HeadContentContainer>
 
-      <InfoCardContentWrapper>
-        <Card.Body>
-          <DetailDataWrapper>
-            <DetailDataList gap="1.75rem">
-              <li>
-                <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
-                  {withSkeletonLoading(
+      <InfoCard>
+        <DetailDataWrapper>
+          <DetailDataList gap="1.75rem">
+            <li>
+              <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
+              <DetailDataValue height="2rem">
+                {withSkeletonLoading(
+                  <>
+                    <Hash
+                      hash={account?.trimmedAccountHash ?? hashPlaceholder}
+                    />
+                    <CopyToClipboard
+                      textToCopy={account?.trimmedAccountHash ?? ''}
+                    />
+                  </>,
+                  isAccountLoading,
+                  { width: '60%' },
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('public-key')}</DetailDataLabel>
+              <DetailDataValue>
+                {withSkeletonLoading(
+                  account?.publicKey ? (
                     <>
-                      <Hash
-                        hash={account?.trimmedAccountHash ?? hashPlaceholder}
-                      />
-                      <CopyToClipboard
-                        textToCopy={account?.trimmedAccountHash ?? ''}
-                      />
-                    </>,
-                    isAccountLoading,
-                    { width: '60%' },
-                  )}
-                </DetailDataValue>
-              </li>
-              <li>
-                <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-                <DetailDataValue>
-                  {withSkeletonLoading(
-                    account?.publicKey ? (
-                      <>
-                        <Hash hash={account?.publicKey} />
-                        <CopyToClipboard textToCopy={account?.publicKey} />
-                      </>
-                    ) : (
-                      'Unknown'
-                    ),
-                    isAccountLoading,
-                    { width: '60%' },
-                  )}
-                </DetailDataValue>
-              </li>
+                      <Hash hash={account?.publicKey} />
+                      <CopyToClipboard textToCopy={account?.publicKey} />
+                    </>
+                  ) : (
+                    'Unknown'
+                  ),
+                  isAccountLoading,
+                  { width: '60%' },
+                )}
+              </DetailDataValue>
+            </li>
 
-              <li>
-                <DetailDataLabel>{t('balance')}</DetailDataLabel>
-                <DetailDataValue>
-                  {withSkeletonLoading(
-                    <Coin>{balance ?? ''}</Coin>,
-                    isBalanceLoading || balance === null,
-                    { width: 250 },
-                  )}
-                </DetailDataValue>
-              </li>
-              <li>
-                <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
-                <DetailDataValue>
-                  {withSkeletonLoading(
-                    account?.rawAccount && (
-                      <RawData rawData={account?.rawAccount} />
-                    ),
-                    isAccountLoading,
-                    { width: 200, height: '2.25rem' },
-                  )}
-                </DetailDataValue>
-              </li>
-            </DetailDataList>
-          </DetailDataWrapper>
-        </Card.Body>
-      </InfoCardContentWrapper>
+            <li>
+              <DetailDataLabel>{t('balance')}</DetailDataLabel>
+              <DetailDataValue>
+                {withSkeletonLoading(
+                  <Coin>{balance ?? ''}</Coin>,
+                  isBalanceLoading || balance === null,
+                  { width: 250 },
+                )}
+              </DetailDataValue>
+            </li>
+            <li>
+              <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
+              <DetailDataValue>
+                {withSkeletonLoading(
+                  account?.rawAccount && (
+                    <RawData rawData={account?.rawAccount} />
+                  ),
+                  isAccountLoading,
+                  { width: 200, height: '2.25rem' },
+                )}
+              </DetailDataValue>
+            </li>
+          </DetailDataList>
+        </DetailDataWrapper>
+      </InfoCard>
     </>
   );
 };
-
 const AccountHeading = styled(Heading)`
   font-size: 1.25rem;
   font-weight: ${fontWeight.normal};
   margin-bottom: 2rem;
   color: ${props => props.theme.text.primary};
 `;
-
 const AccountDetailsWrapper = styled.div`
   display: flex;
 `;
-
 const HeadContentContainer = styled(HeadContentWrapper)<{
   isTruncated?: boolean;
 }>`
   margin: 0;
   margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
 `;
-
 const AvatarHashContainer = styled.div`
   display: flex;
   align-items: flex-start;
   height: ${pxToRem(130)};
 `;
-
 const HashExpandWrapper = styled.div`
   overflow-wrap: break-word;
   height: ${pxToRem(92)};
 `;
-
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
   isMobile: boolean;
