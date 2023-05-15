@@ -21,6 +21,12 @@ export const lightTheme = {
     warning: lightColors.mediumWarning,
     hover: lightColors.primary,
   },
+  rawData: {
+    keyValString: lightColors.black,
+    background: lightColors.secondary,
+    svgNestVal: lightColors.mediumWarning,
+    itemsArrayIndices: lightColors.primary,
+  },
   selected: {
     primary: lightColors.lightSupporting,
   },
@@ -45,6 +51,12 @@ export const darkTheme = {
     warning: darkColors.mediumWarning,
     success: darkColors.success,
     hover: darkColors.primary,
+  },
+  rawData: {
+    keyValString: darkColors.white,
+    background: darkColors.secondary,
+    svgNestVal: darkColors.mediumWarning,
+    itemsArrayIndices: darkColors.primary,
   },
   selected: {
     primary: darkColors.lightSupporting,

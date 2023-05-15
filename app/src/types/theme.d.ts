@@ -23,6 +23,12 @@ declare module '@emotion/react' {
       success: string;
       hover: string;
     };
+    rawData: {
+      keyValString: string;
+      background: string;
+      svgNestVal: string;
+      itemsArrayIndices: string;
+    };
     selected: {
       primary: string;
     };
