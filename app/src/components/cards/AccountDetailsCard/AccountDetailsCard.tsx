@@ -54,7 +54,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
   return (
     <>
-      <HeadContentContainer isTruncated={isTruncated}>
+      <HeadContentContainer
+        isTruncated={isTruncated}
+        data-testid="AccountDetailsCard">
         <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarHashContainer>
           {withSkeletonLoading(
