@@ -31,7 +31,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   const { t } = useTranslation();
 
   return (
-    <>
+    <div data-testid="deploy-details-card">
       <HeaderContent>
         <HashWrapper>
           {withSkeletonLoading(
@@ -115,7 +115,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
           </DetailDataWrapper>
         </Card.Body>
       </InfoCardContentWrapper>
-    </>
+    </div>
   );
 };
 
