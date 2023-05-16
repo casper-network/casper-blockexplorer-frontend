@@ -50,7 +50,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
                 <li>
                   <Grid gap="1rem" templateColumns="9rem auto">
                     <DetailDataLabel>{t('amount')}</DetailDataLabel>
-                    <DetailDataValue>
+                    <DetailDataValue data-testid="deploy-amount">
                       <Coin>{deploy?.amount}</Coin>
                     </DetailDataValue>
                   </Grid>
@@ -59,7 +59,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               <li>
                 <Grid gap="1rem" templateColumns="9rem 1fr">
                   <DetailDataLabel>{t('cost')}</DetailDataLabel>
-                  <DetailDataValue>
+                  <DetailDataValue data-testid="deploy-cost">
                     {withSkeletonLoading(
                       <Coin>{deploy?.cost ?? ''}</Coin>,
                       isLoading,
@@ -71,7 +71,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               <li>
                 <Grid gap="1rem" templateColumns="9rem 1fr">
                   <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
-                  <DetailDataValue>
+                  <DetailDataValue data-testid="deploy-payment-amount">
                     {withSkeletonLoading(
                       <Coin>{deploy?.paymentAmount ?? ''}</Coin>,
                       isLoading,
@@ -84,7 +84,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
             <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
               <div>
                 <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-                <TransactionDetailData>
+                <TransactionDetailData data-testid="readable-time-stamp">
                   {withSkeletonLoading(
                     deploy?.readableTimestamp,
                     isLoading,
@@ -95,7 +95,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               <HideOnMobile>
                 <div>
                   <DetailDataLabel>{t('status')}</DetailDataLabel>
-                  <DeployStatusData>
+                  <DeployStatusData data-testid="status">
                     {withSkeletonLoading(
                       <>
                         {deploy?.status}
@@ -124,14 +124,14 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
               </HideOnDesktop>
               <ActionAndDeployTypeWrapper>
                 <DetailDataLabel>{t('action')}</DetailDataLabel>
-                <TransactionDetailData>
+                <TransactionDetailData data-testid="action">
                   {withSkeletonLoading(deploy?.action, isLoading, {})}
                 </TransactionDetailData>
               </ActionAndDeployTypeWrapper>
               {!!deploy?.deployType && (
                 <ActionAndDeployTypeWrapper>
                   <DetailDataLabel>{t('deploy-type')}</DetailDataLabel>
-                  <TransactionDetailData>
+                  <TransactionDetailData data-testid="deploy-type">
                     {deploy?.deployType}
                   </TransactionDetailData>
                 </ActionAndDeployTypeWrapper>
