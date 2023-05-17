@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { render } from '../../../test-utils';
+import { screen } from '@testing-library/react';
 import { AccountDetailsCard } from './AccountDetailsCard';
 
 jest.mock('react-i18next', () => {
@@ -16,7 +17,7 @@ jest.mock('react-i18next', () => {
   };
 });
 
-const account = {
+const getMockAccount = () => ({
   trimmedAccountHash:
     '85930bab3c3aa081a60b447c374ec0e81f847ea7612222e08a5c847ff2685f16',
   publicKey:
@@ -25,35 +26,58 @@ const account = {
     '"uref-770b0c78228941881e99bd4aee0b910d1288a00da6046fb7c8dbb9ccf4b4fa56-007"',
   rawAccount:
     '"account-hash-85930bab3c3aa081a60b447c374ec0e81f847ea7612222e08a5c847ff2685f16"',
-};
+});
 
-const balance = '3,147,833,210,320 Motesd';
+const getMockBalance = () => '3,147,833,210,320 Motes';
 
 describe('AccountDetailsCard', () => {
   it('should render the AccountDetailsCard', () => {
-    const { getByTestId } = render(
-      <AccountDetailsCard account={account} balance={balance} />,
+    render(
+      <AccountDetailsCard
+        account={getMockAccount()}
+        balance={getMockBalance()}
+      />,
     );
-    const accountDetailsCard = getByTestId('AccountDetailsCard');
+    const accountDetailsCard = screen.getByTestId('account-details-card');
 
     expect(accountDetailsCard).toBeInTheDocument();
     expect(accountDetailsCard).toHaveTextContent('Account Details');
   });
 
-  it('should render the BaseCard Component from the Casper UiKit', () => {
-    const { getByTestId } = render(
-      <AccountDetailsCard account={account} balance={balance} />,
+  it('should render skeleton loaders for card details ', () => {
+    render(
+      <AccountDetailsCard
+        account={getMockAccount()}
+        balance={getMockBalance()}
+      />,
     );
-    const baseCard = getByTestId('baseCard');
+    const skeletonLoaders = screen.getAllByTestId('skeleton-loader');
+
+    expect(skeletonLoaders.length).toEqual(5);
+  });
+
+  it('should render the BaseCard Component', () => {
+    render(
+      <AccountDetailsCard
+        account={getMockAccount()}
+        balance={getMockBalance()}
+      />,
+    );
+    const baseCard = screen.getByTestId('baseCard');
+    const baseCardBody = screen.getByTestId('baseCardBody');
 
     expect(baseCard).toBeInTheDocument();
+    expect(baseCard).toContainElement(baseCardBody);
   });
 
   it('should render the BaseCard body content', () => {
-    const { getByTestId } = render(
-      <AccountDetailsCard account={account} balance={balance} />,
+    render(
+      <AccountDetailsCard
+        account={getMockAccount()}
+        balance={getMockBalance()}
+      />,
     );
-    const baseCardBody = getByTestId('baseCardBody');
+    const baseCardBody = screen.getByTestId('baseCardBody');
 
     expect(baseCardBody).toBeInTheDocument();
     expect(baseCardBody).toHaveTextContent('Account Hash');
@@ -62,145 +86,3 @@ describe('AccountDetailsCard', () => {
     expect(baseCardBody).toHaveTextContent('Raw Data');
   });
 });
-
-/* <body>
-<div>
-  <div
-    class="css-14923ef"
-    data-testid="AccountDetailsCard"
-  >
-    <h1
-      class="css-1gfv6zh"
-    >
-      Account Details
-    </h1>
-    <div
-      class="css-6van74"
-    >
-      <span
-        aria-busy="true"
-        aria-live="polite"
-      >
-        <span
-          class="react-loading-skeleton"
-          style="width: 350px; height: 60px;"
-        >
-          ‌
-        </span>
-        <br />
-      </span>
-    </div>
-  </div>
-  <div
-    class="css-19847w4"
-    data-testid="baseCard"
-  >
-    <div
-      class="body"
-      data-testid="baseCardBody"
-    >
-      <ul
-        class="css-4wjmim"
-      >
-        <ul
-          class="css-qhptt6"
-        >
-          <li>
-            <h3
-              class="css-w30hmz"
-            >
-              Account Hash
-            </h3>
-            <div
-              class="css-1swodwe"
-              height="2rem"
-            >
-              <span
-                aria-busy="true"
-                aria-live="polite"
-              >
-                <span
-                  class="react-loading-skeleton"
-                  style="width: 60%;"
-                >
-                  ‌
-                </span>
-                <br />
-              </span>
-            </div>
-          </li>
-          <li>
-            <h3
-              class="css-w30hmz"
-            >
-              Public Key
-            </h3>
-            <div
-              class="css-n1frap"
-            >
-              <span
-                aria-busy="true"
-                aria-live="polite"
-              >
-                <span
-                  class="react-loading-skeleton"
-                  style="width: 60%;"
-                >
-                  ‌
-                </span>
-                <br />
-              </span>
-            </div>
-          </li>
-          <li>
-            <h3
-              class="css-w30hmz"
-            >
-              Balance
-            </h3>
-            <div
-              class="css-n1frap"
-            >
-              <span
-                aria-busy="true"
-                aria-live="polite"
-              >
-                <span
-                  class="react-loading-skeleton"
-                  style="width: 250px;"
-                >
-                  ‌
-                </span>
-                <br />
-              </span>
-            </div>
-          </li>
-          <li>
-            <h3
-              class="css-w30hmz"
-            >
-              Raw Data
-            </h3>
-            <div
-              class="css-n1frap"
-            >
-              <span
-                aria-busy="true"
-                aria-live="polite"
-              >
-                <span
-                  class="react-loading-skeleton"
-                  style="width: 200px; height: 2.25rem;"
-                >
-                  ‌
-                </span>
-                <br />
-              </span>
-            </div>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
-</div>
-</body> */

@@ -53,10 +53,8 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
 
   return (
-    <>
-      <HeadContentContainer
-        isTruncated={isTruncated}
-        data-testid="AccountDetailsCard">
+    <div data-testid="account-details-card">
+      <HeadContentContainer isTruncated={isTruncated}>
         <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarHashContainer>
           {withSkeletonLoading(
@@ -150,7 +148,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           </DetailDataWrapper>
         </Card.Body>
       </InfoCardContentWrapper>
-    </>
+    </div>
   );
 };
 
