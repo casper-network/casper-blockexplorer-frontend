@@ -31,6 +31,7 @@
     "react-select": "^5.4.0",
     "react-select-event": "^5.5.1",
     "react-use-measure": "^2.1.1",
+    "socket.io-client": "^4.6.1",
     "swiper": "^8.4.2",
     "use-async-effect": "^2.2.6",
     "web-vitals": "^2.1.4"

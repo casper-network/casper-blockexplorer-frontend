@@ -23,7 +23,7 @@ export const store = configureStore({
     deploy: deploySlice.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().prepend(
+    getDefaultMiddleware({ serializableCheck: false }).prepend(
       validatorListener.middleware,
       peerListener.middleware,
       blockListener.middleware,
