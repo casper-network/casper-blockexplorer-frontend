@@ -30,7 +30,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   const rawBlock = JSON.stringify(block);
 
   return (
-    <>
+    <div data-testid="block-details-card">
       <PageHeading>
         <HashWrapper>
           <HashHeading type="h2" isTruncated={isTruncated}>
@@ -59,7 +59,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataRowWrapper>
             <li>
               <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-              <DetailDataValue isLargeText>
+              <DetailDataValue data-testid="block-height" isLargeText>
                 {withSkeletonLoading(block?.header.height, isLoading, {
                   width: 100,
                 })}
@@ -67,7 +67,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </li>
             <li>
               <DetailDataLabel>{t('current-era')}</DetailDataLabel>
-              <DetailDataValue isLargeText>
+              <DetailDataValue data-testid="current-era" isLargeText>
                 {withSkeletonLoading(block?.header.era_id, isLoading, {
                   width: 100,
                 })}
@@ -75,7 +75,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </li>
             <li>
               <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-              <DetailDataValue isLargeText>
+              <DetailDataValue data-testid="timestamp" isLargeText>
                 {withSkeletonLoading(
                   block?.header.timestamp.toLocaleString(),
                   isLoading,
@@ -92,7 +92,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataWrapper>
             <li>
               <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-              <DetailDataValue height="2rem">
+              <DetailDataValue data-testid="parent-hash" height="2rem">
                 <StyledHashLink
                   to={{
                     pathname: `/block/${block?.header.parent_hash ?? ''}`,
@@ -114,7 +114,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </li>
             <li>
               <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-              <DetailDataValue height="2rem">
+              <DetailDataValue data-testid="block-hash" height="2rem">
                 {withSkeletonLoading(
                   <Hash hash={block?.hash ?? hashPlaceholder} />,
                   isLoading,
@@ -127,7 +127,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </li>
             <li>
               <DetailDataLabel>{t('state-root-hash')}</DetailDataLabel>
-              <DetailDataValue>
+              <DetailDataValue data-testid="state-root-hash">
                 {withSkeletonLoading(
                   <Hash
                     hash={block?.header.state_root_hash ?? hashPlaceholder}
@@ -139,7 +139,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
             </li>
             <li>
               <DetailDataLabel>{t('validator')}</DetailDataLabel>
-              <DetailDataValue height="2rem">
+              <DetailDataValue data-testid="validator" height="2rem">
                 <StyledHashLink
                   to={{
                     pathname: `/account/${block?.body.proposer ?? ''}`,
@@ -221,7 +221,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           </DetailDataRowWrapper>
         </Card.Body>
       </InfoCardContentWrapper>
-    </>
+    </div>
   );
 };
 
