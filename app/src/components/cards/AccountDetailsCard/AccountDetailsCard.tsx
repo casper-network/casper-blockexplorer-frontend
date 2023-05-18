@@ -124,10 +124,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
               <li>
                 <DetailDataLabel>{t('balance')}</DetailDataLabel>
-                <DetailDataValue data-testid="account-balance">
+                <DetailDataValue>
                   {withSkeletonLoading(
-                    <Coin>{balance ?? 'asdfdsfdsa'}</Coin>,
-                    isBalanceLoading,
+                    <Coin>{balance ?? ''}</Coin>,
+                    isBalanceLoading || balance === null,
                     { width: 250 },
                   )}
                 </DetailDataValue>
