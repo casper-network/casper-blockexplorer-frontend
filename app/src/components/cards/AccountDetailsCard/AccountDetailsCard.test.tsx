@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Children } from 'react';
+import { accountSlice, Loading, storeWithPreloadedState } from 'src/store';
 import { screen } from '@testing-library/react';
 import { render } from '../../../test-utils';
 import { AccountDetailsCard } from './AccountDetailsCard';
@@ -23,12 +24,12 @@ const getMockAccount = () => ({
   publicKey:
     '017b9a85b657e0a8c2e01bf2d80b6b2e6f8d8b4bc6d7c479f21e59dceea761710b',
   mainPurse:
-    '"uref-770b0c78228941881e99bd4aee0b910d1288a00da6046fb7c8dbb9ccf4b4fa56-007"',
+    'uref-770b0c78228941881e99bd4aee0b910d1288a00da6046fb7c8dbb9ccf4b4fa56-007',
   rawAccount:
-    '"account-hash-85930bab3c3aa081a60b447c374ec0e81f847ea7612222e08a5c847ff2685f16"',
+    'account-hash-85930bab3c3aa081a60b447c374ec0e81f847ea7612222e08a5c847ff2685f16',
 });
 
-const getMockBalance = () => '3,147,833,210,320 Motes';
+const getMockBalance = () => '3147833210320';
 
 describe('AccountDetailsCard', () => {
   it('should render the AccountDetailsCard', () => {
@@ -76,13 +77,22 @@ describe('AccountDetailsCard', () => {
         account={getMockAccount()}
         balance={getMockBalance()}
       />,
+      {
+        store: storeWithPreloadedState({
+          account: {
+            ...accountSlice.getInitialState(),
+            status: Loading.Complete,
+            balanceLoadingStatus: Loading.Complete,
+          },
+        }),
+      },
     );
     const { trimmedAccountHash, publicKey } = getMockAccount();
 
     const baseCardBody = screen.getByTestId('baseCardBody');
     const accountHash = screen.getByTestId('account-hash');
     const publicHash = screen.getByTestId('public-key');
-    const balance = screen.getByTestId('balance');
+    const balance = screen.getByTestId('account-balance');
 
     expect(baseCardBody).toBeInTheDocument();
     expect(baseCardBody).toHaveTextContent('Account Hash');
@@ -90,7 +100,7 @@ describe('AccountDetailsCard', () => {
     expect(baseCardBody).toHaveTextContent('Public Key');
     expect(publicHash).toHaveTextContent(publicKey);
     expect(baseCardBody).toHaveTextContent('Balance');
-    expect(balance).toHaveTextContent(getMockBalance());
+    expect(balance).toHaveTextContent('3,147,833,210,320 Motes');
     expect(baseCardBody).toHaveTextContent('Raw Data');
   });
 });
