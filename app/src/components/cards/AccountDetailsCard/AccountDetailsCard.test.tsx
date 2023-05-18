@@ -1,6 +1,6 @@
-import React, { Children } from 'react';
-import { render } from '../../../test-utils';
+import React from 'react';
 import { screen } from '@testing-library/react';
+import { render } from '../../../test-utils';
 import { AccountDetailsCard } from './AccountDetailsCard';
 
 jest.mock('react-i18next', () => {
