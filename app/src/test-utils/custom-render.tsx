@@ -1,11 +1,11 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { lightTheme } from 'src/theme';
-import { store as reduxStore } from '../store';
 import { Store } from '@reduxjs/toolkit';
+import { store as reduxStore } from '../store';
 
 function customRender(
   ui: React.ReactElement<any, string | React.JSXElementConstructor<any>>,
