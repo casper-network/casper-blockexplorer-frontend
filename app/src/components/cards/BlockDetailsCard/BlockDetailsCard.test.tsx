@@ -76,10 +76,14 @@ describe('BlockDetailsCard', () => {
     const blockHeight = screen.getByTestId('block-height');
     const currentEra = screen.getByTestId('current-era');
     const timestamp = screen.getByTestId('timestamp');
-    const parentHash = screen.getByTestId('parent-hash');
+    const parentHash = screen.getByRole('link', {
+      name: `${header.parent_hash}`,
+    });
     const blockHash = screen.getByTestId('block-hash');
     const stateRootHash = screen.getByTestId('state-root-hash');
-    const validator = screen.getByTestId('validator');
+    const validator = screen.getByRole('link', {
+      name: `${body.proposer}`,
+    });
 
     expect(baseCardBody).toBeInTheDocument();
 
