@@ -89,7 +89,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
             <DetailDataList gap="1.75rem">
               <li>
                 <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue test-dataid="account-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <Hash
@@ -106,7 +106,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="public-key">
                   {withSkeletonLoading(
                     account?.publicKey ? (
                       <>
@@ -124,9 +124,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
               <li>
                 <DetailDataLabel>{t('balance')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="balance">
                   {withSkeletonLoading(
-                    <Coin>{balance ?? ''}</Coin>,
+                    <Coin data-testid="balance">{balance ?? ''}</Coin>,
                     isBalanceLoading || balance === null,
                     { width: 250 },
                   )}
