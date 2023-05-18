@@ -124,7 +124,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
               <li>
                 <DetailDataLabel>{t('balance')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="account-balance">
                   {withSkeletonLoading(
                     <Coin>{balance ?? ''}</Coin>,
                     isBalanceLoading || balance === null,
@@ -134,7 +134,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="raw-data">
                   {withSkeletonLoading(
                     account?.rawAccount && (
                       <RawData rawData={account?.rawAccount} />

@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { accountSlice, Loading, storeWithPreloadedState } from 'src/store';
 import { screen } from '@testing-library/react';
 import { render } from '../../../test-utils';
@@ -18,15 +18,30 @@ jest.mock('react-i18next', () => {
   };
 });
 
+const getRawAccount = () => ({
+  _accountHash:
+    'account-hash-4a15ca0c89ff7d2e30cf77bfd20793f61531d72b08d66bd6c9db3aef52b5cea5',
+  namedKeys: [],
+  mainPurse:
+    'uref-4ba7b97ccc3af3dfe87f2b834865941ecafb09483bcb8fbb1fa49dd6aecf4ca3-007',
+  associatedKeys: [
+    {
+      accountHash:
+        'account-hash-4a15ca0c89ff7d2e30cf77bfd20793f61531d72b08d66bd6c9db3aef52b5cea5',
+      weight: 1,
+    },
+  ],
+  actionThresholds: { deployment: 1, keyManagement: 1 },
+});
+
 const getMockAccount = () => ({
   trimmedAccountHash:
-    '85930bab3c3aa081a60b447c374ec0e81f847ea7612222e08a5c847ff2685f16',
+    '4a15ca0c89ff7d2e30cf77bfd20793f61531d72b08d66bd6c9db3aef52b5cea5',
   publicKey:
-    '017b9a85b657e0a8c2e01bf2d80b6b2e6f8d8b4bc6d7c479f21e59dceea761710b',
+    '0103dd8b2b18ef0b9fd5b7c8e340b104ee4d966f2a167eb1a938963f8c8f699a45',
   mainPurse:
-    'uref-770b0c78228941881e99bd4aee0b910d1288a00da6046fb7c8dbb9ccf4b4fa56-007',
-  rawAccount:
-    'account-hash-85930bab3c3aa081a60b447c374ec0e81f847ea7612222e08a5c847ff2685f16',
+    'uref-4ba7b97ccc3af3dfe87f2b834865941ecafb09483bcb8fbb1fa49dd6aecf4ca3-007',
+  rawAccount: JSON.stringify(getRawAccount),
 });
 
 const getMockBalance = () => '3147833210320';
@@ -102,5 +117,6 @@ describe('AccountDetailsCard', () => {
     expect(baseCardBody).toHaveTextContent('Balance');
     expect(balance).toHaveTextContent('3,147,833,210,320 Motes');
     expect(baseCardBody).toHaveTextContent('Raw Data');
+    // expect(rawData).toHaveTextContent(JSON.stringify(getRawAccount()));
   });
 });
