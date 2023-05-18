@@ -68,7 +68,7 @@ describe('BlockDetailsCard', () => {
     expect(baseCard).toContainElement(baseCardBody);
   });
 
-  it('should render the BaseCard body content', async () => {
+  it('should render the BaseCard body content', () => {
     render(<BlockDetailsCard block={getMockBlock()} isLoading={false} />);
     const { hash, header, body } = getMockBlock();
 
