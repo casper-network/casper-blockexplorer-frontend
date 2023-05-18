@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from '../../../test-utils';
 import { screen } from '@testing-library/react';
+import { render } from '../../../test-utils';
 import { BlockDetailsCard } from './BlockDetailsCard';
 
 jest.mock('react-i18next', () => {
