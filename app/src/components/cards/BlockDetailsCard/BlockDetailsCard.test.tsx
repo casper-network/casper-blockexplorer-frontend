@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { render } from '../../../test-utils';
 import { BlockDetailsCard } from './BlockDetailsCard';
-import { getMockBlock } from './mocks/mocks';
+import { getMockBlock } from '../../../mocks/getMockBlock';
 
 jest.mock('react-i18next', () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
