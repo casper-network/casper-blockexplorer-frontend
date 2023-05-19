@@ -5,20 +5,6 @@ import { getMockAccount, getMockBalance } from 'src/mocks/mock-account';
 import { render } from '../../../test-utils';
 import { AccountDetailsCard } from './AccountDetailsCard';
 
-jest.mock('react-i18next', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const englishTranslations = jest.requireActual(
-    '../../../../public/locales/en/translation.json',
-  );
-
-  return {
-    useTranslation: () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return { t: (key: string) => englishTranslations[key] };
-    },
-  };
-});
-
 describe('AccountDetailsCard', () => {
   it('should render the AccountDetailsCard', () => {
     render(
