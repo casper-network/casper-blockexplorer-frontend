@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { render } from '../../../test-utils';
 import { BlockDetailsCard } from './BlockDetailsCard';
 import { getMockBlock } from '../../../mocks/mock-block';
@@ -78,5 +79,22 @@ describe('BlockDetailsCard', () => {
     expect(baseCardBody).toHaveTextContent('Raw Data');
     expect(baseCardBody).toHaveTextContent('Deploys');
     expect(baseCardBody).toHaveTextContent('Transfers');
+  });
+
+  it('should ensure that links direct users to appropriate paths ', () => {
+    render(<BlockDetailsCard block={getMockBlock()} isLoading={false} />);
+    const { header, body } = getMockBlock();
+    const parentHash = screen.getByRole('link', {
+      name: `${header.parent_hash}`,
+    });
+    const validator = screen.getByRole('link', {
+      name: `${body.proposer}`,
+    });
+
+    userEvent.click(parentHash);
+    userEvent.click(validator);
+
+    expect(parentHash).toHaveAttribute('href', `/block/${header.parent_hash}`);
+    expect(validator).toHaveAttribute('href', `/account/${body.proposer}`);
   });
 });
