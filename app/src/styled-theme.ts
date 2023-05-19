@@ -46,7 +46,7 @@ export const darkColors = {
   mediumWarning:
     darkTheme.MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
   lightWarning:
-    darkTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue,
+    darkTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperPalePink,
   darkWarning: darkTheme.DARKWARNING || defaultTheme.colors.primary.CasperWhite,
   success: darkTheme.SUCCESS || defaultTheme.colors.secondary.CasperGreen,
 };
