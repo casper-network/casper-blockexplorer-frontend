@@ -27,7 +27,6 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const { t } = useTranslation();
   const rawDataJSON: object = parseJSON(rawData);
-
   const { type: themeType } = useTheme();
 
   const rawDataBackgroundColor =
