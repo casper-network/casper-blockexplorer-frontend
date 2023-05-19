@@ -1,4 +1,4 @@
-import { ApiData } from 'src/api/types';
+import { ApiData, DeployStatus } from 'src/api/types';
 
 export const mockBlock: ApiData.Block = {
   hash: '2f95f1fe0c8d64daee3a7c4aa02e12ac0e2a2d0baf02da602e4e119ccb7fde3e',
@@ -33,4 +33,22 @@ export const createMockBlocks = (numberOfBlocks: number = 10) => {
   return blocks.map((block, index) => {
     return { ...block, hash: `${block.hash}-${index}` };
   });
+};
+
+export const getMockDeploy = () => {
+  return {
+    timestamp: 0,
+    timeSince: 'testTimeSince',
+    readableTimestamp: 'testReadableTimestamp',
+    deployHash: 'testDeployHash',
+    blockHash: 'testBlockHash',
+    publicKey: 'testPublicKey',
+    status: DeployStatus.Success,
+    amount: '100',
+    action: 'testAction',
+    deployType: 'testType',
+    paymentAmount: '200',
+    cost: '300',
+    rawDeploy: '',
+  };
 };
