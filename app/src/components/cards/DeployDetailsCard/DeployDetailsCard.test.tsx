@@ -4,7 +4,7 @@ import { DeployStatus } from 'src/api/types';
 import { getMockDeploy, render } from '../../../test-utils';
 import { DeployDetailsCard } from './DeployDetailsCard';
 
-const mockDeploy = getMockDeploy()
+const mockDeploy = getMockDeploy();
 
 describe('DeployDetailsCard', () => {
   it('should render DeployDetailsCard  ', () => {
@@ -26,12 +26,12 @@ describe('DeployDetailsCard', () => {
   it('should render deploy details ', () => {
     render(<DeployDetailsCard deploy={mockDeploy} isLoading={false} />);
 
-    const blockHash = screen.getByText('testBlockHash');
-    const deploy = screen.getByText('testDeployHash');
-    const publicKey = screen.getByText('testPublicKey');
+    const blockHash = screen.getByTestId('block-hash');
+    const publicKey = screen.getByTestId('public-key');
+    const deploy = screen.getByTestId('deploy-hash');
 
-    expect(blockHash).toBeInTheDocument();
-    expect(deploy).toBeInTheDocument();
-    expect(publicKey).toBeInTheDocument();
+    expect(blockHash).toHaveTextContent(mockDeploy.blockHash);
+    expect(publicKey).toHaveTextContent(mockDeploy.publicKey);
+    expect(deploy).toHaveTextContent(mockDeploy.deployHash);
   });
 });

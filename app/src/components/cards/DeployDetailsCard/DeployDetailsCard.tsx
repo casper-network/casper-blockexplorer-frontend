@@ -59,7 +59,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
             <DetailDataList>
               <li>
                 <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="block-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <StyledHashLink to={`/block/${deploy?.blockHash ?? ''}`}>
@@ -74,7 +74,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="public-key" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <StyledHashLink
@@ -90,7 +90,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('deploy-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="deploy-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <Hash hash={deploy?.deployHash ?? hashPlaceholder} />
