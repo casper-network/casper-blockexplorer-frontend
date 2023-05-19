@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { DeployStatus } from 'src/api/types';
 import { getMockDeploy, render } from '../../../test-utils';
 import { DeployDetailsCard } from './DeployDetailsCard';
 
