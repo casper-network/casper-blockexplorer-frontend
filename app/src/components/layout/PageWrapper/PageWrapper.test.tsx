@@ -2,20 +2,6 @@ import React from 'react';
 import { render } from '../../../test-utils';
 import { PageWrapper } from './PageWrapper';
 
-jest.mock('react-i18next', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const englishTranslations = jest.requireActual(
-    '../../../../public/locales/en/translation.json',
-  );
-
-  return {
-    useTranslation: () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return { t: (key: string) => englishTranslations[key] };
-    },
-  };
-});
-
 describe(PageWrapper, () => {
   it('should render loader when page is loading', () => {
     const { getByTestId } = render(
