@@ -22,8 +22,8 @@ describe('BlockDetailsCard', () => {
 
   it('should render the BaseCard Component', () => {
     render(<BlockDetailsCard block={getMockBlock()} isLoading={false} />);
-    const baseCard = screen.getByTestId('baseCard');
-    const baseCardBody = screen.getByTestId('baseCardBody');
+    const baseCard = screen.getByTestId('base-card');
+    const baseCardBody = screen.getByTestId('base-card-body');
 
     expect(baseCard).toBeInTheDocument();
     expect(baseCard).toContainElement(baseCardBody);
@@ -33,7 +33,7 @@ describe('BlockDetailsCard', () => {
     render(<BlockDetailsCard block={getMockBlock()} isLoading={false} />);
     const { hash, header, body } = getMockBlock();
 
-    const baseCardBody = screen.getByTestId('baseCardBody');
+    const baseCardBody = screen.getByTestId('base-card-body');
     const blockHeight = screen.getByTestId('block-height');
     const currentEra = screen.getByTestId('current-era');
     const timestamp = screen.getByTestId('timestamp');
