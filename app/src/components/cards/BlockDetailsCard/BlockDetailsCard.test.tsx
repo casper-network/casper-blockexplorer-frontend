@@ -81,7 +81,7 @@ describe('BlockDetailsCard', () => {
     expect(baseCardBody).toHaveTextContent('Transfers');
   });
 
-  it('should ensure that links direct users to appropriate paths ', () => {
+  it('should ensure that links direct users with appropriate url paths ', () => {
     render(<BlockDetailsCard block={getMockBlock()} isLoading={false} />);
     const { header, body } = getMockBlock();
     const parentHash = screen.getByRole('link', {
