@@ -7,7 +7,9 @@ export const withSkeletonLoading = (
   skeletonStyleOverride?: SkeletonStyleProps,
 ) => {
   if (isLoading) {
-    return <Skeleton {...skeletonStyleOverride} />;
+    return (
+      <Skeleton containerTestId="skeleton-loader" {...skeletonStyleOverride} />
+    );
   }
 
   return child;
