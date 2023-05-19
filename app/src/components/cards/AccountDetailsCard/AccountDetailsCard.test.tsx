@@ -38,8 +38,8 @@ describe('AccountDetailsCard', () => {
         balance={getMockBalance()}
       />,
     );
-    const baseCard = screen.getByTestId('baseCard');
-    const baseCardBody = screen.getByTestId('baseCardBody');
+    const baseCard = screen.getByTestId('base-card');
+    const baseCardBody = screen.getByTestId('base-card-body');
 
     expect(baseCard).toBeInTheDocument();
     expect(baseCard).toContainElement(baseCardBody);
@@ -63,7 +63,7 @@ describe('AccountDetailsCard', () => {
     );
     const { trimmedAccountHash, publicKey } = getMockAccount();
 
-    const baseCardBody = screen.getByTestId('baseCardBody');
+    const baseCardBody = screen.getByTestId('base-card-body');
     const accountHash = screen.getByTestId('account-hash');
     const publicHash = screen.getByTestId('public-key');
     const balance = screen.getByTestId('account-balance');

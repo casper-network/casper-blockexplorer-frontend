@@ -7,7 +7,6 @@ import { I18nextProvider } from 'react-i18next';
 import { lightTheme } from 'src/theme';
 import { Store } from '@reduxjs/toolkit';
 import { store as reduxStore } from '../store';
-// import { store } from '../store';
 import i18n from './i18n-test-init';
 
 function customRender(
@@ -17,18 +16,6 @@ function customRender(
     ...renderOptions
   }: { store?: Store; renderOptions?: RenderOptions } = {},
 ) {
-  // const ProviderWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
-  //   return (
-  //     <React.StrictMode>
-  //       <BrowserRouter>
-  //         <Provider store={store}>
-  //           <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>
-  //         </Provider>
-  //       </BrowserRouter>
-  //     </React.StrictMode>
-  //   );
-  // };
-
   const ProviderWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
       <React.StrictMode>
