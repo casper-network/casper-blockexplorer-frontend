@@ -1,17 +1,11 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { mockI18 } from 'src/test-utils/factory';
 import { getMockDeploy, render } from '../../../test-utils';
 import { TransactionDetailsCard } from './TransactionDetailsCard';
 
 const mockDeploy = getMockDeploy();
 
-mockI18();
 describe('TransactionDetailsCard', () => {
-  // beforeEach(() => {
-  //   return mockI18();
-  // });
-
   it('should render TransactionDetailsCard  ', () => {
     render(<TransactionDetailsCard deploy={mockDeploy} isLoading={false} />);
 
