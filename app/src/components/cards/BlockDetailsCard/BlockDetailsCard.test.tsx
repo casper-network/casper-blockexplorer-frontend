@@ -5,20 +5,6 @@ import { render } from '../../../test-utils';
 import { BlockDetailsCard } from './BlockDetailsCard';
 import { getMockBlock } from '../../../mocks/mock-block';
 
-jest.mock('react-i18next', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const englishTranslations = jest.requireActual(
-    '../../../../public/locales/en/translation.json',
-  );
-
-  return {
-    useTranslation: () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return { t: (key: string) => englishTranslations[key] };
-    },
-  };
-});
-
 describe('BlockDetailsCard', () => {
   it('should render the BlockDetailsCard', () => {
     render(<BlockDetailsCard block={getMockBlock()} isLoading={false} />);
