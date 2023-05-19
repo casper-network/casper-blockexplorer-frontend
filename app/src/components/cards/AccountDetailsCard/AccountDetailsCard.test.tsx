@@ -1,7 +1,7 @@
 import React from 'react';
 import { accountSlice, Loading, storeWithPreloadedState } from 'src/store';
 import { screen } from '@testing-library/react';
-import { getMockAccount, getMockBalance } from 'src/mocks/getMockAccount';
+import { getMockAccount, getMockBalance } from 'src/mocks/mock-account';
 import { render } from '../../../test-utils';
 import { AccountDetailsCard } from './AccountDetailsCard';
 
@@ -90,6 +90,5 @@ describe('AccountDetailsCard', () => {
     expect(baseCardBody).toHaveTextContent('Balance');
     expect(balance).toHaveTextContent('3,147,833,210,320 Motes');
     expect(baseCardBody).toHaveTextContent('Raw Data');
-    // expect(rawData).toHaveTextContent(JSON.stringify(getRawAccount()));
   });
 });

@@ -1,4 +1,4 @@
-export const getRawAccount = () => ({
+const getRawAccount = () => ({
   _accountHash:
     'account-hash-4a15ca0c89ff7d2e30cf77bfd20793f61531d72b08d66bd6c9db3aef52b5cea5',
   namedKeys: [],
