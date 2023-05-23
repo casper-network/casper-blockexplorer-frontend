@@ -1,11 +1,16 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { fireEvent, getByTestId, screen } from '@testing-library/react';
 import { getMockDeploy, render } from '../../../test-utils';
 import { DeployDetailsCard } from './DeployDetailsCard';
+import * as router from 'react-router';
 
 const mockDeploy = getMockDeploy();
+const navigate = jest.fn();
 
 describe('DeployDetailsCard', () => {
+  beforeEach(() => {
+    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+  });
   it('should render DeployDetailsCard  ', () => {
     render(<DeployDetailsCard deploy={mockDeploy} isLoading={false} />);
 
@@ -32,5 +37,21 @@ describe('DeployDetailsCard', () => {
     expect(blockHash).toHaveTextContent(mockDeploy.blockHash);
     expect(publicKey).toHaveTextContent(mockDeploy.publicKey);
     expect(deploy).toHaveTextContent(mockDeploy.deployHash);
+  });
+
+  it('Redirects to correct URL on click', () => {
+    render(<DeployDetailsCard deploy={mockDeploy} isLoading={false} />);
+
+    const blockHashLink = screen.getByTestId('block-hash-link');
+    const publicKeyLink = screen.getByTestId('public-key-link');
+
+    fireEvent.click(blockHashLink);
+    expect(navigate).toHaveBeenCalledWith(
+      `/block/${mockDeploy?.blockHash ?? ''}`,
+    );
+    fireEvent.click(publicKeyLink);
+    expect(navigate).toHaveBeenCalledWith(
+      `/account/${mockDeploy?.publicKey ?? ''}`,
+    );
   });
 });
