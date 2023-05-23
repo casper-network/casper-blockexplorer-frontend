@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable  @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RectReadOnly } from 'react-use-measure';
 import { io, Socket } from 'socket.io-client';
@@ -75,7 +77,7 @@ export const appSlice = createSlice({
           console.log('error connecting to socket', err);
         });
 
-        socket.on('gateway_schedule', (message, err) => {
+        socket.on('gateway_schedule', (message: string) => {
           console.log('getway schedule', JSON.parse(message));
         });
 

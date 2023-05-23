@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     dispatch(initializeSocket());
-  }, []);
+  }, [dispatch]);
 
   const latestBlock = useAppSelector(getLatestBlock);
 

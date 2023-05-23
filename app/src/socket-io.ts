@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { PayloadAction } from '@reduxjs/toolkit';
 import { io, Socket } from 'socket.io-client';
 import { AppState } from './store';
@@ -10,10 +11,9 @@ type CreateSocketOptions = {
   actions: PayloadAction;
 };
 
+// TODO: implement properly in app-slice: #327, 328
 export const createSocketWithHandlers = ({
   socketIOUrl,
-  state,
-  actions,
 }: CreateSocketOptions): Socket => {
   console.log('create socket...');
 
