@@ -113,7 +113,7 @@ describe('BlockDetailsCard', () => {
     );
   });
 
-  it('should  navigate to /account/:id on click', () => {
+  it('should navigate to /account/:id on click', () => {
     render(<BlockDetailsCard block={mockBlock} isLoading={false} />);
     const { body } = mockBlock;
 
