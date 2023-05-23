@@ -9,7 +9,7 @@ describe('TransactionDetailsCard', () => {
   it('should render TransactionDetailsCard  ', () => {
     render(<TransactionDetailsCard deploy={mockDeploy} isLoading={false} />);
 
-    const transactionDetailsCard = screen.getByTestId('baseCard');
+    const transactionDetailsCard = screen.getByTestId('base-card');
 
     expect(transactionDetailsCard).toBeInTheDocument();
   });
