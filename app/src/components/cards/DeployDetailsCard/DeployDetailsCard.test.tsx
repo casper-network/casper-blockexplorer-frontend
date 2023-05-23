@@ -39,12 +39,10 @@ describe('DeployDetailsCard', () => {
     const blockHash = screen.getByTestId('block-hash');
     const publicKey = screen.getByTestId('public-key');
     const deploy = screen.getByTestId('deploy-hash');
-    // const baseCardBody = screen.getByTestId('base-card-body');
 
     expect(blockHash).toHaveTextContent(mockDeploy.blockHash);
     expect(publicKey).toHaveTextContent(mockDeploy.publicKey);
     expect(deploy).toHaveTextContent(mockDeploy.deployHash);
-    // expect(baseCardBody).toHaveTextContent('Raw Data');
   });
 
   it('Redirects to correct URL on click', () => {
