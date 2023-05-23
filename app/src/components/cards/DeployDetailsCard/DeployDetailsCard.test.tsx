@@ -1,15 +1,21 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
-import * as router from 'react-router';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { getMockDeploy, render } from '../../../test-utils';
 import { DeployDetailsCard } from './DeployDetailsCard';
 
 const mockDeploy = getMockDeploy();
-const navigate = jest.fn();
+const mockedUseNavigate = jest.fn();
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUseNavigate,
+}));
 
 describe('DeployDetailsCard', () => {
-  beforeEach(() => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+  afterEach(() => {
+    jest.clearAllMocks();
   });
   it('should render DeployDetailsCard  ', () => {
     render(<DeployDetailsCard deploy={mockDeploy} isLoading={false} />);
@@ -33,10 +39,12 @@ describe('DeployDetailsCard', () => {
     const blockHash = screen.getByTestId('block-hash');
     const publicKey = screen.getByTestId('public-key');
     const deploy = screen.getByTestId('deploy-hash');
+    // const baseCardBody = screen.getByTestId('base-card-body');
 
     expect(blockHash).toHaveTextContent(mockDeploy.blockHash);
     expect(publicKey).toHaveTextContent(mockDeploy.publicKey);
     expect(deploy).toHaveTextContent(mockDeploy.deployHash);
+    // expect(baseCardBody).toHaveTextContent('Raw Data');
   });
 
   it('Redirects to correct URL on click', () => {
@@ -45,12 +53,12 @@ describe('DeployDetailsCard', () => {
     const blockHashLink = screen.getByTestId('block-hash-link');
     const publicKeyLink = screen.getByTestId('public-key-link');
 
-    fireEvent.click(blockHashLink);
-    expect(navigate).toHaveBeenCalledWith(
+    userEvent.click(blockHashLink);
+    expect(mockedUseNavigate).toHaveBeenCalledWith(
       `/block/${mockDeploy?.blockHash ?? ''}`,
     );
-    fireEvent.click(publicKeyLink);
-    expect(navigate).toHaveBeenCalledWith(
+    userEvent.click(publicKeyLink);
+    expect(mockedUseNavigate).toHaveBeenCalledWith(
       `/account/${mockDeploy?.publicKey ?? ''}`,
     );
   });
