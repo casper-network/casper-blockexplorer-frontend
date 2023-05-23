@@ -58,10 +58,8 @@ export const appSlice = createSlice({
     setIsFirstVisit: (state, action: PayloadAction<boolean>) => {
       state.isFirstVisit = action.payload;
     },
-    test: (state, action) => {
-      state.appFontUrl = '';
-    },
     initializeSocket: state => {
+      // TODO: just for initial setup. Will update and refine in #327
       if (!state.socket) {
         console.log('create socket...');
 
@@ -72,6 +70,18 @@ export const appSlice = createSlice({
         socket.on('connect', () => {
           console.log(`connected with socket id: ${socket.id}.`);
         });
+
+        socket.on('connect_error', err => {
+          console.log('error connecting to socket', err);
+        });
+
+        socket.on('gateway_schedule', (message, err) => {
+          console.log('getway schedule', JSON.parse(message));
+        });
+
+        if (socket.connected === false) {
+          console.log('socket somehow did not connect!');
+        }
 
         state.socket = socket as any;
       } else {
