@@ -11,6 +11,8 @@ import {
 } from 'react-accessible-accordion';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
 import styled from '@emotion/styled';
+import { useTheme } from '@emotion/react';
+import { darkTheme, lightTheme } from 'src/theme';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -25,6 +27,46 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const { t } = useTranslation();
   const rawDataJSON: object = parseJSON(rawData);
+  const { type: themeType } = useTheme();
+
+  const rawDataBackgroundColor =
+    themeType === 'light'
+      ? lightTheme.rawData.background
+      : darkTheme.rawData.background;
+
+  const rawDataKeyValStrings =
+    themeType === 'light'
+      ? lightTheme.rawData.keyValString
+      : darkTheme.rawData.keyValString;
+
+  const rawDataNumberOfItemsAndArrayIndices =
+    themeType === 'light'
+      ? lightTheme.rawData.itemsArrayIndices
+      : darkTheme.rawData.itemsArrayIndices;
+
+  const rawDataSvgAndNestedVal =
+    themeType === 'light' ? lightTheme.text.warning : darkTheme.text.warning;
+
+  const rawDataTheme = {
+    base00: `${rawDataBackgroundColor}`,
+    base01: `${rawDataBackgroundColor}`,
+    base02: `${rawDataBackgroundColor}`,
+    base03: `${rawDataKeyValStrings}`,
+    base04: `${rawDataNumberOfItemsAndArrayIndices}`,
+    base05: `${rawDataKeyValStrings}`,
+    base06: `${rawDataKeyValStrings}`,
+    base07: `${rawDataKeyValStrings}`,
+    base08: `${rawDataKeyValStrings}`,
+    base09: `${rawDataKeyValStrings}`,
+    base0A: `${rawDataNumberOfItemsAndArrayIndices}`,
+    base0B: `${rawDataKeyValStrings}`,
+    base0C: `${rawDataNumberOfItemsAndArrayIndices}`,
+    base0D: `${rawDataSvgAndNestedVal}`,
+    base0E: `${rawDataSvgAndNestedVal}`,
+    base0F: `${rawDataSvgAndNestedVal}`,
+  };
+
+  // More on base roles at: https://github.com/chriskempson/base16/blob/main/styling.md
 
   return (
     <Accordion allowZeroExpanded>
@@ -40,7 +82,12 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
         </AccordionItemHeading>
         <AccordionItemPanel>
           <CodeBackground>
-            <ReactJson src={rawDataJSON} displayDataTypes={false} collapsed />
+            <ReactJson
+              src={rawDataJSON}
+              displayDataTypes={false}
+              collapsed
+              theme={rawDataTheme}
+            />
           </CodeBackground>
         </AccordionItemPanel>
       </AccordionItem>
@@ -74,8 +121,4 @@ const CodeBackground = styled.div`
   border-radius: 0.5rem;
   margin-top: 1.5rem;
   background-color: ${props => props.theme.background.secondary};
-
-  * {
-    color: ${props => props.theme.text.primary};
-  }
 `;
