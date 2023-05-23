@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
@@ -28,6 +28,16 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   const { t } = useTranslation();
 
   const rawBlock = JSON.stringify(block);
+
+  const navigate = useNavigate();
+
+  const handleParentLink = () => {
+    navigate(`/block/${block?.header.parent_hash ?? ''}`);
+  };
+
+  const handleValidatorLink = () => {
+    navigate(`/account/${block?.body.proposer ?? ''}`);
+  };
 
   return (
     <div data-testid="block-details-card">
@@ -96,7 +106,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 <StyledHashLink
                   to={{
                     pathname: `/block/${block?.header.parent_hash ?? ''}`,
-                  }}>
+                  }}
+                  onClick={handleParentLink}>
                   {withSkeletonLoading(
                     <Hash
                       hash={block?.header.parent_hash ?? hashPlaceholder}
@@ -143,7 +154,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                 <StyledHashLink
                   to={{
                     pathname: `/account/${block?.body.proposer ?? ''}`,
-                  }}>
+                  }}
+                  onClick={handleValidatorLink}>
                   {withSkeletonLoading(
                     <Hash hash={block?.body.proposer ?? hashPlaceholder} />,
                     isLoading,
