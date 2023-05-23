@@ -1,8 +1,8 @@
 import React from 'react';
-import { fireEvent, getByTestId, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
+import * as router from 'react-router';
 import { getMockDeploy, render } from '../../../test-utils';
 import { DeployDetailsCard } from './DeployDetailsCard';
-import * as router from 'react-router';
 
 const mockDeploy = getMockDeploy();
 const navigate = jest.fn();
