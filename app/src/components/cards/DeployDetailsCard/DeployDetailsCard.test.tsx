@@ -53,11 +53,11 @@ describe('DeployDetailsCard', () => {
 
     userEvent.click(blockHashLink);
     expect(mockedUseNavigate).toHaveBeenCalledWith(
-      `/block/${mockDeploy?.blockHash ?? ''}`,
+      `/block/${mockDeploy?.blockHash}`,
     );
     userEvent.click(publicKeyLink);
     expect(mockedUseNavigate).toHaveBeenCalledWith(
-      `/account/${mockDeploy?.publicKey ?? ''}`,
+      `/account/${mockDeploy?.publicKey}`,
     );
   });
 });
