@@ -32,7 +32,7 @@ export const storeWithPreloadedState = (
     },
     preloadedState,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().prepend(
+      getDefaultMiddleware({ serializableCheck: false }).prepend(
         validatorListener.middleware,
         peerListener.middleware,
         blockListener.middleware,
