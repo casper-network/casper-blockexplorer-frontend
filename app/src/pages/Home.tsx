@@ -9,6 +9,7 @@ import {
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
+  initializeSocket,
 } from 'src/store';
 import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
@@ -27,6 +28,10 @@ export const Home: React.FC = () => {
     dispatch(fetchPeers(peersTableOptions));
     dispatch(fetchCurrentEraValidatorStatus());
   }, [dispatch, peersTableOptions]);
+
+  useEffect(() => {
+    dispatch(initializeSocket());
+  }, [dispatch]);
 
   const latestBlock = useAppSelector(getLatestBlock);
 

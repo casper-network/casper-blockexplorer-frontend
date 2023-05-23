@@ -53,7 +53,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
 
   return (
-    <>
+    <div data-testid="account-details-card">
       <HeadContentContainer isTruncated={isTruncated}>
         <AccountHeading type="h1">{t('account-details')}</AccountHeading>
         <AvatarHashContainer>
@@ -89,7 +89,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
             <DetailDataList gap="1.75rem">
               <li>
                 <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="account-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <Hash
@@ -106,7 +106,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="public-key">
                   {withSkeletonLoading(
                     account?.publicKey ? (
                       <>
@@ -124,7 +124,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 
               <li>
                 <DetailDataLabel>{t('balance')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="account-balance">
                   {withSkeletonLoading(
                     <Coin>{balance ?? ''}</Coin>,
                     isBalanceLoading || balance === null,
@@ -134,7 +134,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
-                <DetailDataValue>
+                <DetailDataValue data-testid="raw-data">
                   {withSkeletonLoading(
                     account?.rawAccount && (
                       <RawData rawData={account?.rawAccount} />
@@ -148,7 +148,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           </DetailDataWrapper>
         </Card.Body>
       </InfoCardContentWrapper>
-    </>
+    </div>
   );
 };
 

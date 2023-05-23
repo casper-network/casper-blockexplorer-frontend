@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
-import { gradientColors } from 'src/styled-theme';
 
 export const IconH2Container = styled.div`
   display: flex;
@@ -30,21 +29,8 @@ export const PageLink = styled(Link)`
 
   :hover,
   :focus {
-    background-color: ${props => props.theme.button};
-    background-image: linear-gradient(
-      90deg,
-      ${gradientColors.gradient1},
-      ${gradientColors.gradient2},
-      ${gradientColors.gradient3},
-      ${gradientColors.gradient4},
-      ${gradientColors.gradient5}
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
+    color: ${props => props.theme.text.hover};
+    transition: ease-in-out, color, 400ms;
     text-decoration: none;
   }
 `;

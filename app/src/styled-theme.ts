@@ -46,7 +46,7 @@ export const darkColors = {
   mediumWarning:
     darkTheme.MEDIUMWARNING || defaultTheme.colors.primary.CasperRed,
   lightWarning:
-    darkTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperBlue,
+    darkTheme.LIGHTWARNING || defaultTheme.colors.secondary.CasperPalePink,
   darkWarning: darkTheme.DARKWARNING || defaultTheme.colors.primary.CasperWhite,
   success: darkTheme.SUCCESS || defaultTheme.colors.secondary.CasperGreen,
 };
@@ -54,12 +54,4 @@ export const darkColors = {
 export const fonts = {
   primaryFont: primaryFontName,
   secondaryFont: secondaryFontName,
-};
-
-export const gradientColors = {
-  gradient1: '#1C1E90',
-  gradient2: '#693590',
-  gradient3: '#D81D54',
-  gradient4: '#D81E54',
-  gradient5: '#FD6B52',
 };
