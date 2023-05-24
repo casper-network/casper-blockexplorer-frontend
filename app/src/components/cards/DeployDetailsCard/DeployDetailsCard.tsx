@@ -148,6 +148,7 @@ const HashHeading = styled(Heading)<{
   overflow-wrap: none;
   font-size: ${pxToRem(60)};
   color: ${props => props.theme.text.hash};
+  line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 
   @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     overflow-wrap: break-word;
