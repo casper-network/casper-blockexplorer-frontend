@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
@@ -29,9 +29,10 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
 }) => {
   const [isTruncated, setIsTruncated] = useState(true);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
-    <>
+    <div data-testid="deploy-details-card">
       <HeaderContent>
         <HashWrapper>
           {withSkeletonLoading(
@@ -59,10 +60,15 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
             <DetailDataList>
               <li>
                 <DetailDataLabel>{t('block-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="block-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
-                      <StyledHashLink to={`/block/${deploy?.blockHash ?? ''}`}>
+                      <StyledHashLink
+                        data-testid="block-hash-link"
+                        onClick={() => {
+                          navigate(`/block/${deploy?.blockHash ?? ''}`);
+                        }}
+                        to={`/block/${deploy?.blockHash ?? ''}`}>
                         <Hash hash={deploy?.blockHash ?? hashPlaceholder} />
                       </StyledHashLink>
                       <CopyToClipboard textToCopy={deploy?.blockHash ?? ''} />
@@ -74,10 +80,14 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('public-key')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="public-key" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <StyledHashLink
+                        data-testid="public-key-link"
+                        onClick={() => {
+                          navigate(`/account/${deploy?.publicKey ?? ''}`);
+                        }}
                         to={`/account/${deploy?.publicKey ?? ''}`}>
                         <Hash hash={deploy?.publicKey ?? hashPlaceholder} />
                       </StyledHashLink>
@@ -90,7 +100,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
               </li>
               <li>
                 <DetailDataLabel>{t('deploy-hash')}</DetailDataLabel>
-                <DetailDataValue height="2rem">
+                <DetailDataValue data-testid="deploy-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
                       <Hash hash={deploy?.deployHash ?? hashPlaceholder} />
@@ -115,7 +125,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
           </DetailDataWrapper>
         </Card.Body>
       </InfoCardContentWrapper>
-    </>
+    </div>
   );
 };
 
