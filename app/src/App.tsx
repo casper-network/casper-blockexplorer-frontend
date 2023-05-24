@@ -26,12 +26,13 @@ import {
   getLatestBlock,
   fetchLatestBlock,
   getSocket,
+  updateLatestBlock,
 } from './store';
 
 import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { darkTheme, lightTheme } from './theme';
-import { Block } from './api/types';
+import { ApiData } from './api/types';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -62,15 +63,17 @@ const App = () => {
   const { setTimer } = useAppRefresh();
 
   useEffect(() => {
+    console.log({ socket });
+
     if (socket) {
       socket.on('latest_block', (latestBlockString: string) => {
         const parsedLatestBlock = JSON.parse(latestBlockString) as {
-          latestBlock: Block;
+          latestBlock: ApiData.Block;
         }[];
 
         const [{ latestBlock }] = parsedLatestBlock;
 
-        console.log({ latestBlock });
+        dispatch(updateLatestBlock(latestBlock));
       });
     }
   }, [socket]);

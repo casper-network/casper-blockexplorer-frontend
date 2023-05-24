@@ -147,6 +147,9 @@ export const blockSlice = createSlice({
       state.tableOptions = defaultTableOptions;
     },
     resetToInitialBlockState: () => initialState,
+    updateLatestBlock: (state, action: PayloadAction<ApiData.Block>) => {
+      state.latestBlock = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -199,6 +202,7 @@ export const {
   updateBlocksSorting,
   restetBlocksTableOptions,
   resetToInitialBlockState,
+  updateLatestBlock,
 } = blockSlice.actions;
 
 blockListener.startListening({
