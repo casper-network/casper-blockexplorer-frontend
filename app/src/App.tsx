@@ -25,11 +25,13 @@ import {
   appFontUrl,
   getLatestBlock,
   fetchLatestBlock,
+  getSocket,
 } from './store';
 
 import { useAppRefresh } from './hooks';
 import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
 import { darkTheme, lightTheme } from './theme';
+import { Block } from './api/types';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -55,8 +57,23 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   const latestBlock = useAppSelector(getLatestBlock);
+  const socket = useAppSelector(getSocket);
 
   const { setTimer } = useAppRefresh();
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('latest_block', (latestBlockString: string) => {
+        const parsedLatestBlock = JSON.parse(latestBlockString) as {
+          latestBlock: Block;
+        }[];
+
+        const [{ latestBlock }] = parsedLatestBlock;
+
+        console.log({ latestBlock });
+      });
+    }
+  }, [socket]);
 
   useEffect(() => {
     dispatch(updateBounds(bounds));

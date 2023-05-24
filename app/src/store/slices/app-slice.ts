@@ -77,9 +77,13 @@ export const appSlice = createSlice({
           console.log('error connecting to socket', err);
         });
 
-        socket.on('gateway_schedule', (message: string) => {
-          console.log('getway schedule', JSON.parse(message));
-        });
+        // socket.on('gateway_schedule', (message: string) => {
+        //   console.log('getway schedule', JSON.parse(message));
+        // });
+
+        // socket.on('latest_block', (latestBlock: string) => {
+        //   console.log('latest block from WS', JSON.parse(latestBlock));
+        // });
 
         if (socket.connected === false) {
           console.log('socket somehow did not connect!');

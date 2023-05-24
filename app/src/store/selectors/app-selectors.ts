@@ -23,3 +23,7 @@ export const appPrimaryFontName = (state: RootState) => {
 export const appSecondaryFontName = (state: RootState) => {
   return state.app.appSecondaryFontName;
 };
+
+export const getSocket = (state: RootState) => {
+  return state.app.socket;
+};
