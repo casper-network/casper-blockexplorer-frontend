@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactJson from '@microlink/react-json-view';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,6 +13,7 @@ import { pxToRem, defaultTheme } from 'casper-ui-kit';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { darkTheme, lightTheme } from 'src/theme';
+import { MOBILE_BREAKPOINT } from 'src/constants';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -27,6 +28,20 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const { t } = useTranslation();
   const rawDataJSON: object = parseJSON(rawData);
+  const [stringLength, setStringLength] = useState<number>();
+
+  const windowWidth = window.innerWidth;
+
+  useEffect(() => {
+    if (windowWidth <= MOBILE_BREAKPOINT) {
+      const phoneAndTabletRawDataStringLength = Math.floor(windowWidth * 0.035);
+      setStringLength(phoneAndTabletRawDataStringLength);
+    } else {
+      const DesktopRawDataStringLength = Math.floor(windowWidth * 0.06);
+      setStringLength(DesktopRawDataStringLength);
+    }
+  }, [windowWidth]);
+
   const { type: themeType } = useTheme();
 
   const rawDataBackgroundColor =
@@ -87,6 +102,7 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
               displayDataTypes={false}
               collapsed
               theme={rawDataTheme}
+              collapseStringsAfterLength={stringLength}
             />
           </CodeBackground>
         </AccordionItemPanel>

@@ -262,6 +262,7 @@ const DetailDataRowWrapper = styled.ul`
   @media only screen and (min-width: ${defaultTheme.typography.breakpoints
       .lg}) {
     flex-direction: row;
+    flex-wrap: wrap;
     gap: ${pxToRem(96)};
   }
 `;
