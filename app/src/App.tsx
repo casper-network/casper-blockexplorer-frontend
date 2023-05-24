@@ -25,7 +25,6 @@ import {
   appFontUrl,
   getSocket,
   updateLatestBlock,
-  updateBlocksWithLatest,
   initializeSocket,
 } from './store';
 
@@ -75,8 +74,6 @@ const App = () => {
         const [{ latestBlock }] = parsedLatestBlock;
 
         dispatch(updateLatestBlock(latestBlock));
-
-        dispatch(updateBlocksWithLatest(latestBlock));
       });
     }
   }, [socket]);

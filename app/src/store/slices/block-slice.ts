@@ -150,27 +150,43 @@ export const blockSlice = createSlice({
     updateLatestBlock: (state, action: PayloadAction<ApiData.Block>) => {
       state.latestBlock = action.payload;
     },
-    updateBlocksWithLatest: (state, action: PayloadAction<ApiData.Block>) => {
+    updateBlocksWithLatest: (
+      state,
+      action: PayloadAction<{
+        latestBlock: ApiData.Block;
+        blocks: ApiData.Block[];
+      }>,
+    ) => {
       // TODO: need to also figure out best way to add this to block array
       // 1. check to see if blocks list exist (length >= 1)
       // 2. check to see if latest block height is +1 of latest block in blocks list
       // 2a. if yes, then add to end of list and pop one off the end to keep list length same as before
+      // -> this indicates that we are on the first page of the blocks table
+      // -> should we maybe just check to see if we're on the first page instead?? We have access here...
       // 2b. if no, then maybe refetch /blocks with current table/pagination options
+      // -> not on the first page, but just simply refetch??
+      // -> maybe not great idea to be refetching all the time if not on first page
 
       if (state.blocks.length) {
         console.log(
           'mapped blocks height',
-          state.blocks.map(block => block.header.height),
+          action.payload.blocks.map(block => block.header.height),
         );
 
-        const latestBlockHeight = action.payload.header.height;
-        const latestBlockInList = state.blocks[0].header.height;
+        const latestBlockHeight = action.payload.latestBlock.header.height;
+        const latestBlockInList = action.payload.blocks[0];
 
-        if (latestBlockInList + 1 === latestBlockHeight) {
-          // TODO: push to start of list and pop last item
-        } else {
-          // TODO: refetch list of blocks??
-        }
+        // if (latestBlockInList + 1 === latestBlockHeight) {
+        //   // TODO: push to start of list and pop last item
+
+        //   const poppedBlocks = state.blocks;
+
+        //   if (poppedBlocks) {
+        //     state.blocks = [action.payload, ...poppedBlocks];
+        //   }
+        // } else {
+        //   // TODO: refetch list of blocks??
+        // }
       }
     },
   },
