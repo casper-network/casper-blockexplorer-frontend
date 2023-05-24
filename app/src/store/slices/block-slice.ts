@@ -150,6 +150,29 @@ export const blockSlice = createSlice({
     updateLatestBlock: (state, action: PayloadAction<ApiData.Block>) => {
       state.latestBlock = action.payload;
     },
+    updateBlocksWithLatest: (state, action: PayloadAction<ApiData.Block>) => {
+      // TODO: need to also figure out best way to add this to block array
+      // 1. check to see if blocks list exist (length >= 1)
+      // 2. check to see if latest block height is +1 of latest block in blocks list
+      // 2a. if yes, then add to end of list and pop one off the end to keep list length same as before
+      // 2b. if no, then maybe refetch /blocks with current table/pagination options
+
+      if (state.blocks.length) {
+        console.log(
+          'mapped blocks height',
+          state.blocks.map(block => block.header.height),
+        );
+
+        const latestBlockHeight = action.payload.header.height;
+        const latestBlockInList = state.blocks[0].header.height;
+
+        if (latestBlockInList + 1 === latestBlockHeight) {
+          // TODO: push to start of list and pop last item
+        } else {
+          // TODO: refetch list of blocks??
+        }
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -203,6 +226,7 @@ export const {
   restetBlocksTableOptions,
   resetToInitialBlockState,
   updateLatestBlock,
+  updateBlocksWithLatest,
 } = blockSlice.actions;
 
 blockListener.startListening({

@@ -23,14 +23,13 @@ import {
   setIsFirstVisit,
   useAppSelector,
   appFontUrl,
-  getLatestBlock,
-  fetchLatestBlock,
   getSocket,
   updateLatestBlock,
+  updateBlocksWithLatest,
+  initializeSocket,
 } from './store';
 
-import { useAppRefresh } from './hooks';
-import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
+import { loadConfig } from './utils';
 import { darkTheme, lightTheme } from './theme';
 import { ApiData } from './api/types';
 
@@ -57,10 +56,14 @@ const App = () => {
 
   const dispatch = useAppDispatch();
 
-  const latestBlock = useAppSelector(getLatestBlock);
+  // const latestBlock = useAppSelector(getLatestBlock);
   const socket = useAppSelector(getSocket);
 
-  const { setTimer } = useAppRefresh();
+  // const { setTimer } = useAppRefresh();
+
+  useEffect(() => {
+    dispatch(initializeSocket());
+  }, [dispatch]);
 
   useEffect(() => {
     if (socket) {
@@ -73,11 +76,7 @@ const App = () => {
 
         dispatch(updateLatestBlock(latestBlock));
 
-        // TODO: need to also figure out best way to add this to block array
-        // 1. check to see if blocks list exist (length >= 1)
-        // 2. check to see if latest block height is +1 of latest block in blocks list
-        // 2a. if yes, then add to end of list and pop one off the end to keep list length same as before
-        // 2b. if no, then maybe refetch /blocks with current table/pagination options
+        dispatch(updateBlocksWithLatest(latestBlock));
       });
     }
   }, [socket]);
@@ -86,17 +85,17 @@ const App = () => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
 
-  useEffect(() => {
-    if (!latestBlock) {
-      dispatch(fetchLatestBlock());
-    } else {
-      const timeUntilBlocksRefetch = getTimeUntilRefetchBlocks(
-        latestBlock.header.timestamp,
-      );
+  // useEffect(() => {
+  //   if (!latestBlock) {
+  //     dispatch(fetchLatestBlock());
+  //   } else {
+  //     const timeUntilBlocksRefetch = getTimeUntilRefetchBlocks(
+  //       latestBlock.header.timestamp,
+  //     );
 
-      setTimer(timeUntilBlocksRefetch);
-    }
-  }, [latestBlock, setTimer, dispatch]);
+  //     setTimer(timeUntilBlocksRefetch);
+  //   }
+  // }, [latestBlock, setTimer, dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 
