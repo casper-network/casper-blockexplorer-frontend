@@ -3,5 +3,10 @@
     "active": true,
     "notes": "Ignored until css-minimizer-webpack-plugin, postcss-loader, & fork-ts-checker-webpack-plugin add a fix.",
     "expiry": "1 May 2023 9:00 am"
+  },
+  "1092099": {
+    "active": true,
+    "notes": "Ignore temporarily while we find a fix for socket.io-parser",
+    "expiry": "1 July 2023 9:00 am"
   }
 }
