@@ -63,8 +63,6 @@ const App = () => {
   const { setTimer } = useAppRefresh();
 
   useEffect(() => {
-    console.log({ socket });
-
     if (socket) {
       socket.on('latest_block', (latestBlockString: string) => {
         const parsedLatestBlock = JSON.parse(latestBlockString) as {
@@ -74,6 +72,12 @@ const App = () => {
         const [{ latestBlock }] = parsedLatestBlock;
 
         dispatch(updateLatestBlock(latestBlock));
+
+        // TODO: need to also figure out best way to add this to block array
+        // 1. check to see if blocks list exist (length >= 1)
+        // 2. check to see if latest block height is +1 of latest block in blocks list
+        // 2a. if yes, then add to end of list and pop one off the end to keep list length same as before
+        // 2b. if no, then maybe refetch /blocks with current table/pagination options
       });
     }
   }, [socket]);
