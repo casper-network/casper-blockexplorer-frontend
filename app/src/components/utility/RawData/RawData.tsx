@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactJson from '@microlink/react-json-view';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,11 +13,6 @@ import { pxToRem, defaultTheme } from 'casper-ui-kit';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { darkTheme, lightTheme } from 'src/theme';
-import {
-  DESKTOP_RAW_DATA_STRING_LENGTH_COEFFICIENT,
-  MOBILE_BREAKPOINT,
-  MOBILE_RAW_DATA_STRING_LENGTH_COEFFICIENT,
-} from 'src/constants';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -32,23 +27,6 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const { t } = useTranslation();
   const rawDataJSON: object = parseJSON(rawData);
-  const [stringLength, setStringLength] = useState<number>();
-
-  const windowWidth = window.innerWidth;
-
-  useEffect(() => {
-    if (windowWidth <= MOBILE_BREAKPOINT) {
-      const MobileRawDataStringLength = Math.floor(
-        windowWidth * MOBILE_RAW_DATA_STRING_LENGTH_COEFFICIENT,
-      );
-      setStringLength(MobileRawDataStringLength);
-    } else {
-      const DesktopRawDataStringLength = Math.floor(
-        windowWidth * DESKTOP_RAW_DATA_STRING_LENGTH_COEFFICIENT,
-      );
-      setStringLength(DesktopRawDataStringLength);
-    }
-  }, [windowWidth]);
 
   const { type: themeType } = useTheme();
 
@@ -110,7 +88,6 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
               displayDataTypes={false}
               collapsed
               theme={rawDataTheme}
-              collapseStringsAfterLength={stringLength}
             />
           </CodeBackground>
         </AccordionItemPanel>
@@ -141,10 +118,15 @@ const RawDataToggleButton = styled(AccordionItemButton)`
 `;
 
 const CodeBackground = styled.div`
-  padding: 1.5rem 0.1rem;
+  padding: 1.5rem 0.5rem;
   border-radius: 0.5rem;
   margin-top: 1.5rem;
   background-color: ${props => props.theme.background.secondary};
+
+  .react-json-view {
+    word-break: break-all;
+    -ms-word-break: break-all;
+  }
 
   @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
     padding: 1.5rem;
