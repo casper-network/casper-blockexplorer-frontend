@@ -47,7 +47,7 @@ export const Blocks: React.FC = () => {
   useEffect(() => {
     // updated from WS
     if (latestBlock) {
-      dispatch(updateBlocksWithLatest({ latestBlock, blocks }));
+      dispatch(updateBlocksWithLatest({ latestBlock }));
     }
   }, [latestBlock]);
 

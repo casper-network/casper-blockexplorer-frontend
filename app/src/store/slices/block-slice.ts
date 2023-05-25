@@ -154,20 +154,18 @@ export const blockSlice = createSlice({
       state,
       action: PayloadAction<{
         latestBlock: ApiData.Block;
-        // TODO: could we actually use the store state insead of passing blocks?
-        blocks: ApiData.Block[];
       }>,
     ) => {
       if (state.blocks.length) {
         const latestBlockHeight = action.payload.latestBlock.header.height;
-        const latestBlockInList = action.payload.blocks[0].header.height;
+        const latestBlockInList = state.blocks[0].header.height;
 
         if (
           state.tableOptions.pagination.pageNum === 1 &&
           latestBlockHeight - latestBlockInList === 1
         ) {
           const poppedBlocks = [
-            ...action.payload.blocks.slice(0, action.payload.blocks.length - 1),
+            ...state.blocks.slice(0, state.blocks.length - 1),
           ];
 
           const updatedBlocks = [action.payload.latestBlock, ...poppedBlocks];
