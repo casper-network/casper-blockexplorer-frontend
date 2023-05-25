@@ -154,17 +154,18 @@ export const blockSlice = createSlice({
       state,
       action: PayloadAction<{
         latestBlock: ApiData.Block;
+        // TODO: could we actually use the store state insead of passing blocks?
         blocks: ApiData.Block[];
       }>,
     ) => {
       if (state.blocks.length) {
-        console.log(
-          'mapped blocks height',
-          action.payload.blocks.map(block => block.header.height),
-        );
+        const latestBlockHeight = action.payload.latestBlock.header.height;
+        const latestBlockInList = action.payload.blocks[0].header.height;
 
-        // TODO: maybe check for first page instead?
-        if (state.tableOptions.pagination.pageNum === 1) {
+        if (
+          state.tableOptions.pagination.pageNum === 1 &&
+          latestBlockHeight - latestBlockInList === 1
+        ) {
           const poppedBlocks = [
             ...action.payload.blocks.slice(0, action.payload.blocks.length - 1),
           ];
@@ -172,9 +173,6 @@ export const blockSlice = createSlice({
           const updatedBlocks = [action.payload.latestBlock, ...poppedBlocks];
 
           state.blocks = updatedBlocks;
-        } else {
-          console.log('not on first page');
-          // TODO: refetch list of blocks??
         }
       }
     },

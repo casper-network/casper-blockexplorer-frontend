@@ -82,18 +82,6 @@ const App = () => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
 
-  // useEffect(() => {
-  //   if (!latestBlock) {
-  //     dispatch(fetchLatestBlock());
-  //   } else {
-  //     const timeUntilBlocksRefetch = getTimeUntilRefetchBlocks(
-  //       latestBlock.header.timestamp,
-  //     );
-
-  //     setTimer(timeUntilBlocksRefetch);
-  //   }
-  // }, [latestBlock, setTimer, dispatch]);
-
   const usersVisitationStatus = localStorage.getItem('users-status');
 
   useEffect(() => {
