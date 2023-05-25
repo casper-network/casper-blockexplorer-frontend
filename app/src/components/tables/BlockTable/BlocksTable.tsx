@@ -19,8 +19,8 @@ import {
   standardizeNumber,
   truncateHash,
 } from '../../../utils';
-import { CopyToClipboard, RefreshTimer } from '../../utility';
-import { Table } from '../../base';
+import { CopyToClipboard } from '../../utility';
+import { Spacer, Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
 const rowCountSelectOptions: SelectOptions[] | null = [
@@ -94,7 +94,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
   const footer = useMemo(
     () => (
       <BlocksTableFooter>
-        <RefreshTimer />
+        <Spacer />
         <NumberedPagination
           tableOptions={blocksTableOptions}
           setTableOptions={setBlocksTableOptions}

@@ -23,13 +23,14 @@ import {
   setIsFirstVisit,
   useAppSelector,
   appFontUrl,
-  getLatestBlock,
-  fetchLatestBlock,
+  getSocket,
+  updateLatestBlock,
+  initializeSocket,
 } from './store';
 
-import { useAppRefresh } from './hooks';
-import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
+import { loadConfig } from './utils';
 import { darkTheme, lightTheme } from './theme';
+import { ApiData } from './api/types';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -54,25 +55,29 @@ const App = () => {
 
   const dispatch = useAppDispatch();
 
-  const latestBlock = useAppSelector(getLatestBlock);
+  const socket = useAppSelector(getSocket);
 
-  const { setTimer } = useAppRefresh();
+  useEffect(() => {
+    dispatch(initializeSocket());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('latest_block', (latestBlockString: string) => {
+        const parsedLatestBlock = JSON.parse(latestBlockString) as {
+          latestBlock: ApiData.Block;
+        }[];
+
+        const [{ latestBlock }] = parsedLatestBlock;
+
+        dispatch(updateLatestBlock(latestBlock));
+      });
+    }
+  }, [socket, dispatch]);
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
-
-  useEffect(() => {
-    if (!latestBlock) {
-      dispatch(fetchLatestBlock());
-    } else {
-      const timeUntilBlocksRefetch = getTimeUntilRefetchBlocks(
-        latestBlock.header.timestamp,
-      );
-
-      setTimer(timeUntilBlocksRefetch);
-    }
-  }, [latestBlock, setTimer, dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 

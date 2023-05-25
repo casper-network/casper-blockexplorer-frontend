@@ -77,10 +77,6 @@ export const appSlice = createSlice({
           console.log('error connecting to socket', err);
         });
 
-        socket.on('gateway_schedule', (message: string) => {
-          console.log('getway schedule', JSON.parse(message));
-        });
-
         if (socket.connected === false) {
           console.log('socket somehow did not connect!');
         }

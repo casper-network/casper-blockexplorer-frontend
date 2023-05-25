@@ -11,6 +11,8 @@ import {
   getTotalBlocks,
   getBlocksTableOptions,
   updateBlocksSorting,
+  updateBlocksWithLatest,
+  getLatestBlock,
 } from 'src/store';
 import { SortingState } from '@tanstack/react-table';
 import { PageTableHeader } from '../components/layout/Header/Header.styled';
@@ -35,11 +37,19 @@ export const Blocks: React.FC = () => {
 
   const blocks = useAppSelector(getBlocks);
   const totalBlocks = useAppSelector(getTotalBlocks);
+  const latestBlock = useAppSelector(getLatestBlock);
   const blockLoadingStatus = useAppSelector(getBlocksLoadingStatus);
   const blocksTableOptions = useAppSelector(getBlocksTableOptions);
 
   const isLoadingPage =
     blockLoadingStatus !== Loading.Complete && !blocks.length;
+
+  useEffect(() => {
+    // updated from WS
+    if (latestBlock) {
+      dispatch(updateBlocksWithLatest({ latestBlock }));
+    }
+  }, [latestBlock, dispatch]);
 
   useEffect(() => {
     if (refreshTimer === 0) {

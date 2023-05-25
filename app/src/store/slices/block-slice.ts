@@ -147,6 +147,33 @@ export const blockSlice = createSlice({
       state.tableOptions = defaultTableOptions;
     },
     resetToInitialBlockState: () => initialState,
+    updateLatestBlock: (state, action: PayloadAction<ApiData.Block>) => {
+      state.latestBlock = action.payload;
+    },
+    updateBlocksWithLatest: (
+      state,
+      action: PayloadAction<{
+        latestBlock: ApiData.Block;
+      }>,
+    ) => {
+      if (state.blocks.length) {
+        const latestBlockHeight = action.payload.latestBlock.header.height;
+        const latestBlockInList = state.blocks[0].header.height;
+
+        if (
+          state.tableOptions.pagination.pageNum === 1 &&
+          latestBlockHeight - latestBlockInList === 1
+        ) {
+          const poppedBlocks = [
+            ...state.blocks.slice(0, state.blocks.length - 1),
+          ];
+
+          const updatedBlocks = [action.payload.latestBlock, ...poppedBlocks];
+
+          state.blocks = updatedBlocks;
+        }
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -199,6 +226,8 @@ export const {
   updateBlocksSorting,
   restetBlocksTableOptions,
   resetToInitialBlockState,
+  updateLatestBlock,
+  updateBlocksWithLatest,
 } = blockSlice.actions;
 
 blockListener.startListening({
