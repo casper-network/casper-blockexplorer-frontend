@@ -10,3 +10,5 @@ export const DEFAULT_FONT_URL = '';
 export const DEFAULT_PRIMARY_FONT_FAMILIES = 'Inter, sans-serif';
 export const DEFAULT_SECONDARY_FONT_FAMILIES = 'JetBrains Mono, monospace';
 export const DEFAULT_PAGESIZE = 10;
+export const MOBILE_RAW_DATA_STRING_LENGTH_COEFFICIENT = 0.035;
+export const DESKTOP_RAW_DATA_STRING_LENGTH_COEFFICIENT = 0.059;

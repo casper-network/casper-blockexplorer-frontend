@@ -13,7 +13,11 @@ import { pxToRem, defaultTheme } from 'casper-ui-kit';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { darkTheme, lightTheme } from 'src/theme';
-import { MOBILE_BREAKPOINT } from 'src/constants';
+import {
+  DESKTOP_RAW_DATA_STRING_LENGTH_COEFFICIENT,
+  MOBILE_BREAKPOINT,
+  MOBILE_RAW_DATA_STRING_LENGTH_COEFFICIENT,
+} from 'src/constants';
 
 interface RawDataProps {
   readonly rawData: string;
@@ -34,10 +38,14 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
 
   useEffect(() => {
     if (windowWidth <= MOBILE_BREAKPOINT) {
-      const MobileRawDataStringLength = Math.floor(windowWidth * 0.035);
+      const MobileRawDataStringLength = Math.floor(
+        windowWidth * MOBILE_RAW_DATA_STRING_LENGTH_COEFFICIENT,
+      );
       setStringLength(MobileRawDataStringLength);
     } else {
-      const DesktopRawDataStringLength = Math.floor(windowWidth * 0.0595);
+      const DesktopRawDataStringLength = Math.floor(
+        windowWidth * DESKTOP_RAW_DATA_STRING_LENGTH_COEFFICIENT,
+      );
       setStringLength(DesktopRawDataStringLength);
     }
   }, [windowWidth]);
