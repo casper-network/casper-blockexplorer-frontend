@@ -55,10 +55,7 @@ const App = () => {
 
   const dispatch = useAppDispatch();
 
-  // const latestBlock = useAppSelector(getLatestBlock);
   const socket = useAppSelector(getSocket);
-
-  // const { setTimer } = useAppRefresh();
 
   useEffect(() => {
     dispatch(initializeSocket());
@@ -76,7 +73,7 @@ const App = () => {
         dispatch(updateLatestBlock(latestBlock));
       });
     }
-  }, [socket]);
+  }, [socket, dispatch]);
 
   useEffect(() => {
     dispatch(updateBounds(bounds));

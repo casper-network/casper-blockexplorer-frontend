@@ -49,7 +49,7 @@ export const Blocks: React.FC = () => {
     if (latestBlock) {
       dispatch(updateBlocksWithLatest({ latestBlock }));
     }
-  }, [latestBlock]);
+  }, [latestBlock, dispatch]);
 
   useEffect(() => {
     if (refreshTimer === 0) {
