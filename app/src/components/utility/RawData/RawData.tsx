@@ -34,10 +34,10 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
 
   useEffect(() => {
     if (windowWidth <= MOBILE_BREAKPOINT) {
-      const phoneAndTabletRawDataStringLength = Math.floor(windowWidth * 0.035);
-      setStringLength(phoneAndTabletRawDataStringLength);
+      const MobileRawDataStringLength = Math.floor(windowWidth * 0.035);
+      setStringLength(MobileRawDataStringLength);
     } else {
-      const DesktopRawDataStringLength = Math.floor(windowWidth * 0.06);
+      const DesktopRawDataStringLength = Math.floor(windowWidth * 0.0595);
       setStringLength(DesktopRawDataStringLength);
     }
   }, [windowWidth]);
@@ -133,8 +133,12 @@ const RawDataToggleButton = styled(AccordionItemButton)`
 `;
 
 const CodeBackground = styled.div`
-  padding: 1.5rem;
+  padding: 1.5rem 0.1rem;
   border-radius: 0.5rem;
   margin-top: 1.5rem;
   background-color: ${props => props.theme.background.secondary};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+    padding: 1.5rem;
+  }
 `;
