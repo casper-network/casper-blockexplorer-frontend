@@ -26,6 +26,7 @@ import {
   getSocket,
   updateLatestBlock,
   initializeSocket,
+  updateCurrentEraValidatorsStatus,
 } from './store';
 
 import { loadConfig } from './utils';
@@ -72,6 +73,22 @@ const App = () => {
 
         dispatch(updateLatestBlock(latestBlock));
       });
+
+      socket.on(
+        'current_era_validator_status',
+        (currentEraValidatorStatusString: string) => {
+          const parsedcurrentEraValidatorStatus = JSON.parse(
+            currentEraValidatorStatusString,
+          ) as {
+            currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus;
+          }[];
+
+          const [{ currentEraValidatorStatus }] =
+            parsedcurrentEraValidatorStatus;
+
+          dispatch(updateCurrentEraValidatorsStatus(currentEraValidatorStatus));
+        },
+      );
     }
   }, [socket, dispatch]);
 
