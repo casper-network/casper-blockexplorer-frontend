@@ -1,4 +1,4 @@
-# Blockexplorer Middleware
+# Blockexplorer Frontend
 
 Here is the [middleware repo](https://github.com/casper-network/casper-blockexplorer-middleware) for the blockexplorer app.
 If you want to run the whole app on your own you might need it. Please follow the `README.md` in the middleware repo and then use the middleware URL as `MIDDLEWARE_URL` env variable.
