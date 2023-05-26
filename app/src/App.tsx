@@ -27,6 +27,7 @@ import {
   updateLatestBlock,
   initializeSocket,
   updateCurrentEraValidatorsStatus,
+  updateTotalPeers,
 } from './store';
 
 import { loadConfig } from './utils';
@@ -74,6 +75,7 @@ const App = () => {
         dispatch(updateLatestBlock(latestBlock));
       });
 
+      // TODO: refactor to add to a WS class and add generic typing - 327b
       socket.on(
         'current_era_validator_status',
         (currentEraValidatorStatusString: string) => {
@@ -89,6 +91,20 @@ const App = () => {
           dispatch(updateCurrentEraValidatorsStatus(currentEraValidatorStatus));
         },
       );
+
+      socket.on('peers', (peersString: string) => {
+        const parsedPeers = JSON.parse(peersString) as {
+          peers: { totalPeers: number };
+        }[];
+
+        const [
+          {
+            peers: { totalPeers },
+          },
+        ] = parsedPeers;
+
+        dispatch(updateTotalPeers(totalPeers));
+      });
     }
   }, [socket, dispatch]);
 
