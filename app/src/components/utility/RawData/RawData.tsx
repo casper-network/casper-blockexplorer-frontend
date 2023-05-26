@@ -27,6 +27,7 @@ const parseJSON = (JSONString: string) => {
 export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   const { t } = useTranslation();
   const rawDataJSON: object = parseJSON(rawData);
+
   const { type: themeType } = useTheme();
 
   const rawDataBackgroundColor =
@@ -117,8 +118,16 @@ const RawDataToggleButton = styled(AccordionItemButton)`
 `;
 
 const CodeBackground = styled.div`
-  padding: 1.5rem;
+  padding: 1.5rem 0.5rem;
   border-radius: 0.5rem;
   margin-top: 1.5rem;
   background-color: ${props => props.theme.background.secondary};
+
+  .react-json-view {
+    word-break: break-all;
+  }
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+    padding: 1.5rem;
+  }
 `;
