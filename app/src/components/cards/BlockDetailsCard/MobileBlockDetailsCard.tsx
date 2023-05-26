@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { pxToRem, Card } from 'casper-ui-kit';
+import { pxToRem, Card, defaultTheme } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 
 import { InfoCardContentWrapper } from 'src/components/base';
@@ -214,15 +214,12 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
 };
 
 const PageHeading = styled.h2`
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  font-weight: 800;
+  font-size: clamp(2.1rem, 6vw, 3.75rem);
+  margin-bottom: 1.5rem;
+  color: ${props => props.theme.text.hash};
+  font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   padding-left: ${pxToRem(15)};
-  background: ${props => props.theme.text.hash};
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 `;
 
 const DetailDataRowWrapper = styled(DetailDataWrapper)`

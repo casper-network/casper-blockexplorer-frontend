@@ -5,7 +5,7 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: center;
   width: auto;
-  margin: 0 2.25rem;
+  margin: 0.5rem;
   position: relative;
   padding: 0;
 
@@ -125,7 +125,7 @@ export const SubmitButton = styled.button`
 export const ErrorMessageContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 0.75rem 0;
+  padding: 0.6rem 0;
   position: absolute;
   right: 0;
   left: 0;

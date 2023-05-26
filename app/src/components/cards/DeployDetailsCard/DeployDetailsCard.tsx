@@ -146,7 +146,7 @@ const HashHeading = styled(Heading)<{
   min-width: ${pxToRem(360)};
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
   overflow-wrap: none;
-  font-size: ${pxToRem(60)};
+  font-size: clamp(2.1rem, 6vw, 3.75rem);
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 

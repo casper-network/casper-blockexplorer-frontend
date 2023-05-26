@@ -181,20 +181,19 @@ const AvatarHashContainer = styled.div`
 
 const HashExpandWrapper = styled.div`
   overflow-wrap: break-word;
-  height: ${pxToRem(92)};
+  margin: auto 0;
 `;
 
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
 }>`
+  font-size: clamp(2.1rem, 6vw, 3.75rem);
   font-weight: ${defaultTheme.typography.fontWeights.medium};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
-  width: 10%;
   overflow-wrap: break-word;
   word-break: break-word;
-  font-size: ${pxToRem(60)};
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 

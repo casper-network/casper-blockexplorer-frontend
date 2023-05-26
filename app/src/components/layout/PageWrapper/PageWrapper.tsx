@@ -62,8 +62,11 @@ const BaseContentContainer = styled.main`
   width: 100%;
   margin: 0 auto;
   background-color: ${props => props.theme.background.primary};
-  padding: ${pxToRem(24)} 0 0 0;
   max-width: ${pxToRem(1800)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+    padding-top: ${pxToRem(30)};
+  }
 `;
 
 const ContentWrapper = styled.div`
