@@ -105,6 +105,12 @@ export const validatorSlice = createSlice({
       state.tableOptions = defaultTableOptions;
     },
     resetToInitialValidatorState: () => initialState,
+    updateCurrentEraValidatorsStatus: (
+      state,
+      action: PayloadAction<ApiData.CurrentEraValidatorStatus>,
+    ) => {
+      state.currentEraValidatorStatus = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -146,6 +152,7 @@ export const {
   updateValidatorSorting,
   resetValidatorTableOptions,
   resetToInitialValidatorState,
+  updateCurrentEraValidatorsStatus,
 } = validatorSlice.actions;
 
 validatorListener.startListening({

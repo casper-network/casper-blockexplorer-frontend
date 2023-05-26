@@ -82,6 +82,9 @@ export const peerSlice = createSlice({
     ) => {
       state.tableOptions.sorting = action.payload;
     },
+    updateTotalPeers: (state, action: PayloadAction<number>) => {
+      state.totalPeers = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -110,8 +113,12 @@ export const peerSlice = createSlice({
   },
 });
 
-export const { setPeerTableOptions, updatePeerPageNum, updatePeerSorting } =
-  peerSlice.actions;
+export const {
+  setPeerTableOptions,
+  updatePeerPageNum,
+  updatePeerSorting,
+  updateTotalPeers,
+} = peerSlice.actions;
 
 peerListener.startListening({
   matcher: isAnyOf(setPeerTableOptions, updatePeerPageNum, updatePeerSorting),
