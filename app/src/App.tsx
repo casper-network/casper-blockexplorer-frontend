@@ -79,14 +79,14 @@ const App = () => {
       socket.on(
         'current_era_validator_status',
         (currentEraValidatorStatusString: string) => {
-          const parsedcurrentEraValidatorStatus = JSON.parse(
+          const parsedCurrentEraValidatorStatus = JSON.parse(
             currentEraValidatorStatusString,
           ) as {
             currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus;
           }[];
 
           const [{ currentEraValidatorStatus }] =
-            parsedcurrentEraValidatorStatus;
+            parsedCurrentEraValidatorStatus;
 
           dispatch(updateCurrentEraValidatorsStatus(currentEraValidatorStatus));
         },
