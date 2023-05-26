@@ -125,7 +125,6 @@ const CodeBackground = styled.div`
 
   .react-json-view {
     word-break: break-all;
-    -ms-word-break: break-all;
   }
 
   @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
