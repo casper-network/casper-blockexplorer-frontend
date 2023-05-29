@@ -225,7 +225,7 @@ const PageHeading = styled.h2`
   }
 
   @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
-    margin: 0 0 2.5rem 0;
+    margin: 0 0 0 2rem 0;
   }
 `;
 
