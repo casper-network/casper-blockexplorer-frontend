@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
@@ -243,9 +243,13 @@ const SwitchBlocktime = styled.div`
 `;
 
 const LatestBlocks = styled.div`
-  font-size: ${pxToRem(28)};
+  font-size: ${pxToRem(15)};
   margin-right: 1.5rem;
   color: ${props => props.theme.text.primary};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+    font-size: ${pxToRem(28)};
+  }
 `;
 
 const StyledHashLink = styled(Link)`

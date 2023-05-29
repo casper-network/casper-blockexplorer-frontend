@@ -247,7 +247,7 @@ const HashHeading = styled(Heading)<{ isTruncated: boolean }>`
   display: inline;
   margin: 0;
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
-  min-width: ${pxToRem(360)};
+  min-width: ${pxToRem(400)};
   overflow-wrap: break-word;
   font-size: ${({ isTruncated }) =>
     isTruncated ? `${pxToRem(60)}` : '3.3rem'};
