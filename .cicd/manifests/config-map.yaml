@@ -5,6 +5,7 @@ metadata:
   namespace: {{.Values.namespace}}
 data:
   MIDDLEWARE_URL: {{.Values.middlewareUrl}}
+  SOCKET_URL: {{.Values.socketUrl}}
   ORG_LOGO_URL: {{or .Values.orgLogoUrl "" | quote}}
   ORG_LOGO_SIZE: {{or .Values.orgLogoSize "" | quote}}
   ORG_NAME: {{or .Values.orgName "" | quote}}

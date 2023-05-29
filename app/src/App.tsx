@@ -75,7 +75,6 @@ const App = () => {
         dispatch(updateLatestBlock(latestBlock));
       });
 
-      // TODO: refactor to add to a WS class and add generic typing - 327b
       socket.on(
         'current_era_validator_status',
         (currentEraValidatorStatusString: string) => {

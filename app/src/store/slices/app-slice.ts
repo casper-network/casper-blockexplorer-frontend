@@ -3,7 +3,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RectReadOnly } from 'react-use-measure';
 import { io, Socket } from 'socket.io-client';
-import { socketIOUrl } from 'src/socket-io';
 import { loadConfig } from 'src/utils';
 import {
   REFRESH_TIMER_SECONDS,
@@ -22,7 +21,8 @@ export interface AppState {
   socket?: Socket;
 }
 
-const { fontUrl, primaryFontName, secondaryFontName } = loadConfig();
+const { fontUrl, primaryFontName, secondaryFontName, socketConnectionUrl } =
+  loadConfig();
 
 const initialState: AppState = {
   bounds: undefined,
@@ -61,11 +61,8 @@ export const appSlice = createSlice({
       state.isFirstVisit = action.payload;
     },
     initializeSocket: state => {
-      // TODO: just for initial setup. Will update and refine in #327
       if (!state.socket) {
-        console.log('create socket...');
-
-        const socket = io(socketIOUrl, {
+        const socket = io(socketConnectionUrl, {
           transports: ['websocket', 'polling'],
         });
 
@@ -73,12 +70,8 @@ export const appSlice = createSlice({
           console.log(`connected with socket id: ${socket.id}.`);
         });
 
-        socket.on('connect_error', err => {
-          console.log('error connecting to socket', err);
-        });
-
         if (socket.connected === false) {
-          console.log('socket somehow did not connect!');
+          console.log('socket connection does not exist.');
         }
 
         state.socket = socket as any;
