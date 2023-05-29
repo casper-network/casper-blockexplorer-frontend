@@ -218,7 +218,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
 };
 const BlocksTableHead = styled.div`
   display: flex;
-  min-width: ${pxToRem(900)};
+  min-width: ${pxToRem(825)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
