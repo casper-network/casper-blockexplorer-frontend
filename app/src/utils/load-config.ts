@@ -9,6 +9,7 @@ import { Theme } from './types';
 export interface AppConfig {
   isProduction: boolean;
   webServerUrl: string;
+  socketConnectionUrl: string;
   logoUrl?: string;
   darkTheme: Theme;
   lightTheme: Theme;
@@ -30,6 +31,7 @@ export const loadConfig: () => AppConfig = () => {
   const {
     NODE_ENV,
     REACT_APP_MIDDLEWARE_URL: reactAppMiddlewareUrl,
+    REACT_APP_SOCKET_URL: reactAppSocketUrl,
     REACT_APP_ORG_LOGO_URL: reactAppLogoUrl,
     REACT_APP_ORG_LOGO_SIZE: reactAppLogoSize,
     REACT_APP_LIGHT_THEME: reactAppLightTheme,
@@ -42,6 +44,7 @@ export const loadConfig: () => AppConfig = () => {
   } = process.env;
   const {
     MIDDLEWARE_URL: middlewareUrl,
+    SOCKET_URL: socketUrl,
     ORG_LOGO_URL: orgLogoUrl,
     ORG_LOGO_SIZE: orgLogoSize,
     DARK_THEME: prodDarkTheme,
@@ -57,6 +60,10 @@ export const loadConfig: () => AppConfig = () => {
   const webServerUrl = isProduction
     ? middlewareUrl
     : reactAppMiddlewareUrl || 'http://localhost:4000';
+
+  const socketConnectionUrl = isProduction
+    ? socketUrl
+    : reactAppSocketUrl || 'http://127.0.0.1:4000/gateway';
 
   const logoUrl = isProduction ? orgLogoUrl : reactAppLogoUrl || '';
 
@@ -91,9 +98,14 @@ export const loadConfig: () => AppConfig = () => {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
   }
 
+  if (!socketConnectionUrl) {
+    throw new Error('Invalid Config: Missing SOCKET_URL');
+  }
+
   return {
     isProduction,
     webServerUrl,
+    socketConnectionUrl,
     logoUrl,
     logoSize,
     darkTheme,
