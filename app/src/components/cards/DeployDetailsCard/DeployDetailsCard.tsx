@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
-import { pxToRem, defaultTheme, Card } from 'casper-ui-kit';
+import { defaultTheme, Card } from 'casper-ui-kit';
 import { InfoCardContentWrapper } from 'src/components/base';
 import { Heading } from '../../base';
 import { Deploy } from '../../../api';
@@ -134,21 +134,31 @@ const HeaderContent = styled.div``;
 const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: ${pxToRem(75)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+    margin: 0.1rem 0 2rem 0;
+  }
 `;
 
 const HashHeading = styled(Heading)<{
   isTruncated: boolean;
 }>`
   font-weight: ${defaultTheme.typography.fontWeights.medium};
-  display: inline;
   margin: 0;
-  min-width: ${pxToRem(360)};
+  margin: 1.5rem 0 2.5rem 0;
   width: ${({ isTruncated }) => (isTruncated ? '40%' : '75vw')};
   overflow-wrap: none;
-  font-size: ${pxToRem(60)};
+  font-size: clamp(2.8rem, 6vw, 3.75rem);
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+    margin: 1.5rem 0 2.5rem 0.5rem;
+  }
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+    margin: 0;
+  }
 
   @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     overflow-wrap: break-word;
