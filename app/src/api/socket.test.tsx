@@ -1,3 +1,4 @@
+import React from 'react';
 import { SocketServerMock } from 'socket.io-mock-ts';
 import { Home } from 'src/pages';
 import { render } from 'src/test-utils';
