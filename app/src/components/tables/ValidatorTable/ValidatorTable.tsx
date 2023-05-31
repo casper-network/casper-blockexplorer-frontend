@@ -9,7 +9,7 @@ import {
   getCurrentEraValidatorStatusStatus,
   getTotalEraValidators,
   getValidatorLoadingStatus,
-  getValidators,
+  getCurrentEraValidators,
   getValidatorsTableOptions,
   Loading,
   setValidatorTableOptions,
@@ -35,7 +35,7 @@ export const ValidatorTable: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const validators = useAppSelector(getValidators);
+  const validators = useAppSelector(getCurrentEraValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
   const validatorsStatusLoadingStatus = useAppSelector(
     getCurrentEraValidatorStatusStatus,

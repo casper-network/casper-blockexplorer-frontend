@@ -17,7 +17,8 @@ import { VALIDATOR_TABLE_OPTIONS } from '../constants';
 
 export interface ValidatorState {
   status: Loading;
-  validators: ApiData.ValidatorsInfo[];
+  currentEraValidators: ApiData.ValidatorsInfo[];
+  nextEraValidators: ApiData.ValidatorsInfo[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
   currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
@@ -36,7 +37,8 @@ const defaultTableOptions: TableOptions = {
 
 const initialState: ValidatorState = {
   status: Loading.Idle,
-  validators: [],
+  currentEraValidators: [],
+  nextEraValidators: [],
   currentEraValidatorStatus: null,
   currentEraValidatorStatusLoadingStatus: Loading.Idle,
   tableOptions: defaultTableOptions,
@@ -119,9 +121,18 @@ export const validatorSlice = createSlice({
       })
       .addCase(
         fetchValidators.fulfilled,
-        (state, { payload }: PayloadAction<ApiData.ValidatorsInfo[]>) => {
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<{
+            currentEraValidators: ApiData.ValidatorsInfo[];
+            nextEraValidators: ApiData.ValidatorsInfo[];
+          }>,
+        ) => {
           state.status = Loading.Complete;
-          state.validators = payload;
+          state.currentEraValidators = payload.currentEraValidators;
+          state.nextEraValidators = payload.nextEraValidators;
         },
       )
       .addCase(fetchValidators.rejected, state => {

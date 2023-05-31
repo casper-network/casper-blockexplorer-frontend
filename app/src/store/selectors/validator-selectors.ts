@@ -1,7 +1,11 @@
 import { RootState } from '../store';
 
-export const getValidators = (state: RootState) => {
-  return state.validator.validators;
+export const getCurrentEraValidators = (state: RootState) => {
+  return state.validator.currentEraValidators;
+};
+
+export const getNextEraValidators = (state: RootState) => {
+  return state.validator.nextEraValidators;
 };
 
 export const getValidatorLoadingStatus = (state: RootState) => {

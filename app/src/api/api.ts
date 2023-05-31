@@ -167,15 +167,17 @@ const createApi = (baseUrl: string) => {
           },
         );
 
+        console.log({ response });
+
         if (response.status !== 200) throw new Error(response.statusText);
 
         const {
           data: {
-            validators: { validators },
+            validators: { currentEraValidators, nextEraValidators },
           },
         } = response;
 
-        return validators;
+        return { currentEraValidators, nextEraValidators };
       },
       async getCurrentEraValidatorStatus() {
         type Response = AxiosResponse<ApiData.CurrentEraValidatorStatus>;
