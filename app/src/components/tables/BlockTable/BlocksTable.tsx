@@ -136,8 +136,15 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       },
       {
         header: `${t('deploy')}`,
-        accessorKey: 'body.deploy_hashes',
-        cell: ({ getValue }) => getValue<string[]>().length,
+        accessorKey: 'body',
+        cell: ({ getValue }) => {
+          const body = getValue<ApiData.Block['body']>();
+
+          return (
+            (body.deploy_hashes?.length ?? 0) +
+            (body.transfer_hashes?.length ?? 0)
+          );
+        },
         maxSize: 100,
         enableSorting: false,
       },
