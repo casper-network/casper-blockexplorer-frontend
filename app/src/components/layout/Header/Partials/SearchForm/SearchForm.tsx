@@ -136,10 +136,11 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               {...register('hash', { required: true })}
               type="search"
               id="search"
+              data-cy="search-input"
               placeholder={t('select-search-criteria') || ''}
               required
             />
-            <SubmitButton type="submit">
+            <SubmitButton type="submit" data-cy="submit-button">
               {themeType === 'light' ? <ButtonIconLight /> : <ButtonIconDark />}
             </SubmitButton>
           </InputAndButtonContainer>
@@ -155,7 +156,9 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
                 width={25}
               />
             </ErrorSvgContainer>
-            <ErrorMessage>{t(currentMessage)}</ErrorMessage>
+            <ErrorMessage data-cy="search-form-error-message">
+              {t(currentMessage)}
+            </ErrorMessage>
           </ErrorMessageContainer>
         )}
       </Form>

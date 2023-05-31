@@ -16,19 +16,47 @@ export const Heading: React.FC<HeadingProps> = ({
 }) => {
   switch (type) {
     case 'h1':
-      return <HeadingOne className={className}>{children}</HeadingOne>;
+      return (
+        <HeadingOne className={className} data-cy="h1">
+          {children}
+        </HeadingOne>
+      );
     case 'h2':
-      return <HeadingTwo className={className}>{children}</HeadingTwo>;
+      return (
+        <HeadingTwo className={className} data-cy="h2">
+          {children}
+        </HeadingTwo>
+      );
     case 'h3':
-      return <HeadingThree className={className}>{children}</HeadingThree>;
+      return (
+        <HeadingThree className={className} data-cy="h3">
+          {children}
+        </HeadingThree>
+      );
     case 'h4':
-      return <HeadingFour className={className}>{children}</HeadingFour>;
+      return (
+        <HeadingFour className={className} data-cy="h4">
+          {children}
+        </HeadingFour>
+      );
     case 'h5':
-      return <HeadingFive className={className}>{children}</HeadingFive>;
+      return (
+        <HeadingFive className={className} data-cy="h5">
+          {children}
+        </HeadingFive>
+      );
     case 'h6':
-      return <HeadingSix className={className}>{children}</HeadingSix>;
+      return (
+        <HeadingSix className={className} data-cy="h6">
+          {children}
+        </HeadingSix>
+      );
     default:
-      return <HeadingOne className={className}>{children}</HeadingOne>;
+      return (
+        <HeadingOne className={className} data-cy="h1">
+          {children}
+        </HeadingOne>
+      );
   }
 };
 
