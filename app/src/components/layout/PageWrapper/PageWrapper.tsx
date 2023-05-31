@@ -39,7 +39,9 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     return (
       <BaseContentWrapper>
         <GradientHeading type="h2">{t('whoops')}</GradientHeading>
-        <ErrorMessage data-testid="error-content">{error.message}</ErrorMessage>
+        <ErrorMessage data-testid="error-content" data-cy="error-content">
+          {error.message}
+        </ErrorMessage>
         <p>
           {t('go-back-to')} <Link to="/">{t('home')}</Link>
         </p>

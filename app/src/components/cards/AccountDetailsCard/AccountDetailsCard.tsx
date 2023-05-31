@@ -63,6 +63,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 src={`${AVATAR_URL}${account?.trimmedAccountHash ?? ''}.svg`}
                 alt="avatar"
                 isTruncated={isTruncated}
+                data-cy="avatar-icon"
               />
               <HashExpandWrapper>
                 <HashHeading type="h2" isTruncated={isTruncated}>
@@ -88,7 +89,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
           <DetailDataWrapper>
             <DetailDataList gap="1.75rem">
               <li>
-                <DetailDataLabel>{t('account-hash')}</DetailDataLabel>
+                <DetailDataLabel data-cy="account-hash-h3">
+                  {t('account-hash')}
+                </DetailDataLabel>
                 <DetailDataValue data-testid="account-hash" height="2rem">
                   {withSkeletonLoading(
                     <>
@@ -105,7 +108,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 </DetailDataValue>
               </li>
               <li>
-                <DetailDataLabel>{t('public-key')}</DetailDataLabel>
+                <DetailDataLabel data-cy="public-key-h3">
+                  {t('public-key')}
+                </DetailDataLabel>
                 <DetailDataValue data-testid="public-key">
                   {withSkeletonLoading(
                     account?.publicKey ? (
@@ -123,7 +128,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
               </li>
 
               <li>
-                <DetailDataLabel>{t('balance')}</DetailDataLabel>
+                <DetailDataLabel data-cy="balance-h3">
+                  {t('balance')}
+                </DetailDataLabel>
                 <DetailDataValue data-testid="account-balance">
                   {withSkeletonLoading(
                     <Coin>{balance ?? ''}</Coin>,
@@ -133,7 +140,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 </DetailDataValue>
               </li>
               <li>
-                <DetailDataLabel>{t('raw-data')}</DetailDataLabel>
+                <DetailDataLabel data-cy="raw-data-h3">
+                  {t('raw-data')}
+                </DetailDataLabel>
                 <DetailDataValue data-testid="raw-data">
                   {withSkeletonLoading(
                     account?.rawAccount && (
