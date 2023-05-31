@@ -1,11 +1,7 @@
 {
     "compilerOptions": {
-      "target": "ESNext",
-      "module": "esnext",
-      "noEmit": true,
-      "strict": true,
       "types": ["cypress"],
       "esModuleInterop": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
     }
   }

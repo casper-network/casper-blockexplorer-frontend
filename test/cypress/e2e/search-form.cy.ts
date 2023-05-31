@@ -10,7 +10,7 @@ const deployHash =
 const blockHeight = '1774040';
 const hashContainingSpaces =
   'a 3e 3221106479c257c8c5e6cde1e279bb9e28e70c38ca2593cb3a7806e2090a';
-const hashContainingWrongCharacters =
+const hashContainingNonHexadecimalCharacters =
   '%&18f84c6fc037284f189cc8cb49f89212ff434a5eb050e48cdd164ff3890fbff69';
 const hashContainingTooManyCharacters =
   '018f84c6fc037284f189cc8cb49f89212ff434a5eb050e48cdd164ff3890fbff69ff3890fbff69';
@@ -150,7 +150,7 @@ describe('Search Form', () => {
         .should('contain', 'Request failed with status code 500');
     });
 
-    it('renders an error message if invalid deploy hash is submitted while Block Hash is selected', () => {
+    it('renders an error message if invalid block hash is submitted while Block Hash is selected', () => {
       cy.getByData('custom-select')
         .find(reactSelectSelectors.indicatorDropdown)
         .click()
@@ -167,7 +167,7 @@ describe('Search Form', () => {
         .should('contain', 'Request failed with status code 500');
     });
 
-    it.only('renders an error message if invalid block height is submitted while Block Height is selected', () => {
+    it('renders an error message if invalid block height is submitted while Block Height is selected', () => {
       cy.getByData('custom-select')
         .find(reactSelectSelectors.indicatorDropdown)
         .click()
@@ -184,29 +184,31 @@ describe('Search Form', () => {
         .contains('Please enter a valid block height');
     });
 
-    it('renders an error message if hash contains spaces, is too long, or contains characters other than numbers and letters ', () => {
+    it('renders an error message if hash contains spaces', () => {
       cy.getByData('search-input')
-        .type(blockHash)
-        .getByData('submit-button')
-        .click()
-        .getByData('search-input')
         .type(hashContainingSpaces)
-        .getByData('submit-button')
-        .click()
-        .getByData('search-input')
-        .type(hashContainingSpaces)
-        .getByData('submit-button')
-        .click()
-        .getByData('search-input')
-        .type(hashContainingTooManyCharacters)
-        .getByData('submit-button')
-        .click()
-        .getByData('search-input')
-        .type(hashContainingWrongCharacters)
         .getByData('submit-button')
         .click()
         .getByData('search-form-error-message')
-        .should('exist');
+        .should('contain', 'Please enter a valid public key');
+    });
+
+    it('renders an error message if hash contains non hexadecimal characters', () => {
+      cy.getByData('search-input')
+        .type(hashContainingNonHexadecimalCharacters)
+        .getByData('submit-button')
+        .click()
+        .getByData('search-form-error-message')
+        .should('contain', 'Please enter a valid public key');
+    });
+
+    it('renders an error message if hash contains spaces', () => {
+      cy.getByData('search-input')
+        .type(hashContainingTooManyCharacters)
+        .getByData('submit-button')
+        .click()
+        .getByData('search-form-error-message')
+        .should('contain', 'Please enter a valid public key');
     });
   });
 });
