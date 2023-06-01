@@ -171,11 +171,11 @@ const createApi = (baseUrl: string) => {
 
         const {
           data: {
-            validators: { validators },
+            validators: { currentEraValidators, nextEraValidators },
           },
         } = response;
 
-        return validators;
+        return { currentEraValidators, nextEraValidators };
       },
       async getCurrentEraValidatorStatus() {
         type Response = AxiosResponse<ApiData.CurrentEraValidatorStatus>;

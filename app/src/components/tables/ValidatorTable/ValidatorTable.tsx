@@ -9,7 +9,7 @@ import {
   getCurrentEraValidatorStatusStatus,
   getTotalEraValidators,
   getValidatorLoadingStatus,
-  getValidators,
+  getCurrentEraValidators,
   getValidatorsTableOptions,
   Loading,
   setValidatorTableOptions,
@@ -17,6 +17,8 @@ import {
   updateValidatorSorting,
   useAppDispatch,
   useAppSelector,
+  getNextEraValidators,
+  getLatestBlock,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -30,18 +32,23 @@ import { NumberedPagination } from '../Pagination';
 
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
+  const [isCurrentEra, setIsCurrentEra] = useState(true);
 
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  const validators = useAppSelector(getValidators);
+  const currentEraValidators = useAppSelector(getCurrentEraValidators);
+  const nextEraValidators = useAppSelector(getNextEraValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
   const validatorsStatusLoadingStatus = useAppSelector(
     getCurrentEraValidatorStatusStatus,
   );
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
+  const latestBlock = useAppSelector(getLatestBlock);
+
+  const currentEraId = latestBlock?.header.era_id;
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
@@ -56,12 +63,12 @@ export const ValidatorTable: React.FC = () => {
       setIsTableLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validators]);
+  }, [currentEraValidators]);
 
   const isPageLoading =
     validatorsLoadingStatus !== Loading.Complete ||
     validatorsStatusLoadingStatus !== Loading.Complete ||
-    !validators.length;
+    !currentEraValidators.length;
 
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
     () => [
@@ -161,17 +168,33 @@ export const ValidatorTable: React.FC = () => {
 
   const header = (
     <ValidatorTableHead>
-      <HeadValue>
-        {totalEraValidators} {t('total-rows')}
-      </HeadValue>
-      <NumberedPagination
-        tableOptions={validatorsTableOptions}
-        setTableOptions={setValidatorTableOptions}
-        rowCountSelectOptions={rowCountSelectOptions}
-        setIsTableLoading={setIsTableLoading}
-        totalPages={totalPages}
-        updatePageNum={updateValidatorPageNum}
-      />
+      <HeaderEraToggleWrapper>
+        <EraToggleButton
+          type="button"
+          onClick={() => setIsCurrentEra(true)}
+          selected={isCurrentEra}>
+          Current Era {currentEraId ?? ''}
+        </EraToggleButton>
+        <EraToggleButton
+          type="button"
+          selected={!isCurrentEra}
+          onClick={() => setIsCurrentEra(false)}>
+          Next Era {currentEraId ? currentEraId + 1 : ''}
+        </EraToggleButton>
+      </HeaderEraToggleWrapper>
+      <HeaderPaginationWrapper>
+        <HeadValue>
+          {totalEraValidators} {t('total-rows')}
+        </HeadValue>
+        <NumberedPagination
+          tableOptions={validatorsTableOptions}
+          setTableOptions={setValidatorTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateValidatorPageNum}
+        />
+      </HeaderPaginationWrapper>
     </ValidatorTableHead>
   );
 
@@ -226,7 +249,7 @@ export const ValidatorTable: React.FC = () => {
     <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
-      data={validators}
+      data={isCurrentEra ? currentEraValidators : nextEraValidators}
       footer={footer}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
@@ -245,15 +268,40 @@ export const ValidatorTable: React.FC = () => {
 
 const ValidatorTableHead = styled.div`
   display: flex;
+  flex-direction: column;
   min-width: ${pxToRem(825)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
-  height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
   color: ${props => props.theme.text.secondary};
+`;
+
+const HeaderPaginationWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const HeaderEraToggleWrapper = styled.div`
+  padding-bottom: 1rem;
+`;
+
+const EraToggleButton = styled.button<{ selected: boolean }>`
+  border-style: none;
+  background: ${({ selected, theme }) =>
+    selected ? theme.button : theme.background.secondary};
+  color: ${({ selected, theme }) =>
+    selected ? theme.text.contrast : theme.text.primary};
+  width: ${pxToRem(208)};
+  height: ${pxToRem(38)};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CSPRText = styled.span`
