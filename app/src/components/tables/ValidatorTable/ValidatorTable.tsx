@@ -17,6 +17,7 @@ import {
   updateValidatorSorting,
   useAppDispatch,
   useAppSelector,
+  getNextEraValidators,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -30,12 +31,14 @@ import { NumberedPagination } from '../Pagination';
 
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
+  const [isCurrentEra, setIsCurrentEra] = useState(true);
 
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
   const currentEraValidators = useAppSelector(getCurrentEraValidators);
+  const nextEraValidators = useAppSelector(getNextEraValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
   const validatorsStatusLoadingStatus = useAppSelector(
     getCurrentEraValidatorStatusStatus,
@@ -162,11 +165,17 @@ export const ValidatorTable: React.FC = () => {
   const header = (
     <ValidatorTableHead>
       <HeaderEraToggleWrapper>
-        <EraToggleButton type="button" onClick={() => {}} selected>
-          Current
+        <EraToggleButton
+          type="button"
+          onClick={() => setIsCurrentEra(true)}
+          selected={isCurrentEra}>
+          Current Era
         </EraToggleButton>
-        <EraToggleButton type="button" onClick={() => {}}>
-          Next
+        <EraToggleButton
+          type="button"
+          selected={!isCurrentEra}
+          onClick={() => setIsCurrentEra(false)}>
+          Era
         </EraToggleButton>
       </HeaderEraToggleWrapper>
       <HeaderPaginationWrapper>
@@ -236,7 +245,7 @@ export const ValidatorTable: React.FC = () => {
     <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
-      data={currentEraValidators}
+      data={isCurrentEra ? currentEraValidators : nextEraValidators}
       footer={footer}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
@@ -277,12 +286,14 @@ const HeaderEraToggleWrapper = styled.div`
   padding-bottom: 1rem;
 `;
 
-const EraToggleButton = styled.button<{ selected?: boolean }>`
+const EraToggleButton = styled.button<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};
   color: ${({ selected, theme }) =>
     selected ? theme.text.contrast : theme.text.primary};
+  width: ${pxToRem(208)};
+  height: ${pxToRem(38)};
 
   &:hover {
     cursor: pointer;
