@@ -18,6 +18,7 @@ import {
   useAppDispatch,
   useAppSelector,
   getNextEraValidators,
+  getLatestBlock,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -45,6 +46,9 @@ export const ValidatorTable: React.FC = () => {
   );
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
+  const latestBlock = useAppSelector(getLatestBlock);
+
+  const currentEraId = latestBlock?.header.era_id;
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
@@ -169,13 +173,13 @@ export const ValidatorTable: React.FC = () => {
           type="button"
           onClick={() => setIsCurrentEra(true)}
           selected={isCurrentEra}>
-          Current Era
+          Current Era {currentEraId ?? ''}
         </EraToggleButton>
         <EraToggleButton
           type="button"
           selected={!isCurrentEra}
           onClick={() => setIsCurrentEra(false)}>
-          Era
+          Next Era {currentEraId ? currentEraId + 1 : ''}
         </EraToggleButton>
       </HeaderEraToggleWrapper>
       <HeaderPaginationWrapper>
