@@ -34,7 +34,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   ];
 
   return (
-    <section data-testid="search-select">
+    <section data-testid="search-select" data-cy="custom-select">
       <Controller
         data-testid="controller"
         control={control}
