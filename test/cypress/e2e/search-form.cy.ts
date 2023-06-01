@@ -2,7 +2,7 @@ import reactSelectSelectors from '../fixtures/react-select-selectors.json';
 import { hashes } from './hashes/hashes';
 
 const {
-  accountHash,
+  publicKey,
   deployHash,
   blockHash,
   blockHeight,
@@ -58,11 +58,11 @@ describe('Search Form', () => {
       cy.getByData('custom-select')
         .should('contain', 'Account')
         .getByData('search-input')
-        .type(accountHash)
+        .type(publicKey)
         .getByData('submit-button')
         .click()
         .location('pathname')
-        .should('eq', `/account/${accountHash}`);
+        .should('eq', `/account/${publicKey}`);
     });
 
     it('allows users to navigate to /deploy/:id using a deploy hash', () => {

@@ -66,7 +66,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 data-cy="avatar-icon"
               />
               <HashExpandWrapper>
-                <HashHeading type="h2" isTruncated={isTruncated}>
+                <HashHeading
+                  type="h2"
+                  isTruncated={isTruncated}
+                  data-cy="hash-heading">
                   <Hash
                     hash={account?.trimmedAccountHash ?? hashPlaceholder}
                     alwaysTruncate={isTruncated}
@@ -75,6 +78,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 <HashButton
                   isTruncated={isTruncated}
                   setIsTruncated={setIsTruncated}
+                  data-cy="hash-button"
                 />
               </HashExpandWrapper>
             </AccountDetailsWrapper>,
