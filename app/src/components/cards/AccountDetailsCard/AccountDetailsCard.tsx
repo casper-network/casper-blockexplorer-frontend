@@ -95,7 +95,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 <DetailDataLabel data-cy="account-hash-h3">
                   {t('account-hash')}
                 </DetailDataLabel>
-                <DetailDataValue data-testid="account-hash" height="2rem">
+                <DetailDataValue
+                  data-testid="account-hash"
+                  data-cy="account-hash"
+                  height="2rem">
                   {withSkeletonLoading(
                     <>
                       <Hash
@@ -114,7 +117,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 <DetailDataLabel data-cy="public-key-h3">
                   {t('public-key')}
                 </DetailDataLabel>
-                <DetailDataValue data-testid="public-key">
+                <DetailDataValue data-testid="public-key" data-cy="public-key">
                   {withSkeletonLoading(
                     account?.publicKey ? (
                       <>

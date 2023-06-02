@@ -1,9 +1,12 @@
 import { accountTestData } from './test-data/account-test-data';
 
-const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'ipad-2', 'macbook-13'];
-const { publicKey, accountHash, truncatedAccountHash } = accountTestData();
+const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'ipad-2', 'macbook-16'];
+const { publicKey, truncatedPublicKey, accountHash, truncatedAccountHash } =
+  accountTestData();
 
 describe('Account Page', () => {
+  beforeEach(() => cy.visit(`/account/${publicKey}`));
+
   sizes.forEach(size => {
     it(`Should display an h1, an avatar and truncated hash on a ${size.toString()} screen`, () => {
       cy.viewport(size);
@@ -36,13 +39,41 @@ describe('Account Page', () => {
       }
     });
   });
-});
 
-// context('Account Details Card', () => {
-//   cy.getByData('account-hash-h3').should('contain', 'Account Hash');
-//   cy.getByData('public-key-h3').should('contain', 'Public Key');
-//   cy.getByData('balance-h3').should('contain', 'Balance');
-// });
+  sizes.forEach(size => {
+    it(`Should display account details on a ${size.toString()} screen`, () => {
+      if (size === 'macbook-13') {
+        cy.getByData('account-hash-h3').should('contain', 'Account Hash');
+        cy.getByData('account-hash').should('contain', `${accountHash}`);
+
+        cy.getByData('public-key-h3').should('contain', 'Public Key');
+        cy.getByData('public-key').should('contain', `${publicKey}`);
+
+        cy.getByData('balance-h3').should('contain', 'Balance');
+
+        cy.getByData('raw-data-h3').should('contain', 'Raw Data');
+        cy.getByData('raw-data-button')
+          .should('contain', 'Show Raw Data')
+          .click()
+          .getByData('raw-data-button')
+          .should('contain', 'Hide Raw Data')
+          .find('root":{...}');
+      } else {
+        cy.getByData('account-hash-h3').should('contain', 'Account Hash');
+        cy.getByData('account-hash').should(
+          'contain',
+          `${truncatedAccountHash}`,
+        );
+        cy.getByData('public-key-h3').should('contain', 'Public Key');
+        cy.getByData('public-key').should('contain', `${truncatedPublicKey}`);
+
+        cy.getByData('balance-h3').should('contain', 'Balance');
+
+        cy.getByData('raw-data-h3').should('contain', 'Raw Data');
+      }
+    });
+  });
+});
 
 // const middlewareUrl = Cypress.env('NODE_URL') as string;
 
