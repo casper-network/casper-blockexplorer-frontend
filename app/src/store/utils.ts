@@ -18,10 +18,10 @@ export const setInitialStateWithLSTableOptions = <T>(
   };
 };
 
-export const setUrlSearchParams = (key: string, value: string) => {
+export const setUrlSearchParams = (key: string, value: string | number) => {
   if ('URLSearchParams' in window) {
     const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set(key, value);
+    searchParams.set(key, typeof value === 'number' ? value.toString() : value);
 
     const newRelativePathQuery = `${
       window.location.pathname
@@ -30,4 +30,16 @@ export const setUrlSearchParams = (key: string, value: string) => {
     // eslint-disable-next-line no-restricted-globals
     history.pushState(null, '', newRelativePathQuery);
   }
+};
+
+export const setTableOptionsUrlSearchParams = (tableOptions: TableOptions) => {
+  const {
+    pagination: { pageNum, pageSize },
+    sorting: { order, sortBy },
+  } = tableOptions;
+
+  setUrlSearchParams('pageNum', pageNum);
+  setUrlSearchParams('pageSize', pageSize);
+  setUrlSearchParams('order', order);
+  setUrlSearchParams('sortBy', sortBy);
 };

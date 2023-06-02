@@ -14,7 +14,10 @@ import { formatTimeAgo } from '../../utils';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
 import { BLOCK_TABLE_OPTIONS } from '../constants';
-import { setInitialStateWithLSTableOptions } from '../utils';
+import {
+  setInitialStateWithLSTableOptions,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 
 export interface BlockState {
   status: Loading;
@@ -241,9 +244,13 @@ blockListener.startListening({
 
     const blockTableOptions = rootStateAll.block.tableOptions;
 
+    console.log({ blockTableOptions });
+
     localStorage.setItem(
       BLOCK_TABLE_OPTIONS,
       JSON.stringify(blockTableOptions),
     );
+
+    setTableOptionsUrlSearchParams(blockTableOptions);
   },
 });
