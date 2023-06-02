@@ -3,8 +3,8 @@ describe('Blocks Page', () => {
 
   it('should title visible', () => {
     const blocksPageTitle = 'Blocks';
-    cy.get('h2').contains(blocksPageTitle).should('be.visible');
+    cy.get('p').contains(blocksPageTitle).should('be.visible');
   });
 
-  it('should load more blocks');
+  // it('should load more blocks');
 });

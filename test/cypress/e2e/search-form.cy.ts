@@ -1,5 +1,5 @@
 import reactSelectSelectors from '../fixtures/react-select-selectors.json';
-import { hashes } from './hashes/hashes';
+import { searchFormTestData } from './test-data/search-form-test-data';
 
 const {
   publicKey,
@@ -9,7 +9,7 @@ const {
   hashContainingSpaces,
   hashContainingNonHexadecimalCharacters,
   hashContainingTooManyCharacters,
-} = hashes();
+} = searchFormTestData();
 
 describe('Search Form', () => {
   beforeEach(() => {

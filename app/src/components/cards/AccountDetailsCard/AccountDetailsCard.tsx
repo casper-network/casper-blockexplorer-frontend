@@ -78,7 +78,6 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 <HashButton
                   isTruncated={isTruncated}
                   setIsTruncated={setIsTruncated}
-                  data-cy="hash-button"
                 />
               </HashExpandWrapper>
             </AccountDetailsWrapper>,

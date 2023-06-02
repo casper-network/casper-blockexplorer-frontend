@@ -1,4 +1,4 @@
-export const hashes = () => {
+export const searchFormTestData = () => {
   // from mainnet
   const publicKey =
     '018f84c6fc037284f189cc8cb49f89212ff434a5eb050e48cdd164ff3890fbff69';
