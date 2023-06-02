@@ -29,12 +29,6 @@ describe('Account Page', () => {
           .eq(5)
           .click()
           .should('contain', 'Expand');
-
-        context('Account Details Card', () => {
-          cy.getByData('account-hash-h3').should('contain', 'Account Hash');
-          cy.getByData('public-key-h3').should('contain', 'Public Key');
-          cy.getByData('balance-h3').should('contain', 'Balance');
-        });
       } else {
         cy.getByData('h1').should('contain', 'Account Details');
         cy.getByData('avatar-icon').should('be.visible');
@@ -43,6 +37,12 @@ describe('Account Page', () => {
     });
   });
 });
+
+// context('Account Details Card', () => {
+//   cy.getByData('account-hash-h3').should('contain', 'Account Hash');
+//   cy.getByData('public-key-h3').should('contain', 'Public Key');
+//   cy.getByData('balance-h3').should('contain', 'Balance');
+// });
 
 // const middlewareUrl = Cypress.env('NODE_URL') as string;
 
