@@ -14,10 +14,7 @@ import { formatTimeAgo } from '../../utils';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
 import { BLOCK_TABLE_OPTIONS } from '../constants';
-import {
-  setInitialStateWithLSTableOptions,
-  setTableOptionsUrlSearchParams,
-} from '../utils';
+import { setInitialTableState, setTableOptionsUrlSearchParams } from '../utils';
 
 export interface BlockState {
   status: Loading;
@@ -115,10 +112,7 @@ export const fetchBlock = createAsyncThunk<
 
 export const blockSlice = createSlice({
   name: 'block',
-  initialState: setInitialStateWithLSTableOptions<BlockState>(
-    BLOCK_TABLE_OPTIONS,
-    initialState,
-  ),
+  initialState,
   reducers: {
     refreshBlockTimes: state => {
       state.blocks = state.blocks.map(block => {
@@ -177,6 +171,14 @@ export const blockSlice = createSlice({
         }
       }
     },
+    setInitialStateFromUrlSearchParams: state => {
+      const tableOptions = setInitialTableState(
+        BLOCK_TABLE_OPTIONS,
+        defaultTableOptions,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -231,6 +233,7 @@ export const {
   resetToInitialBlockState,
   updateLatestBlock,
   updateBlocksWithLatest,
+  setInitialStateFromUrlSearchParams,
 } = blockSlice.actions;
 
 blockListener.startListening({

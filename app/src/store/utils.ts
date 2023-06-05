@@ -1,6 +1,5 @@
 import { TableOptions } from './types';
 
-// TODO: need to figure out how to handle bad params set by user (eg. pageNum='asdfsdf')
 export const setInitialTableState = (
   localStorageKey: string,
   tableOptions: TableOptions,
@@ -12,22 +11,17 @@ export const setInitialTableState = (
     | undefined;
   const sortByParam = getUrlSearchParam('sortBy');
 
-  // fetching LS
   const rawTableOptions = localStorage.getItem(localStorageKey);
 
   const hasAllTableOptionParams =
     pageNumParam && pageSizeParam && orderParam && sortByParam;
 
-  // 1.
-  // TODO: need to figure out how to set/keep active url search params...
-  // on navigate to tables for first time, or navigate to and fro from others
   if (!hasAllTableOptionParams && !rawTableOptions) {
     setTableOptionsUrlSearchParams(tableOptions);
 
     return tableOptions;
   }
 
-  // 2.
   if (!hasAllTableOptionParams && rawTableOptions) {
     const parsedTableOptions = JSON.parse(rawTableOptions) as TableOptions;
 
@@ -36,7 +30,6 @@ export const setInitialTableState = (
     return parsedTableOptions;
   }
 
-  // 3. both versions of having hasAllTableOptionParams set
   if (hasAllTableOptionParams) {
     return {
       pagination: {
