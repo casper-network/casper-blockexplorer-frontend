@@ -247,8 +247,6 @@ blockListener.startListening({
 
     const blockTableOptions = rootStateAll.block.tableOptions;
 
-    console.log({ blockTableOptions });
-
     localStorage.setItem(
       BLOCK_TABLE_OPTIONS,
       JSON.stringify(blockTableOptions),
