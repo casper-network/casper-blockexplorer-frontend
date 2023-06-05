@@ -7,6 +7,7 @@ import {
   getPeersTableOptions,
   getTotalPeers,
   Loading,
+  setInitialPeersStateFromUrlSearchParams,
   setPeerTableOptions,
   updatePeerPageNum,
   useAppDispatch,
@@ -30,6 +31,10 @@ export const PeersTable: React.FC = () => {
   const dispatch = useAppDispatch();
   const peers = useAppSelector(getPeers);
   const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
+
+  useEffect(() => {
+    dispatch(setInitialPeersStateFromUrlSearchParams());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchPeers(peersTableOptions));

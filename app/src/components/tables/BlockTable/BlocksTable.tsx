@@ -14,7 +14,7 @@ import {
   getTotalBlocks,
   Loading,
   setBlocksTableOptions,
-  setInitialStateFromUrlSearchParams,
+  setInitialBlockStateFromUrlSearchParams,
   updateBlocksPageNum,
   updateBlocksSorting,
   updateBlocksWithLatest,
@@ -68,7 +68,7 @@ export const BlocksTable: React.FC = () => {
     blockLoadingStatus !== Loading.Complete && !blocks.length;
 
   useEffect(() => {
-    dispatch(setInitialStateFromUrlSearchParams());
+    dispatch(setInitialBlockStateFromUrlSearchParams());
   }, [dispatch]);
 
   useEffect(() => {

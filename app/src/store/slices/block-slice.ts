@@ -171,7 +171,7 @@ export const blockSlice = createSlice({
         }
       }
     },
-    setInitialStateFromUrlSearchParams: state => {
+    setInitialBlockStateFromUrlSearchParams: state => {
       const tableOptions = setInitialTableState(
         BLOCK_TABLE_OPTIONS,
         defaultTableOptions,
@@ -233,7 +233,7 @@ export const {
   resetToInitialBlockState,
   updateLatestBlock,
   updateBlocksWithLatest,
-  setInitialStateFromUrlSearchParams,
+  setInitialBlockStateFromUrlSearchParams,
 } = blockSlice.actions;
 
 blockListener.startListening({
