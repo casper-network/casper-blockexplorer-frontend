@@ -43,7 +43,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           <DetailDataRowWrapper>
             <li>
               <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-              <DetailDataValue>
+              <DetailDataValue data-cy="block-height">
                 {withSkeletonLoading(block?.header.height, isLoading, {
                   width: 100,
                 })}

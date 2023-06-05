@@ -43,7 +43,10 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
     <div data-testid="block-details-card">
       <PageHeading>
         <HashWrapper>
-          <HashHeading type="h2" isTruncated={isTruncated}>
+          <HashHeading
+            type="h2"
+            isTruncated={isTruncated}
+            data-cy="hash-heading">
             {withSkeletonLoading(
               <Hash
                 hash={block?.hash ?? hashPlaceholder}
@@ -69,7 +72,10 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataRowWrapper>
             <li>
               <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-              <DetailDataValue data-testid="block-height" isLargeText>
+              <DetailDataValue
+                data-testid="block-height"
+                data-cy="block-height"
+                isLargeText>
                 {withSkeletonLoading(block?.header.height, isLoading, {
                   width: 100,
                 })}
@@ -237,6 +243,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   );
 };
 
+const { breakpoints } = defaultTheme.typography;
+
 const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -259,8 +267,7 @@ const DetailDataRowWrapper = styled.ul`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${breakpoints.lg}) {
     flex-direction: row;
     flex-wrap: wrap;
     gap: ${pxToRem(96)};
@@ -268,8 +275,7 @@ const DetailDataRowWrapper = styled.ul`
 `;
 
 const PageHeading = styled.div`
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${breakpoints.lg}) {
     margin-bottom: 2rem;
   }
 `;
