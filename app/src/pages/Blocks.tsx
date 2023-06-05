@@ -12,29 +12,7 @@ export const Blocks: React.FC = () => {
     <PageWrapper isLoading={false}>
       <PageHead pageTitle={pageTitle} />
       <PageTableHeader>{t('blocks')}</PageTableHeader>
-      <BlocksTable
-      // total={totalBlocks}
-      // blocks={blocks}
-      // isTableLoading={isTableLoading || isLoadingPage}
-      // sorting={[
-      //   {
-      //     id: blocksTableOptions.sorting.sortBy,
-      //     desc: blocksTableOptions.sorting.order === 'desc',
-      //   },
-      // ]}
-      // onSortingChange={() => {
-      //   setIsTableLoading(true);
-      //   dispatch(
-      //     updateBlocksSorting({
-      //       sortBy: 'height',
-      //       order:
-      //         blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
-      //     }),
-      //   );
-      // }}
-      // setIsTableLoading={setIsTableLoading}
-      // initialSorting={initialSorting}
-      />
+      <BlocksTable />
     </PageWrapper>
   );
 };
