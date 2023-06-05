@@ -199,7 +199,6 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
           </div>
         ),
         enableSorting: false,
-        // isVisible: showValidators,
         minSize: 230,
       },
     ],
