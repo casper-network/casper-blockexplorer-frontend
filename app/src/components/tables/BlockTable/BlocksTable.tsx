@@ -14,9 +14,9 @@ import {
   getTotalBlocks,
   Loading,
   setBlocksTableOptions,
+  setInitialStateFromUrlSearchParams,
   updateBlocksPageNum,
   updateBlocksSorting,
-  // updateBlocksSorting,
   updateBlocksWithLatest,
   useAppDispatch,
   useAppSelector,
@@ -45,18 +45,7 @@ const initialSorting: SortingState = [
   },
 ];
 
-interface BlocksTableProps {
-  // readonly total?: number;
-  // readonly blocks: ApiData.Block[];
-  // readonly showValidators?: boolean;
-  // isTableLoading: boolean;
-  // onSortingChange?: OnChangeFn<SortingState>;
-  // sorting?: SortingState;
-  // initialSorting?: SortingState;
-  // setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const BlocksTable: React.FC<BlocksTableProps> = () => {
+export const BlocksTable: React.FC = () => {
   const { t } = useTranslation();
 
   const [isTableLoading, setIsTableLoading] = useState(false);
@@ -78,9 +67,9 @@ export const BlocksTable: React.FC<BlocksTableProps> = () => {
   const isLoadingPage =
     blockLoadingStatus !== Loading.Complete && !blocks.length;
 
-  // useEffect(() => {
-  //   dispatch(setInitialStateFromUrlSearchParams());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(setInitialStateFromUrlSearchParams());
+  }, [dispatch]);
 
   useEffect(() => {
     // updated from WS
@@ -99,8 +88,6 @@ export const BlocksTable: React.FC<BlocksTableProps> = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocks]);
-
-  console.log({ blocks });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -150,17 +137,6 @@ export const BlocksTable: React.FC<BlocksTableProps> = () => {
     ),
     [blocksTableOptions, totalPages, setIsTableLoading],
   );
-
-  // const blocksTableTitles = [
-  //   'block-height',
-  //   'era',
-  //   'deploy',
-  //   'age',
-  //   'block-hash',
-  // ];
-  // if (showValidators) {
-  //   blocksTableTitles.push('validator');
-  // }
 
   const columns = useMemo<ColumnDef<ApiData.Block>[]>(
     () => [
@@ -257,6 +233,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = () => {
       footer={footer}
       tableBodyLoading={isTableLoading}
       currentPageSize={blocksTableOptions.pagination.pageSize}
+      // TODO: probably want to put this in another file
       placeholderData={{
         header: { height: 0, era_id: 0, timestamp: '2023-06-05T17:06:44.864Z' },
         body: {

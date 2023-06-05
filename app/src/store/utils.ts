@@ -1,20 +1,15 @@
 import { TableOptions } from './types';
 
-export const setInitialTableState = <T>(
+// TODO: need to figure out how to handle bad params set by user (eg. pageNum='asdfsdf')
+export const setInitialTableState = (
   localStorageKey: string,
-  defaultState: T,
   tableOptions: TableOptions,
-): T => {
-  // TODO: maybe we want to consider trying to get all the keys here dynamically?
-  const {
-    pagination: { pageNum, pageSize },
-    sorting: { order, sortBy },
-  } = tableOptions;
-
-  // fetching search params
+): TableOptions => {
   const pageNumParam = getUrlSearchParam('pageNum');
   const pageSizeParam = getUrlSearchParam('pageSize');
-  const orderParam = getUrlSearchParam('order');
+  const orderParam = getUrlSearchParam('order') as
+    | TableOptions['sorting']['order']
+    | undefined;
   const sortByParam = getUrlSearchParam('sortBy');
 
   // fetching LS
@@ -24,40 +19,35 @@ export const setInitialTableState = <T>(
     pageNumParam && pageSizeParam && orderParam && sortByParam;
 
   // 1.
+  // TODO: need to figure out how to set/keep active url search params...
+  // on navigate to tables for first time, or navigate to and fro from others
   if (!hasAllTableOptionParams && !rawTableOptions) {
-    // TODO: don't need to set LS
-    // but should probably set url SP to default
-    // could however consider not setting SP here, but nbd
-
     setTableOptionsUrlSearchParams(tableOptions);
 
-    return defaultState;
+    return tableOptions;
   }
 
   // 2.
   if (!hasAllTableOptionParams && rawTableOptions) {
     const parsedTableOptions = JSON.parse(rawTableOptions) as TableOptions;
 
-    // TODO: set SP to LS value
-
     setTableOptionsUrlSearchParams(parsedTableOptions);
 
+    return parsedTableOptions;
+  }
+
+  // 3. both versions of having hasAllTableOptionParams set
+  if (hasAllTableOptionParams) {
     return {
-      ...defaultState,
-      tableOptions: parsedTableOptions,
+      pagination: {
+        pageNum: parseInt(pageNumParam, 10),
+        pageSize: Number(pageSizeParam),
+      },
+      sorting: { sortBy: sortByParam, order: orderParam },
     };
   }
 
-  // const tableOptions = JSON.parse(rawTableOptions) as TableOptions;
-
-  console.log({ pageNumParam });
-  console.log({ pageSizeParam });
-  console.log({ orderParam });
-  console.log({ sortByParam });
-
-  // TODO: follow notes for priority of setting initial state from LS vs. searchParams
-
-  return defaultState;
+  return tableOptions;
 };
 
 export const setInitialStateWithLSTableOptions = <T>(
