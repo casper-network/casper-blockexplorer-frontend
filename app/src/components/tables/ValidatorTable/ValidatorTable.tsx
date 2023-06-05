@@ -19,6 +19,7 @@ import {
   useAppSelector,
   getNextEraValidators,
   getLatestBlock,
+  setInitialValidatorStateFromUrlSearchParams,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -52,6 +53,7 @@ export const ValidatorTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
+    dispatch(setInitialValidatorStateFromUrlSearchParams());
   }, [dispatch]);
 
   useEffect(() => {

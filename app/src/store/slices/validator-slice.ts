@@ -14,6 +14,7 @@ import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
 import {
   setInitialStateWithLSTableOptions,
+  setInitialTableState,
   setTableOptionsUrlSearchParams,
 } from '../utils';
 import { VALIDATOR_TABLE_OPTIONS } from '../constants';
@@ -116,6 +117,14 @@ export const validatorSlice = createSlice({
     ) => {
       state.currentEraValidatorStatus = action.payload;
     },
+    setInitialValidatorStateFromUrlSearchParams: state => {
+      const tableOptions = setInitialTableState(
+        VALIDATOR_TABLE_OPTIONS,
+        defaultTableOptions,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -167,6 +176,7 @@ export const {
   resetValidatorTableOptions,
   resetToInitialValidatorState,
   updateCurrentEraValidatorsStatus,
+  setInitialValidatorStateFromUrlSearchParams,
 } = validatorSlice.actions;
 
 validatorListener.startListening({

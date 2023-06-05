@@ -35,7 +35,7 @@ const initialState: PeerState = {
       pageNum: 1,
     },
     sorting: {
-      sortBy: 'node_id',
+      sortBy: 'nodeId',
       order: 'desc',
     },
   },
