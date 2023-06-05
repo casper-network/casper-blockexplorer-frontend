@@ -1,15 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import reactSelectSelectors from '../fixtures/react-select-selectors.json';
-import { hashes } from './hashes/hashes';
+import { hashes } from './data';
 
 const {
   accountHash,
   deployHash,
   blockHash,
   blockHeight,
+} = hashes.mainnet;
+
+const {
   hashContainingSpaces,
   hashContainingNonHexadecimalCharacters,
   hashContainingTooManyCharacters,
-} = hashes();
+} = hashes.edgeCase;
 
 describe('Search Form', () => {
   beforeEach(() => {
