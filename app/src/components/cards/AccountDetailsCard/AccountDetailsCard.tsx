@@ -152,7 +152,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 <DetailDataValue data-testid="raw-data">
                   {withSkeletonLoading(
                     account?.rawAccount && (
-                      <RawData rawData={account?.rawAccount} />
+                      <RawData
+                        test-cy="raw-data-button"
+                        rawData={account?.rawAccount}
+                      />
                     ),
                     isAccountLoading,
                     { width: 200, height: '2.25rem' },

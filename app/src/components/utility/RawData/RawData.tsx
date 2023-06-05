@@ -72,7 +72,7 @@ export const RawData: React.FC<RawDataProps> = ({ rawData }) => {
   return (
     <Accordion allowZeroExpanded>
       <AccordionItem>
-        <AccordionItemHeading test-cy="raw-data-button">
+        <AccordionItemHeading>
           <RawDataToggleButton>
             <AccordionItemState>
               {({ expanded }) =>

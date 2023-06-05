@@ -1,5 +1,5 @@
 import reactSelectSelectors from '../fixtures/react-select-selectors.json';
-import { searchFormTestData } from './test-data/search-form-test-data';
+import { searchFormTestData } from './data/search-form-test-data';
 
 const {
   publicKey,
