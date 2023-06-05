@@ -5,5 +5,9 @@ describe('Blocks Page', () => {
     const blocksPageTitle = 'Blocks';
 
     cy.get('h1').contains(blocksPageTitle).should('be.visible');
+
+    const blocksTableHeading = 'Latest Blocks';
+
+    cy.contains(blocksTableHeading).should('be.visible');
   });
 });
