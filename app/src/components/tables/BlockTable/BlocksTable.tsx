@@ -233,7 +233,6 @@ export const BlocksTable: React.FC = () => {
       footer={footer}
       tableBodyLoading={isTableLoading}
       currentPageSize={blocksTableOptions.pagination.pageSize}
-      // TODO: probably want to put this in another file
       placeholderData={{
         header: { height: 0, era_id: 0, timestamp: '2023-06-05T17:06:44.864Z' },
         body: {
