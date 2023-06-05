@@ -9,7 +9,7 @@ describe('Account Page', () => {
 
   context('Account Header', () => {
     sizes.forEach(size => {
-      it(`Should display an h1, an avatar and truncated hash on a ${size.toString()} screen`, () => {
+      it(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
         cy.viewport(size);
 
         cy.visit(`/account/${publicKey}`);
@@ -43,8 +43,9 @@ describe('Account Page', () => {
   });
 
   context('Account Details', () => {
+    // TODO: copyToClipBoard tests pending #361
     sizes.forEach(size => {
-      it(`Should display account details on a ${size.toString()} screen`, () => {
+      it(`Should display account details on a ${size} screen`, () => {
         if (size === 'macbook-13') {
           cy.getByData('account-hash-h3').should('contain', 'Account Hash');
           cy.getByData('account-hash').should('contain', `${accountHash}`);
