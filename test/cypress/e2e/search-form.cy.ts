@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import reactSelectSelectors from '../fixtures/react-select-selectors.json';
-import { hashes } from './data';
+import { hashes } from './data/hashes';
 
-const {
-  accountHash,
-  deployHash,
-  blockHash,
-  blockHeight,
-} = hashes.mainnet;
+const { publicKey, deployHash, blockHash, blockHeight } = hashes.mainnet;
 
 const {
   hashContainingSpaces,
@@ -62,11 +57,11 @@ describe('Search Form', () => {
       cy.getByData('custom-select')
         .should('contain', 'Account')
         .getByData('search-input')
-        .type(accountHash)
+        .type(publicKey)
         .getByData('submit-button')
         .click()
         .location('pathname')
-        .should('eq', `/account/${accountHash}`);
+        .should('eq', `/account/${publicKey}`);
     });
 
     it('allows users to navigate to /deploy/:id using a deploy hash', () => {
