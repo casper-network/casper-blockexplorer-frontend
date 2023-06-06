@@ -72,10 +72,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataRowWrapper>
             <li>
               <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-              <DetailDataValue
-                data-testid="block-height"
-                data-cy="block-height"
-                isLargeText>
+              <DetailDataValue data-testid="block-height" isLargeText>
                 {withSkeletonLoading(block?.header.height, isLoading, {
                   width: 100,
                 })}
@@ -108,7 +105,10 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataWrapper>
             <li>
               <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-              <DetailDataValue data-testid="parent-hash" height="2rem">
+              <DetailDataValue
+                data-cy="parent-hash"
+                data-testid="parent-hash"
+                height="2rem">
                 <StyledHashLink
                   to={{
                     pathname: `/block/${block?.header.parent_hash ?? ''}`,
@@ -243,8 +243,6 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   );
 };
 
-const { breakpoints } = defaultTheme.typography;
-
 const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -267,7 +265,8 @@ const DetailDataRowWrapper = styled.ul`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     flex-direction: row;
     flex-wrap: wrap;
     gap: ${pxToRem(96)};
@@ -275,7 +274,8 @@ const DetailDataRowWrapper = styled.ul`
 `;
 
 const PageHeading = styled.div`
-  @media only screen and (min-width: ${breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     margin-bottom: 2rem;
   }
 `;
