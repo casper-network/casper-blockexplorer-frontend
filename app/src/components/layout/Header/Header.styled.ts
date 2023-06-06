@@ -58,7 +58,7 @@ export const HeroHeading = styled(Heading)`
   }
 `;
 
-export const PageTableHeader = styled.p`
+export const PageTableHeader = styled.h1`
   font-size: clamp(2.7rem, 5.5vw, 3.75rem);
   margin: 1.5rem 0 2.5rem 0;
   color: ${props => props.theme.text.primary};
