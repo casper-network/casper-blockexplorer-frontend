@@ -7,7 +7,7 @@ describe('Home Page', () => {
 
       cy.visit('/');
 
-      const homePageHeroText = 'Discover the Jenkins blockchain.';
+      const homePageHeroText = 'Discover the blockchain.';
 
       cy.contains(homePageHeroText).should('be.visible');
 
