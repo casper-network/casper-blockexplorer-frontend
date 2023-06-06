@@ -72,7 +72,10 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataRowWrapper>
             <li>
               <DetailDataLabel>{t('block-height')}</DetailDataLabel>
-              <DetailDataValue data-testid="block-height" isLargeText>
+              <DetailDataValue
+                data-testid="block-height"
+                data-cy="block-height"
+                isLargeText>
                 {withSkeletonLoading(block?.header.height, isLoading, {
                   width: 100,
                 })}
@@ -265,8 +268,7 @@ const DetailDataRowWrapper = styled.ul`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     flex-direction: row;
     flex-wrap: wrap;
     gap: ${pxToRem(96)};
@@ -274,8 +276,7 @@ const DetailDataRowWrapper = styled.ul`
 `;
 
 const PageHeading = styled.div`
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     margin-bottom: 2rem;
   }
 `;
