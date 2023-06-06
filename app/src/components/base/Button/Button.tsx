@@ -27,8 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
     className={className}
     color={color}
     onClick={onClick}
-    disabled={isDisabled}
-    data-cy="button">
+    disabled={isDisabled}>
     {children}
   </StyledButton>
 );
