@@ -12,8 +12,6 @@ describe('Account Page', () => {
       it(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
         cy.viewport(size);
 
-        cy.visit(`/account/${publicKey}`);
-
         if (size === 'macbook-13') {
           cy.getByData('h1').should('contain', 'Account Details');
 
