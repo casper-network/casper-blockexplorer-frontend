@@ -1,8 +1,8 @@
-import { accountTestData } from './data/account-test-data';
+import { hashes } from './data/hashes';
 
 const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'ipad-2', 'macbook-16'];
 const { publicKey, truncatedPublicKey, accountHash, truncatedAccountHash } =
-  accountTestData;
+  hashes.mainnet;
 
 describe('Account Page', () => {
   beforeEach(() => cy.visit(`/account/${publicKey}`));
