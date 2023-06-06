@@ -176,6 +176,7 @@ const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
 const PageNumberWrapper = styled.div`
   display: flex;
   align-items: center;
+  min-width: 8.3rem;
   height: ${pxToRem(38)};
   padding: 0 1.5rem;
   color: ${props => props.theme.text.primary};
