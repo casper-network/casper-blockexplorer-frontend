@@ -14,7 +14,10 @@ import { formatTimeAgo } from '../../utils';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
 import { BLOCK_TABLE_OPTIONS } from '../constants';
-import { setInitialTableState, setTableOptionsUrlSearchParams } from '../utils';
+import {
+  determineInitialTableState,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 
 export interface BlockState {
   status: Loading;
@@ -172,7 +175,7 @@ export const blockSlice = createSlice({
       }
     },
     setInitialBlockStateFromUrlSearchParams: state => {
-      const tableOptions = setInitialTableState(
+      const tableOptions = determineInitialTableState(
         BLOCK_TABLE_OPTIONS,
         defaultTableOptions,
       );
