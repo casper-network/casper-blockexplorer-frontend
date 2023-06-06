@@ -1,6 +1,6 @@
 import { TableOptions } from './types';
 
-export const setInitialTableState = (
+export const determineInitialTableState = (
   localStorageKey: string,
   tableOptions: TableOptions,
 ): TableOptions => {
@@ -31,6 +31,8 @@ export const setInitialTableState = (
   }
 
   if (hasAllTableOptionParams) {
+    // TODO: will need to figure out way to confirm urlParams match expected values and types
+
     return {
       pagination: {
         pageNum: parseInt(pageNumParam, 10),
