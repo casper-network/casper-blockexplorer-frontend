@@ -14,7 +14,7 @@ import type { RootState } from '../store';
 import { TableOptions } from '../types';
 import {
   setInitialStateWithLSTableOptions,
-  setInitialTableState,
+  determineInitialTableState,
   setTableOptionsUrlSearchParams,
 } from '../utils';
 
@@ -90,7 +90,7 @@ export const peerSlice = createSlice({
       state.totalPeers = action.payload;
     },
     setInitialPeersStateFromUrlSearchParams: state => {
-      const tableOptions = setInitialTableState(
+      const tableOptions = determineInitialTableState(
         PEER_TABLE_OPTIONS,
         initialState.tableOptions,
       );
