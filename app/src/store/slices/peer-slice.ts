@@ -89,10 +89,14 @@ export const peerSlice = createSlice({
     updateTotalPeers: (state, action: PayloadAction<number>) => {
       state.totalPeers = action.payload;
     },
-    setInitialPeersStateFromUrlSearchParams: state => {
+    setInitialPeersStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
       const tableOptions = determineInitialTableState(
         PEER_TABLE_OPTIONS,
         initialState.tableOptions,
+        action.payload,
       );
 
       state.tableOptions = tableOptions;

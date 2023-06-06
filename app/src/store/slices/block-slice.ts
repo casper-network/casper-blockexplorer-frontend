@@ -174,10 +174,14 @@ export const blockSlice = createSlice({
         }
       }
     },
-    setInitialBlockStateFromUrlSearchParams: state => {
+    setInitialBlockStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
       const tableOptions = determineInitialTableState(
         BLOCK_TABLE_OPTIONS,
         defaultTableOptions,
+        action.payload,
       );
 
       state.tableOptions = tableOptions;

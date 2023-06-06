@@ -45,6 +45,8 @@ const initialSorting: SortingState = [
   },
 ];
 
+const validSortableBlocksColumns = ['height'];
+
 export const BlocksTable: React.FC = () => {
   const { t } = useTranslation();
 
@@ -68,7 +70,9 @@ export const BlocksTable: React.FC = () => {
     blockLoadingStatus !== Loading.Complete && !blocks.length;
 
   useEffect(() => {
-    dispatch(setInitialBlockStateFromUrlSearchParams());
+    dispatch(
+      setInitialBlockStateFromUrlSearchParams(validSortableBlocksColumns),
+    );
   }, [dispatch]);
 
   useEffect(() => {

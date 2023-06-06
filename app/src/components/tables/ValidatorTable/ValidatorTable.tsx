@@ -31,6 +31,14 @@ import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
+const validSortableValidatorsColumns = [
+  'feePercentage',
+  'delegatorsCount',
+  'totalStakeMotes',
+  'selfPercentage',
+  'percentageOfNetwork',
+];
+
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
   const [isCurrentEra, setIsCurrentEra] = useState(true);
@@ -53,7 +61,12 @@ export const ValidatorTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
-    dispatch(setInitialValidatorStateFromUrlSearchParams());
+
+    dispatch(
+      setInitialValidatorStateFromUrlSearchParams(
+        validSortableValidatorsColumns,
+      ),
+    );
   }, [dispatch]);
 
   useEffect(() => {
