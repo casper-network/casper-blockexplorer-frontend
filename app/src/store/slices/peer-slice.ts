@@ -14,6 +14,7 @@ import type { RootState } from '../store';
 import { TableOptions } from '../types';
 import {
   setInitialStateWithLSTableOptions,
+  determineInitialTableState,
   setTableOptionsUrlSearchParams,
 } from '../utils';
 
@@ -34,7 +35,7 @@ const initialState: PeerState = {
       pageNum: 1,
     },
     sorting: {
-      sortBy: '',
+      sortBy: 'nodeId',
       order: 'desc',
     },
   },
@@ -88,6 +89,14 @@ export const peerSlice = createSlice({
     updateTotalPeers: (state, action: PayloadAction<number>) => {
       state.totalPeers = action.payload;
     },
+    setInitialPeersStateFromUrlSearchParams: state => {
+      const tableOptions = determineInitialTableState(
+        PEER_TABLE_OPTIONS,
+        initialState.tableOptions,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -121,6 +130,7 @@ export const {
   updatePeerPageNum,
   updatePeerSorting,
   updateTotalPeers,
+  setInitialPeersStateFromUrlSearchParams,
 } = peerSlice.actions;
 
 peerListener.startListening({
