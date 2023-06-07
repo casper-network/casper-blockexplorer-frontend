@@ -1,10 +1,13 @@
 describe('Blocks Page', () => {
   beforeEach(() => cy.visit('/blocks'));
 
-  it('should title visible', () => {
+  it('should display title', () => {
     const blocksPageTitle = 'Blocks';
-    cy.get('h2').contains(blocksPageTitle).should('be.visible');
-  });
 
-  it('should load more blocks');
+    cy.get('h1').contains(blocksPageTitle).should('be.visible');
+
+    const blocksTableHeading = 'Latest Blocks';
+
+    cy.contains(blocksTableHeading).should('be.visible');
+  });
 });

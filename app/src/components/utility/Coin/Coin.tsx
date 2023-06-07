@@ -12,7 +12,7 @@ export const Coin: React.FC<CoinProps> = ({ children }) => {
   const { t } = useTranslation();
 
   return (
-    <CoinWrapper>
+    <CoinWrapper data-cy="coin-wrapper">
       {standardizeNumber(children)} {t('motes')}
     </CoinWrapper>
   );
