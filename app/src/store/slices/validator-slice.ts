@@ -117,10 +117,14 @@ export const validatorSlice = createSlice({
     ) => {
       state.currentEraValidatorStatus = action.payload;
     },
-    setInitialValidatorStateFromUrlSearchParams: state => {
+    setInitialValidatorStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
       const tableOptions = determineInitialTableState(
         VALIDATOR_TABLE_OPTIONS,
         defaultTableOptions,
+        action.payload,
       );
 
       state.tableOptions = tableOptions;
