@@ -1,3 +1,7 @@
+import {
+  TABLE_OPTIONS_ORDERING_PRESETS,
+  TABLE_OPTIONS_PAGE_SIZE_PRESETS,
+} from './constants';
 import { TableOptions } from './types';
 
 export const determineInitialTableState = (
@@ -32,18 +36,6 @@ export const determineInitialTableState = (
   }
 
   if (hasAllTableOptionParams) {
-    // TODO: will need to figure out way to confirm urlParams match expected values and types
-
-    console.log({ pageNumParam });
-    console.log({ pageSizeParam });
-    console.log({ sortByParam });
-    console.log({ orderParam });
-
-    // pageNum - number + is part of total page set
-    // pageSize - number + is part of 5, 10, 20
-    // sortByParam - string + is part of sortable table cols
-    // order - string + is one of 'asc' or 'desc'
-
     const validTableOptions = getValidTableOptionsFromUrlSearchParams({
       pageNumParam,
       pageSizeParam,
@@ -53,13 +45,9 @@ export const determineInitialTableState = (
       validSortByOptions,
     });
 
-    return {
-      pagination: {
-        pageNum: parseInt(pageNumParam, 10),
-        pageSize: parseInt(pageSizeParam, 10),
-      },
-      sorting: { sortBy: sortByParam, order: orderParam },
-    };
+    setTableOptionsUrlSearchParams(validTableOptions);
+
+    return validTableOptions;
   }
 
   return tableOptions;
@@ -129,38 +117,60 @@ export const getValidTableOptionsFromUrlSearchParams = ({
 }: {
   pageNumParam: string;
   pageSizeParam: string;
-  orderParam: string;
+  orderParam: 'desc' | 'asc';
   sortByParam: string;
   defaultTableOptions: TableOptions;
   validSortByOptions: string[];
 }): TableOptions => {
-  const validTableOptions = defaultTableOptions;
+  let validTableOptions = defaultTableOptions;
 
   const parsedPageNum = parseInt(pageNumParam, 10);
-  const parsedPageSize = parseInt(pageSizeParam, 10);
 
   if (!Number.isNaN(parsedPageNum)) {
-    validTableOptions.pagination.pageNum = parsedPageNum;
+    validTableOptions = {
+      ...validTableOptions,
+      pagination: { ...validTableOptions.pagination, pageNum: parsedPageNum },
+    };
   }
 
-  // TODO: think about maybe putting these in config/const
-  const isPageSizeValidValue = [5, 10, 20].includes(parsedPageSize);
+  const parsedPageSize = parseInt(pageSizeParam, 10);
+  const isPageSizeValidValue =
+    TABLE_OPTIONS_PAGE_SIZE_PRESETS.includes(parsedPageSize);
 
   if (!Number.isNaN(parsedPageSize) && isPageSizeValidValue) {
-    validTableOptions.pagination.pageSize = parsedPageSize;
+    validTableOptions = {
+      ...validTableOptions,
+      pagination: {
+        ...validTableOptions.pagination,
+        pageSize: parsedPageSize,
+      },
+    };
   }
 
   const isSortByValidOption = validSortByOptions.includes(sortByParam);
 
   if (isSortByValidOption) {
-    validTableOptions.sorting.sortBy = sortByParam;
+    validTableOptions = {
+      ...validTableOptions,
+      sorting: {
+        ...validTableOptions.sorting,
+        sortBy: sortByParam,
+      },
+    };
   }
 
-  return {
-    pagination: {
-      pageNum: parseInt(pageNumParam, 10),
-      pageSize: parseInt(pageSizeParam, 10),
-    },
-    sorting: { sortBy: sortByParam, order: orderParam as 'desc' | 'asc' },
-  };
+  const isOrderValidOption =
+    TABLE_OPTIONS_ORDERING_PRESETS.includes(orderParam);
+
+  if (isOrderValidOption) {
+    validTableOptions = {
+      ...validTableOptions,
+      sorting: {
+        ...validTableOptions.sorting,
+        order: orderParam,
+      },
+    };
+  }
+
+  return validTableOptions;
 };
