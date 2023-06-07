@@ -12,7 +12,10 @@ import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
-import { setInitialStateWithLSTableOptions } from '../utils';
+import {
+  setInitialStateWithLSTableOptions,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 import { VALIDATOR_TABLE_OPTIONS } from '../constants';
 
 export interface ValidatorState {
@@ -181,5 +184,7 @@ validatorListener.startListening({
       VALIDATOR_TABLE_OPTIONS,
       JSON.stringify(validatorTableOptions),
     );
+
+    setTableOptionsUrlSearchParams(validatorTableOptions);
   },
 });

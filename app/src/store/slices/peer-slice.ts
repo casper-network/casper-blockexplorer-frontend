@@ -12,7 +12,10 @@ import { PEER_TABLE_OPTIONS } from '../constants';
 import { Loading } from '../loading.type';
 import type { RootState } from '../store';
 import { TableOptions } from '../types';
-import { setInitialStateWithLSTableOptions } from '../utils';
+import {
+  setInitialStateWithLSTableOptions,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 
 export interface PeerState {
   status: Loading;
@@ -128,5 +131,7 @@ peerListener.startListening({
     const peerTableOptions = rootStateAll.peer.tableOptions;
 
     localStorage.setItem(PEER_TABLE_OPTIONS, JSON.stringify(peerTableOptions));
+
+    setTableOptionsUrlSearchParams(peerTableOptions);
   },
 });
