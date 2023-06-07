@@ -48,9 +48,17 @@ export const BlockPage: React.FC = () => {
     <PageWrapper error={error} isLoading={false}>
       <PageHead pageTitle={pageTitle} />
       {isMobile ? (
-        <MobileBlockDetailsCard block={block} isLoading={isLoading} />
+        <MobileBlockDetailsCard
+          data-cy="mobile-block-details-card"
+          block={block}
+          isLoading={isLoading}
+        />
       ) : (
-        <BlockDetailsCard block={block} isLoading={isLoading} />
+        <BlockDetailsCard
+          data-cy="block-details-card"
+          block={block}
+          isLoading={isLoading}
+        />
       )}
     </PageWrapper>
   );

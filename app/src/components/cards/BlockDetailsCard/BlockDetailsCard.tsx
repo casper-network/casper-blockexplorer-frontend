@@ -40,7 +40,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   };
 
   return (
-    <div data-testid="block-details-card">
+    <div data-testid="block-details-card" data-cy="block-details-card">
       <PageHeading>
         <HashWrapper>
           <HashHeading
@@ -108,10 +108,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
           <DetailDataWrapper>
             <li>
               <DetailDataLabel>{t('parent-hash')}</DetailDataLabel>
-              <DetailDataValue
-                data-cy="parent-hash"
-                data-testid="parent-hash"
-                height="2rem">
+              <DetailDataValue data-testid="parent-hash" height="2rem">
                 <StyledHashLink
                   to={{
                     pathname: `/block/${block?.header.parent_hash ?? ''}`,
@@ -268,7 +265,8 @@ const DetailDataRowWrapper = styled.ul`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     flex-direction: row;
     flex-wrap: wrap;
     gap: ${pxToRem(96)};
@@ -276,7 +274,8 @@ const DetailDataRowWrapper = styled.ul`
 `;
 
 const PageHeading = styled.div`
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
+      .lg}) {
     margin-bottom: 2rem;
   }
 `;
