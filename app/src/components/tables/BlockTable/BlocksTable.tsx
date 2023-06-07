@@ -73,9 +73,9 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       <BlocksTableHead>
         <BlockTableTitleWrapper>
           <LatestBlocks>Latest Blocks</LatestBlocks>
-          <p>
+          <TotalRows>
             {standardizeNumber(total || 0)} {t('total-rows')}
-          </p>
+          </TotalRows>
         </BlockTableTitleWrapper>
 
         <NumberedPagination
@@ -223,19 +223,31 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
   );
 };
 const BlocksTableHead = styled.div`
+  /* border: solid 1px purple; */
   display: flex;
-  min-width: ${pxToRem(825)};
+  /* flex-wrap: wrap; */
   justify-content: space-between;
+  /* min-width: fit-content; */
+  /* min-width: ${pxToRem(825)}; */
   align-items: center;
   color: ${props => props.theme.text.secondary};
+
+  /* @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+    flex-wrap: ;
+  } */
 `;
 
 const BlockTableTitleWrapper = styled.div`
+  /* border: red 1px solid; */
   display: flex;
   align-items: center;
+  /* min-width: 100px; */
+  flex-wrap: wrap;
+  /* margin-bottom: 20px; */
 `;
 
 const BlocksTableFooter = styled.div`
+  /* border: blue 1px solid; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -249,13 +261,18 @@ const SwitchBlocktime = styled.div`
 `;
 
 const LatestBlocks = styled.div`
-  font-size: ${pxToRem(15)};
+  /* border: grey solid 1px; */
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+  white-space: nowrap;
   margin-right: 1.5rem;
   color: ${props => props.theme.text.primary};
+`;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
-    font-size: ${pxToRem(28)};
-  }
+const TotalRows = styled.p`
+  //   border: solid 1px pink;
+  margin-right: 1.5rem;
+  //   min-width: 8rem;
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`

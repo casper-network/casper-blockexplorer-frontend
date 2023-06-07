@@ -269,7 +269,8 @@ export const ValidatorTable: React.FC = () => {
 const ValidatorTableHead = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: ${pxToRem(825)};
+  min-width: ${pxToRem(800)};
+  /* min-width: ${pxToRem(825)}; */
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};

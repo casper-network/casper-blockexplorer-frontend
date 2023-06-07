@@ -129,10 +129,12 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
 };
 
 const PageWrapper = styled.div`
+  /* border: solid 1px orange; */
   display: flex;
 `;
 
 const PaginationWrapper = styled.div`
+  /* border: solid 3px green; */
   display: flex;
 
   * {
@@ -174,11 +176,13 @@ const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
 `;
 
 const PageNumberWrapper = styled.div`
+  /* border: solid 1px purple; */
   display: flex;
   align-items: center;
-  min-width: 8.3rem;
+  justify-content: center;
+  min-width: 10.5rem;
   height: ${pxToRem(38)};
-  padding: 0 1.5rem;
+  /* padding: 0 10.5rem; */
   color: ${props => props.theme.text.primary};
   background-color: ${props => props.theme.background.secondary};
 `;
@@ -186,7 +190,7 @@ const PageNumberWrapper = styled.div`
 const RowsSelectWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 3rem;
+  margin-right: 1.25rem;
 `;
 
 const RowsSelectLabel = styled.div`

@@ -96,9 +96,9 @@ export const PeersTable: React.FC = () => {
     <PeerTableHead>
       <PeertableTitleWrapper>
         <HeadLabel>{t('currently-online')}</HeadLabel>
-        <p>
+        <TotalRows>
           {standardizeNumber(totalPeers || 0)} {t('total-rows')}
-        </p>
+        </TotalRows>
       </PeertableTitleWrapper>
       <NumberedPagination
         tableOptions={peersTableOptions}
@@ -150,8 +150,16 @@ const PeerTableHead = styled.div`
 
 const HeadLabel = styled.p`
   color: ${props => props.theme.text.primary};
-  padding-right: 2rem;
-  font-size: ${pxToRem(28)};
+  margin-right: 1.5rem;
+  white-space: nowrap;
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+`;
+
+const TotalRows = styled.p`
+  //   border: solid 1px pink;
+  margin-right: 1.5rem;
+  //   min-width: 8rem;
+  white-space: nowrap;
 `;
 
 const PeersTableFooter = styled.div`
@@ -164,4 +172,5 @@ const PeersTableFooter = styled.div`
 const PeertableTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
