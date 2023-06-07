@@ -217,7 +217,6 @@ export const BlocksTable: React.FC = () => {
           </div>
         ),
         enableSorting: false,
-        // isVisible: showValidators,
         minSize: 230,
       },
     ],
