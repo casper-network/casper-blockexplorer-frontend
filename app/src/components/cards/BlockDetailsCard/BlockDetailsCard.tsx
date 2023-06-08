@@ -243,6 +243,8 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   );
 };
 
+const { breakpoints } = defaultTheme.typography;
+
 const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -265,8 +267,7 @@ const DetailDataRowWrapper = styled.ul`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${breakpoints.lg}) {
     flex-direction: row;
     flex-wrap: wrap;
     gap: ${pxToRem(96)};
@@ -274,8 +275,7 @@ const DetailDataRowWrapper = styled.ul`
 `;
 
 const PageHeading = styled.div`
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${breakpoints.lg}) {
     margin-bottom: 2rem;
   }
 `;
