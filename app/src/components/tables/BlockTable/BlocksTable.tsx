@@ -106,9 +106,9 @@ export const BlocksTable: React.FC = () => {
       <BlocksTableHead>
         <BlockTableTitleWrapper>
           <LatestBlocks>Latest Blocks</LatestBlocks>
-          <p>
+          <TotalRows>
             {standardizeNumber(totalBlocks || 0)} {t('total-rows')}
-          </p>
+          </TotalRows>
         </BlockTableTitleWrapper>
 
         <NumberedPagination
@@ -180,11 +180,11 @@ export const BlocksTable: React.FC = () => {
         ),
         accessorKey: 'header.timestamp',
         cell: ({ getValue }) => (
-          <div>
+          <Age>
             {showTimestamp
               ? formatDate(new Date(getValue<number>()))
               : formatTimeAgo(new Date(getValue<number>()))}
-          </div>
+          </Age>
         ),
         enableSorting: false,
         minSize: 200,
@@ -193,7 +193,7 @@ export const BlocksTable: React.FC = () => {
         header: `${t('block-hash')}`,
         accessorKey: 'hash',
         cell: ({ getValue }) => (
-          <div className="flex flex-row items-center">
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/block/${getValue<string>()}`,
@@ -201,7 +201,7 @@ export const BlocksTable: React.FC = () => {
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
         minSize: 230,
@@ -210,7 +210,7 @@ export const BlocksTable: React.FC = () => {
         header: `${t('validator')}`,
         accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
-          <div className="flex flex-row items-center">
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
@@ -218,7 +218,7 @@ export const BlocksTable: React.FC = () => {
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
         minSize: 230,
@@ -268,7 +268,6 @@ export const BlocksTable: React.FC = () => {
 };
 const BlocksTableHead = styled.div`
   display: flex;
-  min-width: ${pxToRem(825)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
@@ -277,14 +276,21 @@ const BlocksTableHead = styled.div`
 const BlockTableTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const BlocksTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: ${pxToRem(20)} 2rem;
-  color: ${props => props.theme.text.secondary};
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
 `;
 
 const SwitchBlocktime = styled.div`
@@ -293,13 +299,23 @@ const SwitchBlocktime = styled.div`
 `;
 
 const LatestBlocks = styled.div`
-  font-size: ${pxToRem(15)};
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+  white-space: nowrap;
   margin-right: 1.5rem;
   color: ${props => props.theme.text.primary};
+`;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
-    font-size: ${pxToRem(28)};
-  }
+const TotalRows = styled.p`
+  margin-right: 1.5rem;
+  white-space: nowrap;
+`;
+
+const Age = styled.div`
+  white-space: nowrap;
+`;
+
+const HashAndCopyToClipboardWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`

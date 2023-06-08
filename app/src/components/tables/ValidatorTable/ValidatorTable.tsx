@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -130,7 +130,7 @@ export const ValidatorTable: React.FC = () => {
         enableSorting: false,
         minSize: 200,
         cell: ({ getValue }) => (
-          <div>
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
@@ -138,7 +138,7 @@ export const ValidatorTable: React.FC = () => {
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
       },
       {
@@ -284,7 +284,7 @@ export const ValidatorTable: React.FC = () => {
 const ValidatorTableHead = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: ${pxToRem(825)};
+  min-width: ${pxToRem(800)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
@@ -302,7 +302,14 @@ const HeaderPaginationWrapper = styled.div`
 `;
 
 const HeaderEraToggleWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
   padding-bottom: 1rem;
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: center;
+  }
 `;
 
 const EraToggleButton = styled.button<{ selected: boolean }>`
@@ -326,8 +333,18 @@ const CSPRText = styled.span`
 const ValidatorsTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: ${pxToRem(20)} 2rem;
+  justify-content: flex-start;
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
+`;
+
+const HashAndCopyToClipboardWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`
