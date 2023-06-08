@@ -85,7 +85,7 @@ export const deploySlice = createSlice({
           state.deploys = payload;
         },
       )
-      .addCase(fetchDeploys.rejected, (state, { payload }) => {
+      .addCase(fetchDeploys.rejected, state => {
         state.deploysLoadingStatus = Loading.Failed;
       });
   },

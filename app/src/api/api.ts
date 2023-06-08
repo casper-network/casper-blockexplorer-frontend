@@ -217,8 +217,6 @@ const createApi = (baseUrl: string) => {
 
         const { data } = response;
 
-        console.log({ data });
-
         return data;
       },
     },
