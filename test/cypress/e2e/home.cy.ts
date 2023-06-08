@@ -1,13 +1,17 @@
 const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'macbook-13'];
 
 describe('Home Page', () => {
+  const siteTitle = Cypress.env('ORG_NAME') as string;
+
   sizes.forEach(size => {
     it(`Should display homepage on ${size.toString()} screen`, () => {
       cy.viewport(size);
 
       cy.visit('/');
 
-      const homePageHeroText = 'Discover the blockchain.';
+      const homePageHeroText = `Discover the ${
+        siteTitle ? `${siteTitle} ` : ''
+      }blockchain.`;
 
       cy.contains(homePageHeroText).should('be.visible');
 
