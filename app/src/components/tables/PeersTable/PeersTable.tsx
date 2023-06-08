@@ -18,7 +18,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { standardizeNumber } from 'src/utils';
-import { pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
@@ -174,8 +174,14 @@ const TotalRows = styled.p`
 const PeersTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: ${pxToRem(20)} 2rem;
+  justify-content: flex-start;
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
 `;
 
 const PeertableTitleWrapper = styled.div`

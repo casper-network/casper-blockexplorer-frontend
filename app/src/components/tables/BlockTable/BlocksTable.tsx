@@ -267,36 +267,30 @@ export const BlocksTable: React.FC = () => {
   );
 };
 const BlocksTableHead = styled.div`
-  /* border: solid 1px purple; */
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: space-between;
-  /* min-width: fit-content; */
-  /* min-width: ${pxToRem(825)}; */
   align-items: center;
   color: ${props => props.theme.text.secondary};
-
-  /* @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
-    flex-wrap: ;
-  } */
 `;
 
 const BlockTableTitleWrapper = styled.div`
-  /* border: red 1px solid; */
   display: flex;
   align-items: center;
-  /* min-width: 100px; */
   flex-wrap: wrap;
-  /* margin-bottom: 20px; */
 `;
 
 const BlocksTableFooter = styled.div`
-  /* border: blue 1px solid; */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: ${pxToRem(20)} 2rem;
-  color: ${props => props.theme.text.secondary};
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
 `;
 
 const SwitchBlocktime = styled.div`
@@ -305,7 +299,6 @@ const SwitchBlocktime = styled.div`
 `;
 
 const LatestBlocks = styled.div`
-  /* border: grey solid 1px; */
   font-size: clamp(1.45rem, 2vw, 1.75rem);
   white-space: nowrap;
   margin-right: 1.5rem;
@@ -313,9 +306,7 @@ const LatestBlocks = styled.div`
 `;
 
 const TotalRows = styled.p`
-  //   border: solid 1px pink;
   margin-right: 1.5rem;
-  //   min-width: 8rem;
   white-space: nowrap;
 `;
 
