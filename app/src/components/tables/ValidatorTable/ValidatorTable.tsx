@@ -130,7 +130,7 @@ export const ValidatorTable: React.FC = () => {
         enableSorting: false,
         minSize: 200,
         cell: ({ getValue }) => (
-          <div>
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
@@ -138,7 +138,7 @@ export const ValidatorTable: React.FC = () => {
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
       },
       {
@@ -341,6 +341,10 @@ const ValidatorsTableFooter = styled.div`
     justify-content: flex-end;
     padding: ${pxToRem(20)} 2rem;
   }
+`;
+
+const HashAndCopyToClipboardWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`
