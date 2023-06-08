@@ -270,7 +270,6 @@ const ValidatorTableHead = styled.div`
   display: flex;
   flex-direction: column;
   min-width: ${pxToRem(800)};
-  /* min-width: ${pxToRem(825)}; */
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
@@ -288,7 +287,14 @@ const HeaderPaginationWrapper = styled.div`
 `;
 
 const HeaderEraToggleWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
   padding-bottom: 1rem;
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: center;
+  }
 `;
 
 const EraToggleButton = styled.button<{ selected: boolean }>`
@@ -316,7 +322,7 @@ const ValidatorsTableFooter = styled.div`
   padding: ${pxToRem(20)} 1.5rem;
   min-width: ${pxToRem(450)};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.sm}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     justify-content: flex-end;
     padding: ${pxToRem(20)} 2rem;
   }
