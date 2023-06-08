@@ -9,6 +9,7 @@ import {
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
+  fetchDeploys,
 } from 'src/store';
 import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
@@ -21,6 +22,10 @@ import { PageWrapper } from '../components';
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const peersTableOptions = useAppSelector(getPeersTableOptions);
+
+  useEffect(() => {
+    dispatch(fetchDeploys());
+  }, []);
 
   useEffect(() => {
     dispatch(fetchLatestBlock());

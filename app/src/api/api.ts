@@ -207,6 +207,19 @@ const createApi = (baseUrl: string) => {
 
         return data;
       },
+      async getDeploys() {
+        type Response = AxiosResponse<any>;
+
+        const response = await middlewareApi.get<Response>('/deploys');
+
+        if (response.status !== 200) throw new Error(response.statusText);
+
+        const { data } = response;
+
+        console.log({ data });
+
+        return data;
+      },
     },
   };
 };
