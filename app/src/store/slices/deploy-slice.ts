@@ -87,12 +87,12 @@ export const deploySlice = createSlice({
           state.status = Loading.Complete;
           state.deploys = payload;
         },
-      );
-    // .addCase(fetchDeploys.rejected, (state, { payload }) => {
-    //   state.errorMessage = payload?.error || null;
+      )
+      .addCase(fetchDeploys.rejected, (state, { payload }) => {
+        state.errorMessage = payload?.error || null;
 
-    //   state.status = Loading.Failed;
-    // });
+        state.status = Loading.Failed;
+      });
   },
 });
 function rejectWithValue(arg0: { error: string }): any {
