@@ -41,23 +41,18 @@ export const fetchDeploy = createAsyncThunk<
   }
 });
 
-export const fetchDeploys = createAsyncThunk<
-  Deploy[],
-  undefined,
-  { rejectValue: { error: string } }
->('rpcClient/fetchDeploys', async () => {
-  try {
-    const deploys = await middlewareServiceApi.deploy.getDeploys();
+export const fetchDeploys = createAsyncThunk(
+  'rpcClient/fetchDeploys',
+  async () => {
+    try {
+      const deploys = await middlewareServiceApi.deploy.getDeploys();
 
-    return deploys;
-  } catch (err: any) {
-    if (err instanceof AxiosError) {
-      return rejectWithValue({ error: err.message });
+      return deploys;
+    } catch (err: any) {
+      throw new Error('An error occurred while fetching deploys.');
     }
-
-    throw new Error('An error occurred while fetching deploys.');
-  }
-});
+  },
+);
 
 export const deploySlice = createSlice({
   name: 'deploy',
@@ -91,12 +86,7 @@ export const deploySlice = createSlice({
         },
       )
       .addCase(fetchDeploys.rejected, (state, { payload }) => {
-        state.errorMessage = payload?.error || null;
-
         state.deploysLoadingStatus = Loading.Failed;
       });
   },
 });
-function rejectWithValue(arg0: { error: string }): any {
-  throw new Error('Function not implemented.');
-}

@@ -23,9 +23,10 @@ export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const peersTableOptions = useAppSelector(getPeersTableOptions);
 
+  // TODO: will move to deploys page when implemented - testing response for now
   useEffect(() => {
     dispatch(fetchDeploys());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchLatestBlock());
