@@ -8,6 +8,7 @@ export interface DeployState {
   status: Loading;
   deploy: Deploy | null;
   deploys: Deploy[];
+  deploysLoadingStatus: Loading;
   errorMessage: string | null;
 }
 
@@ -15,6 +16,7 @@ const initialState: DeployState = {
   status: Loading.Idle,
   deploy: null,
   deploys: [],
+  deploysLoadingStatus: Loading.Idle,
   errorMessage: null,
 };
 
@@ -79,19 +81,19 @@ export const deploySlice = createSlice({
         state.status = Loading.Failed;
       })
       .addCase(fetchDeploys.pending, state => {
-        state.status = Loading.Pending;
+        state.deploysLoadingStatus = Loading.Pending;
       })
       .addCase(
         fetchDeploys.fulfilled,
         (state, { payload }: PayloadAction<Deploy[]>) => {
-          state.status = Loading.Complete;
+          state.deploysLoadingStatus = Loading.Complete;
           state.deploys = payload;
         },
       )
       .addCase(fetchDeploys.rejected, (state, { payload }) => {
         state.errorMessage = payload?.error || null;
 
-        state.status = Loading.Failed;
+        state.deploysLoadingStatus = Loading.Failed;
       });
   },
 });
