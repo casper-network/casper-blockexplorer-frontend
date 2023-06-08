@@ -165,9 +165,7 @@ const HeadLabel = styled.p`
 `;
 
 const TotalRows = styled.p`
-  //   border: solid 1px pink;
   margin-right: 1.5rem;
-  //   min-width: 8rem;
   white-space: nowrap;
 `;
 

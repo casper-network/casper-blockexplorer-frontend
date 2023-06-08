@@ -185,17 +185,14 @@ const TableWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  /* border: orange solid 1px; */
   padding: 1rem 2rem;
   width: 100%;
 `;
 
 const StyledTable = styled.table`
-  /* border: red solid 1px; */
   table-layout: auto;
   width: 100%;
   border-spacing: 0px 0px;
-  /* min-width: ${pxToRem(1080)}; */
   min-width: ${pxToRem(800)};
   background-color: ${props => props.theme.background.primary};
   position: relative;
