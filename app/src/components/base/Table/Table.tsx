@@ -193,7 +193,7 @@ const StyledTable = styled.table`
   table-layout: auto;
   width: 100%;
   border-spacing: 0px 0px;
-  min-width: ${pxToRem(800)};
+  min-width: ${pxToRem(840)};
   background-color: ${props => props.theme.background.primary};
   position: relative;
 `;
