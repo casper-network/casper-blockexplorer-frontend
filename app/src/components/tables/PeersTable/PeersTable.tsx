@@ -7,6 +7,7 @@ import {
   getPeersTableOptions,
   getTotalPeers,
   Loading,
+  setInitialPeersStateFromUrlSearchParams,
   setPeerTableOptions,
   updatePeerPageNum,
   useAppDispatch,
@@ -21,6 +22,8 @@ import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
+const validSortablePeersColumns = ['nodeId'];
+
 export const PeersTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
   const peersTableOptions = useAppSelector(getPeersTableOptions);
@@ -30,6 +33,12 @@ export const PeersTable: React.FC = () => {
   const dispatch = useAppDispatch();
   const peers = useAppSelector(getPeers);
   const peerLoadingStatus = useAppSelector(getPeerLoadingStatus);
+
+  useEffect(() => {
+    dispatch(
+      setInitialPeersStateFromUrlSearchParams(validSortablePeersColumns),
+    );
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchPeers(peersTableOptions));

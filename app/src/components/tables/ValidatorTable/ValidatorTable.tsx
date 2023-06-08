@@ -19,6 +19,7 @@ import {
   useAppSelector,
   getNextEraValidators,
   getLatestBlock,
+  setInitialValidatorStateFromUrlSearchParams,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -29,6 +30,14 @@ import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
+
+const validSortableValidatorsColumns = [
+  'feePercentage',
+  'delegatorsCount',
+  'totalStakeMotes',
+  'selfPercentage',
+  'percentageOfNetwork',
+];
 
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
@@ -52,6 +61,12 @@ export const ValidatorTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
+
+    dispatch(
+      setInitialValidatorStateFromUrlSearchParams(
+        validSortableValidatorsColumns,
+      ),
+    );
   }, [dispatch]);
 
   useEffect(() => {
