@@ -1,4 +1,4 @@
-const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'macbook-13'];
+const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'ipad-2', 'macbook-13'];
 
 describe('Home Page', () => {
   const siteTitle = Cypress.env('ORG_NAME') as string;
@@ -27,6 +27,11 @@ describe('Home Page', () => {
         // Should navigate to Home page
         cy.get('a').contains('Home').click();
         cy.location('pathname').should('eq', '/');
+      } else if (size === 'iphone-6') {
+        cy.get('button').contains('Account').should('be.visible');
+        cy.get('button').contains('Deploy').should('be.visible');
+        cy.get('button').contains('Blk Hash').should('be.visible');
+        cy.get('button').contains('Blk Height').should('be.visible');
       }
     });
   });
