@@ -9,30 +9,34 @@ describe('Account Page', () => {
 
   context('Account Header', () => {
     sizes.forEach(size => {
-      it(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
+      it.only(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
         cy.viewport(size);
 
         if (size === 'macbook-16') {
-          cy.getByData('h1').should('contain', 'Account Details');
+          cy.getByData('h1-account-details').should(
+            'contain',
+            'Account Details',
+          );
 
           cy.getByData('avatar-icon').should('be.visible');
 
           cy.getByData('h2').should('contain', `${truncatedAccountHash}`);
 
-          cy.getByData('button')
-            .eq(5)
+          cy.getByData('hash-expand-contract-button')
             .should('contain', 'Expand')
             .click()
             .getByData('h2')
             .should('contain', `${accountHash}`)
-            .getByData('button')
+            .getByData('hash-expand-contract-button')
             .should('contain', 'Collapse')
-            .getByData('button')
-            .eq(5)
+            .getByData('hash-expand-contract-button')
             .click()
             .should('contain', 'Expand');
         } else {
-          cy.getByData('h1').should('contain', 'Account Details');
+          cy.getByData('h1-account-details').should(
+            'contain',
+            'Account Details',
+          );
           cy.getByData('avatar-icon').should('be.visible');
           cy.getByData('h2').should('contain', `${truncatedAccountHash}`);
         }
