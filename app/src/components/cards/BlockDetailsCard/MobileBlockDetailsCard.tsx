@@ -29,7 +29,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
   const rawBlock = JSON.stringify(block);
 
   return (
-    <>
+    <div data-cy="mobile-block-details-card">
       <PageHeading>
         {withSkeletonLoading(
           <Hash hash={block?.hash ?? hashPlaceholder} alwaysTruncate />,
@@ -209,7 +209,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
           </DetailDataWrapper>
         </Card.Body>
       </InfoCardContentWrapper>
-    </>
+    </div>
   );
 };
 

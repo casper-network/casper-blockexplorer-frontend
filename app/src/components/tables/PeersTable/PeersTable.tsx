@@ -18,7 +18,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { standardizeNumber } from 'src/utils';
-import { pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
@@ -105,9 +105,9 @@ export const PeersTable: React.FC = () => {
     <PeerTableHead>
       <PeertableTitleWrapper>
         <HeadLabel>{t('currently-online')}</HeadLabel>
-        <p>
+        <TotalRows>
           {standardizeNumber(totalPeers || 0)} {t('total-rows')}
-        </p>
+        </TotalRows>
       </PeertableTitleWrapper>
       <NumberedPagination
         tableOptions={peersTableOptions}
@@ -159,18 +159,31 @@ const PeerTableHead = styled.div`
 
 const HeadLabel = styled.p`
   color: ${props => props.theme.text.primary};
-  padding-right: 2rem;
-  font-size: ${pxToRem(28)};
+  margin-right: 1.5rem;
+  white-space: nowrap;
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+`;
+
+const TotalRows = styled.p`
+  margin-right: 1.5rem;
+  white-space: nowrap;
 `;
 
 const PeersTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: ${pxToRem(20)} 2rem;
+  justify-content: flex-start;
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
 `;
 
 const PeertableTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;

@@ -40,7 +40,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   };
 
   return (
-    <div data-testid="block-details-card">
+    <div data-testid="block-details-card" data-cy="block-details-card">
       <PageHeading>
         <HashWrapper>
           <HashHeading
