@@ -10,6 +10,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
+import { HeadingType } from 'src/components/base/UiKitHeader/UiKitHeader';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -33,6 +34,7 @@ import {
   RawData,
   withSkeletonLoading,
 } from '../../utility';
+import { UiKitHeader } from '../../base/UiKitHeader';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
@@ -55,7 +57,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   return (
     <div data-testid="account-details-card">
       <HeadContentContainer isTruncated={isTruncated}>
-        <AccountHeading type="h1">{t('account-details')}</AccountHeading>
+        <AccountHeading type={HeadingType.H1} dataCy={'h1-account-details'}>
+          {t('account-details')}
+        </AccountHeading>
         <AvatarHashContainer>
           {withSkeletonLoading(
             <AccountDetailsWrapper>
@@ -170,7 +174,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   );
 };
 
-const AccountHeading = styled(Heading)`
+const AccountHeading = styled(UiKitHeader)`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
   margin-bottom: 2rem;

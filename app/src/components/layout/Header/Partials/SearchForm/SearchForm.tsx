@@ -7,13 +7,13 @@ import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
 
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'casper-ui-kit';
+import { UiKitButton } from 'src/components/base/UiKitButton';
 import {
   FormContainer,
   Form,
   FormComponentsContainer,
   InputAndButtonContainer,
   SearchInput,
-  SubmitButton,
   ErrorMessageContainer,
   ErrorSvgContainer,
   ErrorMessage,
@@ -140,9 +140,9 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               placeholder={t('select-search-criteria') || ''}
               required
             />
-            <SubmitButton type="submit" data-cy="submit-button">
+            <UiKitButton type="submit" data-cy="submit-button" bgColor="purple">
               {themeType === 'light' ? <ButtonIconLight /> : <ButtonIconDark />}
-            </SubmitButton>
+            </UiKitButton>
           </InputAndButtonContainer>
         </FormComponentsContainer>
         {errors.hash && (

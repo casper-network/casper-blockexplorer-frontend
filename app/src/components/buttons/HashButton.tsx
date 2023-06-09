@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
 
 import { t } from 'i18next';
-import { Button } from '../base';
+import { UiKitButton } from '../base/UiKitButton';
 
 export interface HashButtonProps {
   isTruncated: boolean;
@@ -27,6 +27,8 @@ export const HashButton: React.FC<HashButtonProps> = ({
 
   return (
     <StyledHashButton
+      bgColor=""
+      data-cy="hash-expand-contract-button"
       isAvatar={isAvatar}
       type="button"
       onClick={toggleHashView}
@@ -37,7 +39,7 @@ export const HashButton: React.FC<HashButtonProps> = ({
   );
 };
 
-const StyledHashButton = styled(Button)<{
+const StyledHashButton = styled(UiKitButton)<{
   isAvatar: boolean | undefined;
   buttonPosition: string;
   heading: string | undefined;
