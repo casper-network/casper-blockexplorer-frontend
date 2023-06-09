@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, CopyToClipboard } from 'casper-ui-kit';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
@@ -19,7 +19,6 @@ import {
   standardizeNumber,
   truncateHash,
 } from '../../../utils';
-import { CopyToClipboard } from '../../utility';
 import { Spacer, Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
-import { defaultTheme, Card } from 'casper-ui-kit';
+import { defaultTheme, Card, CopyToClipboard } from 'casper-ui-kit';
 import { InfoCardContentWrapper } from 'src/components/base';
 import { Heading } from '../../base';
 import { Deploy } from '../../../api';
@@ -16,7 +16,7 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
+import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy | null;

@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { Card, defaultTheme } from 'casper-ui-kit';
+import { Card, defaultTheme, CopyToClipboard } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 
 import { InfoCardContentWrapper } from 'src/components/base';
@@ -13,7 +13,7 @@ import {
   DetailDataWrapper,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
+import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface MobileBlockDetailsCardProps {
   block: ApiData.Block | null;

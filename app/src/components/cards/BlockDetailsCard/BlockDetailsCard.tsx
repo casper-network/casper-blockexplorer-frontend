@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
-import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card, CopyToClipboard } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
 import {
@@ -13,7 +13,7 @@ import {
   DetailDataWrapper,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
+import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface BlockDetailsCardProps {
   block: ApiData.Block | null;

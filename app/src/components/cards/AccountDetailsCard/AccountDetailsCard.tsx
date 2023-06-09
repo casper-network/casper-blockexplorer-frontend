@@ -9,7 +9,7 @@ import {
   Loading,
   useAppSelector,
 } from 'src/store';
-import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card, CopyToClipboard } from 'casper-ui-kit';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -27,12 +27,7 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import {
-  Coin,
-  CopyToClipboard,
-  RawData,
-  withSkeletonLoading,
-} from '../../utility';
+import { Coin, RawData, withSkeletonLoading } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
