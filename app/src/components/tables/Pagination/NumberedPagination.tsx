@@ -176,8 +176,9 @@ const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
 const PageNumberWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 10.5rem;
   height: ${pxToRem(38)};
-  padding: 0 1.5rem;
   color: ${props => props.theme.text.primary};
   background-color: ${props => props.theme.background.secondary};
 `;
@@ -185,7 +186,7 @@ const PageNumberWrapper = styled.div`
 const RowsSelectWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 3rem;
+  margin-right: 1.25rem;
 `;
 
 const RowsSelectLabel = styled.div`

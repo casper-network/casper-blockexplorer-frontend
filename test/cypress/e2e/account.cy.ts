@@ -12,7 +12,7 @@ describe('Account Page', () => {
       it(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
         cy.viewport(size);
 
-        if (size === 'macbook-13') {
+        if (size === 'macbook-16') {
           cy.getByData('h1').should('contain', 'Account Details');
 
           cy.getByData('avatar-icon').should('be.visible');
@@ -44,7 +44,8 @@ describe('Account Page', () => {
     // TODO: copyToClipBoard tests pending #361
     sizes.forEach(size => {
       it(`Should display account details on a ${size} screen`, () => {
-        if (size === 'macbook-13') {
+        cy.viewport(size);
+        if (size === 'macbook-16') {
           cy.getByData('account-hash-h3').should('contain', 'Account Hash');
           cy.getByData('account-hash').should('contain', `${accountHash}`);
 

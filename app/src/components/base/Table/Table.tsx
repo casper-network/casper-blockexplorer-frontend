@@ -193,7 +193,7 @@ const StyledTable = styled.table`
   table-layout: auto;
   width: 100%;
   border-spacing: 0px 0px;
-  min-width: ${pxToRem(800)};
+  min-width: ${pxToRem(840)};
   background-color: ${props => props.theme.background.primary};
   position: relative;
 `;
@@ -209,6 +209,7 @@ const TableHeader = styled.tr`
 const Th = styled.th<{ sortable?: boolean }>`
   text-align: start;
   padding: 0 2rem;
+  min-width: 10.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
   ${({ sortable }) => {
     if (sortable)
@@ -235,7 +236,7 @@ const TableBodyRow = styled.tr`
 
 const TableBodyItem = styled.td`
   text-align: start;
-  padding: 0 ${pxToRem(32)};
+  padding: 0 2rem;
   border-bottom: ${pxToRem(1)} solid
     ${props => props.theme.background.secondary};
 `;

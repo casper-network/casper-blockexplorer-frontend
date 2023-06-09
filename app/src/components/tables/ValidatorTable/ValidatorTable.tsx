@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem, CopyToClipboard } from 'casper-ui-kit';
+import { pxToRem, CopyToClipboard, defaultTheme } from 'casper-ui-kit';
+
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -19,6 +20,7 @@ import {
   useAppSelector,
   getNextEraValidators,
   getLatestBlock,
+  setInitialValidatorStateFromUrlSearchParams,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -28,6 +30,14 @@ import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
+
+const validSortableValidatorsColumns = [
+  'feePercentage',
+  'delegatorsCount',
+  'totalStakeMotes',
+  'selfPercentage',
+  'percentageOfNetwork',
+];
 
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
@@ -51,6 +61,12 @@ export const ValidatorTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
+
+    dispatch(
+      setInitialValidatorStateFromUrlSearchParams(
+        validSortableValidatorsColumns,
+      ),
+    );
   }, [dispatch]);
 
   useEffect(() => {
@@ -114,7 +130,7 @@ export const ValidatorTable: React.FC = () => {
         enableSorting: false,
         minSize: 200,
         cell: ({ getValue }) => (
-          <div>
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
@@ -122,7 +138,7 @@ export const ValidatorTable: React.FC = () => {
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
       },
       {
@@ -268,7 +284,7 @@ export const ValidatorTable: React.FC = () => {
 const ValidatorTableHead = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: ${pxToRem(825)};
+  min-width: ${pxToRem(800)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
@@ -286,7 +302,14 @@ const HeaderPaginationWrapper = styled.div`
 `;
 
 const HeaderEraToggleWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
   padding-bottom: 1rem;
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: center;
+  }
 `;
 
 const EraToggleButton = styled.button<{ selected: boolean }>`
@@ -310,8 +333,18 @@ const CSPRText = styled.span`
 const ValidatorsTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: ${pxToRem(20)} 2rem;
+  justify-content: flex-start;
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
+`;
+
+const HashAndCopyToClipboardWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`
