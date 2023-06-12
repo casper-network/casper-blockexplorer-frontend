@@ -7,12 +7,16 @@ import { Loading } from '../loading.type';
 export interface DeployState {
   status: Loading;
   deploy: Deploy | null;
+  deploys: Deploy[];
+  deploysLoadingStatus: Loading;
   errorMessage: string | null;
 }
 
 const initialState: DeployState = {
   status: Loading.Idle,
   deploy: null,
+  deploys: [],
+  deploysLoadingStatus: Loading.Idle,
   errorMessage: null,
 };
 
@@ -37,6 +41,19 @@ export const fetchDeploy = createAsyncThunk<
   }
 });
 
+export const fetchDeploys = createAsyncThunk(
+  'rpcClient/fetchDeploys',
+  async () => {
+    try {
+      const deploys = await middlewareServiceApi.deploy.getDeploys();
+
+      return deploys;
+    } catch (err: any) {
+      throw new Error('An error occurred while fetching deploys.');
+    }
+  },
+);
+
 export const deploySlice = createSlice({
   name: 'deploy',
   initialState,
@@ -57,6 +74,19 @@ export const deploySlice = createSlice({
         state.errorMessage = payload?.error || null;
 
         state.status = Loading.Failed;
+      })
+      .addCase(fetchDeploys.pending, state => {
+        state.deploysLoadingStatus = Loading.Pending;
+      })
+      .addCase(
+        fetchDeploys.fulfilled,
+        (state, { payload }: PayloadAction<Deploy[]>) => {
+          state.deploysLoadingStatus = Loading.Complete;
+          state.deploys = payload;
+        },
+      )
+      .addCase(fetchDeploys.rejected, state => {
+        state.deploysLoadingStatus = Loading.Failed;
       });
   },
 });
