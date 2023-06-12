@@ -9,16 +9,17 @@ import {
   Loading,
   useAppSelector,
 } from 'src/store';
-import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
-import { HeadingType } from 'src/components/base/UiKitHeader/UiKitHeader';
+import {
+  defaultTheme,
+  pxToRem,
+  Card,
+  Heading,
+  HeadingType,
+} from 'casper-ui-kit';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-import {
-  HeadContentWrapper,
-  Heading,
-  InfoCardContentWrapper,
-} from '../../base';
+import { HeadContentWrapper, InfoCardContentWrapper } from '../../base';
 import {
   Hash,
   AvatarIcon,
@@ -34,7 +35,6 @@ import {
   RawData,
   withSkeletonLoading,
 } from '../../utility';
-import { UiKitHeader } from '../../base/UiKitHeader';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
@@ -174,7 +174,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   );
 };
 
-const AccountHeading = styled(UiKitHeader)`
+const AccountHeading = styled(Heading)`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
   margin-bottom: 2rem;

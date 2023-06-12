@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { pxToRem, defaultTheme, Button } from 'casper-ui-kit';
 
 import { t } from 'i18next';
-import { UiKitButton } from '../base/UiKitButton';
 
 export interface HashButtonProps {
   isTruncated: boolean;
@@ -39,7 +38,7 @@ export const HashButton: React.FC<HashButtonProps> = ({
   );
 };
 
-const StyledHashButton = styled(UiKitButton)<{
+const StyledHashButton = styled(Button)<{
   isAvatar: boolean | undefined;
   buttonPosition: string;
   heading: string | undefined;
