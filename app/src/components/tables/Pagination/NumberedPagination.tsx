@@ -7,8 +7,8 @@ import { CustomSelect } from 'src/components/layout/Header/Partials/CustomSelect
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
-import { colors, pxToRem } from 'src/styled-theme';
 import { standardizeNumber } from 'src/utils';
+import { pxToRem } from 'casper-ui-kit';
 import {
   LessThanLight,
   GreaterThanLight,
@@ -176,8 +176,9 @@ const NextPreviousPageIconWrapper = styled.div<{ disabled?: boolean }>`
 const PageNumberWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 10.5rem;
   height: ${pxToRem(38)};
-  padding: 0 1.5rem;
   color: ${props => props.theme.text.primary};
   background-color: ${props => props.theme.background.secondary};
 `;
@@ -185,7 +186,7 @@ const PageNumberWrapper = styled.div`
 const RowsSelectWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 3rem;
+  margin-right: 1.25rem;
 `;
 
 const RowsSelectLabel = styled.div`
@@ -277,22 +278,8 @@ const SelectWrapper = styled.div<{ isMenuOpen: boolean }>`
 
   .react-select__option:hover,
   .react-select__option:focus {
-    transition: ease-in-out, font-weight, color, 400ms;
-    background: linear-gradient(
-      95.02deg,
-      ${colors.gradient1} 0.62%,
-      ${colors.gradient2} 48.99%,
-      ${colors.gradient3} 70.51%,
-      ${colors.gradient4} 70.85%,
-      ${colors.gradient5} 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
+    color: ${props => props.theme.text.hover};
+    transition: ease-in-out, color, 400ms;
     cursor: pointer;
   }
 

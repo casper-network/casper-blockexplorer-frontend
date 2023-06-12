@@ -9,6 +9,5 @@ i18n
   .use(initReactI18next)
   .use(Backend)
   .init({
-    // todo: ask about fallback language
     fallbackLng: ['en', 'de'],
   });

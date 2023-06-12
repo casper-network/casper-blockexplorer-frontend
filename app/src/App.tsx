@@ -23,14 +23,16 @@ import {
   setIsFirstVisit,
   useAppSelector,
   appFontUrl,
-  getLatestBlock,
-  fetchLatestBlock,
+  getSocket,
+  updateLatestBlock,
+  initializeSocket,
+  updateCurrentEraValidatorsStatus,
+  updateTotalPeers,
 } from './store';
 
-import { useAppRefresh } from './hooks';
-import { loadConfig, getTimeUntilRefetchBlocks } from './utils';
-import { colors } from './styled-theme';
+import { loadConfig } from './utils';
 import { darkTheme, lightTheme } from './theme';
+import { ApiData } from './api/types';
 
 const { title, faviconUrl } = loadConfig();
 
@@ -55,25 +57,59 @@ const App = () => {
 
   const dispatch = useAppDispatch();
 
-  const latestBlock = useAppSelector(getLatestBlock);
+  const socket = useAppSelector(getSocket);
 
-  const { setTimer } = useAppRefresh();
+  useEffect(() => {
+    dispatch(initializeSocket());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('latest_block', (latestBlockString: string) => {
+        const parsedLatestBlock = JSON.parse(latestBlockString) as {
+          latestBlock: ApiData.Block;
+        }[];
+
+        const [{ latestBlock }] = parsedLatestBlock;
+
+        dispatch(updateLatestBlock(latestBlock));
+      });
+
+      socket.on(
+        'current_era_validator_status',
+        (currentEraValidatorStatusString: string) => {
+          const parsedCurrentEraValidatorStatus = JSON.parse(
+            currentEraValidatorStatusString,
+          ) as {
+            currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus;
+          }[];
+
+          const [{ currentEraValidatorStatus }] =
+            parsedCurrentEraValidatorStatus;
+
+          dispatch(updateCurrentEraValidatorsStatus(currentEraValidatorStatus));
+        },
+      );
+
+      socket.on('peers', (peersString: string) => {
+        const parsedPeers = JSON.parse(peersString) as {
+          peers: { totalPeers: number };
+        }[];
+
+        const [
+          {
+            peers: { totalPeers },
+          },
+        ] = parsedPeers;
+
+        dispatch(updateTotalPeers(totalPeers));
+      });
+    }
+  }, [socket, dispatch]);
 
   useEffect(() => {
     dispatch(updateBounds(bounds));
   }, [bounds, dispatch]);
-
-  useEffect(() => {
-    if (!latestBlock) {
-      dispatch(fetchLatestBlock());
-    } else {
-      const timeUntilBlocksRefetch = getTimeUntilRefetchBlocks(
-        latestBlock.header.timestamp,
-      );
-
-      setTimer(timeUntilBlocksRefetch);
-    }
-  }, [latestBlock, setTimer, dispatch]);
 
   const usersVisitationStatus = localStorage.getItem('users-status');
 
@@ -95,7 +131,7 @@ const App = () => {
               {faviconUrl ? (
                 <link rel="icon" href={faviconUrl} />
               ) : (
-                <link rel="icon" href="%PUBLIC_URL%/favicon" />
+                <link rel="icon" href="./favicon.ico" />
               )}
 
               <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -131,7 +167,7 @@ const App = () => {
 };
 
 const AppWrapper = styled.div`
-  background-color: ${colors.white};
+  background-color: ${props => props.theme.background.primary};
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;

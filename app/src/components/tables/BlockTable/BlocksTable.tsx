@@ -1,15 +1,24 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem } from 'src/styled-theme';
+import { ColumnDef, SortingState } from '@tanstack/react-table';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
+  fetchBlocks,
+  getBlocks,
+  getBlocksLoadingStatus,
   getBlocksTableOptions,
+  getLatestBlock,
   getTotalBlocks,
+  Loading,
   setBlocksTableOptions,
+  setInitialBlockStateFromUrlSearchParams,
   updateBlocksPageNum,
+  updateBlocksSorting,
+  updateBlocksWithLatest,
+  useAppDispatch,
   useAppSelector,
 } from 'src/store';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
@@ -19,8 +28,8 @@ import {
   standardizeNumber,
   truncateHash,
 } from '../../../utils';
-import { CopyToClipboard, RefreshTimer } from '../../utility';
-import { Table } from '../../base';
+import { CopyToClipboard } from '../../utility';
+import { Spacer, Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
 const rowCountSelectOptions: SelectOptions[] | null = [
@@ -29,36 +38,60 @@ const rowCountSelectOptions: SelectOptions[] | null = [
   { value: '20', label: '20 rows' },
 ];
 
-interface BlocksTableProps {
-  readonly total?: number;
-  readonly blocks: ApiData.Block[];
-  readonly showValidators?: boolean;
-  isTableLoading: boolean;
-  onSortingChange?: OnChangeFn<SortingState>;
-  sorting?: SortingState;
-  initialSorting?: SortingState;
-  setIsTableLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const initialSorting: SortingState = [
+  {
+    id: 'height',
+    desc: true,
+  },
+];
 
-export const BlocksTable: React.FC<BlocksTableProps> = ({
-  total,
-  blocks,
-  showValidators,
-  isTableLoading,
-  setIsTableLoading,
-  ...props
-}) => {
+const validSortableBlocksColumns = ['height'];
+
+export const BlocksTable: React.FC = () => {
   const { t } = useTranslation();
 
+  const [isTableLoading, setIsTableLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(Date.now());
   const [showTimestamp, setShowTimestamp] = useState(false);
 
-  const blocksTableOptions = useAppSelector(getBlocksTableOptions);
+  const dispatch = useAppDispatch();
+
+  const blocks = useAppSelector(getBlocks);
   const totalBlocks = useAppSelector(getTotalBlocks);
+  const latestBlock = useAppSelector(getLatestBlock);
+  const blockLoadingStatus = useAppSelector(getBlocksLoadingStatus);
+  const blocksTableOptions = useAppSelector(getBlocksTableOptions);
 
   const totalPages = useMemo(() => {
     return Math.ceil(totalBlocks / blocksTableOptions.pagination.pageSize);
   }, [blocksTableOptions, totalBlocks]);
+
+  const isLoadingPage =
+    blockLoadingStatus !== Loading.Complete && !blocks.length;
+
+  useEffect(() => {
+    dispatch(
+      setInitialBlockStateFromUrlSearchParams(validSortableBlocksColumns),
+    );
+  }, [dispatch]);
+
+  useEffect(() => {
+    // updated from WS
+    if (latestBlock) {
+      dispatch(updateBlocksWithLatest({ latestBlock }));
+    }
+  }, [latestBlock, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchBlocks(blocksTableOptions));
+  }, [dispatch, blocksTableOptions]);
+
+  useEffect(() => {
+    if (isTableLoading || isLoadingPage) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blocks]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -73,9 +106,9 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       <BlocksTableHead>
         <BlockTableTitleWrapper>
           <LatestBlocks>Latest Blocks</LatestBlocks>
-          <p>
-            {standardizeNumber(total || 0)} {t('total-rows')}
-          </p>
+          <TotalRows>
+            {standardizeNumber(totalBlocks || 0)} {t('total-rows')}
+          </TotalRows>
         </BlockTableTitleWrapper>
 
         <NumberedPagination
@@ -88,13 +121,13 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         />
       </BlocksTableHead>
     ),
-    [total, t, blocksTableOptions, totalPages, setIsTableLoading],
+    [totalBlocks, t, blocksTableOptions, totalPages, setIsTableLoading],
   );
 
   const footer = useMemo(
     () => (
       <BlocksTableFooter>
-        <RefreshTimer />
+        <Spacer />
         <NumberedPagination
           tableOptions={blocksTableOptions}
           setTableOptions={setBlocksTableOptions}
@@ -108,17 +141,6 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
     ),
     [blocksTableOptions, totalPages, setIsTableLoading],
   );
-
-  const blocksTableTitles = [
-    'block-height',
-    'era',
-    'deploy',
-    'age',
-    'block-hash',
-  ];
-  if (showValidators) {
-    blocksTableTitles.push('validator');
-  }
 
   const columns = useMemo<ColumnDef<ApiData.Block>[]>(
     () => [
@@ -136,8 +158,15 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       },
       {
         header: `${t('deploy')}`,
-        accessorKey: 'body.deploy_hashes',
-        cell: ({ getValue }) => getValue<string[]>().length,
+        accessorKey: 'body',
+        cell: ({ getValue }) => {
+          const body = getValue<ApiData.Block['body']>();
+
+          return (
+            (body.deploy_hashes?.length ?? 0) +
+            (body.transfer_hashes?.length ?? 0)
+          );
+        },
         maxSize: 100,
         enableSorting: false,
       },
@@ -151,11 +180,11 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         ),
         accessorKey: 'header.timestamp',
         cell: ({ getValue }) => (
-          <div>
+          <Age>
             {showTimestamp
               ? formatDate(new Date(getValue<number>()))
               : formatTimeAgo(new Date(getValue<number>()))}
-          </div>
+          </Age>
         ),
         enableSorting: false,
         minSize: 200,
@@ -164,7 +193,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         header: `${t('block-hash')}`,
         accessorKey: 'hash',
         cell: ({ getValue }) => (
-          <div className="flex flex-row items-center">
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/block/${getValue<string>()}`,
@@ -172,7 +201,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
         minSize: 230,
@@ -181,7 +210,7 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
         header: `${t('validator')}`,
         accessorKey: 'body.proposer',
         cell: ({ getValue }) => (
-          <div className="flex flex-row items-center">
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
@@ -189,15 +218,14 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
-        // isVisible: showValidators,
         minSize: 230,
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [showValidators, t, currentTime, showTimestamp],
+    [t, currentTime, showTimestamp],
   );
 
   return (
@@ -209,16 +237,37 @@ export const BlocksTable: React.FC<BlocksTableProps> = ({
       tableBodyLoading={isTableLoading}
       currentPageSize={blocksTableOptions.pagination.pageSize}
       placeholderData={{
-        header: { height: 0 },
+        header: { height: 0, era_id: 0, timestamp: '2023-06-05T17:06:44.864Z' },
+        body: {
+          proposer:
+            '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
+          deploy_hashes: [],
+          transfer_hashes: [],
+        },
+        hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
       }}
       isLastPage={totalPages === blocksTableOptions.pagination.pageNum}
-      {...props}
+      sorting={[
+        {
+          id: blocksTableOptions.sorting.sortBy,
+          desc: blocksTableOptions.sorting.order === 'desc',
+        },
+      ]}
+      onSortingChange={() => {
+        setIsTableLoading(true);
+        dispatch(
+          updateBlocksSorting({
+            sortBy: 'height',
+            order: blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
+          }),
+        );
+      }}
+      initialSorting={initialSorting}
     />
   );
 };
 const BlocksTableHead = styled.div`
   display: flex;
-  min-width: ${pxToRem(900)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
@@ -227,14 +276,21 @@ const BlocksTableHead = styled.div`
 const BlockTableTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const BlocksTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: ${pxToRem(20)} 2rem;
-  color: ${props => props.theme.text.secondary};
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
 `;
 
 const SwitchBlocktime = styled.div`
@@ -243,9 +299,23 @@ const SwitchBlocktime = styled.div`
 `;
 
 const LatestBlocks = styled.div`
-  font-size: ${pxToRem(28)};
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+  white-space: nowrap;
   margin-right: 1.5rem;
   color: ${props => props.theme.text.primary};
+`;
+
+const TotalRows = styled.p`
+  margin-right: 1.5rem;
+  white-space: nowrap;
+`;
+
+const Age = styled.div`
+  white-space: nowrap;
+`;
+
+const HashAndCopyToClipboardWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`

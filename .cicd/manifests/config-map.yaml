@@ -5,6 +5,7 @@ metadata:
   namespace: {{.Values.namespace}}
 data:
   MIDDLEWARE_URL: {{.Values.middlewareUrl}}
+  SOCKET_URL: {{.Values.socketUrl}}
   ORG_LOGO_URL: {{or .Values.orgLogoUrl "" | quote}}
   ORG_LOGO_SIZE: {{or .Values.orgLogoSize "" | quote}}
   ORG_NAME: {{or .Values.orgName "" | quote}}
@@ -12,4 +13,5 @@ data:
   ORG_FONT_URL: {{or .Values.orgFontUrl "" | quote}}
   ORG_PRIMARY_FONT_NAME: {{or .Values.orgPrimaryFontName "" | quote}}
   ORG_SECONDARY_FONT_NAME: {{or .Values.orgSecondaryFontName "" | quote}}
-  THEME: {{or .Values.theme "" | quote}}
+  LIGHT_THEME: {{or .Values.prodLightTheme "" | quote}}
+  DARK_THEME: {{or .Values.prodDarkTheme "" | quote}}

@@ -2,14 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem } from 'src/styled-theme';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
   getCurrentEraValidatorStatusStatus,
   getTotalEraValidators,
   getValidatorLoadingStatus,
-  getValidators,
+  getCurrentEraValidators,
   getValidatorsTableOptions,
   Loading,
   setValidatorTableOptions,
@@ -17,6 +17,9 @@ import {
   updateValidatorSorting,
   useAppDispatch,
   useAppSelector,
+  getNextEraValidators,
+  getLatestBlock,
+  setInitialValidatorStateFromUrlSearchParams,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -28,23 +31,42 @@ import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
+const validSortableValidatorsColumns = [
+  'feePercentage',
+  'delegatorsCount',
+  'totalStakeMotes',
+  'selfPercentage',
+  'percentageOfNetwork',
+];
+
 export const ValidatorTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
+  const [isCurrentEra, setIsCurrentEra] = useState(true);
 
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  const validators = useAppSelector(getValidators);
+  const currentEraValidators = useAppSelector(getCurrentEraValidators);
+  const nextEraValidators = useAppSelector(getNextEraValidators);
   const validatorsLoadingStatus = useAppSelector(getValidatorLoadingStatus);
   const validatorsStatusLoadingStatus = useAppSelector(
     getCurrentEraValidatorStatusStatus,
   );
   const validatorsTableOptions = useAppSelector(getValidatorsTableOptions);
   const totalEraValidators = useAppSelector(getTotalEraValidators);
+  const latestBlock = useAppSelector(getLatestBlock);
+
+  const currentEraId = latestBlock?.header.era_id;
 
   useEffect(() => {
     dispatch(fetchCurrentEraValidatorStatus());
+
+    dispatch(
+      setInitialValidatorStateFromUrlSearchParams(
+        validSortableValidatorsColumns,
+      ),
+    );
   }, [dispatch]);
 
   useEffect(() => {
@@ -56,12 +78,12 @@ export const ValidatorTable: React.FC = () => {
       setIsTableLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validators]);
+  }, [currentEraValidators]);
 
   const isPageLoading =
     validatorsLoadingStatus !== Loading.Complete ||
     validatorsStatusLoadingStatus !== Loading.Complete ||
-    !validators.length;
+    !currentEraValidators.length;
 
   const rowCountSelectOptions: SelectOptions[] | null = useMemo(
     () => [
@@ -108,7 +130,7 @@ export const ValidatorTable: React.FC = () => {
         enableSorting: false,
         minSize: 200,
         cell: ({ getValue }) => (
-          <div>
+          <HashAndCopyToClipboardWrapper>
             <StyledHashLink
               to={{
                 pathname: `/account/${getValue<string>()}`,
@@ -116,7 +138,7 @@ export const ValidatorTable: React.FC = () => {
               {truncateHash(getValue<string>())}
             </StyledHashLink>
             <CopyToClipboard textToCopy={getValue<string>()} />
-          </div>
+          </HashAndCopyToClipboardWrapper>
         ),
       },
       {
@@ -161,17 +183,33 @@ export const ValidatorTable: React.FC = () => {
 
   const header = (
     <ValidatorTableHead>
-      <HeadValue>
-        {totalEraValidators} {t('total-rows')}
-      </HeadValue>
-      <NumberedPagination
-        tableOptions={validatorsTableOptions}
-        setTableOptions={setValidatorTableOptions}
-        rowCountSelectOptions={rowCountSelectOptions}
-        setIsTableLoading={setIsTableLoading}
-        totalPages={totalPages}
-        updatePageNum={updateValidatorPageNum}
-      />
+      <HeaderEraToggleWrapper>
+        <EraToggleButton
+          type="button"
+          onClick={() => setIsCurrentEra(true)}
+          selected={isCurrentEra}>
+          Current Era {currentEraId ?? ''}
+        </EraToggleButton>
+        <EraToggleButton
+          type="button"
+          selected={!isCurrentEra}
+          onClick={() => setIsCurrentEra(false)}>
+          Next Era {currentEraId ? currentEraId + 1 : ''}
+        </EraToggleButton>
+      </HeaderEraToggleWrapper>
+      <HeaderPaginationWrapper>
+        <HeadValue>
+          {totalEraValidators} {t('total-rows')}
+        </HeadValue>
+        <NumberedPagination
+          tableOptions={validatorsTableOptions}
+          setTableOptions={setValidatorTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateValidatorPageNum}
+        />
+      </HeaderPaginationWrapper>
     </ValidatorTableHead>
   );
 
@@ -226,7 +264,7 @@ export const ValidatorTable: React.FC = () => {
     <Table<ApiData.ValidatorsInfo>
       header={header}
       columns={columns}
-      data={validators}
+      data={isCurrentEra ? currentEraValidators : nextEraValidators}
       footer={footer}
       tableBodyLoading={isTableLoading || isPageLoading}
       currentPageSize={validatorsTableOptions.pagination.pageSize}
@@ -245,15 +283,47 @@ export const ValidatorTable: React.FC = () => {
 
 const ValidatorTableHead = styled.div`
   display: flex;
-  min-width: ${pxToRem(900)};
+  flex-direction: column;
+  min-width: ${pxToRem(800)};
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
-  height: ${pxToRem(42)};
 `;
 
 const HeadValue = styled.p`
   color: ${props => props.theme.text.secondary};
+`;
+
+const HeaderPaginationWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const HeaderEraToggleWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  padding-bottom: 1rem;
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: center;
+  }
+`;
+
+const EraToggleButton = styled.button<{ selected: boolean }>`
+  border-style: none;
+  background: ${({ selected, theme }) =>
+    selected ? theme.button : theme.background.secondary};
+  color: ${({ selected, theme }) =>
+    selected ? theme.text.contrast : theme.text.primary};
+  width: ${pxToRem(208)};
+  height: ${pxToRem(38)};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CSPRText = styled.span`
@@ -263,8 +333,18 @@ const CSPRText = styled.span`
 const ValidatorsTableFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: ${pxToRem(20)} 2rem;
+  justify-content: flex-start;
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
+`;
+
+const HashAndCopyToClipboardWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 const StyledHashLink = styled(Link)`

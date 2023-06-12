@@ -1,6 +1,6 @@
 {
   "1091814": {
-    "active": true,
+    "active": false,
     "notes": "Ignored until css-minimizer-webpack-plugin, postcss-loader, & fork-ts-checker-webpack-plugin add a fix.",
     "expiry": "1 May 2023 9:00 am"
   }

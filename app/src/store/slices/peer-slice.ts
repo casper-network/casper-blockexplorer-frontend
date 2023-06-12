@@ -12,7 +12,11 @@ import { PEER_TABLE_OPTIONS } from '../constants';
 import { Loading } from '../loading.type';
 import type { RootState } from '../store';
 import { TableOptions } from '../types';
-import { setInitialStateWithLSTableOptions } from '../utils';
+import {
+  setInitialStateWithLSTableOptions,
+  determineInitialTableState,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 
 export interface PeerState {
   status: Loading;
@@ -31,7 +35,7 @@ const initialState: PeerState = {
       pageNum: 1,
     },
     sorting: {
-      sortBy: '',
+      sortBy: 'nodeId',
       order: 'desc',
     },
   },
@@ -82,6 +86,21 @@ export const peerSlice = createSlice({
     ) => {
       state.tableOptions.sorting = action.payload;
     },
+    updateTotalPeers: (state, action: PayloadAction<number>) => {
+      state.totalPeers = action.payload;
+    },
+    setInitialPeersStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
+      const tableOptions = determineInitialTableState(
+        PEER_TABLE_OPTIONS,
+        initialState.tableOptions,
+        action.payload,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -110,8 +129,13 @@ export const peerSlice = createSlice({
   },
 });
 
-export const { setPeerTableOptions, updatePeerPageNum, updatePeerSorting } =
-  peerSlice.actions;
+export const {
+  setPeerTableOptions,
+  updatePeerPageNum,
+  updatePeerSorting,
+  updateTotalPeers,
+  setInitialPeersStateFromUrlSearchParams,
+} = peerSlice.actions;
 
 peerListener.startListening({
   matcher: isAnyOf(setPeerTableOptions, updatePeerPageNum, updatePeerSorting),
@@ -121,5 +145,7 @@ peerListener.startListening({
     const peerTableOptions = rootStateAll.peer.tableOptions;
 
     localStorage.setItem(PEER_TABLE_OPTIONS, JSON.stringify(peerTableOptions));
+
+    setTableOptionsUrlSearchParams(peerTableOptions);
   },
 });

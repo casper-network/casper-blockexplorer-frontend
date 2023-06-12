@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { pxToRem } from '../../../styled-theme';
+import { pxToRem } from 'casper-ui-kit';
 
 export type ButtonType = 'submit' | 'reset' | 'button';
 
@@ -22,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
   isDisabled = false,
 }) => (
   <StyledButton
+    data-cy="button"
     type={type}
     className={className}
     color={color}
@@ -32,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
 );
 
 const StyledButton = styled.button<{ color: string }>`
-  color: white;
+  color: ${props => props.theme.background.primary};
   background-color: ${({ color }) => color};
   text-align: center;
   padding: ${pxToRem(10)};

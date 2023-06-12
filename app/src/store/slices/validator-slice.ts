@@ -12,12 +12,17 @@ import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
-import { setInitialStateWithLSTableOptions } from '../utils';
+import {
+  setInitialStateWithLSTableOptions,
+  determineInitialTableState,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 import { VALIDATOR_TABLE_OPTIONS } from '../constants';
 
 export interface ValidatorState {
   status: Loading;
-  validators: ApiData.ValidatorsInfo[];
+  currentEraValidators: ApiData.ValidatorsInfo[];
+  nextEraValidators: ApiData.ValidatorsInfo[];
   currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
   currentEraValidatorStatusLoadingStatus: Loading;
   tableOptions: TableOptions;
@@ -36,7 +41,8 @@ const defaultTableOptions: TableOptions = {
 
 const initialState: ValidatorState = {
   status: Loading.Idle,
-  validators: [],
+  currentEraValidators: [],
+  nextEraValidators: [],
   currentEraValidatorStatus: null,
   currentEraValidatorStatusLoadingStatus: Loading.Idle,
   tableOptions: defaultTableOptions,
@@ -105,6 +111,24 @@ export const validatorSlice = createSlice({
       state.tableOptions = defaultTableOptions;
     },
     resetToInitialValidatorState: () => initialState,
+    updateCurrentEraValidatorsStatus: (
+      state,
+      action: PayloadAction<ApiData.CurrentEraValidatorStatus>,
+    ) => {
+      state.currentEraValidatorStatus = action.payload;
+    },
+    setInitialValidatorStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
+      const tableOptions = determineInitialTableState(
+        VALIDATOR_TABLE_OPTIONS,
+        defaultTableOptions,
+        action.payload,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -113,9 +137,18 @@ export const validatorSlice = createSlice({
       })
       .addCase(
         fetchValidators.fulfilled,
-        (state, { payload }: PayloadAction<ApiData.ValidatorsInfo[]>) => {
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<{
+            currentEraValidators: ApiData.ValidatorsInfo[];
+            nextEraValidators: ApiData.ValidatorsInfo[];
+          }>,
+        ) => {
           state.status = Loading.Complete;
-          state.validators = payload;
+          state.currentEraValidators = payload.currentEraValidators;
+          state.nextEraValidators = payload.nextEraValidators;
         },
       )
       .addCase(fetchValidators.rejected, state => {
@@ -146,6 +179,8 @@ export const {
   updateValidatorSorting,
   resetValidatorTableOptions,
   resetToInitialValidatorState,
+  updateCurrentEraValidatorsStatus,
+  setInitialValidatorStateFromUrlSearchParams,
 } = validatorSlice.actions;
 
 validatorListener.startListening({
@@ -163,5 +198,7 @@ validatorListener.startListening({
       VALIDATOR_TABLE_OPTIONS,
       JSON.stringify(validatorTableOptions),
     );
+
+    setTableOptionsUrlSearchParams(validatorTableOptions);
   },
 });

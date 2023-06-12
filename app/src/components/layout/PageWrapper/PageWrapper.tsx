@@ -2,8 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { breakpoints, pxToRem } from 'src/styled-theme';
-import { Loader } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Loader } from 'casper-ui-kit';
 import { GradientHeading } from '../../styled';
 
 export interface PageError {
@@ -40,7 +39,9 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     return (
       <BaseContentWrapper>
         <GradientHeading type="h2">{t('whoops')}</GradientHeading>
-        <ErrorMessage data-testid="error-content">{error.message}</ErrorMessage>
+        <ErrorMessage data-testid="error-content" data-cy="error-content">
+          {error.message}
+        </ErrorMessage>
         <p>
           {t('go-back-to')} <Link to="/">{t('home')}</Link>
         </p>
@@ -63,8 +64,11 @@ const BaseContentContainer = styled.main`
   width: 100%;
   margin: 0 auto;
   background-color: ${props => props.theme.background.primary};
-  padding: ${pxToRem(24)} 0 0 0;
   max-width: ${pxToRem(1800)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+    padding-top: ${pxToRem(30)};
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -72,7 +76,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   padding: 0 ${pxToRem(24)};
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     padding: 0 ${pxToRem(32)};
   }
 `;

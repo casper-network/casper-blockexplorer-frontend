@@ -24,6 +24,7 @@
     <script type="application/javascript">
       var ENV = {
         MIDDLEWARE_URL: '<!--# echo var="middleware_url" default="" -->',
+        SOCKET_URL: '<!--# echo var="socket_url" default="" -->',
         ORG_LOGO_URL: '<!--# echo var="org_logo_url" default="" -->',
         ORG_LOGO_SIZE: '<!--# echo var="org_logo_size" default="" -->',
         ORG_NAME: '<!--# echo var="org_name" default="" -->',
@@ -33,11 +34,13 @@
           '<!--# echo var="org_primary_font_name" default="" -->',
         ORG_SECONDARY_FONT_NAME:
           '<!--# echo var="org_secondary_font_name" default="" -->',
-        THEME: '<!--# echo var="theme" default="" -->',
+        DARK_THEME: '<!--# echo var="dark_theme" default="" -->',
+        LIGHT_THEME: '<!--# echo var="light_theme" default="" -->',
       };
     </script>
     <title>Block Explorer</title>
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

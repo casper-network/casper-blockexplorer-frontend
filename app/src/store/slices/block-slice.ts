@@ -14,7 +14,10 @@ import { formatTimeAgo } from '../../utils';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
 import { BLOCK_TABLE_OPTIONS } from '../constants';
-import { setInitialStateWithLSTableOptions } from '../utils';
+import {
+  determineInitialTableState,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 
 export interface BlockState {
   status: Loading;
@@ -112,10 +115,7 @@ export const fetchBlock = createAsyncThunk<
 
 export const blockSlice = createSlice({
   name: 'block',
-  initialState: setInitialStateWithLSTableOptions<BlockState>(
-    BLOCK_TABLE_OPTIONS,
-    initialState,
-  ),
+  initialState,
   reducers: {
     refreshBlockTimes: state => {
       state.blocks = state.blocks.map(block => {
@@ -147,6 +147,45 @@ export const blockSlice = createSlice({
       state.tableOptions = defaultTableOptions;
     },
     resetToInitialBlockState: () => initialState,
+    updateLatestBlock: (state, action: PayloadAction<ApiData.Block>) => {
+      state.latestBlock = action.payload;
+    },
+    updateBlocksWithLatest: (
+      state,
+      action: PayloadAction<{
+        latestBlock: ApiData.Block;
+      }>,
+    ) => {
+      if (state.blocks.length) {
+        const latestBlockHeight = action.payload.latestBlock.header.height;
+        const latestBlockInList = state.blocks[0].header.height;
+
+        if (
+          state.tableOptions.pagination.pageNum === 1 &&
+          latestBlockHeight - latestBlockInList === 1
+        ) {
+          const poppedBlocks = [
+            ...state.blocks.slice(0, state.blocks.length - 1),
+          ];
+
+          const updatedBlocks = [action.payload.latestBlock, ...poppedBlocks];
+
+          state.blocks = updatedBlocks;
+        }
+      }
+    },
+    setInitialBlockStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
+      const tableOptions = determineInitialTableState(
+        BLOCK_TABLE_OPTIONS,
+        defaultTableOptions,
+        action.payload,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -199,6 +238,9 @@ export const {
   updateBlocksSorting,
   restetBlocksTableOptions,
   resetToInitialBlockState,
+  updateLatestBlock,
+  updateBlocksWithLatest,
+  setInitialBlockStateFromUrlSearchParams,
 } = blockSlice.actions;
 
 blockListener.startListening({
@@ -216,5 +258,7 @@ blockListener.startListening({
       BLOCK_TABLE_OPTIONS,
       JSON.stringify(blockTableOptions),
     );
+
+    setTableOptionsUrlSearchParams(blockTableOptions);
   },
 });

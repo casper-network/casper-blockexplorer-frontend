@@ -1,22 +1,22 @@
 import styled from '@emotion/styled';
-import { breakpoints, colors, pxToRem } from 'src/styled-theme';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
   justify-content: center;
   width: auto;
-  margin: 0 2.25rem;
+  margin: 0.5rem;
   position: relative;
   padding: 0;
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     margin: 0 2.25rem;
     width: auto;
     min-width: ${pxToRem(625)};
     align-items: center;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     justify-content: start;
     width: auto;
     min-width: ${pxToRem(300)};
@@ -29,7 +29,7 @@ export const Form = styled.form`
 `;
 
 export const FormComponentsContainer = styled.div`
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     display: flex;
     width: 100%;
   }
@@ -42,7 +42,7 @@ export const InputAndButtonContainer = styled.div`
   margin: 0 auto;
   width: 91%;
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     padding-top: 0;
     width: 100%;
   }
@@ -67,7 +67,7 @@ export const SearchInput = styled.input`
     color: ${props => props.theme.text.muted};
   }
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     height: ${pxToRem(72)};
   }
 
@@ -82,7 +82,7 @@ export const SearchInput = styled.input`
     outline-offset: 2px;
   }
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     border-radius: 0;
   }
 `;
@@ -99,7 +99,7 @@ export const SubmitButton = styled.button`
   right: 0.0625rem;
   border-style: none;
 
-  @media (min-width: ${breakpoints.md}) {
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     height: ${pxToRem(72)};
   }
 
@@ -125,7 +125,7 @@ export const SubmitButton = styled.button`
 export const ErrorMessageContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 0.6rem 0;
   position: absolute;
   right: 0;
   left: 0;
@@ -134,13 +134,13 @@ export const ErrorMessageContainer = styled.div`
 export const ErrorSvgContainer = styled.div`
   height: 1.55rem;
   width: 1.55rem;
-  stroke: ${colors.mediumWarning};
+  stroke: ${props => props.theme.text.warning};
   stroke-width: 2;
-  fill: ${colors.white};
+  fill: ${props => props.theme.background.primary};
 `;
 
 export const ErrorMessage = styled.p`
-  color: ${colors.mediumWarning};
+  color: ${props => props.theme.text.warning};
   font-size: 0.9rem;
   padding-top: 0.1rem;
 `;

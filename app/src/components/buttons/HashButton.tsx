@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { useAppWidth } from 'src/hooks';
-import { colors, pxToRem } from 'src/styled-theme';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
+
 import { t } from 'i18next';
 import { Button } from '../base';
 
@@ -19,8 +19,6 @@ export const HashButton: React.FC<HashButtonProps> = ({
   isAvatar,
   heading,
 }) => {
-  const { isMobile } = useAppWidth();
-
   const toggleHashView = () => {
     setIsTruncated(() => !isTruncated);
   };
@@ -32,7 +30,6 @@ export const HashButton: React.FC<HashButtonProps> = ({
       isAvatar={isAvatar}
       type="button"
       onClick={toggleHashView}
-      isMobile={isMobile}
       buttonPosition={buttonPosition}
       heading={heading}>
       {isTruncated ? `${t('expand')}` : `${t('collapse')}`}
@@ -41,12 +38,11 @@ export const HashButton: React.FC<HashButtonProps> = ({
 };
 
 const StyledHashButton = styled(Button)<{
-  isMobile: boolean;
   isAvatar: boolean | undefined;
   buttonPosition: string;
   heading: string | undefined;
 }>`
-  display: ${({ isMobile }) => (isMobile ? 'none' : 'block')};
+  display: none;
   color: ${props => props.theme.text.secondary};
   font-weight: 400;
   background-color: transparent;
@@ -60,6 +56,10 @@ const StyledHashButton = styled(Button)<{
     isAvatar ? `${pxToRem(65)}` : `${pxToRem(-5)}`};
   margin-bottom: ${({ isAvatar }) => (isAvatar ? '2rem' : '0')};
 
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    display: block;
+  }
+
   /* Safari Version 15.4 (11-15 up to Monterey)*/
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) and (stroke-color: transparent) {
@@ -71,23 +71,9 @@ const StyledHashButton = styled(Button)<{
 
   :active,
   :hover {
-    transition: ease-in-out, font-weight, color, 400ms;
-    font-weight: 700;
-    background: linear-gradient(
-      95.02deg,
-      ${colors.gradient1} 0.62%,
-      ${colors.gradient2} 48.99%,
-      ${colors.gradient3} 70.51%,
-      ${colors.gradient4} 70.85%,
-      ${colors.gradient5} 116.85%
-    );
-    background-size: 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    background-color: transparent;
+    transition: ease-in-out, color, 400ms;
+    color: ${props => props.theme.text.hover};
+    transition: ease-in-out, color, 400ms;
 
     /* Safari Version 15.4 (11-15 up to Monterey)*/
     @media not all and (min-resolution: 0.001dpcm) {

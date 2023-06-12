@@ -97,7 +97,8 @@ export namespace ApiData {
   export interface Validators {
     validators: {
       status: CurrentEraValidatorStatus;
-      validators: ValidatorsInfo[];
+      currentEraValidators: ValidatorsInfo[];
+      nextEraValidators: ValidatorsInfo[];
     };
   }
 

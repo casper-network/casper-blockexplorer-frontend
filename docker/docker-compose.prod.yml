@@ -9,7 +9,8 @@ services:
       - MIDDLEWARE_URL
       - ORG_LOGO_URL
       - ORG_LOGO_SIZE
-      - THEME
+      - DARK_THEME
+      - LIGHT_THEME
       - ORG_NAME
       - ORG_FAVICON_URL
       - ORG_FONT_URL

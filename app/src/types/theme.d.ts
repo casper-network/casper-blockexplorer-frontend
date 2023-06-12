@@ -19,6 +19,15 @@ declare module '@emotion/react' {
       muted: string;
       contrast: string;
       hash: string;
+      warning: string;
+      success: string;
+      hover: string;
+    };
+    rawData: {
+      keyValString: string;
+      background: string;
+      svgNestVal: string;
+      itemsArrayIndices: string;
     };
     selected: {
       primary: string;

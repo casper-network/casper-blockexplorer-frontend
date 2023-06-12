@@ -3,7 +3,6 @@ import { Control, Controller } from 'react-hook-form';
 import { useTheme } from '@emotion/react';
 
 import { useTranslation } from 'react-i18next';
-import { colors } from 'src/styled-theme';
 import { FormValues, SelectOptions } from '../partials.types';
 import { useAppWidth } from '../../../../../hooks';
 import {
@@ -35,7 +34,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   ];
 
   return (
-    <section data-testid="search-select">
+    <section data-testid="search-select" data-cy="custom-select">
       <Controller
         data-testid="controller"
         control={control}
@@ -73,11 +72,11 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                         backgroundColor:
                           currentFilterOption === option.value
                             ? theme.border
-                            : colors.lightSupporting,
+                            : theme.background.hover,
                         color:
                           currentFilterOption === option.value
                             ? theme.text.contrast
-                            : colors.black,
+                            : theme.text.primary,
                       }}
                       type="button">
                       {option.label.includes('Block')
