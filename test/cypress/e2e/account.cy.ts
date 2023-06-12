@@ -20,12 +20,15 @@ describe('Account Page', () => {
 
           cy.getByData('avatar-icon').should('be.visible');
 
-          cy.getByData('h2').should('contain', `${truncatedAccountHash}`);
+          cy.getByData('hash-heading').should(
+            'contain',
+            `${truncatedAccountHash}`,
+          );
 
           cy.getByData('hash-expand-contract-button')
             .should('contain', 'Expand')
             .click()
-            .getByData('h2')
+            .getByData('hash-heading')
             .should('contain', `${accountHash}`)
             .getByData('hash-expand-contract-button')
             .should('contain', 'Collapse')
@@ -38,7 +41,10 @@ describe('Account Page', () => {
             'Account Details',
           );
           cy.getByData('avatar-icon').should('be.visible');
-          cy.getByData('h2').should('contain', `${truncatedAccountHash}`);
+          cy.getByData('hash-heading').should(
+            'contain',
+            `${truncatedAccountHash}`,
+          );
         }
       });
     });
