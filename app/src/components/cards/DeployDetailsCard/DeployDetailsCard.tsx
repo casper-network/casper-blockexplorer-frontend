@@ -6,6 +6,7 @@ import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
 import { defaultTheme, Card } from 'casper-ui-kit';
 import { InfoCardContentWrapper } from 'src/components/base';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { Heading } from '../../base';
 import { Deploy } from '../../../api';
 import {
@@ -16,7 +17,7 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
+import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface DeployDetailsCardProps {
   deploy: Deploy | null;
@@ -71,7 +72,9 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
                         to={`/block/${deploy?.blockHash ?? ''}`}>
                         <Hash hash={deploy?.blockHash ?? hashPlaceholder} />
                       </StyledHashLink>
-                      <CopyToClipboard textToCopy={deploy?.blockHash ?? ''} />
+                      <StyledCopyToClipboard
+                        textToCopy={deploy?.blockHash ?? ''}
+                      />
                     </>,
                     isLoading,
                     { width: '60%' },
@@ -91,7 +94,9 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
                         to={`/account/${deploy?.publicKey ?? ''}`}>
                         <Hash hash={deploy?.publicKey ?? hashPlaceholder} />
                       </StyledHashLink>
-                      <CopyToClipboard textToCopy={deploy?.publicKey ?? ''} />
+                      <StyledCopyToClipboard
+                        textToCopy={deploy?.publicKey ?? ''}
+                      />
                     </>,
                     isLoading,
                     { width: '60%' },
@@ -104,7 +109,9 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
                   {withSkeletonLoading(
                     <>
                       <Hash hash={deploy?.deployHash ?? hashPlaceholder} />
-                      <CopyToClipboard textToCopy={deploy?.deployHash ?? ''} />
+                      <StyledCopyToClipboard
+                        textToCopy={deploy?.deployHash ?? ''}
+                      />
                     </>,
                     isLoading,
                     { width: '60%' },

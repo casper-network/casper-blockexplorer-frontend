@@ -22,13 +22,13 @@ import {
   useAppSelector,
 } from 'src/store';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import {
   formatDate,
   formatTimeAgo,
   standardizeNumber,
   truncateHash,
 } from '../../../utils';
-import { CopyToClipboard } from '../../utility';
 import { Spacer, Table } from '../../base';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
@@ -200,7 +200,7 @@ export const BlocksTable: React.FC = () => {
               }}>
               {truncateHash(getValue<string>())}
             </StyledHashLink>
-            <CopyToClipboard textToCopy={getValue<string>()} />
+            <StyledCopyToClipboard textToCopy={getValue<string>()} />
           </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
@@ -217,7 +217,7 @@ export const BlocksTable: React.FC = () => {
               }}>
               {truncateHash(getValue<string>())}
             </StyledHashLink>
-            <CopyToClipboard textToCopy={getValue<string>()} />
+            <StyledCopyToClipboard textToCopy={getValue<string>()} />
           </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
