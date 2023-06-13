@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Button, pxToRem, defaultTheme } from 'casper-ui-kit';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { UiKitButton } from '../base/UiKitButton/UiKitButton';
 
 export interface NavbarItemLinkButtonProps {
   readonly isRouteSelected: boolean;
@@ -12,16 +13,13 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
   isRouteSelected,
 }) => (
   <NavItemWrapper>
-    <DesktopNavItemLink
-      bgColor=""
-      type="button"
-      isRouteSelected={isRouteSelected}>
+    <DesktopNavItemLink type="button" isRouteSelected={isRouteSelected}>
       {children}
     </DesktopNavItemLink>
   </NavItemWrapper>
 );
 
-const DesktopNavItemLink = styled(Button)<{
+const DesktopNavItemLink = styled(UiKitButton)<{
   isRouteSelected: boolean;
 }>`
   color: ${props => props.theme.text.primary};
@@ -41,6 +39,15 @@ const DesktopNavItemLink = styled(Button)<{
   border-radius: 0;
   padding: 0;
   padding-bottom: 0.25rem;
+
+  :active,
+  :focus {
+    border-bottom: ${({ isRouteSelected, theme }) => {
+      const selectedColor = theme.selected.primary ?? '';
+
+      return `2px solid ${isRouteSelected ? selectedColor : 'transparent'}`;
+    }};
+  }
 `;
 
 const NavItemWrapper = styled.div`

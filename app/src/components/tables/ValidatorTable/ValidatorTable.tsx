@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -28,7 +28,7 @@ import { CopyToClipboard } from 'src/components/utility';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
-import { Table } from '../../base';
+import { Table, UiKitButton } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
 const validSortableValidatorsColumns = [
@@ -187,15 +187,13 @@ export const ValidatorTable: React.FC = () => {
         <EraToggleButton
           type="button"
           onClick={() => setIsCurrentEra(true)}
-          selected={isCurrentEra}
-          bgColor="">
+          selected={isCurrentEra}>
           Current Era {currentEraId ?? ''}
         </EraToggleButton>
         <EraToggleButton
           type="button"
           selected={!isCurrentEra}
-          onClick={() => setIsCurrentEra(false)}
-          bgColor="">
+          onClick={() => setIsCurrentEra(false)}>
           Next Era {currentEraId ? currentEraId + 1 : ''}
         </EraToggleButton>
       </HeaderEraToggleWrapper>
@@ -314,7 +312,7 @@ const HeaderEraToggleWrapper = styled.div`
   }
 `;
 
-const EraToggleButton = styled(Button)<{ selected: boolean }>`
+const EraToggleButton = styled(UiKitButton)<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};
@@ -325,6 +323,8 @@ const EraToggleButton = styled(Button)<{ selected: boolean }>`
 
   &:hover {
     cursor: pointer;
+    background: ${({ selected, theme }) =>
+      selected ? theme.button : theme.background.secondary};
   }
 `;
 

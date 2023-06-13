@@ -102,5 +102,6 @@ export const DesktopNavItemLink = styled(Button)`
     background-color: ${props => props.theme.border};
     padding: ${pxToRem(6)} ${pxToRem(20)};
     text-decoration: none;
+    border: none;
   }
 `;

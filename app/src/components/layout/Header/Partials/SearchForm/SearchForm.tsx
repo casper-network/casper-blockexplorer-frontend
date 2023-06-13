@@ -140,7 +140,12 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               placeholder={t('select-search-criteria') || ''}
               required
             />
-            <SubmitButton bgColor="" type="submit" data-cy="submit-button">
+            <SubmitButton
+              bgColor=""
+              hoverBorderColor="transparent"
+              focusBorderColor="transparent"
+              type="submit"
+              data-cy="submit-button">
               {themeType === 'light' ? <ButtonIconLight /> : <ButtonIconDark />}
             </SubmitButton>
           </InputAndButtonContainer>
