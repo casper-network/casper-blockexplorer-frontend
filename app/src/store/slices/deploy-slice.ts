@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { formatDate, formatTimeAgo } from 'src/utils';
+import { ApiData } from 'src/api/types';
 import { Deploy, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 
 export interface DeployState {
   status: Loading;
   deploy: Deploy | null;
-  deploys: Deploy[];
+  deploys: ApiData.SidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
 }
@@ -80,7 +81,7 @@ export const deploySlice = createSlice({
       })
       .addCase(
         fetchDeploys.fulfilled,
-        (state, { payload }: PayloadAction<Deploy[]>) => {
+        (state, { payload }: PayloadAction<ApiData.SidecarDeploy[]>) => {
           state.deploysLoadingStatus = Loading.Complete;
           state.deploys = payload;
         },

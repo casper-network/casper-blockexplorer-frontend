@@ -125,6 +125,50 @@ export namespace ApiData {
     status: DeployStatus;
     rawDeploy: string;
   }
+
+  export interface SidecarDeploy {
+    block_timestamp?: string;
+    deploy_hash: string;
+    deploy_accepted: {
+      hash: string;
+      header: {
+        account: string;
+        timestamp: string;
+        ttl: string;
+        gas_price: number;
+        body_hash: string;
+        dependencies: any[];
+        chain_name: string;
+      };
+      payment: {
+        ModuleBytes?: { args: any[]; module_bytes?: string };
+        Transfer?: { args: any[] };
+      };
+      session: {
+        ModuleBytes?: {
+          args: any[];
+          module_bytes?: string;
+          entry_point?: string;
+          hash?: string;
+        };
+        Transfer?: { args: any[] };
+      };
+      approvals: {
+        signature: string;
+        signer: string;
+      }[];
+    };
+    deploy_processed: {
+      deploy_hash: string;
+      account: string;
+      timestamp: string;
+      ttl: string;
+      dependencies: any[];
+      block_hash: string;
+      execution_result: { Failure?: object; Success?: object };
+    } | null;
+    deploy_expired: boolean;
+  }
 }
 
 export type Account = {
