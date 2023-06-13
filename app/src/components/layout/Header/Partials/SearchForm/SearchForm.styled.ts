@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
 
 export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   display: flex;
@@ -87,7 +87,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled(Button)`
   font-weight: 500;
   background-color: ${props => props.theme.button};
   height: ${pxToRem(54)};
@@ -119,6 +119,7 @@ export const SubmitButton = styled.button`
   :focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
+    background-color: ${props => props.theme.button};
   }
 `;
 

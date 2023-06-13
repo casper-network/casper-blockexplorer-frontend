@@ -57,9 +57,13 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   return (
     <div data-testid="account-details-card">
       <HeadContentContainer isTruncated={isTruncated}>
-        <AccountHeading type={HeadingType.H1} dataCy={'h1-account-details'}>
+        <AccountHeading type={HeadingType.H1}>
           {t('account-details')}
         </AccountHeading>
+        {/* This works */}
+        {/* <Heading type={HeadingType.H1}>
+          <AccountHeadingTest>{t('account-details')}</AccountHeadingTest>
+        </Heading> */}
         <AvatarHashContainer>
           {withSkeletonLoading(
             <AccountDetailsWrapper>
@@ -70,15 +74,14 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 data-cy="avatar-icon"
               />
               <HashExpandWrapper>
-                <HashHeading
-                  type="h2"
-                  isTruncated={isTruncated}
-                  data-cy="hash-heading">
-                  <Hash
-                    hash={account?.trimmedAccountHash ?? hashPlaceholder}
-                    alwaysTruncate={isTruncated}
-                  />
-                </HashHeading>
+                <Heading type={HeadingType.H2}>
+                  <HashHeading isTruncated={isTruncated}>
+                    <Hash
+                      hash={account?.trimmedAccountHash ?? hashPlaceholder}
+                      alwaysTruncate={isTruncated}
+                    />
+                  </HashHeading>
+                </Heading>
                 <HashButton
                   isTruncated={isTruncated}
                   setIsTruncated={setIsTruncated}
@@ -177,8 +180,17 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 const AccountHeading = styled(Heading)`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
+  /* color: ${props => props.theme.text.primary}; */
+  color: red;
   margin-bottom: 2rem;
-  color: ${props => props.theme.text.primary};
+`;
+
+const AccountHeadingTest = styled.div`
+  font-size: 1.25rem;
+  font-weight: ${defaultTheme.typography.fontWeights.normal};
+  /* color: ${props => props.theme.text.primary}; */
+  color: purple;
+  margin-bottom: 2rem;
 `;
 
 const AccountDetailsWrapper = styled.div`
@@ -206,11 +218,11 @@ const HashExpandWrapper = styled.div`
   margin: auto 0;
 `;
 
-const HashHeading = styled(Heading)<{
+const HashHeading = styled.div<{
   isTruncated: boolean;
 }>`
   font-size: clamp(2.1rem, 6vw, 3.75rem);
-  font-weight: ${defaultTheme.typography.fontWeights.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.bold};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};

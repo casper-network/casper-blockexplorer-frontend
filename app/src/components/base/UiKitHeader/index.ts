@@ -1,1 +1,0 @@
-export { UiKitHeader } from './UiKitHeader';

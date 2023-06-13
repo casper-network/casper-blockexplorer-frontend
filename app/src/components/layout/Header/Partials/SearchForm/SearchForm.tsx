@@ -7,7 +7,6 @@ import { SubmitHandler, useForm, Resolver } from 'react-hook-form';
 
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'casper-ui-kit';
-import { UiKitButton } from 'src/components/base/UiKitButton';
 import {
   FormContainer,
   Form,
@@ -18,6 +17,7 @@ import {
   ErrorSvgContainer,
   ErrorMessage,
   SearchLabel,
+  SubmitButton,
 } from './SearchForm.styled';
 
 import { ButtonIconDark, ButtonIconLight } from '../../../../icons';
@@ -140,9 +140,9 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               placeholder={t('select-search-criteria') || ''}
               required
             />
-            <UiKitButton type="submit" data-cy="submit-button" bgColor="purple">
+            <SubmitButton type="submit" data-cy="submit-button" bgColor="">
               {themeType === 'light' ? <ButtonIconLight /> : <ButtonIconDark />}
-            </UiKitButton>
+            </SubmitButton>
           </InputAndButtonContainer>
         </FormComponentsContainer>
         {errors.hash && (
