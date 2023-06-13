@@ -28,7 +28,7 @@ import { Link } from 'react-router-dom';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
-import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 

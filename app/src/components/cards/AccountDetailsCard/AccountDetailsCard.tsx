@@ -10,7 +10,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
-import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';

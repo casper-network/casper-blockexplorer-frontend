@@ -3,7 +3,7 @@ import { CopyToClipboard, defaultTheme } from 'casper-ui-kit';
 import { useTheme } from '@emotion/react';
 
 interface StyledCopyToClipboardProps {
-  textToCopy: string;
+  readonly textToCopy: string;
 }
 
 export const StyledCopyToClipboard: React.FC<StyledCopyToClipboardProps> = ({

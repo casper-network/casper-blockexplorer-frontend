@@ -22,7 +22,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
-import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import {
   formatDate,
   formatTimeAgo,

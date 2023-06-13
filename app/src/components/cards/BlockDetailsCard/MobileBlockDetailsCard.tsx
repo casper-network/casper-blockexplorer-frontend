@@ -7,7 +7,7 @@ import { Card, defaultTheme } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 
 import { InfoCardContentWrapper } from 'src/components/base';
-import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import {
   DetailDataLabel,
   DetailDataValue,
