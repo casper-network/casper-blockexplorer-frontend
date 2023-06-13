@@ -12,6 +12,7 @@ import {
   AccountPage,
   BlockPage,
   Blocks,
+  Deploys,
   DeployPage,
   Home,
   Peers,
@@ -150,6 +151,7 @@ const App = () => {
                   <Route path="/deploy/:id" element={<DeployPage />} />
                   <Route path="/block/:id" element={<BlockPage />} />
                   <Route path="/blocks" element={<Blocks />} />
+                  <Route path="/deploys" element={<Deploys />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
                 <Footer />

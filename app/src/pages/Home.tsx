@@ -9,7 +9,6 @@ import {
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
-  fetchDeploys,
 } from 'src/store';
 import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
@@ -22,11 +21,6 @@ import { PageWrapper } from '../components';
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const peersTableOptions = useAppSelector(getPeersTableOptions);
-
-  // TODO: will move to deploys page when implemented - testing response for now (#382)
-  useEffect(() => {
-    dispatch(fetchDeploys());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchLatestBlock());
