@@ -7,13 +7,14 @@ import { Card, defaultTheme } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 
 import { InfoCardContentWrapper } from 'src/components/base';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import {
   DetailDataLabel,
   DetailDataValue,
   DetailDataWrapper,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
+import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface MobileBlockDetailsCardProps {
   block: ApiData.Block | null;
@@ -93,7 +94,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   )}
                 </StyledHashLink>
                 {!isLoading && (
-                  <CopyToClipboard
+                  <StyledCopyToClipboard
                     textToCopy={block?.header.parent_hash ?? hashPlaceholder}
                   />
                 )}
@@ -110,7 +111,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   },
                 )}
                 {!isLoading && (
-                  <CopyToClipboard textToCopy={block?.hash ?? ''} />
+                  <StyledCopyToClipboard textToCopy={block?.hash ?? ''} />
                 )}
               </DetailDataValue>
             </li>
@@ -144,7 +145,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   )}
                 </StyledHashLink>
                 {!isLoading && (
-                  <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+                  <StyledCopyToClipboard
+                    textToCopy={block?.body.proposer ?? ''}
+                  />
                 )}
               </DetailDataValue>
             </li>
