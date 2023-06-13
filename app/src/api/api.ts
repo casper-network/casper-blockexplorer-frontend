@@ -7,7 +7,7 @@ import { SortDirection } from '@tanstack/react-table';
 import { loadConfig } from 'src/utils';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { createBaseApi } from './base-api';
-import { ApiData, Deploy } from './types';
+import { ApiData } from './types';
 import { isValidPublicKey } from './utils';
 
 const { webServerUrl } = loadConfig();
@@ -208,8 +208,7 @@ const createApi = (baseUrl: string) => {
         return data;
       },
       async getDeploys() {
-        // TODO: need to update this type to match sidecar deploys type - #381
-        type Response = AxiosResponse<Deploy[]>;
+        type Response = AxiosResponse<ApiData.SidecarDeploy[]>;
 
         const response = await middlewareApi.get<Response>('/deploys');
 
