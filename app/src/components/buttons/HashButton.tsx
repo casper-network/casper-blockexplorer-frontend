@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { pxToRem, defaultTheme, Button } from 'casper-ui-kit';
 
 import { t } from 'i18next';
-import { Button } from '../base';
 
 export interface HashButtonProps {
   isTruncated: boolean;
@@ -27,6 +26,8 @@ export const HashButton: React.FC<HashButtonProps> = ({
 
   return (
     <StyledHashButton
+      bgColor=""
+      focusBorderColor="transparent"
       isAvatar={isAvatar}
       type="button"
       onClick={toggleHashView}

@@ -16,6 +16,7 @@ export const LanguageSelector: React.FC = () => {
     <LanguageSelectorWrapper>
       {Object.keys(langs).map(lng => (
         <LanguageSelectorButton
+          bgColor=""
           type="submit"
           key={lng}
           onClick={() => i18n.changeLanguage(lng)}

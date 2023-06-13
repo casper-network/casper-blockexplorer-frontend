@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { defaultTheme } from 'casper-ui-kit';
-import { Button } from '../base';
+import { Button, defaultTheme } from 'casper-ui-kit';
 import { ButtonProps } from '../base/Button/Button';
 
 export const NavButton: React.FC<ButtonProps> = ({
@@ -12,7 +11,7 @@ export const NavButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <ButtonStyles>
-      <Button type={type} onClick={onClick} color={color}>
+      <Button type={type} onClick={onClick} color={color} bgColor="">
         {children}
       </Button>
     </ButtonStyles>

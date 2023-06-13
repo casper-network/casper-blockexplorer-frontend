@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { pxToRem } from 'casper-ui-kit';
+import { Button, pxToRem } from 'casper-ui-kit';
 import { ReactComponent as CopiedSVG } from '../../icons/copied-icon.svg';
 import { ReactComponent as CopySVG } from '../../icons/copy-icon.svg';
 import { copyToClipboard } from '../../../utils';
@@ -30,7 +30,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   }, [isCopied]);
 
   return (
-    <CopyButton type="button" disabled={isCopied} onClick={copyFn}>
+    <CopyButton type="button" disabled={isCopied} onClick={copyFn} bgColor="">
       {isCopied ? (
         <CopiedIcon data-testid="copied-icon" />
       ) : (
@@ -63,7 +63,7 @@ const CopiedIcon = styled(CopiedSVG)`
   margin-left: ${pxToRem(5)};
 `;
 
-const CopyButton = styled.button`
+const CopyButton = styled(Button)`
   border: none;
   background-color: transparent;
 `;

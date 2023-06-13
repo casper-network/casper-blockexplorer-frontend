@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -187,13 +187,15 @@ export const ValidatorTable: React.FC = () => {
         <EraToggleButton
           type="button"
           onClick={() => setIsCurrentEra(true)}
-          selected={isCurrentEra}>
+          selected={isCurrentEra}
+          bgColor="">
           Current Era {currentEraId ?? ''}
         </EraToggleButton>
         <EraToggleButton
           type="button"
           selected={!isCurrentEra}
-          onClick={() => setIsCurrentEra(false)}>
+          onClick={() => setIsCurrentEra(false)}
+          bgColor="">
           Next Era {currentEraId ? currentEraId + 1 : ''}
         </EraToggleButton>
       </HeaderEraToggleWrapper>
@@ -312,7 +314,7 @@ const HeaderEraToggleWrapper = styled.div`
   }
 `;
 
-const EraToggleButton = styled.button<{ selected: boolean }>`
+const EraToggleButton = styled(Button)<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};

@@ -22,17 +22,16 @@ export const Button: React.FC<ButtonProps> = ({
   isDisabled = false,
 }) => (
   <StyledButton
-    data-cy="button"
     type={type}
     className={className}
     color={color}
     onClick={onClick}
-    disabled={isDisabled}>
+    isDisabled={isDisabled}>
     {children}
   </StyledButton>
 );
 
-const StyledButton = styled.button<{ color: string }>`
+const StyledButton = styled(Button)<{ color: string }>`
   color: ${props => props.theme.background.primary};
   background-color: ${({ color }) => color};
   text-align: center;

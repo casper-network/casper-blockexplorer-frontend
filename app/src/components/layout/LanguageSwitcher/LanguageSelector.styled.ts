@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+import { Button } from 'casper-ui-kit';
 import { lightTheme } from 'src/theme';
 
 export const LanguageSelectorWrapper = styled.div``;
 
-export const LanguageSelectorButton = styled.button`
+export const LanguageSelectorButton = styled(Button)`
   border: ${props => props.theme.text.primary} 2px solid;
   text-align: center;
   padding: 0.26rem 1rem;

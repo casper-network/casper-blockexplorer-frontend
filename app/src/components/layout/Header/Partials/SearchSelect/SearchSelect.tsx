@@ -67,6 +67,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                 return (
                   <li key={option.value} data-testid={`button-${index + 1}`}>
                     <MobileSelectButton
+                      bgColor=""
                       onClick={handleClick}
                       style={{
                         backgroundColor:

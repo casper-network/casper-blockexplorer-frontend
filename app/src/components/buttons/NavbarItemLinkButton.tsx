@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Button } from 'src/components/base';
-import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { Button, pxToRem, defaultTheme } from 'casper-ui-kit';
 
 export interface NavbarItemLinkButtonProps {
   readonly isRouteSelected: boolean;
@@ -13,7 +12,10 @@ export const NavbarItemLinkButton: React.FC<NavbarItemLinkButtonProps> = ({
   isRouteSelected,
 }) => (
   <NavItemWrapper>
-    <DesktopNavItemLink type="button" isRouteSelected={isRouteSelected}>
+    <DesktopNavItemLink
+      bgColor=""
+      type="button"
+      isRouteSelected={isRouteSelected}>
       {children}
     </DesktopNavItemLink>
   </NavItemWrapper>
