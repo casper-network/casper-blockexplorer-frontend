@@ -9,7 +9,8 @@ import {
   Loading,
   useAppSelector,
 } from 'src/store';
-import { defaultTheme, pxToRem, Card, CopyToClipboard } from 'casper-ui-kit';
+import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
+import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -99,7 +100,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                       <Hash
                         hash={account?.trimmedAccountHash ?? hashPlaceholder}
                       />
-                      <CopyToClipboard
+                      <StyledCopyToClipboard
                         textToCopy={account?.trimmedAccountHash ?? ''}
                       />
                     </>,
@@ -117,7 +118,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                     account?.publicKey ? (
                       <>
                         <Hash hash={account?.publicKey} />
-                        <CopyToClipboard textToCopy={account?.publicKey} />
+                        <StyledCopyToClipboard
+                          textToCopy={account?.publicKey}
+                        />
                       </>
                     ) : (
                       'Unknown'

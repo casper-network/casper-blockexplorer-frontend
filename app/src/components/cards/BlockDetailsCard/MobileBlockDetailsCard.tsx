@@ -3,10 +3,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { Card, defaultTheme, CopyToClipboard } from 'casper-ui-kit';
+import { Card, defaultTheme } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 
 import { InfoCardContentWrapper } from 'src/components/base';
+import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
 import {
   DetailDataLabel,
   DetailDataValue,
@@ -93,7 +94,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   )}
                 </StyledHashLink>
                 {!isLoading && (
-                  <CopyToClipboard
+                  <StyledCopyToClipboard
                     textToCopy={block?.header.parent_hash ?? hashPlaceholder}
                   />
                 )}
@@ -110,7 +111,7 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   },
                 )}
                 {!isLoading && (
-                  <CopyToClipboard textToCopy={block?.hash ?? ''} />
+                  <StyledCopyToClipboard textToCopy={block?.hash ?? ''} />
                 )}
               </DetailDataValue>
             </li>
@@ -144,7 +145,9 @@ export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
                   )}
                 </StyledHashLink>
                 {!isLoading && (
-                  <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+                  <StyledCopyToClipboard
+                    textToCopy={block?.body.proposer ?? ''}
+                  />
                 )}
               </DetailDataValue>
             </li>

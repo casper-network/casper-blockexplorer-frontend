@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, SortingState } from '@tanstack/react-table';
-import { defaultTheme, pxToRem, CopyToClipboard } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
@@ -22,6 +22,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
+import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
 import {
   formatDate,
   formatTimeAgo,
@@ -199,7 +200,7 @@ export const BlocksTable: React.FC = () => {
               }}>
               {truncateHash(getValue<string>())}
             </StyledHashLink>
-            <CopyToClipboard textToCopy={getValue<string>()} />
+            <StyledCopyToClipboard textToCopy={getValue<string>()} />
           </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,
@@ -216,7 +217,7 @@ export const BlocksTable: React.FC = () => {
               }}>
               {truncateHash(getValue<string>())}
             </StyledHashLink>
-            <CopyToClipboard textToCopy={getValue<string>()} />
+            <StyledCopyToClipboard textToCopy={getValue<string>()} />
           </HashAndCopyToClipboardWrapper>
         ),
         enableSorting: false,

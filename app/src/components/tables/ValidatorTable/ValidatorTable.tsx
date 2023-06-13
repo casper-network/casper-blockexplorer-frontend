@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem, CopyToClipboard, defaultTheme } from 'casper-ui-kit';
+import { pxToRem, defaultTheme } from 'casper-ui-kit';
 
 import {
   fetchCurrentEraValidatorStatus,
@@ -28,6 +28,7 @@ import { Link } from 'react-router-dom';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
+import { StyledCopyToClipboard } from 'src/components/utility/StyledCopyToClipboard';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
@@ -137,7 +138,7 @@ export const ValidatorTable: React.FC = () => {
               }}>
               {truncateHash(getValue<string>())}
             </StyledHashLink>
-            <CopyToClipboard textToCopy={getValue<string>()} />
+            <StyledCopyToClipboard textToCopy={getValue<string>()} />
           </HashAndCopyToClipboardWrapper>
         ),
       },
