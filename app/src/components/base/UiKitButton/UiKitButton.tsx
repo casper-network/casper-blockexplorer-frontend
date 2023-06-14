@@ -107,19 +107,15 @@ const StyledButton = styled.button<{
   }};
   border: ${({ borderColor, borderWidth }) => {
     const color = borderColor ?? 'transparent';
-    // TODO: test these zeros
     const width = borderWidth ? pxToRem(borderWidth) : 0;
     return `solid ${color} ${width}`;
   }};
-  // TODO: test these zeros
   border-radius: ${({ borderRadius }) => pxToRem(borderRadius ?? 0)};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  // TODO: test these zeros
   min-width: ${({ minButtonWidth }) => pxToRem(minButtonWidth ?? 0)};
 
   &:focus {
     border: ${({ focusBorderColor, borderWidth }) => {
-      // TODO: test these zeros
       const width = borderWidth ? pxToRem(borderWidth) : 0;
       const color = focusBorderColor ?? 'transparent';
       return `solid ${color} ${width} `;
@@ -130,7 +126,6 @@ const StyledButton = styled.button<{
   &:hover {
     color: ${({ hoverFontColor }) => hoverFontColor};
     border: ${({ hoverBorderColor, borderWidth }) =>
-      //  TODO: why can't i use zero
       `solid ${borderWidth ?? 1} ${hoverBorderColor ?? 'transparent'}`};
     background-color: ${({ hoverBgColor }) => hoverBgColor};
     transition: ${({ hoverBgColorTransitionDuration }) =>
