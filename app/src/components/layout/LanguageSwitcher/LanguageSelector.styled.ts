@@ -8,13 +8,16 @@ export const LanguageSelectorWrapper = styled.div``;
 export const LanguageSelectorButton = styled(UiKitButton)`
   border: ${props => props.theme.border} 2px solid;
   text-align: center;
-  padding: 0.26rem 1rem;
   cursor: pointer;
-  color: ${props => props.theme.text.primary};
-  background-color: ${props => props.theme.background.primary};
+  color: ${lightTheme.text.contrast};
+  background-color: ${props => props.theme.background.secondary};
+
+  :focus {
+    border: ${props => props.theme.border} 2px solid;
+  }
 
   :disabled {
-    background-color: ${props => props.theme.background.secondary};
-    color: ${lightTheme.text.contrast};
+    background-color: ${props => props.theme.background.primary};
+    color: ${props => props.theme.text.primary};
   }
 `;
