@@ -9,13 +9,14 @@ export const NavButton: React.FC<UiKitButtonProps> = ({
   onClick,
 }) => {
   return (
-    <StyledButton type={type} onClick={onClick} bgColor="transparent">
+    <StyledButton type={type} onClick={onClick}>
       {children}
     </StyledButton>
   );
 };
 
 export const StyledButton = styled(UiKitButton)`
+  background-color: transparent;
   z-index: 20;
   padding: 0;
 
