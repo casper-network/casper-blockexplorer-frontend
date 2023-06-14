@@ -32,6 +32,11 @@ const navItems = [
     key: 'blocks',
   },
   {
+    title: 'deploys',
+    path: '/deploys',
+    key: 'deploys',
+  },
+  {
     title: 'peers',
     path: '/peers',
     key: 'peers',
