@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { defaultTheme } from 'casper-ui-kit';
-import { UiKitButton, UiKitButtonProps } from '../base/UiKitButton/UiKitButton';
+import { Button, ButtonProps, defaultTheme } from 'casper-ui-kit';
 
-export const NavButton: React.FC<UiKitButtonProps> = ({
+export const NavButton: React.FC<ButtonProps> = ({
   children,
   type,
   onClick,
@@ -15,7 +14,7 @@ export const NavButton: React.FC<UiKitButtonProps> = ({
   );
 };
 
-export const StyledButton = styled(UiKitButton)`
+export const StyledButton = styled(Button)`
   background-color: transparent;
   z-index: 20;
   padding: 0;

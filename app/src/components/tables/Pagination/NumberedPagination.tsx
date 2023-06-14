@@ -8,7 +8,7 @@ import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
 import { standardizeNumber } from 'src/utils';
-import { pxToRem } from 'casper-ui-kit';
+import { Button, pxToRem } from 'casper-ui-kit';
 import {
   LessThanLight,
   GreaterThanLight,
@@ -16,7 +16,6 @@ import {
   GreaterThanDark,
 } from 'src/components/icons';
 import { useTheme } from '@emotion/react';
-import { UiKitButton } from 'src/components/base';
 
 interface NumberedPaginationProps {
   rowCountSelectOptions: SelectOptions[];
@@ -142,7 +141,7 @@ const PaginationWrapper = styled.div`
   }
 `;
 
-const JumpToPageButton = styled(UiKitButton)`
+const JumpToPageButton = styled(Button)`
   background-color: ${props => props.theme.background.secondary};
   color: ${props => props.theme.text.primary};
   min-width: ${pxToRem(68)};

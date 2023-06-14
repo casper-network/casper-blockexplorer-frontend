@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -28,7 +28,7 @@ import { CopyToClipboard } from 'src/components/utility';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
-import { Table, UiKitButton } from '../../base';
+import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
 const validSortableValidatorsColumns = [
@@ -312,7 +312,7 @@ const HeaderEraToggleWrapper = styled.div`
   }
 `;
 
-const EraToggleButton = styled(UiKitButton)<{ selected: boolean }>`
+const EraToggleButton = styled(Button)<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};

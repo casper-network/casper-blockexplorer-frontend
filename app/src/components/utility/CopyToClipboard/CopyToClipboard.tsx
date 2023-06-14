@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { pxToRem } from 'casper-ui-kit';
-import { UiKitButton } from 'src/components/base';
+import { Button, pxToRem } from 'casper-ui-kit';
 import { ReactComponent as CopiedSVG } from '../../icons/copied-icon.svg';
 import { ReactComponent as CopySVG } from '../../icons/copy-icon.svg';
 import { copyToClipboard } from '../../../utils';
@@ -68,7 +67,7 @@ const CopiedIcon = styled(CopiedSVG)`
   margin-left: ${pxToRem(5)};
 `;
 
-const CopyButton = styled(UiKitButton)`
+const CopyButton = styled(Button)`
   border: none;
   background-color: transparent;
 `;
