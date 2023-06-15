@@ -30,11 +30,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   }, [isCopied]);
 
   return (
-    <CopyButton
-      type="button"
-      disabled={isCopied}
-      onClick={copyFn}
-      focusBorderColor="transparent">
+    <CopyButton type="button" disabled={isCopied} onClick={copyFn}>
       {isCopied ? (
         <CopiedIcon data-testid="copied-icon" />
       ) : (
@@ -71,4 +67,8 @@ const CopyButton = styled(Button)`
   border: none;
   background-color: transparent;
   padding: 0 0.5rem;
+
+  :disabled {
+    background-color: transparent;
+  }
 `;
