@@ -18,6 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "cypress": "^12.13.0",
+    "dotenv": "^16.1.4",
     "eslint": "^8.23.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -25,7 +26,5 @@
     "prettier": "^2.7.1",
     "typescript": "^4.9.4"
   },
-  "dependencies": {
-    "dotenv": "^16.1.4"
-  }
+  "dependencies": {}
 }
