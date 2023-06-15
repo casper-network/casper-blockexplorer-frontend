@@ -1,4 +1,3 @@
-export * from './UiKitButton';
 export * from './Heading';
 export * from './InfoCard';
 export * from './Table';
