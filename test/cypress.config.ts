@@ -6,6 +6,7 @@ const config = loadConfig();
 
 const {
   webServerUrl,
+  baseUrl,
   socketConnectionUrl,
   logoUrl,
   logoSize,
@@ -21,7 +22,7 @@ const {
 export default defineConfig({
   e2e: {
     specPattern: path.resolve(__dirname, 'cypress/e2e/**/*.cy.ts'),
-    baseUrl: 'http://localhost:3000',
+    baseUrl,
     env: {
       MIDDLEWARE_URL: webServerUrl,
       SOCKET_URL: socketConnectionUrl,
