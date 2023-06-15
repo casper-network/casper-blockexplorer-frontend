@@ -4,8 +4,7 @@ import React, { InputHTMLAttributes } from 'react';
 
 export type ButtonType = 'submit' | 'reset' | 'button';
 
-export interface UiKitButtonProps
-  extends InputHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends InputHTMLAttributes<HTMLButtonElement> {
   readonly type: ButtonType;
   readonly fontSize?: number;
   readonly paddingX?: number;
@@ -28,7 +27,7 @@ export interface UiKitButtonProps
   readonly dataCy?: string;
 }
 
-export const UiKitButton: React.FC<UiKitButtonProps> = ({
+export const UiKitButton: React.FC<ButtonProps> = ({
   type = 'button',
   fontSize,
   paddingX,
@@ -116,7 +115,7 @@ const StyledButton = styled.button<{
 
   &:focus {
     border: ${({ focusBorderColor, borderWidth }) => {
-      const width = borderWidth ? pxToRem(borderWidth) : 0;
+      const width = borderWidth ? pxToRem(borderWidth) : 'inherit';
       const color = focusBorderColor ?? 'transparent';
       return `solid ${color} ${width} `;
     }};
@@ -126,7 +125,7 @@ const StyledButton = styled.button<{
   &:hover {
     color: ${({ hoverFontColor }) => hoverFontColor};
     border: ${({ hoverBorderColor, borderWidth }) =>
-      `solid ${borderWidth ?? 1} ${hoverBorderColor ?? 'transparent'}`};
+      `solid ${borderWidth ?? 'inherit'} ${hoverBorderColor ?? 'inherit'}`};
     background-color: ${({ hoverBgColor }) => hoverBgColor};
     transition: ${({ hoverBgColorTransitionDuration }) =>
       `background-color ${hoverBgColorTransitionDuration ?? 300}ms`};
@@ -134,70 +133,8 @@ const StyledButton = styled.button<{
 
   &:disabled {
     color: 'white';
-    background-color: 'gray';
+    background-color: 'grey';
     border: ${({ borderColor, borderWidth }) =>
-      `solid ${borderWidth ?? 0} ${borderColor ?? 'initial'}`};
+      `solid ${borderWidth ?? 'inherit'} ${borderColor ?? 'inherit'}`};
   }
 `;
-
-// const StyledButton = styled.button<{
-//   fontSize?: number;
-//   paddingX?: number;
-//   paddingY?: number;
-//   fontColor?: string;
-//   hoverFontColor?: string;
-//   bgColor?: string;
-//   hoverBgColor?: string;
-//   hoverBgColorTransitionDuration?: number;
-//   borderColor?: string;
-//   hoverBorderColor?: string;
-//   focusBorderColor?: string;
-//   borderWidth?: number;
-//   borderRadius?: number;
-//   minButtonWidth?: number;
-//   disabled?: boolean;
-// }>`
-//   font-size: ${({ fontSize }) => pxToRem(fontSize ?? 16)};
-//   white-space: nowrap;
-//   color: ${({ fontColor }) => fontColor ?? 'white'};
-//   background-color: ${({ bgColor }) => bgColor};
-//   padding: ${({ paddingX, paddingY }) => {
-//     const xAxis = pxToRem(paddingX ?? 20);
-//     const yAxis = pxToRem(paddingY ?? 8);
-
-//     return `${yAxis} ${xAxis}`;
-//   }};
-//   border: ${({ borderColor, borderWidth }) => {
-//     const color = borderColor ?? 'transparent';
-//     const width = borderWidth ? pxToRem(borderWidth) : 0;
-//     return `solid ${color} ${width}`;
-//   }};
-//   border-radius: ${({ borderRadius }) => pxToRem(borderRadius ?? 0)};
-//   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-//   min-width: ${({ minButtonWidth }) => pxToRem(minButtonWidth ?? 0)};
-
-//   &:focus {
-//     border: ${({ focusBorderColor, borderWidth }) => {
-//       const width = borderWidth ? pxToRem(borderWidth) : 0;
-//       const color = focusBorderColor ?? 'transparent';
-//       return `solid ${color} ${width} `;
-//     }};
-//     outline: none;
-//   }
-
-//   &:hover {
-//     color: ${({ hoverFontColor }) => hoverFontColor};
-//     border: ${({ hoverBorderColor, borderWidth }) =>
-//       `solid ${borderWidth ?? 1} ${hoverBorderColor ?? 'transparent'}`};
-//     background-color: ${({ hoverBgColor }) => hoverBgColor};
-//     transition: ${({ hoverBgColorTransitionDuration }) =>
-//       `background-color ${hoverBgColorTransitionDuration ?? 300}ms`};
-//   }
-
-//   &:disabled {
-//     color: 'white';
-//     background-color: 'gray';
-//     border: ${({ borderColor, borderWidth }) =>
-//       `solid ${borderWidth ?? 0} ${borderColor ?? 'initial'}`};
-//   }
-// `;

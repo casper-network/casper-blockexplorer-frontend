@@ -70,4 +70,5 @@ const CopiedIcon = styled(CopiedSVG)`
 const CopyButton = styled(Button)`
   border: none;
   background-color: transparent;
+  padding: 0 0.5rem;
 `;

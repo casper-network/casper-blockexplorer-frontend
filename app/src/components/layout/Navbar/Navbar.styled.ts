@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
+import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { UiKitButton } from 'src/components/base';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
@@ -84,7 +85,7 @@ export const DesktopNavItemsContainer = styled.ul`
   min-height: ${pxToRem(75)};
 `;
 
-export const DesktopNavItemLink = styled(Button)`
+export const DesktopNavItemLink = styled(UiKitButton)`
   transition: all 0.2s ease;
   padding: ${pxToRem(6)} ${pxToRem(20)};
   font-size: clamp(0.9rem, 1.2vw, 1.4rem);
