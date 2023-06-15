@@ -24,10 +24,10 @@ import {
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { ApiData } from 'src/api/types';
 import { Link } from 'react-router-dom';
-import { CopyToClipboard } from 'src/components/utility';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
@@ -137,7 +137,7 @@ export const ValidatorTable: React.FC = () => {
               }}>
               {truncateHash(getValue<string>())}
             </StyledHashLink>
-            <CopyToClipboard textToCopy={getValue<string>()} />
+            <StyledCopyToClipboard textToCopy={getValue<string>()} />
           </HashAndCopyToClipboardWrapper>
         ),
       },
