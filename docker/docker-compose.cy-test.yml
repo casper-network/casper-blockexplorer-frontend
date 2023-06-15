@@ -8,4 +8,17 @@ services:
     depends_on:
       - frontend
     environment:
-      - CYPRESS_baseUrl=http://frontend:3000
+      - NODE_ENV=test
+      - BASE_URL=http://localhost:3000
+      - MIDDLEWARE_URL=${MIDDLEWARE_URL}
+      - SOCKET_URL=${SOCKET_URL}
+      - ORG_LOGO_URL=${ORG_LOGO_URL}
+      - ORG_LOGO_SIZE=${ORG_LOGO_SIZE}
+      - DARK_THEME=${DARK_THEME}
+      - LIGHT_THEME=${LIGHT_THEME}
+      - ORG_NAME=${ORG_NAME}
+      - ORG_FAVICON_URL=${ORG_FAVICON_URL}
+      - ORG_FONT_URL=${ORG_FONT_URL}
+      - ORG_PRIMARY_FONT_NAME=${ORG_PRIMARY_FONT_NAME}
+      - ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
+    command: sh -c './wait-for frontend:3000 -- npx cypress run'
