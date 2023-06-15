@@ -21,4 +21,3 @@ services:
       - ORG_FONT_URL=${ORG_FONT_URL}
       - ORG_PRIMARY_FONT_NAME=${ORG_PRIMARY_FONT_NAME}
       - ORG_SECONDARY_FONT_NAME=${ORG_SECONDARY_FONT_NAME}
-    command: sh -c './wait-for frontend:3000 -- npx cypress run'
