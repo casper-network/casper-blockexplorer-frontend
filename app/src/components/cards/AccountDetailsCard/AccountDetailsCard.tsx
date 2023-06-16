@@ -15,6 +15,7 @@ import {
   Card,
   Heading,
   HeadingType,
+  HeadingProps,
 } from 'casper-ui-kit';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
@@ -175,7 +176,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   );
 };
 
-const AccountHeading = styled(Heading)`
+const AccountHeading = styled(Heading)<HeadingProps>`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
   /* color: ${props => props.theme.text.primary}; */
