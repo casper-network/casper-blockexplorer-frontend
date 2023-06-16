@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 
+const { breakpoints } = defaultTheme.typography;
+
 export const InfoCardSection = styled(Card)`
   margin: 0;
   padding: 0;
   width: 100%;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${breakpoints.md}) {
     padding-top: ${pxToRem(24)};
   }
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${breakpoints.lg}) {
     padding-top: ${pxToRem(15)};
   }
 `;
@@ -26,8 +27,7 @@ export const InfoCardContentWrapper = styled(Card)`
   overflow-x: auto;
   margin-bottom: 2rem;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .md}) {
+  @media only screen and (min-width: ${breakpoints.md}) {
     max-width: 100vw;
   }
 `;
@@ -36,8 +36,7 @@ export const HeadContentWrapper = styled.div`
   padding-top: 2rem;
   margin-bottom: 2rem;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .md}) {
+  @media only screen and (min-width: ${breakpoints.md}) {
     padding: 0;
   }
 `;

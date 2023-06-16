@@ -8,47 +8,52 @@ dotenv.config({ path: `${__dirname}/../../.env` });
 export const loadConfig = () => {
   const {
     NODE_ENV,
+    BASE_URL: envBaseUrl,
     MIDDLEWARE_URL: middlewareUrl,
     SOCKET_URL: socketUrl,
     ORG_LOGO_URL: orgLogoUrl,
     ORG_LOGO_SIZE: orgLogoSize,
     DARK_THEME: envDarkTheme,
     LIGHT_THEME: envLightTheme,
-    ORG_NAME: orgName,
+    ORG_NAME: envOrgName,
     ORG_FAVICON_URL: orgFaviconUrl,
     ORG_FONT_URL: orgFontUrl,
     ORG_PRIMARY_FONT_NAME: orgPrimaryFontName,
     ORG_SECONDARY_FONT_NAME: orgSecondaryFontName,
   } = process.env;
 
-  const isProduction = NODE_ENV === 'production';
-  const webServerUrl = isProduction ? middlewareUrl : 'http://localhost:4000';
+  const isTestEnv = NODE_ENV === 'test';
+  const webServerUrl = isTestEnv ? middlewareUrl : 'http://localhost:4000';
 
-  const socketConnectionUrl = isProduction
+  const socketConnectionUrl = isTestEnv
     ? socketUrl
     : 'http://127.0.0.1:4000/gateway';
 
-  const logoUrl = isProduction ? orgLogoUrl : '';
+  const logoUrl = isTestEnv ? orgLogoUrl : '';
 
   const logoSize = (() => {
-    if (isProduction) {
+    if (isTestEnv) {
       return Number(orgLogoSize) > 100 ? 100 : Math.abs(Number(orgLogoSize));
     }
 
     return 0;
   })();
 
-  const lightTheme = envLightTheme ?? '{}';
+  const lightTheme = isTestEnv ? envLightTheme : '{}';
 
-  const darkTheme = envDarkTheme ?? '{}';
+  const darkTheme = isTestEnv ? envDarkTheme : '{}';
 
-  const faviconUrl = isProduction ? orgFaviconUrl : '';
+  const orgName = isTestEnv ? envOrgName : '';
 
-  const fontUrl = isProduction ? orgFontUrl : '';
+  const faviconUrl = isTestEnv ? orgFaviconUrl : '';
 
-  const primaryFontName = isProduction ? orgPrimaryFontName : '';
+  const fontUrl = isTestEnv ? orgFontUrl : '';
 
-  const secondaryFontName = isProduction ? orgSecondaryFontName : '';
+  const primaryFontName = isTestEnv ? orgPrimaryFontName : '';
+
+  const secondaryFontName = isTestEnv ? orgSecondaryFontName : '';
+
+  const baseUrl = isTestEnv ? envBaseUrl : 'http://localhost:3000';
 
   if (!webServerUrl) {
     throw new Error('Invalid Config: Missing MIDDLEWARE_URL');
@@ -58,8 +63,13 @@ export const loadConfig = () => {
     throw new Error('Invalid Config: Missing SOCKET_URL');
   }
 
+  if (!baseUrl) {
+    throw new Error('Invalid Config: Missing BASE_URL');
+  }
+
   return {
-    isProduction,
+    isTestEnv,
+    baseUrl,
     webServerUrl,
     socketConnectionUrl,
     logoUrl,
