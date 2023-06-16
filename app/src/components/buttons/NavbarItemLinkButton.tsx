@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Button } from 'src/components/base';
-import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { Button, pxToRem, defaultTheme } from 'casper-ui-kit';
 
 export interface NavbarItemLinkButtonProps {
   readonly isRouteSelected: boolean;
@@ -39,6 +38,15 @@ const DesktopNavItemLink = styled(Button)<{
   border-radius: 0;
   padding: 0;
   padding-bottom: 0.25rem;
+
+  :active,
+  :focus {
+    border-bottom: ${({ isRouteSelected, theme }) => {
+      const selectedColor = theme.selected.primary ?? '';
+
+      return `2px solid ${isRouteSelected ? selectedColor : 'transparent'}`;
+    }};
+  }
 `;
 
 const NavItemWrapper = styled.div`

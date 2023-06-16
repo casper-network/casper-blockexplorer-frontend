@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Button } from 'src/components/base';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
+import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
 
 export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   display: flex;
@@ -103,5 +102,6 @@ export const DesktopNavItemLink = styled(Button)`
     background-color: ${props => props.theme.border};
     padding: ${pxToRem(6)} ${pxToRem(20)};
     text-decoration: none;
+    border: none;
   }
 `;
