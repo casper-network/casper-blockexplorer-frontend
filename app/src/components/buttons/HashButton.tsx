@@ -24,7 +24,6 @@ export const HashButton: React.FC<HashButtonProps> = ({
 
   return (
     <StyledHashButton
-      bgColor=""
       data-cy="hash-expand-contract-button"
       isAvatar={isAvatar}
       type="button"
