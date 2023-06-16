@@ -31,6 +31,13 @@ export const DeploysTable: React.FC = () => {
     dispatch(fetchDeploys());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isTableLoading || isLoadingPage) {
+      setIsTableLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploys]);
+
   const header = useMemo(() => <div>header placeholder</div>, []);
   const footer = useMemo(() => <div>footer placeholder</div>, []);
 
@@ -51,7 +58,7 @@ export const DeploysTable: React.FC = () => {
         enableSorting: false,
       },
     ],
-    [],
+    [t],
   );
 
   return (
@@ -62,6 +69,7 @@ export const DeploysTable: React.FC = () => {
       footer={footer}
       tableBodyLoading={isTableLoading}
       isLastPage={false}
+      currentPageSize={10}
     />
   );
 };
