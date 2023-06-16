@@ -2,6 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ApiData } from 'src/api/types';
+import { Table } from 'src/components/base';
 import {
   Loading,
   fetchDeploys,
@@ -21,6 +22,8 @@ export const DeploysTable: React.FC = () => {
   const deploys = useAppSelector(getDeploys);
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
 
+  console.log({ deploys });
+
   const isLoadingPage =
     deploysLoadingStatus !== Loading.Complete && !deploys.length;
 
@@ -38,11 +41,27 @@ export const DeploysTable: React.FC = () => {
         id: 'deploy_hash',
         accessorKey: 'deploy_hash',
         cell: ({ getValue }) => getValue<string>(),
+        enableSorting: false,
+      },
+      {
+        header: `${t('block-hash')}`,
+        id: 'block_hash',
+        accessorKey: 'deploy_processed.block_hash',
+        cell: ({ getValue }) => getValue<string>(),
+        enableSorting: false,
       },
     ],
     [],
   );
 
-  // TODO: ticket #393
-  return <>deploys table placeholder</>;
+  return (
+    <Table
+      header={header}
+      columns={columns}
+      data={deploys}
+      footer={footer}
+      tableBodyLoading={isTableLoading}
+      isLastPage={false}
+    />
+  );
 };
