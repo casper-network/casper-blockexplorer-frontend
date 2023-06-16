@@ -54,7 +54,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   return (
     <div data-testid="account-details-card">
       <HeadContentContainer isTruncated={isTruncated}>
-        <AccountHeading type={HeadingType.H1}>
+        <AccountHeading type={HeadingType.H1} dataCy="h1-account-details">
           {t('account-details')}
         </AccountHeading>
         {/* This works */}
@@ -127,6 +127,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                       <>
                         <Hash hash={account?.publicKey} />
                         <StyledCopyToClipboard
+                          data-cy="public-key-copy"
                           textToCopy={account?.publicKey}
                         />
                       </>
@@ -179,18 +180,17 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 const AccountHeading = styled(Heading)<HeadingProps>`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
-  /* color: ${props => props.theme.text.primary}; */
-  color: red;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 2rem;
 `;
 
-const AccountHeadingTest = styled.div`
-  font-size: 1.25rem;
-  font-weight: ${defaultTheme.typography.fontWeights.normal};
-  /* color: ${props => props.theme.text.primary}; */
-  color: purple;
-  margin-bottom: 2rem;
-`;
+// const AccountHeadingTest = styled.div`
+//   font-size: 1.25rem;
+//   font-weight: ${defaultTheme.typography.fontWeights.normal};
+//   color: ${props => props.theme.text.primary};
+//   /* color: purple; */
+//   margin-bottom: 2rem;
+// `;
 
 const AccountDetailsWrapper = styled.div`
   display: flex;
