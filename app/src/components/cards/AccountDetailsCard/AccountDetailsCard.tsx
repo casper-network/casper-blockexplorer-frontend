@@ -16,6 +16,7 @@ import {
   Heading,
   HeadingType,
 } from 'casper-ui-kit';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -29,12 +30,7 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import {
-  Coin,
-  CopyToClipboard,
-  RawData,
-  withSkeletonLoading,
-} from '../../utility';
+import { Coin, RawData, withSkeletonLoading } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
@@ -111,7 +107,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                       <Hash
                         hash={account?.trimmedAccountHash ?? hashPlaceholder}
                       />
-                      <CopyToClipboard
+                      <StyledCopyToClipboard
                         textToCopy={account?.trimmedAccountHash ?? ''}
                       />
                     </>,
@@ -129,7 +125,9 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                     account?.publicKey ? (
                       <>
                         <Hash hash={account?.publicKey} />
-                        <CopyToClipboard textToCopy={account?.publicKey} />
+                        <StyledCopyToClipboard
+                          textToCopy={account?.publicKey}
+                        />
                       </>
                     ) : (
                       'Unknown'

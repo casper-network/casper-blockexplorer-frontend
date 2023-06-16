@@ -8,7 +8,7 @@ import { DEFAULT_PAGESIZE } from 'src/constants';
 import { useAppDispatch } from 'src/store';
 import { TableOptions } from 'src/store/types';
 import { standardizeNumber } from 'src/utils';
-import { pxToRem } from 'casper-ui-kit';
+import { Button, pxToRem } from 'casper-ui-kit';
 import {
   LessThanLight,
   GreaterThanLight,
@@ -95,7 +95,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         </RowsSelectWrapper>
       )}
       <PaginationWrapper>
-        <JumpToPageButton onClick={() => jumpToPage(1)}>
+        <JumpToPageButton type="button" onClick={() => jumpToPage(1)}>
           {t('first')}
         </JumpToPageButton>
         <NextPreviousPageIconWrapper
@@ -120,7 +120,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
           }}>
           {themeType === 'light' ? <GreaterThanLight /> : <GreaterThanDark />}
         </NextPreviousPageIconWrapper>
-        <JumpToPageButton onClick={() => jumpToPage(totalPages)}>
+        <JumpToPageButton type="button" onClick={() => jumpToPage(totalPages)}>
           {t('last')}
         </JumpToPageButton>
       </PaginationWrapper>
@@ -141,7 +141,7 @@ const PaginationWrapper = styled.div`
   }
 `;
 
-const JumpToPageButton = styled.button`
+const JumpToPageButton = styled(Button)`
   background-color: ${props => props.theme.background.secondary};
   color: ${props => props.theme.text.primary};
   min-width: ${pxToRem(68)};

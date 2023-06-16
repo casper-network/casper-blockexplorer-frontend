@@ -117,8 +117,6 @@ export const SubmitButton = styled(Button)`
 
   :hover,
   :focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
     background-color: ${props => props.theme.button};
   }
 `;

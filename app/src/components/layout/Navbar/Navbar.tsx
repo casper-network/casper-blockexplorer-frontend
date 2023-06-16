@@ -97,10 +97,7 @@ export const Navbar: React.FC = () => {
   return (
     <Nav data-testid="navigation" isFirstVisit={isFirstVisit}>
       <NavComponentsContainer>
-        <NavButton
-          type="button"
-          onClick={mobileNavMenuHandler}
-          color="transparent">
+        <NavButton type="button" onClick={mobileNavMenuHandler}>
           <Icon
             icon={isOpened ? 'CloseMenuIcon' : 'OpenMenuIcon'}
             height={35}
