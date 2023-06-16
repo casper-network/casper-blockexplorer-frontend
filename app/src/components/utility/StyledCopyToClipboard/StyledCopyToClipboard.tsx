@@ -15,7 +15,7 @@ export const StyledCopyToClipboard: React.FC<StyledCopyToClipboardProps> = ({
     <CopyToClipboard
       textToCopy={textToCopy}
       focusColor={defaultTheme.colors.secondary.CasperGreen}
-      copyColor={defaultTheme.colors.lowContrastSecondary.CasperLightGrey}
+      copyColor={defaultTheme.colors.secondary.Grey84}
       hoverColor={defaultTheme.colors.primary.CasperRed}
       copiedColor={defaultTheme.colors.secondary.CasperGreen}
     />
@@ -24,7 +24,7 @@ export const StyledCopyToClipboard: React.FC<StyledCopyToClipboardProps> = ({
       textToCopy={textToCopy}
       focusColor={defaultTheme.colors.secondary.CasperGreen}
       hoverColor={defaultTheme.colors.primary.CasperRed}
-      copyColor={defaultTheme.colors.secondary.Nero}
+      copyColor={defaultTheme.colors.secondary.Grey84}
       copiedColor={defaultTheme.colors.secondary.CasperGreen}
     />
   );

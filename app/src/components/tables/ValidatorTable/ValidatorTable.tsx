@@ -2,8 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { pxToRem, defaultTheme } from 'casper-ui-kit';
-
+import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -313,7 +312,7 @@ const HeaderEraToggleWrapper = styled.div`
   }
 `;
 
-const EraToggleButton = styled.button<{ selected: boolean }>`
+const EraToggleButton = styled(Button)<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};
@@ -324,6 +323,8 @@ const EraToggleButton = styled.button<{ selected: boolean }>`
 
   &:hover {
     cursor: pointer;
+    background: ${({ selected, theme }) =>
+      selected ? theme.button : theme.background.secondary};
   }
 `;
 

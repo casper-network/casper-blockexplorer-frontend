@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Button } from 'casper-ui-kit';
 
 export const MobileSelectContainer = styled.ul`
   display: flex;
@@ -7,7 +8,7 @@ export const MobileSelectContainer = styled.ul`
   margin: 0 auto;
 `;
 
-export const MobileSelectButton = styled.button`
+export const MobileSelectButton = styled(Button)`
   font-size: 0.8rem;
   border-style: none;
   font-weight: 500;
