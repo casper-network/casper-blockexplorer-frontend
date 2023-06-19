@@ -22,8 +22,6 @@ export const DeploysTable: React.FC = () => {
   const deploys = useAppSelector(getDeploys);
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
 
-  console.log({ deploys });
-
   const isLoadingPage =
     deploysLoadingStatus !== Loading.Complete && !deploys.length;
 
