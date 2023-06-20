@@ -11,8 +11,40 @@ jest.mock('../../../hooks', () => {
 });
 
 describe('Navbar', () => {
+  const navItems = [
+    {
+      title: 'home',
+      path: '/',
+      key: 'home',
+    },
+    {
+      title: 'blocks',
+      path: '/blocks',
+      key: 'blocks',
+    },
+    {
+      title: 'peers',
+      path: '/peers',
+      key: 'peers',
+    },
+    {
+      title: 'validators',
+      path: '/validators',
+      key: 'validators',
+    },
+  ];
+
+  const mockProps = {
+    isOpened: false,
+    openNav: jest.fn,
+    closeNav: jest.fn,
+    windowWidth: window.innerWidth || 0,
+    isFirstVisit: false,
+    navItems,
+  };
+
   it('should render the Navbar component and contain nav items', () => {
-    const { getByTestId } = render(<Navbar />);
+    const { getByTestId } = render(<Navbar {...mockProps} />);
 
     const nav = getByTestId('navigation');
 
@@ -23,7 +55,7 @@ describe('Navbar', () => {
   });
 
   it('should hide navigation text content when screen width is below 1023px', () => {
-    const { getByText } = render(<Navbar />);
+    const { getByText } = render(<Navbar {...mockProps} />);
     const navItem1 = getByText('Home');
     const navItem2 = getByText('Blocks');
     const navItem3 = getByText('Peers');

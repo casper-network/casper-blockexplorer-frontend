@@ -3,11 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@emotion/react';
 import { formatDate, standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
-import {
-  getLatestBlockLoadingStatus,
-  Loading,
-  useAppSelector,
-} from 'src/store';
 import Skeleton from 'react-loading-skeleton';
 import { Icon } from 'casper-ui-kit';
 import { darkTheme, lightTheme } from 'src/theme';
@@ -26,16 +21,16 @@ import {
 } from '../HomeComponents.styled';
 
 interface BlockInfoProps {
-  block: ApiData.Block | null;
+  readonly block: ApiData.Block | null;
+  readonly isLoadingBlocks: boolean;
 }
 
-export const BlocksInfo: React.FC<BlockInfoProps> = ({ block }) => {
+export const BlocksInfo: React.FC<BlockInfoProps> = ({
+  block,
+  isLoadingBlocks,
+}) => {
   const { t } = useTranslation();
   const { type: themeType } = useTheme();
-
-  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
-
-  const isLoadingBlocks = latestBlockLoadingStatus !== Loading.Complete;
 
   return (
     <Card>
