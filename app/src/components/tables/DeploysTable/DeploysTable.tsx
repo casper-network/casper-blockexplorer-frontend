@@ -14,7 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'src/store';
-import { truncateHash } from 'src/utils';
+import { formatTimeAgo, truncateHash } from 'src/utils';
 
 export const DeploysTable: React.FC = () => {
   const { t } = useTranslation();
@@ -45,12 +45,13 @@ export const DeploysTable: React.FC = () => {
   const header = useMemo(() => <div>header placeholder</div>, []);
   const footer = useMemo(() => <div>footer placeholder</div>, []);
 
-  const columns = useMemo<ColumnDef<ApiData.SidecarDeploy>[]>(
+  // TODO: add sizes
+  const columns = useMemo<ColumnDef<ApiData.ProcessedSidecarDeploy>[]>(
     () => [
       {
         header: `${t('deploy-hash')}`,
-        id: 'deploy_hash',
-        accessorKey: 'deploy_hash',
+        id: 'deployHash',
+        accessorKey: 'deployHash',
         cell: ({ getValue }) => (
           <HashAndCopyToClipboardWrapper>
             <StyledHashLink
@@ -66,8 +67,8 @@ export const DeploysTable: React.FC = () => {
       },
       {
         header: `${t('block-hash')}`,
-        id: 'block_hash',
-        accessorKey: 'deploy_processed.block_hash',
+        id: 'blockHash',
+        accessorKey: 'blockHash',
         cell: ({ getValue }) => (
           <HashAndCopyToClipboardWrapper>
             <StyledHashLink
@@ -83,8 +84,8 @@ export const DeploysTable: React.FC = () => {
       },
       {
         header: `${t('public-key')}`,
-        id: 'public_key',
-        accessorKey: 'deploy_processed.account',
+        id: 'publicKey',
+        accessorKey: 'publicKey',
         cell: ({ getValue }) => (
           <HashAndCopyToClipboardWrapper>
             <StyledHashLink
@@ -98,12 +99,29 @@ export const DeploysTable: React.FC = () => {
         ),
         enableSorting: false,
       },
+      {
+        header: `${t('age')}`,
+        accessorKey: 'timestamp',
+        cell: ({ getValue }) => (
+          <Age>{formatTimeAgo(new Date(getValue<number>()))}</Age>
+        ),
+        enableSorting: false,
+        minSize: 200,
+      },
+      {
+        // TODO: figure out where this comes from
+        header: `${t('contract')}`,
+        accessorKey: 'contractHash',
+        cell: '',
+        enableSorting: false,
+        minSize: 200,
+      },
     ],
     [t],
   );
 
   return (
-    <Table<ApiData.SidecarDeploy>
+    <Table<ApiData.ProcessedSidecarDeploy>
       header={header}
       columns={columns}
       data={deploys}
@@ -122,4 +140,8 @@ const HashAndCopyToClipboardWrapper = styled.div`
 
 const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
+`;
+
+const Age = styled.div`
+  white-space: nowrap;
 `;

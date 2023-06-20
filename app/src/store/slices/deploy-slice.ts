@@ -8,7 +8,7 @@ import { Loading } from '../loading.type';
 export interface DeployState {
   status: Loading;
   deploy: Deploy | null;
-  deploys: ApiData.SidecarDeploy[];
+  deploys: ApiData.ProcessedSidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
 }
@@ -48,6 +48,8 @@ export const fetchDeploys = createAsyncThunk(
     try {
       const deploys = await middlewareServiceApi.deploy.getDeploys();
 
+      console.log({ deploys });
+
       return deploys;
     } catch (err: any) {
       throw new Error('An error occurred while fetching deploys.');
@@ -81,7 +83,10 @@ export const deploySlice = createSlice({
       })
       .addCase(
         fetchDeploys.fulfilled,
-        (state, { payload }: PayloadAction<ApiData.SidecarDeploy[]>) => {
+        (
+          state,
+          { payload }: PayloadAction<ApiData.ProcessedSidecarDeploy[]>,
+        ) => {
           state.deploysLoadingStatus = Loading.Complete;
           state.deploys = payload;
         },

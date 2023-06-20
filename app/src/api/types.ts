@@ -126,6 +126,16 @@ export namespace ApiData {
     rawDeploy: string;
   }
 
+  export interface ProcessedSidecarDeploy {
+    timestamp: number;
+    deployHash: string;
+    blockHash: string;
+    publicKey: string;
+    contractType?: string;
+    amountMotes: string;
+    costMotes: string;
+  }
+
   export interface SidecarDeploy {
     block_timestamp?: string;
     deploy_hash: string;

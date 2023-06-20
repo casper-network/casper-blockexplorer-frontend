@@ -208,7 +208,7 @@ const createApi = (baseUrl: string) => {
         return data;
       },
       async getDeploys() {
-        type Response = AxiosResponse<ApiData.SidecarDeploy[]>;
+        type Response = AxiosResponse<ApiData.ProcessedSidecarDeploy[]>;
 
         const response = await middlewareApi.get<Response>('/deploys');
 
