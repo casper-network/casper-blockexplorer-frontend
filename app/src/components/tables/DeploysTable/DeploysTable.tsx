@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { Table } from 'src/components/base';
 import { StyledCopyToClipboard } from 'src/components/utility';
+import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import {
   Loading,
   fetchDeploys,
@@ -14,7 +15,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'src/store';
-import { formatTimeAgo, truncateHash } from 'src/utils';
+import { formatTimeAgo, standardizeNumber, truncateHash } from 'src/utils';
 
 export const DeploysTable: React.FC = () => {
   const { t } = useTranslation();
@@ -106,13 +107,35 @@ export const DeploysTable: React.FC = () => {
           <Age>{formatTimeAgo(new Date(getValue<number>()))}</Age>
         ),
         enableSorting: false,
+        // minSize: 200,
+      },
+      {
+        header: `${t('contract')}`,
+        accessorKey: 'contractType',
+        cell: ({ getValue }) => getValue<string>(),
+        enableSorting: false,
+      },
+      {
+        header: `${t('amount')}`,
+        accessorKey: 'amountMotes',
+        cell: ({ getValue }) => (
+          <CSPRText>
+            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
+            {t('cspr')}
+          </CSPRText>
+        ),
+        enableSorting: false,
         minSize: 200,
       },
       {
-        // TODO: figure out where this comes from
-        header: `${t('contract')}`,
-        accessorKey: 'contractHash',
-        cell: '',
+        header: `${t('cost')}`,
+        accessorKey: 'costMotes',
+        cell: ({ getValue }) => (
+          <CSPRText>
+            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
+            {t('cspr')}
+          </CSPRText>
+        ),
         enableSorting: false,
         minSize: 200,
       },
@@ -144,4 +167,8 @@ const StyledHashLink = styled(Link)`
 
 const Age = styled.div`
   white-space: nowrap;
+`;
+
+const CSPRText = styled.span`
+  font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;
