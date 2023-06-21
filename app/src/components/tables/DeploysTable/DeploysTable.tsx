@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { ColumnDef } from '@tanstack/react-table';
+import { SelectOptions, defaultTheme, pxToRem } from 'casper-ui-kit';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
-import { Table } from 'src/components/base';
+import { Spacer, Table } from 'src/components/base';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import {
@@ -12,11 +13,22 @@ import {
   fetchDeploys,
   getDeploys,
   getDeploysLoadingStatus,
+  getDeploysTableOptions,
+  getTotalDeploys,
+  setDeploysTableOptions,
+  updateDeploysPageNum,
   useAppDispatch,
   useAppSelector,
 } from 'src/store';
 import { formatTimeAgo, standardizeNumber, truncateHash } from 'src/utils';
 import { capitalizeWords } from 'src/utils/string';
+import { NumberedPagination } from '../Pagination';
+
+const rowCountSelectOptions: SelectOptions[] | null = [
+  { value: '5', label: '5 rows' },
+  { value: '10', label: '10 rows' },
+  { value: '20', label: '20 rows' },
+];
 
 export const DeploysTable: React.FC = () => {
   const { t } = useTranslation();
@@ -26,7 +38,13 @@ export const DeploysTable: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const deploys = useAppSelector(getDeploys);
+  const totalDeploys = useAppSelector(getTotalDeploys);
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
+  const deploysTableOptions = useAppSelector(getDeploysTableOptions);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(totalDeploys / deploysTableOptions.pagination.pageSize);
+  }, [deploysTableOptions, totalDeploys]);
 
   const isLoadingPage =
     deploysLoadingStatus !== Loading.Complete && !deploys.length;
@@ -42,8 +60,45 @@ export const DeploysTable: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deploys]);
 
-  const header = useMemo(() => <div>header placeholder</div>, []);
-  const footer = useMemo(() => <div>footer placeholder</div>, []);
+  const header = useMemo(
+    () => (
+      <DeploysTableHead>
+        <DeploysTableTitleWrapper>
+          <TotalRows>
+            {standardizeNumber(totalDeploys || 0)} {t('total-rows')}
+          </TotalRows>
+        </DeploysTableTitleWrapper>
+
+        <NumberedPagination
+          tableOptions={deploysTableOptions}
+          setTableOptions={setDeploysTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateDeploysPageNum}
+        />
+      </DeploysTableHead>
+    ),
+    [totalDeploys, t, deploysTableOptions, totalPages, setIsTableLoading],
+  );
+
+  const footer = useMemo(
+    () => (
+      <DeploysTableFooter>
+        <Spacer />
+        <NumberedPagination
+          tableOptions={deploysTableOptions}
+          setTableOptions={setDeploysTableOptions}
+          rowCountSelectOptions={rowCountSelectOptions}
+          setIsTableLoading={setIsTableLoading}
+          totalPages={totalPages}
+          updatePageNum={updateDeploysPageNum}
+          removeRowsSelect
+        />
+      </DeploysTableFooter>
+    ),
+    [deploysTableOptions, totalPages, setIsTableLoading],
+  );
 
   const columns = useMemo<ColumnDef<ApiData.ProcessedSidecarDeploy>[]>(
     () => [
@@ -168,4 +223,36 @@ const Age = styled.div`
 
 const CSPRText = styled.span`
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
+`;
+
+const DeploysTableHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: ${props => props.theme.text.secondary};
+`;
+
+const DeploysTableTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+const TotalRows = styled.p`
+  margin-right: 1.5rem;
+  white-space: nowrap;
+`;
+
+const DeploysTableFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: ${pxToRem(20)} 2rem;
+  padding: ${pxToRem(20)} 1.5rem;
+  min-width: ${pxToRem(450)};
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+    justify-content: flex-end;
+    padding: ${pxToRem(20)} 2rem;
+  }
 `;

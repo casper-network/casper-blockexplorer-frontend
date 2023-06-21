@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { formatDate, formatTimeAgo } from 'src/utils';
 import { ApiData } from 'src/api/types';
+import { DEFAULT_PAGESIZE } from 'src/constants';
 import { Deploy, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
+import { TableOptions } from '../types';
 
 export interface DeployState {
   status: Loading;
@@ -11,7 +13,20 @@ export interface DeployState {
   deploys: ApiData.ProcessedSidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
+  totalDeploys: number;
+  tableOptions: TableOptions;
 }
+
+const defaultTableOptions: TableOptions = {
+  pagination: {
+    pageSize: DEFAULT_PAGESIZE,
+    pageNum: 1,
+  },
+  sorting: {
+    sortBy: 'age',
+    order: 'desc',
+  },
+};
 
 const initialState: DeployState = {
   status: Loading.Idle,
@@ -19,6 +34,8 @@ const initialState: DeployState = {
   deploys: [],
   deploysLoadingStatus: Loading.Idle,
   errorMessage: null,
+  totalDeploys: 0,
+  tableOptions: defaultTableOptions,
 };
 
 export const fetchDeploy = createAsyncThunk<
@@ -58,7 +75,17 @@ export const fetchDeploys = createAsyncThunk(
 export const deploySlice = createSlice({
   name: 'deploy',
   initialState,
-  reducers: {},
+  reducers: {
+    setDeploysTableOptions: (
+      state,
+      action: PayloadAction<DeployState['tableOptions']>,
+    ) => {
+      state.tableOptions = action.payload;
+    },
+    updateDeploysPageNum: (state, action: PayloadAction<number>) => {
+      state.tableOptions.pagination.pageNum += action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchDeploy.pending, state => {
@@ -94,3 +121,6 @@ export const deploySlice = createSlice({
       });
   },
 });
+
+export const { setDeploysTableOptions, updateDeploysPageNum } =
+  deploySlice.actions;
