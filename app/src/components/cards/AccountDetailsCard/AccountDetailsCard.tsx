@@ -123,7 +123,6 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                       <>
                         <Hash hash={account?.publicKey} />
                         <StyledCopyToClipboard
-                          data-cy="public-key-copy"
                           textToCopy={account?.publicKey}
                         />
                       </>
