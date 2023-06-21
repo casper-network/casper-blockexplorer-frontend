@@ -8,7 +8,7 @@ import { Loading } from '../loading.type';
 export interface DeployState {
   status: Loading;
   deploy: Deploy | null;
-  deploys: ApiData.SidecarDeploy[];
+  deploys: ApiData.ProcessedSidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
 }
@@ -81,7 +81,10 @@ export const deploySlice = createSlice({
       })
       .addCase(
         fetchDeploys.fulfilled,
-        (state, { payload }: PayloadAction<ApiData.SidecarDeploy[]>) => {
+        (
+          state,
+          { payload }: PayloadAction<ApiData.ProcessedSidecarDeploy[]>,
+        ) => {
           state.deploysLoadingStatus = Loading.Complete;
           state.deploys = payload;
         },
