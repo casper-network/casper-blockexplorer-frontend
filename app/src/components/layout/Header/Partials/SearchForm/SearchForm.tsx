@@ -141,7 +141,11 @@ export const SearchForm: React.FC<SearchFormProps> = () => {
               required
             />
             <SubmitButton type="submit" data-cy="submit-button">
-              {themeType === 'light' ? <ButtonIconLight /> : <ButtonIconDark />}
+              {themeType === 'light' ? (
+                <ButtonIconLight width={100} />
+              ) : (
+                <ButtonIconDark />
+              )}
             </SubmitButton>
           </InputAndButtonContainer>
         </FormComponentsContainer>
