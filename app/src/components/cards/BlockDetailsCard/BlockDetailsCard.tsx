@@ -6,6 +6,7 @@ import { ApiData } from 'src/api/types';
 import { HashButton } from 'src/components/buttons';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
 import {
   DetailDataLabel,
@@ -13,7 +14,7 @@ import {
   DetailDataWrapper,
   Hash,
 } from '../../styled';
-import { CopyToClipboard, RawData, withSkeletonLoading } from '../../utility';
+import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface BlockDetailsCardProps {
   block: ApiData.Block | null;
@@ -123,7 +124,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   )}
                 </StyledHashLink>
                 {!isLoading && (
-                  <CopyToClipboard
+                  <StyledCopyToClipboard
                     textToCopy={block?.header.parent_hash ?? ''}
                   />
                 )}
@@ -138,7 +139,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   { width: 850 },
                 )}
                 {!isLoading && (
-                  <CopyToClipboard textToCopy={block?.hash ?? ''} />
+                  <StyledCopyToClipboard textToCopy={block?.hash ?? ''} />
                 )}
               </DetailDataValue>
             </li>
@@ -169,7 +170,9 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
                   )}
                 </StyledHashLink>
                 {!isLoading && (
-                  <CopyToClipboard textToCopy={block?.body.proposer ?? ''} />
+                  <StyledCopyToClipboard
+                    textToCopy={block?.body.proposer ?? ''}
+                  />
                 )}
               </DetailDataValue>
             </li>

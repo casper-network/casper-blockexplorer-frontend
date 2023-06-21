@@ -15,7 +15,9 @@ import {
   Card,
   Heading,
   HeadingType,
+  HeadingProps,
 } from 'casper-ui-kit';
+import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
@@ -29,12 +31,7 @@ import {
   DetailDataList,
 } from '../../styled';
 
-import {
-  Coin,
-  CopyToClipboard,
-  RawData,
-  withSkeletonLoading,
-} from '../../utility';
+import { Coin, RawData, withSkeletonLoading } from '../../utility';
 
 export interface AccountDetailsCardProps {
   account: Account | null;
@@ -57,7 +54,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   return (
     <div data-testid="account-details-card">
       <HeadContentContainer isTruncated={isTruncated}>
-        <AccountHeading type={HeadingType.H1}>
+        <AccountHeading type={HeadingType.H1} dataCy="h1-account-details">
           {t('account-details')}
         </AccountHeading>
         <AvatarHashContainer>
@@ -107,7 +104,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                       <Hash
                         hash={account?.trimmedAccountHash ?? hashPlaceholder}
                       />
-                      <CopyToClipboard
+                      <StyledCopyToClipboard
                         textToCopy={account?.trimmedAccountHash ?? ''}
                       />
                     </>,
@@ -125,7 +122,10 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                     account?.publicKey ? (
                       <>
                         <Hash hash={account?.publicKey} />
-                        <CopyToClipboard textToCopy={account?.publicKey} />
+                        <StyledCopyToClipboard
+                          data-cy="public-key-copy"
+                          textToCopy={account?.publicKey}
+                        />
                       </>
                     ) : (
                       'Unknown'
@@ -173,7 +173,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   );
 };
 
-const AccountHeading = styled(Heading)`
+const AccountHeading = styled(Heading)<HeadingProps>`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
   color: ${props => props.theme.text.primary};
