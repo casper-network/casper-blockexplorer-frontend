@@ -16,6 +16,7 @@ import {
   useAppSelector,
 } from 'src/store';
 import { formatTimeAgo, standardizeNumber, truncateHash } from 'src/utils';
+import { capitalizeWords } from 'src/utils/string';
 
 export const DeploysTable: React.FC = () => {
   const { t } = useTranslation();
@@ -112,7 +113,7 @@ export const DeploysTable: React.FC = () => {
       {
         header: `${t('contract')}`,
         accessorKey: 'contractType',
-        cell: ({ getValue }) => getValue<string>(),
+        cell: ({ getValue }) => capitalizeWords(getValue<string>()),
         enableSorting: false,
       },
       {
