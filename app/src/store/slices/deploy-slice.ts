@@ -48,8 +48,6 @@ export const fetchDeploys = createAsyncThunk(
     try {
       const deploys = await middlewareServiceApi.deploy.getDeploys();
 
-      console.log({ deploys });
-
       return deploys;
     } catch (err: any) {
       throw new Error('An error occurred while fetching deploys.');

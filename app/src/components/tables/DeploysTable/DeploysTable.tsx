@@ -28,8 +28,6 @@ export const DeploysTable: React.FC = () => {
   const deploys = useAppSelector(getDeploys);
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
 
-  console.log({ deploys });
-
   const isLoadingPage =
     deploysLoadingStatus !== Loading.Complete && !deploys.length;
 
@@ -47,7 +45,6 @@ export const DeploysTable: React.FC = () => {
   const header = useMemo(() => <div>header placeholder</div>, []);
   const footer = useMemo(() => <div>footer placeholder</div>, []);
 
-  // TODO: add sizes
   const columns = useMemo<ColumnDef<ApiData.ProcessedSidecarDeploy>[]>(
     () => [
       {
@@ -108,7 +105,6 @@ export const DeploysTable: React.FC = () => {
           <Age>{formatTimeAgo(new Date(getValue<number>()))}</Age>
         ),
         enableSorting: false,
-        // minSize: 200,
       },
       {
         header: `${t('contract')}`,
