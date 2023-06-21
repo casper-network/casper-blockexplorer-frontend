@@ -60,10 +60,6 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
         <AccountHeading type={HeadingType.H1}>
           {t('account-details')}
         </AccountHeading>
-        {/* This works */}
-        {/* <Heading type={HeadingType.H1}>
-          <AccountHeadingTest>{t('account-details')}</AccountHeadingTest>
-        </Heading> */}
         <AvatarHashContainer>
           {withSkeletonLoading(
             <AccountDetailsWrapper>
@@ -180,16 +176,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
 const AccountHeading = styled(Heading)`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
-  /* color: ${props => props.theme.text.primary}; */
-  color: red;
-  margin-bottom: 2rem;
-`;
-
-const AccountHeadingTest = styled.div`
-  font-size: 1.25rem;
-  font-weight: ${defaultTheme.typography.fontWeights.normal};
-  /* color: ${props => props.theme.text.primary}; */
-  color: purple;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 2rem;
 `;
 
