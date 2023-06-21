@@ -29,22 +29,17 @@ describe('Block Page', () => {
       it('should expand and collapse block hash', () => {
         cy.viewport(size);
         if (size === 'macbook-16') {
-          cy.getByData('hash')
-            .eq(0)
+          cy.getByData('hash-heading')
             .should('contain', `${truncatedBlockHash}`)
-            .getByData('button')
-            .eq(5)
+            .getByData('hash-expand-contract-button')
             .should('contain', 'Expand')
             .click()
-            .getByData('hash')
-            .eq(0)
+            .getByData('hash-heading')
             .should('contain', blockHash)
-            .getByData('button')
-            .eq(5)
+            .getByData('hash-expand-contract-button')
             .should('contain', 'Collapse')
             .click()
-            .getByData('hash')
-            .eq(0)
+            .getByData('hash-heading')
             .should('contain', truncatedBlockHash);
         }
       });
