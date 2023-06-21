@@ -23,7 +23,7 @@ const defaultTableOptions: TableOptions = {
     pageNum: 1,
   },
   sorting: {
-    sortBy: 'age',
+    sortBy: 'block_timestamp',
     order: 'desc',
   },
 };
@@ -61,9 +61,19 @@ export const fetchDeploy = createAsyncThunk<
 
 export const fetchDeploys = createAsyncThunk(
   'rpcClient/fetchDeploys',
-  async () => {
+  async ({
+    pagination: { pageSize, pageNum },
+    sorting: { sortBy, order },
+  }: DeployState['tableOptions']) => {
     try {
-      const deploys = await middlewareServiceApi.deploy.getDeploys();
+      const deploys = await middlewareServiceApi.deploy.getDeploys({
+        sortBy,
+        orderBy: order,
+        count: pageSize,
+        pageNum,
+      });
+
+      console.log({ deploys });
 
       return deploys;
     } catch (err: any) {

@@ -207,10 +207,22 @@ const createApi = (baseUrl: string) => {
 
         return data;
       },
-      async getDeploys() {
+      async getDeploys(
+        tableParams: {
+          sortBy?: string;
+          orderBy?: SortDirection;
+          count?: number;
+          pageNum?: number;
+        } = {},
+      ) {
         type Response = AxiosResponse<ApiData.ProcessedSidecarDeploy[]>;
 
-        const response = await middlewareApi.get<Response>('/deploys');
+        const response = await middlewareApi.get<Response>('/deploys', {
+          params: {
+            ...tableParams,
+            count: tableParams?.count ?? DEFAULT_PAGESIZE,
+          },
+        });
 
         if (response.status !== 200) throw new Error(response.statusText);
 

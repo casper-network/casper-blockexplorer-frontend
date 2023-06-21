@@ -50,8 +50,8 @@ export const DeploysTable: React.FC = () => {
     deploysLoadingStatus !== Loading.Complete && !deploys.length;
 
   useEffect(() => {
-    dispatch(fetchDeploys());
-  }, [dispatch]);
+    dispatch(fetchDeploys(deploysTableOptions));
+  }, [dispatch, deploysTableOptions]);
 
   useEffect(() => {
     if (isTableLoading || isLoadingPage) {
