@@ -51,7 +51,7 @@ describe('Account Page', () => {
   });
 
   context('Account Details', () => {
-    // TODO: copyToClipBoard tests pending #361
+    // TODO: copyToClipBoard tests pending UiKit#176
     sizes.forEach(size => {
       it(`Should display account details on a ${size} screen`, () => {
         cy.viewport(size);

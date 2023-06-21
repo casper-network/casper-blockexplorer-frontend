@@ -92,7 +92,7 @@ export const SubmitButton = styled(Button)`
   background-color: ${props => props.theme.button};
   height: ${pxToRem(54)};
   width: ${pxToRem(72)};
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
   border-radius: 0 0.375rem 0.375rem 0;
   cursor: pointer;
   position: relative;
