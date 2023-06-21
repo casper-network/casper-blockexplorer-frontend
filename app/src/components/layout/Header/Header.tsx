@@ -15,6 +15,29 @@ import {
 } from './Header.styled';
 import { SearchForm } from './Partials';
 
+export const navItems = [
+  {
+    title: 'home',
+    path: '/',
+    key: 'home',
+  },
+  {
+    title: 'blocks',
+    path: '/blocks',
+    key: 'blocks',
+  },
+  {
+    title: 'peers',
+    path: '/peers',
+    key: 'peers',
+  },
+  {
+    title: 'validators',
+    path: '/validators',
+    key: 'validators',
+  },
+];
+
 export const Header: React.FC = () => {
   const { t } = useTranslation();
   const { logoUrl, title, logoSize } = loadConfig();
@@ -30,29 +53,6 @@ export const Header: React.FC = () => {
     setIsOpened(false);
     unlockScroll();
   };
-
-  const navItems = [
-    {
-      title: 'home',
-      path: '/',
-      key: 'home',
-    },
-    {
-      title: 'blocks',
-      path: '/blocks',
-      key: 'blocks',
-    },
-    {
-      title: 'peers',
-      path: '/peers',
-      key: 'peers',
-    },
-    {
-      title: 'validators',
-      path: '/validators',
-      key: 'validators',
-    },
-  ];
 
   const logo = logoUrl ? (
     <ConfigurableLogo logoUrl={logoUrl} logoSize={logoSize} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '../../../test-utils';
+import { navItems } from '../Header';
 import { Navbar } from './Navbar';
 
 jest.mock('../../../hooks', () => {
@@ -11,29 +12,6 @@ jest.mock('../../../hooks', () => {
 });
 
 describe('Navbar', () => {
-  const navItems = [
-    {
-      title: 'home',
-      path: '/',
-      key: 'home',
-    },
-    {
-      title: 'blocks',
-      path: '/blocks',
-      key: 'blocks',
-    },
-    {
-      title: 'peers',
-      path: '/peers',
-      key: 'peers',
-    },
-    {
-      title: 'validators',
-      path: '/validators',
-      key: 'validators',
-    },
-  ];
-
   const mockProps = {
     isOpened: false,
     openNav: jest.fn,
