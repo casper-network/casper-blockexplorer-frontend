@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { formatDate, formatTimeAgo } from 'src/utils';
 import { ApiData } from 'src/api/types';
+import { DEFAULT_PAGESIZE } from 'src/constants';
 import { Deploy, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
+import { TableOptions } from '../types';
 
 export interface DeployState {
   status: Loading;
@@ -11,7 +13,20 @@ export interface DeployState {
   deploys: ApiData.ProcessedSidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
+  totalDeploys: number;
+  tableOptions: TableOptions;
 }
+
+const defaultTableOptions: TableOptions = {
+  pagination: {
+    pageSize: DEFAULT_PAGESIZE,
+    pageNum: 1,
+  },
+  sorting: {
+    sortBy: 'block_timestamp',
+    order: 'desc',
+  },
+};
 
 const initialState: DeployState = {
   status: Loading.Idle,
@@ -19,6 +34,8 @@ const initialState: DeployState = {
   deploys: [],
   deploysLoadingStatus: Loading.Idle,
   errorMessage: null,
+  totalDeploys: 0,
+  tableOptions: defaultTableOptions,
 };
 
 export const fetchDeploy = createAsyncThunk<
@@ -44,9 +61,17 @@ export const fetchDeploy = createAsyncThunk<
 
 export const fetchDeploys = createAsyncThunk(
   'rpcClient/fetchDeploys',
-  async () => {
+  async ({
+    pagination: { pageSize, pageNum },
+    sorting: { sortBy, order },
+  }: DeployState['tableOptions']) => {
     try {
-      const deploys = await middlewareServiceApi.deploy.getDeploys();
+      const deploys = await middlewareServiceApi.deploy.getDeploys({
+        sortBy,
+        orderBy: order,
+        count: pageSize,
+        pageNum,
+      });
 
       return deploys;
     } catch (err: any) {
@@ -58,7 +83,17 @@ export const fetchDeploys = createAsyncThunk(
 export const deploySlice = createSlice({
   name: 'deploy',
   initialState,
-  reducers: {},
+  reducers: {
+    setDeploysTableOptions: (
+      state,
+      action: PayloadAction<DeployState['tableOptions']>,
+    ) => {
+      state.tableOptions = action.payload;
+    },
+    updateDeploysPageNum: (state, action: PayloadAction<number>) => {
+      state.tableOptions.pagination.pageNum += action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchDeploy.pending, state => {
@@ -83,10 +118,17 @@ export const deploySlice = createSlice({
         fetchDeploys.fulfilled,
         (
           state,
-          { payload }: PayloadAction<ApiData.ProcessedSidecarDeploy[]>,
+          {
+            payload: { deploys, total },
+          }: PayloadAction<{
+            deploys: ApiData.ProcessedSidecarDeploy[];
+            total: number;
+          }>,
         ) => {
           state.deploysLoadingStatus = Loading.Complete;
-          state.deploys = payload;
+
+          state.deploys = deploys;
+          state.totalDeploys = total;
         },
       )
       .addCase(fetchDeploys.rejected, state => {
@@ -94,3 +136,6 @@ export const deploySlice = createSlice({
       });
   },
 });
+
+export const { setDeploysTableOptions, updateDeploysPageNum } =
+  deploySlice.actions;

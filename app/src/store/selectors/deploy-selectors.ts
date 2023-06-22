@@ -19,3 +19,11 @@ export const getDeploysLoadingStatus = (state: RootState) => {
 export const getDeployErrorMessage = (state: RootState) => {
   return state.deploy.errorMessage;
 };
+
+export const getTotalDeploys = (state: RootState) => {
+  return state.deploy.totalDeploys;
+};
+
+export const getDeploysTableOptions = (state: RootState) => {
+  return state.deploy.tableOptions;
+};
