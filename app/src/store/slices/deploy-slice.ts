@@ -13,6 +13,8 @@ export interface DeployState {
   deploys: ApiData.ProcessedSidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
+  // TODO: need to figure out how to return totalDeploys to FE
+  // will also use this number to calculate total rows
   totalDeploys: number;
   tableOptions: TableOptions;
 }
@@ -73,8 +75,6 @@ export const fetchDeploys = createAsyncThunk(
         pageNum,
       });
 
-      console.log({ deploys });
-
       return deploys;
     } catch (err: any) {
       throw new Error('An error occurred while fetching deploys.');
@@ -120,10 +120,18 @@ export const deploySlice = createSlice({
         fetchDeploys.fulfilled,
         (
           state,
-          { payload }: PayloadAction<ApiData.ProcessedSidecarDeploy[]>,
+          {
+            payload: { deploys, total },
+          }: PayloadAction<{
+            deploys: ApiData.ProcessedSidecarDeploy[];
+            total: number;
+          }>,
         ) => {
           state.deploysLoadingStatus = Loading.Complete;
-          state.deploys = payload;
+          console.log({ deploys });
+
+          state.deploys = deploys;
+          state.totalDeploys = total;
         },
       )
       .addCase(fetchDeploys.rejected, state => {

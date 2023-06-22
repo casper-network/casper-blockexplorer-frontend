@@ -215,7 +215,10 @@ const createApi = (baseUrl: string) => {
           pageNum?: number;
         } = {},
       ) {
-        type Response = AxiosResponse<ApiData.ProcessedSidecarDeploy[]>;
+        type Response = AxiosResponse<{
+          deploys: ApiData.ProcessedSidecarDeploy[];
+          total: number;
+        }>;
 
         const response = await middlewareApi.get<Response>('/deploys', {
           params: {
