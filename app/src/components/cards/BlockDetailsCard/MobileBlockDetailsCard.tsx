@@ -5,20 +5,19 @@ import { Link } from 'react-router-dom';
 import { ApiData } from 'src/api/types';
 import { Card, defaultTheme } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
-
-import { InfoCardContentWrapper } from 'src/components/base';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import {
   DetailDataLabel,
   DetailDataValue,
   DetailDataWrapper,
   Hash,
+  InfoCardContentWrapper,
 } from '../../styled';
 import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface MobileBlockDetailsCardProps {
-  block: ApiData.Block | null;
-  isLoading: boolean;
+  readonly block: ApiData.Block | null;
+  readonly isLoading: boolean;
 }
 
 export const MobileBlockDetailsCard: React.FC<MobileBlockDetailsCardProps> = ({
