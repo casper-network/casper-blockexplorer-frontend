@@ -128,7 +128,6 @@ export const deploySlice = createSlice({
           }>,
         ) => {
           state.deploysLoadingStatus = Loading.Complete;
-          console.log({ deploys });
 
           state.deploys = deploys;
           state.totalDeploys = total;

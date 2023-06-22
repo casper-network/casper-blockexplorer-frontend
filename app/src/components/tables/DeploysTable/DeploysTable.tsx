@@ -42,8 +42,6 @@ export const DeploysTable: React.FC = () => {
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
   const deploysTableOptions = useAppSelector(getDeploysTableOptions);
 
-  console.log({ deploys });
-
   const totalPages = useMemo(() => {
     return Math.ceil(totalDeploys / deploysTableOptions.pagination.pageSize);
   }, [deploysTableOptions, totalDeploys]);
