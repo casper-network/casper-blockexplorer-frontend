@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
 import { defaultTheme, Card } from 'casper-ui-kit';
-import { InfoCardContentWrapper } from 'src/components/base';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import { Heading } from '../../base';
 import { Deploy } from '../../../api';
@@ -15,13 +14,14 @@ import {
   DetailDataWrapper,
   DetailDataValue,
   DetailDataList,
+  InfoCardContentWrapper,
 } from '../../styled';
 
 import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface DeployDetailsCardProps {
-  deploy: Deploy | null;
-  isLoading: boolean;
+  readonly deploy: Deploy | null;
+  readonly isLoading: boolean;
 }
 
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
