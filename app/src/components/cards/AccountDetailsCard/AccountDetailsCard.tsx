@@ -3,22 +3,12 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
-import {
-  getAccountLoadingStatus,
-  getBalanceLoadingStatus,
-  Loading,
-  useAppSelector,
-} from 'src/store';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-import {
-  HeadContentWrapper,
-  Heading,
-  InfoCardContentWrapper,
-} from '../../base';
+import { Heading } from '../../base';
 import {
   Hash,
   AvatarIcon,
@@ -26,27 +16,27 @@ import {
   DetailDataLabel,
   DetailDataValue,
   DetailDataList,
+  HeadContentWrapper,
+  InfoCardContentWrapper,
 } from '../../styled';
 
 import { Coin, RawData, withSkeletonLoading } from '../../utility';
 
 export interface AccountDetailsCardProps {
-  account: Account | null;
-  balance: string | null;
+  readonly account: Account | null;
+  readonly balance: string | null;
+  readonly isAccountLoading: boolean;
+  readonly isBalanceLoading: boolean;
 }
 
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
+  isAccountLoading,
+  isBalanceLoading,
 }) => {
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { t } = useTranslation();
-
-  const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
-  const balanceLoadingStatus = useAppSelector(getBalanceLoadingStatus);
-
-  const isAccountLoading = accountLoadingStatus !== Loading.Complete;
-  const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
 
   return (
     <div data-testid="account-details-card">

@@ -11,6 +11,9 @@ import {
   fetchBalance,
   getBalance,
   clearAccount,
+  getAccountLoadingStatus,
+  getBalanceLoadingStatus,
+  Loading,
 } from 'src/store';
 import { AccountDetailsCard, PageHead, PageWrapper } from '../components';
 
@@ -19,6 +22,9 @@ export const AccountPage: React.FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
+
+  const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
+  const balanceLoadingStatus = useAppSelector(getBalanceLoadingStatus);
 
   useEffect(() => {
     dispatch(fetchAccount(id ?? ''));
@@ -47,7 +53,12 @@ export const AccountPage: React.FC = () => {
   return (
     <PageWrapper error={error} isLoading={false}>
       <PageHead pageTitle={pageTitle} />
-      <AccountDetailsCard account={account} balance={accountBalance} />
+      <AccountDetailsCard
+        isBalanceLoading={balanceLoadingStatus !== Loading.Complete}
+        isAccountLoading={accountLoadingStatus !== Loading.Complete}
+        account={account}
+        balance={accountBalance}
+      />
     </PageWrapper>
   );
 };
