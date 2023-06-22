@@ -23,7 +23,7 @@ const defaultTableOptions: TableOptions = {
     pageNum: 1,
   },
   sorting: {
-    sortBy: 'block_timestamp',
+    sortBy: 'timestamp',
     order: 'desc',
   },
 };
@@ -93,6 +93,12 @@ export const deploySlice = createSlice({
     updateDeploysPageNum: (state, action: PayloadAction<number>) => {
       state.tableOptions.pagination.pageNum += action.payload;
     },
+    updateDeploysSorting: (
+      state,
+      action: PayloadAction<DeployState['tableOptions']['sorting']>,
+    ) => {
+      state.tableOptions.sorting = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -137,5 +143,8 @@ export const deploySlice = createSlice({
   },
 });
 
-export const { setDeploysTableOptions, updateDeploysPageNum } =
-  deploySlice.actions;
+export const {
+  setDeploysTableOptions,
+  updateDeploysPageNum,
+  updateDeploysSorting,
+} = deploySlice.actions;

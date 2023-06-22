@@ -224,6 +224,11 @@ const createApi = (baseUrl: string) => {
           params: {
             ...tableParams,
             count: tableParams?.count ?? DEFAULT_PAGESIZE,
+            // TODO: temporary until sidecar /deploys endpoint is fully released - middleware #88
+            sortBy:
+              tableParams.sortBy === 'timestamp'
+                ? 'block_timestamp'
+                : tableParams.sortBy,
           },
         });
 
