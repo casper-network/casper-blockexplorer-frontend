@@ -13,8 +13,6 @@ export interface DeployState {
   deploys: ApiData.ProcessedSidecarDeploy[];
   deploysLoadingStatus: Loading;
   errorMessage: string | null;
-  // TODO: need to figure out how to return totalDeploys to FE
-  // will also use this number to calculate total rows
   totalDeploys: number;
   tableOptions: TableOptions;
 }
