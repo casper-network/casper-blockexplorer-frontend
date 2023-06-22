@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
 import { SelectOptions, defaultTheme, pxToRem } from 'casper-ui-kit';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import {
   getTotalDeploys,
   setDeploysTableOptions,
   updateDeploysPageNum,
+  updateDeploysSorting,
   useAppDispatch,
   useAppSelector,
 } from 'src/store';
@@ -159,7 +160,6 @@ export const DeploysTable: React.FC = () => {
         cell: ({ getValue }) => (
           <Age>{formatTimeAgo(new Date(getValue<number>()))}</Age>
         ),
-        enableSorting: false,
       },
       {
         header: `${t('contract')}`,
@@ -195,6 +195,31 @@ export const DeploysTable: React.FC = () => {
     [t],
   );
 
+  const onSortingChange: OnChangeFn<SortingState> = updaterOrValue => {
+    setIsTableLoading(true);
+
+    if (updaterOrValue instanceof Function) {
+      const [updatedVal] = updaterOrValue([
+        {
+          id: deploysTableOptions.sorting.sortBy,
+          desc: deploysTableOptions.sorting.order === 'desc',
+        },
+      ]);
+
+      let order: 'desc' | 'asc' = 'desc';
+      if (deploysTableOptions.sorting.sortBy === updatedVal.id) {
+        order = updatedVal.desc ? 'desc' : 'asc';
+      }
+
+      dispatch(
+        updateDeploysSorting({
+          sortBy: updatedVal.id,
+          order,
+        }),
+      );
+    }
+  };
+
   return (
     <Table<ApiData.ProcessedSidecarDeploy>
       header={header}
@@ -216,6 +241,13 @@ export const DeploysTable: React.FC = () => {
         amountMotes: '505124902204510',
         costMotes: '100000000',
       }}
+      sorting={[
+        {
+          id: deploysTableOptions.sorting.sortBy,
+          desc: deploysTableOptions.sorting.order === 'desc',
+        },
+      ]}
+      onSortingChange={onSortingChange}
     />
   );
 };
