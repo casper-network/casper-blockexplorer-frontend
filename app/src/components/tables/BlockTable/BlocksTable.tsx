@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef, SortingState } from '@tanstack/react-table';
 import { defaultTheme, pxToRem } from 'casper-ui-kit';
-import { ApiData, TableOrder } from 'src/api/types';
+import { ApiData } from 'src/api/types';
 import styled from '@emotion/styled';
 import {
   fetchBlocks,
@@ -250,7 +250,7 @@ export const BlocksTable: React.FC = () => {
       sorting={[
         {
           id: blocksTableOptions.sorting.sortBy,
-          desc: blocksTableOptions.sorting.order === TableOrder.Descending,
+          desc: blocksTableOptions.sorting.order === 'desc',
         },
       ]}
       onSortingChange={() => {
@@ -258,10 +258,7 @@ export const BlocksTable: React.FC = () => {
         dispatch(
           updateBlocksSorting({
             sortBy: 'height',
-            order:
-              blocksTableOptions.sorting.order === TableOrder.Descending
-                ? TableOrder.Ascending
-                : TableOrder.Descending,
+            order: blocksTableOptions.sorting.order === 'desc' ? 'asc' : 'desc',
           }),
         );
       }}

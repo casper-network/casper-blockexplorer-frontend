@@ -5,7 +5,7 @@ import {
   isAnyOf,
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
-import { ApiData, TableOrder } from 'src/api/types';
+import { ApiData } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import { middlewareServiceApi } from '../../api';
 import { PEER_TABLE_OPTIONS } from '../constants';
@@ -36,7 +36,7 @@ const initialState: PeerState = {
     },
     sorting: {
       sortBy: 'nodeId',
-      order: TableOrder.Descending,
+      order: 'desc',
     },
   },
 };

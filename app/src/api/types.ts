@@ -156,11 +156,6 @@ export enum DeployStatus {
   Failed = 'Failed',
 }
 
-export enum TableOrder {
-  Ascending = 'asc',
-  Descending = 'desc',
-}
-
 export type Deploy = {
   timestamp: number;
   timeSince: string;

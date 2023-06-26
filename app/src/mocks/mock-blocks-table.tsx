@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableOrder, ApiData } from 'src/api/types';
+import { ApiData } from 'src/api/types';
 import { ColumnDef } from '@tanstack/react-table';
 import {
   Spacer,
@@ -20,6 +20,7 @@ import {
   standardizeNumber,
   truncateHash,
 } from 'src/utils';
+import { TableOptions } from 'src/store/types';
 
 const showTimestamp = true;
 
@@ -196,16 +197,16 @@ export const getMockBlocks = () => [
   },
 ];
 
-export const getMockBlocksTableOptions = () => ({
+export const mockBlocksTableOptions: TableOptions = {
   pagination: {
     pageSize: 10,
     pageNum: 1,
   },
   sorting: {
-    sortBy: 'string',
-    order: TableOrder.Ascending,
+    sortBy: '',
+    order: 'desc',
   },
-});
+};
 
 export const getMockRowCountSelectOptions = () => [
   {
@@ -218,7 +219,7 @@ export const getMockBlocksTableHeader = () => (
   <div data-testid="blocks-table-header">
     <Spacer />
     <NumberedPagination
-      tableOptions={getMockBlocksTableOptions()}
+      tableOptions={mockBlocksTableOptions}
       setTableOptions={setBlocksTableOptions}
       rowCountSelectOptions={getMockRowCountSelectOptions()}
       setIsTableLoading={jest.fn()}
@@ -233,7 +234,7 @@ export const getMockBlocksTableFooter = () => (
   <div data-testid="blocks-table-footer">
     <Spacer />
     <NumberedPagination
-      tableOptions={getMockBlocksTableOptions()}
+      tableOptions={mockBlocksTableOptions}
       setTableOptions={setBlocksTableOptions}
       rowCountSelectOptions={getMockRowCountSelectOptions()}
       setIsTableLoading={jest.fn()}
