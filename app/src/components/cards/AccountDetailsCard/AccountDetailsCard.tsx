@@ -61,14 +61,12 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 data-cy="avatar-icon"
               />
               <HashExpandWrapper>
-                <Heading type={HeadingType.H2}>
-                  <HashHeading type={HeadingType.H2} isTruncated={isTruncated}>
-                    <Hash
-                      hash={account?.trimmedAccountHash ?? hashPlaceholder}
-                      alwaysTruncate={isTruncated}
-                    />
-                  </HashHeading>
-                </Heading>
+                <HashHeading type={HeadingType.H2} isTruncated={isTruncated}>
+                  <Hash
+                    hash={account?.trimmedAccountHash ?? hashPlaceholder}
+                    alwaysTruncate={isTruncated}
+                  />
+                </HashHeading>
                 <HashButton
                   isTruncated={isTruncated}
                   setIsTruncated={setIsTruncated}
