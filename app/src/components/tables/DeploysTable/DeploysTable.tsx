@@ -16,6 +16,7 @@ import {
   getDeploysTableOptions,
   getTotalDeploys,
   setDeploysTableOptions,
+  setInitialDeployStateFromUrlSearchParams,
   updateDeploysPageNum,
   updateDeploysSorting,
   useAppDispatch,
@@ -30,6 +31,8 @@ const rowCountSelectOptions: SelectOptions[] | null = [
   { value: '10', label: '10 rows' },
   { value: '20', label: '20 rows' },
 ];
+
+const validSortableDeploysColumns = ['timestamp'];
 
 export const DeploysTable: React.FC = () => {
   const { t } = useTranslation();
@@ -49,6 +52,12 @@ export const DeploysTable: React.FC = () => {
 
   const isLoadingPage =
     deploysLoadingStatus !== Loading.Complete && !deploys.length;
+
+  useEffect(() => {
+    dispatch(
+      setInitialDeployStateFromUrlSearchParams(validSortableDeploysColumns),
+    );
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchDeploys(deploysTableOptions));
