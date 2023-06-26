@@ -72,7 +72,7 @@ const HomeContentContainer = styled.div<{ isFirstVisit: boolean }>`
   flex-direction: column;
   margin: 0 auto;
   max-width: 17.2rem;
-  padding-top: 2rem;
+  padding-top: 2.35rem;
 
   @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     min-width: 39rem;
