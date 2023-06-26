@@ -40,7 +40,7 @@ describe('BlocksTable', () => {
       <Table
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
@@ -57,7 +57,7 @@ describe('BlocksTable', () => {
       <Table
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
@@ -74,7 +74,7 @@ describe('BlocksTable', () => {
       <Table
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
@@ -89,7 +89,7 @@ describe('BlocksTable', () => {
       <Table
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
@@ -106,7 +106,7 @@ describe('BlocksTable', () => {
       <Table
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
@@ -121,7 +121,7 @@ describe('BlocksTable', () => {
       <Table
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
@@ -140,7 +140,7 @@ describe('BlocksTable', () => {
         tableBodyLoading
         header={mockBlocksTableHeader}
         columns={mockBlocksTableColumns}
-        isLastPage
+        isLastPage={false}
         data={blocks}
         footer={mockBlocksTableFooter}
       />,
