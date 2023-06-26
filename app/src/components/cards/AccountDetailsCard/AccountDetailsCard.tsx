@@ -62,7 +62,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
               />
               <HashExpandWrapper>
                 <Heading type={HeadingType.H2}>
-                  <HashHeading isTruncated={isTruncated}>
+                  <HashHeading type={HeadingType.H2} isTruncated={isTruncated}>
                     <Hash
                       hash={account?.trimmedAccountHash ?? hashPlaceholder}
                       alwaysTruncate={isTruncated}
@@ -198,7 +198,7 @@ const HashExpandWrapper = styled.div`
   margin: auto 0;
 `;
 
-const HashHeading = styled.div<{
+const HashHeading = styled(Heading)<{
   isTruncated: boolean;
 }>`
   font-size: clamp(2.1rem, 6vw, 3.75rem);
