@@ -16,7 +16,6 @@ import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-
 import {
   Hash,
   AvatarIcon,
