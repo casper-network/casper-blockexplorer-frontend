@@ -5,7 +5,7 @@ import {
   isAnyOf,
   createListenerMiddleware,
 } from '@reduxjs/toolkit';
-import { ApiData } from 'src/api/types';
+import { ApiData, TableOrder } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 
 import type { RootState } from '../store';
@@ -35,7 +35,7 @@ const defaultTableOptions: TableOptions = {
   },
   sorting: {
     sortBy: 'totalStakeMotes',
-    order: 'desc',
+    order: TableOrder.Descending,
   },
 };
 

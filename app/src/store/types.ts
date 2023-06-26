@@ -1,3 +1,5 @@
+import { TableOrder } from 'src/api/types';
+
 export interface TableOptions {
   pagination: {
     pageSize: number;
@@ -5,6 +7,6 @@ export interface TableOptions {
   };
   sorting: {
     sortBy: string;
-    order: 'desc' | 'asc';
+    order: TableOrder;
   };
 }

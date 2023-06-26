@@ -6,7 +6,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { ApiData } from 'src/api/types';
+import { ApiData, TableOrder } from 'src/api/types';
 import { DEFAULT_PAGESIZE } from 'src/constants';
 import type { RootState } from '../store';
 import { middlewareServiceApi } from '../../api';
@@ -38,7 +38,7 @@ const defaultTableOptions: TableOptions = {
   },
   sorting: {
     sortBy: 'height',
-    order: 'desc',
+    order: TableOrder.Descending,
   },
 };
 

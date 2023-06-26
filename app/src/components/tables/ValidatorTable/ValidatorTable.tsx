@@ -22,7 +22,7 @@ import {
   setInitialValidatorStateFromUrlSearchParams,
 } from 'src/store';
 import { standardizeNumber, truncateHash } from 'src/utils';
-import { ApiData } from 'src/api/types';
+import { ApiData, TableOrder } from 'src/api/types';
 import { Link } from 'react-router-dom';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
@@ -242,13 +242,13 @@ export const ValidatorTable: React.FC = () => {
       const [updatedVal] = updaterOrValue([
         {
           id: validatorsTableOptions.sorting.sortBy,
-          desc: validatorsTableOptions.sorting.order === 'desc',
+          desc: validatorsTableOptions.sorting.order === TableOrder.Descending,
         },
       ]);
 
-      let order: 'desc' | 'asc' = 'desc';
+      let order: TableOrder = TableOrder.Descending;
       if (validatorsTableOptions.sorting.sortBy === updatedVal.id) {
-        order = updatedVal.desc ? 'desc' : 'asc';
+        order = updatedVal.desc ? TableOrder.Descending : TableOrder.Ascending;
       }
 
       dispatch(
@@ -271,7 +271,7 @@ export const ValidatorTable: React.FC = () => {
       sorting={[
         {
           id: validatorsTableOptions.sorting.sortBy,
-          desc: validatorsTableOptions.sorting.order === 'desc',
+          desc: validatorsTableOptions.sorting.order === TableOrder.Descending,
         },
       ]}
       onSortingChange={onSortingChange}

@@ -1,3 +1,4 @@
+import { TableOrder } from 'src/api/types';
 import {
   TABLE_OPTIONS_ORDERING_PRESETS,
   TABLE_OPTIONS_PAGE_SIZE_PRESETS,
@@ -117,7 +118,7 @@ export const getValidTableOptionsFromUrlSearchParams = ({
 }: {
   pageNumParam: string;
   pageSizeParam: string;
-  orderParam: 'desc' | 'asc';
+  orderParam: TableOrder;
   sortByParam: string;
   defaultTableOptions: TableOptions;
   validSortByOptions: string[];
