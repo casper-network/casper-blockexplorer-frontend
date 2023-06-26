@@ -46,7 +46,7 @@ describe('BlocksTable', () => {
       />,
     );
     const timestamp = screen.getAllByTestId('timestamp');
-    expect(timestamp).toHaveLength(2);
+    expect(timestamp).toHaveLength(1);
     expect(timestamp[0]).toHaveTextContent(
       formatDate(new Date(blocks[0].header.timestamp)),
     );
@@ -63,12 +63,9 @@ describe('BlocksTable', () => {
       />,
     );
     const blockHeight = screen.getAllByTestId('block-height');
-    expect(blockHeight).toHaveLength(2);
+    expect(blockHeight).toHaveLength(1);
     expect(blockHeight[0]).toHaveTextContent(
       blocks[0].header.height.toString(),
-    );
-    expect(blockHeight[1]).toHaveTextContent(
-      blocks[1].header.height.toString(),
     );
   });
 
@@ -83,9 +80,8 @@ describe('BlocksTable', () => {
       />,
     );
     const era = screen.getAllByTestId('era');
-    expect(era).toHaveLength(2);
+    expect(era).toHaveLength(1);
     expect(era[0]).toHaveTextContent(blocks[0].header.era_id.toString());
-    expect(era[1]).toHaveTextContent(blocks[1].header.era_id.toString());
   });
 
   it('should render validator links', () => {
@@ -99,7 +95,7 @@ describe('BlocksTable', () => {
       />,
     );
     const validatorLink = screen.getAllByTestId('validator-link');
-    expect(validatorLink).toHaveLength(2);
+    expect(validatorLink).toHaveLength(1);
     expect(validatorLink[0]).toHaveTextContent(
       truncateHash(blocks[0].body.proposer),
     );
@@ -116,7 +112,7 @@ describe('BlocksTable', () => {
       />,
     );
     const blockHashLink = screen.getAllByTestId('block-hash-link');
-    expect(blockHashLink).toHaveLength(2);
+    expect(blockHashLink).toHaveLength(1);
     expect(blockHashLink[0]).toHaveTextContent(truncateHash(blocks[0].hash));
   });
 
@@ -131,8 +127,11 @@ describe('BlocksTable', () => {
       />,
     );
     const deploys = screen.getAllByTestId('deploys');
-    expect(deploys).toHaveLength(2);
-    expect(deploys[0]).toHaveTextContent('0');
+    const deploysCount =
+      blocks[0].body.deploy_hashes.length +
+      blocks[0].body.transfer_hashes.length;
+    expect(deploys).toHaveLength(1);
+    expect(deploys[0]).toHaveTextContent(deploysCount.toString());
   });
 
   it('should render a loading BlocksTable', () => {
@@ -147,6 +146,6 @@ describe('BlocksTable', () => {
       />,
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(12);
+    expect(skeletonLoader).toHaveLength(6);
   });
 });

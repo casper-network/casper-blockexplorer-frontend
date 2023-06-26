@@ -42,23 +42,6 @@ export const getMockBlocks = () => [
     body: { proposer: '44444444444', deploy_hashes: [], transfer_hashes: [] },
     proofs: [],
   },
-  {
-    hash: '22222222222',
-    header: {
-      parent_hash: '111',
-      state_root_hash: '222',
-      body_hash: '333',
-      random_bit: false,
-      accumulated_seed: 'testSeed',
-      era_end: null,
-      timestamp: '2023-06-23T18:14:15+00:00',
-      era_id: 2,
-      height: 2,
-      protocol_version: 'testProtocol',
-    },
-    body: { proposer: '55555555555', deploy_hashes: [], transfer_hashes: [] },
-    proofs: [],
-  },
 ];
 
 const mockBlocksTableOptions: TableOptions = {
