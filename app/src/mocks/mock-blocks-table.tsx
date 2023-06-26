@@ -39,12 +39,16 @@ export const getMockBlocks = () => [
       height: 1,
       protocol_version: 'testProtocol',
     },
-    body: { proposer: '44444444444', deploy_hashes: [], transfer_hashes: [] },
+    body: {
+      proposer: '222222222222222',
+      deploy_hashes: [],
+      transfer_hashes: [],
+    },
     proofs: [],
   },
 ];
 
-const mockBlocksTableOptions: TableOptions = {
+export const mockBlocksTableOptions: TableOptions = {
   pagination: {
     pageSize: 10,
     pageNum: 1,
@@ -55,7 +59,7 @@ const mockBlocksTableOptions: TableOptions = {
   },
 };
 
-const getMockRowCountSelectOptions = () => [
+const mockRowCountSelectOptions = [
   {
     value: 'string',
     label: 'string',
@@ -68,7 +72,7 @@ export const getMockBlocksTableHeader = () => (
     <NumberedPagination
       tableOptions={mockBlocksTableOptions}
       setTableOptions={setBlocksTableOptions}
-      rowCountSelectOptions={getMockRowCountSelectOptions()}
+      rowCountSelectOptions={mockRowCountSelectOptions}
       setIsTableLoading={jest.fn()}
       totalPages={1}
       updatePageNum={updateBlocksPageNum}
@@ -83,7 +87,7 @@ export const getMockBlocksTableFooter = () => (
     <NumberedPagination
       tableOptions={mockBlocksTableOptions}
       setTableOptions={setBlocksTableOptions}
-      rowCountSelectOptions={getMockRowCountSelectOptions()}
+      rowCountSelectOptions={mockRowCountSelectOptions}
       setIsTableLoading={jest.fn()}
       totalPages={1}
       updatePageNum={updateBlocksPageNum}

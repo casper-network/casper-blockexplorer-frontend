@@ -103,7 +103,7 @@ export const BlocksTable: React.FC = () => {
 
   const header = useMemo(
     () => (
-      <BlocksTableHead date-testid="blocks-table-header">
+      <BlocksTableHead>
         <BlockTableTitleWrapper>
           <LatestBlocks>Latest Blocks</LatestBlocks>
           <TotalRows>
