@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { loadConfig } from 'src/utils';
 import { Link } from 'react-router-dom';
 import { defaultTheme, pxToRem } from 'casper-ui-kit';
 
-export const ConfigurableLogo: React.FC = () => {
-  const { logoUrl, logoSize } = loadConfig();
+interface ConfigurableLogoProps {
+  readonly logoSize: number;
+  readonly logoUrl: string;
+}
 
+export const ConfigurableLogo: React.FC<ConfigurableLogoProps> = ({
+  logoSize,
+  logoUrl,
+}) => {
   return (
     <ConfigurableLogoContainer logoSize={logoSize}>
       <Link to="/">

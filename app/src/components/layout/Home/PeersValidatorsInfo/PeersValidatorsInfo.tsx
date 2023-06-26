@@ -3,13 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@emotion/react';
 import { standardizeNumber } from 'src/utils';
 import { ApiData } from 'src/api/types';
-import {
-  getCurrentEraValidatorStatusStatus,
-  getPeerLoadingStatus,
-  getTotalPeers,
-  Loading,
-  useAppSelector,
-} from 'src/store';
 import Skeleton from 'react-loading-skeleton';
 import {
   H2,
@@ -28,22 +21,20 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 interface PeersValidatorsInfoProps {
   readonly currentEraValidatorStatus: ApiData.CurrentEraValidatorStatus | null;
+
+  readonly currentTotalPeers: number;
+  readonly isLoadingPeers: boolean;
+  readonly isLoadingValidators: boolean;
 }
 
 export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   currentEraValidatorStatus,
+  currentTotalPeers,
+  isLoadingPeers,
+  isLoadingValidators,
 }) => {
   const { t } = useTranslation();
   const { type: themeType } = useTheme();
-
-  const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
-  const validatorsLoadingStatus = useAppSelector(
-    getCurrentEraValidatorStatusStatus,
-  );
-  const currentTotalPeers = useAppSelector(getTotalPeers);
-
-  const isLoadingPeers = peersLoadingStatus !== Loading.Complete;
-  const isLoadingValidators = validatorsLoadingStatus !== Loading.Complete;
 
   return (
     <Card>

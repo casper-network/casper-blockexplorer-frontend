@@ -7,18 +7,19 @@ import { HashButton } from 'src/components/buttons';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 import { StyledCopyToClipboard } from 'src/components/utility';
-import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
+import { Heading, Spacer } from '../../base';
 import {
   DetailDataLabel,
   DetailDataValue,
   DetailDataWrapper,
   Hash,
+  InfoCardContentWrapper,
 } from '../../styled';
 import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface BlockDetailsCardProps {
-  block: ApiData.Block | null;
-  isLoading: boolean;
+  readonly block: ApiData.Block | null;
+  readonly isLoading: boolean;
 }
 
 export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
