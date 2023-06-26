@@ -9,7 +9,7 @@ describe('Account Page', () => {
 
   context('Account Header', () => {
     sizes.forEach(size => {
-      it.only(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
+      it(`Should display an h1, an avatar and truncated hash on a ${size} screen`, () => {
         cy.viewport(size);
 
         if (size === 'macbook-16') {
