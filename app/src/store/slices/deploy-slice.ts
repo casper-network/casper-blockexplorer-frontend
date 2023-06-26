@@ -1,4 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  createListenerMiddleware,
+  isAnyOf,
+} from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { formatDate, formatTimeAgo } from 'src/utils';
 import { ApiData } from 'src/api/types';
@@ -6,6 +12,12 @@ import { DEFAULT_PAGESIZE } from 'src/constants';
 import { Deploy, middlewareServiceApi } from '../../api';
 import { Loading } from '../loading.type';
 import { TableOptions } from '../types';
+import type { RootState } from '../store';
+import { DEPLOY_TABLE_OPTIONS } from '../constants';
+import {
+  determineInitialTableState,
+  setTableOptionsUrlSearchParams,
+} from '../utils';
 
 export interface DeployState {
   status: Loading;
@@ -37,6 +49,8 @@ const initialState: DeployState = {
   totalDeploys: 0,
   tableOptions: defaultTableOptions,
 };
+
+export const deployListener = createListenerMiddleware();
 
 export const fetchDeploy = createAsyncThunk<
   Deploy,
@@ -99,6 +113,18 @@ export const deploySlice = createSlice({
     ) => {
       state.tableOptions.sorting = action.payload;
     },
+    setInitialDeployStateFromUrlSearchParams: (
+      state,
+      action: PayloadAction<string[]>,
+    ) => {
+      const tableOptions = determineInitialTableState(
+        DEPLOY_TABLE_OPTIONS,
+        defaultTableOptions,
+        action.payload,
+      );
+
+      state.tableOptions = tableOptions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -147,4 +173,25 @@ export const {
   setDeploysTableOptions,
   updateDeploysPageNum,
   updateDeploysSorting,
+  setInitialDeployStateFromUrlSearchParams,
 } = deploySlice.actions;
+
+deployListener.startListening({
+  matcher: isAnyOf(
+    setDeploysTableOptions,
+    updateDeploysPageNum,
+    updateDeploysSorting,
+  ),
+  effect: async (_, listenerApi) => {
+    const rootStateAll = listenerApi.getState() as RootState;
+
+    const deployTableOptions = rootStateAll.deploy.tableOptions;
+
+    localStorage.setItem(
+      DEPLOY_TABLE_OPTIONS,
+      JSON.stringify(deployTableOptions),
+    );
+
+    setTableOptionsUrlSearchParams(deployTableOptions);
+  },
+});
