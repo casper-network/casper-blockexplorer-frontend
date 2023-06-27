@@ -182,7 +182,7 @@ export const ValidatorTable: React.FC = () => {
   );
 
   const header = (
-    <ValidatorTableHead>
+    <ValidatorTableHead data-testid="validator-table-header">
       <HeaderEraToggleWrapper>
         <EraToggleButton
           type="button"
@@ -215,7 +215,7 @@ export const ValidatorTable: React.FC = () => {
 
   const footer = useMemo(
     () => (
-      <ValidatorsTableFooter>
+      <ValidatorsTableFooter data-testid="validator-table-footer">
         <NumberedPagination
           tableOptions={validatorsTableOptions}
           setTableOptions={setValidatorTableOptions}
@@ -312,7 +312,7 @@ const HeaderEraToggleWrapper = styled.div`
   }
 `;
 
-const EraToggleButton = styled(Button)<{ selected: boolean }>`
+export const EraToggleButton = styled(Button)<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};
@@ -328,7 +328,7 @@ const EraToggleButton = styled(Button)<{ selected: boolean }>`
   }
 `;
 
-const CSPRText = styled.span`
+export const CSPRText = styled.span`
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;
 
@@ -345,10 +345,10 @@ const ValidatorsTableFooter = styled.div`
   }
 `;
 
-const HashAndCopyToClipboardWrapper = styled.div`
+export const HashAndCopyToClipboardWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const StyledHashLink = styled(Link)`
+export const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
 `;
