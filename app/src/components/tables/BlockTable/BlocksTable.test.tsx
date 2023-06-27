@@ -17,6 +17,20 @@ const mockBlocksTableHeader = getMockBlocksTableHeader();
 const totalPages = Math.ceil(
   blocks.length / mockBlocksTableOptions.pagination.pageSize,
 );
+const placeholderData = {
+  header: {
+    height: 0,
+    era_id: 0,
+    timestamp: '2023-06-05T17:06:44.864Z',
+  },
+  body: {
+    proposer:
+      '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
+    deploy_hashes: [],
+    transfer_hashes: [],
+  },
+  hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
+};
 
 describe('BlocksTable', () => {
   it('should render the BlocksTable', () => {
@@ -29,20 +43,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading={false}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const blocksBaseTable = screen.getByTestId('base-table');
@@ -64,20 +65,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading={false}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const timestamp = screen.getAllByTestId('timestamp');
@@ -130,20 +118,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading={false}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const era = screen.getAllByTestId('era');
@@ -161,20 +136,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading={false}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const validatorLink = screen.getAllByTestId('validator-link');
@@ -194,20 +156,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading={false}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const blockHashLink = screen.getAllByTestId('block-hash-link');
@@ -225,20 +174,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading={false}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const deploys = screen.getAllByTestId('deploys');
@@ -259,20 +195,7 @@ describe('BlocksTable', () => {
         data={blocks}
         footer={mockBlocksTableFooter}
         tableBodyLoading
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
