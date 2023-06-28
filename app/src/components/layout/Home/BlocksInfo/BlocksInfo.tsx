@@ -33,7 +33,7 @@ export const BlocksInfo: React.FC<BlockInfoProps> = ({
   const { type: themeType } = useTheme();
 
   return (
-    <Card>
+    <Card data-cy="blocks-info">
       <Header>
         <IconH2Container>
           {
