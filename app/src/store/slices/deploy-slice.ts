@@ -125,6 +125,32 @@ export const deploySlice = createSlice({
 
       state.tableOptions = tableOptions;
     },
+    updateDeploysWithLatest: (
+      state,
+      action: PayloadAction<ApiData.ProcessedSidecarDeploy>,
+    ) => {
+      if (state.deploys.length) {
+        const latestDeployTimestamp = action.payload.timestamp;
+        const lastDepoyInListTimestamp = state.deploys[0].timestamp;
+
+        const isLatestDeployAfterLastDeployInList =
+          new Date(latestDeployTimestamp).getTime() >
+          new Date(lastDepoyInListTimestamp).getTime();
+
+        if (
+          state.tableOptions.pagination.pageNum === 1 &&
+          isLatestDeployAfterLastDeployInList
+        ) {
+          const poppedDeploys = [
+            ...state.deploys.slice(0, state.deploys.length - 1),
+          ];
+
+          const updatedDeploys = [action.payload, ...poppedDeploys];
+
+          state.deploys = updatedDeploys;
+        }
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -174,6 +200,7 @@ export const {
   updateDeploysPageNum,
   updateDeploysSorting,
   setInitialDeployStateFromUrlSearchParams,
+  updateDeploysWithLatest,
 } = deploySlice.actions;
 
 deployListener.startListening({

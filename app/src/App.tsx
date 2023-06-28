@@ -29,6 +29,7 @@ import {
   initializeSocket,
   updateCurrentEraValidatorsStatus,
   updateTotalPeers,
+  updateDeploysWithLatest,
 } from './store';
 
 import { loadConfig } from './utils';
@@ -104,6 +105,16 @@ const App = () => {
         ] = parsedPeers;
 
         dispatch(updateTotalPeers(totalPeers));
+      });
+
+      socket.on('latest_deploy', (latestDeployString: string) => {
+        const parsedLatestDeploy = JSON.parse(latestDeployString) as {
+          latestDeploy: ApiData.ProcessedSidecarDeploy;
+        }[];
+
+        const [{ latestDeploy }] = parsedLatestDeploy;
+
+        dispatch(updateDeploysWithLatest(latestDeploy));
       });
     }
   }, [socket, dispatch]);
