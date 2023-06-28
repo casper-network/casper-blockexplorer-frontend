@@ -114,8 +114,6 @@ const App = () => {
 
         const [{ latestDeploy }] = parsedLatestDeploy;
 
-        console.log({ latestDeploy });
-
         dispatch(updateDeploysWithLatest(latestDeploy));
       });
     }
