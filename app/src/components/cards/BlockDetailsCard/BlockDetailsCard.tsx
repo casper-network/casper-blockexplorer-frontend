@@ -7,7 +7,8 @@ import { HashButton } from 'src/components/buttons';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 import { StyledCopyToClipboard } from 'src/components/utility';
-import { Heading, InfoCardContentWrapper, Spacer } from '../../base';
+import { Heading, Spacer } from 'src/components/base';
+import { InfoCardContentWrapper } from '../../base/InfoCard/InfoCard.styled';
 import {
   DetailDataLabel,
   DetailDataValue,

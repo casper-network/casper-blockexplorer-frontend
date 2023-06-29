@@ -2,7 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { Icon, Card, pxToRem, defaultTheme } from 'casper-ui-kit';
-import { InfoCardContentWrapper } from 'src/components/base';
+import {
+  InfoCardContentWrapper,
+  HeadContentWrapper,
+} from '../../base/InfoCard/InfoCard.styled';
 import {
   DetailDataLabel,
   DetailDataList,
@@ -13,7 +16,7 @@ import {
   HideOnMobile,
 } from '../../styled';
 import { fonts } from '../../../styled-theme';
-import { HeadContentWrapper, Heading } from '../../base';
+import { Heading } from '../../base';
 import { Coin, withSkeletonLoading } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
 

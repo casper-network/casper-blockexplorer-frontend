@@ -6,8 +6,8 @@ import { ApiData } from 'src/api/types';
 import { Card, defaultTheme } from 'casper-ui-kit';
 import { hashPlaceholder } from 'src/utils';
 
-import { InfoCardContentWrapper } from 'src/components/base';
 import { StyledCopyToClipboard } from 'src/components/utility';
+import { InfoCardContentWrapper } from '../../base/InfoCard/InfoCard.styled';
 import {
   DetailDataLabel,
   DetailDataValue,

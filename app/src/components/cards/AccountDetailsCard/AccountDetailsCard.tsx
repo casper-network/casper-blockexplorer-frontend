@@ -11,14 +11,14 @@ import {
 } from 'src/store';
 import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
 import { StyledCopyToClipboard } from 'src/components/utility';
+import { Heading } from 'src/components/base';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
 import {
   HeadContentWrapper,
-  Heading,
   InfoCardContentWrapper,
-} from '../../base';
+} from '../../base/InfoCard/InfoCard.styled';
 import {
   Hash,
   AvatarIcon,

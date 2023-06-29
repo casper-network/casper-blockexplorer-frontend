@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { defaultTheme, pxToRem, Loader } from 'casper-ui-kit';
-import { GradientHeading } from '../../styled';
+import { GradientHeading } from '../../styled/GradientHeading/GradientHeading';
 
 export interface PageError {
   message: string;
