@@ -25,7 +25,7 @@ export const getMockCurrentEraValidators = () => ({
       rank: 25,
     },
   ],
-  status: { validatorsCount: 100, bidsCount: 110, latestEraId: 8887 },
+  status: { validatorsCount: 100, bidsCount: 110, latestEraId: 8888 },
 });
 
 export const getMockNextEraValidators = () => ({
@@ -41,7 +41,7 @@ export const getMockNextEraValidators = () => ({
       rank: 25,
     },
   ],
-  status: { validatorsCount: 100, bidsCount: 110, latestEraId: 8888 },
+  status: { validatorsCount: 100, bidsCount: 110, latestEraId: 8889 },
 });
 
 export const mockValidatorsTableOptions: TableOptions = {
@@ -64,12 +64,6 @@ const mockRowCountSelectOptions = [
 
 export const getMockValidatorsTableHeader = () => (
   <div data-testid="validators-table-header">
-    {/* <EraToggleButton type="button" onClick={jest.fn} selected={isCurrentEra}>
-      Current Era {currentEraId ?? ''}
-    </EraToggleButton>
-    <EraToggleButton type="button" selected={!isCurrentEra} onClick={jest.fn}>
-      Next Era {currentEraId ? currentEraId + 1 : ''}
-    </EraToggleButton> */}
     <NumberedPagination
       tableOptions={mockValidatorsTableOptions}
       setTableOptions={setValidatorTableOptions}

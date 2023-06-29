@@ -3,20 +3,22 @@ import { screen } from '@testing-library/react';
 import { Table } from 'src/components';
 import {
   getMockCurrentEraValidators,
-  getMockValidatorsTableHeader,
   getMockValidatorsTableFooter,
   mockValidatorsTableColumns,
   mockValidatorsTableOptions,
   getMockNextEraValidators,
+  getMockValidatorsTableHeader,
 } from 'src/mocks/mock-validator-table';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
+import userEvent from '@testing-library/user-event';
 import { render } from '../../../test-utils';
+import { EraToggleButton } from './ValidatorTable';
 
 const mockCurrentEraValidators = getMockCurrentEraValidators();
 const mockNextEraValidators = getMockNextEraValidators();
-const mockValidatorsTableFooter = getMockValidatorsTableFooter();
 const mockValidatorsTableHeader = getMockValidatorsTableHeader();
+const mockValidatorsTableFooter = getMockValidatorsTableFooter();
 const totalPages = Math.ceil(
   mockCurrentEraValidators.status.validatorsCount /
     mockValidatorsTableOptions.pagination.pageSize,
@@ -32,7 +34,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -48,7 +50,7 @@ describe('ValidatorsTable', () => {
     expect(validatorsTableFooter).toBeInTheDocument();
   });
 
-  it('should render a Rank value', () => {
+  it('should render a Rank', () => {
     render(
       <Table
         header={mockValidatorsTableHeader}
@@ -57,7 +59,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -79,7 +81,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -101,7 +103,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -122,7 +124,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -135,7 +137,7 @@ describe('ValidatorsTable', () => {
     );
   });
 
-  it('should render a TotalStake', () => {
+  it('should render Total Stake for Current Era', () => {
     render(
       <Table
         header={mockValidatorsTableHeader}
@@ -144,7 +146,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -161,6 +163,59 @@ describe('ValidatorsTable', () => {
     );
   });
 
+  it('should render Total Stake for Next Era', () => {
+    const { status } = getMockNextEraValidators();
+    const onClickMock = jest.fn().mockReturnValue(true);
+    const isCurrentEra = false;
+
+    render(
+      <div>
+        <EraToggleButton type="button" selected={false}>
+          Current Era 8888
+        </EraToggleButton>
+        <EraToggleButton type="button" onClick={onClickMock} selected>
+          Next Era {status.latestEraId}
+        </EraToggleButton>
+        <Table
+          header={mockValidatorsTableHeader}
+          columns={mockValidatorsTableColumns}
+          data={
+            isCurrentEra
+              ? mockCurrentEraValidators.validators
+              : mockNextEraValidators.validators
+          }
+          footer={mockValidatorsTableFooter}
+          tableBodyLoading={false}
+          currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
+          placeholderData={{}}
+          isLastPage={
+            totalPages === mockValidatorsTableOptions.pagination.pageSize
+          }
+        />
+        ,
+      </div>,
+    );
+
+    const currentEraButton = screen.getByText('Current Era 8888');
+    const nextEraButton = screen.getByText('Next Era 8889');
+    const totalStake = screen.getByTestId('total-stake');
+
+    expect(currentEraButton).toBeInTheDocument();
+    expect(nextEraButton).toBeInTheDocument();
+
+    userEvent.click(nextEraButton);
+
+    expect(onClickMock).toBeCalledTimes(1);
+    expect(onClickMock).toReturnWith(true);
+    expect(totalStake).toHaveTextContent(
+      standardizeNumber(
+        (mockNextEraValidators.validators[0].totalStakeMotes / 10 ** 9).toFixed(
+          0,
+        ),
+      ).toString(),
+    );
+  });
+
   it('should render Self Percentage', () => {
     render(
       <Table
@@ -170,7 +225,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -193,7 +248,7 @@ describe('ValidatorsTable', () => {
         footer={mockValidatorsTableFooter}
         tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
@@ -207,20 +262,22 @@ describe('ValidatorsTable', () => {
     );
   });
 
-  it('should update era_id on Next Era button click', () => {
+  it('should render a loading ValidatorsTable', () => {
     render(
       <Table
         header={mockValidatorsTableHeader}
         columns={mockValidatorsTableColumns}
         data={mockCurrentEraValidators.validators}
         footer={mockValidatorsTableFooter}
-        tableBodyLoading={false}
+        tableBodyLoading
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={mockCurrentEraValidators}
+        placeholderData={{}}
         isLastPage={
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
       />,
     );
+    const skeletonLoader = screen.getAllByTestId('skeleton-loader');
+    expect(skeletonLoader).toHaveLength(7);
   });
 });
