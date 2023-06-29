@@ -102,7 +102,7 @@ export const mockValidatorsTableColumns: ColumnDef<ApiData.ValidatorsInfo>[] = [
     cell: ({ getValue }) => (
       <div>
         <Link
-          data-testid="styled-hash-link"
+          data-testid="truncated-public-key"
           to={{
             pathname: `/account/${getValue<string>()}`,
           }}>
