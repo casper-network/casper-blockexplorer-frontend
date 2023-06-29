@@ -182,7 +182,7 @@ export const ValidatorTable: React.FC = () => {
   );
 
   const header = (
-    <ValidatorTableHead data-testid="validator-table-header">
+    <ValidatorTableHead>
       <HeaderEraToggleWrapper>
         <EraToggleButton
           type="button"
@@ -215,7 +215,7 @@ export const ValidatorTable: React.FC = () => {
 
   const footer = useMemo(
     () => (
-      <ValidatorsTableFooter data-testid="validator-table-footer">
+      <ValidatorsTableFooter>
         <NumberedPagination
           tableOptions={validatorsTableOptions}
           setTableOptions={setValidatorTableOptions}
