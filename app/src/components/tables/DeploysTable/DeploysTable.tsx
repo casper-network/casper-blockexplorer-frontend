@@ -261,19 +261,19 @@ export const DeploysTable: React.FC = () => {
   );
 };
 
-const HashAndCopyToClipboardWrapper = styled.div`
+export const HashAndCopyToClipboardWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const StyledHashLink = styled(Link)`
+export const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
 `;
 
-const Age = styled.div`
+export const Age = styled.div`
   white-space: nowrap;
 `;
 
-const CSPRText = styled.span`
+export const CSPRText = styled.span`
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;
 
