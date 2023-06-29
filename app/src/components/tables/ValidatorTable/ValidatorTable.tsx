@@ -328,7 +328,7 @@ export const EraToggleButton = styled(Button)<{ selected: boolean }>`
   }
 `;
 
-export const CSPRText = styled.span`
+const CSPRText = styled.span`
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
 `;
 
@@ -345,10 +345,10 @@ const ValidatorsTableFooter = styled.div`
   }
 `;
 
-export const HashAndCopyToClipboardWrapper = styled.div`
+const HashAndCopyToClipboardWrapper = styled.div`
   white-space: nowrap;
 `;
 
-export const StyledHashLink = styled(Link)`
+const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
 `;

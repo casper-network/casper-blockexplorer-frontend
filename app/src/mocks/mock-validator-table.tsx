@@ -1,16 +1,12 @@
 import React from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
-import { NumberedPagination, StyledCopyToClipboard } from 'src/components';
+import { NumberedPagination } from 'src/components';
 import { TableOptions } from 'src/store/types';
 import { setValidatorTableOptions, updateValidatorPageNum } from 'src/store';
-import {
-  CSPRText,
-  HashAndCopyToClipboardWrapper,
-  StyledHashLink,
-} from 'src/components/tables/ValidatorTable/ValidatorTable';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
+import { Link } from 'react-router-dom';
 
 export const getMockCurrentEraValidators = () => ({
   validators: [
@@ -104,16 +100,15 @@ export const mockValidatorsTableColumns: ColumnDef<ApiData.ValidatorsInfo>[] = [
     enableSorting: false,
     minSize: 200,
     cell: ({ getValue }) => (
-      <HashAndCopyToClipboardWrapper>
-        <StyledHashLink
+      <div>
+        <Link
           data-testid="styled-hash-link"
           to={{
             pathname: `/account/${getValue<string>()}`,
           }}>
           {truncateHash(getValue<string>())}
-        </StyledHashLink>
-        <StyledCopyToClipboard textToCopy={getValue<string>()} />
-      </HashAndCopyToClipboardWrapper>
+        </Link>
+      </div>
     ),
   },
   {
@@ -141,9 +136,9 @@ export const mockValidatorsTableColumns: ColumnDef<ApiData.ValidatorsInfo>[] = [
     accessorKey: 'totalStakeMotes',
     minSize: 200,
     cell: ({ getValue }) => (
-      <CSPRText data-testid="total-stake">
+      <span data-testid="total-stake">
         {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}
-      </CSPRText>
+      </span>
     ),
   },
   {
