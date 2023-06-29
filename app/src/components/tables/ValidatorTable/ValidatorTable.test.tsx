@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import { Table } from 'src/components';
 import {
   getMockCurrentEraValidators,
@@ -25,7 +25,7 @@ const totalPages = Math.ceil(
 );
 
 describe('ValidatorsTable', () => {
-  it('should render Validators Table', () => {
+  beforeEach(() =>
     render(
       <Table
         header={mockValidatorsTableHeader}
@@ -39,8 +39,12 @@ describe('ValidatorsTable', () => {
           totalPages === mockValidatorsTableOptions.pagination.pageSize
         }
       />,
-    );
-
+    ),
+  );
+  afterAll(() => {
+    cleanup();
+  });
+  it('should render Validators Table', () => {
     const validatorsTableHeader = screen.getByTestId('validators-table-header');
     const validatorsBaseTable = screen.getByTestId('base-table');
     const validatorsTableFooter = screen.getByTestId('validators-table-footer');
@@ -50,42 +54,38 @@ describe('ValidatorsTable', () => {
     expect(validatorsTableFooter).toBeInTheDocument();
   });
 
-  it('should render a Rank, a truncated Public Key, a Fee, number of Delegators, Total Stake for Current Era, Self Percentage and Percentage of Network for each validator', () => {
-    render(
-      <Table
-        header={mockValidatorsTableHeader}
-        columns={mockValidatorsTableColumns}
-        data={mockCurrentEraValidators.validators}
-        footer={mockValidatorsTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={
-          totalPages === mockValidatorsTableOptions.pagination.pageSize
-        }
-      />,
-    );
-
+  it('should render a Rank', () => {
     const rank = screen.getByTestId('rank');
-    const publicKey = screen.getByTestId('truncated-public-key');
-    const fee = screen.getByTestId('fee');
-    const delegators = screen.getByTestId('delegators');
-    const totalStake = screen.getByTestId('total-stake');
-    const selfPercentage = screen.getByTestId('self-percentage');
-    const percentageOfNetwork = screen.getByTestId('percentage-of-network');
-
     expect(rank).toHaveTextContent(
       mockCurrentEraValidators.validators[0].rank.toString(),
     );
+  });
+
+  it('should render a truncated Public Key', () => {
+    const publicKey = screen.getByTestId('truncated-public-key');
+
     expect(publicKey).toHaveTextContent(
       truncateHash(mockCurrentEraValidators.validators[0].publicKey),
     );
+  });
+
+  it('should render a Fee', () => {
+    const fee = screen.getByTestId('fee');
     expect(fee).toHaveTextContent(
       mockCurrentEraValidators.validators[0].feePercentage.toString(),
     );
+  });
+
+  it('should render number of Delegators', () => {
+    const delegators = screen.getByTestId('delegators');
+
     expect(delegators).toHaveTextContent(
       mockCurrentEraValidators.validators[0].delegatorsCount.toString(),
     );
+  });
+
+  it('should render Total Stake for Current Era', () => {
+    const totalStake = screen.getByTestId('total-stake');
     expect(totalStake).toHaveTextContent(
       standardizeNumber(
         (
@@ -94,11 +94,19 @@ describe('ValidatorsTable', () => {
         ).toFixed(0),
       ).toString(),
     );
+  });
+
+  it('should render Self Percentage', () => {
+    const selfPercentage = screen.getByTestId('self-percentage');
     expect(selfPercentage).toHaveTextContent(
       standardizePercentage(
         mockCurrentEraValidators.validators[0].selfPercentage,
       ).toString(),
     );
+  });
+
+  it('should render Percentage of Network', () => {
+    const percentageOfNetwork = screen.getByTestId('percentage-of-network');
     expect(percentageOfNetwork).toHaveTextContent(
       standardizePercentage(
         mockCurrentEraValidators.validators[0].percentageOfNetwork,
@@ -106,6 +114,27 @@ describe('ValidatorsTable', () => {
     );
   });
 
+  it('should render a loading ValidatorsTable', () => {
+    render(
+      <Table
+        header={mockValidatorsTableHeader}
+        columns={mockValidatorsTableColumns}
+        data={mockCurrentEraValidators.validators}
+        footer={mockValidatorsTableFooter}
+        tableBodyLoading
+        currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
+        placeholderData={{}}
+        isLastPage={
+          totalPages === mockValidatorsTableOptions.pagination.pageSize
+        }
+      />,
+    );
+    const skeletonLoader = screen.getAllByTestId('skeleton-loader');
+    expect(skeletonLoader).toHaveLength(7);
+  });
+});
+
+describe('Next Era', () => {
   it('should render Total Stake for Next Era', () => {
     const { status } = getMockNextEraValidators();
     const onClickMock = jest.fn().mockReturnValue(true);
@@ -135,7 +164,6 @@ describe('ValidatorsTable', () => {
             totalPages === mockValidatorsTableOptions.pagination.pageSize
           }
         />
-        ,
       </div>,
     );
 
@@ -157,24 +185,5 @@ describe('ValidatorsTable', () => {
         ),
       ).toString(),
     );
-  });
-
-  it('should render a loading ValidatorsTable', () => {
-    render(
-      <Table
-        header={mockValidatorsTableHeader}
-        columns={mockValidatorsTableColumns}
-        data={mockCurrentEraValidators.validators}
-        footer={mockValidatorsTableFooter}
-        tableBodyLoading
-        currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={
-          totalPages === mockValidatorsTableOptions.pagination.pageSize
-        }
-      />,
-    );
-    const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(7);
   });
 });
