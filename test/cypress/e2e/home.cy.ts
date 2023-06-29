@@ -7,7 +7,7 @@ describe('Home Page', () => {
   }blockchain.`;
 
   beforeEach(() => {
-    cy.visit('/home');
+    cy.visit('/');
   });
 
   sizes.forEach(size => {
@@ -41,6 +41,18 @@ describe('Home Page', () => {
         cy.getByData('styled-button').click();
         cy.getByData('mobile-link').contains('Peers').click();
         cy.location('pathname').should('eq', '/peers');
+      }
+    });
+
+    it(`should navigate to validators page on a ${size} screen`, () => {
+      cy.viewport(size);
+      if (size === 'macbook-16') {
+        cy.get('a').contains('Validators').click();
+        cy.location('pathname').should('eq', '/validators');
+      } else {
+        cy.getByData('styled-button').click();
+        cy.getByData('mobile-link').contains('Validators').click();
+        cy.location('pathname').should('eq', '/validators');
       }
     });
 
