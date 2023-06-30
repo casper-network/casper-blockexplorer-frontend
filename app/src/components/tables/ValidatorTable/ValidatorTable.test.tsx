@@ -32,7 +32,6 @@ describe('ValidatorsTable', () => {
         columns={mockValidatorsTableColumns}
         data={mockCurrentEraValidators.validators}
         footer={mockValidatorsTableFooter}
-        tableBodyLoading={false}
         currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
         placeholderData={{}}
         isLastPage={
@@ -155,7 +154,6 @@ describe('Next Era', () => {
               : mockNextEraValidators.validators
           }
           footer={mockValidatorsTableFooter}
-          tableBodyLoading={false}
           currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
           placeholderData={{}}
           isLastPage={
