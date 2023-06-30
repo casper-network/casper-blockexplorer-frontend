@@ -39,7 +39,10 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   const Wrapper = customSelectWrapper ?? SelectWrapper;
 
   return (
-    <Wrapper isMenuOpen={isMenuOpen} data-testid="select-wrapper">
+    <Wrapper
+      data-cy="search-select"
+      isMenuOpen={isMenuOpen}
+      data-testid="select-wrapper">
       <SelectLabel htmlFor="select">Select</SelectLabel>
       <Select
         aria-label="select-button"

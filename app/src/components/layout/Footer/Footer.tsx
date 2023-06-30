@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ title, networkStatus }) => {
   const { t } = useTranslation();
 
   return (
-    <FooterWrapper>
+    <FooterWrapper data-cy="footer">
       <p>
         {title} {t('node-version')} {networkStatus?.build_version.slice(0, 5)}
       </p>

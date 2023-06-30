@@ -15,7 +15,7 @@ export const DeploysInfo: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <DeploysInfoDisplay>
+    <DeploysInfoDisplay data-cy="deploys-info">
       <DeploysHeader>
         <IconH2Container>
           <Icon icon="DeployIcon" height={25} />

@@ -94,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <MobileNavItemsContainer>
                 {navItems.map(({ path, title, key }) => {
                   return (
-                    <li key={key}>
+                    <li data-cy="mobile-link" key={key}>
                       <MobileNavItemLink
                         to={path}
                         onClick={() => {
@@ -108,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </MobileNavItemsContainer>
             </MobileNav>
           )}
-          <DesktopNav>
+          <DesktopNav data-cy="desktop-nav">
             <DesktopNavItemsContainer>
               {navItems.map(({ path, title, key }) => {
                 return (
