@@ -7,6 +7,7 @@ import {
   getMockBlocksTableFooter,
   getMockBlocksTableHeader,
   mockBlocksTableOptions,
+  placeholderData,
 } from 'src/mocks/mock-blocks-table';
 import { formatDate, truncateHash } from 'src/utils';
 import { render } from '../../../test-utils';
@@ -17,20 +18,6 @@ const mockBlocksTableHeader = getMockBlocksTableHeader();
 const totalPages = Math.ceil(
   blocks.length / mockBlocksTableOptions.pagination.pageSize,
 );
-const placeholderData = {
-  header: {
-    height: 0,
-    era_id: 0,
-    timestamp: '2023-06-05T17:06:44.864Z',
-  },
-  body: {
-    proposer:
-      '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-    deploy_hashes: [],
-    transfer_hashes: [],
-  },
-  hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-};
 
 describe('BlocksTable', () => {
   it('should render the BlocksTable', () => {
@@ -42,7 +29,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={placeholderData}
       />,
     );
@@ -64,7 +50,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={placeholderData}
       />,
     );
@@ -84,7 +69,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={{
           header: {
             height: 0,
@@ -117,7 +101,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={placeholderData}
       />,
     );
@@ -135,7 +118,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={placeholderData}
       />,
     );
@@ -155,7 +137,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={placeholderData}
       />,
     );
@@ -173,7 +154,6 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        tableBodyLoading={false}
         placeholderData={placeholderData}
       />,
     );
