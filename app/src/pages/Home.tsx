@@ -50,7 +50,9 @@ export const Home: React.FC = () => {
 
   return (
     <PageWrapper isLoading={false}>
-      <HomeContentContainer isFirstVisit={isFirstVisit}>
+      <HomeContentContainer
+        data-cy="home-content-container"
+        isFirstVisit={isFirstVisit}>
         <BlocksInfo
           isLoadingBlocks={latestBlockLoadingStatus !== Loading.Complete}
           block={latestBlock}
