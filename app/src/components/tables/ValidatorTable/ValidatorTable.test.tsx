@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { Table } from 'src/components';
 import {
   getMockCurrentEraValidators,
@@ -41,9 +41,7 @@ describe('ValidatorsTable', () => {
       />,
     ),
   );
-  afterAll(() => {
-    cleanup();
-  });
+
   it('should render Validators Table', () => {
     const validatorsTableHeader = screen.getByTestId('validators-table-header');
     const validatorsBaseTable = screen.getByTestId('base-table');
