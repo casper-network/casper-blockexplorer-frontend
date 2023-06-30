@@ -1,12 +1,13 @@
 {
-  "1091814": {
-    "active": false,
-    "notes": "Ignored until css-minimizer-webpack-plugin, postcss-loader, & fork-ts-checker-webpack-plugin add a fix.",
-    "expiry": "1 May 2023 9:00 am"
-  },
   "1092310": {
     "active": true,
     "notes": "Ignored until @babel/core fixes semver minimum version to 7.5.2. See https://github.com/babel/babel/blob/04f063ef008fba36a37f91d31d929476ac5e0937/packages/babel-core/package.json#L63",
     "expiry": "1 July 2023 9:00 am"
+  },
+  "1092330": {
+    "active": true,
+    "notes": "Ignored until either word-wrap publishes a new release or whichever package uses word-wrap finds a work around",
+    "expiry": "1 August 2023 9:00am"
   }
 }
+

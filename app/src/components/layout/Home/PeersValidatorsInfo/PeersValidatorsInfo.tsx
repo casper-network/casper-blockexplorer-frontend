@@ -37,7 +37,7 @@ export const PeersValidatorsInfo: React.FC<PeersValidatorsInfoProps> = ({
   const { type: themeType } = useTheme();
 
   return (
-    <Card>
+    <Card data-cy="peers-validators-info">
       <Header>
         {themeType === 'light' ? <PeersIconLight /> : <PeersIconDark />}
         <H2>{t('validators')}</H2>

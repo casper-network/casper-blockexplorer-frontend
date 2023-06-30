@@ -13,35 +13,45 @@ describe('Account Page', () => {
         cy.viewport(size);
 
         if (size === 'macbook-16') {
-          cy.getByData('h1').should('contain', 'Account Details');
+          cy.getByData('h1-account-details').should(
+            'contain',
+            'Account Details',
+          );
 
           cy.getByData('avatar-icon').should('be.visible');
 
-          cy.getByData('h2').should('contain', `${truncatedAccountHash}`);
+          cy.getByData('hash-heading').should(
+            'contain',
+            `${truncatedAccountHash}`,
+          );
 
-          cy.getByData('button')
-            .eq(5)
+          cy.getByData('hash-expand-contract-button')
             .should('contain', 'Expand')
             .click()
-            .getByData('h2')
+            .getByData('hash-heading')
             .should('contain', `${accountHash}`)
-            .getByData('button')
+            .getByData('hash-expand-contract-button')
             .should('contain', 'Collapse')
-            .getByData('button')
-            .eq(5)
+            .getByData('hash-expand-contract-button')
             .click()
             .should('contain', 'Expand');
         } else {
-          cy.getByData('h1').should('contain', 'Account Details');
+          cy.getByData('h1-account-details').should(
+            'contain',
+            'Account Details',
+          );
           cy.getByData('avatar-icon').should('be.visible');
-          cy.getByData('h2').should('contain', `${truncatedAccountHash}`);
+          cy.getByData('hash-heading').should(
+            'contain',
+            `${truncatedAccountHash}`,
+          );
         }
       });
     });
   });
 
   context('Account Details', () => {
-    // TODO: copyToClipBoard tests pending #361
+    // TODO: copyToClipBoard tests pending UiKit#176
     sizes.forEach(size => {
       it(`Should display account details on a ${size} screen`, () => {
         cy.viewport(size);
