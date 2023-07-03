@@ -19,20 +19,21 @@ const totalPages = Math.ceil(
 );
 
 describe('DeploysTable', () => {
-  it.only('should render Deploys Table', () => {
+  beforeEach(() => {
     render(
       <Table
         header={mockDeploysTableHeader}
         columns={mockDeploysTableColumns}
         data={deploys}
         footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
         currentPageSize={mockDeploysTableOptions.pagination.pageSize}
         placeholderData={{}}
         isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
       />,
     );
+  });
 
+  it.only('should render Deploys Table', () => {
     const deploysTableHeader = screen.getByTestId('deploys-table-header');
     const deploysBaseTable = screen.getByTestId('base-table');
     const deploysTableFooter = screen.getByTestId('deploys-table-footer');
@@ -43,107 +44,33 @@ describe('DeploysTable', () => {
   });
 
   it('should render a truncated Deploy Hash', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
-
     const deployHash = screen.getByTestId('deploy-hash-link');
     expect(deployHash).toHaveTextContent(truncateHash(deploys[0].deployHash));
   });
 
   it('should render a truncated Block Hash', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
     const blockHash = screen.getByTestId('block-hash-link');
     expect(blockHash).toHaveTextContent(truncateHash(deploys[0].blockHash));
   });
 
   it('should render a truncated Public Key', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
     const publicKey = screen.getByTestId('public-key-link');
     expect(publicKey).toHaveTextContent(truncateHash(deploys[0].publicKey));
   });
 
   it('should render an Age', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
     const timestamp = screen.getByTestId('timestamp');
 
     expect(timestamp).toHaveTextContent(deploys[0].timestamp.toString());
   });
 
   it('should render a Contract type', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
     const contractType = screen.getByTestId('contract-type');
     expect(contractType).toHaveTextContent(deploys[0].contractType);
   });
 
   it('should render an Amount', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
-
-    const amount = screen.getByTestId('amount');
+    const amount = screen.getAllByTestId('amount-motes');
     expect(amount).toHaveTextContent(
       standardizeNumber(
         (+deploys[0].amountMotes / 10 ** 9).toFixed(0),
@@ -152,19 +79,7 @@ describe('DeploysTable', () => {
   });
 
   it('should render Cost', () => {
-    render(
-      <Table
-        header={mockDeploysTableHeader}
-        columns={mockDeploysTableColumns}
-        data={deploys}
-        footer={mockDeploysTableFooter}
-        tableBodyLoading={false}
-        currentPageSize={mockDeploysTableOptions.pagination.pageSize}
-        placeholderData={{}}
-        isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
-      />,
-    );
-    const cost = screen.getByTestId('cost');
+    const cost = screen.getByTestId('cost-motes');
     expect(cost).toHaveTextContent(
       standardizeNumber(
         (+deploys[0].costMotes / 10 ** 9).toFixed(0),
@@ -172,7 +87,7 @@ describe('DeploysTable', () => {
     );
   });
 
-  it('should render a loading DeploysTable', () => {
+  it.only('should render a loading DeploysTable', () => {
     render(
       <Table
         header={mockDeploysTableHeader}
