@@ -4,14 +4,9 @@ import { NumberedPagination } from 'src/components';
 import { setDeploysTableOptions, updateDeploysPageNum } from 'src/store';
 import { TableOptions } from 'src/store/types';
 import { ApiData } from 'src/api/types';
-import { StyledCopyToClipboard } from 'src/components/utility';
-import {
-  Age,
-  CSPRText,
-  HashAndCopyToClipboardWrapper,
-  StyledHashLink,
-} from 'src/components/tables/DeploysTable/DeploysTable';
-import { standardizeNumber, truncateHash } from 'src/utils';
+
+import { standardizeNumber } from 'src/utils';
+import { Link } from 'react-router-dom';
 
 export const getMockProcessedSidecarDeploys = () => [
   {
@@ -82,15 +77,15 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       id: 'deployHash',
       accessorKey: 'deployHash',
       cell: ({ getValue }) => (
-        <HashAndCopyToClipboardWrapper>
-          <StyledHashLink
+        <div>
+          <Link
+            data-testid="deploy-hash-link"
             to={{
               pathname: `/deploy/${getValue<string>()}`,
             }}>
-            {truncateHash(getValue<string>())}
-          </StyledHashLink>
-          <StyledCopyToClipboard textToCopy={getValue<string>()} />
-        </HashAndCopyToClipboardWrapper>
+            {/* {truncateHash(getValue<string>())} */}
+          </Link>
+        </div>
       ),
       enableSorting: false,
     },
@@ -99,15 +94,15 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       id: 'blockHash',
       accessorKey: 'blockHash',
       cell: ({ getValue }) => (
-        <HashAndCopyToClipboardWrapper>
-          <StyledHashLink
+        <div>
+          <Link
+            data-testid="block-hash-link"
             to={{
               pathname: `/block/${getValue<string>()}`,
             }}>
             {/* {truncateHash(getValue<string>())} */}
-          </StyledHashLink>
-          <StyledCopyToClipboard textToCopy={getValue<string>()} />
-        </HashAndCopyToClipboardWrapper>
+          </Link>
+        </div>
       ),
       enableSorting: false,
     },
@@ -116,15 +111,15 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       id: 'publicKey',
       accessorKey: 'publicKey',
       cell: ({ getValue }) => (
-        <HashAndCopyToClipboardWrapper>
-          <StyledHashLink
+        <div>
+          <Link
+            data-testid="public-key-link"
             to={{
               pathname: `/account/${getValue<string>()}`,
             }}>
             {/* {truncateHash(getValue<string>())} */}
-          </StyledHashLink>
-          <StyledCopyToClipboard textToCopy={getValue<string>()} />
-        </HashAndCopyToClipboardWrapper>
+          </Link>
+        </div>
       ),
       enableSorting: false,
     },
@@ -132,22 +127,28 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       header: 'Age',
       accessorKey: 'timestamp',
       cell: ({ getValue }) => (
-        <Age>{/* {formatTimeAgo(new Date(getValue<number>()))} */}</Age>
+        <div data-testid="timestamp">
+          {/* {formatTimeAgo(new Date(getValue<number>()))} */}
+        </div>
       ),
     },
     {
       header: 'Contract',
       accessorKey: 'contractType',
-      // cell: ({ getValue }) => capitalizeWords(getValue<string>()),
+      cell: ({ getValue }) => (
+        <div data-testid="contract-type">
+          {/* {capitalizeWords(getValue<string>())} */}
+        </div>
+      ),
       enableSorting: false,
     },
     {
       header: 'Amount',
       accessorKey: 'amountMotes',
       cell: ({ getValue }) => (
-        <CSPRText>
+        <span data-testid="amount-motes">
           {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-        </CSPRText>
+        </span>
       ),
       enableSorting: false,
       minSize: 200,
@@ -156,107 +157,11 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       header: 'Cost',
       accessorKey: 'costMotes',
       cell: ({ getValue }) => (
-        <CSPRText>
+        <span data-testid="cost-motes">
           {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-        </CSPRText>
+        </span>
       ),
       enableSorting: false,
       minSize: 200,
     },
   ];
-
-// export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[] =
-//   [
-//     {
-//       header: 'Deploy Hash',
-//       id: 'deployHash',
-//       accessorKey: 'deployHash',
-//       cell: ({ getValue }) => (
-//         <div>
-//           <Link
-//             data-testid="deploy-hash-link"
-//             to={{
-//               pathname: `/deploy/${getValue<string>()}`,
-//             }}>
-//             {truncateHash(getValue<string>())}
-//           </Link>
-//         </div>
-//       ),
-//       enableSorting: false,
-//     },
-//     {
-//       header: 'Block Hash',
-//       id: 'blockHash',
-//       accessorKey: 'blockHash',
-//       cell: ({ getValue }) => (
-//         <div>
-//           <Link
-//             data-testid="block-hash-link"
-//             to={{
-//               pathname: `/block/${getValue<string>()}`,
-//             }}>
-//             {truncateHash(getValue<string>())}
-//           </Link>
-//         </div>
-//       ),
-//       enableSorting: false,
-//     },
-//     {
-//       header: 'Public Key',
-//       id: 'publicKey',
-//       accessorKey: 'publicKey',
-//       cell: ({ getValue }) => (
-//         <div>
-//           <Link
-//             data-testid="public-key-link"
-//             to={{
-//               pathname: `/account/${getValue<string>()}`,
-//             }}>
-//             {truncateHash(getValue<string>())}
-//           </Link>
-//         </div>
-//       ),
-//       enableSorting: false,
-//     },
-//     {
-//       header: 'Age',
-//       accessorKey: 'timestamp',
-//       cell: ({ getValue }) => (
-//         <div data-testid="timestamp">
-//           {formatTimeAgo(new Date(getValue<number>()))}
-//         </div>
-//       ),
-//     },
-//     {
-//       header: 'Contract',
-//       accessorKey: 'contractType',
-//       cell: ({ getValue }) => (
-//         <div data-testid="contract-type">
-//           {capitalizeWords(getValue<string>())}
-//         </div>
-//       ),
-//       enableSorting: false,
-//     },
-//     {
-//       header: 'Amount',
-//       accessorKey: 'amountMotes',
-//       cell: ({ getValue }) => (
-//         <span data-testid="amount-motes">
-//           {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-//         </span>
-//       ),
-//       enableSorting: false,
-//       minSize: 200,
-//     },
-//     {
-//       header: 'Cost',
-//       accessorKey: 'costMotes',
-//       cell: ({ getValue }) => (
-//         <span data-testid="cost-motes">
-//           {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-//         </span>
-//       ),
-//       enableSorting: false,
-//       minSize: 200,
-//     },
-//   ];
