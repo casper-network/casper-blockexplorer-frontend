@@ -179,12 +179,14 @@ export const DeploysTable: React.FC = () => {
       {
         header: `${t('amount')}`,
         accessorKey: 'amountMotes',
-        cell: ({ getValue }) => (
-          <CSPRText>
-            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-            {t('cspr')}
-          </CSPRText>
-        ),
+        cell: ({ getValue }) => {
+          return (
+            <CSPRText>
+              {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
+              {t('cspr')}
+            </CSPRText>
+          );
+        },
         enableSorting: false,
         minSize: 200,
       },

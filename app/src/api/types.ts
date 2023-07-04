@@ -134,6 +134,7 @@ export namespace ApiData {
     contractType?: string;
     amountMotes: string;
     costMotes: string;
+    csprToUsdConversion: number;
   }
 
   export interface SidecarDeploy {
