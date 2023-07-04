@@ -15,9 +15,7 @@ describe(PageWrapper, () => {
 
   it('should render error content when error occurred', () => {
     const { getByTestId } = render(
-      <PageWrapper isLoading={false} error={{ message: 'error message' }}>
-        Content
-      </PageWrapper>,
+      <PageWrapper error={{ message: 'error message' }}>Content</PageWrapper>,
     );
 
     const errorContent = getByTestId('error-content');
