@@ -13,7 +13,7 @@ import { standardizeNumber, truncateHash } from 'src/utils';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import userEvent from '@testing-library/user-event';
 import { render } from '../../../test-utils';
-import { EraToggleButton } from './ValidatorTable';
+import { EraToggleButton } from './ValidatorsTable';
 
 const mockCurrentEraValidators = getMockCurrentEraValidators();
 const mockNextEraValidators = getMockNextEraValidators();

@@ -39,7 +39,7 @@ const validSortableValidatorsColumns = [
   'percentageOfNetwork',
 ];
 
-export const ValidatorTable: React.FC = () => {
+export const ValidatorsTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
   const [isCurrentEra, setIsCurrentEra] = useState(true);
 
