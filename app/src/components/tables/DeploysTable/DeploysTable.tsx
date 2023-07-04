@@ -178,13 +178,20 @@ export const DeploysTable: React.FC = () => {
       },
       {
         header: `${t('amount')}`,
-        accessorKey: 'amountMotes',
+        accessorKey: 'amount',
         cell: ({ getValue }) => {
+          const { motes, usd } = getValue<{ motes: number; usd: number }>();
+
+          const amountCspr = standardizeNumber((motes / 10 ** 9).toFixed(0));
+          const amountUsd = standardizeNumber((usd / 10 ** 9).toFixed(0));
+
           return (
-            <CSPRText>
-              {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-              {t('cspr')}
-            </CSPRText>
+            <div>
+              <CSPRText>
+                {amountCspr} {t('cspr')}
+              </CSPRText>
+              <div>{amountUsd}</div>
+            </div>
           );
         },
         enableSorting: false,
@@ -192,13 +199,22 @@ export const DeploysTable: React.FC = () => {
       },
       {
         header: `${t('cost')}`,
-        accessorKey: 'costMotes',
-        cell: ({ getValue }) => (
-          <CSPRText>
-            {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-            {t('cspr')}
-          </CSPRText>
-        ),
+        accessorKey: 'cost',
+        cell: ({ getValue }) => {
+          const { motes, usd } = getValue<{ motes: number; usd: number }>();
+
+          const costCspr = standardizeNumber((motes / 10 ** 9).toFixed(5));
+          const costUsd = standardizeNumber((usd / 10 ** 9).toFixed(5));
+
+          return (
+            <div>
+              <CSPRText>
+                {costCspr} {t('cspr')}
+              </CSPRText>
+              <div>{costUsd}</div>
+            </div>
+          );
+        },
         enableSorting: false,
         minSize: 200,
       },

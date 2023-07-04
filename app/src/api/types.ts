@@ -132,8 +132,14 @@ export namespace ApiData {
     blockHash: string;
     publicKey: string;
     contractType?: string;
-    amountMotes: string;
-    costMotes: string;
+    amount: {
+      motes: string;
+      usd: string;
+    };
+    cost: {
+      motes: string;
+      usd: string;
+    };
     csprToUsdConversion: number;
   }
 
