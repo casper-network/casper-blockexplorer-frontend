@@ -45,7 +45,7 @@ export const BlockPage: React.FC = () => {
   const pageTitle = `${t('block-details')}`;
 
   return (
-    <PageWrapper error={error} isLoading={false}>
+    <PageWrapper error={error}>
       <PageHead pageTitle={pageTitle} />
       {isMobile ? (
         <MobileBlockDetailsCard

@@ -9,7 +9,7 @@ export const Validators: React.FC = () => {
   const pageTitle = `${t('validators')}`;
 
   return (
-    <PageWrapper isLoading={false}>
+    <PageWrapper>
       <PageHead pageTitle={pageTitle} />
       <PageTableHeader>{t('validators')}</PageTableHeader>
       <ValidatorTable />

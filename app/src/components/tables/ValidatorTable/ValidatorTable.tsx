@@ -312,7 +312,7 @@ const HeaderEraToggleWrapper = styled.div`
   }
 `;
 
-const EraToggleButton = styled(Button)<{ selected: boolean }>`
+export const EraToggleButton = styled(Button)<{ selected: boolean }>`
   border-style: none;
   background: ${({ selected, theme }) =>
     selected ? theme.button : theme.background.secondary};

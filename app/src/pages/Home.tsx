@@ -49,8 +49,10 @@ export const Home: React.FC = () => {
   const { isFirstVisit } = useAppSelector(state => state.app);
 
   return (
-    <PageWrapper isLoading={false}>
-      <HomeContentContainer isFirstVisit={isFirstVisit}>
+    <PageWrapper>
+      <HomeContentContainer
+        data-cy="home-content-container"
+        isFirstVisit={isFirstVisit}>
         <BlocksInfo
           isLoadingBlocks={latestBlockLoadingStatus !== Loading.Complete}
           block={latestBlock}

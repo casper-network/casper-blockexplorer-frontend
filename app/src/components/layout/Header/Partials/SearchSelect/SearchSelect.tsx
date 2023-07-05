@@ -57,7 +57,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
               onChange={handleSelectChange}
             />
           ) : (
-            <MobileSelectContainer>
+            <MobileSelectContainer data-cy="mobile-select">
               {selectOptions.map((option, index) => {
                 const handleClick = () => {
                   onChange(option.value);

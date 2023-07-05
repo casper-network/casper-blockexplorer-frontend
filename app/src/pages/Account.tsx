@@ -51,7 +51,7 @@ export const AccountPage: React.FC = () => {
   const pageTitle = `${t('account-details')}`;
 
   return (
-    <PageWrapper error={error} isLoading={false}>
+    <PageWrapper error={error}>
       <PageHead pageTitle={pageTitle} />
       <AccountDetailsCard
         isBalanceLoading={balanceLoadingStatus !== Loading.Complete}
