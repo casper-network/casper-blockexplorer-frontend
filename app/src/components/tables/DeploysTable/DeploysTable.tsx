@@ -177,46 +177,46 @@ export const DeploysTable: React.FC = () => {
         enableSorting: false,
       },
       {
-        header: `${t('amount')}`,
+        header: () => <MoneyTextHeader>{t('amount')}</MoneyTextHeader>,
         accessorKey: 'amount',
         cell: ({ getValue }) => {
           const { motes, usd } = getValue<{ motes: number; usd: number }>();
 
-          const amountCspr = standardizeNumber((motes / 10 ** 9).toFixed(0));
-          const amountUsd = standardizeNumber((usd / 10 ** 9).toFixed(0));
+          const amountCspr = standardizeNumber((motes / 10 ** 9).toFixed(3));
+          const amountUsd = standardizeNumber((usd / 10 ** 9).toFixed(3));
 
           return (
-            <div>
+            <MoneyTextWrapper>
               <CSPRText>
                 {amountCspr} {t('cspr')}
               </CSPRText>
-              <div>{amountUsd}</div>
-            </div>
+              <UsdText>${amountUsd}</UsdText>
+            </MoneyTextWrapper>
           );
         },
         enableSorting: false,
-        minSize: 200,
+        minSize: 250,
       },
       {
-        header: `${t('cost')}`,
+        header: () => <MoneyTextHeader>{t('cost')}</MoneyTextHeader>,
         accessorKey: 'cost',
         cell: ({ getValue }) => {
           const { motes, usd } = getValue<{ motes: number; usd: number }>();
 
-          const costCspr = standardizeNumber((motes / 10 ** 9).toFixed(5));
-          const costUsd = standardizeNumber((usd / 10 ** 9).toFixed(5));
+          const costCspr = standardizeNumber((motes / 10 ** 9).toFixed(3));
+          const costUsd = standardizeNumber((usd / 10 ** 9).toFixed(3));
 
           return (
-            <div>
+            <MoneyTextWrapper>
               <CSPRText>
                 {costCspr} {t('cspr')}
               </CSPRText>
-              <div>{costUsd}</div>
-            </div>
+              <UsdText>${costUsd}</UsdText>
+            </MoneyTextWrapper>
           );
         },
         enableSorting: false,
-        minSize: 200,
+        minSize: 250,
       },
     ],
     [t],
@@ -292,7 +292,23 @@ const Age = styled.div`
 `;
 
 const CSPRText = styled.span`
+  font-size: ${pxToRem(18)};
   font-family: ${DEFAULT_SECONDARY_FONT_FAMILIES};
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const UsdText = styled.div`
+  font-size: ${pxToRem(14)};
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const MoneyTextWrapper = styled.div``;
+
+const MoneyTextHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const DeploysTableHead = styled.div`
