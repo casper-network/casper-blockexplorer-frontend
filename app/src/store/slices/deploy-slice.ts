@@ -87,8 +87,6 @@ export const fetchDeploys = createAsyncThunk(
         pageNum,
       });
 
-      console.log({ deploys });
-
       return deploys;
     } catch (err: any) {
       throw new Error('An error occurred while fetching deploys.');
