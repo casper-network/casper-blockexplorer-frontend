@@ -49,7 +49,7 @@ export const Home: React.FC = () => {
   const { isFirstVisit } = useAppSelector(state => state.app);
 
   return (
-    <PageWrapper isLoading={false}>
+    <PageWrapper>
       <HomeContentContainer
         data-cy="home-content-container"
         isFirstVisit={isFirstVisit}>

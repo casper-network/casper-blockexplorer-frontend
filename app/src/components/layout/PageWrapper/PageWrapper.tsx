@@ -10,7 +10,7 @@ export interface PageError {
 }
 
 interface PageWrapperProps {
-  readonly isLoading: boolean;
+  readonly isLoading?: boolean;
   readonly error?: PageError;
   readonly children: React.ReactNode;
 }

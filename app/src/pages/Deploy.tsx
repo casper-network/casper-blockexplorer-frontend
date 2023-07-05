@@ -41,7 +41,7 @@ export const DeployPage: React.FC = () => {
   }, [deployErrorMessage]);
 
   return (
-    <PageWrapper error={error} isLoading={false}>
+    <PageWrapper error={error}>
       <PageHead pageTitle={pageTitle} />
       <Grid gap="2.5rem">
         <DeployDetailsCard deploy={deploy} isLoading={isLoading} />
