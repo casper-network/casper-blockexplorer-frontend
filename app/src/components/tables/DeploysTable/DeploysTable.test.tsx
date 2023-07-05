@@ -4,18 +4,18 @@ import { Table } from 'src/components';
 import {
   getMockDeploysTableFooter,
   getMockDeploysTableHeader,
-  getMockProcessedSidecarDeploys,
+  getMockProcessedSidecarDeploy,
   mockDeploysTableColumns,
   mockDeploysTableOptions,
 } from 'src/mocks/mock-deploys-table';
-import { standardizeNumber, truncateHash } from 'src/utils';
+import { formatTimeAgo, standardizeNumber, truncateHash } from 'src/utils';
 import { render } from '../../../test-utils';
 
-const deploys = getMockProcessedSidecarDeploys();
+const processedSidecarDeploys = getMockProcessedSidecarDeploy();
 const mockDeploysTableHeader = getMockDeploysTableHeader();
 const mockDeploysTableFooter = getMockDeploysTableFooter();
 const totalPages = Math.ceil(
-  deploys.length / mockDeploysTableOptions.pagination.pageSize,
+  processedSidecarDeploys.length / mockDeploysTableOptions.pagination.pageSize,
 );
 
 describe('DeploysTable', () => {
@@ -24,7 +24,7 @@ describe('DeploysTable', () => {
       <Table
         header={mockDeploysTableHeader}
         columns={mockDeploysTableColumns}
-        data={deploys}
+        data={processedSidecarDeploys}
         footer={mockDeploysTableFooter}
         currentPageSize={mockDeploysTableOptions.pagination.pageSize}
         placeholderData={{}}
@@ -33,7 +33,7 @@ describe('DeploysTable', () => {
     );
   });
 
-  it.only('should render Deploys Table', () => {
+  it('should render Deploys Table', () => {
     const deploysTableHeader = screen.getByTestId('deploys-table-header');
     const deploysBaseTable = screen.getByTestId('base-table');
     const deploysTableFooter = screen.getByTestId('deploys-table-footer');
@@ -44,55 +44,65 @@ describe('DeploysTable', () => {
   });
 
   it('should render a truncated Deploy Hash', () => {
-    const deployHash = screen.getByTestId('deploy-hash-link');
-    expect(deployHash).toHaveTextContent(truncateHash(deploys[0].deployHash));
+    const deployHash = screen.getAllByTestId('deploy-hash-link');
+    expect(deployHash[0]).toHaveTextContent(
+      truncateHash(processedSidecarDeploys[0].deployHash),
+    );
   });
 
   it('should render a truncated Block Hash', () => {
-    const blockHash = screen.getByTestId('block-hash-link');
-    expect(blockHash).toHaveTextContent(truncateHash(deploys[0].blockHash));
+    const blockHash = screen.getAllByTestId('block-hash-link');
+    expect(blockHash[0]).toHaveTextContent(
+      truncateHash(processedSidecarDeploys[0].blockHash),
+    );
   });
 
   it('should render a truncated Public Key', () => {
-    const publicKey = screen.getByTestId('public-key-link');
-    expect(publicKey).toHaveTextContent(truncateHash(deploys[0].publicKey));
+    const publicKey = screen.getAllByTestId('public-key-link');
+    expect(publicKey[0]).toHaveTextContent(
+      truncateHash(processedSidecarDeploys[0].publicKey),
+    );
   });
 
   it('should render an Age', () => {
-    const timestamp = screen.getByTestId('timestamp');
+    const timestamp = screen.getAllByTestId('timestamp');
 
-    expect(timestamp).toHaveTextContent(deploys[0].timestamp.toString());
+    expect(timestamp[0]).toHaveTextContent(
+      formatTimeAgo(new Date(processedSidecarDeploys[0].timestamp)),
+    );
   });
 
   it('should render a Contract type', () => {
-    const contractType = screen.getByTestId('contract-type');
-    expect(contractType).toHaveTextContent(deploys[0].contractType);
+    const contractType = screen.getAllByTestId('contract-type');
+    expect(contractType[0]).toHaveTextContent(
+      processedSidecarDeploys[0].contractType,
+    );
   });
 
   it('should render an Amount', () => {
     const amount = screen.getAllByTestId('amount-motes');
-    expect(amount).toHaveTextContent(
+    expect(amount[0]).toHaveTextContent(
       standardizeNumber(
-        (+deploys[0].amountMotes / 10 ** 9).toFixed(0),
+        (+processedSidecarDeploys[0].amountMotes / 10 ** 9).toFixed(0),
       ).toString(),
     );
   });
 
   it('should render Cost', () => {
-    const cost = screen.getByTestId('cost-motes');
-    expect(cost).toHaveTextContent(
+    const cost = screen.getAllByTestId('cost-motes');
+    expect(cost[0]).toHaveTextContent(
       standardizeNumber(
-        (+deploys[0].costMotes / 10 ** 9).toFixed(0),
+        (+processedSidecarDeploys[0].costMotes / 10 ** 9).toFixed(0),
       ).toString(),
     );
   });
 
-  it.only('should render a loading DeploysTable', () => {
+  it('should render a loading DeploysTable', () => {
     render(
       <Table
         header={mockDeploysTableHeader}
         columns={mockDeploysTableColumns}
-        data={deploys}
+        data={processedSidecarDeploys}
         footer={mockDeploysTableFooter}
         tableBodyLoading
         currentPageSize={mockDeploysTableOptions.pagination.pageSize}
