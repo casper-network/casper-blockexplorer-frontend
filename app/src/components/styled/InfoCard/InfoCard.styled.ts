@@ -6,12 +6,11 @@ export const InfoCardSection = styled(Card)`
   padding: 0;
   width: 100%;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     padding-top: ${pxToRem(24)};
   }
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${defaultTheme.breakpoints.lg}) {
     padding-top: ${pxToRem(15)};
   }
 `;
@@ -26,8 +25,7 @@ export const InfoCardContentWrapper = styled(Card)`
   overflow-x: auto;
   margin-bottom: 2rem;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .md}) {
+  @media only screen and (min-width: ${defaultTheme.breakpoints.md}) {
     max-width: 100vw;
   }
 `;
@@ -36,8 +34,7 @@ export const HeadContentWrapper = styled.div`
   padding-top: 2rem;
   margin-bottom: 2rem;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .md}) {
+  @media only screen and (min-width: ${defaultTheme.breakpoints.md}) {
     padding: 0;
   }
 `;

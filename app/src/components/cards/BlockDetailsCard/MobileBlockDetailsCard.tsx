@@ -222,11 +222,11 @@ const PageHeading = styled.h2`
   color: ${props => props.theme.text.hash};
   font-weight: ${defaultTheme.typography.fontWeights.medium};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+  @media (min-width: ${defaultTheme.breakpoints.xs}) {
     margin: 1.5rem 0 2.5rem 0.5rem;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     margin: 0 0 0 2rem 0;
   }
 `;
