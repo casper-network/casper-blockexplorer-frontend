@@ -1,30 +1,42 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ColumnDef } from '@tanstack/react-table';
 import { NumberedPagination } from 'src/components';
 import { TableOptions } from 'src/store/types';
-import { ApiData } from '../api/types';
-import { capitalizeWords } from '../utils/string';
-import { formatTimeAgo, standardizeNumber, truncateHash } from '../utils';
-import {
-  setDeploysTableOptions,
-  updateDeploysPageNum,
-} from '../store/slices/deploy-slice';
+import { Link } from 'react-router-dom';
+import { ApiData } from 'src/api/types';
+import { capitalizeWords } from 'src/utils/string';
+import { formatTimeAgo, standardizeNumber, truncateHash } from 'src/utils';
+import { setDeploysTableOptions, updateDeploysPageNum } from 'src/store';
 
-export const getMockProcessedSidecarDeploy = () => [
+export const getMockProcessedSidecarDeploy = () => ({
+  deploys: [
+    {
+      deployHash:
+        '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
+      blockHash:
+        '92d9b84db79132a77f76216c7d81b2243fe92ef26db885ae0d64ee585e4799fa',
+      publicKey:
+        '0202ed20f3a93b5386bc41b6945722b2bd4250c48f5fa0632adf546e2f3ff6f4ddee',
+      timestamp: '2023-06-15T22:13:16.579Z',
+      contractType: 'Transfer',
+      amountMotes: '505124902204510',
+      costMotes: '100000000',
+    },
+  ],
+});
+
+export const getMockProcessedSidecarDeploysTest = () => [
   {
-    amountMotes: '4900000000',
-    blockHash:
-      '517818104857df60b3ee56ee88caca7b6f5e7bbcde8921c3746508b0a5890141',
-    contractType: 'Transfer',
-    costMotes: '100000000',
-    csprToUsdConversion: 0.03793136,
     deployHash:
-      'a742a00a85b41754c39bbf1763ac6d0c298e1137b3f18392dab9ad8319733603',
+      '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
+    blockHash:
+      '92d9b84db79132a77f76216c7d81b2243fe92ef26db885ae0d64ee585e4799fa',
     publicKey:
-      '0202b12880c261f7327457c9b4237e423d1debf8a329429c0589cc74e0c5976d0d66',
-    timestamp: '2023-07-05T18:49:16.292Z',
-    // timestamp: 0.005,
+      '0202ed20f3a93b5386bc41b6945722b2bd4250c48f5fa0632adf546e2f3ff6f4ddee',
+    timestamp: '2023-06-15T22:13:16.579Z',
+    contractType: 'Transfer',
+    amountMotes: '505124902204510',
+    costMotes: '100000000',
   },
 ];
 
@@ -48,7 +60,7 @@ const mockRowCountSelectOptions = [
 
 export const getMockDeploysTableHeader = () => (
   <div data-testid="deploys-table-header">
-    <div>1</div>
+    <div>500 total rows</div>
     <NumberedPagination
       tableOptions={mockDeploysTableOptions}
       setTableOptions={setDeploysTableOptions}
@@ -81,7 +93,6 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       header: 'Deploy Hash',
       id: 'deployHash',
       accessorKey: 'deployHash',
-      enableSorting: false,
       cell: ({ getValue }) => (
         <div>
           <Link
@@ -91,12 +102,14 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
             }}>
             {/* {truncateHash(getValue<string>())} */}
             {truncateHash(
-              'a742a00a85b41754c39bbf1763ac6d0c298e1137b3f18392dab9ad8319733603',
+              '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
             )}
           </Link>
         </div>
       ),
+      enableSorting: false,
     },
+
     {
       header: 'Block Hash',
       id: 'blockHash',
@@ -109,7 +122,7 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
               pathname: `/block/${getValue<string>()}`,
             }}>
             {truncateHash(
-              '517818104857df60b3ee56ee88caca7b6f5e7bbcde8921c3746508b0a5890141',
+              '92d9b84db79132a77f76216c7d81b2243fe92ef26db885ae0d64ee585e4799fa',
             )}
           </Link>
         </div>
@@ -128,7 +141,7 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
               pathname: `/account/${getValue<string>()}`,
             }}>
             {truncateHash(
-              '0202b12880c261f7327457c9b4237e423d1debf8a329429c0589cc74e0c5976d0d66',
+              '0202ed20f3a93b5386bc41b6945722b2bd4250c48f5fa0632adf546e2f3ff6f4ddee',
             )}
           </Link>
         </div>
@@ -140,7 +153,7 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       accessorKey: 'timestamp',
       cell: ({ getValue }) => (
         <div data-testid="timestamp">
-          {formatTimeAgo(new Date('2023-07-05T18:49:16.292Z'))}
+          {formatTimeAgo(new Date('2023-06-15T22:13:16.579Z'))}
         </div>
       ),
     },
@@ -157,7 +170,7 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       accessorKey: 'amountMotes',
       cell: ({ getValue }) => (
         <span data-testid="amount-motes">
-          {standardizeNumber((4900000000 / 10 ** 9).toFixed(0))}{' '}
+          {standardizeNumber((505124902204510 / 10 ** 9).toFixed(0))}{' '}
         </span>
       ),
       enableSorting: false,
