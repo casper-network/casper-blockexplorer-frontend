@@ -9,6 +9,11 @@ import {
   fetchCurrentEraValidatorStatus,
   getCurrentEraValidatorStatus,
   getPeersTableOptions,
+  getLatestBlockLoadingStatus,
+  Loading,
+  getCurrentEraValidatorStatusStatus,
+  getTotalPeers,
+  getPeerLoadingStatus,
 } from 'src/store';
 import { defaultTheme, pxToRem } from 'casper-ui-kit';
 import {
@@ -29,6 +34,13 @@ export const Home: React.FC = () => {
   }, [dispatch, peersTableOptions]);
 
   const latestBlock = useAppSelector(getLatestBlock);
+  const latestBlockLoadingStatus = useAppSelector(getLatestBlockLoadingStatus);
+
+  const peersLoadingStatus = useAppSelector(getPeerLoadingStatus);
+  const validatorsLoadingStatus = useAppSelector(
+    getCurrentEraValidatorStatusStatus,
+  );
+  const currentTotalPeers = useAppSelector(getTotalPeers);
 
   const currentEraValidatorStatus = useAppSelector(
     getCurrentEraValidatorStatus,
@@ -37,11 +49,19 @@ export const Home: React.FC = () => {
   const { isFirstVisit } = useAppSelector(state => state.app);
 
   return (
-    <PageWrapper isLoading={false}>
-      <HomeContentContainer isFirstVisit={isFirstVisit}>
-        <BlocksInfo block={latestBlock} />
+    <PageWrapper>
+      <HomeContentContainer
+        data-cy="home-content-container"
+        isFirstVisit={isFirstVisit}>
+        <BlocksInfo
+          isLoadingBlocks={latestBlockLoadingStatus !== Loading.Complete}
+          block={latestBlock}
+        />
         <DeploysInfo />
         <PeersValidatorsInfo
+          currentTotalPeers={currentTotalPeers}
+          isLoadingValidators={validatorsLoadingStatus !== Loading.Complete}
+          isLoadingPeers={peersLoadingStatus !== Loading.Complete}
           currentEraValidatorStatus={currentEraValidatorStatus}
         />
       </HomeContentContainer>
@@ -54,7 +74,7 @@ const HomeContentContainer = styled.div<{ isFirstVisit: boolean }>`
   flex-direction: column;
   margin: 0 auto;
   max-width: 17.2rem;
-  padding-top: 2rem;
+  padding-top: 2.35rem;
 
   @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
     min-width: 39rem;

@@ -1,29 +1,19 @@
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { defaultTheme } from 'casper-ui-kit';
 import { useTranslation } from 'react-i18next';
-import {
-  fetchNetworkStatus,
-  getNetworkStatus,
-  useAppDispatch,
-  useAppSelector,
-} from 'src/store';
-import { loadConfig } from 'src/utils';
+import { ApiData } from 'src/api/types';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  readonly title?: string;
+  readonly networkStatus: ApiData.Status | null;
+}
+
+export const Footer: React.FC<FooterProps> = ({ title, networkStatus }) => {
   const { t } = useTranslation();
-  const { title } = loadConfig();
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchNetworkStatus());
-  }, [dispatch]);
-
-  const networkStatus = useAppSelector(getNetworkStatus);
 
   return (
-    <FooterWrapper>
+    <FooterWrapper data-cy="footer">
       <p>
         {title} {t('node-version')} {networkStatus?.build_version.slice(0, 5)}
       </p>

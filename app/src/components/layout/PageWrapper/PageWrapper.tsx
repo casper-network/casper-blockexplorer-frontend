@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { defaultTheme, pxToRem, Loader } from 'casper-ui-kit';
-import { GradientHeading } from '../../styled';
+import { Heading } from 'src/components/base';
 
 export interface PageError {
   message: string;
 }
 
 interface PageWrapperProps {
-  readonly isLoading: boolean;
+  readonly isLoading?: boolean;
   readonly error?: PageError;
   readonly children: React.ReactNode;
 }
@@ -38,13 +38,13 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   if (error) {
     return (
       <BaseContentWrapper>
-        <GradientHeading type="h2">{t('whoops')}</GradientHeading>
+        <ErrorPageHeading type="h2">{t('whoops')}</ErrorPageHeading>
         <ErrorMessage data-testid="error-content" data-cy="error-content">
           {error.message}
         </ErrorMessage>
-        <p>
-          {t('go-back-to')} <Link to="/">{t('home')}</Link>
-        </p>
+        <LinkWrapper>
+          {t('return-to')} <Link to="/">{t('home-page')}</Link>
+        </LinkWrapper>
       </BaseContentWrapper>
     );
   }
@@ -81,6 +81,22 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const ErrorPageHeading = styled(Heading)`
+  margin-top: 1.5rem;
+  font-weight: ${defaultTheme.typography.fontWeights.light};
+  color: ${props => props.theme.text.primary};
+  line-height: 1;
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+    margin: 0;
+  }
+`;
+
 const ErrorMessage = styled.p`
   overflow-wrap: break-word;
+  color: ${props => props.theme.text.primary};
+`;
+
+const LinkWrapper = styled.p`
+  color: ${props => props.theme.text.primary};
 `;

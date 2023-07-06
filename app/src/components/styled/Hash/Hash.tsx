@@ -13,10 +13,10 @@ export const Hash: React.FC<HashProps> = ({ hash, alwaysTruncate }) => {
   const { isMobile } = useAppWidth();
 
   if (alwaysTruncate || isMobile) {
-    return <StyledHash data-cy="hash">{truncateHash(hash)}</StyledHash>;
+    return <StyledHash data-cy="hash-heading">{truncateHash(hash)}</StyledHash>;
   }
 
-  return <StyledHash data-cy="hash">{hash}</StyledHash>;
+  return <StyledHash data-cy="hash-heading">{hash}</StyledHash>;
 };
 
 export const StyledHash = styled.span`

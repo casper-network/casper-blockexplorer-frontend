@@ -40,10 +40,10 @@
   "expand": "Expand",
   "fee-percentage": "Fee",
   "first": "First",
-  "go-back-to": "Go back to ",
   "hash": "hash",
   "height": "height",
   "home": "Home",
+  "home-page": "home",
   "hide-raw-data": "Hide Raw Data",
   "is-alive": "Status",
   "last": "Last",
@@ -64,6 +64,7 @@
   "public-key": "Public Key",
   "rank": "Rank",
   "raw-data": "Raw Data",
+  "return-to": "Return to",
   "rows": "{{count}} rows",
   "search": "Search",
   "self-percentage": "Self %",
@@ -91,6 +92,6 @@
   "validators-currently-online": "Validators currently online",
   "view-all": "View all",
   "view-blocks": "View Blocks",
-  "whoops": "Whoops! Something went wrong!",
+  "whoops": "Whoops! Something went wrong.",
   "weight": "Weight"
 }

@@ -3,22 +3,19 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
+
 import {
-  getAccountLoadingStatus,
-  getBalanceLoadingStatus,
-  Loading,
-  useAppSelector,
-} from 'src/store';
-import { defaultTheme, pxToRem, Card } from 'casper-ui-kit';
+  defaultTheme,
+  pxToRem,
+  Card,
+  Heading,
+  HeadingType,
+  HeadingProps,
+} from 'casper-ui-kit';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import { AVATAR_URL } from '../../../constants';
 
 import { Account } from '../../../api';
-import {
-  HeadContentWrapper,
-  Heading,
-  InfoCardContentWrapper,
-} from '../../base';
 import {
   Hash,
   AvatarIcon,
@@ -26,32 +23,34 @@ import {
   DetailDataLabel,
   DetailDataValue,
   DetailDataList,
+  HeadContentWrapper,
+  InfoCardContentWrapper,
 } from '../../styled';
 
 import { Coin, RawData, withSkeletonLoading } from '../../utility';
 
 export interface AccountDetailsCardProps {
-  account: Account | null;
-  balance: string | null;
+  readonly account: Account | null;
+  readonly balance: string | null;
+  readonly isAccountLoading: boolean;
+  readonly isBalanceLoading: boolean;
 }
 
 export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   account,
   balance,
+  isAccountLoading,
+  isBalanceLoading,
 }) => {
   const [isTruncated, setIsTruncated] = useState<boolean>(true);
   const { t } = useTranslation();
 
-  const accountLoadingStatus = useAppSelector(getAccountLoadingStatus);
-  const balanceLoadingStatus = useAppSelector(getBalanceLoadingStatus);
-
-  const isAccountLoading = accountLoadingStatus !== Loading.Complete;
-  const isBalanceLoading = balanceLoadingStatus !== Loading.Complete;
-
   return (
     <div data-testid="account-details-card">
       <HeadContentContainer isTruncated={isTruncated}>
-        <AccountHeading type="h1">{t('account-details')}</AccountHeading>
+        <AccountHeading type={HeadingType.H1} dataCy="h1-account-details">
+          {t('account-details')}
+        </AccountHeading>
         <AvatarHashContainer>
           {withSkeletonLoading(
             <AccountDetailsWrapper>
@@ -62,10 +61,7 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
                 data-cy="avatar-icon"
               />
               <HashExpandWrapper>
-                <HashHeading
-                  type="h2"
-                  isTruncated={isTruncated}
-                  data-cy="hash-heading">
+                <HashHeading type={HeadingType.H2} isTruncated={isTruncated}>
                   <Hash
                     hash={account?.trimmedAccountHash ?? hashPlaceholder}
                     alwaysTruncate={isTruncated}
@@ -168,11 +164,11 @@ export const AccountDetailsCard: React.FC<AccountDetailsCardProps> = ({
   );
 };
 
-const AccountHeading = styled(Heading)`
+const AccountHeading = styled(Heading)<HeadingProps>`
   font-size: 1.25rem;
   font-weight: ${defaultTheme.typography.fontWeights.normal};
-  margin-bottom: 2rem;
   color: ${props => props.theme.text.primary};
+  margin-bottom: 2rem;
 `;
 
 const AccountDetailsWrapper = styled.div`
@@ -204,7 +200,7 @@ const HashHeading = styled(Heading)<{
   isTruncated: boolean;
 }>`
   font-size: clamp(2.1rem, 6vw, 3.75rem);
-  font-weight: ${defaultTheme.typography.fontWeights.medium};
+  font-weight: ${defaultTheme.typography.fontWeights.bold};
   display: inline;
   margin: 0;
   min-width: ${pxToRem(360)};
