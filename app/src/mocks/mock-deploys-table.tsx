@@ -25,21 +25,6 @@ export const getMockProcessedSidecarDeploy = () => ({
   ],
 });
 
-export const getMockProcessedSidecarDeploysTest = () => [
-  {
-    deployHash:
-      '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
-    blockHash:
-      '92d9b84db79132a77f76216c7d81b2243fe92ef26db885ae0d64ee585e4799fa',
-    publicKey:
-      '0202ed20f3a93b5386bc41b6945722b2bd4250c48f5fa0632adf546e2f3ff6f4ddee',
-    timestamp: '2023-06-15T22:13:16.579Z',
-    contractType: 'Transfer',
-    amountMotes: '505124902204510',
-    costMotes: '100000000',
-  },
-];
-
 export const mockDeploysTableOptions: TableOptions = {
   pagination: {
     pageSize: 10,
@@ -100,10 +85,10 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
             to={{
               pathname: `/deploy/${getValue<string>()}`,
             }}>
-            {/* {truncateHash(getValue<string>())} */}
-            {truncateHash(
+            {truncateHash(getValue<string>())}
+            {/* {truncateHash(
               '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
-            )}
+            )} */}
           </Link>
         </div>
       ),
