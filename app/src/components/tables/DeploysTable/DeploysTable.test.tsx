@@ -78,7 +78,6 @@ describe('DeploysTable', () => {
 
   it('should render an Age', () => {
     const timestamp = screen.getAllByTestId('timestamp');
-
     expect(timestamp[0]).toHaveTextContent(
       formatTimeAgo(new Date(processedSidecarDeploys.deploys[0].timestamp)),
     );
