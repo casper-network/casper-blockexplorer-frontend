@@ -37,7 +37,7 @@ export const LogoContainer = styled.div`
     text-decoration-line: none;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
   }
 `;
 
@@ -51,7 +51,7 @@ export const LogoLink = styled(Link)`
 
 export const RedBlackCasperLogoWrapper = styled.div`
   display: none;
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: block;
     min-width: ${pxToRem(124)};
   }
@@ -60,7 +60,7 @@ export const RedBlackCasperLogoWrapper = styled.div`
 export const RedBlackCasperLogo = styled(RedBlackLogo)`
   display: none;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: block;
     width: 100%;
   }
@@ -76,7 +76,7 @@ export const BlueCasperLogo = styled(Logo)`
   width: 100%;
   margin: 0 auto;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: none;
   }
 `;
@@ -85,7 +85,7 @@ export const ExplorerLogoWrapper = styled.div`
   padding-top: ${pxToRem(1.75)};
   min-width: ${pxToRem(112)};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     padding-top: 0;
     width: ${pxToRem(108)};
   }

@@ -180,7 +180,7 @@ const HeadContentContainer = styled(HeadContentWrapper)<{
 }>`
   margin-bottom: 0.5rem;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     margin-bottom: ${({ isTruncated }) => (isTruncated ? '0.5rem' : '5rem')};
   }
 `;
@@ -209,7 +209,7 @@ const HashHeading = styled(Heading)<{
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     font-size: ${({ isTruncated }) =>
       isTruncated ? `${pxToRem(60)} ` : '3.3rem'};
     width: ${({ isTruncated }) => (isTruncated ? '10%' : '50vw')};
