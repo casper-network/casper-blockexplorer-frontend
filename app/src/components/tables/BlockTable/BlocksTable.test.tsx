@@ -69,20 +69,7 @@ describe('BlocksTable', () => {
         isLastPage={totalPages === mockBlocksTableOptions.pagination.pageNum}
         data={blocks}
         footer={mockBlocksTableFooter}
-        placeholderData={{
-          header: {
-            height: 0,
-            era_id: 0,
-            timestamp: '2023-06-05T17:06:44.864Z',
-          },
-          body: {
-            proposer:
-              '017d96b9a63abcb61c870a4f55187a0a7ac24096bdb5fc585c12a686a4d892009e',
-            deploy_hashes: [],
-            transfer_hashes: [],
-          },
-          hash: '52f7c16323868f73343335f26a484aed0067a3e769dc9187dbae6a305e2b59f3',
-        }}
+        placeholderData={placeholderData}
       />,
     );
     const blockHeight = screen.getAllByTestId('block-height');
