@@ -85,10 +85,10 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
             to={{
               pathname: `/deploy/${getValue<string>()}`,
             }}>
-            {truncateHash(getValue<string>())}
-            {/* {truncateHash(
+            {/* {truncateHash(getValue<string>())} */}
+            {truncateHash(
               '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
-            )} */}
+            )}
           </Link>
         </div>
       ),
