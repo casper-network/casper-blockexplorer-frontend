@@ -1,12 +1,12 @@
 import React from 'react';
-import { ColumnDef } from '@tanstack/react-table';
 import { NumberedPagination } from 'src/components';
 import { TableOptions } from 'src/store/types';
-import { Link } from 'react-router-dom';
-import { ApiData } from 'src/api/types';
-import { capitalizeWords } from 'src/utils/string';
-import { formatTimeAgo, standardizeNumber, truncateHash } from 'src/utils';
 import { setDeploysTableOptions, updateDeploysPageNum } from 'src/store';
+import { ColumnDef } from '@tanstack/react-table';
+import { ApiData } from 'src/api/types';
+import { Link } from 'react-router-dom';
+import { truncateHash, formatTimeAgo, standardizeNumber } from 'src/utils';
+import { capitalizeWords } from 'src/utils/string';
 
 export const getMockProcessedSidecarDeploy = () => ({
   deploys: [

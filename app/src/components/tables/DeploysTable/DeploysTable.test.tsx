@@ -59,7 +59,7 @@ describe('DeploysTable', () => {
 
   it('should render a truncated Deploy Hash', async () => {
     const deployHash = screen.getAllByTestId('deploy-hash-link');
-    expect(deployHash).toHaveTextContent(
+    expect(deployHash[0]).toHaveTextContent(
       truncateHash(processedSidecarDeploys.deploys[0].deployHash),
     );
   });
