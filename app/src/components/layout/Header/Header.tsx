@@ -15,7 +15,7 @@ import {
 } from './Header.styled';
 import { SearchForm } from './Partials';
 
-const navItems = [
+export const navItems = [
   {
     title: 'home',
     path: '/',
