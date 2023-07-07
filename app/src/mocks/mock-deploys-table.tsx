@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import { truncateHash, formatTimeAgo, standardizeNumber } from 'src/utils';
 import { capitalizeWords } from 'src/utils/string';
 
-export const getMockProcessedSidecarDeploy = () => ({
-  deploys: [
+export const getMockProcessedSidecarDeploy: () => ApiData.ProcessedSidecarDeploy[] =
+  () => [
     {
       deployHash:
         '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
@@ -22,8 +22,7 @@ export const getMockProcessedSidecarDeploy = () => ({
       amountMotes: '505124902204510',
       costMotes: '100000000',
     },
-  ],
-});
+  ];
 
 export const mockDeploysTableOptions: TableOptions = {
   pagination: {
@@ -78,23 +77,25 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       header: 'Deploy Hash',
       id: 'deployHash',
       accessorKey: 'deployHash',
-      cell: ({ getValue }) => (
-        <div>
-          <Link
-            data-testid="deploy-hash-link"
-            to={{
-              pathname: `/deploy/${getValue<string>()}`,
-            }}>
-            {/* {truncateHash(getValue<string>())} */}
-            {truncateHash(
-              '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
-            )}
-          </Link>
-        </div>
-      ),
+      cell: ({ getValue }) => {
+        console.log(getValue<string>());
+        return (
+          <div>
+            <Link
+              data-testid="deploy-hash-link"
+              to={{
+                pathname: `/deploy/${getValue<string>()}`,
+              }}>
+              {/* {truncateHash(getValue<string>())} */}
+              {truncateHash(
+                '4b0fddb3ed65ddf076892dddbcb98694921e74ea90d33137121a58985859ddcf',
+              )}
+            </Link>
+          </div>
+        );
+      },
       enableSorting: false,
     },
-
     {
       header: 'Block Hash',
       id: 'blockHash',
