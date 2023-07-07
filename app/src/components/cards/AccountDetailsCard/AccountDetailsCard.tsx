@@ -13,9 +13,7 @@ import {
   HeadingProps,
 } from 'casper-ui-kit';
 import { StyledCopyToClipboard } from 'src/components/utility';
-// import { Heading } from 'src/components/base';
 import { AVATAR_URL } from '../../../constants';
-
 import { Account } from '../../../api';
 import {
   Hash,
