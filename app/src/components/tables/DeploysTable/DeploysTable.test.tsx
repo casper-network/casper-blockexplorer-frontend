@@ -17,7 +17,7 @@ const mockDeploysTableFooter = getMockDeploysTableFooter();
 const totalPages = Math.ceil(
   processedSidecarDeploys.length / mockDeploysTableOptions.pagination.pageSize,
 );
-const totalColumns = Object.keys(processedSidecarDeploys[0]).length;
+const totalColumns = 7;
 
 describe('DeploysTable', () => {
   beforeEach(() => {
@@ -133,7 +133,7 @@ describe('DeploysTable', () => {
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
     expect(skeletonLoader).toHaveLength(
-      processedSidecarDeploys.length * (totalColumns - 1),
+      processedSidecarDeploys.length * totalColumns,
     );
   });
 });
