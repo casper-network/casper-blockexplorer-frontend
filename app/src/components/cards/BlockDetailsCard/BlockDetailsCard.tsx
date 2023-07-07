@@ -247,7 +247,7 @@ export const BlockDetailsCard: React.FC<BlockDetailsCardProps> = ({
   );
 };
 
-const { breakpoints } = defaultTheme.typography;
+const { breakpoints } = defaultTheme;
 
 const HashWrapper = styled.div`
   display: flex;

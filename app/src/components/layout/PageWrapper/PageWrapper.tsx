@@ -10,7 +10,7 @@ export interface PageError {
 }
 
 interface PageWrapperProps {
-  readonly isLoading: boolean;
+  readonly isLoading?: boolean;
   readonly error?: PageError;
   readonly children: React.ReactNode;
 }
@@ -66,7 +66,7 @@ const BaseContentContainer = styled.main`
   background-color: ${props => props.theme.background.primary};
   max-width: ${pxToRem(1800)};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     padding-top: ${pxToRem(30)};
   }
 `;
@@ -76,7 +76,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   padding: 0 ${pxToRem(24)};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     padding: 0 ${pxToRem(32)};
   }
 `;
@@ -87,7 +87,7 @@ const ErrorPageHeading = styled(Heading)`
   color: ${props => props.theme.text.primary};
   line-height: 1;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     margin: 0;
   }
 `;

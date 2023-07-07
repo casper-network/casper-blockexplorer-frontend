@@ -42,11 +42,11 @@ const DeploysInfoDisplay = styled.section`
   box-shadow: 0px 2px 7px ${props => props.theme.boxShadow};
   padding-bottom: 1.5rem;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     min-width: 44.5%;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     min-width: 40%;
   }
 `;

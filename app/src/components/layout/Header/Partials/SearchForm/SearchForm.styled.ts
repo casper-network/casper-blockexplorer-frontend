@@ -9,14 +9,14 @@ export const FormContainer = styled.div<{ isFirstVisit: boolean }>`
   position: relative;
   padding: 0;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     margin: 0 2.25rem;
     width: auto;
     min-width: ${pxToRem(625)};
     align-items: center;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     justify-content: start;
     width: auto;
     min-width: ${pxToRem(300)};
@@ -29,7 +29,7 @@ export const Form = styled.form`
 `;
 
 export const FormComponentsContainer = styled.div`
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     display: flex;
     width: 100%;
   }
@@ -42,7 +42,7 @@ export const InputAndButtonContainer = styled.div`
   margin: 0 auto;
   width: 91%;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     padding-top: 0;
     width: 100%;
   }
@@ -67,7 +67,7 @@ export const SearchInput = styled.input`
     color: ${props => props.theme.text.muted};
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     height: ${pxToRem(72)};
   }
 
@@ -82,7 +82,7 @@ export const SearchInput = styled.input`
     outline-offset: 2px;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     border-radius: 0;
   }
 `;
@@ -99,7 +99,7 @@ export const SubmitButton = styled.button`
   right: 0.0625rem;
   border-style: none;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     height: ${pxToRem(72)};
   }
 

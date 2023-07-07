@@ -117,7 +117,7 @@ export const getValidTableOptionsFromUrlSearchParams = ({
 }: {
   pageNumParam: string;
   pageSizeParam: string;
-  orderParam: 'desc' | 'asc';
+  orderParam: 'asc' | 'desc';
   sortByParam: string;
   defaultTableOptions: TableOptions;
   validSortByOptions: string[];

@@ -142,7 +142,7 @@ const HashWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     margin: 0.1rem 0 2rem 0;
   }
 `;
@@ -159,15 +159,15 @@ const HashHeading = styled(Heading)<{
   color: ${props => props.theme.text.hash};
   line-height: ${({ isTruncated }) => (isTruncated ? '4.1rem' : '3.5rem')};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+  @media (min-width: ${defaultTheme.breakpoints.xs}) {
     margin: 1.5rem 0 2.5rem 0.5rem;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     margin: 0;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     overflow-wrap: break-word;
   }
 `;

@@ -54,7 +54,7 @@ const StyledHashButton = styled(Button)<{
     isAvatar ? `${pxToRem(65)}` : `${pxToRem(-5)}`};
   margin-bottom: ${({ isAvatar }) => (isAvatar ? '2rem' : '0')};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: block;
   }
 

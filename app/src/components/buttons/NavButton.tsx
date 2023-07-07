@@ -19,7 +19,7 @@ export const StyledButton = styled(Button)`
   z-index: 20;
   padding: 0;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: none;
   }
 `;

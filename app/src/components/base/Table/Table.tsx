@@ -80,7 +80,7 @@ export function Table<T extends unknown>({
   const { getHeaderGroups, getRowModel } = useReactTable(options);
 
   return (
-    <TableWrapper data-testid="base-table">
+    <TableWrapper data-cy="base-table" data-testid="base-table">
       <Header>{header}</Header>
       <StyledTable>
         <TableHead>

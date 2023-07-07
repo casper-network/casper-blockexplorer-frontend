@@ -127,7 +127,7 @@ const CodeBackground = styled.div`
     word-break: break-all;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+  @media (min-width: ${defaultTheme.breakpoints.xs}) {
     padding: 1.5rem;
   }
 `;

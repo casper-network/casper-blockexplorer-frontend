@@ -9,7 +9,7 @@ export const Peers: React.FC = () => {
   const pageTitle = `${t('peers')}`;
 
   return (
-    <PageWrapper isLoading={false}>
+    <PageWrapper>
       <PageHead pageTitle={pageTitle} />
       <PageTableHeader>{t('connected-peers')}</PageTableHeader>
       <PeersTable />

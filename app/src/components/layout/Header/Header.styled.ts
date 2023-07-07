@@ -16,11 +16,11 @@ export const HeaderComponentsContainer = styled.div<{
   margin: 0 0.5rem;
   padding: 0;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+  @media (min-width: ${defaultTheme.breakpoints.xs}) {
     margin: 0 1.5rem;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     width: auto;
     margin: 0 2.25rem;
     padding: 0;
@@ -32,7 +32,7 @@ export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
   justify-content: center;
   padding: 0;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     padding-top: 2.5rem;
     justify-content: start;
     width: 64.5%;
@@ -41,7 +41,7 @@ export const HeroContainer = styled.div<{ isFirstVisit: boolean }>`
     margin: 0 auto;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     width: 58%;
   }
 `;
@@ -53,7 +53,7 @@ export const HeroHeading = styled(Heading)`
   padding-right: 1rem;
   max-width: 18rem;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     font-size: 3.2rem;
     line-height: 1;
     padding-right: 0rem;
@@ -68,7 +68,7 @@ export const PageTableHeader = styled.h1`
   margin: 1.5rem 0 2.5rem 0;
   color: ${props => props.theme.text.primary};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.md}) {
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
     margin: 0 0 2.5rem 0;
   }
 `;
