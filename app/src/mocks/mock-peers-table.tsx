@@ -15,7 +15,7 @@ export const getMockPeers = () => ({
 
 export const mockPeersTableOptions: TableOptions = {
   pagination: {
-    pageSize: 10,
+    pageSize: 1,
     pageNum: 1,
   },
   sorting: {
@@ -33,7 +33,7 @@ const mockRowCountSelectOptions = [
 
 export const getMockPeersTableHeader = () => (
   <div data-testid="peers-table-header">
-    <div data-testid="total-peers">233</div>
+    <div data-testid="total-peers">233 total rows</div>
     <NumberedPagination
       tableOptions={mockPeersTableOptions}
       setTableOptions={setPeerTableOptions}
@@ -65,11 +65,17 @@ export const mockPeersTableColumns: ColumnDef<ApiData.Peer>[] = [
     accessorKey: 'nodeId',
     enableSorting: false,
     size: 250,
+    cell: ({ getValue }) => (
+      <div data-testid="node-id">{getValue<string>()}</div>
+    ),
   },
   {
     header: 'Address',
     accessorKey: 'address',
     enableSorting: false,
     size: 250,
+    cell: ({ getValue }) => (
+      <div data-testid="address">{getValue<string>()}</div>
+    ),
   },
 ];

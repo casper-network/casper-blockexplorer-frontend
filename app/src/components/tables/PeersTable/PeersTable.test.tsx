@@ -14,7 +14,7 @@ const mockPeers = getMockPeers();
 const mockPeersTableHeader = getMockPeersTableHeader();
 const mockPeersTableFooter = getMockPeersTableFooter();
 const totalPages = Math.ceil(
-  mockPeers.totalPeers / mockPeersTableOptions.pagination.pageSize,
+  mockPeers.paginatedResult.length / mockPeersTableOptions.pagination.pageSize,
 );
 
 describe('PeersTable', () => {
@@ -27,7 +27,8 @@ describe('PeersTable', () => {
         footer={mockPeersTableFooter}
         currentPageSize={mockPeersTableOptions.pagination.pageSize}
         placeholderData={{}}
-        isLastPage={totalPages === mockPeersTableOptions.pagination.pageSize}
+        // isLastPage={totalPages === mockPeersTableOptions.pagination.pageSize}
+        isLastPage
       />,
     ),
   );
@@ -47,13 +48,15 @@ describe('PeersTable', () => {
     expect(totalPeers).toHaveTextContent(mockPeers.totalPeers.toString());
   });
 
-  //   it('should render a truncated Public Key', () => {
+  it('should render a Node Id', () => {
+    const nodeId = screen.getAllByTestId('node-id');
+    expect(nodeId[0]).toHaveTextContent(mockPeers.paginatedResult[0].nodeId);
+  });
 
-  //   });
-
-  //   it('should render a Fee', () => {
-
-  //   });
+  it('should render an Address', () => {
+    const address = screen.getAllByTestId('address');
+    expect(address[0]).toHaveTextContent(mockPeers.paginatedResult[0].address);
+  });
 
   it('should render a loading PeersTable', () => {
     render(
@@ -69,6 +72,6 @@ describe('PeersTable', () => {
       />,
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(20);
+    expect(skeletonLoader).toHaveLength(2);
   });
 });
