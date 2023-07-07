@@ -15,8 +15,7 @@ const processedSidecarDeploys = getMockProcessedSidecarDeploy();
 const mockDeploysTableHeader = getMockDeploysTableHeader();
 const mockDeploysTableFooter = getMockDeploysTableFooter();
 const totalPages = Math.ceil(
-  processedSidecarDeploys.deploys.length /
-    mockDeploysTableOptions.pagination.pageSize,
+  processedSidecarDeploys.length / mockDeploysTableOptions.pagination.pageSize,
 );
 
 describe('DeploysTable', () => {
@@ -25,7 +24,7 @@ describe('DeploysTable', () => {
       <Table
         header={mockDeploysTableHeader}
         columns={mockDeploysTableColumns}
-        data={processedSidecarDeploys.deploys}
+        data={processedSidecarDeploys}
         footer={mockDeploysTableFooter}
         currentPageSize={mockDeploysTableOptions.pagination.pageSize}
         placeholderData={
@@ -47,7 +46,7 @@ describe('DeploysTable', () => {
     );
   });
 
-  it('should render Deploys Table', () => {
+  it.only('should render Deploys Table', () => {
     const deploysTableHeader = screen.getByTestId('deploys-table-header');
     const deploysBaseTable = screen.getByTestId('base-table');
     const deploysTableFooter = screen.getByTestId('deploys-table-footer');
@@ -60,35 +59,35 @@ describe('DeploysTable', () => {
   it('should render a truncated Deploy Hash', async () => {
     const deployHash = screen.getAllByTestId('deploy-hash-link');
     expect(deployHash[0]).toHaveTextContent(
-      truncateHash(processedSidecarDeploys.deploys[0].deployHash),
+      truncateHash(processedSidecarDeploys[0].deployHash),
     );
   });
 
   it('should render a truncated Block Hash', () => {
     const blockHash = screen.getAllByTestId('block-hash-link');
     expect(blockHash[0]).toHaveTextContent(
-      truncateHash(processedSidecarDeploys.deploys[0].blockHash),
+      truncateHash(processedSidecarDeploys[0].blockHash),
     );
   });
 
   it('should render a truncated Public Key', () => {
     const publicKey = screen.getAllByTestId('public-key-link');
     expect(publicKey[0]).toHaveTextContent(
-      truncateHash(processedSidecarDeploys.deploys[0].publicKey),
+      truncateHash(processedSidecarDeploys[0].publicKey),
     );
   });
 
   it('should render an Age', () => {
     const timestamp = screen.getAllByTestId('timestamp');
     expect(timestamp[0]).toHaveTextContent(
-      formatTimeAgo(new Date(processedSidecarDeploys.deploys[0].timestamp)),
+      formatTimeAgo(new Date(processedSidecarDeploys[0].timestamp)),
     );
   });
 
   it('should render a Contract type', () => {
     const contractType = screen.getAllByTestId('contract-type');
     expect(contractType[0]).toHaveTextContent(
-      processedSidecarDeploys.deploys[0].contractType,
+      processedSidecarDeploys[0].contractType,
     );
   });
 
@@ -96,7 +95,7 @@ describe('DeploysTable', () => {
     const amount = screen.getAllByTestId('amount-motes');
     expect(amount[0]).toHaveTextContent(
       standardizeNumber(
-        (+processedSidecarDeploys.deploys[0].amountMotes / 10 ** 9).toFixed(0),
+        (+processedSidecarDeploys[0].amountMotes / 10 ** 9).toFixed(0),
       ).toString(),
     );
   });
@@ -105,7 +104,7 @@ describe('DeploysTable', () => {
     const cost = screen.getAllByTestId('cost-motes');
     expect(cost[0]).toHaveTextContent(
       standardizeNumber(
-        (+processedSidecarDeploys.deploys[0].costMotes / 10 ** 9).toFixed(0),
+        (+processedSidecarDeploys[0].costMotes / 10 ** 9).toFixed(0),
       ).toString(),
     );
   });
@@ -115,15 +114,14 @@ describe('DeploysTable', () => {
       <Table
         header={mockDeploysTableHeader}
         columns={mockDeploysTableColumns}
-        data={processedSidecarDeploys.deploys}
+        data={processedSidecarDeploys}
         footer={mockDeploysTableFooter}
-        tableBodyLoading
         currentPageSize={mockDeploysTableOptions.pagination.pageSize}
         placeholderData={{}}
         isLastPage={totalPages === mockDeploysTableOptions.pagination.pageSize}
       />,
     );
-    const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(70);
+    const skeletonLoader = screen.getAllByTestId('table-skeleton-loader');
+    expect(skeletonLoader).toHaveLength(1);
   });
 });

@@ -61,7 +61,7 @@ export function Table<T extends unknown>({
     return tableBodyLoading
       ? columns.map(column => ({
           ...column,
-          cell: () => <Skeleton containerTestId="skeleton-loader" />,
+          cell: () => <Skeleton containerTestId="table-skeleton-loader" />,
         }))
       : columns;
   }, [tableBodyLoading, columns]);
