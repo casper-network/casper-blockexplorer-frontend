@@ -6,7 +6,6 @@ import { HashButton } from 'src/components/buttons';
 import { hashPlaceholder } from 'src/utils';
 import { defaultTheme, Card } from 'casper-ui-kit';
 import { StyledCopyToClipboard } from 'src/components/utility';
-import { InfoCardContentWrapper } from '../../base/InfoCard/InfoCard.styled';
 import { Heading } from '../../base';
 import { Deploy } from '../../../api';
 import {

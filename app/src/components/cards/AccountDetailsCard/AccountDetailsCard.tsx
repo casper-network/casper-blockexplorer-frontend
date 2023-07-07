@@ -27,7 +27,6 @@ import {
   HeadContentWrapper,
   InfoCardContentWrapper,
 } from '../../styled';
-
 import { Coin, RawData, withSkeletonLoading } from '../../utility';
 
 export interface AccountDetailsCardProps {

@@ -83,20 +83,34 @@ describe('DeploysTable', () => {
     );
   });
 
-  it('should render an Amount', () => {
-    const amount = screen.getByTestId('amount-motes');
-    expect(amount).toHaveTextContent(
+  it('should render an Amount in motes and usd', () => {
+    const amountMotes = screen.getByTestId('amount-motes');
+    const amountUsd = screen.getByTestId('amount-usd');
+
+    expect(amountMotes).toHaveTextContent(
       standardizeNumber(
-        (+processedSidecarDeploys[0].amountMotes / 10 ** 9).toFixed(0),
+        (+processedSidecarDeploys[0].amount.motes / 10 ** 9).toFixed(3),
+      ).toString(),
+    );
+    expect(amountUsd).toHaveTextContent(
+      standardizeNumber(
+        (+processedSidecarDeploys[0].amount.usd / 10 ** 9).toFixed(3),
       ).toString(),
     );
   });
 
-  it('should render Cost', () => {
-    const cost = screen.getByTestId('cost-motes');
-    expect(cost).toHaveTextContent(
+  it('should render Cost in motes and usd', () => {
+    const costMotes = screen.getByTestId('cost-motes');
+    const costUsd = screen.getByTestId('cost-usd');
+
+    expect(costMotes).toHaveTextContent(
       standardizeNumber(
-        (+processedSidecarDeploys[0].costMotes / 10 ** 9).toFixed(0),
+        (+processedSidecarDeploys[0].cost.motes / 10 ** 9).toFixed(3),
+      ).toString(),
+    );
+    expect(costUsd).toHaveTextContent(
+      standardizeNumber(
+        (+processedSidecarDeploys[0].cost.usd / 10 ** 9).toFixed(3),
       ).toString(),
     );
   });

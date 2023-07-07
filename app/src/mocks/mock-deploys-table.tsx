@@ -18,8 +18,15 @@ export const getMockProcessedSidecarDeploy = () => [
       '0202ed20f3a93b5386bc41b6945722b2bd4250c48f5fa0632adf546e2f3ff6f4ddee',
     timestamp: '2023-06-15T22:13:16.579Z',
     contractType: 'Transfer',
-    amountMotes: '505124902204510',
-    costMotes: '100000000',
+    amount: {
+      motes: '505124902204510',
+      usd: '5051249902',
+    },
+    cost: {
+      motes: '100000000',
+      usd: '10000000',
+    },
+    csprToUsdConversion: 10,
   },
 ];
 
@@ -145,25 +152,41 @@ export const mockDeploysTableColumns: ColumnDef<ApiData.ProcessedSidecarDeploy>[
       enableSorting: false,
     },
     {
-      header: 'Amount',
-      accessorKey: 'amountMotes',
-      cell: ({ getValue }) => (
-        <span data-testid="amount-motes">
-          {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-        </span>
-      ),
+      header: () => <div>Amount</div>,
+      accessorKey: 'amount',
+      cell: ({ getValue }) => {
+        const { motes, usd } = getValue<{ motes: number; usd: number }>();
+
+        const amountCspr = standardizeNumber((motes / 10 ** 9).toFixed(3));
+        const amountUsd = standardizeNumber((usd / 10 ** 9).toFixed(3));
+
+        return (
+          <div>
+            <span data-testid="amount-motes">{amountCspr} cspr</span>
+            <span data-testid="amount-usd">${amountUsd}</span>
+          </div>
+        );
+      },
       enableSorting: false,
-      minSize: 200,
+      minSize: 250,
     },
     {
-      header: 'Cost',
-      accessorKey: 'costMotes',
-      cell: ({ getValue }) => (
-        <span data-testid="cost-motes">
-          {standardizeNumber((getValue<number>() / 10 ** 9).toFixed(0))}{' '}
-        </span>
-      ),
+      header: () => <div>cost</div>,
+      accessorKey: 'cost',
+      cell: ({ getValue }) => {
+        const { motes, usd } = getValue<{ motes: number; usd: number }>();
+
+        const costCspr = standardizeNumber((motes / 10 ** 9).toFixed(3));
+        const costUsd = standardizeNumber((usd / 10 ** 9).toFixed(3));
+
+        return (
+          <div>
+            <span data-testid="cost-motes">{costCspr} cspr</span>
+            <span data-testid="cost-usd">${costUsd}</span>
+          </div>
+        );
+      },
       enableSorting: false,
-      minSize: 200,
+      minSize: 250,
     },
   ];
