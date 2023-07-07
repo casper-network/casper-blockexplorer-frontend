@@ -17,6 +17,7 @@ const mockDeploysTableFooter = getMockDeploysTableFooter();
 const totalPages = Math.ceil(
   processedSidecarDeploys.length / mockDeploysTableOptions.pagination.pageSize,
 );
+const totalColumns = Object.keys(processedSidecarDeploys[0]).length;
 
 describe('DeploysTable', () => {
   beforeEach(() => {
@@ -45,54 +46,56 @@ describe('DeploysTable', () => {
 
   it('should render Total Rows', () => {
     const totalRows = screen.getByTestId('total-rows');
-    expect(totalRows).toHaveTextContent('1 total rows');
+    expect(totalRows).toHaveTextContent(
+      `${processedSidecarDeploys.length} total rows`,
+    );
   });
 
   it('should render a truncated Deploy Hash', () => {
-    const deployHash = screen.getByTestId('deploy-hash-link');
-    expect(deployHash).toHaveTextContent(
+    const deployHash = screen.getAllByTestId('deploy-hash-link');
+    expect(deployHash[0]).toHaveTextContent(
       truncateHash(processedSidecarDeploys[0].deployHash),
     );
   });
 
   it('should render a truncated Block Hash', () => {
-    const blockHash = screen.getByTestId('block-hash-link');
-    expect(blockHash).toHaveTextContent(
+    const blockHash = screen.getAllByTestId('block-hash-link');
+    expect(blockHash[0]).toHaveTextContent(
       truncateHash(processedSidecarDeploys[0].blockHash),
     );
   });
 
   it('should render a truncated Public Key', () => {
-    const publicKey = screen.getByTestId('public-key-link');
-    expect(publicKey).toHaveTextContent(
+    const publicKey = screen.getAllByTestId('public-key-link');
+    expect(publicKey[0]).toHaveTextContent(
       truncateHash(processedSidecarDeploys[0].publicKey),
     );
   });
 
   it('should render an Age', () => {
-    const timestamp = screen.getByTestId('timestamp');
-    expect(timestamp).toHaveTextContent(
+    const timestamp = screen.getAllByTestId('timestamp');
+    expect(timestamp[0]).toHaveTextContent(
       formatTimeAgo(new Date(processedSidecarDeploys[0].timestamp)),
     );
   });
 
   it('should render a Contract type', () => {
-    const contractType = screen.getByTestId('contract-type');
-    expect(contractType).toHaveTextContent(
+    const contractType = screen.getAllByTestId('contract-type');
+    expect(contractType[0]).toHaveTextContent(
       processedSidecarDeploys[0].contractType,
     );
   });
 
   it('should render an Amount in motes and usd', () => {
-    const amountMotes = screen.getByTestId('amount-motes');
-    const amountUsd = screen.getByTestId('amount-usd');
+    const amountMotes = screen.getAllByTestId('amount-motes');
+    const amountUsd = screen.getAllByTestId('amount-usd');
 
-    expect(amountMotes).toHaveTextContent(
+    expect(amountMotes[0]).toHaveTextContent(
       standardizeNumber(
         (+processedSidecarDeploys[0].amount.motes / 10 ** 9).toFixed(3),
       ).toString(),
     );
-    expect(amountUsd).toHaveTextContent(
+    expect(amountUsd[0]).toHaveTextContent(
       standardizeNumber(
         (+processedSidecarDeploys[0].amount.usd / 10 ** 9).toFixed(3),
       ).toString(),
@@ -100,15 +103,15 @@ describe('DeploysTable', () => {
   });
 
   it('should render Cost in motes and usd', () => {
-    const costMotes = screen.getByTestId('cost-motes');
-    const costUsd = screen.getByTestId('cost-usd');
+    const costMotes = screen.getAllByTestId('cost-motes');
+    const costUsd = screen.getAllByTestId('cost-usd');
 
-    expect(costMotes).toHaveTextContent(
+    expect(costMotes[0]).toHaveTextContent(
       standardizeNumber(
         (+processedSidecarDeploys[0].cost.motes / 10 ** 9).toFixed(3),
       ).toString(),
     );
-    expect(costUsd).toHaveTextContent(
+    expect(costUsd[0]).toHaveTextContent(
       standardizeNumber(
         (+processedSidecarDeploys[0].cost.usd / 10 ** 9).toFixed(3),
       ).toString(),
@@ -129,6 +132,8 @@ describe('DeploysTable', () => {
       />,
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(7);
+    expect(skeletonLoader).toHaveLength(
+      processedSidecarDeploys.length * (totalColumns - 1),
+    );
   });
 });
