@@ -9,7 +9,7 @@ export const Blocks: React.FC = () => {
   const pageTitle = `${t('blocks')}`;
 
   return (
-    <PageWrapper isLoading={false}>
+    <PageWrapper>
       <PageHead pageTitle={pageTitle} />
       <PageTableHeader>{t('blocks')}</PageTableHeader>
       <BlocksTable />

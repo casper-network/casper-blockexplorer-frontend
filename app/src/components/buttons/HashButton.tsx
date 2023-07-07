@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
 import { t } from 'i18next';
 import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
 
@@ -25,6 +24,7 @@ export const HashButton: React.FC<HashButtonProps> = ({
 
   return (
     <StyledHashButton
+      data-cy="hash-expand-contract-button"
       isAvatar={isAvatar}
       type="button"
       onClick={toggleHashView}

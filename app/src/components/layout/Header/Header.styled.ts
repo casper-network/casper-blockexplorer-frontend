@@ -13,8 +13,12 @@ export const HeaderComponentsContainer = styled.div<{
   display: flex;
   justify-content: space-between;
   width: auto;
-  margin: 0 2.25rem;
+  margin: 0 0.5rem;
   padding: 0;
+
+  @media (min-width: ${defaultTheme.typography.breakpoints.xs}) {
+    margin: 0 1.5rem;
+  }
 
   @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
     width: auto;

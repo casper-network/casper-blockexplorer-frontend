@@ -11,6 +11,8 @@ describe('AccountDetailsCard', () => {
       <AccountDetailsCard
         account={getMockAccount()}
         balance={getMockBalance()}
+        isAccountLoading={false}
+        isBalanceLoading={false}
       />,
     );
     const accountDetailsCard = screen.getByTestId('account-details-card');
@@ -24,6 +26,8 @@ describe('AccountDetailsCard', () => {
       <AccountDetailsCard
         account={getMockAccount()}
         balance={getMockBalance()}
+        isAccountLoading
+        isBalanceLoading
       />,
     );
     const skeletonLoaders = screen.getAllByTestId('skeleton-loader');
@@ -36,6 +40,8 @@ describe('AccountDetailsCard', () => {
       <AccountDetailsCard
         account={getMockAccount()}
         balance={getMockBalance()}
+        isAccountLoading={false}
+        isBalanceLoading={false}
       />,
     );
     const baseCard = screen.getByTestId('base-card');
@@ -50,6 +56,8 @@ describe('AccountDetailsCard', () => {
       <AccountDetailsCard
         account={getMockAccount()}
         balance={getMockBalance()}
+        isAccountLoading={false}
+        isBalanceLoading={false}
       />,
       {
         store: storeWithPreloadedState({

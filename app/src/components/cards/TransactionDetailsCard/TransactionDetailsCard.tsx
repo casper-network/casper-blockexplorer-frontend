@@ -3,17 +3,15 @@ import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { Icon, Card, pxToRem, defaultTheme } from 'casper-ui-kit';
 import {
-  InfoCardContentWrapper,
-  HeadContentWrapper,
-} from '../../base/InfoCard/InfoCard.styled';
-import {
   DetailDataLabel,
   DetailDataList,
   DetailDataValue,
   DetailDataWrapper,
   Grid,
+  HeadContentWrapper,
   HideOnDesktop,
   HideOnMobile,
+  InfoCardContentWrapper,
 } from '../../styled';
 import { fonts } from '../../../styled-theme';
 import { Heading } from '../../base';
@@ -21,8 +19,8 @@ import { Coin, withSkeletonLoading } from '../../utility';
 import { Deploy, DeployStatus } from '../../../api';
 
 interface TransactionDetailsCardProps {
-  deploy: Deploy | null;
-  isLoading: boolean;
+  readonly deploy: Deploy | null;
+  readonly isLoading: boolean;
 }
 
 export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({

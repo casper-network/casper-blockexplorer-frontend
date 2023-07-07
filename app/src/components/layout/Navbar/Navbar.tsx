@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector, getIsFirstVisit } from 'src/store';
 import { useTranslation } from 'react-i18next';
 
 import { NavbarItemLinkButton } from 'src/components/buttons';
 import { Icon } from 'casper-ui-kit';
-import { useScrollLock } from 'src/hooks/use-scroll-lock';
 import { MOBILE_BREAKPOINT } from 'src/constants';
 import { NavButton } from '../../buttons/NavButton';
 
@@ -20,67 +18,47 @@ import {
   MobileNavItemLink,
 } from './Navbar.styled';
 
-const navItems = [
-  {
-    title: 'home',
-    path: '/',
-    key: 'home',
-  },
-  {
-    title: 'blocks',
-    path: '/blocks',
-    key: 'blocks',
-  },
-  {
-    title: 'deploys',
-    path: '/deploys',
-    key: 'deploys',
-  },
-  {
-    title: 'peers',
-    path: '/peers',
-    key: 'peers',
-  },
-  {
-    title: 'validators',
-    path: '/validators',
-    key: 'validators',
-  },
-];
+interface NavbarProps {
+  readonly isOpened: boolean;
+  readonly isFirstVisit: boolean;
+  readonly openNav: () => void;
+  readonly closeNav: () => void;
+  readonly windowWidth: number;
+  readonly navItems: {
+    title: string;
+    path: string;
+    key: string;
+  }[];
+}
 
-// TODO: we might want to assign a max width for the header/nav
-export const Navbar: React.FC = () => {
-  const [isOpened, setIsOpened] = useState(false);
-
-  const isFirstVisit = useAppSelector(getIsFirstVisit);
+export const Navbar: React.FC<NavbarProps> = ({
+  isOpened,
+  isFirstVisit,
+  navItems,
+  openNav,
+  closeNav,
+  windowWidth,
+}) => {
   const { t } = useTranslation();
-
-  const { lockScroll, unlockScroll } = useScrollLock();
 
   const mobileNavMenuHandler = () => {
     if (!isOpened) {
-      setIsOpened(true);
-      lockScroll();
+      openNav();
     } else {
-      setIsOpened(false);
-      unlockScroll();
+      closeNav();
     }
   };
 
-  const windowWidth = window.innerWidth || 0;
-
   useEffect(() => {
     if (windowWidth > MOBILE_BREAKPOINT) {
-      setIsOpened(false);
-      unlockScroll();
+      closeNav();
     }
 
     const escKeyHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
         if (isOpened) {
-          setIsOpened(false);
-          unlockScroll();
+          closeNav();
         }
       }
     };
@@ -90,7 +68,7 @@ export const Navbar: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', escKeyHandler);
     };
-  }, [isOpened, windowWidth, unlockScroll]);
+  }, [isOpened, windowWidth, closeNav]);
 
   const { pathname } = useLocation();
 
@@ -116,12 +94,11 @@ export const Navbar: React.FC = () => {
               <MobileNavItemsContainer>
                 {navItems.map(({ path, title, key }) => {
                   return (
-                    <li key={key}>
+                    <li data-cy="mobile-link" key={key}>
                       <MobileNavItemLink
                         to={path}
                         onClick={() => {
-                          setIsOpened(false);
-                          unlockScroll();
+                          closeNav();
                         }}>
                         {t(title)}
                       </MobileNavItemLink>
@@ -131,7 +108,7 @@ export const Navbar: React.FC = () => {
               </MobileNavItemsContainer>
             </MobileNav>
           )}
-          <DesktopNav>
+          <DesktopNav data-cy="desktop-nav">
             <DesktopNavItemsContainer>
               {navItems.map(({ path, title, key }) => {
                 return (

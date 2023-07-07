@@ -13,11 +13,11 @@ import {
   FormComponentsContainer,
   InputAndButtonContainer,
   SearchInput,
-  SubmitButton,
   ErrorMessageContainer,
   ErrorSvgContainer,
   ErrorMessage,
   SearchLabel,
+  SubmitButton,
 } from './SearchForm.styled';
 
 import { ButtonIconDark, ButtonIconLight } from '../../../../icons';

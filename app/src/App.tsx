@@ -30,6 +30,8 @@ import {
   updateCurrentEraValidatorsStatus,
   updateTotalPeers,
   updateDeploysWithLatest,
+  fetchNetworkStatus,
+  getNetworkStatus,
 } from './store';
 
 import { loadConfig } from './utils';
@@ -60,6 +62,11 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   const socket = useAppSelector(getSocket);
+  const networkStatus = useAppSelector(getNetworkStatus);
+
+  useEffect(() => {
+    dispatch(fetchNetworkStatus());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(initializeSocket());
@@ -165,7 +172,7 @@ const App = () => {
                   <Route path="/deploys" element={<Deploys />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
-                <Footer />
+                <Footer networkStatus={networkStatus} title={title} />
                 <ThemeToggler
                   isLightTheme={isLightTheme}
                   setIsLightTheme={setIsLightTheme}

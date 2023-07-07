@@ -126,7 +126,7 @@ export const BlocksTable: React.FC = () => {
 
   const footer = useMemo(
     () => (
-      <BlocksTableFooter>
+      <BlocksTableFooter data-testid="blocks-table-footer">
         <Spacer />
         <NumberedPagination
           tableOptions={blocksTableOptions}
@@ -266,20 +266,20 @@ export const BlocksTable: React.FC = () => {
     />
   );
 };
-const BlocksTableHead = styled.div`
+export const BlocksTableHead = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: ${props => props.theme.text.secondary};
 `;
 
-const BlockTableTitleWrapper = styled.div`
+export const BlockTableTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 `;
 
-const BlocksTableFooter = styled.div`
+export const BlocksTableFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -293,31 +293,31 @@ const BlocksTableFooter = styled.div`
   }
 `;
 
-const SwitchBlocktime = styled.div`
+export const SwitchBlocktime = styled.div`
   height: 100%;
   cursor: pointer;
 `;
 
-const LatestBlocks = styled.div`
+export const LatestBlocks = styled.div`
   font-size: clamp(1.45rem, 2vw, 1.75rem);
   white-space: nowrap;
   margin-right: 1.5rem;
   color: ${props => props.theme.text.primary};
 `;
 
-const TotalRows = styled.p`
+export const TotalRows = styled.p`
   margin-right: 1.5rem;
   white-space: nowrap;
 `;
 
-const Age = styled.div`
+export const Age = styled.div`
   white-space: nowrap;
 `;
 
-const HashAndCopyToClipboardWrapper = styled.div`
+export const HashAndCopyToClipboardWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const StyledHashLink = styled(Link)`
+export const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
 `;

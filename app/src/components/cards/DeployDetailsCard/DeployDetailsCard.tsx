@@ -15,13 +15,14 @@ import {
   DetailDataWrapper,
   DetailDataValue,
   DetailDataList,
+  InfoCardContentWrapper,
 } from '../../styled';
 
 import { RawData, withSkeletonLoading } from '../../utility';
 
 export interface DeployDetailsCardProps {
-  deploy: Deploy | null;
-  isLoading: boolean;
+  readonly deploy: Deploy | null;
+  readonly isLoading: boolean;
 }
 
 export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({

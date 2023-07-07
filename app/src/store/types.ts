@@ -5,6 +5,6 @@ export interface TableOptions {
   };
   sorting: {
     sortBy: string;
-    order: 'desc' | 'asc';
+    order: 'asc' | 'desc';
   };
 }
