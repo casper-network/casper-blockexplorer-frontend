@@ -16,6 +16,7 @@ const mockPeersTableFooter = getMockPeersTableFooter();
 const totalPages = Math.ceil(
   mockPeers.paginatedResult.length / mockPeersTableOptions.pagination.pageSize,
 );
+const totalColumns = mockPeersTableColumns.length;
 
 describe('PeersTable', () => {
   beforeEach(() =>
@@ -27,8 +28,7 @@ describe('PeersTable', () => {
         footer={mockPeersTableFooter}
         currentPageSize={mockPeersTableOptions.pagination.pageSize}
         placeholderData={{}}
-        // isLastPage={totalPages === mockPeersTableOptions.pagination.pageSize}
-        isLastPage
+        isLastPage={totalPages === mockPeersTableOptions.pagination.pageSize}
       />,
     ),
   );
@@ -72,6 +72,8 @@ describe('PeersTable', () => {
       />,
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(2);
+    expect(skeletonLoader).toHaveLength(
+      mockPeers.paginatedResult.length * totalColumns,
+    );
   });
 });

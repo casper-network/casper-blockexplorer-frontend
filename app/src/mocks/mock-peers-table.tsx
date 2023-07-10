@@ -8,14 +8,16 @@ import { setPeerTableOptions, updateValidatorPageNum } from 'src/store';
 export const getMockPeers = () => ({
   paginatedResult: [
     { nodeId: 'tls:9a2c..2889', address: '144.76.85.204:35000' },
-    { nodeId: 'tls:9a2c..2881', address: '144.76.85.205:35000' },
   ],
   totalPeers: 233,
 });
 
+const mockPeers = getMockPeers();
+const { totalPeers, paginatedResult } = mockPeers;
+
 export const mockPeersTableOptions: TableOptions = {
   pagination: {
-    pageSize: 1,
+    pageSize: paginatedResult.length,
     pageNum: 1,
   },
   sorting: {
@@ -33,7 +35,7 @@ const mockRowCountSelectOptions = [
 
 export const getMockPeersTableHeader = () => (
   <div data-testid="peers-table-header">
-    <div data-testid="total-peers">233 total rows</div>
+    <div data-testid="total-peers">`${totalPeers} total rows`</div>
     <NumberedPagination
       tableOptions={mockPeersTableOptions}
       setTableOptions={setPeerTableOptions}
