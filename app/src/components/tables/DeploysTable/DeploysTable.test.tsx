@@ -17,7 +17,7 @@ const mockDeploysTableFooter = getMockDeploysTableFooter();
 const totalPages = Math.ceil(
   processedSidecarDeploys.length / mockDeploysTableOptions.pagination.pageSize,
 );
-const totalColumns = 7;
+const totalColumns = mockDeploysTableColumns.length;
 
 describe('DeploysTable', () => {
   beforeEach(() => {
