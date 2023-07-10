@@ -127,7 +127,7 @@ export namespace ApiData {
   }
 
   export interface ProcessedSidecarDeploy {
-    timestamp: number;
+    timestamp: string;
     deployHash: string;
     blockHash: string;
     publicKey: string;
