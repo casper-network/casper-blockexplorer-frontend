@@ -37,111 +37,116 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
     );
 
   return (
-    <InfoCardContentWrapper>
-      <Card.Body>
-        <HeadContentWrapper>
-          <TransactionHeading type="h2">
-            {t('transaction-details')}
-          </TransactionHeading>
-        </HeadContentWrapper>
-        <DetailDataWrapper>
-          <TransactionGrid gap="2rem">
-            <DetailDataList gap="2rem">
-              {!!deploy?.amount && (
+    <div data-cy="transaction-details-card">
+      <InfoCardContentWrapper>
+        <Card.Body>
+          <HeadContentWrapper>
+            <TransactionHeading type="h2">
+              {t('transaction-details')}
+            </TransactionHeading>
+          </HeadContentWrapper>
+          <DetailDataWrapper>
+            <TransactionGrid gap="2rem">
+              <DetailDataList gap="2rem">
+                {!!deploy?.amount && (
+                  <li>
+                    <Grid gap="1rem" templateColumns="9rem auto">
+                      <DetailDataLabel>{t('amount')}</DetailDataLabel>
+                      <DetailDataValue data-testid="deploy-amount">
+                        <Coin>{deploy?.amount}</Coin>
+                      </DetailDataValue>
+                    </Grid>
+                  </li>
+                )}
                 <li>
-                  <Grid gap="1rem" templateColumns="9rem auto">
-                    <DetailDataLabel>{t('amount')}</DetailDataLabel>
-                    <DetailDataValue data-testid="deploy-amount">
-                      <Coin>{deploy?.amount}</Coin>
+                  <Grid gap="1rem" templateColumns="9rem 1fr">
+                    <DetailDataLabel>{t('cost')}</DetailDataLabel>
+                    <DetailDataValue data-testid="deploy-cost">
+                      {withSkeletonLoading(
+                        <Coin>{deploy?.cost ?? ''}</Coin>,
+                        isLoading,
+                        {},
+                      )}
                     </DetailDataValue>
                   </Grid>
                 </li>
-              )}
-              <li>
-                <Grid gap="1rem" templateColumns="9rem 1fr">
-                  <DetailDataLabel>{t('cost')}</DetailDataLabel>
-                  <DetailDataValue data-testid="deploy-cost">
-                    {withSkeletonLoading(
-                      <Coin>{deploy?.cost ?? ''}</Coin>,
-                      isLoading,
-                      {},
-                    )}
-                  </DetailDataValue>
-                </Grid>
-              </li>
-              <li>
-                <Grid gap="1rem" templateColumns="9rem 1fr">
-                  <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
-                  <DetailDataValue data-testid="deploy-payment-amount">
-                    {withSkeletonLoading(
-                      <Coin>{deploy?.paymentAmount ?? ''}</Coin>,
-                      isLoading,
-                      {},
-                    )}
-                  </DetailDataValue>
-                </Grid>
-              </li>
-            </DetailDataList>
-            <Grid templateColumns="1fr 1fr" templateRows="1fr" gap="2rem 1rem">
-              <div>
-                <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
-                <TransactionDetailData data-testid="readable-time-stamp">
-                  {withSkeletonLoading(
-                    deploy?.readableTimestamp,
-                    isLoading,
-                    {},
-                  )}
-                </TransactionDetailData>
-              </div>
-              <HideOnMobile>
+                <li>
+                  <Grid gap="1rem" templateColumns="9rem 1fr">
+                    <DetailDataLabel>{t('payment-amount')}</DetailDataLabel>
+                    <DetailDataValue data-testid="deploy-payment-amount">
+                      {withSkeletonLoading(
+                        <Coin>{deploy?.paymentAmount ?? ''}</Coin>,
+                        isLoading,
+                        {},
+                      )}
+                    </DetailDataValue>
+                  </Grid>
+                </li>
+              </DetailDataList>
+              <Grid
+                templateColumns="1fr 1fr"
+                templateRows="1fr"
+                gap="2rem 1rem">
                 <div>
-                  <DetailDataLabel>{t('status')}</DetailDataLabel>
-                  <DeployStatusData data-testid="status">
+                  <DetailDataLabel>{t('timestamp')}</DetailDataLabel>
+                  <TransactionDetailData data-testid="readable-time-stamp">
                     {withSkeletonLoading(
-                      <>
-                        {deploy?.status}
-                        <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
-                      </>,
+                      deploy?.readableTimestamp,
                       isLoading,
                       {},
                     )}
-                  </DeployStatusData>
+                  </TransactionDetailData>
                 </div>
-              </HideOnMobile>
-              <HideOnDesktop>
-                <SpanTwoCols>
-                  <DetailDataLabel>{t('status')}</DetailDataLabel>
-                  <DeployStatusData>
-                    {withSkeletonLoading(
-                      <>
-                        {deploy?.status}
-                        <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
-                      </>,
-                      isLoading,
-                      { width: 100 },
-                    )}
-                  </DeployStatusData>
-                </SpanTwoCols>
-              </HideOnDesktop>
-              <ActionAndDeployTypeWrapper>
-                <DetailDataLabel>{t('action')}</DetailDataLabel>
-                <TransactionDetailData data-testid="action">
-                  {withSkeletonLoading(deploy?.action, isLoading, {})}
-                </TransactionDetailData>
-              </ActionAndDeployTypeWrapper>
-              {!!deploy?.deployType && (
+                <HideOnMobile>
+                  <div>
+                    <DetailDataLabel>{t('status')}</DetailDataLabel>
+                    <DeployStatusData data-testid="status">
+                      {withSkeletonLoading(
+                        <>
+                          {deploy?.status}
+                          <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                        </>,
+                        isLoading,
+                        {},
+                      )}
+                    </DeployStatusData>
+                  </div>
+                </HideOnMobile>
+                <HideOnDesktop>
+                  <SpanTwoCols>
+                    <DetailDataLabel>{t('status')}</DetailDataLabel>
+                    <DeployStatusData>
+                      {withSkeletonLoading(
+                        <>
+                          {deploy?.status}
+                          <StatusIconWrapper>{statusIcon}</StatusIconWrapper>
+                        </>,
+                        isLoading,
+                        { width: 100 },
+                      )}
+                    </DeployStatusData>
+                  </SpanTwoCols>
+                </HideOnDesktop>
                 <ActionAndDeployTypeWrapper>
-                  <DetailDataLabel>{t('deploy-type')}</DetailDataLabel>
-                  <TransactionDetailData data-testid="deploy-type">
-                    {deploy?.deployType}
+                  <DetailDataLabel>{t('action')}</DetailDataLabel>
+                  <TransactionDetailData data-testid="action">
+                    {withSkeletonLoading(deploy?.action, isLoading, {})}
                   </TransactionDetailData>
                 </ActionAndDeployTypeWrapper>
-              )}
-            </Grid>
-          </TransactionGrid>
-        </DetailDataWrapper>
-      </Card.Body>
-    </InfoCardContentWrapper>
+                {!!deploy?.deployType && (
+                  <ActionAndDeployTypeWrapper>
+                    <DetailDataLabel>{t('deploy-type')}</DetailDataLabel>
+                    <TransactionDetailData data-testid="deploy-type">
+                      {deploy?.deployType}
+                    </TransactionDetailData>
+                  </ActionAndDeployTypeWrapper>
+                )}
+              </Grid>
+            </TransactionGrid>
+          </DetailDataWrapper>
+        </Card.Body>
+      </InfoCardContentWrapper>
+    </div>
   );
 };
 

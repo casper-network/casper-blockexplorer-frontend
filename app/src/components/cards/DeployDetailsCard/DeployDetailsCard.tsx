@@ -33,7 +33,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div data-testid="deploy-details-card">
+    <div data-cy="deploy-details-card" data-testid="deploy-details-card">
       <HeaderContent>
         <HashWrapper>
           {withSkeletonLoading(
@@ -65,6 +65,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
                   {withSkeletonLoading(
                     <>
                       <StyledHashLink
+                        data-cy="block-hash-link"
                         data-testid="block-hash-link"
                         onClick={() => {
                           navigate(`/block/${deploy?.blockHash ?? ''}`);
@@ -87,6 +88,7 @@ export const DeployDetailsCard: React.FC<DeployDetailsCardProps> = ({
                   {withSkeletonLoading(
                     <>
                       <StyledHashLink
+                        data-cy="public-key-link"
                         data-testid="public-key-link"
                         onClick={() => {
                           navigate(`/account/${deploy?.publicKey ?? ''}`);

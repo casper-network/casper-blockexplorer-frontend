@@ -45,7 +45,11 @@ export const DeployPage: React.FC = () => {
       <PageHead pageTitle={pageTitle} />
       <Grid gap="2.5rem">
         <DeployDetailsCard deploy={deploy} isLoading={isLoading} />
-        <TransactionDetailsCard deploy={deploy} isLoading={isLoading} />
+        <TransactionDetailsCard
+          data-cy="transaction-details-card"
+          deploy={deploy}
+          isLoading={isLoading}
+        />
       </Grid>
     </PageWrapper>
   );
