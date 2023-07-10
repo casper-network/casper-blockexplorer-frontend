@@ -8,6 +8,10 @@ import { setPeerTableOptions, updateValidatorPageNum } from 'src/store';
 export const getMockPeers = () => ({
   paginatedResult: [
     { nodeId: 'tls:9a2c..2889', address: '144.76.85.204:35000' },
+    { nodeId: 'tls:9a2c..2889', address: '144.76.85.204:35000' },
+    { nodeId: 'tls:9a2c..2889', address: '144.76.85.204:35000' },
+    { nodeId: 'tls:9a2c..2889', address: '144.76.85.204:35000' },
+    { nodeId: 'tls:9a2c..2889', address: '144.76.85.204:35000' },
   ],
   totalPeers: 233,
 });
