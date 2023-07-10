@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
+import { Button, defaultTheme, pxToRem, Table } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -28,7 +28,8 @@ import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { StyledCopyToClipboard } from 'src/components/utility';
-import { Table } from '../../base';
+import { useTheme } from '@emotion/react';
+import { darkTheme, lightTheme } from 'src/theme';
 import { NumberedPagination } from '../Pagination';
 
 const validSortableValidatorsColumns = [
@@ -44,6 +45,8 @@ export const ValidatorsTable: React.FC = () => {
   const [isCurrentEra, setIsCurrentEra] = useState(true);
 
   const { t } = useTranslation();
+
+  const { type: themeType } = useTheme();
 
   const dispatch = useAppDispatch();
 
@@ -262,6 +265,19 @@ export const ValidatorsTable: React.FC = () => {
 
   return (
     <Table<ApiData.ValidatorsInfo>
+      theme={
+        themeType === 'light'
+          ? {
+              bgColor: `${lightTheme.background.primary}`,
+              borderColor: `${lightTheme.border}`,
+              color: `${lightTheme.text.primary}`,
+            }
+          : {
+              bgColor: `${darkTheme.background.primary}`,
+              borderColor: `${darkTheme.border}`,
+              color: `${darkTheme.text.primary}`,
+            }
+      }
       header={header}
       columns={columns}
       data={isCurrentEra ? currentEraValidators : nextEraValidators}
@@ -281,12 +297,26 @@ export const ValidatorsTable: React.FC = () => {
   );
 };
 
+// const StyledTable = styled(Table)<ApiData.ValidatorsInfo>`
+//   width: 100%;
+//   margin-bottom: 8rem;
+//   border-radius: 0.5rem;
+//   overflow-x: auto;
+//   max-width: calc(100vw - 5rem);
+//   margin: 0 auto;
+//   background-color: ${props => props.theme.background.primary};
+//   border: 3px solid ${props => props.theme.border};
+//   box-shadow: 0px 2px 7px ${props => props.theme.boxShadow};
+//   color: ${props => props.theme.text.primary};
+// `;
+
 const ValidatorTableHead = styled.div`
   display: flex;
   flex-direction: column;
   min-width: ${pxToRem(800)};
   justify-content: space-between;
   align-items: center;
+  /* background-color: ${props => props.theme.background.primary}; */
   color: ${props => props.theme.text.secondary};
 `;
 
