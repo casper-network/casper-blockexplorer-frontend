@@ -18,8 +18,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ApiData } from 'src/api/types';
 import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { standardizeNumber } from 'src/utils';
-import { defaultTheme, pxToRem } from 'casper-ui-kit';
-import { Table } from '../../base';
+import { Table, defaultTheme, pxToRem } from 'casper-ui-kit';
+import { lightTheme, darkTheme } from 'src/theme';
+import { useTheme } from '@emotion/react';
 import { NumberedPagination } from '../Pagination/NumberedPagination';
 
 const validSortablePeersColumns = ['nodeId'];
@@ -29,6 +30,23 @@ export const PeersTable: React.FC = () => {
   const peersTableOptions = useAppSelector(getPeersTableOptions);
 
   const { t } = useTranslation();
+
+  const { type: themeType } = useTheme();
+
+  const blockExplorerTheme =
+    themeType === 'light'
+      ? {
+          bgColor: `${lightTheme.background.primary}`,
+          borderColor: `${lightTheme.border}`,
+          color: `${lightTheme.text.primary}`,
+          tableHeadBgColor: `${lightTheme.background.secondary}`,
+        }
+      : {
+          bgColor: `${darkTheme.background.primary}`,
+          borderColor: `${darkTheme.border}`,
+          color: `${darkTheme.text.primary}`,
+          tableHeadBgColor: `${darkTheme.background.secondary}`,
+        };
 
   const dispatch = useAppDispatch();
   const peers = useAppSelector(getPeers);
@@ -139,6 +157,7 @@ export const PeersTable: React.FC = () => {
 
   return (
     <Table<ApiData.Peer>
+      theme={blockExplorerTheme}
       header={header}
       columns={columns}
       data={peers}
