@@ -55,12 +55,14 @@ export const ValidatorsTable: React.FC = () => {
           borderColor: `${lightTheme.border}`,
           color: `${lightTheme.text.primary}`,
           tableHeadBgColor: `${lightTheme.background.secondary}`,
+          sortButtonActiveColor: `${lightTheme.button}`,
         }
       : {
           bgColor: `${darkTheme.background.primary}`,
           borderColor: `${darkTheme.border}`,
           color: `${darkTheme.text.primary}`,
           tableHeadBgColor: `${darkTheme.background.secondary}`,
+          sortButtonActiveColor: `${darkTheme.button}`,
         };
 
   const dispatch = useAppDispatch();
