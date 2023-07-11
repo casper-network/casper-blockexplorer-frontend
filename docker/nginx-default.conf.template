@@ -19,6 +19,7 @@ server {
         set $org_secondary_font_name "${ORG_SECONDARY_FONT_NAME}";
         set $light_theme "${LIGHT_THEME}";
         set $dark_theme "${DARK_THEME}";
+        set $socket_url "${SOCKET_URL}";
     }
 
     location /rpc/ {
