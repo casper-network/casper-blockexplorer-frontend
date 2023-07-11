@@ -1,4 +1,4 @@
-import { mockDeploy } from './data/mockDeploy';
+import { getMockDeploy } from './data/mockDeploy';
 
 const sizes: Cypress.ViewportPreset[] = ['iphone-6', 'ipad-2', 'macbook-16'];
 
@@ -9,7 +9,7 @@ const {
   truncatedBlockHash,
   publicKey,
   truncatedPublicKey,
-} = mockDeploy;
+} = getMockDeploy();
 
 describe('Deploy Page', () => {
   sizes.forEach(size => {
