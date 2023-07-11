@@ -24,7 +24,8 @@
     "notes": "Ignored until jest-environment-jsdom upgrades jsdom and jsdom upgrades tough-cookie",
     "expiry": "1 August 2023 9:00 am"
   },
-  "1092470": true,
+  "1092470": {
+    "active": true,
     "notes": "Ignored until jest-environment-jsdom upgrades jsdom and jsdom upgrades tough-cookie",
     "expiry": "1 August 2023 9:00 am"
   }
