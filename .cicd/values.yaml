@@ -18,3 +18,4 @@ orgPrimaryFontName: <+serviceVariables.orgPrimaryFontName>
 orgSecondaryFontName: <+serviceVariables.orgSecondaryFontName>
 lightTheme: <+serviceVariables.lightTheme>
 darkTheme: <+serviceVariables.darkTheme>
+socketUrl: <+serviceVariables.socketUrl>
