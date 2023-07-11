@@ -148,8 +148,7 @@ export const TransactionDetailsCard: React.FC<TransactionDetailsCardProps> = ({
 const TransactionGrid = styled(Grid)`
   grid-template-columns: 1fr;
 
-  @media only screen and (min-width: ${defaultTheme.typography.breakpoints
-      .lg}) {
+  @media only screen and (min-width: ${defaultTheme.breakpoints.lg}) {
     grid-template-columns: 1fr 1fr;
   }
 `;

@@ -36,7 +36,7 @@ export const ConfigurableLogoContainer = styled.div<{
     text-decoration-line: none;
   }
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     padding: ${pxToRem(15)} 0;
     max-width: ${pxToRem(345)};
   }

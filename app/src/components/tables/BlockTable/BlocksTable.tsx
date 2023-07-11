@@ -287,7 +287,7 @@ export const BlocksTableFooter = styled.div`
   padding: ${pxToRem(20)} 1.5rem;
   min-width: ${pxToRem(450)};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     justify-content: flex-end;
     padding: ${pxToRem(20)} 2rem;
   }

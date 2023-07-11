@@ -8,7 +8,7 @@ export const Nav = styled.nav<{ isFirstVisit: boolean }>`
   width: fit-content;
   height: ${pxToRem(136)};
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     width: 100%;
   }
 `;
@@ -31,7 +31,7 @@ export const NavItemsContainer = styled.div`
 `;
 
 export const MobileNav = styled.nav`
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: none;
   }
 `;
@@ -70,7 +70,7 @@ export const MobileNavItemLink = styled(Link)`
 export const DesktopNav = styled.nav`
   display: none;
 
-  @media (min-width: ${defaultTheme.typography.breakpoints.lg}) {
+  @media (min-width: ${defaultTheme.breakpoints.lg}) {
     display: flex;
   }
 `;
