@@ -12,6 +12,11 @@ export const getMockPeers = () => ({
     { nodeId: 'tls:026d..121c', address: '3.141.144.131:35000' },
     { nodeId: 'tls:0309..c08f', address: '82.53.3.172:33216' },
     { nodeId: 'tls:0427..d740', address: '54.177.85.235:35000' },
+    { nodeId: 'tls:9a2c..2888', address: '144.76.85.204:35000' },
+    { nodeId: 'tls:0152..1137', address: '66.108.127.242:35000' },
+    { nodeId: 'tls:026d..121a', address: '3.241.144.131:35000' },
+    { nodeId: 'tls:0309..c08t', address: '82.63.3.172:33216' },
+    { nodeId: 'tls:0427..d744', address: '54.187.85.235:35000' },
   ],
   totalPeers: 233,
 });
