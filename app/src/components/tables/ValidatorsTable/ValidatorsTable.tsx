@@ -48,6 +48,21 @@ export const ValidatorsTable: React.FC = () => {
 
   const { type: themeType } = useTheme();
 
+  const blockExplorerTheme =
+    themeType === 'light'
+      ? {
+          bgColor: `${lightTheme.background.primary}`,
+          borderColor: `${lightTheme.border}`,
+          color: `${lightTheme.text.primary}`,
+          tableHeadBgColor: `${lightTheme.background.secondary}`,
+        }
+      : {
+          bgColor: `${darkTheme.background.primary}`,
+          borderColor: `${darkTheme.border}`,
+          color: `${darkTheme.text.primary}`,
+          tableHeadBgColor: `${darkTheme.background.secondary}`,
+        };
+
   const dispatch = useAppDispatch();
 
   const currentEraValidators = useAppSelector(getCurrentEraValidators);
@@ -265,19 +280,7 @@ export const ValidatorsTable: React.FC = () => {
 
   return (
     <Table<ApiData.ValidatorsInfo>
-      theme={
-        themeType === 'light'
-          ? {
-              bgColor: `${lightTheme.background.primary}`,
-              borderColor: `${lightTheme.border}`,
-              color: `${lightTheme.text.primary}`,
-            }
-          : {
-              bgColor: `${darkTheme.background.primary}`,
-              borderColor: `${darkTheme.border}`,
-              color: `${darkTheme.text.primary}`,
-            }
-      }
+      theme={blockExplorerTheme}
       header={header}
       columns={columns}
       data={isCurrentEra ? currentEraValidators : nextEraValidators}
