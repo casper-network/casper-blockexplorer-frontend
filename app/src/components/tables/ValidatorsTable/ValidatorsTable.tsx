@@ -68,6 +68,7 @@ export const ValidatorsTable: React.FC = () => {
           sortButtonBorderColor: `${darkTheme.boxShadow}`,
           sortIconUp: <StyledArrowDark orientation="up" />,
           sortIconDown: <StyledArrowDark orientation="down" />,
+          sortIconNeutral: <StyledArrowLight orientation="down" />,
         };
 
   const dispatch = useAppDispatch();
