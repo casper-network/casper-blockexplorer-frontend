@@ -29,6 +29,7 @@ import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { StyledCopyToClipboard } from 'src/components/utility';
 import { useTheme } from '@emotion/react';
+import { lightTheme, darkTheme } from 'src/theme';
 import { NumberedPagination } from '../Pagination';
 
 const validSortableValidatorsColumns = [
@@ -264,6 +265,19 @@ export const ValidatorsTable: React.FC = () => {
 
   return (
     <Table<ApiData.ValidatorsInfo>
+      theme={
+        themeType === 'light'
+          ? {
+              bgColor: `${lightTheme.background.primary}`,
+              borderColor: `${lightTheme.border}`,
+              color: `${lightTheme.text.primary}`,
+            }
+          : {
+              bgColor: `${darkTheme.background.primary}`,
+              borderColor: `${darkTheme.border}`,
+              color: `${darkTheme.text.primary}`,
+            }
+      }
       header={header}
       columns={columns}
       data={isCurrentEra ? currentEraValidators : nextEraValidators}
