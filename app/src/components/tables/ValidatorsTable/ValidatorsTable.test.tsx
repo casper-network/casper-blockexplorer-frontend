@@ -3,39 +3,56 @@ import { screen } from '@testing-library/react';
 import { Table } from 'src/components';
 import {
   getMockCurrentEraValidators,
-  getMockValidatorsTableFooter,
+  getMockCurrentEraValidatorsTableHeader,
   mockValidatorsTableColumns,
-  mockValidatorsTableOptions,
+  getMockCurrentEraValidatorsTableFooter,
+  mockCurrentEraValidatorsTableOptions,
   getMockNextEraValidators,
-  getMockValidatorsTableHeader,
+  getMockNextEraValidatorsTableFooter,
+  getMockNextEraValidatorsTableHeader,
+  mockNextEraValidatorsTableOptions,
 } from 'src/mocks/mock-validator-table';
 import { standardizeNumber, truncateHash } from 'src/utils';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import userEvent from '@testing-library/user-event';
 import { render } from '../../../test-utils';
-import { EraToggleButton } from './ValidatorTable';
+import { EraToggleButton } from './ValidatorsTable';
 
 const mockCurrentEraValidators = getMockCurrentEraValidators();
-const mockNextEraValidators = getMockNextEraValidators();
-const mockValidatorsTableHeader = getMockValidatorsTableHeader();
-const mockValidatorsTableFooter = getMockValidatorsTableFooter();
-const totalPages = Math.ceil(
-  mockCurrentEraValidators.status.validatorsCount /
-    mockValidatorsTableOptions.pagination.pageSize,
+const mockCurrentEraValidatorsTableHeader =
+  getMockCurrentEraValidatorsTableHeader();
+const mockCurrentEraValidatorsTableFooter =
+  getMockCurrentEraValidatorsTableFooter();
+const currentEraTotalPages = Math.ceil(
+  mockCurrentEraValidators.validators.length /
+    mockCurrentEraValidatorsTableOptions.pagination.pageSize,
 );
+
+const mockNextEraValidators = getMockNextEraValidators();
+const mockNextEraValidatorsTableHeader = getMockNextEraValidatorsTableHeader();
+const mockNextEraValidatorsTableFooter = getMockNextEraValidatorsTableFooter();
+const nexEraTotalPages = Math.ceil(
+  mockNextEraValidators.nextEraValidators.length /
+    mockNextEraValidatorsTableOptions.pagination.pageSize,
+);
+
+const totalColumns = mockValidatorsTableColumns.length;
 
 describe('ValidatorsTable', () => {
   beforeEach(() =>
     render(
       <Table
-        header={mockValidatorsTableHeader}
+        header={mockCurrentEraValidatorsTableHeader}
         columns={mockValidatorsTableColumns}
         data={mockCurrentEraValidators.validators}
-        footer={mockValidatorsTableFooter}
-        currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
+        footer={mockCurrentEraValidatorsTableFooter}
+        currentPageSize={
+          mockCurrentEraValidatorsTableOptions.pagination.pageSize
+        }
         placeholderData={{}}
         isLastPage={
-          totalPages === mockValidatorsTableOptions.pagination.pageSize
+          currentEraTotalPages ===
+          mockCurrentEraValidatorsTableOptions.pagination.pageSize
         }
       />,
     ),
@@ -52,38 +69,38 @@ describe('ValidatorsTable', () => {
   });
 
   it('should render a Rank', () => {
-    const rank = screen.getByTestId('rank');
-    expect(rank).toHaveTextContent(
+    const rank = screen.getAllByTestId('rank');
+    expect(rank[0]).toHaveTextContent(
       mockCurrentEraValidators.validators[0].rank.toString(),
     );
   });
 
   it('should render a truncated Public Key', () => {
-    const publicKey = screen.getByTestId('truncated-public-key');
+    const publicKey = screen.getAllByTestId('truncated-public-key');
 
-    expect(publicKey).toHaveTextContent(
+    expect(publicKey[0]).toHaveTextContent(
       truncateHash(mockCurrentEraValidators.validators[0].publicKey),
     );
   });
 
   it('should render a Fee', () => {
-    const fee = screen.getByTestId('fee');
-    expect(fee).toHaveTextContent(
+    const fee = screen.getAllByTestId('fee');
+    expect(fee[0]).toHaveTextContent(
       mockCurrentEraValidators.validators[0].feePercentage.toString(),
     );
   });
 
   it('should render number of Delegators', () => {
-    const delegators = screen.getByTestId('delegators');
+    const delegators = screen.getAllByTestId('delegators');
 
-    expect(delegators).toHaveTextContent(
+    expect(delegators[0]).toHaveTextContent(
       mockCurrentEraValidators.validators[0].delegatorsCount.toString(),
     );
   });
 
   it('should render Total Stake for Current Era', () => {
-    const totalStake = screen.getByTestId('total-stake');
-    expect(totalStake).toHaveTextContent(
+    const totalStake = screen.getAllByTestId('total-stake');
+    expect(totalStake[0]).toHaveTextContent(
       standardizeNumber(
         (
           mockCurrentEraValidators.validators[0].totalStakeMotes /
@@ -94,8 +111,8 @@ describe('ValidatorsTable', () => {
   });
 
   it('should render Self Percentage', () => {
-    const selfPercentage = screen.getByTestId('self-percentage');
-    expect(selfPercentage).toHaveTextContent(
+    const selfPercentage = screen.getAllByTestId('self-percentage');
+    expect(selfPercentage[0]).toHaveTextContent(
       standardizePercentage(
         mockCurrentEraValidators.validators[0].selfPercentage,
       ).toString(),
@@ -103,8 +120,8 @@ describe('ValidatorsTable', () => {
   });
 
   it('should render Percentage of Network', () => {
-    const percentageOfNetwork = screen.getByTestId('percentage-of-network');
-    expect(percentageOfNetwork).toHaveTextContent(
+    const percentageOfNetwork = screen.getAllByTestId('percentage-of-network');
+    expect(percentageOfNetwork[0]).toHaveTextContent(
       standardizePercentage(
         mockCurrentEraValidators.validators[0].percentageOfNetwork,
       ).toString(),
@@ -114,20 +131,25 @@ describe('ValidatorsTable', () => {
   it('should render a loading ValidatorsTable', () => {
     render(
       <Table
-        header={mockValidatorsTableHeader}
+        header={mockCurrentEraValidatorsTableHeader}
         columns={mockValidatorsTableColumns}
         data={mockCurrentEraValidators.validators}
-        footer={mockValidatorsTableFooter}
+        footer={mockCurrentEraValidatorsTableFooter}
+        currentPageSize={
+          mockCurrentEraValidatorsTableOptions.pagination.pageSize
+        }
         tableBodyLoading
-        currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
         placeholderData={{}}
         isLastPage={
-          totalPages === mockValidatorsTableOptions.pagination.pageSize
+          currentEraTotalPages ===
+          mockCurrentEraValidatorsTableOptions.pagination.pageSize
         }
       />,
     );
     const skeletonLoader = screen.getAllByTestId('skeleton-loader');
-    expect(skeletonLoader).toHaveLength(7);
+    expect(skeletonLoader).toHaveLength(
+      mockCurrentEraValidators.validators.length * totalColumns,
+    );
   });
 });
 
@@ -146,18 +168,21 @@ describe('Next Era', () => {
           Next Era {status.latestEraId}
         </EraToggleButton>
         <Table
-          header={mockValidatorsTableHeader}
+          header={mockNextEraValidatorsTableHeader}
           columns={mockValidatorsTableColumns}
           data={
             isCurrentEra
               ? mockCurrentEraValidators.validators
-              : mockNextEraValidators.validators
+              : mockNextEraValidators.nextEraValidators
           }
-          footer={mockValidatorsTableFooter}
-          currentPageSize={mockValidatorsTableOptions.pagination.pageSize}
+          footer={mockNextEraValidatorsTableFooter}
+          currentPageSize={
+            mockNextEraValidatorsTableOptions.pagination.pageSize
+          }
           placeholderData={{}}
           isLastPage={
-            totalPages === mockValidatorsTableOptions.pagination.pageSize
+            nexEraTotalPages ===
+            mockNextEraValidatorsTableOptions.pagination.pageSize
           }
         />
       </div>,
@@ -165,7 +190,7 @@ describe('Next Era', () => {
 
     const currentEraButton = screen.getByText('Current Era 8888');
     const nextEraButton = screen.getByText('Next Era 8889');
-    const totalStake = screen.getByTestId('total-stake');
+    const totalStake = screen.getAllByTestId('total-stake');
 
     expect(currentEraButton).toBeInTheDocument();
     expect(nextEraButton).toBeInTheDocument();
@@ -174,11 +199,12 @@ describe('Next Era', () => {
 
     expect(onClickMock).toBeCalledTimes(1);
     expect(onClickMock).toReturnWith(true);
-    expect(totalStake).toHaveTextContent(
+    expect(totalStake[0]).toHaveTextContent(
       standardizeNumber(
-        (mockNextEraValidators.validators[0].totalStakeMotes / 10 ** 9).toFixed(
-          0,
-        ),
+        (
+          mockNextEraValidators.nextEraValidators[0].totalStakeMotes /
+          10 ** 9
+        ).toFixed(0),
       ).toString(),
     );
   });

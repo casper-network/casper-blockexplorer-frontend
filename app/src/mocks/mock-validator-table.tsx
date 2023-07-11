@@ -25,7 +25,7 @@ export const getMockCurrentEraValidators = () => ({
 });
 
 export const getMockNextEraValidators = () => ({
-  validators: [
+  nextEraValidators: [
     {
       publicKey:
         '015692c70f62a5227b4af46b90f03b0966725d8101215dfcf395445459e5ba2fad',
@@ -40,9 +40,26 @@ export const getMockNextEraValidators = () => ({
   status: { validatorsCount: 100, bidsCount: 110, latestEraId: 8889 },
 });
 
-export const mockValidatorsTableOptions: TableOptions = {
+const mockCurrentEraValidators = getMockCurrentEraValidators();
+const { validators } = mockCurrentEraValidators;
+
+export const mockCurrentEraValidatorsTableOptions: TableOptions = {
   pagination: {
-    pageSize: 10,
+    pageSize: validators.length,
+    pageNum: 1,
+  },
+  sorting: {
+    sortBy: '',
+    order: 'desc',
+  },
+};
+
+const mockNextEraValidators = getMockNextEraValidators();
+const { nextEraValidators } = mockNextEraValidators;
+
+export const mockNextEraValidatorsTableOptions: TableOptions = {
+  pagination: {
+    pageSize: nextEraValidators.length,
     pageNum: 1,
   },
   sorting: {
@@ -58,10 +75,10 @@ const mockRowCountSelectOptions = [
   },
 ];
 
-export const getMockValidatorsTableHeader = () => (
+export const getMockCurrentEraValidatorsTableHeader = () => (
   <div data-testid="validators-table-header">
     <NumberedPagination
-      tableOptions={mockValidatorsTableOptions}
+      tableOptions={mockCurrentEraValidatorsTableOptions}
       setTableOptions={setValidatorTableOptions}
       rowCountSelectOptions={mockRowCountSelectOptions}
       setIsTableLoading={jest.fn}
@@ -72,10 +89,38 @@ export const getMockValidatorsTableHeader = () => (
   </div>
 );
 
-export const getMockValidatorsTableFooter = () => (
+export const getMockCurrentEraValidatorsTableFooter = () => (
   <div data-testid="validators-table-footer">
     <NumberedPagination
-      tableOptions={mockValidatorsTableOptions}
+      tableOptions={mockCurrentEraValidatorsTableOptions}
+      setTableOptions={setValidatorTableOptions}
+      rowCountSelectOptions={mockRowCountSelectOptions}
+      setIsTableLoading={jest.fn}
+      totalPages={1}
+      updatePageNum={updateValidatorPageNum}
+    />
+    ;
+  </div>
+);
+
+export const getMockNextEraValidatorsTableHeader = () => (
+  <div data-testid="validators-table-header">
+    <NumberedPagination
+      tableOptions={mockNextEraValidatorsTableOptions}
+      setTableOptions={setValidatorTableOptions}
+      rowCountSelectOptions={mockRowCountSelectOptions}
+      setIsTableLoading={jest.fn}
+      totalPages={1}
+      updatePageNum={updateValidatorPageNum}
+    />
+    ;
+  </div>
+);
+
+export const getMockNextEraValidatorsTableFooter = () => (
+  <div data-testid="validators-table-footer">
+    <NumberedPagination
+      tableOptions={mockNextEraValidatorsTableOptions}
       setTableOptions={setValidatorTableOptions}
       rowCountSelectOptions={mockRowCountSelectOptions}
       setIsTableLoading={jest.fn}

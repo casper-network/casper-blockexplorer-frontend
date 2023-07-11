@@ -1,4 +1,4 @@
 export * from './BlockTable';
 export * from './Pagination';
-export * from './ValidatorTable';
+export * from './ValidatorsTable';
 export * from './PeersTable';
