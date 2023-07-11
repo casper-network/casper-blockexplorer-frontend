@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { ColumnDef, OnChangeFn, SortingState } from '@tanstack/react-table';
-import { Button, defaultTheme, pxToRem } from 'casper-ui-kit';
+import { Button, defaultTheme, pxToRem, Table } from 'casper-ui-kit';
 import {
   fetchCurrentEraValidatorStatus,
   fetchValidators,
@@ -28,7 +28,6 @@ import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { StyledCopyToClipboard } from 'src/components/utility';
-import { Table } from '../../base';
 import { NumberedPagination } from '../Pagination';
 
 const validSortableValidatorsColumns = [
@@ -39,7 +38,7 @@ const validSortableValidatorsColumns = [
   'percentageOfNetwork',
 ];
 
-export const ValidatorTable: React.FC = () => {
+export const ValidatorsTable: React.FC = () => {
   const [isTableLoading, setIsTableLoading] = useState(false);
   const [isCurrentEra, setIsCurrentEra] = useState(true);
 
