@@ -12,6 +12,7 @@ import {
   AccountPage,
   BlockPage,
   Blocks,
+  Deploys,
   DeployPage,
   Home,
   Peers,
@@ -28,6 +29,7 @@ import {
   initializeSocket,
   updateCurrentEraValidatorsStatus,
   updateTotalPeers,
+  updateDeploysWithLatest,
   fetchNetworkStatus,
   getNetworkStatus,
 } from './store';
@@ -111,6 +113,16 @@ const App = () => {
 
         dispatch(updateTotalPeers(totalPeers));
       });
+
+      socket.on('latest_deploy', (latestDeployString: string) => {
+        const parsedLatestDeploy = JSON.parse(latestDeployString) as {
+          latestDeploy: ApiData.ProcessedSidecarDeploy;
+        }[];
+
+        const [{ latestDeploy }] = parsedLatestDeploy;
+
+        dispatch(updateDeploysWithLatest(latestDeploy));
+      });
     }
   }, [socket, dispatch]);
 
@@ -157,6 +169,7 @@ const App = () => {
                   <Route path="/deploy/:id" element={<DeployPage />} />
                   <Route path="/block/:id" element={<BlockPage />} />
                   <Route path="/blocks" element={<Blocks />} />
+                  <Route path="/deploys" element={<Deploys />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
                 <Footer networkStatus={networkStatus} title={title} />
