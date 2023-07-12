@@ -7,6 +7,7 @@ COPY ./test /app
 
 WORKDIR /app
 
+RUN npm install
 RUN ./node_modules/.bin/cypress install
 
 RUN npx cypress verify
