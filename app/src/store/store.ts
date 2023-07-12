@@ -9,6 +9,7 @@ import {
   appSlice,
   blockListener,
   blockSlice,
+  deployListener,
   deploySlice,
   networkSlice,
   peerListener,
@@ -36,6 +37,7 @@ export const storeWithPreloadedState = (
         validatorListener.middleware,
         peerListener.middleware,
         blockListener.middleware,
+        deployListener.middleware,
       ),
   });
 };
