@@ -28,6 +28,9 @@ import { SelectOptions } from 'src/components/layout/Header/Partials';
 import { DEFAULT_SECONDARY_FONT_FAMILIES } from 'src/constants';
 import { standardizePercentage } from 'src/utils/standardize-percentage';
 import { StyledCopyToClipboard } from 'src/components/utility';
+import { useTheme } from '@emotion/react';
+import { lightTheme, darkTheme } from 'src/theme';
+import { DownArrowDark, DownArrowLight } from 'src/components/icons';
 import { NumberedPagination } from '../Pagination';
 
 const validSortableValidatorsColumns = [
@@ -43,6 +46,30 @@ export const ValidatorsTable: React.FC = () => {
   const [isCurrentEra, setIsCurrentEra] = useState(true);
 
   const { t } = useTranslation();
+
+  const { type: themeType } = useTheme();
+
+  const blockExplorerTheme =
+    themeType === 'light'
+      ? {
+          bgColor: `${lightTheme.background.primary}`,
+          borderColor: `${lightTheme.border}`,
+          color: `${lightTheme.text.primary}`,
+          tableHeadBgColor: `${lightTheme.background.secondary}`,
+          sortButtonActiveColor: `${lightTheme.button}`,
+          sortButtonBorderColor: `${lightTheme.boxShadow}`,
+        }
+      : {
+          bgColor: `${darkTheme.background.primary}`,
+          borderColor: `${darkTheme.border}`,
+          color: `${darkTheme.text.primary}`,
+          tableHeadBgColor: `${darkTheme.background.secondary}`,
+          sortButtonActiveColor: `${darkTheme.button}`,
+          sortButtonBorderColor: `${darkTheme.boxShadow}`,
+          sortIconUp: <StyledArrowDark orientation="up" />,
+          sortIconDown: <StyledArrowDark orientation="down" />,
+          sortIconNeutral: <StyledArrowLight orientation="down" />,
+        };
 
   const dispatch = useAppDispatch();
 
@@ -261,6 +288,7 @@ export const ValidatorsTable: React.FC = () => {
 
   return (
     <Table<ApiData.ValidatorsInfo>
+      theme={blockExplorerTheme}
       header={header}
       columns={columns}
       data={isCurrentEra ? currentEraValidators : nextEraValidators}
@@ -350,4 +378,14 @@ const HashAndCopyToClipboardWrapper = styled.div`
 
 const StyledHashLink = styled(Link)`
   color: ${props => props.theme.text.hash};
+`;
+
+const StyledArrowDark = styled(DownArrowDark)<{ orientation: 'up' | 'down' }>`
+  transform: ${({ orientation }) =>
+    orientation === 'up' ? 'rotate(180deg)' : undefined};
+`;
+
+const StyledArrowLight = styled(DownArrowLight)<{ orientation: 'up' | 'down' }>`
+  transform: ${({ orientation }) =>
+    orientation === 'up' ? 'rotate(180deg)' : undefined};
 `;
