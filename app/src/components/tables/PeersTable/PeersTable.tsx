@@ -40,12 +40,14 @@ export const PeersTable: React.FC = () => {
           borderColor: `${lightTheme.border}`,
           color: `${lightTheme.text.primary}`,
           tableHeadBgColor: `${lightTheme.background.secondary}`,
+          boxShadow: `${lightTheme.boxShadow}`,
         }
       : {
           bgColor: `${darkTheme.background.primary}`,
           borderColor: `${darkTheme.border}`,
           color: `${darkTheme.text.primary}`,
           tableHeadBgColor: `${darkTheme.background.secondary}`,
+          boxShadow: `${darkTheme.boxShadow}`,
         };
 
   const dispatch = useAppDispatch();
