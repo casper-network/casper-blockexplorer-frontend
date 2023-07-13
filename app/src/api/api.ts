@@ -207,6 +207,37 @@ const createApi = (baseUrl: string) => {
 
         return data;
       },
+      async getDeploys(
+        tableParams: {
+          sortBy?: string;
+          orderBy?: SortDirection;
+          count?: number;
+          pageNum?: number;
+        } = {},
+      ) {
+        type Response = AxiosResponse<{
+          deploys: ApiData.ProcessedSidecarDeploy[];
+          total: number;
+        }>;
+
+        const response = await middlewareApi.get<Response>('/deploys', {
+          params: {
+            ...tableParams,
+            count: tableParams?.count ?? DEFAULT_PAGESIZE,
+            // TODO: temporary until sidecar /deploys endpoint is fully released - middleware #88
+            sortBy:
+              tableParams.sortBy === 'timestamp'
+                ? 'block_timestamp'
+                : tableParams.sortBy,
+          },
+        });
+
+        if (response.status !== 200) throw new Error(response.statusText);
+
+        const { data } = response;
+
+        return data;
+      },
     },
   };
 };
