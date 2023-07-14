@@ -8,7 +8,11 @@ export const NavButton: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <StyledButton data-cy="styled-button" type={type} onClick={onClick}>
+    <StyledButton
+      aria-label="menu"
+      data-cy="styled-button"
+      type={type}
+      onClick={onClick}>
       {children}
     </StyledButton>
   );

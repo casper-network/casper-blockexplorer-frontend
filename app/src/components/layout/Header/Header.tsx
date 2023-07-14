@@ -60,9 +60,9 @@ export const Header: React.FC = () => {
   };
 
   const logo = logoUrl ? (
-    <ConfigurableLogo logoUrl={logoUrl} logoSize={logoSize} />
+    <ConfigurableLogo aria-label="home" logoUrl={logoUrl} logoSize={logoSize} />
   ) : (
-    <DefaultHeaderLogo />
+    <DefaultHeaderLogo aria-label="home" />
   );
 
   const isFirstVisit = useAppSelector(getIsFirstVisit);
