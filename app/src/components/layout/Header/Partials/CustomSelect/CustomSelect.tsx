@@ -45,7 +45,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
       data-testid="select-wrapper">
       <SelectLabel htmlFor="select">Select</SelectLabel>
       <Select
-        aria-label="select button"
+        aria-label="select-button"
         inputId="select"
         onMenuOpen={() => setIsMenuOpen(true)}
         onMenuClose={() => setIsMenuOpen(false)}
