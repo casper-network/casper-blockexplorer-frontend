@@ -11,7 +11,9 @@ export const Peers: React.FC = () => {
   return (
     <PageWrapper>
       <PageHead pageTitle={pageTitle} />
-      <PageTableHeader>{t('connected-peers')}</PageTableHeader>
+      <PageTableHeader data-cy="peers-header">
+        {t('connected-peers')}
+      </PageTableHeader>
       <PeersTable />
     </PageWrapper>
   );
