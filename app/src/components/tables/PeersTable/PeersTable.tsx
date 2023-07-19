@@ -115,6 +115,18 @@ export const PeersTable: React.FC = () => {
         enableSorting: false,
         size: 250,
       },
+      {
+        header: `${t('last-block-hash')}`,
+        accessorKey: 'lastAddedBlockHash',
+        enableSorting: false,
+        size: 250,
+      },
+      {
+        header: `${t('uptime')}`,
+        accessorKey: 'uptime',
+        enableSorting: false,
+        size: 250,
+      },
     ],
     [t],
   );

@@ -57,6 +57,8 @@ export const fetchPeers = createAsyncThunk(
         pageNum,
       });
 
+      console.log({ peers });
+
       return peers;
     } catch (error: any) {
       throw new Error('An error occurred while fetching peers.');
