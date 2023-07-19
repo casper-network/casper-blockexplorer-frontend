@@ -14,7 +14,7 @@ export const DefaultHeaderLogo: React.FC = () => {
 
   return (
     <LogoContainer>
-      <LogoLink to="/">
+      <LogoLink to="/" aria-label="home">
         {themeType === 'light' ? (
           <CasperExplorerLogoLight />
         ) : (
