@@ -46,6 +46,8 @@ export const DeploysTable: React.FC = () => {
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
   const deploysTableOptions = useAppSelector(getDeploysTableOptions);
 
+  console.log({ deploysLoadingStatus });
+
   const totalPages = useMemo(() => {
     return Math.ceil(totalDeploys / deploysTableOptions.pagination.pageSize);
   }, [deploysTableOptions, totalDeploys]);
@@ -275,6 +277,11 @@ export const DeploysTable: React.FC = () => {
         },
       ]}
       onSortingChange={onSortingChange}
+      error={
+        deploysLoadingStatus === Loading.Failed
+          ? 'Could not fetch deploys'
+          : undefined
+      }
     />
   );
 };

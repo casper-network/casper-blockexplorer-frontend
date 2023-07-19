@@ -32,6 +32,7 @@ export interface TableProps<T> {
   */
   placeholderData?: { [key: string]: any };
   isLastPage: boolean;
+  error?: string;
 }
 
 export function Table<T extends unknown>({
@@ -46,6 +47,7 @@ export function Table<T extends unknown>({
   currentPageSize,
   placeholderData,
   isLastPage,
+  error,
 }: TableProps<T>) {
   const { type: themeType } = useTheme();
 
@@ -150,21 +152,32 @@ export function Table<T extends unknown>({
             );
           })}
         </TableHead>
-        <tbody>
-          {getRowModel().rows.map(row => (
-            <TableBodyRow key={row.id}>
-              {row.getVisibleCells().map(cell => {
-                return (
-                  <TableBodyItem
-                    key={cell.id}
-                    style={{ width: cell.column.getSize() }}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableBodyItem>
-                );
-              })}
-            </TableBodyRow>
-          ))}
-        </tbody>
+        {getRowModel().rows.length && !error ? (
+          <tbody>
+            {getRowModel().rows.map(row => (
+              <TableBodyRow key={row.id}>
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <TableBodyItem
+                      key={cell.id}
+                      style={{ width: cell.column.getSize() }}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableBodyItem>
+                  );
+                })}
+              </TableBodyRow>
+            ))}
+          </tbody>
+        ) : (
+          <ErrorWrapper currentPageSize={currentPageSize}>
+            <ErrorTextWrapper>
+              <ErrorText>{error}</ErrorText>
+            </ErrorTextWrapper>
+          </ErrorWrapper>
+        )}
       </StyledTable>
       {footer}
     </TableWrapper>
@@ -289,4 +302,21 @@ const StyledArrowDark = styled(DownArrowDark)<{ orientation: 'up' | 'down' }>`
 const StyledArrowLight = styled(DownArrowLight)<{ orientation: 'up' | 'down' }>`
   transform: ${({ orientation }) =>
     orientation === 'up' ? 'rotate(180deg)' : undefined};
+`;
+
+const ErrorWrapper = styled.div<{ currentPageSize?: number }>`
+  height: ${({ currentPageSize }) =>
+    currentPageSize ? pxToRem(50 * currentPageSize) : undefined};
+`;
+
+const ErrorTextWrapper = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+`;
+
+const ErrorText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
