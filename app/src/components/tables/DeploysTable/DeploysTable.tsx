@@ -88,6 +88,7 @@ export const DeploysTable: React.FC = () => {
           setIsTableLoading={setIsTableLoading}
           totalPages={totalPages}
           updatePageNum={updateDeploysPageNum}
+          disableButtons={deploysLoadingStatus === Loading.Failed}
         />
       </DeploysTableHead>
     ),
@@ -106,6 +107,7 @@ export const DeploysTable: React.FC = () => {
           totalPages={totalPages}
           updatePageNum={updateDeploysPageNum}
           removeRowsSelect
+          disableButtons={deploysLoadingStatus === Loading.Failed}
         />
       </DeploysTableFooter>
     ),
