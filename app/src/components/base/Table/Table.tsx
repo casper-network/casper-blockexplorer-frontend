@@ -14,6 +14,9 @@ import styled from '@emotion/styled';
 import { css, useTheme } from '@emotion/react';
 import { DownArrowDark, DownArrowLight } from 'src/components/icons';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Heading } from '../Heading';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -50,6 +53,7 @@ export function Table<T extends unknown>({
   error,
 }: TableProps<T>) {
   const { type: themeType } = useTheme();
+  const { t } = useTranslation();
 
   const tableData = useMemo(() => {
     if (!data.length || (data.length !== currentPageSize && !isLastPage)) {
@@ -174,7 +178,17 @@ export function Table<T extends unknown>({
         ) : (
           <ErrorWrapper currentPageSize={currentPageSize}>
             <ErrorTextWrapper>
-              <ErrorText>{error}</ErrorText>
+              <ErrorText>
+                <ErrorPageHeading type="h4">{t('whoops')}</ErrorPageHeading>
+                <ErrorMessage
+                  data-testid="error-content"
+                  data-cy="error-content">
+                  {error}
+                </ErrorMessage>
+                <LinkWrapper>
+                  {t('return-to')} <Link to="/">{t('home-page')}</Link>
+                </LinkWrapper>
+              </ErrorText>
             </ErrorTextWrapper>
           </ErrorWrapper>
         )}
@@ -319,4 +333,24 @@ const ErrorText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+`;
+
+const ErrorPageHeading = styled(Heading)`
+  font-weight: ${defaultTheme.typography.fontWeights.light};
+  color: ${props => props.theme.text.primary};
+  line-height: 1;
+
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
+    margin: 0;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  overflow-wrap: break-word;
+  color: ${props => props.theme.text.primary};
+`;
+
+const LinkWrapper = styled.p`
+  color: ${props => props.theme.text.primary};
 `;
