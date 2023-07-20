@@ -46,8 +46,6 @@ export const DeploysTable: React.FC = () => {
   const deploysLoadingStatus = useAppSelector(getDeploysLoadingStatus);
   const deploysTableOptions = useAppSelector(getDeploysTableOptions);
 
-  console.log({ deploysLoadingStatus });
-
   const totalPages = useMemo(() => {
     return Math.ceil(totalDeploys / deploysTableOptions.pagination.pageSize);
   }, [deploysTableOptions, totalDeploys]);
@@ -92,7 +90,14 @@ export const DeploysTable: React.FC = () => {
         />
       </DeploysTableHead>
     ),
-    [totalDeploys, t, deploysTableOptions, totalPages, setIsTableLoading],
+    [
+      totalDeploys,
+      t,
+      deploysTableOptions,
+      totalPages,
+      setIsTableLoading,
+      deploysLoadingStatus,
+    ],
   );
 
   const footer = useMemo(
@@ -111,7 +116,7 @@ export const DeploysTable: React.FC = () => {
         />
       </DeploysTableFooter>
     ),
-    [deploysTableOptions, totalPages, setIsTableLoading],
+    [deploysTableOptions, totalPages, setIsTableLoading, deploysLoadingStatus],
   );
 
   const columns = useMemo<ColumnDef<ApiData.ProcessedSidecarDeploy>[]>(
