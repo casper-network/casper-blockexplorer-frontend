@@ -14,6 +14,9 @@ import styled from '@emotion/styled';
 import { css, useTheme } from '@emotion/react';
 import { DownArrowDark, DownArrowLight } from 'src/components/icons';
 import { pxToRem, defaultTheme } from 'casper-ui-kit';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Heading } from '../Heading';
 
 export interface TableProps<T> {
   readonly header?: React.ReactNode;
@@ -32,6 +35,7 @@ export interface TableProps<T> {
   */
   placeholderData?: { [key: string]: any };
   isLastPage: boolean;
+  error?: string;
 }
 
 export function Table<T extends unknown>({
@@ -46,8 +50,10 @@ export function Table<T extends unknown>({
   currentPageSize,
   placeholderData,
   isLastPage,
+  error,
 }: TableProps<T>) {
   const { type: themeType } = useTheme();
+  const { t } = useTranslation();
 
   const tableData = useMemo(() => {
     if (!data.length || (data.length !== currentPageSize && !isLastPage)) {
@@ -150,21 +156,42 @@ export function Table<T extends unknown>({
             );
           })}
         </TableHead>
-        <tbody>
-          {getRowModel().rows.map(row => (
-            <TableBodyRow key={row.id}>
-              {row.getVisibleCells().map(cell => {
-                return (
-                  <TableBodyItem
-                    key={cell.id}
-                    style={{ width: cell.column.getSize() }}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableBodyItem>
-                );
-              })}
-            </TableBodyRow>
-          ))}
-        </tbody>
+        {getRowModel().rows.length && !error ? (
+          <tbody>
+            {getRowModel().rows.map(row => (
+              <TableBodyRow key={row.id}>
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <TableBodyItem
+                      key={cell.id}
+                      style={{ width: cell.column.getSize() }}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableBodyItem>
+                  );
+                })}
+              </TableBodyRow>
+            ))}
+          </tbody>
+        ) : (
+          <ErrorWrapper currentPageSize={currentPageSize}>
+            <ErrorTextWrapper>
+              <ErrorText>
+                <ErrorPageHeading type="h4">{t('whoops')}</ErrorPageHeading>
+                <ErrorMessage
+                  data-testid="error-content"
+                  data-cy="error-content">
+                  {error}
+                </ErrorMessage>
+                <LinkWrapper>
+                  {t('return-to')} <Link to="/">{t('home-page')}</Link>
+                </LinkWrapper>
+              </ErrorText>
+            </ErrorTextWrapper>
+          </ErrorWrapper>
+        )}
       </StyledTable>
       {footer}
     </TableWrapper>
@@ -289,4 +316,41 @@ const StyledArrowDark = styled(DownArrowDark)<{ orientation: 'up' | 'down' }>`
 const StyledArrowLight = styled(DownArrowLight)<{ orientation: 'up' | 'down' }>`
   transform: ${({ orientation }) =>
     orientation === 'up' ? 'rotate(180deg)' : undefined};
+`;
+
+const ErrorWrapper = styled.div<{ currentPageSize?: number }>`
+  height: ${({ currentPageSize }) =>
+    currentPageSize ? pxToRem(50 * currentPageSize) : undefined};
+`;
+
+const ErrorTextWrapper = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+`;
+
+const ErrorText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const ErrorPageHeading = styled(Heading)`
+  font-weight: ${defaultTheme.typography.fontWeights.light};
+  color: ${props => props.theme.text.primary};
+  line-height: 1;
+
+  @media (min-width: ${defaultTheme.breakpoints.md}) {
+    margin: 0;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  overflow-wrap: break-word;
+  color: ${props => props.theme.text.primary};
+`;
+
+const LinkWrapper = styled.p`
+  color: ${props => props.theme.text.primary};
 `;

@@ -25,6 +25,7 @@ interface NumberedPaginationProps {
   totalPages: number;
   updatePageNum: ActionCreatorWithPayload<number, string>;
   removeRowsSelect?: boolean;
+  disableButtons?: boolean;
 }
 
 export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
@@ -35,6 +36,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   totalPages,
   updatePageNum,
   removeRowsSelect,
+  disableButtons,
 }) => {
   const { t } = useTranslation();
   const { type: themeType } = useTheme();
@@ -50,6 +52,10 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   );
 
   const jumpToPage = (pageNum: number) => {
+    if (disableButtons) {
+      return;
+    }
+
     setIsTableLoading(true);
     dispatch(
       setTableOptions({
@@ -100,7 +106,7 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         </JumpToPageButton>
         <NextPreviousPageIconWrapper
           onClick={() => {
-            if (tableOptions.pagination.pageNum === 1) return;
+            if (tableOptions.pagination.pageNum === 1 || disableButtons) return;
             setIsTableLoading(true);
             dispatch(updatePageNum(-1));
           }}>
@@ -114,7 +120,11 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         </PageNumberWrapper>
         <NextPreviousPageIconWrapper
           onClick={() => {
-            if (tableOptions.pagination.pageNum === totalPages) return;
+            if (
+              tableOptions.pagination.pageNum === totalPages ||
+              disableButtons
+            )
+              return;
             setIsTableLoading(true);
             dispatch(updatePageNum(1));
           }}>

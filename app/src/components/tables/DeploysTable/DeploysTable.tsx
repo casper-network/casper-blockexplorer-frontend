@@ -86,10 +86,18 @@ export const DeploysTable: React.FC = () => {
           setIsTableLoading={setIsTableLoading}
           totalPages={totalPages}
           updatePageNum={updateDeploysPageNum}
+          disableButtons={deploysLoadingStatus === Loading.Failed}
         />
       </DeploysTableHead>
     ),
-    [totalDeploys, t, deploysTableOptions, totalPages, setIsTableLoading],
+    [
+      totalDeploys,
+      t,
+      deploysTableOptions,
+      totalPages,
+      setIsTableLoading,
+      deploysLoadingStatus,
+    ],
   );
 
   const footer = useMemo(
@@ -104,10 +112,11 @@ export const DeploysTable: React.FC = () => {
           totalPages={totalPages}
           updatePageNum={updateDeploysPageNum}
           removeRowsSelect
+          disableButtons={deploysLoadingStatus === Loading.Failed}
         />
       </DeploysTableFooter>
     ),
-    [deploysTableOptions, totalPages, setIsTableLoading],
+    [deploysTableOptions, totalPages, setIsTableLoading, deploysLoadingStatus],
   );
 
   const columns = useMemo<ColumnDef<ApiData.ProcessedSidecarDeploy>[]>(
@@ -275,6 +284,11 @@ export const DeploysTable: React.FC = () => {
         },
       ]}
       onSortingChange={onSortingChange}
+      error={
+        deploysLoadingStatus === Loading.Failed
+          ? 'Could not fetch deploys'
+          : undefined
+      }
     />
   );
 };
